@@ -1,0 +1,6 @@
+.idea
+node_modules
+public/unit-tests
+public/api
+public/uploads
+public/bower_components
