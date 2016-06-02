@@ -66,8 +66,12 @@
     cursor: pointer;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .nopadding {
-    padding: 0px;
+    padding: 0px !important;
 }
 
 .inlineBlock {
@@ -90,6 +94,10 @@
     color: #ffffff;
 }
 
+.border-blue {
+    border: 2px solid #3D628D;
+}
+
 .btn-registration {
     padding: 5px 20px;
 }
@@ -99,9 +107,10 @@
 }
 
 .button-home-register {
-    margin: 10px 0px;
-    margin-left: 45%;
-
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    display: inherit;
 }
 
 .registration-module div {

@@ -11,6 +11,8 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
     scope.auth = window.localStorage.getItem('accessToken');
     if(!scope.auth){
         location.path('/login')
+    } else {
+        location.path('/home')
     }
     scope.signin = function (data) {
         http.get('/sign-in', {params: {login: data.login, password: data.password}}).then(function (resp) {
@@ -32,6 +34,9 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
     };
 
     scope.registration = function (data) {
+        data.male? data.sex = 'Male' : data.female? data.sex = 'female': data.sex;
+        delete data.male;
+        delete data.female;
         http.post('/sign-up', data).then(function (resp) {
                 location.path('/')
             }, function (err, r) {
@@ -80,6 +85,9 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
             'Budget(max)': 676786786786
         }
     ]
+
+    scope.contentTypes = ['Blogs and Articles', 'Copywriting/Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation']
+    scope.locations = ['Mumbai', 'Delhi', 'Bangalore']
 }]);
 
 

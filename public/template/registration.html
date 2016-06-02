@@ -11,11 +11,13 @@
     <div class="col-xs-5 col-xs-offset-1">Last name
         <input class="form-control" ng-enter="registration(reg)" ng-model="reg.last_name">
     </div>
-    <div class="col-xs-6">Email
+    <div class="col-xs-12 nopadding">Email
         <input class="form-control" ng-enter="registration(reg)" ng-model="reg.email">
     </div>
-    <div class="col-xs-5 col-xs-offset-1">Sex
-        <input class="form-control" ng-enter="registration(reg)" ng-model="reg.sex">
+    <div class="col-xs-12 nopadding">
+        <div class="col-xs-12 nopadding">Sex</div>
+        Male <input class="" type="checkbox" ng-click="reg.female = 0" ng-model="reg.male">
+        Female   <input class="" type="checkbox" ng-click="reg.male = 0" ng-model="reg.female">
     </div>
     <div class="col-xs-12">Number mobile phone
         <input class="col-xs-12 form-control" ng-enter="registration(reg)" ng-model="reg.phone">

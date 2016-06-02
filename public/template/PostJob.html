@@ -1,0 +1,80 @@
+<div class="text-center text-bold"> Post a Job</div>
+        <div class="row">
+<div>Job Title</div>
+<input class="form-control border-blue" ng-model="job.title">
+        </div>
+<div class="row">
+<div class="text-bold">Which of the following Content Types are you looking for?</div>
+<div>
+    <div ng-repeat="item in contentTypes">
+        <input type="checkbox" ng-model="job[item]"> {{item}}
+    </div>
+</div>
+    </div>
+<div class="row">
+    <div class="text-bold">Provide a description of your requirements</div>
+    <input class="form-control" ng-model="job.description">
+</div>
+<div class="row">
+    <div class="text-bold">Do you have a location preference?</div>
+    <div class="border-blue col-xs-4">
+    <div ng-repeat="location in locations">
+        <input type="checkbox" ng-model="job[location]"> {{location}}
+
+    </div>
+    </div>
+</div>
+<div class="row">
+    <div class="text-bold">Do you have a preference for a type of professional</div>
+    <div class="pointer" ng-click="job.agency = true;job.freelancer = false">
+        <input type="checkbox" ng-click="job.freelancer = false" ng-model="job.agency"> Agency
+    </div>
+    <div class="pointer" ng-click="job.freelancer = true;job.agency = false">
+        <input type="checkbox" ng-click="job.agency = false" ng-model="job.freelancer"> Freelancer
+    </div>
+</div>
+<div class="row">
+    <div>What is your budget for this marketing campaign</div>
+    <input class="form-control" ng-model="job.budget">
+</div>
+<div class="row">
+    <div>Name</div>
+    <input class="form-control" ng-model="job.name">
+</div>
+<div class="row">
+    <div>mobile</div>
+    <input class="form-control" ng-model="job.mobile">
+</div>
+<div class="row">
+    <div>Email</div>
+    <input type="email" class="form-control" ng-model="job.email">
+</div>
+<div class="row">
+    <div>Company name</div>
+    <input class="form-control" ng-model="job.CompanyName">
+</div>
+<div class="row">
+    <div>Website URL</div>
+    <input class="form-control" ng-model="job.url">
+</div>
+<div class="row">
+    <div class="col-xs-5">Job Visibility</div>
+    <div class="col-xs-7">
+        <div class="pointer" ng-click="job.public = true;job.private = false">
+            <input type="checkbox" ng-model="job.public" ng-click="job.private = false"> Public
+        </div>
+        <div class="pointer" ng-click="job.private = true;job.public = false">
+            <input type="checkbox" ng-model="job.private" ng-click="job.public = false"> Private
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-5">Expected Date of Completion</div>
+    <div class="col-xs-3">
+        <input class="form-control border-blue" ng-model="job.dateComplection">
+    </div>
+</div>
+<div class="row">
+    <button class="background-orange btn">Submit</button>
+</div>
+

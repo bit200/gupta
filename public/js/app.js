@@ -8,7 +8,7 @@ var XYZApp = angular.module('XYZApp', [
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider',
-    function ($routeProvider,$httpProvider ) {
+    function ($routeProvider, $httpProvider) {
         $routeProvider
             .when('/registration', {
                 templateUrl: 'template/registration.html',
@@ -22,16 +22,26 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'template/home.html',
                 controller: 'MainCtrl'
             })
+            .when('/post-job', {
+                templateUrl: 'template/PostJob.html',
+                controller: 'MainCtrl'
+            })
             .otherwise({redirectTo: '/login'});
 
         $httpProvider.interceptors.push(function ($q) {
             return {
                 'responseError': function (rejection) {
-                    if(rejection.status === 402) {
+                    if (rejection.status === 402) {
                         localStorage.clear();
                         location.reload();
                     }
                     return $q.reject(rejection);
+                },
+                request: function (config) {
+                    if(localStorage.getItem('accessToken')){
+                        config.headers['authorization'] = localStorage.getItem('accessToken');
+                    }
+                    return config;
                 }
             };
         });
