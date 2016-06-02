@@ -8,8 +8,8 @@
     margin: auto;
 }
 .registration-module {
-    width: 250px;
-    height: 590px;
+    width: 300px;
+    height: 400px;
     background: wheat;
     padding: 20px;
     border: 3px solid #ccbea4;
@@ -20,24 +20,142 @@
     height: 300px;
 }
 
+.top-home {
+    background: #85A0C0;
+}
+
+.back-service-provider {
+    background: #F2F2F2;
+}
+
 .padding20 {
     padding: 20px 0px;
+}
+
+.marginLR20 {
+    margin: 10px 1px;
+}
+
+.marginTB20 {
+    margin: 20px 0px;
+}
+
+
+.marginB30 {
+    margin-bottom: 30px;
+}
+
+.width20 {
+    width: 20%;
+}
+
+.error {
+    border:1px solid red;
+}
+
+.servise-provider {
+    background: white;
+    border: 1px solid #456791;
+    width: 18%;
+    height: 80px;
+    display: inline-block;
+    float: left;
+    margin: 15px 1%;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
 }
 
 .nopadding {
     padding: 0px;
 }
 
+.inlineBlock {
+    display: inline-block;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-bolder {
+    font-weight: bolder;
+}
+
+.grey-text {
+    color: #a9a9a9;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
 .btn-registration {
     padding: 5px 20px;
 }
 
+.job-item {
+    margin: 10px 0px;
+}
+
+.button-home-register {
+    margin: 10px 0px;
+    margin-left: 45%;
+
+}
 
 .registration-module div {
     color: #2711b6;
     text-align: center;
-    padding: 5px 0px ;
+    padding: 10px 0px;
 }
 
+.background-orange {
+    background: #E46C0A;
+}
+
+.background-black {
+    background: #404040;
+}
+
+.background-lime {
+    background: #C3D69B;
+}
+
+.rating-star {
+        width: 20%;
+}
+
+.profile-poster {
+    width: 130px;
+    height: 150px;
+    border: 1px solid transparent;
+}
+
+.profile {
+    width: 150px;
+    height: 230px;
+    border: 1px solid #CECECE;
+    padding: 10px;
+}
+
+.block-popularity {
+    width: 20px;
+    height: 15px;
+    margin: 0px 1px;
+    display: inline-block;
+}
+
+.green-popularity {
+    background: #008000;
+}
+
+.lime-popularity {
+    background: greenyellow;
+}
+
+.body {
+    height: 100%;
+}
 
 

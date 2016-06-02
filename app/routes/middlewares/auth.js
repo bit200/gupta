@@ -13,7 +13,7 @@ function check_auth (req, res, next, role) {
 
     redis.get('token_' + _token, function(err, r){
         if (err || !r) {
-            return res.status(401).send({
+            return res.status(402).send({
                 success: false,
                 message: "Failed to authenticate the token."
             });
@@ -29,7 +29,7 @@ function check_auth (req, res, next, role) {
         if (!role || (req.userRole == role)) {
             next()
         } else {
-            return res.status(401).send({
+            return res.status(403).send({
                 success: false,
                 message: ["Your token permission is ", req.userRole, ". Desired permission is ", role].join('')
             });

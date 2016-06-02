@@ -7,14 +7,14 @@ var XYZApp = angular.module('XYZApp', [
     'XYZCtrls'
 ]);
 
-XYZApp.config(['$routeProvider',
-    function ($routeProvider) {
+XYZApp.config(['$routeProvider', '$httpProvider',
+    function ($routeProvider,$httpProvider ) {
         $routeProvider
             .when('/registration', {
                 templateUrl: 'template/registration.html',
                 controller: 'MainCtrl'
             })
-            .when('/', {
+            .when('/login', {
                 templateUrl: 'template/login.html',
                 controller: 'MainCtrl'
             })
@@ -22,4 +22,18 @@ XYZApp.config(['$routeProvider',
                 templateUrl: 'template/home.html',
                 controller: 'MainCtrl'
             })
-    }]);
+            .otherwise({redirectTo: '/login'});
+
+        $httpProvider.interceptors.push(function ($q) {
+            return {
+                'responseError': function (rejection) {
+                    if(rejection.status === 402) {
+                        localStorage.clear();
+                        location.reload();
+                    }
+                    return $q.reject(rejection);
+                }
+            };
+        });
+    }
+]);
