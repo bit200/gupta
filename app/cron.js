@@ -24,6 +24,5 @@ function clear_tokens() {
 
 
 module.exports = {
-    clear_tokens: clear_tokens,
-
+    clear_tokens: clear_tokens
 };
