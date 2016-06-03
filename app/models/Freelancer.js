@@ -3,15 +3,18 @@ var mongoose = require('mongoose')
 
 var FreelancerSchema = mongoose.Schema({
     name: String,
-    freelancer_type: Array,
-    industry_expertise: Array,
+    introduction: String,
+    description: String,
     location: String,
     cities_service: Array,
     experience: Number,
+    freelancer_type: Array,
+    industry_expertise: Array,
     content_type: Array,
     languages: Array,
-    introduction: String,
-    description: String,
+    service_type: String,
+    serviceID: Number,
+    service_price: Number,
     created_at: {
         type: Date,
         default: Date.now
