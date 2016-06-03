@@ -9,7 +9,7 @@ var JobSchema = mongoose.Schema({
     content_types: Array,
     budget: Number,
     name: String,
-    mobile: Number,
+    mobile: String,
     email: String,
     company_name: String,
     website: String,
