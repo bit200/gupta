@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="text-center text-bold">Freelancer Registration</div>
+</div>
+<div class="row">
+    <div class=col-xs-6>
+        <div class="text-bold">Content Writing</div>
+        <div>Please provide information about the Content Writing services you offer</div>
+        <div class="row">
+            <div class="text-bold">Industry Expertise (select top 5)</div>
+            <div ng-repeat="item in industry">
+                <input type="checkbox" ng-model="freelancer.industries[industryModel[$index]]"> {{item}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-bold">Content Type</div>
+            <div ng-repeat="item in content">
+                <input type="checkbox" ng-model="freelancer.contents[contentModel[$index]]"> {{item}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-bold">Languages in which u write</div>
+            <div ng-repeat="item in language">
+                <input type="checkbox" ng-model="freelancer.languages[item]"> {{item}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-bold">Please specify pricing for your services</div>
+            <div>
+                <input type="checkbox" ng-click="priceHour=false;service=false"  ng-model="priceWord"> Rs. Per word <input ng-disabled="!priceWord" ng-model="freelancer.price.word">
+            </div>
+            <div>
+                <input type="checkbox" ng-click="priceWord=false;service=false"  ng-model="priceHour"> Rs. Per hour <input ng-disabled="!priceHour" ng-model="freelancer.price.hour">
+            </div>
+            <div>
+                <input type="checkbox" ng-click="priceHour=false;priceWord=false"  ng-model="service"> Packaged Services(?) <a>Create Packages</a>
+            </div>
+        </div>
+    </div>
+    <div class=col-xs-6>
+        <div class="row">
+            <div class="text-bold">Work</div>
+        </div>
+        <div class="row">
+            <div>Number of Customers</div>
+            <input numbers-only ng-model="freelancer.work.customers">
+        </div>
+        <div class="row">
+            <div>Past Clients that you have worked with</div>
+            <input ng-model="freelancer.work.past_client">
+        </div>
+        <div class="row">
+            <div>Client Testimonials (also mention the client name)</div>
+            <input ng-model="freelancer.work.testimonials">
+        </div>
+        <div class="row">
+            <div>Awards and Recognition</div>
+            <input ng-model="freelancer.work.awards">
+        </div>
+        <div class="row">
+            <div>Upload samples of work</div>
+            <div class="col-xs-12 text-right">
+                <a>Attach Files</a>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="text-bold">Contact Details</div>
+        </div>
+        <div class="row">
+            <div>Number of Customers</div>
+            <input numbers-only ng-model="freelancer.contact.customers">
+        </div>
+        <div class="row">
+            <div>Past Clients that you have worked with</div>
+            <input ng-model="freelancer.contact.past_client">
+        </div>
+        <div class="row">
+            <div>Client Testimonials (also mention the client name)</div>
+            <input ng-model="freelancer.contact.testimonials">
+        </div>
+        <div class="row">
+            <div>Awards and Recognition</div>
+            <input ng-model="freelancer.contact.awards">
+        </div>
+        <div class="row">
+            <div>Upload samples of work</div>
+            <div class="col-xs-12 text-right">
+                <a>Attach Files</a>
+            </div>
+        </div>
+        <button class="background-orange btn">Submit</button>
+    </div>
+</div>

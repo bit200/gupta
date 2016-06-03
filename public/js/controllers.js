@@ -144,6 +144,45 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', function (scope,
     }
 }]);
 
+XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+    scope.industry = ['Health and Fitness', 'Business and Finance', 'Kids and Parenting', 'Sports',
+        'Travel & Tourism', 'Education', 'Technology', 'Science', 'Real Estate',
+        'Automotive', 'Food and Beverages', 'Media and Entertainment', 'Lifestyle'];
+    scope.industryModel = [];
+    scope.industry.forEach(function (item) {
+        scope.industryModel.push(item.split(' ').shift())
+    });
+
+    scope.content = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing',
+        'Press Release Writing', 'Proofreading', 'Books and Magazines', 'Translation'];
+    scope.contentModel = [];
+    scope.content.forEach(function (item) {
+        scope.contentModel.push(item.split(' ').shift())
+    });
+
+    scope.language = ['English', 'Hindi', 'Tamil', 'Telugu', 'Kannada', 'Malayalam', 'Marathi',
+        'Urdu', 'Punjabi', 'French', 'German', 'Spanish', 'Japanese', 'Chinese'];
+
+
+
+    scope.register = function(freelanser) {
+
+    };
+
+
+    function parseType(item, Arr) {
+        var arr = [];
+        _.forEach(item, function (value, key) {
+            _.forEach(Arr, function (el) {
+                if (el.indexOf(key) > -1 && value) {
+                    arr.push(el);
+                }
+            })
+        });
+        return arr
+    }
+}])
+
 
 
 

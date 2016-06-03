@@ -26,6 +26,10 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'template/PostJob.html',
                 controller: 'jobCtrl'
             })
+            .when('/freelancer-registration', {
+                templateUrl: 'template/freelanceRegistration.html',
+                controller: 'freelancerCtrl'
+            })
             .otherwise({redirectTo: '/login'});
 
         $httpProvider.interceptors.push(function ($q) {
