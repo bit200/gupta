@@ -7,7 +7,7 @@
 <div class="text-bold">Which of the following Content Types are you looking for?</div>
 <div>
     <div ng-repeat="item in contentTypes">
-        <input type="checkbox" ng-model="job[item]"> {{item}}
+        <input type="checkbox" ng-model="job.content[arrayProvidersModel[$index]]"> {{item}}
     </div>
 </div>
     </div>
@@ -19,7 +19,7 @@
     <div class="text-bold">Do you have a location preference?</div>
     <div class="border-blue col-xs-4">
     <div ng-repeat="location in locations">
-        <input type="checkbox" ng-model="job[location]"> {{location}}
+        <input type="checkbox" ng-model="job.location[location]"> {{location}}
 
     </div>
     </div>
@@ -75,6 +75,6 @@
     </div>
 </div>
 <div class="row">
-    <button class="background-orange btn">Submit</button>
+    <button class="background-orange btn" ng-click="addJob(job)">Submit</button>
 </div>
 

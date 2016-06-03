@@ -1,7 +1,9 @@
-<div ng-if="auth">
+<div>
     <div class="row text-bold text-center">
-        12 Cross Home Page
+        <div class="col-xs-10"> 12 Cross Home Page</div>
+        <div class="col-xs-2 pointer text-right" ng-click="logout()">Logout</div>
     </div>
+
     <div class="row top-home">
         <div class="col-xs-12  text-center text-bolder">Banner image</div>
         <div class="col-xs-12 padding20">
@@ -33,6 +35,9 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <button class="background-orange btn text-white button-home-register" ng-click="postjob()">POST JOB(test)</button>
+    </div>
     <div class="row back-service-provider">
         <div class="col-xs-12 text-center text-bolder">Trending Jobs</div>
         <div>
@@ -51,6 +56,7 @@
         <div class="text-center text-bolder text-white">Join our Community of Service Providers</div>
         <button class="background-orange btn text-white button-home-register">Register with us</button>
     </div>
+
     <div class="row background-lime">
         <div class="col-xs-4 text-bold"> 12 Cross</div>
         <div class="col-xs-4"> 4,000 Members</div>

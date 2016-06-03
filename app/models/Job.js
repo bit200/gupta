@@ -5,8 +5,8 @@ var JobSchema = mongoose.Schema({
     title: String,
     type: String,
     description: String,
-    local_preference: String,
-    type_preference: String,
+    local_preference: Array,
+    content_types: Array,
     budget: Number,
     name: String,
     mobile: Number,
@@ -14,6 +14,7 @@ var JobSchema = mongoose.Schema({
     company_name: String,
     website: String,
     job_visibility: Boolean,
+    date_of_completion: Date,
     created_at: {
         type: Date,
         default: Date.now

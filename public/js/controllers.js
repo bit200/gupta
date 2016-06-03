@@ -9,32 +9,37 @@ var XYZCtrls = angular.module('XYZCtrls', []);
 
 XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
     scope.auth = window.localStorage.getItem('accessToken');
-    if(!scope.auth){
+    if (!scope.auth) {
         location.path('/login')
     } else {
         location.path('/home')
     }
     scope.signin = function (data) {
         http.get('/sign-in', {params: {login: data.login, password: data.password}}).then(function (resp) {
-            if (resp.status == 200) {
-                localStorage.setItem('accessToken', resp.data.data.accessToken.value);
-                localStorage.setItem('refreshToken', resp.data.data.refreshToken.value);
-                location.path('home')
-            }
-        },
-        function(err){
-            if(err.data.error == 'Item not found') {
-                scope.error = 'User with this login not found';
-                scope.errL = true;
-            } else {
-                scope.errP = true;
-                scope.error = 'Password not correct'
-            }
-        })
+                if (resp.status == 200) {
+                    localStorage.setItem('accessToken', resp.data.data.accessToken.value);
+                    localStorage.setItem('refreshToken', resp.data.data.refreshToken.value);
+                    location.path('home')
+                }
+            },
+            function (err) {
+                if (err.data.error == 'Item not found') {
+                    scope.error = 'User with this login not found';
+                    scope.errL = true;
+                } else {
+                    scope.errP = true;
+                    scope.error = 'Password not correct'
+                }
+            })
     };
 
+}]);
+
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+
+
     scope.registration = function (data) {
-        data.male? data.sex = 'Male' : data.female? data.sex = 'female': data.sex;
+        data.male ? data.sex = 'Male' : data.female ? data.sex = 'female' : data.sex;
         delete data.male;
         delete data.female;
         http.post('/sign-up', data).then(function (resp) {
@@ -48,8 +53,19 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
         location.path('/')
     };
 
+    scope.postjob = function () {
+        location.path('/post-job')
+    };
+
+    scope.logout = function () {
+        localStorage.clear();
+        location.path('/login')
+    };
+
+
     scope.arrayProviders = ['Content Writing', 'Creative and Ad Making', 'Public Relations', 'Bloggers and Influencers',
         'Digital Marketing', 'Branding Services', 'Event Management', 'Direct Marketing', 'Media Planning', 'Media Buying']
+
 
     scope.profiles = [
         {
@@ -67,7 +83,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
         ,
         {},
         {}
-    ]
+    ];
 
     scope.jobs = [
         {
@@ -86,8 +102,36 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
         }
     ]
 
-    scope.contentTypes = ['Blogs and Articles', 'Copywriting/Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation']
-    scope.locations = ['Mumbai', 'Delhi', 'Bangalore']
+}]);
+
+XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+
+    scope.addJob = function (job) {
+        job.content_types = parseType(job.content, scope.contentTypes)
+        job.local_preference = parseType(job.location, scope.locations)
+        job.job_visibility = job.private ? job.private : job.public;
+    };
+
+    scope.contentTypes = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation'];
+    scope.locations = ['Mumbai', 'Delhi', 'Bangalore'];
+    scope.arrayProvidersModel = [];
+
+    scope.contentTypes.forEach(function (item) {
+        scope.arrayProvidersModel.push(item.split(' ').shift())
+    });
+
+    function parseType(item, arr) {
+        var arr = [];
+        _.forEach(item, function (value, key) {
+            _.forEach(arr, function (el) {
+                if (el.indexOf(key) > -1 && value) {
+                    arr.push(el);
+
+                }
+            })
+        })
+        return arr
+    }
 }]);
 
 

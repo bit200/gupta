@@ -12,7 +12,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
         $routeProvider
             .when('/registration', {
                 templateUrl: 'template/registration.html',
-                controller: 'MainCtrl'
+                controller: 'HomeCtrl'
             })
             .when('/login', {
                 templateUrl: 'template/login.html',
@@ -20,11 +20,11 @@ XYZApp.config(['$routeProvider', '$httpProvider',
             })
             .when('/home', {
                 templateUrl: 'template/home.html',
-                controller: 'MainCtrl'
+                controller: 'HomeCtrl'
             })
             .when('/post-job', {
                 templateUrl: 'template/PostJob.html',
-                controller: 'MainCtrl'
+                controller: 'jobCtrl'
             })
             .otherwise({redirectTo: '/login'});
 
