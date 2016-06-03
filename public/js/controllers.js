@@ -104,15 +104,17 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
 
 }]);
 
-XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.job = {
         public: true,
         agency: true
     };
+    scope.contentTypes = getContent.contentType.data.data
+    scope.locations = getContent.locations.data.data
 
     scope.addJob = function (job) {
-        job.content_types = parseType(job.content, scope.contentTypes)
-        job.local_preference = parseType(job.location, scope.locations)
+        job.content_types = parseType.get(job.content, scope.contentTypes);
+        job.local_preference = parseType.get(job.location, scope.locations);
         job.job_visibility = job.private ? job.private : job.public;
         job.type = job.agency ? 'Agency' : 'Freelancer';
         http.post('/job', job).then(function (resp) {
@@ -120,31 +122,17 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', function (scope,
             }, function (err, r) {
             }
         )
-        console.log('end', job)
     };
 
-    scope.contentTypes = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation'];
     scope.locations = ['Mumbai', 'Delhi', 'Bangalore'];
     scope.arrayProvidersModel = [];
 
     scope.contentTypes.forEach(function (item) {
         scope.arrayProvidersModel.push(item.split(' ').shift())
     });
-
-    function parseType(item, Arr) {
-        var arr = [];
-        _.forEach(item, function (value, key) {
-            _.forEach(Arr, function (el) {
-                if (el.indexOf(key) > -1 && value) {
-                    arr.push(el);
-                }
-            })
-        });
-        return arr
-    }
 }]);
 
-XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', function (scope, location, http, parseType) {
     scope.industry = ['Health and Fitness', 'Business and Finance', 'Kids and Parenting', 'Sports',
         'Travel & Tourism', 'Education', 'Technology', 'Science', 'Real Estate',
         'Automotive', 'Food and Beverages', 'Media and Entertainment', 'Lifestyle'];
@@ -160,27 +148,14 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', function 
         scope.contentModel.push(item.split(' ').shift())
     });
 
-    scope.language = ['English', 'Hindi', 'Tamil', 'Telugu', 'Kannada', 'Malayalam', 'Marathi',
-        'Urdu', 'Punjabi', 'French', 'German', 'Spanish', 'Japanese', 'Chinese'];
+    scope.language
 
 
-
-    scope.register = function(freelanser) {
+    scope.register = function (freelanser) {
 
     };
 
 
-    function parseType(item, Arr) {
-        var arr = [];
-        _.forEach(item, function (value, key) {
-            _.forEach(Arr, function (el) {
-                if (el.indexOf(key) > -1 && value) {
-                    arr.push(el);
-                }
-            })
-        });
-        return arr
-    }
 }])
 
 

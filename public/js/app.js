@@ -24,7 +24,15 @@ XYZApp.config(['$routeProvider', '$httpProvider',
             })
             .when('/post-job', {
                 templateUrl: 'template/PostJob.html',
-                controller: 'jobCtrl'
+                controller: 'jobCtrl',
+                resolve: {
+                    getContent: function($q, $http){
+                        return $q.all({
+                            contentType: $http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Content Type'}, distinctName: 'name'}}),
+                            locations:$http.get('/get-content', {params: {name: 'Country', query: {}, distinctName: 'name'}})
+                        })
+                    }
+                }
             })
             .when('/freelancer-registration', {
                 templateUrl: 'template/freelanceRegistration.html',

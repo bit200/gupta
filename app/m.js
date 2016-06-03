@@ -66,6 +66,19 @@ function _mongoose_cb_handler(err, data, _ecb, _scb, params) {
     }
 }
 
+function distinct(model, query, fieldName, _ecb, _scb) {
+    if (!model) {
+        ecb(399, 'Model not found', _ecb)
+        return;
+    }
+    model.find(query).select(fieldName).exec(function (err, items) {
+        log(items.length)
+        _mongoose_cb_handler(err, _.map(items, function(item){
+            return item[fieldName]
+        }), _ecb, _scb)
+    })
+}
+
 function find(model, query, _ecb, _scb, params) {
     params = params || {};
     params.skip = parseInt(params.skip)
@@ -225,7 +238,7 @@ function findUpdateWithToken(model, _token, query, new_params, _ecb, _scb, param
 
 
 function findCreateUpdate(model, query, new_params, _ecb, _scb, params) {
-    new_params = _.extend(query, new_params);
+    new_params = _.extend({},query, new_params);
     findOne(model, query, function (code, err) {
         if (code == 397) {
             create(model, new_params, _ecb, _scb, params)
@@ -253,7 +266,7 @@ function _findCreateUpdate(model, query, _ecb, _scb, params, upsert) {
 
 
 function findCreate(model, query, new_query, _ecb, _scb, params) {
-    new_query = _.extend(query, new_query);
+    new_query = _.extend({}, query, new_query);
     findOne(model, query, function (code, err) {
         if (code == 397) {
             create(model, new_query, _ecb, _scb, params)
@@ -599,6 +612,7 @@ module.exports = {
 
     count: count,
     find: find,
+    distinct: distinct,
     findLean: findLean,
     findOne: findOne,
     save: save,
