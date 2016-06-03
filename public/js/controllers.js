@@ -105,11 +105,22 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
 }]);
 
 XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+    scope.job = {
+        public: true,
+        agency: true
+    };
 
     scope.addJob = function (job) {
         job.content_types = parseType(job.content, scope.contentTypes)
         job.local_preference = parseType(job.location, scope.locations)
         job.job_visibility = job.private ? job.private : job.public;
+        job.type = job.agency ? 'Agency' : 'Freelancer';
+        http.post('/job', job).then(function (resp) {
+                location.path('/home')
+            }, function (err, r) {
+            }
+        )
+        console.log('end', job)
     };
 
     scope.contentTypes = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation'];
@@ -120,16 +131,15 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', function (scope,
         scope.arrayProvidersModel.push(item.split(' ').shift())
     });
 
-    function parseType(item, arr) {
+    function parseType(item, Arr) {
         var arr = [];
         _.forEach(item, function (value, key) {
-            _.forEach(arr, function (el) {
+            _.forEach(Arr, function (el) {
                 if (el.indexOf(key) > -1 && value) {
                     arr.push(el);
-
                 }
             })
-        })
+        });
         return arr
     }
 }]);
