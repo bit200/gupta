@@ -29,7 +29,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                     getContent: function($q, $http){
                         return $q.all({
                             contentType: $http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Content Type'}, distinctName: 'name'}}),
-                            locations:$http.get('/get-content', {params: {name: 'Country', query: {}, distinctName: 'name'}})
+                            locations:$http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}})
                         })
                     }
                 }
@@ -44,7 +44,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                             content:$http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Content Type'}, distinctName: 'name'}}),
                             languages:$http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Languages'}, distinctName: 'name'}}),
                             freelancerType:$http.get('/get-content', {params: {name: 'FreelancerType', query: {}, distinctName: 'name'}}),
-                            locations:$http.get('/get-content', {params: {name: 'Country', query: {}, distinctName: 'name'}})
+                            locations:$http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}})
                         })
                     }
                 }

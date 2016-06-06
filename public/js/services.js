@@ -1,7 +1,7 @@
 'use strict';
 
 /* Directives */
-XYZCtrls.service('parseType', function() {
+XYZCtrls.service('parseType', function () {
     return {
         get: function (item, Arr) {
             var arr = [];
@@ -14,7 +14,16 @@ XYZCtrls.service('parseType', function() {
             });
             return arr
         },
-        getModel: function(Arr) {
+        getByNumber: function (item, Arr) {
+            var arr = [];
+            _.forEach(item, function (value, key) {
+                if (value) {
+                    arr.push(Arr[key]);
+                }
+            });
+            return arr
+        },
+        getModel: function (Arr) {
             var arr = [];
             _.forEach(Arr, function (item) {
                 arr.push(item.split(' ').shift())

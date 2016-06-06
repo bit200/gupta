@@ -21,6 +21,7 @@ XYZCtrls.directive('numbersOnly', function () {
         link: function (scope, element, attr, ngModelCtrl) {
             function fromUser(text) {
                 if (text) {
+                    text=text.toString();
                     var transformedInput = text.replace(/[^0-9]/g, '');
 
                     if (transformedInput !== text) {

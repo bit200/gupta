@@ -135,16 +135,21 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
     scope.language = getContent.languages.data.data;
     scope.freelancerType = getContent.freelancerType.data.data;
     scope.locations = getContent.locations.data.data;
+    scope.experience = _.range(51);
 
     scope.industryModel = parseType.getModel(scope.industry);
     scope.freelancerTypeModel = parseType.getModel(scope.freelancerType);
     scope.contentModel = parseType.getModel(scope.content);
 
-    scope.register = function (freelanser) {
-
+    scope.register = function (freelancer) {
+        freelancer.freelancer_type = parseType.getByNumber(freelancer.type, scope.freelancerType);
+        freelancer.industry_expertise = parseType.getByNumber(freelancer.industries, scope.industry);
+        freelancer.cities_service = parseType.get(freelancer.cities, scope.locations);
+        freelancer.content_type = parseType.get(freelancer.contents, scope.content);
+        freelancer.languages = parseType.get(freelancer.languages, scope.language);
+        console.log('asd', freelancer);
     };
-
-}])
+}]);
 
 
 
