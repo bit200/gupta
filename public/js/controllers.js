@@ -53,8 +53,8 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
         location.path('/')
     };
 
-    scope.postjob = function () {
-        location.path('/post-job')
+    scope.link = function (url) {
+        location.path(url)
     };
 
     scope.logout = function () {
@@ -109,8 +109,10 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         public: true,
         agency: true
     };
-    scope.contentTypes = getContent.contentType.data.data
-    scope.locations = getContent.locations.data.data
+    scope.contentTypes = getContent.contentType.data.data;
+    scope.locations = getContent.locations.data.data;
+
+    scope.arrayProvidersModel = parseType.getModel(scope.contentTypes);
 
     scope.addJob = function (job) {
         job.content_types = parseType.get(job.content, scope.contentTypes);
@@ -124,37 +126,23 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         )
     };
 
-    scope.locations = ['Mumbai', 'Delhi', 'Bangalore'];
-    scope.arrayProvidersModel = [];
 
-    scope.contentTypes.forEach(function (item) {
-        scope.arrayProvidersModel.push(item.split(' ').shift())
-    });
 }]);
 
-XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', function (scope, location, http, parseType) {
-    scope.industry = ['Health and Fitness', 'Business and Finance', 'Kids and Parenting', 'Sports',
-        'Travel & Tourism', 'Education', 'Technology', 'Science', 'Real Estate',
-        'Automotive', 'Food and Beverages', 'Media and Entertainment', 'Lifestyle'];
-    scope.industryModel = [];
-    scope.industry.forEach(function (item) {
-        scope.industryModel.push(item.split(' ').shift())
-    });
+XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
+    scope.industry = getContent.industry.data.data;
+    scope.content = getContent.content.data.data;
+    scope.language = getContent.languages.data.data;
+    scope.freelancerType = getContent.freelancerType.data.data;
+    scope.locations = getContent.locations.data.data;
 
-    scope.content = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing',
-        'Press Release Writing', 'Proofreading', 'Books and Magazines', 'Translation'];
-    scope.contentModel = [];
-    scope.content.forEach(function (item) {
-        scope.contentModel.push(item.split(' ').shift())
-    });
-
-    scope.language
-
+    scope.industryModel = parseType.getModel(scope.industry);
+    scope.freelancerTypeModel = parseType.getModel(scope.freelancerType);
+    scope.contentModel = parseType.getModel(scope.content);
 
     scope.register = function (freelanser) {
 
     };
-
 
 }])
 

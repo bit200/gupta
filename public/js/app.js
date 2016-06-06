@@ -36,11 +36,18 @@ XYZApp.config(['$routeProvider', '$httpProvider',
             })
             .when('/freelancer-registration', {
                 templateUrl: 'template/freelanceRegistration.html',
-                controller: 'freelancerCtrl'
-            })
-            .when('/agency-registration', {
-                templateUrl: 'template/agencyRegistration.html',
-                controller: 'freelancerCtrl'
+                controller: 'freelancerCtrl',
+                resolve: {
+                    getContent: function($q, $http){
+                        return $q.all({
+                            industry: $http.get('/get-content', {params: {name: 'BloggersAndInfluencers', query: {filter: 'Industry Expertise'}, distinctName: 'name'}}),
+                            content:$http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Content Type'}, distinctName: 'name'}}),
+                            languages:$http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Languages'}, distinctName: 'name'}}),
+                            freelancerType:$http.get('/get-content', {params: {name: 'FreelancerType', query: {}, distinctName: 'name'}}),
+                            locations:$http.get('/get-content', {params: {name: 'Country', query: {}, distinctName: 'name'}})
+                        })
+                    }
+                }
             })
             .otherwise({redirectTo: '/login'});
 

@@ -1,8 +1,9 @@
 var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
-var CountrySchema = mongoose.Schema({
+var FreelancerTypeSchema = mongoose.Schema({
     name: String,
+    filter: String,
     isActive: Boolean,
     created_at: {
         type: Date,
@@ -11,10 +12,10 @@ var CountrySchema = mongoose.Schema({
 });
 
 
-CountrySchema.plugin(autoIncrement.plugin, {
-    model: 'Country',
+FreelancerTypeSchema.plugin(autoIncrement.plugin, {
+    model: 'FreelancerType',
     field: '_id',
     startAt: 100000
 });
 
-mongoose.model('Country', CountrySchema);
+mongoose.model('FreelancerType', FreelancerTypeSchema);

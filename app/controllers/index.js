@@ -43,9 +43,14 @@ exports.create_filter = function (req, res) {
     });
 
     arrFunc.push(function (cb) {
-        var arr = ['English', 'Hindi', 'Tamil', 'Telugu', 'Kannada', 'Malayalam', 'Marathi',
-            'Urdu', 'Punjabi', 'French', 'German', 'Spanish', 'Japanese', 'Chinese'];
-        findCreateFilter('Country','', arr, cb)
+        var arr = ['Mumbai', 'Delhi', 'Bangalore'];
+        findCreateFilter('Location','', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Content Marketing','Public Relations','Celebrity Management','Bloggers and Influencers',
+            'Digital Marketing','Creative Design','Media Planning','Media Buying','Ad Making','Exhibition Management'];
+        findCreateFilter('FreelancerType','', arr, cb)
     });
 
     asyc.parallel(arrFunc, function(e,r){

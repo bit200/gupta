@@ -13,6 +13,14 @@ XYZCtrls.service('parseType', function() {
                 })
             });
             return arr
+        },
+        getModel: function(Arr) {
+            var arr = [];
+            _.forEach(Arr, function (item) {
+                arr.push(item.split(' ').shift())
+
+            });
+            return arr
         }
     }
 });
