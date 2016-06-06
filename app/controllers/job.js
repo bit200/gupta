@@ -7,3 +7,8 @@ exports.add_job = function (req, res) {
     var params = m.getBody(req);
     m.create(models.Job, params, res, res)
 };
+
+exports.add_freelancer = function(req,res) {
+    var params = m.getBody(req);
+    m.create(models.Freelancer, params, res, res)
+};

@@ -24,6 +24,7 @@
     background: #85A0C0;
 }
 
+
 .back-service-provider {
     background: #F2F2F2;
 }
@@ -31,6 +32,20 @@
 .padding20 {
     padding: 20px 0px;
 }
+
+.padding10 {
+    padding: 10px 0px;
+}
+
+.paddingLR20 {
+    padding: 0px 20px;
+}
+
+.paddingB20 {
+    padding-bottom: 20px;
+}
+
+
 
 .marginLR20 {
     margin: 10px 1px;
@@ -40,6 +55,9 @@
     margin: 20px 0px;
 }
 
+.marginT20 {
+    margin-top: 20px;
+}
 
 .marginB30 {
     margin-bottom: 30px;
@@ -47,6 +65,10 @@
 
 .width20 {
     width: 20%;
+}
+
+.width100 {
+    width: 100%;
 }
 
 .error {
@@ -106,6 +128,10 @@
     margin: 10px 0px;
 }
 
+.agency-item {
+    margin: 10px -2px;
+}
+
 .button-home-register {
     margin: 0 auto;
     margin-top: 10px;
@@ -121,6 +147,10 @@
 
 .background-orange {
     background: #E46C0A;
+}
+
+.background-grey {
+    background: #D9D9D9;
 }
 
 .background-black {

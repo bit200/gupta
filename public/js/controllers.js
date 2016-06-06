@@ -130,6 +130,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
 }]);
 
 XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
+    scope.freelancer = {isagency: true};
     scope.industry = getContent.industry.data.data;
     scope.content = getContent.content.data.data;
     scope.language = getContent.languages.data.data;
@@ -137,8 +138,6 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
     scope.locations = getContent.locations.data.data;
     scope.experience = _.range(51);
 
-    scope.industryModel = parseType.getModel(scope.industry);
-    scope.freelancerTypeModel = parseType.getModel(scope.freelancerType);
     scope.contentModel = parseType.getModel(scope.content);
 
     scope.register = function (freelancer) {
@@ -147,10 +146,33 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
         freelancer.cities_service = parseType.get(freelancer.cities, scope.locations);
         freelancer.content_type = parseType.get(freelancer.contents, scope.content);
         freelancer.languages = parseType.get(freelancer.languages, scope.language);
-        console.log('asd', freelancer);
+        freelancer.type = freelancer.isagency ? 'Agency' : 'Freelancer';
+        http.post('/freelancer', freelancer).then(function (resp) {
+                location.path('/home')
+            }, function (err, r) {
+            }
+        )
     };
 }]);
 
-
-
-
+XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', function (scope, location, http, parseType) {
+    scope.agency = [{
+        Logo: '',
+        'Agency Name': 'Content360',
+        'Service Category':'Content Writing',
+        Address: '132, Church Street, Bangalore',
+        Status: true
+    },{
+        Logo: '',
+        'Agency Name': 'Reach PR',
+        'Service Category':'Public Relations',
+        Address: '44, Fort, Mumbai',
+        Status: false
+    },{
+        Logo: '',
+        'Agency Name': 'UX Design',
+        'Service Category':'Branding Services',
+        Address: 'F84, Shiv Apartments Connaught Place, Delhi',
+        Status: true
+    }]
+}]);

@@ -22,13 +22,17 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'template/home.html',
                 controller: 'HomeCtrl'
             })
+            .when('/agency', {
+                templateUrl: 'template/agency.html',
+                controller: 'agencyCtrl'
+            })
             .when('/post-job', {
                 templateUrl: 'template/PostJob.html',
                 controller: 'jobCtrl',
                 resolve: {
                     getContent: function($q, $http){
                         return $q.all({
-                            contentType: $http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Content Type'}, distinctName: 'name'}}),
+                            contentType: $http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Content Type'}, distinctName: 'name'}}),
                             locations:$http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}})
                         })
                     }
@@ -40,15 +44,16 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 resolve: {
                     getContent: function($q, $http){
                         return $q.all({
-                            industry: $http.get('/get-content', {params: {name: 'BloggersAndInfluencers', query: {filter: 'Industry Expertise'}, distinctName: 'name'}}),
-                            content:$http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Content Type'}, distinctName: 'name'}}),
-                            languages:$http.get('/get-content', {params: {name: 'ContentWriting', query: {filter: 'Languages'}, distinctName: 'name'}}),
-                            freelancerType:$http.get('/get-content', {params: {name: 'FreelancerType', query: {}, distinctName: 'name'}}),
+                            industry: $http.get('/get-content', {params: {name: 'Filters', query: {type:'BloggersAndInfluencers',filter: 'Industry Expertise'}, distinctName: 'name'}}),
+                            content:$http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Content Type'}, distinctName: 'name'}}),
+                            languages:$http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Languages'}, distinctName: 'name'}}),
+                            freelancerType:$http.get('/get-content', {params: {name: 'Filters', query: {type:'FreelancerType'}, distinctName: 'name'}}),
                             locations:$http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}})
                         })
                     }
                 }
             })
+
             .otherwise({redirectTo: '/login'});
 
         $httpProvider.interceptors.push(function ($q) {

@@ -10,6 +10,9 @@ var models = require('../db')
 exports.index = function (req, res) {
     res.render('src')
 };
+exports.admin = function (req, res) {
+    res.render('admin/admin-index')
+};
 
 exports.create_filter = function (req, res) {
     var arrFunc = [];
@@ -67,7 +70,7 @@ exports.get_content = function (req, res) {
 function findCreateFilter(name, filter, arr, cb) {
     var count = 0;
     _.forEach(arr, function (item) {
-        m.findCreate(models[name], {name: item}, {filter: filter, isActive: true}, {}, function(){
+        m.findCreate(models.Filters, {name: item}, {type:name, filter: filter, isActive: true}, {}, function(){
             count++;
             if(arr.length == count){
                 cb()

@@ -1,7 +1,8 @@
 var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
-var FreelancerTypeSchema = mongoose.Schema({
+var CommonFiltersSchema = mongoose.Schema({
+    type: String,
     name: String,
     filter: String,
     isActive: Boolean,
@@ -12,10 +13,11 @@ var FreelancerTypeSchema = mongoose.Schema({
 });
 
 
-FreelancerTypeSchema.plugin(autoIncrement.plugin, {
-    model: 'FreelancerType',
+CommonFiltersSchema.plugin(autoIncrement.plugin, {
+    model: 'Filters',
     field: '_id',
     startAt: 100000
 });
 
-mongoose.model('FreelancerType', FreelancerTypeSchema);
+
+mongoose.model('Filters', CommonFiltersSchema);
