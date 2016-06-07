@@ -11,6 +11,6 @@ module.exports = {
     noreply : 'The Media Ant <noreply@themediaant.com>',
     help : 'The Media Ant <help@themediaant.com>',
     m20Help : 'M20 <help@m20.in>',
-    appHost : 'www.themediaant.com',
+    appHost : 'http://localhost:8080',
     apiHost : "http://139.162.29.37:9000"
 };

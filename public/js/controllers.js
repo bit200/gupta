@@ -39,12 +39,13 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
 
 
     scope.registration = function (data) {
-        data.male ? data.sex = 'Male' : data.female ? data.sex = 'female' : data.sex;
+        data.male ? data.sex = 'male' : data.female ? data.sex = 'female' : data.sex;
         delete data.male;
         delete data.female;
         http.post('/sign-up', data).then(function (resp) {
                 location.path('/')
             }, function (err, r) {
+                delete scope.reg
             }
         )
     };
@@ -158,7 +159,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', function (scope, location, http, parseType) {
     scope.agency = [{
         Logo: '',
-        'Agency Name': 'Content360',
+        'Agency Name': 'Content360',    
         'Service Category':'Content Writing',
         Address: '132, Church Street, Bangalore',
         Status: true

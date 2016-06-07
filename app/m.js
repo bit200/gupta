@@ -207,7 +207,6 @@ function insertMany(model, new_params, _ecb, _scb, params) {
 function findUpdate(model, query, new_params, _ecb, _scb, params) {
     findOne(model, query, _ecb, function (item) {
         item = _.extend(item, new_params);
-        log('asdfjajsdfjasdjfajsdfjasjdf', item, new_params)
         save(item, _ecb, _scb, params)
     })
 }

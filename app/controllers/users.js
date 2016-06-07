@@ -129,7 +129,7 @@ exports.send_restore = function (req, res) {
 exports.confirm = function (req, res) {
     var code = m.getBody(req).confirm_code;
     m.findOne(models.User, {confirm_code: code}, res, function (user) {
-        user.confirm_code = null;
+        user.confirm_code = true;
         m.save(user, res, function () {
             m.createToken(models, user, res, res)
         }, {publish: true})

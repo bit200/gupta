@@ -221,7 +221,7 @@ body.fixed-left .side-menu.left {
   overflow-y: auto;
 }
 .content-page {
-  margin-left: 240px;
+  margin-left: 40px;
   overflow: hidden;
 }
 .content-page > .content {

@@ -31,6 +31,11 @@ var UserSchema = mongoose.Schema({
         default: randomstring.generate(30)
     },
     restore_code: String,
+    admin_approved: {
+        type: Number,
+        default: 0
+    },
+    reject_reason: String,
     sex: String,
     thumbnail: String,
     facebookId: String,

@@ -1,9 +1,68 @@
-<div ng-controller="mainCtrl">
-    <div class="row">
-        <div class="col-xs-12" ng-repeat="user in users">
-            <div class="col-xs-4" ng-repeat="(key,value) in user">{{value}}</div>
+<div class="topbar">
+
+    <div class="topbar-left">
+        <div class="text-center">
+            <a href="" class="logo">
+                <span>What-song</span>
+            </a>
         </div>
     </div>
 
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="">
+                <div class="pull-left">
+                    <button class="button-menu-mobile open-left waves-effect">
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </button>
+                    <span class="clearfix"></span>
+                </div>
 
+
+                <ul class="nav navbar-nav navbar-right pull-right">
+
+                    <li class="dropdown hidden-xs">
+                        <a ng-show="auth" href="#" data-target="#" class="waves-effect waves-light"
+                           aria-expanded="false">
+                            <div ng-click="logout(event)">Logout</div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg">
+                            <li class="text-center notifi-title">Notification</li>
+                            <li class="list-group nicescroll notification-list" tabindex="7000"
+                                style="overflow: hidden; outline: none;">
+                                <div class="list-group-item">
+                                    login: <input ng-model="login.login" class="form-control">
+                                    password: <input ng-model="login.password" class="form-control">
+                                </div>
+                                <button class="btn btn-default center-block" ng-click="loginSend(login)">Log in
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-page">
+    <div class="content">
+        <div>
+            <div class="users-block">
+                <div class="row">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td ng-repeat="(key, value) in users[0]">{{key}}</td>
+                            <td>Approved</td>
+                            <td>Reject</td>
+                        </tr>
+                        <tr ng-repeat="user in users ">
+                            <td ng-repeat="(key,value) in user | admin_filter">{{value}}</td>
+                            <td ng-if="!user.admin_approved"><button class="btn background-orange text-white" ng-click='approved(user, $index)'>Approved</button></td>
+                            <td ng-if="!user.admin_approved"><button class="btn btn-danger" ng-click="reject()">Reject</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,18 @@
+<div class="login">
+    <ul>
+        <li class="text-center">Please, enter you login/password</li>
+        <li class=""
+            style="overflow: hidden; outline: none;">
+            <div class="login-field">
+                <div>login:</div>
+                <input ng-model="login.login" ng-enter="loginSend(login)" class="form-control login-login">
+
+                <div>password:</div>
+                <input ng-model="login.password" ng-enter="loginSend(login)" class="form-control login-password"
+                       type="password">
+            </div>
+            <button class="login-button btn btn-primary center-block" ng-click="loginSend(login)">Log in
+            </button>
+        </li>
+    </ul>
+</div>

@@ -86,6 +86,7 @@ function send_confirm(user, _ecb, _scb) {
             first: user.first_name,
             last: user.last_name
         },
+        confirm_code: user.confirm_code,
         userId:user._id,
         emailHash:md5(user.email),
         appHost: config.appHost
