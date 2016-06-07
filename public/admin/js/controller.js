@@ -42,14 +42,20 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         scope.resObj = {};
         scope.delete = false;
         scope.users = parseType.users(getContent.users.data.data);
-        scope.approved = function(user, i){
-            console.log(user, i);
-            $http.get('/approved', {params:{username: user.username}}).then(function(resp){
-                scope.users[i]=parseType.users([resp.data.data])[0];
-            },function(err){
-                console.log('asdasdasdas', err)
+        scope.approved = function (user, i) {
+            $http.get('/approved', {params: {username: user.username}}).then(function (resp) {
+                scope.users[i] = parseType.users([resp.data.data])[0];
+            }, function (err) {
             })
         }
-    }])
-;
+
+        scope.showReject = function (bol, user, i) {
+            scope.reject = bol;
+            scope.check = {
+                user: user,
+                i: i
+            }
+        };
+
+    }]);
 
