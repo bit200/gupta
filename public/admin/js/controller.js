@@ -47,9 +47,19 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
                 scope.users[i] = parseType.users([resp.data.data])[0];
             }, function (err) {
             })
-        }
+        };
+        scope.rejectUser = function (data, i) {
+            $http.get('/reject', {params: {username: scope.check.user.username, reject_reason: data}}).then(function(resp) {
+                scope.users[scope.check.i] = parseType.users([resp.data.data])[0];
+                scope.reject = false;
+            }, function(err){
+                console.log(err)
+            })
+        };
+
 
         scope.showReject = function (bol, user, i) {
+            scope.reject_text = '';
             scope.reject = bol;
             scope.check = {
                 user: user,

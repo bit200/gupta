@@ -7,4 +7,5 @@ module.exports = function (app) {
     app.get('/generate-admin', admin.generate_admin);
     app.get('/get-users', auth.admin_only, admin.get_users);
     app.get('/approved', auth.admin_only, admin.approved);
+    app.get('/reject', auth.admin_only, admin.reject);
 };

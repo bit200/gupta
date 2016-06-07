@@ -25,3 +25,8 @@ exports.approved = function (req, res) {
     m.findUpdate(models.User, {username: params.username},{admin_approved: 1}, res, res)
 };
 
+exports.reject = function(req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.User, {username: params.username}, {admin_approved: 2, reject_reason:params.reject_reason}, res, res)
+}
+
