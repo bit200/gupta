@@ -176,4 +176,8 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
         Address: 'F84, Shiv Apartments Connaught Place, Delhi',
         Status: true
     }]
+
+    scope.sendRequest = function(data){
+      console.log(data)
+    };
 }]);

@@ -26,6 +26,10 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'template/agency.html',
                 controller: 'agencyCtrl'
             })
+            .when('/agency/request', {
+                templateUrl: 'template/agencyRequest.html',
+                controller: 'agencyCtrl'
+            })
             .when('/post-job', {
                 templateUrl: 'template/PostJob.html',
                 controller: 'jobCtrl',

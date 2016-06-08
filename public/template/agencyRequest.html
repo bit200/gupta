@@ -1,0 +1,30 @@
+<div class="row text-bold text-center marginT20">Claim your Agency - Request for a Business</div>
+<div class="row text-center text-bold marginTB20">Request for a Bussiness user Account for <a class="pointer">Reach PR</a></div>
+<div class="row paddingB20">
+    <div class="col-xs-5 nopadding">
+        <div>first Name</div>
+        <input class="form-control" ng-model="agencyRequest.first_name">
+    </div>
+    <div class="col-xs-6 col-xs-offset-1 nopadding">
+        <div>Last Name</div>
+        <input class="form-control" ng-model="agencyRequest.last_name">
+    </div>
+</div>
+<div class="row paddingB20">
+    <div>Email Id</div>
+    <input class="form-control" ng-model="agencyRequest.email">
+</div>
+<div class="row paddingB20">
+    <div>Phone Number</div>
+    <input phone-number class="form-control" ng-model="agencyRequest.phone">
+</div>
+<div class="row">
+    <div>Your role in the agency</div>
+    <input class="form-control" ng-model="agencyRequest.role">
+</div>
+<div class="row paddingB20">
+    <input type="checkbox" ng-model="apply"> I have the authority to claim this account on behalf of the business
+</div>
+<div class="row">
+    <button ng-disabled="!apply" class="btn background-orange" ng-click="sendRequest(agencyRequest)">Submit</button>
+</div>
