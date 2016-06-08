@@ -1,43 +1,47 @@
-<div class="row">
-    <div class="text-bold text-center padding20">Claim your Agency Page</div>
-</div>
-<div class="row">
-    <div class="text-center text-bold padding20">Find and Claim your Agency Page</div>
-</div>
-<div class="row padding20">
-    <div class="inlineBlock col-xs-6">
-        <div class="inlineBlock">Agency Name</div>
-        <div class="inlineBlock">
-            <input class="form-control">
-        </div>
+<div ng-if="!requestBusiness">
+    <div class="row">
+        <div class="text-bold text-center padding20">Claim your Agency Page</div>
     </div>
-    <div class="inlineBlock col-xs-5">
-        <div class="inlineBlock">City</div>
-        <div class="inlineBlock">
-            <input class="form-control">
-        </div>
+    <div class="row">
+        <div class="text-center text-bold padding20">Find and Claim your Agency Page</div>
     </div>
-    <button class=" col-xs-1 inlineBlock background-orange btn text-white"><span class="glyphicon glyphicon-search"></span>
-    </button>
-</div>
-<div class="row marginT20">
-    <div>
-        <div class="text-bold padding20 inlineBlock width20 text-center text-white bg-primary"
-             ng-repeat="(key, value) in agency[0]">
-            {{key}}
+    <div class="row padding20">
+        <div class="inlineBlock col-xs-6">
+            <div class="inlineBlock">Agency Name</div>
+            <div class="inlineBlock">
+                <input class="form-control">
+            </div>
         </div>
-        <div ng-repeat="item in agency">
-            <div class="inlineBlock width20 text-center agency-item">{{item.Logo}}</div>
-            <div class="inlineBlock width20 text-center agency-item">{{item['Agency Name']}}</div>
-            <div class="inlineBlock width20 text-center agency-item">{{item['Service Category']}}</div>
-            <div class="inlineBlock width20 text-center agency-item">{{item.Address}}</div>
-            <div ng-if="item.Status" class="inlineBlock width20 text-center agency-item">Claimed</div>
-            <div class="inlineBlock width20 text-center agency-item">
-                <button ng-if="!item.Status" class="text-white background-orange btn">Claim</button>
+        <div class="inlineBlock col-xs-5">
+            <div class="inlineBlock">City</div>
+            <div class="inlineBlock">
+                <input class="form-control">
+            </div>
+        </div>
+        <button class=" col-xs-1 inlineBlock background-orange btn text-white"><span
+                class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+    <div class="row marginT20">
+        <div>
+            <div class="text-bold padding20 inlineBlock width20 text-center text-white bg-primary"
+                 ng-repeat="(key, value) in agency[0]">
+                {{key}}
+            </div>
+            <div ng-repeat="item in agency">
+                <div class="inlineBlock width20 text-center agency-item">{{item.Logo}}</div>
+                <div class="inlineBlock width20 text-center agency-item">{{item['Agency Name']}}</div>
+                <div class="inlineBlock width20 text-center agency-item">{{item['Service Category']}}</div>
+                <div class="inlineBlock width20 text-center agency-item">{{item.Address}}</div>
+                <div ng-if="item.Status" class="inlineBlock width20 text-center agency-item">Claimed</div>
+                <div class="inlineBlock width20 text-center agency-item">
+                    <button ng-if="!item.Status" class="text-white background-orange btn"
+                            ng-click="claim(item['Agency Name'])">Claim
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <div class="row background-grey paddingLR20">
         <div class="text-bold text-center padding10">Why you should claim your agency page?</div>
     </div>
@@ -56,4 +60,6 @@
         <div class="text-bold padding10">Analytics (Coming Soon)</div>
         <div class="paddingB20">Keep a track of visitors and engagement on your agency profile page.</div>
     </div>
-<img src="../img/town.png" class="width100">
+    <img src="../img/town.png" class="width100">
+</div>
+<div ng-if="requestBusiness" ng-include="'template/agencyRequest.html'"></div>

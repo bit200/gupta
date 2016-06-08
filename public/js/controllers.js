@@ -157,6 +157,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 }]);
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', function (scope, location, http, parseType) {
+    scope.requestBusiness = false;
     scope.agency = [{
         Logo: '',
         'Agency Name': 'Content360',    
@@ -175,9 +176,15 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
         'Service Category':'Branding Services',
         Address: 'F84, Shiv Apartments Connaught Place, Delhi',
         Status: true
-    }]
+    }];
+    scope.claim = function(agency){
+        scope.choiceAgency = agency;
+        scope.requestBusiness = true;
+    };
 
     scope.sendRequest = function(data){
-
+        http.post('/request-business', data).then(function(resp){
+            location.path('/agency')
+        })
     };
 }]);

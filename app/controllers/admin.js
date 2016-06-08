@@ -16,17 +16,26 @@ exports.generate_admin = function (req, res) {
     }, res, res, {publish: true})
 };
 
+
 exports.get_users = function (req, res) {
     m.find(models.User, {}, res, res)
 };
+
 
 exports.approved = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.User, {username: params.username},{admin_approved: 1}, res, res)
 };
 
+
 exports.reject = function(req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.User, {username: params.username}, {admin_approved: 2, reject_reason:params.reject_reason}, res, res)
-}
+};
+
+
+exports.request_business = function(req, res) {
+    var params = m.getBody(req);
+    m.create(models.BusinessAgency, params, res, res)
+};
 
