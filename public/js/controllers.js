@@ -178,6 +178,6 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     }]
 
     scope.sendRequest = function(data){
-      console.log(data)
+
     };
 }]);
