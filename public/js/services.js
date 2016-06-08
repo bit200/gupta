@@ -30,6 +30,22 @@ XYZCtrls.service('parseType', function () {
 
             });
             return arr
+        },
+        agency: function (item) {
+            var arr = [];
+            _.forEach(item, function (elem) {
+                console.log(elem);
+                var obj = {
+                    Logo: elem.logo || null,
+                    'Agency Name': elem.name || null,
+                    'Service Category': elem.category || null,
+                    Address: elem.number_street + ', ' + elem.street + ', ' + elem.city,
+                    Status: elem.status || false
+                };
+                arr.push(obj)
+
+            });
+            return arr
         }
     }
 });

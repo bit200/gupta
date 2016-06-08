@@ -24,7 +24,14 @@ XYZApp.config(['$routeProvider', '$httpProvider',
             })
             .when('/agency', {
                 templateUrl: 'template/agency.html',
-                controller: 'agencyCtrl'
+                controller: 'agencyCtrl',
+                resolve: {
+                    getContent: function($q, $http){
+                        return $q.all({
+                            agency: $http.get('/get-agency')
+                        })
+                    }
+                }
             })
             .when('/post-job', {
                 templateUrl: 'template/PostJob.html',

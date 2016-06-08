@@ -35,6 +35,18 @@ XYZAdminCtrls.controller('loginCtrl', ['$location', '$timeout', '$scope', '$http
 
 XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'parseType',
     function ($location, $timeout, scope, $http, rs, $q, getContent, parseType) {
+        scope.isActive = {
+            users:true,
+            claim: false
+        };
+
+        scope.choice = function(choice){
+            _.forEach(scope.isActive, function(value, key){
+                scope.isActive[key] = false
+            });
+            scope.isActive[choice] = true;
+        };
+
         scope.logout = function (e) {
             localStorage.clear();
             scope.auth = false;

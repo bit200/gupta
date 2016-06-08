@@ -306,6 +306,16 @@ function findRemove(model, query, _ecb, _scb) {
     })
 }
 
+function getUserIDByToken(token){
+    redis.get('token_' + token, function(err, r){
+        if (err || !r) {
+            return false
+        }
+        var arr = r.split('_')
+        return arr[0];
+    })
+}
+
 function redis_pub(item, bad_list, white_list) {
     var obj_pub = {};
     bad_list = _.union(bad_list, ['__v', 'created_at']);
@@ -630,6 +640,7 @@ module.exports = {
     getJson: getJson,
     isBan: isBan,
     banIP: banIP,
+    getUserIDByToken:getUserIDByToken,
 
 
     findUpdate: findUpdate,

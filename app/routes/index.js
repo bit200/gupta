@@ -8,5 +8,8 @@ module.exports = function (app) {
     app.get('/admin', index.admin);
     app.get('/create-filter', index.create_filter)
     app.get('/get-content', index.get_content)
+    app.get('/get-agency', index.get_agency)
+    app.post('/request-business', index.request_business);
+
 };
 

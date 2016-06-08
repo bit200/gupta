@@ -156,35 +156,24 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
     };
 }]);
 
-XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', function (scope, location, http, parseType) {
+XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType,$q, getContent) {
+
     scope.requestBusiness = false;
-    scope.agency = [{
-        Logo: '',
-        'Agency Name': 'Content360',    
-        'Service Category':'Content Writing',
-        Address: '132, Church Street, Bangalore',
-        Status: true
-    },{
-        Logo: '',
-        'Agency Name': 'Reach PR',
-        'Service Category':'Public Relations',
-        Address: '44, Fort, Mumbai',
-        Status: false
-    },{
-        Logo: '',
-        'Agency Name': 'UX Design',
-        'Service Category':'Branding Services',
-        Address: 'F84, Shiv Apartments Connaught Place, Delhi',
-        Status: true
-    }];
+    scope.agency = parseType.agency(getContent.agency.data.data);
+
     scope.claim = function(agency){
         scope.choiceAgency = agency;
         scope.requestBusiness = true;
     };
 
     scope.sendRequest = function(data){
-        http.post('/request-business', data).then(function(resp){
-            location.path('/agency')
+
+        scope.req = {
+            data:data,
+            agency: scope.choiceAgency
+        };
+        http.post('/request-business', scope.req).then(function(resp){
+            scope.requestBusiness = false;
         })
     };
 }]);

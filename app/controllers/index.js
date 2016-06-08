@@ -3,7 +3,7 @@ var models = require('../db')
     , m = require('../m')
     , _ = require('underscore')
     , fs = require('fs')
-    , asyc = require('async')
+    , async = require('async')
     , path = require('path');
 
 
@@ -35,8 +35,8 @@ exports.create_filter = function (req, res) {
 
     arrFunc.push(function (cb) {
         var arr = ['Health and Fitness', 'Business and Finance', 'Kids and Parenting', 'Sports', 'Travel and Tourism', 'Education',
-        'Technology', 'Science', 'Real Estate', 'Automotive', 'Food and Beverages', 'Lifestyle', 'Mobile and Gadgets',
-        'Fashion and Beauty', 'Cooking', 'Vernacular Language', 'Books and Reading'];
+            'Technology', 'Science', 'Real Estate', 'Automotive', 'Food and Beverages', 'Lifestyle', 'Mobile and Gadgets',
+            'Fashion and Beauty', 'Cooking', 'Vernacular Language', 'Books and Reading'];
         findCreateFilter('BloggersAndInfluencers', 'Industry Expertise', arr, cb)
     });
 
@@ -47,16 +47,52 @@ exports.create_filter = function (req, res) {
 
     arrFunc.push(function (cb) {
         var arr = ['Mumbai', 'Delhi', 'Bangalore'];
-        findCreateFilter('Location','', arr, cb)
+        findCreateFilter('Location', '', arr, cb)
     });
 
     arrFunc.push(function (cb) {
-        var arr = ['Content Marketing','Public Relations','Celebrity Management','Bloggers and Influencers',
-            'Digital Marketing','Creative Design','Media Planning','Media Buying','Ad Making','Exhibition Management'];
-        findCreateFilter('FreelancerType','', arr, cb)
+        var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
+            'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
+        findCreateFilter('FreelancerType', '', arr, cb)
     });
 
-    asyc.parallel(arrFunc, function(e,r){
+    arrFunc.push(function (cb) {
+        var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
+            'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
+        findCreateFilter('FreelancerType', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = [
+            {
+                logo: '',
+                name: 'Content360',
+                category: 'Content Writing',
+                city: 'Bangalore',
+                street: 'Church Street',
+                number_street: 132
+            },
+            {
+                logo: '',
+                name: 'Reach PR',
+                category: 'Content Writing',
+                city: 'Mumbai',
+                street: 'Fort',
+                number_street: 33
+            }
+        ];
+        var count = 0;
+        _.forEach(arr, function (item) {
+            m.findCreate(models.Agency, item, {}, {}, function () {
+                count++;
+                if (arr.length == count) {
+                    cb()
+                }
+            })
+        });
+    });
+
+    async.parallel(arrFunc, function (e, r) {
         m.scb('done', res)
     })
 };
@@ -67,36 +103,49 @@ exports.get_content = function (req, res) {
 };
 
 
+exports.get_agency = function (req, res) {
+    var params = m.getBody(req);
+    var arrfunc = [];
+    m.find(models.Agency, {}, res, function (agency) {
+        m.find(models.UserClaimAgency, {user: m.getUserIDByToken(req.token)}, res, function (arr) {
+            _.forEach(agency, function (item) {
+                arrfunc.push(function (cb) {
+                    item.status = arr.indexOf(item.name) > -1;
+                    cb()
+                })
+            });
+            async.parallel(arrfunc, function (e, r) {
+                m.scb(agency, res)
+            })
+
+        })
+    })
+};
+
+exports.request_business = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.Agency, {name: params.agency}, res, function (agency) {
+        params.data.agency = agency._id;
+        m.findOne(models.BusinessUser, {agency: agency._id, email: params.data.email}, function (err) {
+            m.create(models.BusinessUser, params.data, res, function(data){
+                m.create(models.UserClaimAgency, {agency: agency._id, user: m.getUserIDByToken(req.token)}, res, m.scb(data,res))
+                });
+        }, function () {
+            m.scb('find', res)
+        })
+    })
+};
+
 function findCreateFilter(name, filter, arr, cb) {
     var count = 0;
     _.forEach(arr, function (item) {
-        m.findCreate(models.Filters, {name: item}, {type:name, filter: filter, isActive: true}, {}, function(){
+        m.findCreate(models.Filters, {name: item}, {type: name, filter: filter, isActive: true}, {}, function () {
             count++;
-            if(arr.length == count){
+            if (arr.length == count) {
                 cb()
             }
         })
     });
 }
 
-//exports.unit_tests = function (req, res) {
-//    res.render('unit-tests/unit-tests.html')
-//};
-//
-//exports.run_test = function (req, res) {
-//    var mocha = new Mocha({
-//        reporter: 'mochawesome',
-//        reporterOptions: {
-//            reportDir: 'public/unit-tests',
-//            reportName: 'unit-tests',
-//            reportTitle: 'Unit tests What-Song-API'
-//        }
-//    });
-//    mocha.addFile(
-//        path.join('test', 'AllTest.js')
-//    );
-//
-//    mocha.run(function (err) {
-//        m.scb({err: err}, res)
-//    })
-//};
+

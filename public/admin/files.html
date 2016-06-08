@@ -12,9 +12,11 @@
         <div class="container">
             <div class="">
                 <div class="pull-left">
-                    <button class="button-menu-mobile open-left waves-effect">
-                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    </button>
+                    <button ng-click="choice('users')" class="button-menu-mobile open-left waves-effect" ng-class="{choice:isActive.users}">Users</button>
+                    <span class="clearfix"></span>
+                </div>
+                <div class="pull-left">
+                    <button ng-click="choice('claim')" class="button-menu-mobile open-left waves-effect" ng-class="{choice:isActive.claim}">Claim</button>
                     <span class="clearfix"></span>
                 </div>
 
@@ -22,8 +24,7 @@
                 <ul class="nav navbar-nav navbar-right pull-right">
 
                     <li class="dropdown hidden-xs">
-                        <a ng-show="auth" href="#" data-target="#" class="waves-effect waves-light"
-                           aria-expanded="false">
+                        <a ng-show="auth" href="#" data-target="#" class="waves-effect waves-light" aria-expanded="false">
                             <div ng-click="logout(event)">Logout</div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg">
@@ -44,7 +45,29 @@
         </div>
     </div>
 </div>
-<div class="content-page">
+<div ng-if="isActive.users" class="content-page">
+    <div class="content">
+        <div>
+            <div class="users-block">
+                <div class="row">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td ng-repeat="(key, value) in users[0]">{{key}}</td>
+                            <td>Approved</td>
+                            <td>Reject</td>
+                        </tr>
+                        <tr ng-repeat="user in users ">
+                            <td ng-repeat="(key,value) in user | admin_filter">{{value}}</td>
+                            <td ng-if="!user.admin_approved"><button class="btn background-orange text-white" ng-click='approved(user, $index)'>Approved</button></td>
+                            <td ng-if="!user.admin_approved"><button class="btn btn-danger" ng-click="showReject(true, user, $index)">Reject</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="isActive.claim" class="content-page">
     <div class="content">
         <div>
             <div class="users-block">
