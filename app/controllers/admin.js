@@ -26,6 +26,11 @@ exports.get_business_users = function (req, res) {
 };
 
 
+exports.approved_agency = function(req,res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: true}, res, res)
+};
+
 exports.approved = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.User, {username: params.username}, {admin_approved: 1}, res, res)

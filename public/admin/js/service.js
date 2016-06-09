@@ -32,11 +32,10 @@ XYZAdminCtrls.service('parseType', function () {
                         'Service Category': elem.agency.category || null,
                         'Currently owned by': '',
                         'Claimed by': elem.first_name + ' ' + elem.last_name,
-                        Status: elem.isAvtive ? 'Claimed' : 'Unclaimed'
+                        Status: elem.isActive ? 'Claimed' : 'Unclaimed'
                     }
                 };
                 arr.push(obj)
-
             });
             return arr
         }
