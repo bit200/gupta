@@ -7,7 +7,10 @@ var BusinessUserSchema = mongoose.Schema({
     email: String,
     phone: String,
     role: String,
-    isActive: Boolean,
+    isActive: {
+        type:Boolean,
+        default: true
+    },
     agency:{
         type:Number,
         ref: 'Agency'

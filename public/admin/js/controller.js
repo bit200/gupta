@@ -54,12 +54,14 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         scope.resObj = {};
         scope.delete = false;
         scope.users = parseType.users(getContent.users.data.data);
+        scope.agency = parseType.claim(getContent.agency.data.data);
         scope.approved = function (user, i) {
             $http.get('/approved', {params: {username: user.username}}).then(function (resp) {
                 scope.users[i] = parseType.users([resp.data.data])[0];
             }, function (err) {
             })
         };
+
         scope.rejectUser = function (data, i) {
             $http.get('/reject', {params: {username: scope.check.user.username, reject_reason: data}}).then(function(resp) {
                 scope.users[scope.check.i] = parseType.users([resp.data.data])[0];
@@ -68,7 +70,6 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
                 console.log(err)
             })
         };
-
 
         scope.showReject = function (bol, user, i) {
             scope.reject_text = '';

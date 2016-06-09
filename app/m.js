@@ -311,7 +311,8 @@ function getUserIDByToken(token){
         if (err || !r) {
             return false
         }
-        var arr = r.split('_')
+        var arr = r.split('_');
+        console.log('sdasda', arr)
         return arr[0];
     })
 }

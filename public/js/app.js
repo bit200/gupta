@@ -28,7 +28,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 resolve: {
                     getContent: function($q, $http){
                         return $q.all({
-                            agency: $http.get('/get-agency')
+                                agency: $http.get('/get-agency')
                         })
                     }
                 }

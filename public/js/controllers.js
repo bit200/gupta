@@ -157,23 +157,25 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 }]);
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType,$q, getContent) {
-
     scope.requestBusiness = false;
     scope.agency = parseType.agency(getContent.agency.data.data);
-
     scope.claim = function(agency){
         scope.choiceAgency = agency;
         scope.requestBusiness = true;
     };
 
     scope.sendRequest = function(data){
-
         scope.req = {
             data:data,
             agency: scope.choiceAgency
         };
         http.post('/request-business', scope.req).then(function(resp){
             scope.requestBusiness = false;
+            _.forEach(scope.agency, function(item){
+                if(item['Agency Name'] == scope.choiceAgency){
+                    item.Status = true
+                }
+            })
         })
     };
 }]);

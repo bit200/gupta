@@ -74,14 +74,10 @@
                 <div class="row">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <td ng-repeat="(key, value) in users[0]">{{key}}</td>
-                            <td>Approved</td>
-                            <td>Reject</td>
+                            <td ng-repeat="(key, value) in agency[0]">{{key}}</td>
                         </tr>
-                        <tr ng-repeat="user in users ">
-                            <td ng-repeat="(key,value) in user | admin_filter">{{value}}</td>
-                            <td ng-if="!user.admin_approved"><button class="btn background-orange text-white" ng-click='approved(user, $index)'>Approved</button></td>
-                            <td ng-if="!user.admin_approved"><button class="btn btn-danger" ng-click="showReject(true, user, $index)">Reject</button></td>
+                        <tr ng-repeat="item in agency">
+                            <td ng-repeat="(key,value) in item">{{value}}</td>
                         </tr>
                     </table>
                 </div>

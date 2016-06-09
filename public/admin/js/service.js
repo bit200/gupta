@@ -27,10 +27,10 @@ XYZAdminCtrls.service('parseType', function () {
             var arr = [];
             _.forEach(item, function (elem) {
                 var obj = {
-                    'Agency Name': elem.name || null,
-                    'Service Category': elem.category || null,
-                    'Currently owned by': elem.first_name + ' ' + elem.last_name,
-                    'Claimed by': elem.user || null,
+                    'Agency Name': elem.agency.name || null,
+                    'Service Category': elem.agency.category || null,
+                    'Currently owned by': '',
+                    'Claimed by': elem.first_name + ' ' + elem.last_name,
                      Status: elem.isAvtive || false
                 };
                 arr.push(obj)

@@ -20,9 +20,9 @@ function check_auth (req, res, next, role) {
         }
         var arr = r.split('_')
 
-        req.token = _token
-        req.userId = arr[0]
-        req.userRole = arr[1]
+        req.token = _token;
+        req.userId = arr[0];
+        req.userRole = arr[1];
 
         res._token_end_time = new Date().getTime();
 
