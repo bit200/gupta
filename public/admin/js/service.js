@@ -26,12 +26,14 @@ XYZAdminCtrls.service('parseType', function () {
         claim: function (item) {
             var arr = [];
             _.forEach(item, function (elem) {
-                var obj = {
-                    'Agency Name': elem.agency.name || null,
-                    'Service Category': elem.agency.category || null,
-                    'Currently owned by': '',
-                    'Claimed by': elem.first_name + ' ' + elem.last_name,
-                     Status: elem.isAvtive || false
+                var obj = { elem: elem,
+                    data: {
+                        'Agency Name': elem.agency.name || null,
+                        'Service Category': elem.agency.category || null,
+                        'Currently owned by': '',
+                        'Claimed by': elem.first_name + ' ' + elem.last_name,
+                        Status: elem.isAvtive ? 'Claimed' : 'Unclaimed'
+                    }
                 };
                 arr.push(obj)
 

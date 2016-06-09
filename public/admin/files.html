@@ -12,11 +12,15 @@
         <div class="container">
             <div class="">
                 <div class="pull-left">
-                    <button ng-click="choice('users')" class="button-menu-mobile open-left waves-effect" ng-class="{choice:isActive.users}">Users</button>
+                    <button ng-click="choice('users')" class="button-menu-mobile open-left waves-effect"
+                            ng-class="{choice:isActive.users}">Users
+                    </button>
                     <span class="clearfix"></span>
                 </div>
                 <div class="pull-left">
-                    <button ng-click="choice('claim')" class="button-menu-mobile open-left waves-effect" ng-class="{choice:isActive.claim}">Claim</button>
+                    <button ng-click="choice('claim')" class="button-menu-mobile open-left waves-effect"
+                            ng-class="{choice:isActive.claim}">Claim
+                    </button>
                     <span class="clearfix"></span>
                 </div>
 
@@ -24,7 +28,8 @@
                 <ul class="nav navbar-nav navbar-right pull-right">
 
                     <li class="dropdown hidden-xs">
-                        <a ng-show="auth" href="#" data-target="#" class="waves-effect waves-light" aria-expanded="false">
+                        <a ng-show="auth" href="#" data-target="#" class="waves-effect waves-light"
+                           aria-expanded="false">
                             <div ng-click="logout(event)">Logout</div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg">
@@ -58,8 +63,14 @@
                         </tr>
                         <tr ng-repeat="user in users ">
                             <td ng-repeat="(key,value) in user | admin_filter">{{value}}</td>
-                            <td ng-if="!user.admin_approved"><button class="btn background-orange text-white" ng-click='approved(user, $index)'>Approved</button></td>
-                            <td ng-if="!user.admin_approved"><button class="btn btn-danger" ng-click="showReject(true, user, $index)">Reject</button></td>
+                            <td ng-if="!user.admin_approved">
+                                <button class="btn background-orange text-white" ng-click='approved(user, $index)'>
+                                    Approved
+                                </button>
+                            </td>
+                            <td ng-if="!user.admin_approved">
+                                <button class="btn btn-danger" ng-click="showReject(true, user, $index)">Reject</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -74,10 +85,12 @@
                 <div class="row">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <td ng-repeat="(key, value) in agency[0]">{{key}}</td>
+                            <td ng-repeat="(key, value) in agency[0].data">{{key}}</td>
                         </tr>
                         <tr ng-repeat="item in agency">
-                            <td ng-repeat="(key,value) in item">{{value}}</td>
+                            <td ng-repeat="(key,value) in item.data"><a class="pointer" ng-if="key=='Agency Name'"
+                                                                        ng-click="showModal(true, item)">{{value}}</a><span
+                                    ng-if="key!='Agency Name'">{{value}}</span></td>
                         </tr>
                     </table>
                 </div>
@@ -99,8 +112,50 @@
 
             <div class="row m-t-20">
                 <div class="col-md-12 text-center">
-                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light" ng-click="rejectUser(reject_text)">Confirm</button>
-                    <button id="dialogCancel" class="btn btn-default waves-effect" ng-click="showReject(false)">Cancel</button>
+                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light"
+                            ng-click="rejectUser(reject_text)">Confirm
+                    </button>
+                    <button id="dialogCancel" class="btn btn-default waves-effect" ng-click="showReject(false)">Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div ng-show="showAgency" class="delete-modal-block">
+    <div class="agency-panel panel-info panel-color">
+        <header class="panel-heading">
+            <h2 class="panel-title">Information about claim for agency</h2>
+        </header>
+        <div class="panel-body">
+            <div class="row paddingB10">
+                <div class="inlineBlock text-bold">first Name</div>
+                <div class="inlineBlock">{{agencyRequest.first_name}}</div>
+            </div>
+            <div class="row paddingB10">
+                <div class="inlineBlock text-bold">Last Name</div>
+                <div class="inlineBlock">{{agencyRequest.last_name}}</div>
+            </div>
+            <div class="row paddingB10">
+                <div class="inlineBlock text-bold">Email Id</div>
+                <div class="inlineBlock">{{agencyRequest.email}}</div>
+            </div>
+            <div class="row paddingB10">
+                <div class="inlineBlock text-bold">Phone Number</div>
+                <div class="inlineBlock">{{agencyRequest.phone}}</div>
+            </div>
+            <div class="row">
+                <div class="text-bold">Your role in the agency</div>
+                <div>{{agencyRequest.role}}</div>
+            </div>
+            <div class="row m-t-20">
+                <div class="col-md-12 text-center">
+                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light" ng-click="approveAgency(reject_text)">Approve
+                    </button>
+                    <button id="dialogCancel" class="btn btn-default waves-effect" ng-click="showModal(false)">Cancel
+                    </button>
                 </div>
             </div>
         </div>

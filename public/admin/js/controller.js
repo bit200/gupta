@@ -79,6 +79,9 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
                 i: i
             }
         };
-
+        scope.showModal = function(bol,item){
+            scope.showAgency = bol;
+            scope.agencyRequest = item.elem;
+        }
     }]);
 
