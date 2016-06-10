@@ -18,8 +18,11 @@
     </div>
     <div class="row paddingB20 form-group" ng-class="{'has-error': submitted && claim.email.$invalid}">
         <div>Email Id</div>
-        <input type="email" name="email" required class="form-control" ng-model="agencyRequest.email">
+        <input type="email" name="email" required class="form-control" ng-model="agencyRequest.email"
+               ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+        >
         <p style="position: relative" class="error" ng-if="claim.email.$error.required">Email Id is required</p>
+        <p style="position: relative" class="error" ng-if="claim.email.$error.pattern">Email Id is invalid</p>
 
     </div>
     <div class="row paddingB20" ng-class="{'has-error': submitted && claim.phone.$invalid}">
