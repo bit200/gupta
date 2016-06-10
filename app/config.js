@@ -16,7 +16,8 @@ var resObj = {
 };
 
 if (process.env.NODE_ENV=='production'){
-    
+    resObj.appHost = 'http://52.221.227.52:8080',
+    resObj.apiHost = "http://52.221.227.52:8080"
 }
 
 module.exports = resObj;

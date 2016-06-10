@@ -145,8 +145,15 @@ XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams
             scope.restoreText = 'Password was changed by this restore code'
         })
     }
+}]);
 
 
+XYZCtrls.controller('confirmCtrl', ['$scope', '$location', '$http', '$routeParams', function (scope, location, http, routeParams) {
+    http.get('/confirm', {params:{confirm_code:routeParams.confirmCode}}).then(function(resp){
+            scope.text = 'Congratulations, you have verified your account';
+        }, function (err) {
+            scope.text = "Oops! Verification already carried out or an invalid verification code."
+        });
 }]);
 
 XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {

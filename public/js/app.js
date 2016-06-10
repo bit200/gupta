@@ -57,6 +57,10 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'template/forgotRestore.html',
                 controller: 'forgotCtrl'
             })
+            .when('/confirm/:confirmCode', {
+                templateUrl: 'template/confirm.html',
+                controller: 'confirmCtrl'
+            })
             .when('/home', {
                 templateUrl: 'template/home.html',
                 controller: 'HomeCtrl',
