@@ -46,6 +46,62 @@ exports.create_filter = function (req, res) {
     });
 
     arrFunc.push(function (cb) {
+        var arr = ['Media Planning', 'Rural Marketing Planning', 'Product Placement', 'Market Research', 'Loyalty Consulting'];
+        findCreateFilter('Marketing Planning', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Cinema Media Buying', 'Magazine Media Buying', 'Digital Media Buying', 'Radio Media Buying', 'Television Media Buying',
+            'Outdoor Media Buying', 'Non Traditional Media Buying', 'Newspaper Media Buying', 'Database Provider', 'In-Games Media Buying', 'Mobile and App Media Buying'];
+        findCreateFilter('Media Buying', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Print Ads', 'Videos', 'Animated Videos', 'Cinema Ads', 'Music and Audio', 'Banner Ads', 'Cartoonist',
+            'Photography', 'Presentation Design', 'Infographics'];
+        findCreateFilter('Creative and Ad making', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Public Relations Strategy', 'Press Release', 'Media Interactions', 'Press Conference', 'Byline Placement',
+            'Crisis Communications', 'Blogger Outreach', 'Media Monitoring'];
+        findCreateFilter('Public Relations', 'PR Services', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Startups', 'Lifestyle', 'Consumer Technology', 'B2B Technology', 'Celebrity', 'Retail and FMCG',
+            'Hospitality', 'Pharmaceuticals', 'Education', 'Healthcare', 'Construction and Real Estate',
+            'Banking and Finance', 'Politics', 'Industry Expertise'];
+        findCreateFilter('Public Relations', 'Industry Expertise', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Print', 'Digital', 'Electronic'];
+        findCreateFilter('Public Relations', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Digital Marketing Planning', 'Social Media Management', 'SEO', 'Digital Advertising',
+            'Analytics', 'Online Reputation Management', 'Affiliate Marketing', 'Email Marketing'];
+        findCreateFilter('Digital Marketing', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Brand Consulting', 'Brand Identity Design', 'Logo Design', 'Brochure Design', 'Merchandise Design', 'Web Design', 'Packaging Design', 'Business Cards'];
+        findCreateFilter('Branding Services', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['Exhibition Management', 'Events Management', 'Celebrity Management', 'Emcee'];
+        findCreateFilter('Event Management', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
+        var arr = ['BTL Marketing', 'Retail POS', 'Telemarketing', 'Couponing / Sampling', 'Bulk SMS Service', 'Bulk Email Service', 'Promotional Merchandise'];
+        findCreateFilter('Direct Marketing', '', arr, cb)
+    });
+
+    arrFunc.push(function (cb) {
         var arr = ['Mumbai', 'Delhi', 'Bangalore'];
         findCreateFilter('Location', '', arr, cb)
     });
@@ -61,6 +117,7 @@ exports.create_filter = function (req, res) {
             'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
         findCreateFilter('FreelancerType', '', arr, cb)
     });
+
 
     arrFunc.push(function (cb) {
         var arr = [

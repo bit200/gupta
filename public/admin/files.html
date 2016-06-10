@@ -112,10 +112,10 @@
 
             <div class="row m-t-20">
                 <div class="col-md-12 text-center">
-                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light"
+                    <button class="btn btn-primary waves-effect waves-light"
                             ng-click="rejectUser(reject_text)">Confirm
                     </button>
-                    <button id="dialogCancel" class="btn btn-default waves-effect" ng-click="showReject(false)">Cancel
+                    <button class="btn btn-default waves-effect" ng-click="showReject(false)">Cancel
                     </button>
                 </div>
             </div>
@@ -152,7 +152,8 @@
             </div>
             <div class="row m-t-20">
                 <div class="col-md-12 text-center">
-                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light" ng-click="approveAgency(agencyRequest.email)">Approve
+                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light"
+                            ng-click="approveAgency(agencyRequest.email)">Approve
                     </button>
                     <button id="dialogCancel" class="btn btn-default waves-effect" ng-click="showModal(false)">Cancel
                     </button>

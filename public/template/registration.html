@@ -1,29 +1,84 @@
-<div class="registration-module block-center row">
-    <div class="col-xs-6 ">Username
-        <input class="form-control" ng-enter="registration(reg)" ng-model="reg.username">
-    </div>
-    <div class="col-xs-5 col-xs-offset-1">First name
-        <input class="form-control" ng-enter="registration(reg)" ng-model="reg.first_name">
-    </div>
-    <div class="col-xs-6">Password
-        <input class="form-control" ng-enter="registration(reg)" type="password" ng-model="reg.password">
-    </div>
-    <div class="col-xs-5 col-xs-offset-1">Last name
-        <input class="form-control" ng-enter="registration(reg)" ng-model="reg.last_name">
-    </div>
-    <div class="col-xs-12 nopadding">Email
-        <input class="form-control" ng-enter="registration(reg)" ng-model="reg.email">
-    </div>
-    <div class="col-xs-12 nopadding">
-        <div class="col-xs-12 nopadding">Sex</div>
-        Male <input class="" type="checkbox" ng-click="reg.female = 0" ng-model="reg.male">
-        Female   <input class="" type="checkbox" ng-click="reg.male = 0" ng-model="reg.female">
-    </div>
-    <div class="col-xs-12">Number mobile phone
-        <input phone-number class="col-xs-12 form-control" ng-enter="registration(reg)" ng-model="reg.phone">
-    </div>
-    <div class="col-xs-12 btn-registration">
-        <button class="btn btn-success" ng-click="registration(reg)">Submit</button>
-        <button class="btn btn-danger" ng-click="cancelRegistration()">Cancel</button>
-    </div>
+<div class="registration-module">
+    <form name="registr" novalidate>
+
+        <div class="form-group" ng-class="{'has-error': submitted && registr.username.$invalid}">
+            <label>Username</label>
+            <input class="form-control" ng-enter="registration(reg)" name="username" ng-model="reg.username" required>
+            <p style="position: relative" class="error" ng-if="registr.username.$error.required">Username is
+                required</p>
+        </div>
+
+        <div class="form-group">
+            <label>First name</label>
+            <input class="form-control" ng-enter="registration(reg)" ng-model="reg.first_name">
+        </div>
+
+        <div class="form-group">
+            <label>Last Name</label>
+            <input class="form-control" ng-enter="registration(reg)" ng-model="reg.last_name">
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': submitted && registr.password.$invalid}">
+            <label>Password</label>
+            <input class="form-control" ng-enter="registration(reg)" name="password" type="password" ng-model="reg.password" required>
+            <p style="position: relative" class="error" ng-if="registr.password.$error.required">Password is required</p>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': submitted && registr.confirm.$invalid}">
+            <label>Confirm Password</label>
+            <input class="form-control" ng-enter="registration(reg)" type="password" name="confirm" ng-model="reg.confirm" data-password-verify="reg.password" required>
+            <p style="position: relative" class="error" ng-if="registr.confirm.$error.required">Confirm password is required</p>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': submitted && registr.email.$invalid}">
+            <label>Email</label>
+            <input class="form-control" name="email" type="email" ng-enter="registration(reg)" ng-model="reg.email"
+                   ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+            required>
+            <p style="position: relative" class="error" ng-if="registr.email.$error.required">Email is required</p>
+            <p style="position: relative" class="error" ng-if="registr.email.$error.pattern">Email is invalid</p>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': submitted && registr.phone.$invalid}">
+            <label>Number mobile phone</label>
+            <input phone-number class="form-control" name="phone" ng-enter="registration(reg)" ng-model="reg.phone" required>
+            <p style="position: relative" class="error" ng-if="registr.phone.$error.required">Phone number is required</p>
+        </div>
+
+        <div class="form-group" ng-init="reg.sex='male'">
+
+            <div class="radio-inline">
+                <label >
+                    <input class="" type="radio" ng-model="reg.sex" value="male">
+                    Male
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input class="" type="radio" ng-model="reg.sex" value="female">
+                    Female
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="text-left">
+                <a href="" ng-click="go('/login')">Already registered?</a>
+                <br />
+                <a href="" ng-click="go('/forgot/email')">Forgot your password?</a>
+            </div>
+
+            <!--Login-->
+            <!--Forgot your password?-->
+            <!--Not registered yet?-->
+
+            <!--Forgot your password-->
+            <!--Instructions have been sent to your email-->
+            <!--Go to Login-->
+
+            <br />
+            <div class="text-center">
+                <button type="submit" class="btn full-width btn-primary" ng-click="registration(registr.$invalid,reg);submitted=true;">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>

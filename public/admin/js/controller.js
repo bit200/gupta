@@ -23,7 +23,6 @@ XYZAdminCtrls.controller('loginCtrl', ['$location', '$timeout', '$scope', '$http
                     $('.login-password').addClass('failed')
                 }
                 scope.MainContentLoaded = true
-
             });
             scope.login.password = '';
         };
@@ -36,12 +35,12 @@ XYZAdminCtrls.controller('loginCtrl', ['$location', '$timeout', '$scope', '$http
 XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'parseType',
     function ($location, $timeout, scope, $http, rs, $q, getContent, parseType) {
         scope.isActive = {
-            users:true,
+            users: true,
             claim: false
         };
 
-        scope.choice = function(choice){
-            _.forEach(scope.isActive, function(value, key){
+        scope.choice = function (choice) {
+            _.forEach(scope.isActive, function (value, key) {
                 scope.isActive[key] = false
             });
             scope.isActive[choice] = true;
@@ -63,11 +62,10 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         };
 
         scope.rejectUser = function (data, i) {
-            $http.get('/reject', {params: {username: scope.check.user.username, reject_reason: data}}).then(function(resp) {
+            $http.get('/reject', {params: {username: scope.check.user.username, reject_reason: data}}).then(function (resp) {
                 scope.users[scope.check.i] = parseType.users([resp.data.data])[0];
                 scope.reject = false;
-            }, function(err){
-                console.log(err)
+            }, function (err) {
             })
         };
 
@@ -80,21 +78,20 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
             }
         };
 
-        scope.showModal = function(bol,item){
+        scope.showModal = function (bol, item) {
             scope.showAgency = bol;
             scope.agencyRequest = item.elem;
         };
 
-         scope.approveAgency = function(email){
-            $http.get('/approved-agency', {params:{email: email}}).then(function(resp){
+        scope.approveAgency = function (email) {
+            $http.get('/approved-agency', {params: {email: email}}).then(function (resp) {
                 scope.showAgency = false;
-                _.forEach(scope.agency, function(item){
-                    console.log('adasd',item)
-                    if(item.elem.email == email){
+                _.forEach(scope.agency, function (item) {
+                    if (item.elem.email == email) {
                         item.data.Status = 'Claimed';
                     }
                 })
             })
-         }
+        }
     }]);
 

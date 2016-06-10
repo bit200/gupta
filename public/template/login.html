@@ -1,11 +1,19 @@
-<div class="login-form block-center">
+<div class="login-form">
     <span>Login</span>
     <input class="form-control" ng-class="{error:errL}" ng-enter="signin(login)" ng-model="login.login">
     <span>Password</span>
-    <input class="form-control" ng-class="{error:errP}" ng-enter="signin(login)" type="password" ng-model="login.password">
+    <input class="form-control" ng-class="{error:errP}" ng-enter="signin(login)" type="password"
+           ng-model="login.password">
     {{error}}
-    <div class="text-center padding20">
-        <button class="btn btn-primary" ng-click="signin(login)">LogIn</button>
-        <a href="/#/registration" class="btn btn-info">Registration</a>
+
+    <div class="form-group marginT20">
+        <div class="text-center">
+            <button type="submit" class="btn full-width btn-primary" ng-click="signin(login)">Log in</button>
+        </div>
+    </div>
+    <div class="text-left">
+        <a href="" ng-click="go('/registration')">Not registered yet?</a>
+        <br />
+        <a href="" ng-click="go('/forgot/email')">Forgot your password?</a>
     </div>
 </div>

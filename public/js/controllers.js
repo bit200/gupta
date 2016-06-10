@@ -9,11 +9,6 @@ var XYZCtrls = angular.module('XYZCtrls', []);
 
 XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
     scope.auth = window.localStorage.getItem('accessToken');
-    if (!scope.auth) {
-        location.path('/login')
-    } else {
-        location.path('/home')
-    }
     scope.signin = function (data) {
         http.get('/sign-in', {params: {login: data.login, password: data.password}}).then(function (resp) {
                 if (resp.status == 200) {
@@ -36,16 +31,11 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
 }]);
 
 XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
-
-
-    scope.registration = function (data) {
-        data.male ? data.sex = 'male' : data.female ? data.sex = 'female' : data.sex;
-        delete data.male;
-        delete data.female;
+    scope.registration = function (invalid, data) {
+        if (invalid) return
         http.post('/sign-up', data).then(function (resp) {
                 location.path('/')
             }, function (err, r) {
-                delete scope.reg
             }
         )
     };
@@ -130,6 +120,35 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
 
 }]);
 
+XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams', function (scope, location, http, routeParams) {
+    scope.send = true;
+    scope.submitted = false;
+    scope.button = 'Send';
+    scope.restore = function (valid, email) {
+        scope.error = "";
+        if (valid) return;
+        scope.button = 'Wait';
+        http.get('/send-restore', {params: {email: email}}).then(function (resp) {
+            scope.send = false;
+        }, function (err) {
+            scope.button = 'Send';
+            scope.error = "Email not found!"
+        })
+    };
+    scope._restore = false;
+    scope.restorePassword = function(password){
+        http.get('/restore', {params:{restore_code:routeParams.restoreCode,password:password}}).then(function(resp){
+            console.log('resp', resp);
+            scope._restore = true;
+            scope.restoreText = 'Password have been changed.'
+        }, function(err){
+            scope.restoreText = 'Password was changed by this restore code'
+        })
+    }
+
+
+}]);
+
 XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.freelancer = {isagency: true};
     scope.industry = getContent.industry.data.data;
@@ -156,23 +175,23 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
     };
 }]);
 
-XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType,$q, getContent) {
+XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.requestBusiness = false;
     scope.agency = parseType.agency(getContent.agency.data.data);
-    scope.claim = function(agency){
+    scope.claim = function (agency) {
         scope.choiceAgency = agency;
         scope.requestBusiness = true;
     };
 
-    scope.sendRequest = function(data){
+    scope.sendRequest = function (data) {
         scope.req = {
-            data:data,
+            data: data,
             agency: scope.choiceAgency
         };
-        http.post('/request-business', scope.req).then(function(resp){
+        http.post('/request-business', scope.req).then(function (resp) {
             scope.requestBusiness = false;
-            _.forEach(scope.agency, function(item){
-                if(item['Agency Name'] == scope.choiceAgency){
+            _.forEach(scope.agency, function (item) {
+                if (item['Agency Name'] == scope.choiceAgency) {
                     item.Status = true
                 }
             })

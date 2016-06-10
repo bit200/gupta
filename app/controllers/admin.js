@@ -22,11 +22,11 @@ exports.get_users = function (req, res) {
 };
 
 exports.get_business_users = function (req, res) {
-    m.find(models.BusinessUser, {}, res,  res, {populate: 'agency'})
+    m.find(models.BusinessUser, {}, res, res, {populate: 'agency'})
 };
 
 
-exports.approved_agency = function(req,res) {
+exports.approved_agency = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: true}, res, res)
 };

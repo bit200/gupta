@@ -1,7 +1,7 @@
 var ip = require('ip')
 isInTest = typeof global.it === 'function';
 
-module.exports = {
+var resObj = {
     root: __dirname + '/../',
     root_app: __dirname + '/',
     'secret': 'iamyoursecret',
@@ -14,3 +14,9 @@ module.exports = {
     appHost : 'http://localhost:8080',
     apiHost : "http://139.162.29.37:9000"
 };
+
+if (process.env.NODE_ENV=='production'){
+    
+}
+
+module.exports = resObj;

@@ -108,11 +108,8 @@ exports.send_confirm = function (req, res) {
  *
  */
 exports.send_restore = function (req, res) {
-    var login = m.getBody(req).login;
-    m.findOne(models.User, {$or: [
-        {username: login},
-        {email: login}
-    ]}, res, function (user) {
+    var email = m.getBody(req).email;
+    m.findOne(models.User, {email: email}, res, function (user) {
         user.send_restore(res, res)
     })
 };

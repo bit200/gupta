@@ -72,8 +72,7 @@ function distinct(model, query, fieldName, _ecb, _scb) {
         return;
     }
     model.find(query).select(fieldName).exec(function (err, items) {
-        log(items.length)
-        _mongoose_cb_handler(err, _.map(items, function(item){
+        _mongoose_cb_handler(err, _.map(items, function (item) {
             return item[fieldName]
         }), _ecb, _scb)
     })
@@ -237,7 +236,7 @@ function findUpdateWithToken(model, _token, query, new_params, _ecb, _scb, param
 
 
 function findCreateUpdate(model, query, new_params, _ecb, _scb, params) {
-    new_params = _.extend({},query, new_params);
+    new_params = _.extend({}, query, new_params);
     findOne(model, query, function (code, err) {
         if (code == 397) {
             create(model, new_params, _ecb, _scb, params)
@@ -306,13 +305,12 @@ function findRemove(model, query, _ecb, _scb) {
     })
 }
 
-function getUserIDByToken(token){
-    redis.get('token_' + token, function(err, r){
+function getUserIDByToken(token) {
+    redis.get('token_' + token, function (err, r) {
         if (err || !r) {
             return false
         }
         var arr = r.split('_');
-        console.log('sdasda', arr)
         return arr[0];
     })
 }
@@ -641,7 +639,7 @@ module.exports = {
     getJson: getJson,
     isBan: isBan,
     banIP: banIP,
-    getUserIDByToken:getUserIDByToken,
+    getUserIDByToken: getUserIDByToken,
 
 
     findUpdate: findUpdate,

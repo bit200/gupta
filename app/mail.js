@@ -40,10 +40,8 @@ function options(subject, to, html_options) {
 function _send(mailOptions, _ecb, _scb) {
     transporter.sendMail(mailOptions, function (    err, info) {
         if (err) {
-            log('errrrrrr', err);
             m.ecb(350, err, _ecb)
         } else {
-            log('trueeeee');
             m.scb(info, _scb)
         }
     });
@@ -68,7 +66,7 @@ function send_restore(user, _ecb, _scb) {
     user = user.toJSON();
     var _options = options('Reset Your Password - The Media Ant', user.email, tpl.restore({
         user: user,
-        appHost: self.config.appHost
+        appHost: config.appHost
     }));
 
     _send(_options, _ecb, _scb)

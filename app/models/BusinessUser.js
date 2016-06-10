@@ -8,11 +8,11 @@ var BusinessUserSchema = mongoose.Schema({
     phone: String,
     role: String,
     isActive: {
-        type:Boolean,
+        type: Boolean,
         default: true
     },
-    agency:{
-        type:Number,
+    agency: {
+        type: Number,
         ref: 'Agency'
     },
     created_at: {

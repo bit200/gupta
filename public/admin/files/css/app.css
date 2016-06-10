@@ -1,15 +1,20 @@
 @keyframes fade {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-@media only screen and (min-width:768px){
-   #navbar .input-group {
-       max-width: 515px;
-       padding-right: 15px;
-   }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-@media only screen and (min-width:992px){
+@media only screen and (min-width: 768px) {
+    #navbar .input-group {
+        max-width: 515px;
+        padding-right: 15px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
     #navbar .input-group {
         max-width: 630px;
         padding-right: 15px;
@@ -36,27 +41,33 @@ select {
     margin-bottom: 15px;
     outline: none;
 }
-[ng-view]>div, pre {
+
+[ng-view] > div, pre {
     animation: fade .4s ease;
 }
+
 html {
     overflow-y: scroll;
 }
+
 body {
-  /*padding-top: 20px;*/
-  /*overflow-y: scroll;*/
+    /*padding-top: 20px;*/
+    /*overflow-y: scroll;*/
 }
+
 .link_categ {
     white-space: nowrap; /* Запрещаем перенос строк */
     overflow: hidden; /* Обрезаем все, что не помещается в область */
     text-overflow: ellipsis;
     widht: 100%;
 }
+
 .ib {
     display: inline-block;
 }
+
 h1 {
-  border-bottom: 1px solid gray;
+    border-bottom: 1px solid gray;
 }
 
 .active, .active:focus, a:hover {
@@ -118,7 +129,6 @@ html {
     background: #f5f5f5;
 }
 
-
 .login > ul {
     background: #ffffff;
     border-radius: 15px;
@@ -128,7 +138,10 @@ html {
     padding: 30px;
     margin: auto;
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 
 }
 
@@ -157,7 +170,7 @@ html {
 
 .failed {
     border: 1px solid red !important;
-    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
     transform: translate3d(0, 0, 0);
     transition: all .5s ease;
 }
@@ -181,9 +194,10 @@ html {
     }
 }
 
-.for_fade>div {
+.for_fade > div {
     animation: fade .7s ease forwards;
 }
+
 li {
     list-style-type: none;
 }
@@ -254,14 +268,14 @@ li {
 }
 
 .panel-body {
-     overflow: auto;
+    overflow: auto;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .whiteBack {
     background: #F5F5F5 !important;
- }
+}
 
 .table {
     background: rgba(255, 165, 0, 0.33);

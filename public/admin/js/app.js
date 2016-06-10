@@ -29,7 +29,7 @@ XYZAdmin.config(['$routeProvider', '$httpProvider',
 
             })
             .otherwise({redirectTo: '/login'});
-        
+
         $httpProvider.interceptors.push(function ($q, $location) {
             return {
                 'responseError': function (rejection) {

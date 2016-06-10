@@ -1,0 +1,17 @@
+<div class="restore-form block-center">
+    <form name="restorepass">
+        <div ng-if="send" class="input-group" ng-class="{'has-error': submitted && restorepass.email.$invalid}">
+            <input name="email" type="email" class="form-control"
+                   placeholder="Input your email" ng-model="email" required
+                   ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'/>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit"
+                      ng-click="restore(restorepass.$invalid,email);send = false; submitted = true">{{button}}</button>
+            </span>
+        </div>
+    </form>
+    <p style="position: relative">{{error}}</p>
+    <p style="position: relative" class="error" ng-if="restorepass.email.$error.pattern">Email is invalid</p>
+    <div ng-if="!send">Instructions have been sent to your email.</div>
+    <button class="btn btn-primary full-width marginT20" ng-click="go('/login')">Go to Login</button>
+</div>

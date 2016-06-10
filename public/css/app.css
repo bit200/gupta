@@ -1,4 +1,4 @@
-.block-center{
+.block-center {
     display: inline-block;
     position: absolute;
     top: 0;
@@ -7,23 +7,35 @@
     bottom: 0;
     margin: auto;
 }
+
 .registration-module {
-    width: 300px;
-    height: 400px;
-    background: wheat;
-    padding: 20px;
-    border: 3px solid #ccbea4;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 5%;
+    background: #f0f1f3;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }
 
 .login-form {
     width: 250px;
-    height: 300px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+
+.restore-form {
+    width: 20%;
+    margin: 0 auto;
+    margin-top: 10%
 }
 
 .top-home {
     background: #85A0C0;
 }
-
 
 .back-service-provider {
     background: #F2F2F2;
@@ -49,8 +61,6 @@
     padding-bottom: 10px;
 }
 
-
-
 .marginLR20 {
     margin: 10px 1px;
 }
@@ -75,9 +85,9 @@
     width: 100%;
 }
 
-.error {
-    border:1px solid red;
-}
+/*.error {*/
+/*border: 1px solid red;*/
+/*}*/
 
 .servise-provider {
     background: white;
@@ -143,12 +153,6 @@
     display: inherit;
 }
 
-.registration-module div {
-    color: #2711b6;
-    text-align: center;
-    padding: 10px 0px;
-}
-
 .background-orange {
     background: #E46C0A;
 }
@@ -166,7 +170,7 @@
 }
 
 .rating-star {
-        width: 20%;
+    width: 20%;
 }
 
 .profile-poster {
@@ -201,4 +205,20 @@
     height: 100%;
 }
 
+.form-group p.error {
+    display: none;
+}
 
+.has-error input {
+    border: 1px solid #a94442;
+}
+
+.has-error p.error {
+    color: #a94442;
+    display: block;
+
+}
+
+.full-width {
+    width: 100%;
+}

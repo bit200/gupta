@@ -66,7 +66,6 @@ exports.tokens_list = function (req, res) {
  */
 exports.sign_in = function (req, res) {
     var params = m.getBody(req);
-    log('asdasdasdasdsadasdasd', params);
     m.findOne(User, {$or: [
         {username: params.login},
         {email: params.login}
@@ -99,7 +98,6 @@ exports.sign_up = function (req, res) {
         params.password = md5(params.password);
     }
     m.create(User, params, res, function (user) {
-        log('asd')
         mail.send_confirm(user);
         m.scb(user.publish(), res);
 //        mkdirp('../../public/img/user'+user._id);
