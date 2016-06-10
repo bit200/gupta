@@ -166,7 +166,6 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
         freelancer.cities_service = parseType.get(freelancer.cities, scope.locations);
         freelancer.content_type = parseType.get(freelancer.contents, scope.content);
         freelancer.languages = parseType.get(freelancer.languages, scope.language);
-        freelancer.type = freelancer.isagency ? 'Agency' : 'Freelancer';
         http.post('/freelancer', freelancer).then(function (resp) {
                 location.path('/home')
             }, function (err, r) {

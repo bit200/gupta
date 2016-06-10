@@ -6,25 +6,20 @@
         <div class="text-center text-bold padding20">Find and Claim your Agency Page</div>
     </div>
     <div class="row padding20">
-        <div class="inlineBlock col-xs-6">
-            <div class="inlineBlock">Agency Name</div>
-            <div class="inlineBlock">
-                <input class="form-control">
-            </div>
-        </div>
-        <div class="inlineBlock col-xs-5">
-            <div class="inlineBlock">City</div>
-            <div class="inlineBlock">
-                <input class="form-control">
-            </div>
-        </div>
-        <button class=" col-xs-1 inlineBlock background-orange btn text-white"><span
+        <div class="inlineBlock paddingR20">Agency Name</div>
+        <input class="form-control width35 inlineBlock marginR10">
+
+
+        <div class="inlineBlock paddingR20">City</div>
+        <input class="form-control width35 inlineBlock">
+
+        <button class="background-orange btn text-white btn-search"><span
                 class="glyphicon glyphicon-search"></span>
         </button>
     </div>
     <div class="row marginT20">
         <div>
-            <div class="text-bold padding20 inlineBlock width20 text-center text-white bg-primary"
+            <div class="text-bold padding20 inlineBlock width20 text-center text-white background-primary"
                  ng-repeat="(key, value) in agency[0]">
                 {{key}}
             </div>

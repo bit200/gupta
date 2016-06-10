@@ -59,15 +59,22 @@
 </div>
 <div class="row">
     <div class="col-xs-5">Job Visibility</div>
-    <div class="col-xs-7">
-        <div class="pointer" ng-click="job.public = true;job.private = false">
-            <input type="checkbox" ng-model="job.public" ng-click="job.private = false"> Public
+    <div class="form-group" ng-init="job.type='Public'">
+        <div class="radio-inline">
+            <label >
+                <input class="" type="radio" ng-model="job.type" value="Public">
+                Agency
+            </label>
         </div>
-        <div class="pointer" ng-click="job.private = true;job.public = false">
-            <input type="checkbox" ng-model="job.private" ng-click="job.public = false"> Private
+        <div class="radio-inline">
+            <label>
+                <input class="" type="radio" ng-model="job.type" value="Private">
+                Freelancer
+            </label>
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-xs-5">Expected Date of Completion</div>
     <div class="col-xs-3">

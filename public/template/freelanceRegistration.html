@@ -1,10 +1,19 @@
 <div class="row text-center text-bold">Agency/Freelancer Registration</div>
 <div class="row">I am</div>
-<div class="pointer" ng-click="freelancer.isfreelancer=false;freelancer.isagency=true">
-    <input type="checkbox" ng-model="freelancer.isagency"> Agency
-</div>
-<div class="pointer" ng-click="freelancer.isfreelancer=true;freelancer.isagency=false">
-    <input type="checkbox" ng-model="freelancer.isfreelancer"> Freelancer
+
+<div class="form-group" ng-init="freelancer.type='agency'">
+    <div class="radio-inline">
+        <label >
+            <input class="" type="radio" ng-model="freelancer.type" value="agency">
+            Agency
+        </label>
+    </div>
+    <div class="radio-inline">
+        <label>
+            <input class="" type="radio" ng-model="freelancer.type" value="freelancer">
+            Freelancer
+        </label>
+    </div>
 </div>
 <div class="row">
     <div class="text-bold">Freelancer Information</div>
