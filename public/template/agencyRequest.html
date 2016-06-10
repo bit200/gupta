@@ -1,34 +1,42 @@
-<form>
+<form name="claim" novalidate>
     <div class="row text-bold text-center marginT20">Claim your Agency - Request for a Business</div>
     <div class="row text-center text-bold marginTB20">Request for a Business user Account for <a class="pointer">{{choiceAgency}}</a>
     </div>
     <div class="row paddingB20">
-        <div class="col-xs-5 nopadding">
-            <div>first Name</div>
-            <input class="form-control" ng-model="agencyRequest.first_name" required>
+        <div class="form-group col-xs-5 nopadding" ng-class="{'has-error': submitted && claim.firstName.$invalid}">
+            <div>First Name</div>
+            <input class="form-control" name="firstName" ng-model="agencyRequest.first_name" required>
+            <p style="position: relative" class="error" ng-if="claim.firstName.$error.required">First Name is required</p>
+
         </div>
-        <div class="col-xs-6 col-xs-offset-1 nopadding">
+        <div class="form-group col-xs-6 col-xs-offset-1 nopadding" ng-class="{'has-error': submitted && claim.lastName.$invalid}">
             <div>Last Name</div>
-            <input class="form-control" ng-model="agencyRequest.last_name" required>
+            <input class="form-control" name="lastName" ng-model="agencyRequest.last_name" required>
+            <p style="position: relative" class="error" ng-if="claim.lastName.$error.required">Last Name is required</p>
+
         </div>
     </div>
-    <div class="row paddingB20">
+    <div class="row paddingB20 form-group" ng-class="{'has-error': submitted && claim.email.$invalid}">
         <div>Email Id</div>
         <input type="email" name="email" required class="form-control" ng-model="agencyRequest.email">
+        <p style="position: relative" class="error" ng-if="claim.email.$error.required">Email Id is required</p>
+
     </div>
-    <div class="row paddingB20">
+    <div class="row paddingB20" ng-class="{'has-error': submitted && claim.phone.$invalid}">
         <div>Phone Number</div>
-        <input phone-number class="form-control" ng-model="agencyRequest.phone" required>
+        <input phone-number class="form-control" name="phone" ng-model="agencyRequest.phone" required>
+        <p style="position: relative" class="error" ng-if="claim.phone.$error.required">Phone Number is required</p>
     </div>
-    <div class="row">
+    <div class="row" ng-class="{'has-error': submitted && claim.role.$invalid}">
         <div>Your role in the agency</div>
-        <input class="form-control" ng-model="agencyRequest.role" required>
+        <input class="form-control" name="role" ng-model="agencyRequest.role" required>
+        <p style="position: relative" class="error" ng-if="claim.role.$error.required">Your role in the agency is required</p>
     </div>
     <div class="row paddingB20">
         <input type="checkbox" ng-model="apply"> I have the authority to claim this account on behalf of the business
     </div>
     <div class="row">
-        <button type="submit" ng-disabled="!apply" class="btn background-orange" ng-click="sendRequest(agencyRequest)">
+        <button type="submit" ng-disabled="!apply" class="btn background-orange" ng-click="sendRequest(claim.$invalid,agencyRequest);submitted=true">
             Submit
         </button>
     </div>

@@ -124,9 +124,9 @@ XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams
     scope.send = true;
     scope.submitted = false;
     scope.button = 'Send';
-    scope.restore = function (valid, email) {
+    scope.restore = function (invalid, email) {
         scope.error = "";
-        if (valid) return;
+        if (invalid) return;
         scope.button = 'Wait';
         http.get('/send-restore', {params: {email: email}}).then(function (resp) {
             scope.send = false;
@@ -182,7 +182,8 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
         scope.requestBusiness = true;
     };
 
-    scope.sendRequest = function (data) {
+    scope.sendRequest = function (invalid, data) {
+        if (invalid) return
         scope.req = {
             data: data,
             agency: scope.choiceAgency
