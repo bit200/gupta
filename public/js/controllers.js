@@ -9,7 +9,8 @@ var XYZCtrls = angular.module('XYZCtrls', []);
 
 XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
     scope.auth = window.localStorage.getItem('accessToken');
-    scope.signin = function (data) {
+    scope.signin = function (invalid, data) {
+        if (invalid) return
         http.get('/sign-in', {params: {login: data.login, password: data.password}}).then(function (resp) {
                 if (resp.status == 200) {
                     localStorage.setItem('accessToken', resp.data.data.accessToken.value);
@@ -152,6 +153,7 @@ XYZCtrls.controller('confirmCtrl', ['$scope', '$location', '$http', '$routeParam
     http.get('/confirm', {params:{confirm_code:routeParams.confirmCode}}).then(function(resp){
             scope.text = 'Congratulations, you have verified your account';
         }, function (err) {
+            scope.error = true;
             scope.text = "Oops! Verification already carried out or an invalid verification code."
         });
 }]);

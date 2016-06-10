@@ -229,7 +229,8 @@
 .has-error p.error {
     color: #a94442;
     display: block;
-
+    position: absolute;
+    font-size: 12px;
 }
 
 .full-width {
@@ -239,4 +240,12 @@
 .btn-search {
     width: 7%;
     margin-bottom: 3px;
+}
+
+.success-text{
+    color: #279B61;
+}
+
+.error-text{
+    color: #993333;
 }

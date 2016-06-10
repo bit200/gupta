@@ -3,9 +3,10 @@
 
         <div class="form-group" ng-class="{'has-error': submitted && registr.username.$invalid}">
             <label>Username</label>
-            <input class="form-control" ng-enter="registration(reg)" name="username" ng-model="reg.username" required>
-            <p style="position: relative" class="error" ng-if="registr.username.$error.required">Username is
-                required</p>
+            <input class="form-control" ng-enter="registration(reg)" ng-minlength="4" name="username" ng-model="reg.username"  unique-username required>
+            <p class="error" ng-if="registr.username.$error.required">Username is required</p>
+            <p class="error" ng-if="!registr.username.$error.required && registr.username.$error.minlength">Min length is 4</p>
+            <p style="position: absolute;color: #a94442;"  ng-if="registr.username.$error.unique">Username already is taken</p>
         </div>
 
         <div class="form-group">
@@ -21,13 +22,13 @@
         <div class="form-group" ng-class="{'has-error': submitted && registr.password.$invalid}">
             <label>Password</label>
             <input class="form-control" ng-enter="registration(reg)" name="password" type="password" ng-model="reg.password" required>
-            <p style="position: relative" class="error" ng-if="registr.password.$error.required">Password is required</p>
+            <p class="error" ng-if="registr.password.$error.required">Password is required</p>
         </div>
 
         <div class="form-group" ng-class="{'has-error': submitted && registr.confirm.$invalid}">
             <label>Confirm Password</label>
             <input class="form-control" ng-enter="registration(reg)" type="password" name="confirm" ng-model="reg.confirm" data-password-verify="reg.password" required>
-            <p style="position: relative" class="error" ng-if="registr.confirm.$error.required">Confirm password is required</p>
+            <p class="error" ng-if="registr.confirm.$error.required">Confirm password is required</p>
         </div>
 
         <div class="form-group" ng-class="{'has-error': submitted && registr.email.$invalid}">
@@ -35,14 +36,14 @@
             <input class="form-control" name="email" type="email" ng-enter="registration(reg)" ng-model="reg.email"
                    ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
             required>
-            <p style="position: relative" class="error" ng-if="registr.email.$error.required">Email is required</p>
-            <p style="position: relative" class="error" ng-if="registr.email.$error.pattern">Email is invalid</p>
+            <p class="error" ng-if="registr.email.$error.required">Email is required</p>
+            <p class="error" ng-if="registr.email.$error.pattern">Email is invalid</p>
         </div>
 
         <div class="form-group" ng-class="{'has-error': submitted && registr.phone.$invalid}">
             <label>Number mobile phone</label>
             <input phone-number class="form-control" name="phone" ng-enter="registration(reg)" ng-model="reg.phone" required>
-            <p style="position: relative" class="error" ng-if="registr.phone.$error.required">Phone number is required</p>
+            <p class="error" ng-if="registr.phone.$error.required">Phone number is required</p>
         </div>
 
         <div class="form-group" ng-init="reg.sex='male'">
@@ -66,18 +67,9 @@
                 <br />
                 <a href="" ng-click="go('/forgot/email')">Forgot your password?</a>
             </div>
-
-            <!--Login-->
-            <!--Forgot your password?-->
-            <!--Not registered yet?-->
-
-            <!--Forgot your password-->
-            <!--Instructions have been sent to your email-->
-            <!--Go to Login-->
-
             <br />
             <div class="text-center">
-                <button type="submit" class="btn full-width btn-primary" ng-click="registration(registr.$invalid,reg);submitted=true;">Submit</button>
+                <button type="submit" class="btn full-width btn-primary" ng-disabled="registr.username.$loading" ng-click="registration(registr.$invalid,reg);submitted=true;">Submit</button>
             </div>
         </div>
     </form>

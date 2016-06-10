@@ -88,3 +88,21 @@ XYZCtrls.directive("passwordVerify", function() {
         }
     };
 });
+
+XYZCtrls.directive('uniqueUsername', function($http) {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
+            element.bind('blur', function (e) {
+                if (element.val().length < 4) return;
+                ngModel.$loading = true;
+
+                $http.get("/api/checkUnique?username=" + element.val()).success(function(data) {
+                    ngModel.$loading = false;
+                    ngModel.$setValidity('unique', !data.count);
+                });
+            });
+        }
+    };
+})

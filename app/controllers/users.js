@@ -303,3 +303,11 @@ exports.facebookSignin = function (req, res) {
         }
     );
 }
+
+exports.check_unique = function(req,res){
+  var username = req.query.username || '';
+  models.User.count({username: username}).exec(function(err, count){
+      res.status(200).json({count: count});
+  })
+
+};

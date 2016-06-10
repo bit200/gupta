@@ -14,4 +14,5 @@ module.exports = function (app) {
     app.post("/facebookSignin", users.facebookSignin);
     app.post("/linkedinSignin", users.linkedinSignin);
     app.post("/googleSignin", users.googleSignin);
+    app.get("/api/checkUnique/", users.check_unique)
 };
