@@ -81,7 +81,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 }
             })
             .when('/post-job', {
-                templateUrl: 'template/PostJob.html',
+                templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
                 resolve: {
                     auth: checkAuthCtrl,

@@ -1,34 +1,36 @@
 <div>
     <div class="row text-bold text-center">
-        <div class="col-xs-10"> 12 Cross Home Page</div>
-        <div class="col-xs-2 pointer text-right" ng-click="logout()">Logout</div>
+        <div class="col-sm-10 text-center"> 12 Cross Home Page</div>
+        <div class="col-sm-2 pointer text-right" ng-click="logout()">Logout</div>
     </div>
 
     <div class="row top-home">
-        <div class="col-xs-12  text-center text-bolder">Banner image</div>
-        <div class="col-xs-12 padding20">
-            <div class="col-xs-5 text-right">I am looking for a</div>
-            <input class="col-xs-4" placeholder="Content Writer in Bangalore">
+        <div class="col-sm-12  text-center text-bolder">Banner image</div>
+        <div class="col-sm-12 padding20">
+            <div class="col-sm-4 text-right padding7">I am looking for a</div>
+            <div class="col-sm-7">
+                <input class="form-control" placeholder="Content Writer in Bangalore">
+            </div>
         </div>
     </div>
     <div class="row back-service-provider">
-        <div class="col-xs-12 text-center text-bolder">Find Service Providers</div>
+        <div class="col-sm-12 text-center text-bolder">Find Service Providers</div>
         <div class="marginLR20" ng-repeat="item in arrayProviders">
-            <div class="servise-provider">{{item}}</div>
+            <div class="service-provider">{{item}}</div>
         </div>
     </div>
     <div class="row marginB30">
         <div class=" text-center text-bolder marginTB20"> Featured Profiles</div>
-        <div class="col-xs-3" ng-repeat="profile in profiles">
+        <div class="col-md-3 col-sm-6" ng-repeat="profile in profiles">
             <div class="profile">
                 <img ng-if="profile.poster" class="profile-poster" ng-src="{{profile.poster}}">
 
                 <div class="text-center">{{profile.name}}</div>
-                <div class="col-xs-12">
+                <div class="col-sm-12">
                 <span ng-repeat="star in profile.rating track by $index " class="rating-star glyphicon"
                       ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-sm-12">
                     <div class="block-popularity" ng-repeat="elem in profile.popularity track by $index"
                          ng-class="{'green-popularity': elem,'lime-popularity': !elem}"></div>
                 </div>
@@ -36,12 +38,32 @@
         </div>
     </div>
     <div class="row">
-        <button class="background-orange btn text-white button-home-register " ng-click="link('/post-job')">POST JOB(test)</button>
-        <button class="background-orange btn text-white button-home-register " ng-click="link('/freelancer-registration')">Register freelancer(test)</button>
-        <button class="background-orange btn text-white button-home-register " ng-click="link('/agency')">Agency page(test)</button>
+        <div class="ng-cloak" ng-controller="testCtrl as ctrl">
+            <h3>Array of objects (sorting enabled)</h3>
+            <ui-select multiple ng-model="ctrl.multipleDemo.selectedPeople" sortable="true" close-on-select="false" style="width: 800px;">
+                <ui-select-match placeholder="Select person...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
+                <ui-select-choices repeat="person in ctrl.people | propsFilter: {name: $select.search, age: $select.search}">
+                    <div ng-bind-html="person.name | highlight: $select.search"></div>
+                    <small>
+                        email: {{person.email}}
+                        age: <span ng-bind-html="''+ person.age | highlight: $select.search"></span>
+                    </small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <button class="background-orange btn text-white button-home-register " ng-click="link('/post-job')">POST
+            JOB(test)
+        </button>
+        <button class="background-orange btn text-white button-home-register "
+                ng-click="link('/freelancer-registration')">Register freelancer(test)
+        </button>
+        <button class="background-orange btn text-white button-home-register " ng-click="link('/agency')">Agency
+            page(test)
+        </button>
     </div>
     <div class="row back-service-provider">
-        <div class="col-xs-12 text-center text-bolder">Trending Jobs</div>
+        <div class="col-sm-12 text-center text-bolder">Trending Jobs</div>
         <div>
             <div class="text-bold inlineBlock width20 text-center grey-text" ng-repeat="(key, value) in jobs[0]">
                 {{key}}
@@ -52,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-offset-10 text-right"><a>View All Jobs</a></div>
+        <div class="col-sm-offset-8 col-sm-4 text-right"><a>View All Jobs</a></div>
     </div>
     <div class="row communitySP background-black">
         <div class="text-center text-bolder text-white">Join our Community of Service Providers</div>
@@ -60,8 +82,8 @@
     </div>
 
     <div class="row background-lime">
-        <div class="col-xs-4 text-bold"> 12 Cross</div>
-        <div class="col-xs-4"> 4,000 Members</div>
-        <div class="col-xs-4"> 150 Jobs Posted</div>
+        <div class="col-sm-4 text-bold"> 12 Cross</div>
+        <div class="col-sm-4"> 4,000 Members</div>
+        <div class="col-sm-4"> 150 Jobs Posted</div>
     </div>
 </div>

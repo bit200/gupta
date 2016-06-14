@@ -32,6 +32,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
 }]);
 
 XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+
     scope.registration = function (invalid, data) {
         if (invalid) return
         http.post('/sign-up', data).then(function (resp) {
@@ -79,21 +80,44 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
 
     scope.jobs = [
         {
-            'Job Title': 'werwerwerwerwe',
-            'Job Category': 'erwerwerwerwerwer',
-            'Job Specifics': 'zxcxzczxczxczxczx',
-            'Location Preference': '124rwr124rwrq',
-            'Budget(max)': 2352323423
+            'Job Title': 'Hard job',
+            'Job Category': 'hard',
+            'Job Specifics': 'Nothing',
+            'Location Preference': '1 24rw r124rwrq',
+            'Budget(max)': 20
         },
         {
-            'Job Title': 'piopiopiopiop',
-            'Job Category': 'k;kl;kl;kl;kl',
-            'Job Specifics': 'ghjhjghjghjghj',
-            'Location Preference': 'i76iuyiy7iy',
-            'Budget(max)': 676786786786
+            'Job Title': 'Easy job',
+            'Job Category': 'easy',
+            'Job Specifics': 'Just do it',
+            'Location Preference': 'i76iuy iy7iy',
+            'Budget(max)': 9999999999999
         }
     ]
 
+
+}]);
+
+XYZCtrls.controller('testCtrl', ['$scope', '$location', '$http',function (scope, location, http) {
+    var vm = this;
+    console.log('sdf')
+    vm.people = [
+        { name: 'Adam',      email: 'adam@email.com',      age: 12, country: 'United States' },
+        { name: 'Amalie',    email: 'amalie@email.com',    age: 12, country: 'Argentina' },
+        { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
+        { name: 'Adrian',    email: 'adrian@email.com',    age: 21, country: 'Ecuador' },
+        { name: 'Wladimir',  email: 'vladimir@email.com',  age: 30, country: 'Ecuador' },
+        { name: 'Samantha',  email: 'samantha@email.com',  age: 30, country: 'United States' },
+        { name: 'Nicole',    email: 'nicole@email.com',    age: 43, country: 'Colombia' },
+        { name: 'Natasha',   email: 'natasha@email.com',   age: 54, country: 'Ecuador' },
+        { name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
+        { name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
+    ];
+    vm.multipleDemo = {};
+    vm.multipleDemo.selectedPeople = [vm.people[5], vm.people[4]];
+    vm.multipleDemo.selectedPeople2 = vm.multipleDemo.selectedPeople;
+    vm.multipleDemo.selectedPeopleWithGroupBy = [vm.people[8], vm.people[6]];
+    vm.multipleDemo.selectedPeopleSimple = ['samantha@email.com','vladimir@email.com'];
 }]);
 
 XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {

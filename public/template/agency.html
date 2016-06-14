@@ -5,23 +5,33 @@
     <div class="row">
         <div class="text-center text-bold padding20">Find and Claim your Agency Page</div>
     </div>
-    <div class="row padding20">
-        <div class="inlineBlock paddingR20">Agency Name</div>
-        <input class="form-control width35 inlineBlock marginR10">
+    <div class="row">
+        <div class="col-md-10 col-xs-12">
+            <div class="col-md-6 col-xs-12">
+                <div class="col-md-3 col-xs-12 agency-text padding7 padding-top">Agency Name</div>
+                <div class="col-md-9 col-xs-12 nopadding">
+                    <input class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
 
-
-        <div class="inlineBlock paddingR20">City</div>
-        <input class="form-control width35 inlineBlock">
-
-        <button class="background-orange btn text-white btn-search"><span
-                class="glyphicon glyphicon-search"></span>
+                <div class="col-md-3 col-xs-12 agency-text padding7">City</div>
+                <div class="col-md-9 col-xs-12 nopadding">
+                    <input class="form-control">
+                </div>
+            </div>
+        </div>
+        <button class=" col-md-2 col-xs-offset-1 col-xs-10 background-orange btn text-white btn-search">
+            <span class="glyphicon glyphicon-search"></span>
         </button>
     </div>
     <div class="row marginT20">
         <div>
-            <div class="text-bold padding20 inlineBlock width20 text-center text-white background-primary"
-                 ng-repeat="(key, value) in agency[0]">
-                {{key}}
+            <div class="background-primary">
+                <div class="text-bold inlineBlock width20 text-center text-white "
+                     ng-repeat="(key, value) in agency[0]">
+                    {{key}}
+                </div>
             </div>
             <div ng-repeat="item in agency">
                 <div class="inlineBlock width20 text-center agency-item">{{item.Logo}}</div>
