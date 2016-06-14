@@ -1,87 +1,118 @@
 <div class="text-center text-bold"> Post a Job</div>
-        <div class="row">
-<div>Job Title</div>
-<input class="form-control border-blue" ng-model="job.title">
+<form name="postjob" novalidate>
+    <div class="row form-group" ng-class="{'has-error': submitted && postjob.title.$invalid}">
+        <div>Job Title</div>
+        <input class="form-control border-blue" name="title" ng-model="job.title" required>
+        <p class="error" ng-if="postjob.title.$error.required">Job Title is required</p>
+    </div>
+    <div class="row">
+        <div class="text-bold">Which of the following Content Types are you looking for?</div>
+        <div>
+            <div ng-repeat="item in contentTypes">
+                <input type="checkbox" ng-model="job.content[arrayProvidersModel[$index]]"> {{item}}
+            </div>
         </div>
-<div class="row">
-<div class="text-bold">Which of the following Content Types are you looking for?</div>
-<div>
-    <div ng-repeat="item in contentTypes">
-        <input type="checkbox" ng-model="job.content[arrayProvidersModel[$index]]"> {{item}}
     </div>
-</div>
+    <div class="row form-group" ng-class="{'has-error': submitted && postjob.description.$invalid}">
+        <div class="text-bold">Provide a description of your requirements</div>
+        <input class="form-control" name="description" ng-model="job.description" required>
+        <p class="error" ng-if="postjob.description.$error.required">Provide a description of your requirements is
+            required</p>
     </div>
-<div class="row">
-    <div class="text-bold">Provide a description of your requirements</div>
-    <input class="form-control" ng-model="job.description">
-</div>
-<div class="row">
-    <div class="text-bold">Do you have a location preference?</div>
-    <div class="border-blue col-xs-4">
-    <div ng-repeat="location in locations">
-        <input type="checkbox" ng-model="job.location[location]"> {{location}}
+    <div class="row">
+        <div class="text-bold">Do you have a location preference?</div>
+        <div class="border-blue col-xs-4">
+            <div ng-repeat="location in locations">
+                <input type="checkbox" ng-model="job.location[location]"> {{location}}
 
+            </div>
+        </div>
     </div>
-    </div>
-</div>
-<div class="row">
-    <div class="text-bold">Do you have a preference for a type of professional</div>
-    <div class="pointer" ng-click="job.agency = true;job.freelancer = false">
-        <input type="checkbox" ng-click="job.freelancer = false" ng-model="job.agency"> Agency
-    </div>
-    <div class="pointer" ng-click="job.freelancer = true;job.agency = false">
-        <input type="checkbox" ng-click="job.agency = false" ng-model="job.freelancer"> Freelancer
-    </div>
-</div>
-<div class="row">
-    <div>What is your budget for this marketing campaign</div>
-    <input class="form-control" numbers-only ng-model="job.budget">
-</div>
-<div class="row">
-    <div>Name</div>
-    <input class="form-control" ng-model="job.name">
-</div>
-<div class="row">
-    <div>mobile</div>
-    <input phone-number class="form-control" ng-model="job.mobile">
-</div>
-<div class="row">
-    <div>Email</div>
-    <input type="email" class="form-control" ng-model="job.email">
-</div>
-<div class="row">
-    <div>Company name</div>
-    <input class="form-control" ng-model="job.company_name">
-</div>
-<div class="row">
-    <div>Website URL</div>
-    <input class="form-control" ng-model="job.website">
-</div>
-<div class="row">
-    <div class="col-xs-5">Job Visibility</div>
-    <div class="form-group" ng-init="job.type='Public'">
+    <div class="row" ng-init="job.type = 'Agency'">
+        <div class="text-bold">Do you have a preference for a type of professional</div>
+        <!--<div class="pointer" ng-click="job.agency = true;job.freelancer = false">-->
+        <!--<input type="checkbox" ng-click="job.freelancer = false" ng-model="job.agency"> Agency-->
+        <!--</div>-->
+        <!--<div class="pointer" ng-click="job.freelancer = true;job.agency = false">-->
+        <!--<input type="checkbox" ng-click="job.agency = false" ng-model="job.freelancer"> Freelancer-->
+        <!--</div>-->
         <div class="radio-inline">
-            <label >
-                <input class="" type="radio" ng-model="job.type" value="Public">
+            <label>
+                <input class="" type="radio" ng-model="job.type" value="Agency">
                 Agency
             </label>
         </div>
         <div class="radio-inline">
             <label>
-                <input class="" type="radio" ng-model="job.type" value="Private">
+                <input class="" type="radio" ng-model="job.type" value="Freelancer">
                 Freelancer
             </label>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-5">Expected Date of Completion</div>
-    <div class="col-xs-3">
-        <input type="date" class="form-control border-blue" ng-model="job.date_of_completion">
+    <div class="row form-group" ng-class="{'has-error': submitted && postjob.budget.$invalid}">
+        <div>What is your budget for this marketing campaign</div>
+        <input class="form-control" name="budget" numbers-only ng-model="job.budget" required>
+        <p class="error" ng-if="postjob.budget.$error.required">Budget is required</p>
     </div>
-</div>
-<div class="row">
-    <button class="background-orange btn" ng-click="addJob(job)">Submit</button>
-</div>
+    <div class="row form-group">
+        <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.name.$invalid}">
+            <div>Name</div>
+            <input class="form-control" name="name" ng-model="job.name" required>
+            <p class="error" ng-if="postjob.name.$error.required">Name is required</p>
+        </div>
+        <div class="form-group col-md-5 col-md-offset-1 col-sm-12 nopadding"
+             ng-class="{'has-error': submitted && postjob.mobile.$invalid}">
+            <div>Mobile phone number</div>
+            <input phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
+            <p class="error" ng-if="postjob.mobile.$error.required">Mobile phone number is required</p>
+        </div>
+    </div>
+    <div class="row form-group ">
+        <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.email.$invalid}">
+            <div>Email</div>
+            <input type="email" class="form-control" name="email" ng-model="job.email" required>
+            <p class="error" ng-if="postjob.email.$error.required">Email is required</p>
+        </div>
+        <div class="col-md-5 col-md-offset-1 col-sm-12 nopadding"
+             ng-class="{'has-error': submitted && postjob.company.$invalid}">
+            <div>Company name</div>
+            <input class="form-control" name="company" ng-model="job.company_name" required>
+            <p class="error" ng-if="postjob.company.$error.required">Company name is required</p>
+        </div>
+    </div>
 
+    <div class="row">
+        <div>Website URL</div>
+        <input class="form-control" ng-model="job.website">
+    </div>
+    <div class="row">
+        <div class="col-xs-5">Job Visibility</div>
+        <div class="form-group" ng-init="job.job_visibility = 'Public'">
+            <div class="radio-inline">
+                <label>
+                    <input class="" type="radio" ng-model="job.job_visibility" value="Public">
+                    Public
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input class="" type="radio" ng-model="job.job_visibility" value="Private">
+                    Private
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-5">Expected Date of Completion</div>
+        <div class="col-xs-3">
+            <input type="date" class="form-control border-blue" ng-model="job.date_of_completion">
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit" class="background-orange btn text-white"
+                ng-click="addJob(postjob.$invalid,job); submitted=true">Submit
+        </button>
+        <a href="/#/home" class="btn btn-danger">Cancel</a></button>
+    </div>
+</form>

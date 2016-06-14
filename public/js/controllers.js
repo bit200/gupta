@@ -10,7 +10,7 @@ var XYZCtrls = angular.module('XYZCtrls', []);
 XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
     scope.auth = window.localStorage.getItem('accessToken');
     scope.signin = function (invalid, data) {
-        if (invalid) return
+        if (invalid) return;
         http.get('/sign-in', {params: {login: data.login, password: data.password}}).then(function (resp) {
                 if (resp.status == 200) {
                     localStorage.setItem('accessToken', resp.data.data.accessToken.value);
@@ -98,27 +98,6 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
 
 }]);
 
-XYZCtrls.controller('testCtrl', ['$scope', '$location', '$http',function (scope, location, http) {
-    var vm = this;
-    console.log('sdf')
-    vm.people = [
-        { name: 'Adam',      email: 'adam@email.com',      age: 12, country: 'United States' },
-        { name: 'Amalie',    email: 'amalie@email.com',    age: 12, country: 'Argentina' },
-        { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
-        { name: 'Adrian',    email: 'adrian@email.com',    age: 21, country: 'Ecuador' },
-        { name: 'Wladimir',  email: 'vladimir@email.com',  age: 30, country: 'Ecuador' },
-        { name: 'Samantha',  email: 'samantha@email.com',  age: 30, country: 'United States' },
-        { name: 'Nicole',    email: 'nicole@email.com',    age: 43, country: 'Colombia' },
-        { name: 'Natasha',   email: 'natasha@email.com',   age: 54, country: 'Ecuador' },
-        { name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
-        { name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
-    ];
-    vm.multipleDemo = {};
-    vm.multipleDemo.selectedPeople = [vm.people[5], vm.people[4]];
-    vm.multipleDemo.selectedPeople2 = vm.multipleDemo.selectedPeople;
-    vm.multipleDemo.selectedPeopleWithGroupBy = [vm.people[8], vm.people[6]];
-    vm.multipleDemo.selectedPeopleSimple = ['samantha@email.com','vladimir@email.com'];
-}]);
 
 XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.job = {
@@ -130,11 +109,10 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
 
     scope.arrayProvidersModel = parseType.getModel(scope.contentTypes);
 
-    scope.addJob = function (job) {
+    scope.addJob = function (invalid,job) {
+        if (invalid) return
         job.content_types = parseType.get(job.content, scope.contentTypes);
         job.local_preference = parseType.get(job.location, scope.locations);
-        job.job_visibility = job.private ? job.private : job.public;
-        job.type = job.agency ? 'Agency' : 'Freelancer';
         http.post('/job', job).then(function (resp) {
                 location.path('/home')
             }, function (err, r) {
@@ -190,10 +168,12 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
     scope.freelancerType = getContent.freelancerType.data.data;
     scope.locations = getContent.locations.data.data;
     scope.experience = _.range(51);
+    scope.extras = [];
 
     scope.contentModel = parseType.getModel(scope.content);
 
-    scope.register = function (freelancer) {
+    scope.register = function (invalid, freelancer) {
+        if (invalid) return;
         freelancer.freelancer_type = parseType.getByNumber(freelancer.type, scope.freelancerType);
         freelancer.industry_expertise = parseType.getByNumber(freelancer.industries, scope.industry);
         freelancer.cities_service = parseType.get(freelancer.cities, scope.locations);
@@ -205,14 +185,24 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
             }
         )
     };
+    
+    scope.addPackage = function(bol) {
+        scope.viewModal = bol
+    }
+    scope.custom = {};
+    scope.submitExtra = function(invalid,extra) {
+        if (invalid) return;
+        scope.extras.push(extra);
+        scope.custom = {};
+    }
 }]);
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.requestBusiness = false;
     scope.agency = parseType.agency(getContent.agency.data.data);
-    scope.claim = function (agency) {
+    scope.claim = function (agency, bol) {
         scope.choiceAgency = agency;
-        scope.requestBusiness = true;
+        scope.requestBusiness = bol;
     };
 
     scope.sendRequest = function (invalid, data) {

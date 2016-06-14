@@ -38,26 +38,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="ng-cloak" ng-controller="testCtrl as ctrl">
-            <h3>Array of objects (sorting enabled)</h3>
-            <ui-select multiple ng-model="ctrl.multipleDemo.selectedPeople" sortable="true" close-on-select="false" style="width: 800px;">
-                <ui-select-match placeholder="Select person...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
-                <ui-select-choices repeat="person in ctrl.people | propsFilter: {name: $select.search, age: $select.search}">
-                    <div ng-bind-html="person.name | highlight: $select.search"></div>
-                    <small>
-                        email: {{person.email}}
-                        age: <span ng-bind-html="''+ person.age | highlight: $select.search"></span>
-                    </small>
-                </ui-select-choices>
-            </ui-select>
-        </div>
-
         <button class="background-orange btn text-white button-home-register " ng-click="link('/post-job')">POST
             JOB(test)
         </button>
-        <button class="background-orange btn text-white button-home-register "
-                ng-click="link('/freelancer-registration')">Register freelancer(test)
-        </button>
+
         <button class="background-orange btn text-white button-home-register " ng-click="link('/agency')">Agency
             page(test)
         </button>
@@ -78,7 +62,7 @@
     </div>
     <div class="row communitySP background-black">
         <div class="text-center text-bolder text-white">Join our Community of Service Providers</div>
-        <button class="background-orange btn text-white button-home-register">Register with us</button>
+        <button class="col-xs-4 col-xs-offset-4 background-orange btn text-white button-home-register" ng-click="link('/freelancer-registration')">Register with us</button>
     </div>
 
     <div class="row background-lime">
