@@ -1,3 +1,7 @@
+html {
+    overflow-y: scroll;
+}
+
 .block-center {
     display: inline-block;
     position: absolute;
@@ -377,6 +381,12 @@
     position: relative;
     z-index: 99;
     overflow: hidden;
+    transition: all 0.8s;
+}
+
+.user-topic.topic-close {
+    height: 30px;
+    transition: all 0.8s;
 }
 
 .user-topic-top {
@@ -394,7 +404,7 @@
     height: 160px;
     overflow: auto;
     width: 106%;
-    padding-left: 10px;
+        padding-left: 10px;
 }
 
 .user-topic-input {
@@ -422,3 +432,4 @@
 .user-block-bottom {
     padding: 10px;
 }
+

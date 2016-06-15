@@ -33,13 +33,13 @@
 </div>
 <div class="row">
     <div class="col-md-3 nopadding">
-        <div class="full-width user-topic border-grey marginT20">
+        <div class="full-width user-topic border-grey marginT20" ng-class="{'topic-close':close.topic}">
             <div class="full-width user-topic-top">
                 <span class="glyphicon glyphicon-th-list"></span>
                 <span>Topics</span>
-                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}" aria-hidden="true" ng-click="close.topic = !close.topic"></i>
             </div>
-            <div class="user-topic-bottom">
+            <div class="user-topic-bottom"  toggle="close.topic">
                 <div class="full-width">
                     <div class="width75 inlineBlock">
                         <input class="form-control user-topic-input" placeholder="Search by Service Provided">
@@ -59,9 +59,9 @@
         <div class="full-width user-block marginT20 border-grey">
             <div class="user-block-top">
                 <span>Blogger Type</span>
-                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.blogger,'fa-chevron-up':close.blogger}" aria-hidden="true" ng-click="close.blogger = !close.blogger"></i>
             </div>
-            <div class="user-block-bottom">
+            <div class="user-block-bottom" toggle="close.blogger">
                 <div><input type="checkbox" ng-model="filter.blogs.web"> Web Blogs</div>
                 <div><input type="checkbox" ng-model="filter.blogs.video"> Video Blogs</div>
                 <div><input type="checkbox" ng-model="filter.blogs.social"> Social Influencer</div>
@@ -71,20 +71,20 @@
         <div class="full-width user-block marginT20 border-grey">
             <div class="user-block-top">
                 <span>Web Blogs</span>
-                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.web,'fa-chevron-up': close.web}" aria-hidden="true" ng-click="close.web = !close.web"></i>
             </div>
-            <div class="user-block-bottom">
-                <div>Monthly <Traffic></Traffic></div>
-                <div>---------------O---------------------------------</div>
+            <div class="user-block-bottom" toggle="close.web">
+                <div>Monthly Traffic</div>
+                <rzslider rz-slider-model="slider.web.minValue" rz-slider-high="slider.web.maxValue" rz-slider-options="slider.web.options"></rzslider>
             </div>
         </div>
 
         <div class="full-width user-block marginT20 border-grey">
             <div class="user-block-top">
                 <span>Social Media</span>
-                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.social,'fa-chevron-up': close.social}" aria-hidden="true" ng-click="close.social = !close.social"></i>
             </div>
-            <div class="user-block-bottom">
+            <div class="user-block-bottom" toggle="close.social">
                 <div>Social Media Channels</div>
                 <div><input type="checkbox" ng-model="filter.social.facebook"> Facebook</div>
                 <div><input type="checkbox" ng-model="filter.social.twiter"> Twitter</div>
@@ -99,9 +99,9 @@
         <div class="full-width user-block marginT20 border-grey">
             <div class="user-block-top">
                 <span>Video</span>
-                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.video,'fa-chevron-up': close.video}" aria-hidden="true" ng-click="close.video = !close.video"></i>
             </div>
-            <div class="user-block-bottom">
+            <div class="user-block-bottom" toggle="close.video">
                 <div>Subscribers</div>
                 <rzslider rz-slider-model="slider.video.minValue" rz-slider-high="slider.video.maxValue" rz-slider-options="slider.video.options"></rzslider>
             </div>
@@ -110,9 +110,9 @@
         <div class="full-width user-block marginT20 border-grey">
             <div class="user-block-top">
                 <span>Geography</span>
-                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.geography,'fa-chevron-up': close.geography}" aria-hidden="true" ng-click="close.geography = !close.geography"></i>
             </div>
-            <div class="user-block-bottom">
+            <div class="user-block-bottom" toggle="close.geography">
                 <div><input type="checkbox" ng-model="filter.location.bangalore"> Bangalore</div>
                 <div><input type="checkbox" ng-model="filter.location.mumbai"> Mumbai</div>
                 <div><input type="checkbox" ng-model="filter.location.delhi"> Delhi</div>

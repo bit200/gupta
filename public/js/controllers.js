@@ -104,14 +104,57 @@ XYZCtrls.controller('userCtrl', ['$scope', '$location', '$http','$q', 'getConten
 
     scope.slider = {
         video: {
-            minValue: 10,
-            maxValue: 90,
+            minValue: 20000,
+            maxValue: 800000,
             options: {
                 floor: 0,
-                ceil: 100,
+                ceil: 1000000,
                 step: 1,
                 noSwitching: true,
-                getPointerColor: #F1f1f1
+                showSelectionBar: true,
+                getPointerColor: function(value) {
+                    return '#B9B6B9';
+                },
+                getSelectionBarColor: function(value) {
+                    return '#B9B6B9';
+                },
+                translate: function(value) {
+                    if (value < 1000) {
+                        return value
+                    }
+                    if (value < 1000000) {
+                        return value/1000 + 'k'
+                    }
+
+                    return value/1000000 + 'm';
+                }
+            }
+        },
+        web: {
+            minValue: 20000,
+            maxValue: 800000,
+            options: {
+                floor: 0,
+                ceil: 1000000,
+                step: 1,
+                noSwitching: true,
+                showSelectionBar: true,
+                getPointerColor: function(value) {
+                    return '#B9B6B9';
+                },
+                getSelectionBarColor: function(value) {
+                    return '#B9B6B9';
+                },
+                translate: function(value) {
+                    if (value < 1000) {
+                        return value
+                    }
+                    if (value < 1000000) {
+                        return value/1000 + 'k'
+                    }
+
+                    return value/1000000 + 'm';
+                }
             }
         }
     }
