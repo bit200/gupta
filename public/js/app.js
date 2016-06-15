@@ -5,7 +5,8 @@
 var XYZApp = angular.module('XYZApp', [
     'ngRoute',
     'XYZCtrls',
-    'rzModule'
+    'rzModule',
+    'ui.select'
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider',

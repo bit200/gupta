@@ -110,7 +110,15 @@ module.exports = function(done){
 
         arrFunc.push(function (cb) {
             var arr = ['Mumbai', 'Delhi', 'Bangalore'];
-            findCreateFilter('Location', '', arr, cb)
+            var count = 0;
+            _.forEach(arr, function (item) {
+                m.findCreate(models.Location, {name: item}, {isActive: 1}, {}, function () {
+                    count++;
+                    if (arr.length == count) {
+                        cb()
+                    }
+                })
+            });
         });
 
         arrFunc.push(function (cb) {
@@ -118,13 +126,6 @@ module.exports = function(done){
                 'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
             findCreateFilter('FreelancerType', '', arr, cb)
         });
-
-        arrFunc.push(function (cb) {
-            var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
-                'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
-            findCreateFilter('FreelancerType', '', arr, cb)
-        });
-
 
         arrFunc.push(function (cb) {
             var arr = [

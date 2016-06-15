@@ -433,6 +433,7 @@ div.block-popularity {
     margin-top: 10%;
 }
 
+<<<<<<< Updated upstream
 .user-search {
     background: transparent;
     width: 60%;
@@ -531,6 +532,9 @@ div.block-popularity {
     left: 4%;
 }
 
+.ui-select-container {
+    min-height: 34px;
+}
 @media (max-width: 500px) {
     .modal-block-button > button {
         font-size: 9pt;

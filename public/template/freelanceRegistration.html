@@ -1,171 +1,186 @@
-
 <div>
-    <div class="row text-center text-bold">Agency/Freelancer Registration</div>
-    <div class="row">I am</div>
+    <h1 class="row text-center text-bold">Agency/Freelancer Registration</h1>
     <form name="freelancerRegistration" novalidate>
-        <div class="form-group" ng-init="freelancer.type='agency'">
-            <div class="radio-inline">
-                <label>
-                    <input type="radio" ng-model="freelancer.type" value="agency">
-                    Agency
-                </label>
-            </div>
-            <div class="radio-inline">
-                <label>
-                    <input type="radio" ng-model="freelancer.type" value="freelancer">
-                    Freelancer
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="text-bold">Freelancer Information</div>
-            <div>Please provide brief information</div>
-        </div>
-        <div class="form-group nopadding row"
-             ng-class="{'has-error': submitted && freelancerRegistration.name.$invalid}">
-            <div>Name</div>
-            <input class="form-control" name="name" ng-model="freelancer.name" required>
-            <p class="error" ng-if="freelancerRegistration.name.$error.required">Name is required</p>
-        </div>
-        <div class="form-group nopadding row"
-             ng-class="{'has-error': submitted && freelancerRegistration.introduction.$invalid}">
-            <div>Provide a short introduction of you (10-15 words)</div>
-            <input class="form-control" name="introduction" ng-model="freelancer.introduction" required>
-            <p class="error" ng-if="freelancerRegistration.introduction.$error.required">Introduction of you is
-                required</p>
-        </div>
-        <div class="form-group nopadding row"
-             ng-class="{'has-error': submitted && freelancerRegistration.description.$invalid}">
-            <div>Why should an organization pick you from many others?(your 200 words sales pitch)</div>
-            <input class="form-control" name="description" ng-model="freelancer.description" required>
-            <p class="error" ng-if="freelancerRegistration.description.$error.required">This field is required</p>
-        </div>
-        <div class="row">
-            <div>Location</div>
-            <div class="col-xs-6 nopadding">
-                <select class="form-control" ng-model="freelancer.location">
-                    <option ng-repeat="item in locations" value="{{item}}">{{item}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div>Cities where you can service</div>
-            <div ng-repeat="item in locations">
-                <input type="checkbox" ng-model="freelancer.cities[item]"> {{item}}
-            </div>
-        </div>
-        <div class="row">
-            <div>Years of Experience (in years)</div>
-            <div class="col-xs-1 nopadding">
-                <select class="form-control" ng-model="freelancer.experience">
-                    <option ng-repeat="item in experience" value="{{item}}">{{item}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div>I want to register as a freelancer in</div>
-            <div ng-repeat="item in freelancerType">
-                <input type="checkbox" ng-model="freelancer.type[$index]"> {{item}}
+        <div class="row" ng-init="freelancer.type='agency'">
+            <div class="col-md-12">
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" ng-model="freelancer.type" value="agency">
+                        Agency
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" ng-model="freelancer.type" value="freelancer">
+                        Freelancer
+                    </label>
+                </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="text-center text-bold">Freelancer Registration</div>
-        </div>
-        <div class="row">
-            <div class=col-xs-6>
-                <div class="text-bold">Content Writing</div>
-                <div>Please provide information about the Content Writing services you offer</div>
-                <div class="row">
-                    <div class="text-bold">Industry Expertise (select top 5)</div>
-                    <div ng-repeat="item in industry">
-                        <input type="checkbox" ng-model="freelancer.industries[$index]"> {{item}}
-                    </div>
+            <div class="col-md-6">
+                <h3 class="text-bold">Freelancer Information</h3>
+                <p>Please provide brief information</p>
+
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.name.$invalid}">
+                    <div>Name</div>
+                    <input class="form-control" name="name" ng-model="freelancer.name" required>
+                    <p class="error" ng-if="freelancerRegistration.name.$error.required">Name is required</p>
                 </div>
-                <div class="row">
-                    <div class="text-bold">Content Type</div>
-                    <div ng-repeat="item in content">
-                        <input type="checkbox" ng-model="freelancer.contents[contentModel[$index]]"> {{item}}
-                    </div>
+
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.introduction.$invalid}">
+                    <div>Provide a short introduction of you (10-15 words)</div>
+                    <input class="form-control" name="introduction" ng-model="freelancer.introduction" required>
+                    <p class="error" ng-if="freelancerRegistration.introduction.$error.required">Introduction of you is required</p>
                 </div>
-                <div class="row">
-                    <div class="text-bold">Languages in which u write</div>
-                    <div ng-repeat="item in language">
-                        <input type="checkbox" ng-model="freelancer.languages[item]"> {{item}}
-                    </div>
+
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.description.$invalid}">
+                    <div>Why should an organization pick you from many others?(your 200 words sales pitch)</div>
+                    <input class="form-control" name="description" ng-model="freelancer.description" required>
+                    <p class="error" ng-if="freelancerRegistration.description.$error.required">This field is required</p>
                 </div>
-                <div class="row">
-                    <div class="text-bold">Please specify pricing for your services</div>
-                    <div>
-                        <input type="checkbox" ng-click="priceHour=false;service=false;freelancer.price.hour=[]"
-                               ng-model="priceWord"> Rs. Per word
-                        <input class='form-control' numbers-only ng-disabled="!priceWord"
-                               ng-model="freelancer.price.word">
-                    </div>
-                    <div>
-                        <input type="checkbox" ng-click="priceWord=false;service=false;freelancer.price.word = []"
-                               ng-model="priceHour"> Rs. Per hour
-                        <input class='form-control' numbers-only ng-disabled="!priceHour"
-                               ng-model="freelancer.price.hour">
-                    </div>
-                    <div>
-                        <input type="checkbox" ng-click="priceHour=false;priceWord=false" ng-model="service"> Packaged
-                        Services(?) <a class="pointer" ng-click="addPackage(true)">Create Packages</a>
-                    </div>
+
+                <div class="form-group">
+                    <div>Location</div>
+                    <select class="full-width form-control" ng-model="freelancer.location">
+                        <option ng-selected="!freelancer.location" value="">Choose location</option>
+                        <option ng-repeat="item in locations" value="{{item}}">{{item}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div>Cities where you can service</div>
+                    <ui-select multiple ng-model="freelancer.cities" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose freelancer types">
+                        <ui-select-match placeholder="Select freelancer types...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="item in locations | filter:$select.search">
+                            {{item}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="form-group">
+                    <div>Years of Experience (in years)</div>
+                    <select class="full-width form-control" ng-model="freelancer.experience">
+                        <option ng-selected="!freelancer.experience" value="">Choose</option>
+                        <option ng-repeat="item in experience" value="{{item}}">{{item}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div>I want to register as a freelancer in</div>
+                    <ui-select multiple ng-model="freelancer.freelancer_type" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose freelancer types">
+                        <ui-select-match placeholder="Select freelancer types...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="item in freelancerType | filter:$select.search">
+                            {{item}}
+                        </ui-select-choices>
+                    </ui-select>
                 </div>
             </div>
-
-            <div class=col-xs-6>
-                <div class="row">
-                    <div class="text-bold">Work</div>
-                </div>
-                <div class="form-group nopadding row"
-                     ng-class="{'has-error': submitted && freelancerRegistration.customers.$invalid}">
+            <div class="col-md-6">
+                <h3 class="text-bold">Work</h3>
+                <p>Enter information about your past work</p>
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.customers.$invalid}">
                     <div>Number of Customers</div>
                     <input class='form-control' name="customers" numbers-only ng-model="freelancer.work.customers"
                            required>
-                    <p class="error" ng-if="freelancerRegistration.customers.$error.required">Number of Customers is
-                        required</p>
+                    <p class="error" ng-if="freelancerRegistration.customers.$error.required">Number of Customers is required</p>
                 </div>
-                <div class="form-group nopadding row"
-                     ng-class="{'has-error': submitted && freelancerRegistration.past_client.$invalid}">
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.past_client.$invalid}">
                     <div>Past Clients that you have worked with</div>
                     <input class='form-control' name="past_client" ng-model="freelancer.work.past_client" required>
-                    <p class="error" ng-if="freelancerRegistration.past_client.$error.required">Past Clients is
-                        required</p>
+                    <p class="error" ng-if="freelancerRegistration.past_client.$error.required">Past Clients is required</p>
                 </div>
-                <div class="form-group nopadding row"
-                     ng-class="{'has-error': submitted && freelancerRegistration.testimonials.$invalid}">
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.testimonials.$invalid}">
                     <div>Client Testimonials (also mention the client name)</div>
                     <input class='form-control' name="testimonials" ng-model="freelancer.work.testimonials" required>
-                    <p class="error" ng-if="freelancerRegistration.testimonials.$error.required">Client Testimonials is
-                        required</p>
+                    <p class="error" ng-if="freelancerRegistration.testimonials.$error.required">Client Testimonials is required</p>
                 </div>
-                <div class="form-group nopadding row"
-                     ng-class="{'has-error': submitted && freelancerRegistration.awards.$invalid}">
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.awards.$invalid}">
                     <div>Awards and Recognition</div>
                     <input class='form-control' name="awards" ng-model="freelancer.work.awards" required>
                     <p class="error" ng-if="freelancerRegistration.awards.$error.required">Awards is required</p>
                 </div>
-                <div class="row">
+                <div class="form-group">
                     <div>Upload samples of work</div>
-                    <div class="col-xs-12 text-right">
+                    <div class="text-right">
                         <a class="pointer">Attach Files</a>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="text-bold">Contact Details</div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="text-bold">Content Writing</h3>
+                <p>Please provide information about the Content Writing services you offer</p>
+
+                <div class="form-group">
+                    <div>Industry Expertise (select top 5)</div>
+                    <ui-select class="form-control" multiple ng-model="freelancer.industry_expertise" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose industries">
+                        <ui-select-match placeholder="Select industries...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="item in industry | filter:$select.search">
+                            {{item}}
+                        </ui-select-choices>
+                    </ui-select>
                 </div>
-                <div class="form-group nopadding row"
-                     ng-class="{'has-error': submitted && freelancerRegistration.contact_name.$invalid}">
+
+                <div class="form-group">
+                    <div>Content Type</div>
+                    <ui-select multiple ng-model="freelancer.content_type" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose contents">
+                        <ui-select-match placeholder="Select contents...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="item in content | filter:$select.search">
+                            {{item}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="form-group">
+                    <div>Languages in which u write</div>
+                    <ui-select multiple ng-model="freelancer.languages" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose contents">
+                        <ui-select-match placeholder="Select contents...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="item in language | filter:$select.search">
+                            {{item}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="form-group">
+                    <div>Please specify pricing for your services</div>
+                    <div style="height: 34px">
+                        <div style="width: 100px; float: left">
+                            <input type="checkbox" ng-click="priceHour=false;service=false;freelancer.price.hour=[]" ng-model="priceWord"> Rs. Per word
+                        </div>
+                        <div style="width: calc(100% - 100px); float: right">
+                            <input class='form-control' numbers-only ng-disabled="!priceWord" ng-model="freelancer.price.word">
+                        </div>
+                    </div>
+                    <div style="height: 34px">
+                        <div style="width: 100px; float: left">
+                            <input type="checkbox" ng-click="priceWord=false;service=false;freelancer.price.word = []" ng-model="priceHour"> Rs. Per hour
+                        </div>
+                        <div style="width: calc(100% - 100px); float: right">
+                            <input class='form-control' numbers-only ng-disabled="!priceHour" ng-model="freelancer.price.hour">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-click="priceHour=false;priceWord=false" ng-model="service"> Packaged Services(?)
+                        <a class="pointer" ng-click="addPackage(true)">Create Packages</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-bold">Contact Details</h3>
+                <p>Please provide contact details at which marketers can contact you</p>
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.contact_name.$invalid}">
                     <div>Contact Person Name</div>
                     <input class='form-control' name="contact_name" ng-model="freelancer.contact.name" required>
                     <p class="error" ng-if="freelancerRegistration.contact_name.$error.required">Contact Person Name is
                         required</p>
                 </div>
-                <div class="form-group nopadding row"
-                     ng-class="{'has-error': submitted && freelancerRegistration.contact_email.$invalid}">
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.contact_email.$invalid}">
                     <div>Email ID at which marketers can contact you</div>
                     <input class='form-control' name="contact_email" ng-model="freelancer.contact.email" required
                            ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
@@ -173,20 +188,21 @@
                         required</p>
                     <p class="error" ng-if="freelancerRegistration.contact_email.$error.pattern">Email ID is invalid</p>
                 </div>
-                <div class="form-group nopadding row"
-                     ng-class="{'has-error': submitted && freelancerRegistration.contact_mobile.$invalid}">
+                <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.contact_mobile.$invalid}">
                     <div>Mobile Number to send the contact request (will not be displayed)</div>
-                    <input class='form-control' phone-number name="contact_mobile" ng-model="freelancer.contact.mobile"
-                           required>
-                    <p class="error" ng-if="freelancerRegistration.contact_mobile.$error.required">Mobile Number is
-                        required</p>
+                    <input class='form-control' phone-number name="contact_mobile" ng-model="freelancer.contact.mobile" required>
+                    <p class="error" ng-if="freelancerRegistration.contact_mobile.$error.required">Mobile Number is required</p>
                 </div>
-                <div class="row">
+                <div class="form-group">
                     <div>Upload samples of work</div>
-                    <div class="col-xs-12 text-right">
+                    <div class="text-right">
                         <a class="pointer">Attach Files</a>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <button class="background-orange btn text-white"
                         ng-click="register(freelancerRegistration.$invalid,freelancer); submitted=true">Submit
                 </button>
