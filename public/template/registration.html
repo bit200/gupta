@@ -1,5 +1,5 @@
-<div class="registration-module">
-    <form name="registr" novalidate>
+<div class="registration-module common-style-form" >
+    <form name="registr"  novalidate>
 
         <div class="form-group" ng-class="{'has-error': submitted && registr.username.$invalid}">
             <label>Username</label>
@@ -62,14 +62,14 @@
             </div>
         </div>
         <div class="form-group">
+            <div class="text-center">
+                <button type="submit" class="btn full-width btn-primary" ng-disabled="registr.username.$loading" ng-click="registration(registr.$invalid,reg);submitted=true;">Submit</button>
+            </div>
+            <br />
             <div class="text-left">
                 <a href="" ng-click="go('/login')">Already registered?</a>
                 <br />
                 <a href="" ng-click="go('/forgot/email')">Forgot your password?</a>
-            </div>
-            <br />
-            <div class="text-center">
-                <button type="submit" class="btn full-width btn-primary" ng-disabled="registr.username.$loading" ng-click="registration(registr.$invalid,reg);submitted=true;">Submit</button>
             </div>
         </div>
     </form>

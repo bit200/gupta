@@ -1,6 +1,6 @@
 <div class="restore-form block-center">
     <div ng-if="!_restore">
-        <form>
+        <form class="common-style-form">
             <div class="form-group" ng-class="{'has-error': submitted && registr.password.$invalid}">
                 <label>Password</label>
                 <input class="form-control" ng-enter="registration(reg)" name="password" type="password" ng-model="password" required>

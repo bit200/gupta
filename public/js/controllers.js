@@ -28,13 +28,19 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
                 }
             })
     };
-
+    scope.showMessage = false;
+    scope.startInput = function () {
+        scope.error = "";
+        scope.errL = false;
+        scope.errP = false;
+        scope.submitted = false ;
+    }
 }]);
 
 XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
 
     scope.registration = function (invalid, data) {
-        if (invalid) return
+        if (invalid) return;
         http.post('/sign-up', data).then(function (resp) {
                 location.path('/')
             }, function (err, r) {
