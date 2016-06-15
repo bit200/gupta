@@ -70,12 +70,46 @@ html {
     margin: 0 auto;
     margin-top: 10%
 }
+.button-work{
+text-align: center
+}
 
 .top-home {
-    background: #85A0C0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    /*margin: 10px 0 10px 0;*/
+    padding: 10px 0 10px 0;
+    background:white;
+}
+.top-home input.form-control{
+    width:40%;
+}
+.home-page .btn-default{
+    color:#f7961d;
+    border-color:#f7961d;
+
+}
+.home-page .btn-default:hover{
+    color:white;
+    background-color: #f7961d;
+    border-color:white;
+}
+
+div.top-home div.text-right{
+    padding-top: 8px;
+}
+
+div.text-padding{
+    padding-bottom: 20px;
+}
+.communitySP{
+    background-color: #FFFFFF;
 }
 
 .back-service-provider {
+    margin: 50px 0 20px 0 ;
+
     background: #F2F2F2;
 }
 
@@ -173,7 +207,8 @@ html {
 
 .service-provider {
     background: white;
-    border: 1px solid #456791;
+    border: 1px solid #d8e6f3;
+    border-radius: 5px;
     width: calc(100% / 2 - 20px);
     height: 80px;
     display: inline-block;
@@ -246,9 +281,14 @@ html {
 .btn-registration {
     padding: 5px 20px;
 }
-
-.job-item {
-    margin: 10px 0px;
+div.block-job-item{
+    margin-bottom: 10px ;
+}
+div.communitySP div.text-center{
+    padding: 10px 0 0 0;
+}
+.block-job-item {
+padding:10px 0 10px;
 }
 
 .agency-item {
@@ -280,8 +320,8 @@ html {
     background: #00B0F0;
 }
 
-.background-lime {
-    background: #C3D69B;
+.background-white {
+    background: #DFDFDF;
 }
 
 .rating-star {
@@ -292,21 +332,25 @@ html {
     width: 100%;
     height: 75%;
     border: 1px solid transparent;
+    border-radius: 5px;
 }
 
 .profile {
     width: 150px;
     height: 230px;
     border: 1px solid #CECECE;
+    border-radius: 5px;
     padding: 10px;
     margin: auto;
     margin-bottom: 10px;
 }
 
-.block-popularity {
+div.block-popularity {
     width: 22%;
     height: 15px;
     margin: 0px 1px;
+    font-size: 20px;
+    color: #f3db92;
     display: inline-block;
 }
 
