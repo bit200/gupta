@@ -4,7 +4,8 @@
 
 var XYZApp = angular.module('XYZApp', [
     'ngRoute',
-    'XYZCtrls'
+    'XYZCtrls',
+    'rzModule'
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider',
@@ -38,6 +39,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                     auth: checkAuthLogin
                 }
             })
+
             .when('/login', {
                 templateUrl: 'template/login.html',
                 controller: 'MainCtrl',
@@ -45,29 +47,38 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                     auth: checkAuthLogin
                 }
             })
+
             .when('/forgot/email', {
                 templateUrl: 'template/forgotEmail.html',
                 controller: 'forgotCtrl',
                 resolve: {
                     auth: checkAuthLogin
                 }
-
             })
+
             .when('/forgot/restore/:restoreCode', {
                 templateUrl: 'template/forgotRestore.html',
                 controller: 'forgotCtrl'
             })
+
             .when('/confirm/:confirmCode', {
                 templateUrl: 'template/confirm.html',
                 controller: 'confirmCtrl'
             })
+
             .when('/home', {
                 templateUrl: 'template/home.html',
                 controller: 'HomeCtrl',
                 resolve: {
-                    auth: checkAuthCtrl
+                    auth: checkAuthCtrl,
+                    getContent: function($q, $http){
+                        return $q.all({
+                            service:$http.get('/get-content', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}})
+                        })
+                    }
                 }
             })
+
             .when('/agency', {
                 templateUrl: 'template/agency.html',
                 controller: 'agencyCtrl',
@@ -80,6 +91,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                     }
                 }
             })
+
             .when('/post-job', {
                 templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
@@ -93,6 +105,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                     }
                 }
             })
+
             .when('/freelancer-registration', {
                 templateUrl: 'template/freelanceRegistration.html',
                 controller: 'freelancerCtrl',
@@ -100,11 +113,26 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                     auth: checkAuthCtrl,
                     getContent: function($q, $http){
                         return $q.all({
-                            industry: $http.get('/get-content', {params: {name: 'Filters', query: {type:'BloggersAndInfluencers',filter: 'Industry Expertise'}, distinctName: 'name'}}),
+                            industry: $http.get('/get-content', {params: {  name: 'Filters', query: {type:'BloggersAndInfluencers',filter: 'Industry Expertise'}, distinctName: 'name'}}),
                             content:$http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Content Type'}, distinctName: 'name'}}),
                             languages:$http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Languages'}, distinctName: 'name'}}),
                             freelancerType:$http.get('/get-content', {params: {name: 'Filters', query: {type:'FreelancerType'}, distinctName: 'name'}}),
                             locations:$http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}})
+                        })
+                    }
+                }
+            })
+
+            .when('/user', {
+                templateUrl: 'template/user.html',
+                controller: 'userCtrl',
+                resolve: {
+                    auth: checkAuthCtrl,
+                    getContent: function($q, $http){
+                        return $q.all({
+                            service:$http.get('/get-content', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}}),
+                            topic: $http.get('/get-content', {params: {  name: 'Filters', query: {type:'ContentWriting',filter: 'Industry Expertise'}, distinctName: 'name'}}),
+                            user:$http.get('/me')
                         })
                     }
                 }
@@ -131,7 +159,6 @@ XYZApp.config(['$routeProvider', '$httpProvider',
         });
     }
 ]);
-
 XYZApp.run(function($rootScope, $location){
     $rootScope.go = function(path){
         $location.path(path)

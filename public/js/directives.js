@@ -106,3 +106,16 @@ XYZCtrls.directive('uniqueUsername', function($http) {
         }
     };
 })
+XYZCtrls.directive('toggle', function() {
+    return {
+        scope: {
+            toggle: '='
+        },
+        link: function(scope, elem, attrs) {
+            scope.$watch('toggle', function(val){
+                if (typeof val === 'boolean')
+                    elem.slideToggle();
+            })
+        }
+    }
+});
