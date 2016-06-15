@@ -31,7 +31,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
 
 }]);
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http','$q', 'getContent', function (scope, location, http, $q, getContent) {
 
     scope.registration = function (invalid, data) {
         if (invalid) return
@@ -55,9 +55,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
         location.path('/login')
     };
 
-
-    scope.arrayProviders = ['Content Writing', 'Creative and Ad Making', 'Public Relations', 'Bloggers and Influencers',
-        'Digital Marketing', 'Branding Services', 'Event Management', 'Direct Marketing', 'Media Planning', 'Media Buying']
+    scope.arrayProviders = getContent.service.data.data;
 
 
     scope.profiles = [
@@ -99,6 +97,27 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
 }]);
 
 
+XYZCtrls.controller('userCtrl', ['$scope', '$location', '$http','$q', 'getContent', function (scope, location, http, $q, getContent) {
+    scope.arrayProviders = getContent.service.data.data;
+    scope.arrayTopics = getContent.topic.data.data;
+    scope.user = getContent.user.data.data;
+
+    scope.slider = {
+        video: {
+            minValue: 10,
+            maxValue: 90,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 1,
+                noSwitching: true,
+                getPointerColor: #F1f1f1
+            }
+        }
+    }
+}]);
+
+
 XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.job = {
         public: true,
@@ -119,9 +138,9 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             }
         )
     };
-
-
 }]);
+
+
 
 XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams', function (scope, location, http, routeParams) {
     scope.send = true;

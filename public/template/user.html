@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="text-center text-bold">Navigation</div>
+</div>
+<div class="row">
+    <div class="row border-box">
+        <div class="col-md-3">
+            <img class="user-logo" src="https://pbs.twimg.com/profile_images/688635344602857473/WeXpjdxN.jpg">
+        </div>
+        <div class="col-md-6 text-center">
+            <button class="btn border-blue user-search">Search</button>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-8 text-right">
+                <div>Hi <label>{{user.first_name}} {{user.last_name}}</label></div>
+                <span class="glyphicon glyphicon-heart"></span>
+                <button class="btn btn-default background-black text-white">My Jobs</button>
+            </div>
+            <div class="col-md-4">
+                <div><a>As Buyer</a></div>
+                <div><a>As Seller</a></div>
+                <div><a>Profile</a></div>
+                <div><a>My Activities</a></div>
+                <div><a>Logout</a></div>
+            </div>
+        </div>
+    </div>
+    <div ng-init="viewMore = true" class="row border-box relative" ng-class="{'user-service':viewMore}">
+        <div class="col-md-2 col-sm-3 col-xs-4 inlineBlock" ng-repeat="item in arrayProviders"><a> {{item}}</a></div>
+        <div class="col-md-2 col-sm-3 col-xs-4 inlineBlock"
+             ng-class="{'user-view-more': viewMore, 'background-white': viewMore}"><span
+                class="pointer" ng-click="viewMore = !viewMore">{{viewMore ? '+ View More' : '- Hide'}} </span></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 nopadding">
+        <div class="full-width user-topic border-grey marginT20">
+            <div class="full-width user-topic-top">
+                <span class="glyphicon glyphicon-th-list"></span>
+                <span>Topics</span>
+                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+            </div>
+            <div class="user-topic-bottom">
+                <div class="full-width">
+                    <div class="width75 inlineBlock">
+                        <input class="form-control user-topic-input" placeholder="Search by Service Provided">
+                    </div>
+                    <div class="width20 inlineBlock">
+                        <span class="glyphicon glyphicon-search user-search-icon"></span>
+                    </div>
+                </div>
+                <div class="full-width">
+                    <div ng-repeat="item in arrayTopics">
+                        <input type="checkbox" ng-model="filter.topic[item]">{{item}} Blog
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Blogger Type</span>
+                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+            </div>
+            <div class="user-block-bottom">
+                <div><input type="checkbox" ng-model="filter.blogs.web"> Web Blogs</div>
+                <div><input type="checkbox" ng-model="filter.blogs.video"> Video Blogs</div>
+                <div><input type="checkbox" ng-model="filter.blogs.social"> Social Influencer</div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Web Blogs</span>
+                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+            </div>
+            <div class="user-block-bottom">
+                <div>Monthly <Traffic></Traffic></div>
+                <div>---------------O---------------------------------</div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Social Media</span>
+                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+            </div>
+            <div class="user-block-bottom">
+                <div>Social Media Channels</div>
+                <div><input type="checkbox" ng-model="filter.social.facebook"> Facebook</div>
+                <div><input type="checkbox" ng-model="filter.social.twiter"> Twitter</div>
+                <div><input type="checkbox" ng-model="filter.social.google"> Google+</div>
+                <div><input type="checkbox" ng-model="filter.social.lingedin"> LinkedIn</div>
+                <div><input type="checkbox" ng-model="filter.social.instagram"> Instragram</div>
+                <div><input type="checkbox" ng-model="filter.social.flickr"> Flickr</div>
+                <div><input type="checkbox" ng-model="filter.social.pinterest"> Pinterest</div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Video</span>
+                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+            </div>
+            <div class="user-block-bottom">
+                <div>Subscribers</div>
+                <rzslider rz-slider-model="slider.video.minValue" rz-slider-high="slider.video.maxValue" rz-slider-options="slider.video.options"></rzslider>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Geography</span>
+                <i class="fa fa-chevron-down floatR" aria-hidden="true"></i>
+            </div>
+            <div class="user-block-bottom">
+                <div><input type="checkbox" ng-model="filter.location.bangalore"> Bangalore</div>
+                <div><input type="checkbox" ng-model="filter.location.mumbai"> Mumbai</div>
+                <div><input type="checkbox" ng-model="filter.location.delhi"> Delhi</div>
+                <div><input type="checkbox" ng-model="filter.location.chennai"> Chennai</div>
+            </div>
+        </div>
+    </div>
+</div>

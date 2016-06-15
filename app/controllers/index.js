@@ -96,14 +96,39 @@ exports.create_filter = function (req, res) {
         findCreateFilter('Event Management', '', arr, cb)
     });
 
+    
+
     arrFunc.push(function (cb) {
         var arr = ['BTL Marketing', 'Retail POS', 'Telemarketing', 'Couponing / Sampling', 'Bulk SMS Service', 'Bulk Email Service', 'Promotional Merchandise'];
         findCreateFilter('Direct Marketing', '', arr, cb)
     });
 
     arrFunc.push(function (cb) {
+        var arr = ['Content Writing', 'Creative and Ad Making', 'Public Relations', 'Bloggers and Influencers',
+            'Digital Marketing', 'Branding Services', 'Event Management', 'Direct Marketing', 'Media Planning', 'Media Buying']
+
+        var count = 0;
+        _.forEach(arr, function (item) {
+            m.findCreate(models.ServiceProvider, {name: item}, {isActive: 1}, {}, function () {
+                count++;
+                if (arr.length == count) {
+                    cb()
+                }
+            })
+        });
+    });
+
+    arrFunc.push(function (cb) {
         var arr = ['Mumbai', 'Delhi', 'Bangalore'];
-        findCreateFilter('Location', '', arr, cb)
+        var count = 0;
+        _.forEach(arr, function (item) {
+            m.findCreate(models.Location, {name: item}, {isActive: 1}, {}, function () {
+                count++;
+                if (arr.length == count) {
+                    cb()
+                }
+            })
+        });
     });
 
     arrFunc.push(function (cb) {
@@ -111,13 +136,6 @@ exports.create_filter = function (req, res) {
             'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
         findCreateFilter('FreelancerType', '', arr, cb)
     });
-
-    arrFunc.push(function (cb) {
-        var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
-            'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
-        findCreateFilter('FreelancerType', '', arr, cb)
-    });
-
 
     arrFunc.push(function (cb) {
         var arr = [
