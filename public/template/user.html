@@ -28,7 +28,7 @@
         </div>
     </div>
     <div ng-init="viewMore = true" class="row border-box relative" ng-class="{'user-service':viewMore}">
-        <div class="col-md-2 col-sm-3 col-xs-4 inlineBlock" ng-repeat="item in arrayProviders"><a> {{item}}</a></div>
+        <div class="col-md-2 col-sm-3 col-xs-4 inlineBlock pointer" ng-repeat="item in arrayProviders"><a> {{item}}</a></div>
         <div class="col-md-2 col-sm-3 col-xs-4 inlineBlock"
              ng-class="{'user-view-more': viewMore, 'background-white': viewMore}"><span
                 class="pointer" ng-click="viewMore = !viewMore">{{viewMore ? '+ View More' : '- Hide'}} </span></div>
@@ -125,4 +125,14 @@
     </div>
 </div>
 
+<div ng-hide="closeModal" class="modal-block">
+    <div class="modal-block-body border-box background-white">
+        <div class="floatR">Close <span class="pointer" ng-click="closeModal = true">X</span></div>
+        <div class="modal-block-button">
+            <button class="width35 inlineBlock btn background-orange text-white">Post a Job</button>
+            <span class="hidden-sm hidden-xs paddingLR40">or</span>
+           <button class="width35 inlineBlock btn background-orange text-white">View Service Providers</button>
+        </div>
+    </div>
+</div>
 

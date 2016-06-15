@@ -14,7 +14,7 @@ exports.admin = function (req, res) {
     res.render('admin/admin-index')
 };
 
-exports.create_filter = function (req, res) {
+exports.first_initial_db = function (req, res) {
     var arrFunc = [];
     arrFunc.push(function (cb) {
         var arr = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation'];
@@ -95,8 +95,6 @@ exports.create_filter = function (req, res) {
         var arr = ['Exhibition Management', 'Events Management', 'Celebrity Management', 'Emcee'];
         findCreateFilter('Event Management', '', arr, cb)
     });
-
-    
 
     arrFunc.push(function (cb) {
         var arr = ['BTL Marketing', 'Retail POS', 'Telemarketing', 'Couponing / Sampling', 'Bulk SMS Service', 'Bulk Email Service', 'Promotional Merchandise'];

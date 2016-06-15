@@ -33,6 +33,29 @@ html {
     background: rgba(0, 0, 0, 0.75);
 }
 
+.modal-block {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 98;
+}
+
+.modal-block-body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 98;
+    height: 200px;
+    width: 50%;
+    text-align: center;
+}
+
 .login-form {
     width: 250px;
     padding: 10px;
@@ -70,6 +93,10 @@ html {
 
 .paddingLR20 {
     padding: 0px 20px;
+}
+
+.paddingLR40 {
+    padding: 0px 40px;
 }
 
 .paddingR20 {
@@ -314,6 +341,7 @@ html {
     }
 }
 
+
 .green-popularity {
     background: #008000;
 }
@@ -400,7 +428,6 @@ html {
     border-radius: 5px;
     height: 200px;
     position: relative;
-    z-index: 99;
     overflow: hidden;
     transition: all 0.8s;
 }
@@ -454,3 +481,14 @@ html {
     padding: 10px;
 }
 
+.modal-block-button {
+    position: relative;
+    top: 40%;
+    left: 4%;
+}
+
+@media (max-width: 500px) {
+    .modal-block-button > button {
+        font-size: 9pt;
+    }
+}
