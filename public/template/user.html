@@ -6,21 +6,24 @@
         <div class="col-md-3">
             <img class="user-logo" src="https://pbs.twimg.com/profile_images/688635344602857473/WeXpjdxN.jpg">
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-md-5 text-center">
             <button class="btn border-blue user-search">Search</button>
         </div>
-        <div class="col-md-3">
-            <div class="col-md-8 text-right">
+
+        <div class="col-md-4">
+            <div class="col-xs-6 text-right">
                 <div>Hi <label>{{user.first_name}} {{user.last_name}}</label></div>
-                <span class="glyphicon glyphicon-heart"></span>
-                <button class="btn btn-default background-black text-white">My Jobs</button>
+                <div>
+                    <span class="glyphicon glyphicon-heart width20"></span>
+                    <button class="btn btn-default background-black text-white">My Jobs</button>
+                </div>
             </div>
-            <div class="col-md-4">
-                <div><a>As Buyer</a></div>
-                <div><a>As Seller</a></div>
-                <div><a>Profile</a></div>
-                <div><a>My Activities</a></div>
-                <div><a>Logout</a></div>
+            <div class="col-xs-6">
+                <div class="pointer"><a>As Buyer</a></div>
+                <div class="pointer"><a>As Seller</a></div>
+                <div class="pointer"><a>Profile</a></div>
+                <div class="pointer"><a>My Activities</a></div>
+                <div class="pointer"><a>Logout</a></div>
             </div>
         </div>
     </div>
@@ -39,7 +42,7 @@
                 <span>Topics</span>
                 <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}" aria-hidden="true" ng-click="close.topic = !close.topic"></i>
             </div>
-            <div class="user-topic-bottom"  toggle="close.topic">
+            <div class="user-topic-bottom" toggle="close.topic">
                 <div class="full-width">
                     <div class="width75 inlineBlock">
                         <input class="form-control user-topic-input" placeholder="Search by Service Provided">
@@ -121,3 +124,5 @@
         </div>
     </div>
 </div>
+
+

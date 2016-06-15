@@ -116,8 +116,16 @@ html {
     width: 34%;
 }
 
+.width45 {
+    width: 45%;
+}
+
 .width75 {
     width: 75%;
+}
+
+.width80 {
+    width: 80%;
 }
 
 .width100 {
@@ -126,6 +134,10 @@ html {
 
 .floatR {
     float: right;
+}
+
+.floatL {
+    float: left;
 }
 
 .border-box {
@@ -352,14 +364,23 @@ html {
 .user-search {
     background: transparent;
     width: 60%;
-    margin: auto;
-    margin-top: 6%;
+    margin: 15% 0;
     position: relative;
 }
 
+@media (max-width: 992px){
+    .user-search {
+        margin: 0;
+        margin-bottom: 5%;
+    }
+    .user-logo {
+        margin: 0px 43%;
+    }
+}
+
 .user-logo {
-    width: 40%;
-    height: 75%;
+    max-height: 130px;
+    max-width: 130px;
 }
 
 .user-view-more {
