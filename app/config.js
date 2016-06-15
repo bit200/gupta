@@ -1,8 +1,9 @@
 var ip = require('ip')
 isInTest = typeof global.it === 'function';
+var path = require('path');
 
 var resObj = {
-    root: __dirname + '/../',
+    root: path.normalize(__dirname + '/../'),
     root_app: __dirname + '/',
     'secret': 'iamyoursecret',
     'database': 'mongodb://localhost/XYZ',

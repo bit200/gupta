@@ -72,14 +72,16 @@ var walkRoutes = function(path) {
 };
 walkRoutes(routes_path);
 
-socket.boot(http);
+require('./scripts/set-filters')(function(){
+    socket.boot(http);
 
-http.listen(port,function() {
-    console.log('Listening on port '+port+'...')
+    http.listen(port,function() {
+        console.log('Listening on port '+port+'...')
+    });
+
+
+    var cron = require('./app/cron');
 });
-
-
-var cron = require('./app/cron');
 
 
 module.exports = app;
