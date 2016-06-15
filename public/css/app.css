@@ -13,7 +13,6 @@ body {
 }
 
 .registration-module {
-    width: 400px;
     margin: 0 auto;
     margin-top: 5%;
     padding: 10px;
@@ -32,9 +31,7 @@ body {
     background: rgba(0, 0, 0, 0.75);
 }
 
-
 .login-form {
-    width: 400px;
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -59,22 +56,29 @@ body {
     position: relative;
     text-align: center;
 }
-.emailInput{
+
+.emailInput {
     padding: 10px 10px 0 10px;
 }
-.common-style-form{
+
+.common-style-form {
     margin: 0 auto;
-    margin-top: 5%;
-    width: 400px;
-    padding:20px 20px 5px 20px;
+    margin-top: 10%;
+    padding: 20px 20px 5px 20px;
     background-color: white;
 
 }
 
-.form-group button{
+.error {
+    color: #ff0000;
+    text-align: center;
+}
+
+.form-group button {
     margin-top: 5px;
 }
-.form-background{
+
+.form-background {
     background-color: white;
 }
 
@@ -93,6 +97,7 @@ body {
 .padding10 {
     padding: 10px 0px;
 }
+
 .padding7 {
     padding: 7px;
 }
@@ -120,6 +125,7 @@ body {
 .marginLR20 {
     margin: 10px 1px;
 }
+
 .marginR10 {
     margin-right: 10%;
 }
@@ -147,7 +153,6 @@ body {
 .width100 {
     width: 100%;
 }
-
 
 .service-provider {
     background: white;
@@ -241,6 +246,7 @@ body {
 .background-black {
     background: #404040;
 }
+
 .background-primary {
     background: #00B0F0;
 }
@@ -283,7 +289,6 @@ body {
     text-align: right;
 }
 
-
 @media (max-width: 768px) {
     .profile {
         width: 115px;
@@ -306,8 +311,6 @@ body {
         margin-top: 20px;
     }
 }
-
-
 
 .green-popularity {
     background: #008000;
@@ -340,11 +343,11 @@ body {
     width: 100%;
 }
 
-.success-text{
+.success-text {
     color: #279B61;
 }
 
-.error-text{
+.error-text {
     color: #993333;
 }
 
@@ -355,13 +358,26 @@ body {
     background: white;
     margin-top: 10%;
 }
+
 @keyframes shake {
-    0% {transform: translateX(0);}
-    12.5% {transform: translateX(-6px) rotateY(-5deg)}
-    37.5% {transform: translateX(5px) rotateY(4deg)}
-    62.5% {transform: translateX(-3px) rotateY(-2deg)}
-    87.5% {transform: translateX(2px) rotateY(1deg)}
-    100% {transform: translateX(0)}
+    0% {
+        transform: translateX(0);
+    }
+    12.5% {
+        transform: translateX(-6px) rotateY(-5deg)
+    }
+    37.5% {
+        transform: translateX(5px) rotateY(4deg)
+    }
+    62.5% {
+        transform: translateX(-3px) rotateY(-2deg)
+    }
+    87.5% {
+        transform: translateX(2px) rotateY(1deg)
+    }
+    100% {
+        transform: translateX(0)
+    }
 }
 
 .shake {
