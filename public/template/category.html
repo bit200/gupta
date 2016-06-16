@@ -1,0 +1,144 @@
+<div class="row">
+    <div class="col-md-3 nopadding">
+
+        <div class="full-width work-type border-grey marginT20" ng-class="{'topic-close':close.workType}">
+            <div class="full-width user-topic-top">
+                <i class="fa fa-sitemap" aria-hidden="true"></i>
+                <span>Work type</span>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down': !close.workType,'fa-chevron-up': close.workType}" aria-hidden="true" ng-click="close.workType = !close.workType"></i>
+            </div>
+            <div class="user-topic-bottom" toggle="close.workType">
+                <div class="full-width">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-model="category.type" value="agency">
+                            Agency
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-model="category.type" value="freelancer">
+                            Freelancer
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width user-topic border-grey marginT20" ng-class="{'topic-close':close.topic}">
+            <div class="full-width user-topic-top">
+                <i class="fa fa-sitemap" aria-hidden="true"></i>
+                <span>Industry Expertise</span>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}" aria-hidden="true" ng-click="close.topic = !close.topic"></i>
+            </div>
+            <div class="user-topic-bottom" toggle="close.topic">
+                <div class="full-width">
+                    <div class="width75 inlineBlock">
+                        <input class="form-control user-topic-input" placeholder="Search by Service Provided">
+                    </div>
+                    <div class="width20 inlineBlock">
+                        <span class="glyphicon glyphicon-search user-search-icon"></span>
+                    </div>
+                </div>
+                <div class="full-width">
+                    <div ng-repeat="item in arrayTopics">
+                        <input type="checkbox" ng-model="category.industry_expertise[item]">{{item}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Content Type</span>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.content,'fa-chevron-up':close.content}" aria-hidden="true" ng-click="close.content = !close.content"></i>
+            </div>
+            <div class="user-block-bottom" toggle="close.content">
+                <div ng-repeat="item in arrayContent">
+                    <input type="checkbox" ng-model="category.content_type[item]">{{item}}
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Years of Experience</span>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.experience,'fa-chevron-up': close.experience}" aria-hidden="true" ng-click="close.experience = !close.experience"></i>
+            </div>
+            <div class="user-block-bottom" toggle="close.experience">
+                <rzslider rz-slider-model="slider.experience.value"
+                          rz-slider-options="slider.experience.options"></rzslider>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Geography</span>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.location,'fa-chevron-up': close.location}" aria-hidden="true" ng-click="close.location = !close.location"></i>
+            </div>
+            <div class="user-block-bottom" toggle="close.location">
+                <div ng-repeat="item in arrayLocations">
+                    <input type="checkbox" ng-model="category.location[item]">{{item}}
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Languages</span>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.languages,'fa-chevron-up': close.languages}" aria-hidden="true" ng-click="close.languages = !close.languages"></i>
+            </div>
+            <div class="user-block-bottom" toggle="close.languages">
+                <div ng-repeat="item in arrayLanguages">
+                    <input type="checkbox" ng-model="category.languages[item]">{{item}}
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width user-block marginT20 border-grey">
+            <div class="user-block-top">
+                <span>Package Available</span>
+                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.package,'fa-chevron-up': close.package}" aria-hidden="true" ng-click="close.package = !close.package"></i>
+            </div>
+            <div class="user-block-bottom" toggle="close.package">
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="category.package" value="Yes">
+                        Yes
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="category.package" value="No">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="full-width marginT20 border-box background-white" ng-init="category_active='rating'">
+            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-rating'}" ng-click="category_active='-rating'">Ratings</span></div>
+            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-view'}" ng-click="category_active='-view'">Profile Views</span></div>
+            <div class="width25 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == 'low'}" ng-click="category_active='low'">Low to High Price</span></div>
+            <div class="width25 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active='high'">High to Low Price</span></div>
+        </div>
+        <div class="row marginT20">
+            <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:category.type ">
+                <div class="profile">
+                    <img ng-if="profile.poster" class="profile-poster" ng-src="{{profile.poster}}">
+
+                    <div class="text-center">{{profile.name}}</div>
+                    <div class="col-sm-12">
+                        <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

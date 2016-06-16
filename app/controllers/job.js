@@ -8,7 +8,13 @@ exports.add_job = function (req, res) {
     m.create(models.Job, params, res, res)
 };
 
-exports.add_freelancer = function(req,res) {
+exports.add_freelancer = function (req, res) {
     var params = m.getBody(req);
+    params.user = req.userId
     m.create(models.Freelancer, params, res, res)
 };
+
+exports.get_freelancer = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.Freelancer, params, res, res,{populate:'user'})
+}

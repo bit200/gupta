@@ -7,6 +7,7 @@ XYZCtrls.filter('highlight', function() {
         return query && matchItem ? ('' + matchItem).replace(new RegExp(escapeRegexp(query), 'gi'), '<span class="ui-select-highlight">$&</span>') : matchItem;
     };
 });
+
 XYZCtrls.filter('propsFilter', function() {
     return function(items, props) {
         var out = [];

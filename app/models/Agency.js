@@ -9,6 +9,7 @@ var AgencySchema = mongoose.Schema({
     street: String,
     number_street: String,
     status: Boolean,
+    rating: Number,
     created_at: {
         type: Date,
         default: Date.now

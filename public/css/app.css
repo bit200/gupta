@@ -210,6 +210,14 @@ div.text-padding{
     width: 20%;
 }
 
+.width24 {
+    width: 24%;
+}
+
+.width25 {
+    width: 25%;
+}
+
 .width35 {
     width: 34%;
 }
@@ -357,9 +365,6 @@ padding:10px 0 10px;
     background: #00B0F0;
 }
 
-.background-white {
-    background: #DFDFDF;
-}
 
 .rating-star {
     width: 20%;
@@ -510,9 +515,19 @@ div.block-popularity {
     position: relative;
     overflow: hidden;
     transition: all 0.8s;
+    background-color: #ffffff;
 }
 
-.user-topic.topic-close {
+.work-type {
+    border-radius: 5px;
+    height: 95px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.8s;
+    background-color: #ffffff;
+}
+
+.topic-close {
     height: 30px;
     transition: all 0.8s;
 }
@@ -550,6 +565,7 @@ div.block-popularity {
 
 .user-block {
     border-radius: 4px;
+    background-color: #ffffff;
 }
 
 .user-block-top {
@@ -598,4 +614,8 @@ div.block-popularity {
 
 .shake {
     animation: shake 400ms ease-in-out;
+}
+
+.active-category {
+    border-bottom: 3px solid blue;
 }

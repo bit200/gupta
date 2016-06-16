@@ -49,3 +49,33 @@ XYZCtrls.service('parseType', function () {
         }
     }
 });
+
+XYZCtrls.service('parseRating', function () {
+    return {
+        rating: function (Arr) {
+            _.forEach(Arr, function (item) {
+                var arr = [0, 0, 0, 0, 0];
+                if (item.rating > 5)
+                    item.rating = 5;
+                for (var i = 0; i < item.rating; i++) {
+                    arr[i] = 1;
+                }
+                item.ratingArr = arr;
+            });
+            return Arr;
+        },
+        popularity: function (Arr) {
+            _.forEach(Arr, function (item) {
+                var arr = [0, 0, 0, 0];
+                if (item.popularity > 4) {
+                    item.popularity = 4;
+                }
+                for (var i = 0; i < item.popularity; i++) {
+                    arr[i] = 1;
+                }
+                item.popularityArr = arr;
+            });
+            return Arr;
+        }
+    }
+});

@@ -16,6 +16,24 @@ var FreelancerSchema = mongoose.Schema({
     service_type: String,
     serviceID: Number,
     service_price: Number,
+    poster: String,
+
+    rating: {
+        type: Number,
+        default: 0
+    },
+    view: {
+        type: Number,
+        default: 0
+    },
+    popularity: {
+        type: Number,
+        default: 0
+    },
+    user: {
+        type:Number,
+        ref: 'User'
+    },
     created_at: {
         type: Date,
         default: Date.now

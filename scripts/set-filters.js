@@ -1,6 +1,6 @@
 var config = require('../app/config'),
-    m = require(config.root+'app/m'),
-    models = require(config.root+'app/db'),
+    m = require(config.root + 'app/m'),
+    models = require(config.root + 'app/db'),
     _ = require('underscore'),
     Location = models.Location,
     async = require('async');
@@ -18,10 +18,10 @@ function findCreateFilter(name, filter, arr, cb) {
     });
 }
 
-module.exports = function(done){
-    Location.count().exec(function(err, count) {
+module.exports = function (done) {
+    Location.count().exec(function (err, count) {
         if (count) return done();
-        console.log('.....Creating filters.....')
+        console.log('.....Creating filters.....');
         var arrFunc = [];
         arrFunc.push(function (cb) {
             var arr = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation'];
@@ -122,6 +122,20 @@ module.exports = function(done){
         });
 
         arrFunc.push(function (cb) {
+            var arr = ['Content Writing', 'Creative and Ad Making', 'Public Relations', 'Bloggers and Influencers',
+                'Digital Marketing', 'Branding Services', 'Event Management', 'Direct Marketing', 'Media Planning', 'Media Buying']
+            var count = 0;
+            _.forEach(arr, function (item) {
+                m.findCreate(models.ServiceProvider, {name: item}, {isActive: 1}, {}, function () {
+                    count++;
+                    if (arr.length == count) {
+                        cb()
+                    }
+                })
+            });
+        });
+
+        arrFunc.push(function (cb) {
             var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
                 'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
             findCreateFilter('FreelancerType', '', arr, cb)
@@ -157,12 +171,12 @@ module.exports = function(done){
             });
         });
 
-        async.parallel(arrFunc, function(){
+        async.parallel(arrFunc, function () {
             console.log('Filters created')
             done()
         })
 
-    });    
+    });
 }
 
 
