@@ -1,6 +1,9 @@
 html {
     overflow-y: scroll;
 }
+body {
+    background-color: #F0F1F3;
+}
 
 .block-center {
     display: inline-block;
@@ -13,10 +16,8 @@ html {
 }
 
 .registration-module {
-    width: 400px;
     margin: 0 auto;
     margin-top: 5%;
-    background: #f0f1f3;
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -57,18 +58,54 @@ html {
 }
 
 .login-form {
-    width: 250px;
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: 5px;
+    background-color: #FFFFFF;
     margin: 0 auto;
     margin-top: 5%;
 }
 
 .restore-form {
-    width: 20%;
+    width: 402px;
+    height: 80px;
+    border: 1px solid lightgray;
+    background-color: #FFFFFF;
+    border-radius: 5px;
     margin: 0 auto;
     margin-top: 10%
+
+}
+
+.restore-form a {
+    padding: 0 10px 10px 10px;
+    position: relative;
+    text-align: center;
+}
+
+.emailInput {
+    padding: 10px 10px 0 10px;
+}
+
+.common-style-form {
+    margin: 0 auto;
+    margin-top: 10%;
+    padding: 20px 20px 5px 20px;
+    background-color: white;
+
+}
+
+.error {
+    color: #ff0000;
+    text-align: center;
+}
+
+.form-group button {
+    margin-top: 5px;
+}
+
+.form-background {
+    background-color: white;
 }
 .button-work{
 text-align: center
@@ -385,7 +422,6 @@ div.block-popularity {
     }
 }
 
-
 .green-popularity {
     background: #008000;
 }
@@ -433,7 +469,6 @@ div.block-popularity {
     margin-top: 10%;
 }
 
-<<<<<<< Updated upstream
 .user-search {
     background: transparent;
     width: 60%;
@@ -539,4 +574,28 @@ div.block-popularity {
     .modal-block-button > button {
         font-size: 9pt;
     }
+}
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    12.5% {
+        transform: translateX(-6px) rotateY(-5deg)
+    }
+    37.5% {
+        transform: translateX(5px) rotateY(4deg)
+    }
+    62.5% {
+        transform: translateX(-3px) rotateY(-2deg)
+    }
+    87.5% {
+        transform: translateX(2px) rotateY(1deg)
+    }
+    100% {
+        transform: translateX(0)
+    }
+}
+
+.shake {
+    animation: shake 400ms ease-in-out;
 }
