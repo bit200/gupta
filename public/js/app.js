@@ -2,16 +2,18 @@
 
 /* App Module */
 
-var XYZApp = angular.module('XYZApp', [
+var XYZApp = angular.module('XYZApp', ['ngMaterial',
     'ngRoute',
     'XYZCtrls',
     'rzModule',
-    'ui.select'
+    'ui.select',
+    'ngDialog'
+
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider',
     function ($routeProvider, $httpProvider) {
-        var checkAuthCtrl = function($q, $rootScope){
+        var checkAuthCtrl = function ($q, $rootScope) {
             var deferred = $q.defer();
             var token = window.localStorage.getItem('accessToken');
             if (token) deferred.resolve()
@@ -21,13 +23,13 @@ XYZApp.config(['$routeProvider', '$httpProvider',
             }
             return deferred.promise;
         }
-        var checkAuthLogin = function($q, $rootScope){
+        var checkAuthLogin = function ($q, $rootScope) {
             var deferred = $q.defer();
             var token = window.localStorage.getItem('accessToken');
             if (token) {
                 $rootScope.go('/home')
                 deferred.reject()
-            }else {
+            } else {
                 deferred.resolve()
             }
             return deferred.promise;
@@ -72,9 +74,15 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 controller: 'HomeCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
-                    getContent: function($q, $http){
+                    getContent: function ($q, $http) {
                         return $q.all({
-                            service:$http.get('/get-content', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}})
+                            service: $http.get('/get-content', {
+                                params: {
+                                    name: 'ServiceProvider',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
                         })
                     }
                 }
@@ -85,9 +93,9 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 controller: 'agencyCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
-                    getContent: function($q, $http){
+                    getContent: function ($q, $http) {
                         return $q.all({
-                                agency: $http.get('/get-agency')
+                            agency: $http.get('/get-agency')
                         })
                     }
                 }
@@ -98,10 +106,22 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 controller: 'jobCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
-                    getContent: function($q, $http){
+                    getContent: function ($q, $http) {
                         return $q.all({
-                            contentType: $http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Content Type'}, distinctName: 'name'}}),
-                            locations:$http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}})
+                            contentType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
                         })
                     }
                 }
@@ -112,13 +132,43 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 controller: 'freelancerCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
-                    getContent: function($q, $http){
+                    getContent: function ($q, $http) {
                         return $q.all({
-                            industry: $http.get('/get-content', {params: {  name: 'Filters', query: {type:'BloggersAndInfluencers',filter: 'Industry Expertise'}, distinctName: 'name'}}),
-                            content:$http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Content Type'}, distinctName: 'name'}}),
-                            languages:$http.get('/get-content', {params: {name: 'Filters', query: {type:'ContentWriting',filter: 'Languages'}, distinctName: 'name'}}),
-                            freelancerType:$http.get('/get-content', {params: {name: 'Filters', query: {type:'FreelancerType'}, distinctName: 'name'}}),
-                            locations:$http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}})
+                            industry: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'BloggersAndInfluencers', filter: 'Industry Expertise'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            content: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            languages: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Languages'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            freelancerType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'FreelancerType'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
                         })
                     }
                 }
@@ -129,11 +179,23 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 controller: 'userCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
-                    getContent: function($q, $http){
+                    getContent: function ($q, $http) {
                         return $q.all({
-                            service:$http.get('/get-content', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}}),
-                            topic: $http.get('/get-content', {params: {  name: 'Filters', query: {type:'ContentWriting',filter: 'Industry Expertise'}, distinctName: 'name'}}),
-                            user:$http.get('/me')
+                            service: $http.get('/get-content', {
+                                params: {
+                                    name: 'ServiceProvider',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            topic: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            user: $http.get('/me')
                         })
                     }
                 }
@@ -178,7 +240,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                     return $q.reject(rejection);
                 },
                 request: function (config) {
-                    if(localStorage.getItem('accessToken')){
+                    if (localStorage.getItem('accessToken')) {
                         config.headers['authorization'] = localStorage.getItem('accessToken');
                     }
                     return config;
@@ -187,8 +249,8 @@ XYZApp.config(['$routeProvider', '$httpProvider',
         });
     }
 ]);
-XYZApp.run(function($rootScope, $location){
-    $rootScope.go = function(path){
+XYZApp.run(function ($rootScope, $location) {
+    $rootScope.go = function (path) {
         $location.path(path)
     }
 })

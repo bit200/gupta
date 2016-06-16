@@ -1,89 +1,116 @@
-<div class="text-center text-bold"> Post a Job</div>
+<div class="text-center "><h3> Post a Job</h3></div>
 <form name="postjob" novalidate>
     <div class="row form-group" ng-class="{'has-error': submitted && postjob.title.$invalid}">
-        <div>Job Title</div>
-        <input class="form-control border-blue" name="title" ng-model="job.title" required>
-        <p class="error" ng-if="postjob.title.$error.required">Job Title is required</p>
+        <md-input-container class="md-block">
+            <label>Job Title</label>
+            <input class="form-control " name="title" ng-model="job.title" required>
+            <p class="error" ng-if="postjob.title.$error.required">Job Title is required</p>
+        </md-input-container>
     </div>
     <div class="row">
-        <div class="text-bold">Which of the following Content Types are you looking for?</div>
-        <div>
+        <div class="text-bold text-label">Which of the following Content Types are you looking for?</div>
+        <div class="col-xs-4">
             <div ng-repeat="item in contentTypes">
-                <input type="checkbox" ng-model="job.content[arrayProvidersModel[$index]]"> {{item}}
+                <md-checkbox ng-model="job.content[arrayProvidersModel[$index]]" class="md-warn">{{item}}
+                </md-checkbox>
             </div>
         </div>
     </div>
     <div class="row form-group" ng-class="{'has-error': submitted && postjob.description.$invalid}">
-        <div class="text-bold">Provide a description of your requirements</div>
-        <input class="form-control" name="description" ng-model="job.description" required>
-        <p class="error" ng-if="postjob.description.$error.required">Provide a description of your requirements is
-            required</p>
+        <md-input-container class="md-block">
+            <label>Provide a description of your requirements</label>
+            <input class="form-control" name="description" ng-model="job.description" required>
+            <p class="error" ng-if="postjob.description.$error.required">Provide a description of your requirements is
+                required</p></md-input-container>
     </div>
     <div class="row">
-        <div class="text-bold">Do you have a location preference?</div>
-        <div class="border-blue col-xs-4">
+        <div class="text-bold text-label">Do you have a location preference?</div>
+        <div class="col-xs-4">
             <div ng-repeat="location in locations">
-                <input type="checkbox" ng-model="job.location[location]"> {{location}}
-
+                <md-checkbox ng-model="job.location[location]" class="md-warn">{{location}}
+                </md-checkbox>
             </div>
         </div>
     </div>
     <div class="row" ng-init="job.type = 'Agency'">
-        <div class="text-bold">Do you have a preference for a type of professional</div>
+        <div class="text-bold text-label">Do you have a preference for a type of professional</div>
         <!--<div class="pointer" ng-click="job.agency = true;job.freelancer = false">-->
         <!--<input type="checkbox" ng-click="job.freelancer = false" ng-model="job.agency"> Agency-->
         <!--</div>-->
         <!--<div class="pointer" ng-click="job.freelancer = true;job.agency = false">-->
         <!--<input type="checkbox" ng-click="job.agency = false" ng-model="job.freelancer"> Freelancer-->
         <!--</div>-->
-        <div class="radio-inline">
-            <label>
-                <input class="" type="radio" ng-model="job.type" value="Agency">
-                Agency
-            </label>
-        </div>
-        <div class="radio-inline">
-            <label>
-                <input class="" type="radio" ng-model="job.type" value="Freelancer">
-                Freelancer
-            </label>
+        <div class="col-xs-4">
+            <div class="radio-inline">
+
+                <label>
+                    <input class="" type="radio" ng-model="job.type" value="Agency">
+                    Agency
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input class="" type="radio" ng-model="job.type" value="Freelancer">
+                    Freelancer
+                </label>
+            </div>
         </div>
     </div>
+
     <div class="row form-group" ng-class="{'has-error': submitted && postjob.budget.$invalid}">
-        <div>What is your budget for this marketing campaign</div>
-        <input class="form-control" name="budget" numbers-only ng-model="job.budget" required>
-        <p class="error" ng-if="postjob.budget.$error.required">Budget is required</p>
+        <md-input-container class="md-block">
+            <label>What is your budget for this marketing campaign</label>
+            <input class="form-control" name="budget" numbers-only ng-model="job.budget" required>
+
+            <p class="error" ng-if="postjob.budget.$error.required">Budget is required</p>
+        </md-input-container>
     </div>
+
     <div class="row form-group">
         <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.name.$invalid}">
-            <div>Name</div>
-            <input class="form-control" name="name" ng-model="job.name" required>
-            <p class="error" ng-if="postjob.name.$error.required">Name is required</p>
+            <md-input-container class="md-block">
+                <label>Client Name</label>
+                <input class="form-control" name="name" ng-model="job.name" required>
+                <p class="error" ng-if="postjob.name.$error.required">Name is required</p>
+            </md-input-container>
         </div>
+
         <div class="form-group col-md-5 col-md-offset-1 col-sm-12 nopadding"
              ng-class="{'has-error': submitted && postjob.mobile.$invalid}">
-            <div>Mobile phone number</div>
-            <input phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
-            <p class="error" ng-if="postjob.mobile.$error.required">Mobile phone number is required</p>
+            <md-input-container class="md-block">
+                <label>Mobile phone number</label>
+                <input phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
+
+                <p class="error" ng-if="postjob.mobile.$error.required">Mobile phone number is required</p>
+            </md-input-container>
         </div>
     </div>
+
     <div class="row form-group ">
         <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.email.$invalid}">
-            <div>Email</div>
-            <input type="email" class="form-control" name="email" ng-model="job.email" required>
-            <p class="error" ng-if="postjob.email.$error.required">Email is required</p>
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" ng-model="job.email" required>
+
+                <p class="error" ng-if="postjob.email.$error.required">Email is required</p>
+            </md-input-container>
         </div>
         <div class="col-md-5 col-md-offset-1 col-sm-12 nopadding"
              ng-class="{'has-error': submitted && postjob.company.$invalid}">
-            <div>Company name</div>
-            <input class="form-control" name="company" ng-model="job.company_name" required>
-            <p class="error" ng-if="postjob.company.$error.required">Company name is required</p>
+            <md-input-container class="md-block">
+                <label>Company name</label>
+                <input class="form-control" name="company" ng-model="job.company_name" required>
+
+                <p class="error" ng-if="postjob.company.$error.required">Company name is required</p>
+            </md-input-container>
         </div>
     </div>
 
     <div class="row">
-        <div>Website URL</div>
-        <input class="form-control" ng-model="job.website">
+        <md-input-container class="md-block">
+            <label>Website URL</label>
+            <input class="form-control" ng-model="job.website">
+        </md-input-container>
     </div>
     <div class="row">
         <div class="col-xs-5">Job Visibility</div>
@@ -106,13 +133,13 @@
     <div class="row">
         <div class="col-xs-5">Expected Date of Completion</div>
         <div class="col-xs-3">
-            <input type="date" class="form-control border-blue" ng-model="job.date_of_completion">
+            <md-datepicker ng-model="job.date_of_completion" md-placeholder="Enter date" md-open-on-focus=""></md-datepicker>
         </div>
     </div>
-    <div class="row">
-        <button type="submit" class="background-orange btn text-white"
+    <div class="row paddingT20 paddingB20">
+        <button type="submit" class="btn btn-default"
                 ng-click="addJob(postjob.$invalid,job); submitted=true">Submit
         </button>
-        <a href="/#/home" class="btn btn-danger">Cancel</a></button>
+        <a href="/#/home" class="btn btn-back">Cancel</a></button>
     </div>
 </form>

@@ -1,9 +1,8 @@
 html {
     overflow-y: scroll;
 }
-body {
-    background-color: #F0F1F3;
-}
+
+
 
 .block-center {
     display: inline-block;
@@ -35,13 +34,9 @@ body {
 }
 
 .modal-block {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    z-index: 98;
+    height: 80px;
+    width: 500px;
+
 }
 
 .modal-block-body {
@@ -107,47 +102,72 @@ body {
 .form-background {
     background-color: white;
 }
-.button-work{
-text-align: center
+
+.button-work {
+    text-align: center
 }
 
 .top-home {
     position: absolute;
     width: 100%;
     left: 0;
+    hegiht: 70px;
     /*margin: 10px 0 10px 0;*/
     padding: 10px 0 10px 0;
-    background:white;
+    background: white;
 }
-.top-home input.form-control{
-    width:40%;
+
+.top-home input.form-control {
+    width: 40%;
 }
-.home-page .btn-default{
-    color:#f7961d;
-    border-color:#f7961d;
+
+.btn-default {
+    color: #f7961d;
+    border-color: #f7961d;
 
 }
-.home-page .btn-default:hover{
-    color:white;
+
+.btn-default:hover {
+    color: white;
     background-color: #f7961d;
-    border-color:white;
+    border-color: white;
 }
 
-div.top-home div.text-right{
+.btn-back {
+    color: white;
+    background-color: #f7961d;
+
+}
+
+div.row a.btn-back {
+    float: right;
+}
+
+.logOut-btn {
+    padding: 20px 0 0 0;
+}
+
+div.top-home div.text-right {
     padding-top: 8px;
 }
 
-div.text-padding{
+div.text-padding {
     padding-bottom: 20px;
 }
-.communitySP{
-    background-color: #FFFFFF;
+
+.communitySP {
+    background-color: #DFDFDF;
 }
 
 .back-service-provider {
-    margin: 50px 0 20px 0 ;
+    margin: 90px 0 20px 0;
 
-    background: #F2F2F2;
+}
+.trendingJobs{
+    padding: 10px;
+    background-color:#F5F5F5 ;
+    margin: 90px 0 0 0;
+
 }
 
 .padding20 {
@@ -184,6 +204,10 @@ div.text-padding{
 
 .paddingB10 {
     padding-bottom: 10px;
+}
+
+.paddingT20 {
+    padding-top: 20px;
 }
 
 .marginLR20 {
@@ -337,14 +361,17 @@ div.text-padding{
 .btn-registration {
     padding: 5px 20px;
 }
-div.block-job-item{
-    margin-bottom: 10px ;
+
+div.block-job-item {
+    margin-bottom: 10px;
 }
-div.communitySP div.text-center{
+
+div.communitySP div.text-center {
     padding: 10px 0 0 0;
 }
+
 .block-job-item {
-padding:10px 0 10px;
+    padding: 10px 0 10px;
 }
 
 .agency-item {
@@ -384,8 +411,8 @@ padding:10px 0 10px;
 .profile-poster {
     width: 100%;
     height: 75%;
-    border: 1px solid transparent;
-    border-radius: 5px;
+    /*border: 1px solid transparent;*/
+    /*border-radius: 5px;*/
 }
 
 .profile {
@@ -393,7 +420,6 @@ padding:10px 0 10px;
     height: 230px;
     border: 1px solid #CECECE;
     border-radius: 5px;
-    padding: 10px;
     margin: auto;
     margin-bottom: 10px;
 }
@@ -410,7 +436,9 @@ div.block-popularity {
 .btn-search {
     margin-top: 0px;
 }
-
+div.btnSearch{
+    padding-top:15px;
+}
 .agency-text {
     text-align: right;
 }
@@ -492,11 +520,12 @@ div.block-popularity {
     position: relative;
 }
 
-@media (max-width: 992px){
+@media (max-width: 992px) {
     .user-search {
         margin: 0;
         margin-bottom: 5%;
     }
+
     .user-logo {
         margin: 0px 43%;
     }
@@ -547,7 +576,7 @@ div.block-popularity {
     height: 30px;
     background: whitesmoke;
     position: absolute;
-    top:0;
+    top: 0;
     z-index: 99;
     padding: 10px;
     padding-top: 5px;
@@ -558,7 +587,7 @@ div.block-popularity {
     height: 160px;
     overflow: auto;
     width: 106%;
-        padding-left: 10px;
+    padding-left: 10px;
 }
 
 .user-topic-input {
@@ -581,7 +610,7 @@ div.block-popularity {
 
 .user-block-top {
     padding: 10px;
-    background: #D9D9D9;
+    background: #F5F5F5;
 }
 
 .user-block-bottom {
@@ -590,18 +619,20 @@ div.block-popularity {
 
 .modal-block-button {
     position: relative;
-    top: 40%;
-    left: 4%;
+    top: 30%;
+    left: 10%;
 }
 
 .ui-select-container {
     min-height: 34px;
 }
+
 @media (max-width: 500px) {
     .modal-block-button > button {
         font-size: 9pt;
     }
 }
+
 @keyframes shake {
     0% {
         transform: translateX(0);
@@ -623,6 +654,10 @@ div.block-popularity {
     }
 }
 
+.heightSize{
+    height: 45px;
+}
+
 .shake {
     animation: shake 400ms ease-in-out;
 }
@@ -637,7 +672,51 @@ div.block-popularity {
 
 .profile-block {
     box-shadow: 2px 2px 6px;
-    padding:10px;
+    padding: 10px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.text-label {
+    padding-bottom: 20px;
+}
+
+.selectTerm {
+    width: 100%;
+}
+
+md-input-container.selectTerm span div {
+    display: inline;
+}
+
+.selectdemoSelectHeader {
+    /* Please note: All these selectors are only applied to children of elements with the 'selectdemoSelectHeader' class */
+}
+
+.selectdemoSelectHeader .demo-header-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.selectdemoSelectHeader .demo-select-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+.selectdemoSelectHeader md-content._md {
+    max-height: 240px;
+}
+/*html body {*/
+/*}   background-color: #F0F1F3;*/
+
+._md-icon {
+    display: inline;
 }

@@ -1,37 +1,46 @@
 <div ng-if="!requestBusiness">
     <div class="row">
-        <div class="text-bold text-center padding20">Claim your Agency Page</div>
+        <div class=" text-center "><h3>Claim your Agency Page</h3></div>
     </div>
     <div class="row">
-        <div class="text-center text-bold padding20">Find and Claim your Agency Page</div>
+        <div class="text-center  padding20"><h3>Find and Claim your Agency Page</h3></div>
     </div>
     <div class="row">
         <div class="col-md-10 col-xs-12">
             <div class="col-md-6 col-xs-12">
-                <div class="col-md-3 col-xs-12 agency-text padding7 padding-top">Agency Name</div>
-                <div class="col-md-9 col-xs-12 nopadding">
-                    <input class="form-control">
-                </div>
+
+                <md-input-container class="md-block">
+                    <label>Agency Name</label>
+                    <input class="form-control" name="description" ng-model="job.description" required>
+               </md-input-container>
+
+                <!--<div class="col-md-3 col-xs-12 agency-text padding7 padding-top">Agency Name</div>-->
+                <!--<div class="col-md-9 col-xs-12 nopadding">-->
+                    <!--<input class="form-control">-->
+                <!--</div>-->
             </div>
             <div class="col-md-6 col-xs-12">
 
-                <div class="col-md-3 col-xs-12 agency-text padding7">City</div>
-                <div class="col-md-9 col-xs-12 nopadding">
-                    <input class="form-control">
-                </div>
+
+                <md-input-container class="md-block">
+                    <label>City</label>
+                    <input class="form-control" name="description" ng-model="job.description" required>
+                </md-input-container>
             </div>
         </div>
-        <button class="col-md-offset-0 col-md-2 col-xs-offset-1 col-xs-10 background-orange btn text-white btn-search">
+        <div class="btnSearch">
+        <button class="col-md-offset-0 col-md-2 col-xs-offset-1 col-xs-10 btn btn-default btn-search">
             <span class="glyphicon glyphicon-search"></span>
         </button>
+        </div>
     </div>
     <div class="row">
         <table class="col-xs-12 nopadding marginT20">
             <tbody class="background-primary" style="height: 50px">
-                <td class="text-bold inlineBlock width20 text-center text-white "
-                     ng-repeat="(key, value) in agency[0]">
-                    {{key}}
-                </td>
+            <td class=" heightSize inlineBlock width20 text-center text-white "
+                ng-repeat="(key, value) in agency[0]">
+                {{key}}
+            </td>
             </tbody>
             <tr ng-repeat="item in agency">
                 <td class="inlineBlock width20 text-center agency-item">{{item.Logo}}</td>

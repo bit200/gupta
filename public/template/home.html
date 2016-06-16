@@ -31,7 +31,6 @@
         <div class="col-md-3 col-sm-6" ng-repeat="profile in profiles">
             <div class="profile">
                 <img ng-if="profile.poster" class="profile-poster" ng-src="{{profile.poster}}">
-
                 <div class="text-center">{{profile.name}}</div>
                 <div class="col-sm-12">
                 <span ng-repeat="star in profile.rating track by $index " class="rating-star glyphicon"
@@ -53,14 +52,15 @@
             page(test)
         </button>
 
-        <button class="background-orange btn text-white button-home-register " ng-click="link('/user')">User
+        <button class=" btn btn-default button-home-register " ng-click="link('/user')">User
             page(test)
         </button>
     </div>
-    <div class="row back-service-provider">
+    <div class="row trendingJobs">
         <div class="col-sm-12 text-center text-padding">Trending Jobs</div>
         <div class="block-job-item">
-            <div class="text-bold inlineBlock width20 text-center grey-text job-item" ng-repeat="(key, value) in jobs[0]">
+            <div class="text-bold inlineBlock width20 text-center grey-text job-item"
+                 ng-repeat="(key, value) in jobs[0]">
                 {{key}}
             </div>
             <div ng-repeat="job in jobs">
@@ -69,20 +69,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-offset-4 col-sm-4 text-center"><button class="btn btn-default">View All Jobs</button></div>
+        <div class="col-sm-offset-4 col-sm-4 text-center">
+            <button class="btn btn-default">View All Jobs</button>
+        </div>
     </div>
-<footer >
-    <div class="row communitySP ">
-        <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
-        <button class="col-xs-4 col-xs-offset-4  btn btn-default text-white button-home-register"
-                ng-click="link('/freelancer-registration')">Register with us
-        </button>
-    </div>
+    <footer>
+        <div class="row communitySP ">
+            <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
+            <button class="col-xs-4 col-xs-offset-4  btn btn-default text-white button-home-register"
+                    ng-click="link('/freelancer-registration')">Register with us
+            </button>
+        </div>
 
-    <div class="row background-white">
-        <div class="col-sm-4 text-left"> 12 Cross</div>
-        <div class="col-sm-4 text-center"> 4,000 Members</div>
-        <div class="col-sm-4 text-right"> 150 Jobs Posted</div>
-    </div>
-</footer>
+        <div class="row background-white">
+            <div class="col-sm-4 text-left"> 12 Cross</div>
+            <div class="col-sm-4 text-center"> 4,000 Members</div>
+            <div class="col-sm-4 text-right"> 150 Jobs Posted</div>
+        </div>
+    </footer>
 </div>
