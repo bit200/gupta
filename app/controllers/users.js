@@ -90,10 +90,12 @@ exports.update_password = function (req, res) {
  */
 exports.send_confirm = function (req, res) {
     var login = m.getBody(req).login;
-    m.findOne(models.User, {$or: [
-        {username: login},
-        {email: login}
-    ]}, res, function (user) {
+    m.findOne(models.User, {
+        $or: [
+            {username: login},
+            {email: login}
+        ]
+    }, res, function (user) {
         mail.send_confirm(user, res, res)
     })
 };
@@ -178,7 +180,7 @@ exports.linkedinSignin = function (req, res) {
             if (result) {
                 if (result.favourites) delete result.favourites;
 
-                var token = jwt.sign(result, self.config.secret, { expiresInMinutes: 11340 });
+                var token = jwt.sign(result, self.config.secret, {expiresInMinutes: 11340});
                 res.status(200).json({token: token});
                 if (result.linkedinId === undefined) {
                     result.linkedinId = user.id;
@@ -201,7 +203,7 @@ exports.linkedinSignin = function (req, res) {
                 newUser.save(function (err) {
                     if (err) throw err;
                     user._id = newUser._id;
-                    var token = jwt.sign(user, self.config.secret, { expiresInMinutes: 11340 });
+                    var token = jwt.sign(user, self.config.secret, {expiresInMinutes: 11340});
                     res.status(200).json({userId: newUser._id, token: token});
                     mkdirp('../public/images/users/' + newUser._id);
                 });
@@ -220,7 +222,7 @@ exports.googleSignin = function (req, res) {
             if (result) {
                 if (result.favourites) delete result.favourites;
 
-                var token = jwt.sign(result, self.config.secret, { expiresInMinutes: 11340 });
+                var token = jwt.sign(result, self.config.secret, {expiresInMinutes: 11340});
                 res.status(200).json({token: token});
 
                 result.userAgent = req.headers['user-agent'];
@@ -252,7 +254,7 @@ exports.googleSignin = function (req, res) {
                 newUser.save(function (err) {
                     if (err) throw err;
                     user._id = newUser._id;
-                    var token = jwt.sign(user, self.config.secret, { expiresInMinutes: 11340 });
+                    var token = jwt.sign(user, self.config.secret, {expiresInMinutes: 11340});
                     res.status(200).json({userId: newUser._id, token: token});
                     mkdirp('../public/images/users/' + newUser._id);
                 });
@@ -271,7 +273,7 @@ exports.facebookSignin = function (req, res) {
             if (result) {
                 if (result.favourites) delete result.favourites;
 
-                var token = jwt.sign(result, self.config.secret, { expiresInMinutes: 11340 });
+                var token = jwt.sign(result, self.config.secret, {expiresInMinutes: 11340});
                 res.status(200).json({token: token});
 
                 result.userAgent = req.headers['user-agent'];
@@ -295,7 +297,7 @@ exports.facebookSignin = function (req, res) {
                 newUser.save(function (err) {
                     if (err) throw err;
                     user._id = newUser._id;
-                    var token = jwt.sign(user, self.config.secret, { expiresInMinutes: 11340 });
+                    var token = jwt.sign(user, self.config.secret, {expiresInMinutes: 11340});
                     res.status(200).json({userId: newUser._id, token: token});
                     mkdirp('../public/images/users/' + newUser._id);
                 });
@@ -304,10 +306,16 @@ exports.facebookSignin = function (req, res) {
     );
 }
 
-exports.check_unique = function(req,res){
-  var username = req.query.username || '';
-  models.User.count({username: username}).exec(function(err, count){
-      res.status(200).json({count: count});
-  })
+exports.check_unique = function (req, res) {
+    var username = req.query.username || '';
+    models.User.count({username: username}).exec(function (err, count) {
+        res.status(200).json({count: count});
+    })
 
 };
+
+exports.get_user = function (req, res) {
+    var params = m.getBody(req);
+    log('sdfdsf', params)
+    m.findOne(models.Freelancer, {user: params.id}, res, res, {populate: 'user'})
+}

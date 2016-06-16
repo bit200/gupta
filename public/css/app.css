@@ -218,6 +218,10 @@ div.text-padding{
     width: 25%;
 }
 
+.width30 {
+    width: 30%;
+}
+
 .width35 {
     width: 34%;
 }
@@ -309,6 +313,10 @@ div.text-padding{
 
 .grey-text {
     color: #a9a9a9;
+}
+
+.text-primary {
+    color: #00B0F0;
 }
 
 .text-white, .text-white:hover, .text-white:focus {
@@ -618,4 +626,12 @@ div.block-popularity {
 
 .active-category {
     border-bottom: 3px solid blue;
+}
+
+.profile-block {
+    height: 100px;
+    box-shadow: 2px 2px 6px;
+    padding:10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

@@ -54,10 +54,6 @@ var UserSchema = mongoose.Schema({
         type: Number,
         ref: 'Work'
     },
-    package: {
-        type: Number,
-        ref: 'Package'
-    },
     contact_detail:{
         type: Number,
         ref: 'ContactDetail'

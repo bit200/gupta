@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-3 background-white">
+        <div class="row">
+            <div class="col-xs-6 col-md-12 ">
+                <img ng-if="profile.poster" class="full-width img-rounded" ng-src="{{profile.poster}}">
+            </div>
+            <div class="col-md-12 col-xs-6">
+                <div class="full-width marginT20 text-bold">{{profile.user.last_name}} {{profile.user.first_name}}</div>
+                <div class="padding10"><i class="fa fa-map-marker" aria-hidden="true"></i> {{profile.location}}</div>
+                <button class="btn btn-primary width80"><i class="fa fa-envelope-o" aria-hidden="true"></i> Connect</button>
+                <div class="full-width padding10 text-bold"><i class="fa fa-heart-o" aria-hidden="true"></i> Add to Favorite</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-sm-4 col-xs-8">
+                <div class="col-xs-4 text-bold">Summary</div>
+                <div class="col-xs-4 text-bold">Details</div>
+                <div class="col-xs-4 text-bold">Work</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="border-box"></div>
+                <div>Website: {{profile.website ? profile.website : 'N/A'}}</div>
+                <div class="inlineBlock">
+                    <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
+                </div>
+                <div><i class="fa fa-eye" aria-hidden="true"></i> Profile view: {{profile.view}}</div>
+                <div>{{profile.introduction}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-3 background-white profile-block">
+                    <div class="text-bold text-primary">Industry Expertise</div>
+                    <div class="border-box"></div>
+                    <div class="inlineBlock" ng-repeat="item in profile.industry_expertise">{{item}}{{$last? '':', '}}</div>
+                </div>
+                <div class="col-xs-offset-1 col-xs-3 background-white profile-block">
+                    <div class="text-bold text-primary">Content Type</div>
+                    <div class="border-box"></div>
+                    <div class="inlineBlock" ng-repeat="item in profile.content_type">{{item}}{{$last? '':', '}}</div>
+                </div>
+                <div class="col-xs-offset-1 col-xs-3 background-white profile-block">
+                    <div class="text-bold text-primary">Languages</div>
+                    <div class="border-box"></div>
+                    <div class="inlineBlock" ng-repeat="item in profile.languages">{{item}}{{$last? '':', '}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

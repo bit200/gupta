@@ -157,6 +157,15 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 }
             })
 
+            .when('/profile/user/:id', {
+                templateUrl: 'template/profile.html',
+                controller: 'profileCtrl',
+                resolve: {
+                    auth: checkAuthCtrl
+
+                }
+            })
+
             .otherwise({redirectTo: '/login'});
 
         $httpProvider.interceptors.push(function ($q) {

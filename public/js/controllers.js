@@ -208,14 +208,13 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRatin
                     if (value == 15) {
                         return value + '+ year'
                     }
-                    return value  + ' years';
+                    return value + ' years';
                 }
             }
         }
     }
 
-}])
-;
+}]);
 
 
 XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
@@ -229,7 +228,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
     scope.arrayProvidersModel = parseType.getModel(scope.contentTypes);
 
     scope.addJob = function (invalid, job) {
-        if (invalid) return
+        if (invalid) return;
         job.content_types = parseType.get(job.content, scope.contentTypes);
         job.local_preference = parseType.get(job.location, scope.locations);
         http.post('/job', job).then(function (resp) {
@@ -238,6 +237,14 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             }
         )
     };
+}]);
+
+
+XYZCtrls.controller('profileCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating',function (scope, location, http, $routeParams,parseRating) {
+    http.get('/get-user', {params: {id: $routeParams.id}}).then(function(resp){
+        scope.profile = parseRating.rating([resp.data.data])[0];
+        console.log(scope.profile)
+    })
 }]);
 
 
@@ -297,6 +304,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 
     scope.register = function (invalid, freelancer) {
         if (invalid) return;
+        freelancer.service_price = freelancer.price[freelancer.service_type]
         http.post('/freelancer', freelancer).then(function (resp) {
                 location.path('/home')
             }, function (err, r) {
