@@ -171,12 +171,210 @@ module.exports = function (done) {
             });
         });
 
+        arrFunc.push(function (cb) {
+
+        var arr = [
+        {
+            "type" : "freelancer",
+            "name" : "test2 test2",
+            "introduction" : "asfdasdasd",
+            "description" : "asdasda",
+            "location" : "Delhi",
+            "user" : 100080,
+            "rating" : 1,
+            "popularity" : 1,
+            "view" : 1900,
+            "service_type" : "word",
+            "service_price" : 1,
+            "poster" : "http://2.bp.blogspot.com/-mxUOaP7O7zE/VAnmIljIGoI/AAAAAAAANN0/UmtA1zptSSs/s1600/_DSC4232.jpg",
+            "languages" : [
+            "Marathi",
+            "Telugu"
+        ],
+            "content_type" : [
+            "Press Release Writing"
+        ],
+            "industry_expertise" : [
+            "Health and Fitness",
+            "Travel and Tourism",
+            "Science"
+        ],
+            "freelancer_type" : [
+            "Digital Marketing"
+        ],
+            "cities_service" : []
+        },
+
+
+        {
+            "type" : "agency",
+            "name" : "test test",
+            "introduction" : "asfdasdasd",
+            "description" : "asdasda",
+            "location" : "Delhi",
+            "user" : 100022,
+            "rating" : 4,
+            "popularity" : 4,
+            "view" : 999,
+            "service_type" : "hour",
+            "service_price" : 551,
+            "poster" : "http://svit24.net/images/stories/articles/2012/Curiosities/01-2012/-%D0%B8%D0%BD%D0%B4%D1%83%D1%81.jpg",
+            "languages" : [
+            "Marathi",
+            "Telugu"
+        ],
+            "content_type" : [
+            "Press Release Writing"
+        ],
+            "industry_expertise" : [
+            "Health and Fitness",
+            "Travel and Tourism",
+            "Science"
+        ],
+            "freelancer_type" : [
+            "Digital Marketing"
+        ],
+            "cities_service" : []
+        },
+
+            {
+            "type" : "freelancer",
+            "name" : "test3 test3",
+            "introduction" : "asfdasdasd",
+            "description" : "asdasda",
+            "location" : "Delhi",
+            "user" : 100023,
+            "rating" : 3,
+            "popularity" : 3,
+            "view" : 78,
+            "service_type" : "word",
+            "service_price" : 8,
+            "poster" : "https://pp.vk.me/c9249/v9249019/85e/U5hcz7MPt58.jpg",
+            "languages" : [
+            "Marathi",
+            "Telugu"
+        ],
+            "content_type" : [
+            "Press Release Writing"
+        ],
+            "industry_expertise" : [
+            "Health and Fitness",
+            "Travel and Tourism",
+            "Science"
+        ],
+            "freelancer_type" : [
+            "Digital Marketing"
+        ],
+            "cities_service" : []
+        },
+        {
+            "type" : "agency",
+            "name" : "test test",
+            "introduction" : "asfdasdasd",
+            "description" : "asdasda",
+            "location" : "Delhi",
+            "user" : 100025,
+            "rating" : 5,
+            "popularity" : 5,
+            "view" : 545,
+            "service_type" : "hour",
+            "service_price" : 3000,
+            "poster" : "http://peshera.org/khrono/Fotos-19/foto-118.jpg",
+            "languages" : [
+            "Marathi",
+            "Telugu"
+        ],
+            "content_type" : [
+            "Press Release Writing"
+        ],
+            "industry_expertise" : [
+            "Health and Fitness",
+            "Travel and Tourism",
+            "Science"
+        ],
+            "freelancer_type" : [
+            "Digital Marketing"
+        ],
+            "cities_service" : []
+        },
+        {
+            "type" : "freelancer",
+            "name" : "test test",
+            "introduction" : "asfdasdasd",
+            "description" : "asdasda",
+            "location" : "Delhi",
+            "user" : 100028,
+            "rating" : 3,
+            "popularity" : 3,
+            "view" : 20,
+            "service_type" : "word",
+            "service_price" : 24,
+            "poster" : "http://f1-legend.ru/_ld/18/08806603.jpg",
+            "languages" : [
+            "Marathi",
+            "Telugu"
+        ],
+            "content_type" : [
+            "Press Release Writing"
+        ],
+            "industry_expertise" : [
+            "Health and Fitness",
+            "Travel and Tourism",
+            "Science"
+        ],
+            "freelancer_type" : [
+            "Digital Marketing"
+        ],
+            "cities_service" : []
+        },
+        {
+            "type" : "agency",
+            "name" : "test test",
+            "introduction" : "asfdasdasd",
+            "description" : "asdasda",
+            "location" : "Delhi",
+            "user" : 100033,
+            "rating" : 2,
+            "popularity" : 2,
+            "view" : 130,
+            "poster" : "http://f2.s.qip.ru/15A7EBwSn.jpg",
+            "service_type" : "word",
+            "service_price" : 20,
+            "languages" : [
+            "Marathi",
+            "Telugu"
+        ],
+            "content_type" : [
+            "Press Release Writing"
+        ],
+            "industry_expertise" : [
+            "Health and Fitness",
+            "Travel and Tourism",
+            "Science"
+        ],
+            "freelancer_type" : [
+            "Digital Marketing"
+        ],
+            "cities_service" : []
+        }];
+            var count = 0;
+            _.forEach(arr, function (item) {
+                m.findCreate(models.Freealncer, item, {}, {}, function () {
+                    count++;
+                    if (arr.length == count) {
+                        cb()
+                    }
+                })
+            });
+        });
+
+
         async.parallel(arrFunc, function () {
-            console.log('Filters created')
+            console.log('Filters created');
             done()
         })
 
     });
-}
+};
 
 

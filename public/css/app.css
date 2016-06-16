@@ -253,6 +253,9 @@ div.text-padding{
 .border-box {
     border: 1px solid black;
 }
+.border-bottom {
+    border-bottom: 1px solid black;
+}
 
 .service-provider {
     background: white;
@@ -628,8 +631,11 @@ div.block-popularity {
     border-bottom: 3px solid blue;
 }
 
-.profile-block {
+.profile-summary {
     height: 100px;
+}
+
+.profile-block {
     box-shadow: 2px 2px 6px;
     padding:10px;
     text-overflow: ellipsis;

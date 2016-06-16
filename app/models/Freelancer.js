@@ -38,6 +38,7 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         ref: 'Package'
     },
+    
     created_at: {
         type: Date,
         default: Date.now
