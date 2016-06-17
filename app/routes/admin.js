@@ -10,8 +10,9 @@ module.exports = function (app) {
     app.get('/get-job', auth.admin_only, admin.get_job);
     app.get('/approved', auth.admin_only, admin.approved);
     app.get('/approve-agency', auth.admin_only, admin.approve_agency);
-    app.get('/reject-agency', auth.admin_only, admin.reject_agency);    
+    app.get('/reject-agency', auth.admin_only, admin.reject_agency);
     app.get('/approve-job', auth.admin_only, admin.approve_job);
     app.get('/reject-job', auth.admin_only, admin.reject_job);
+    app.get('/suggest-edit-job', auth.admin_only, admin.suggest_edit_job);
     app.get('/reject', auth.admin_only, admin.reject);
 };

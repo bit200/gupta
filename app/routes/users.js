@@ -16,4 +16,5 @@ module.exports = function (app) {
     app.post('/linkedinSignin', users.linkedinSignin);
     app.post('/googleSignin', users.googleSignin);
     app.get('/api/checkUnique/', users.check_unique)
+    app.get('/api/uniqueName/', users.check_unique_freelancer)
 };

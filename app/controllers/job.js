@@ -5,19 +5,25 @@ var models = require('../db')
 
 exports.add_job = function (req, res) {
     var params = m.getBody(req);
+    params.user = req.userId;
     m.create(models.Job, params, res, res)
+};
+
+exports.get_job = function(req,res){
+    var params = m.getBody(req);
+    m.findOne(models.Job, params, res, res)
 };
 
 exports.add_freelancer = function (req, res) {
     var params = m.getBody(req);
-    params.user = req.userId
+    params.user = req.userId;
     m.create(models.Freelancer, params, res, res)
 };
 
 exports.get_freelancer = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Freelancer, params, res, res,{populate:'user'})
-}
+    m.find(models.Freelancer, params, res, res, {populate:'user'})
+};
 
 exports.add_package = function(req, res) {
     var params = m.getBody(req);

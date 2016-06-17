@@ -15,10 +15,12 @@ var JobSchema = mongoose.Schema({
     website: String,
     job_visibility: Boolean,
     date_of_completion: Date,
+    status: String, 
     admin_approved: {
         type: Number,
         default:0
     },
+    reject_reason: String,
     user: {
         type: Number,
         ref: 'User'

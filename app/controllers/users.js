@@ -314,6 +314,14 @@ exports.check_unique = function (req, res) {
 
 };
 
+exports.check_unique_freelancer = function (req, res) {
+    var name = req.query.name || '';
+    models.Freelancer.count({name: name}).exec(function (err, count) {
+        res.status(200).json({count: count});
+    })
+
+};
+
 exports.get_user = function (req, res) {
     var params = m.getBody(req);
     log('sdfdsf', params)
