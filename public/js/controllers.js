@@ -46,7 +46,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
     }
 }]);
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', function (scope, location, http, $q, getContent) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http',  function (scope, location, http) {
 
     scope.registration = function (invalid, data) {
         console.log(invalid)
