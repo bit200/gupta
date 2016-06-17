@@ -88,7 +88,7 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         scope.showJob = function(bol, item){
             scope.showJobModal = bol;
             scope.JobChoice = item;
-        }
+        };
 
         scope.approveAgency = function (type, email) {
             $http.get('/' + type + '-agency', {params: {email: email}}).then(function (resp) {
@@ -96,6 +96,19 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
                 _.forEach(scope.agency, function (item) {
                     if (item.elem.email == email) {
                         item.data.Status = (type == 'approve') ? 'Claimed' : 'Unclaimed';
+                    }
+                })
+            })
+        };
+        
+        
+        scope.approveJob = function(type) {
+            console.log('sdsd', scope.JobChoice)
+            $http.get('/' + type + '-job', {params: {_id: scope.JobChoice}}).then(function (resp) {
+                scope.showJobModal = false;
+                _.forEach(scope.job, function (item) {
+                    if (item.elem._id == scope.JobChoice) {
+                        item.data.admin_approved = (type == 'approve') ? 'Approved' : 'Rejected';
                     }
                 })
             })
