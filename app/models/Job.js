@@ -15,6 +15,14 @@ var JobSchema = mongoose.Schema({
     website: String,
     job_visibility: Boolean,
     date_of_completion: Date,
+    admin_approved: {
+        type: Number,
+        default:0
+    },
+    user: {
+        type: Number,
+        ref: 'User'
+    },
     created_at: {
         type: Date,
         default: Date.now

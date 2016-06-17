@@ -14,10 +14,9 @@ var FreelancerSchema = mongoose.Schema({
     content_type: Array,
     languages: Array,
     service_type: String,
-    serviceID: Number,
     service_price: Number,
     poster: String,
-
+    service_packages: Array,
     rating: {
         type: Number,
         default: 0
@@ -34,11 +33,6 @@ var FreelancerSchema = mongoose.Schema({
         type:Number,
         ref: 'User'
     },
-    package: {
-        type: Number,
-        ref: 'Package'
-    },
-    
     created_at: {
         type: Date,
         default: Date.now
@@ -49,7 +43,7 @@ var FreelancerSchema = mongoose.Schema({
 FreelancerSchema.plugin(autoIncrement.plugin, {
     model: 'Freelancer',
     field: '_id',
-    startAt: 100000
+    startAt: 100040
 });
 
 mongoose.model('Freelancer', FreelancerSchema);

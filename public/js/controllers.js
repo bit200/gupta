@@ -368,6 +368,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
     scope.locations = getContent.locations.data.data;
     scope.experience = _.range(51);
     scope.extras = [];
+    scope.new_services = [];
     scope.clearSearchTerm = function () {
         scope.searchTerm = '';
     };
@@ -375,7 +376,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 
     scope.register = function (invalid, freelancer) {
         if (invalid) return;
-        freelancer.service_price = freelancer.price[freelancer.service_type]
+        if(freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
         http.post('/freelancer', freelancer).then(function (resp) {
                 location.path('/home')
             }, function (err, r) {
@@ -385,13 +386,34 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 
     scope.addPackage = function (bol) {
         scope.viewModal = bol
-    }
+    };
+
     scope.custom = {};
     scope.submitExtra = function (invalid, extra) {
         if (invalid) return;
         scope.extras.push(extra);
         scope.custom = {};
+    };
+
+    scope.createPackage = function(invalid, service){
+        if (invalid) return;
+        scope.freelancer.service_packages = scope.freelancer.service_packages || [];
+        service.extras = scope.extras;
+        http.post('/add-package', service).then(function (resp) {
+            scope.viewModal = false;
+            scope.new_services.push(resp.data.data);
+            scope.freelancer.service_packages.push(resp.data.data._id)
+            }, function (err, r) {
+            }
+        )
+    };
+
+    scope.delete_package = function(item){
+        var index = scope.new_services.indexOf(item);
+        scope.new_services.splice(index, 1);
+        scope.freelancer.service_packages.splice(index, 1);
     }
+
 }]);
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {

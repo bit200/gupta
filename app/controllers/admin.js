@@ -25,10 +25,30 @@ exports.get_business_users = function (req, res) {
     m.find(models.BusinessUser, {}, res, res, {populate: 'agency'})
 };
 
+exports.get_job = function (req, res) {
+    m.find(models.Job, {}, res, res)
+};
 
-exports.approved_agency = function (req, res) {
+
+exports.approve_agency = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: true}, res, res)
+};
+
+exports.reject_agency = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: false}, res, res)
+};
+
+
+exports.approve_job = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, res)
+};
+
+exports.reject_job = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2}, res, res)
 };
 
 exports.approved = function (req, res) {
