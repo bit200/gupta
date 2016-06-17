@@ -83,12 +83,12 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
             scope.agencyRequest = item.elem;
         };
 
-        scope.approveAgency = function (email) {
-            $http.get('/approved-agency', {params: {email: email}}).then(function (resp) {
+        scope.approveAgency = function (type, email) {
+            $http.get('/' + type + '-agency', {params: {email: email}}).then(function (resp) {
                 scope.showAgency = false;
                 _.forEach(scope.agency, function (item) {
                     if (item.elem.email == email) {
-                        item.data.Status = 'Claimed';
+                        item.data.Status = (type == 'approve') ? 'Claimed' : 'Unclaimed';
                     }
                 })
             })

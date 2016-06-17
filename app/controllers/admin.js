@@ -26,9 +26,14 @@ exports.get_business_users = function (req, res) {
 };
 
 
-exports.approved_agency = function (req, res) {
+exports.approve_agency = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: true}, res, res)
+};
+
+exports.reject_agency = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: false}, res, res)
 };
 
 exports.approved = function (req, res) {

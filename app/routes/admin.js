@@ -8,6 +8,7 @@ module.exports = function (app) {
     app.get('/get-users', auth.admin_only, admin.get_users);
     app.get('/get-business-users', auth.admin_only, admin.get_business_users);
     app.get('/approved', auth.admin_only, admin.approved);
-    app.get('/approved-agency', auth.admin_only, admin.approved_agency);
+    app.get('/approve-agency', auth.admin_only, admin.approve_agency);
+    app.get('/reject-agency', auth.admin_only, admin.reject_agency);
     app.get('/reject', auth.admin_only, admin.reject);
 };

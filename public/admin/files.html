@@ -58,14 +58,14 @@
                     <table class="table table-bordered table-striped">
                         <tr>
                             <td ng-repeat="(key, value) in users[0]">{{key}}</td>
-                            <td>Approved</td>
+                            <td>Approve</td>
                             <td>Reject</td>
                         </tr>
                         <tr ng-repeat="user in users ">
                             <td ng-repeat="(key,value) in user | admin_filter">{{value}}</td>
                             <td ng-if="!user.admin_approved">
                                 <button class="btn background-orange text-white" ng-click='approved(user, $index)'>
-                                    Approved
+                                    Approve
                                 </button>
                             </td>
                             <td ng-if="!user.admin_approved">
@@ -86,18 +86,16 @@
                     <table class="table table-bordered table-striped">
                         <tr>
                             <td ng-repeat="(key, value) in agency[0].data">{{key}}</td>
+                            <td>Information</td>
                         </tr>
                         <tr ng-repeat="item in agency">
                             <td ng-repeat="(key,value) in item.data"><a class="pointer" ng-if="key=='Agency Name'"
                                                                         ng-click="showModal(true, item)">{{value}}</a><span
                                     ng-if="key!='Agency Name'">{{value}}</span></td>
                             <td ng-if="!item.admin_approved">
-                                <button class="btn background-orange text-white" ng-click='approved(user, $index)'>
-                                    Approved
+                                <button class="btn background-orange text-white" ng-click="showModal(true, item)">
+                                    Show
                                 </button>
-                            </td>
-                            <td ng-if="!item.admin_approved">
-                                <button class="btn btn-danger" ng-click="showReject(true, user, $index)">Reject</button>
                             </td>
                         </tr>
 
@@ -161,10 +159,13 @@
             </div>
             <div class="row m-t-20">
                 <div class="col-md-12 text-center">
-                    <button id="dialogConfirm" class="btn btn-primary waves-effect waves-light"
-                            ng-click="approveAgency(agencyRequest.email)">Approve
+                    <button class="btn btn-primary waves-effect waves-light"
+                            ng-click="approveAgency('approve',agencyRequest.email)">Approve
                     </button>
-                    <button id="dialogCancel" class="btn btn-default waves-effect" ng-click="showModal(false)">Cancel
+                    <button class="btn btn-primary waves-effect waves-light"
+                            ng-click="approveAgency('reject',agencyRequest.email)">Reject
+                    </button>
+                    <button class="btn btn-default waves-effect" ng-click="showModal(false)">Cancel
                     </button>
                 </div>
             </div>
