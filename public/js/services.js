@@ -1,6 +1,24 @@
 'use strict';
 
 /* Directives */
+XYZCtrls.service('safeApply', function () {
+    return {
+        run: function($scope, type) {
+            type = type || '$apply'
+            console.log('safeapply', type)
+            $scope.safeApply = function(fn) {
+                var phase = this.$root.$$phase;
+                if(phase == '$apply' || phase == '$digest') {
+                    if(fn && (typeof(fn) === 'function')) {
+                        fn();
+                    }
+                } else {
+                    this[type](fn);
+                }
+            };
+        }
+    }
+});
 XYZCtrls.service('parseType', function () {
     return {
         get: function (item, Arr) {

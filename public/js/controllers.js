@@ -7,9 +7,22 @@ String.prototype.replaceAll = function (search, replacement) {
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls', []);
 
-XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
-    scope.auth = window.localStorage.getItem('accessToken');
+
+XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', 'safeApply', function (scope, rootScope, location, http, safeApply) {
+    scope.setAuth = function () {
+        rootScope.auth123 = window.localStorage.getItem('accessToken');
+
+        safeApply.run(rootScope);
+    }
+    rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        //..do something
+        console.log('starttttt')
+        scope.setAuth()
+        //event.stopPropagation();  //if you don't want event to bubble up
+    });
+
     scope.formCorrect = false;
+    scope.setAuth()
 
     scope.signin = function (invalid, data) {
 
@@ -36,6 +49,13 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
                 }
             })
     };
+
+    scope.logout = function () {
+        localStorage.clear();
+        scope.setAuth()
+        location.path('/login')
+    };
+
     scope.showMessage = false;
     scope.startInput = function () {
         scope.loginForm.$invalid = false;
@@ -46,7 +66,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$location', '$http', function (scope
     }
 }]);
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http',  function (scope, location, http) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
 
     scope.registration = function (invalid, data) {
         console.log(invalid)
@@ -66,10 +86,6 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http',  function (scop
         location.path(url)
     };
 
-    scope.logout = function () {
-        localStorage.clear();
-        location.path('/login')
-    };
 
     //scope.arrayProviders = getContent.service.data.data;
 
@@ -134,8 +150,6 @@ XYZCtrls.controller('userCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         }
 
 
-
-
     });
     scope.socialNetworks = [
         {
@@ -163,10 +177,10 @@ XYZCtrls.controller('userCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     ];
 
     scope.closeMenu = function () {
-        if(!scope.close.social){
-        scope.close.social = true;
+        if (!scope.close.social) {
+            scope.close.social = true;
         }
-        else scope.close.social= false;
+        else scope.close.social = false;
     }
     scope.slider = {
         video: {
@@ -291,8 +305,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
 }]);
 
 
-XYZCtrls.controller('profileCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating',function (scope, location, http, $routeParams,parseRating) {
-    http.get('/get-user', {params: {id: $routeParams.id}}).then(function(resp){
+XYZCtrls.controller('profileCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', function (scope, location, http, $routeParams, parseRating) {
+    http.get('/get-user', {params: {id: $routeParams.id}}).then(function (resp) {
         scope.profile = parseRating.rating([resp.data.data])[0];
         console.log(scope.profile)
     })
@@ -421,4 +435,16 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
             })
         })
     };
+}]);
+
+
+XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+    console.log("okokkokok true")
+    scope.isAuth = function () {
+        console.log("ahdfhfhashdfhasdfhashdfhasdfhahsdfh true")
+        return true
+        //return getContent.user.data.data;
+
+    }
+
 }]);

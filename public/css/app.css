@@ -52,6 +52,12 @@ html {
     text-align: center;
 }
 
+.form-control:focus{
+
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
 .login-form {
     padding: 10px;
     border: 1px solid lightgray;
@@ -413,8 +419,8 @@ div.communitySP div.text-center {
 }
 
 .profile {
-    width: 150px;
-    height: 230px;
+    width: 200px;
+    height: 300px;
     border: 1px solid #CECECE;
     border-radius: 5px;
     margin: auto;
