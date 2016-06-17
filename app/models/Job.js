@@ -19,6 +19,7 @@ var JobSchema = mongoose.Schema({
         type: Number,
         default:0
     },
+    reject_reason: String,
     user: {
         type: Number,
         ref: 'User'

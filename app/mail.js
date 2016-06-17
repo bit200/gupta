@@ -9,7 +9,10 @@ var nodemailer = require('nodemailer')
 // Compile a file and store it, rendering it later
 var tpl = {
     restore: swig.compileFile(config.root + '/public/mailTemplate/forgotPassword.html'),
-    confirm: swig.compileFile(config.root + '/public/mailTemplate/register.html')
+    confirm: swig.compileFile(config.root + '/public/mailTemplate/register.html'),
+    jobApprove: swig.compileFile(config.root + '/public/mailTemplate/jobApprove.html'),
+    jobReject: swig.compileFile(config.root + '/public/mailTemplate/jobReject.html'),
+    jobEdit: swig.compileFile(config.root + '/public/mailTemplate/jobEdit.html')
 };
 
 var transporter = nodemailer.createTransport({
@@ -38,7 +41,7 @@ function options(subject, to, html_options) {
 }
 
 function _send(mailOptions, _ecb, _scb) {
-    transporter.sendMail(mailOptions, function (    err, info) {
+    transporter.sendMail(mailOptions, function (err, info) {
         if (err) {
             m.ecb(350, err, _ecb)
         } else {
@@ -85,31 +88,67 @@ function send_confirm(user, _ecb, _scb) {
             last: user.last_name
         },
         confirm_code: user.confirm_code,
-        userId:user._id,
-        emailHash:md5(user.email),
+        userId: user._id,
+        emailHash: md5(user.email),
         appHost: config.appHost
     }));
     _send(_options, _ecb, _scb)
 }
 
-/*
-newUser.save(function(err){
-    if(err) return res.status(500).json(err);
-    res.status(200).json({userId:newUser._id});
-    var mailOptions = {
-        email: user.email,
+function job_approve(user, _ecb, _scb) {
+    user = user.toJSON();
+    if (!user.confirm_code) {
+        return m.ecb(351, 'Already confirmed', _ecb)
+    }
+    var _options = options('Approve your Job!', user.email, tpl.jobApprove({
         name: {
-            first: CommonLib.capitalizeFirstLetter(user.firstName),
-            last: CommonLib.capitalizeFirstLetter(user.lastName)
+            first: user.first_name,
+            last: user.last_name
         },
-        userId:newUser._id,
-        emailHash:md5(user.email),
-        appHost:self.config.appHost
-    };
-*/
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function job_reject(user, reason, _ecb, _scb) {
+    user = user.toJSON();
+    if (!user.confirm_code) {
+        return m.ecb(351, 'Already confirmed', _ecb)
+    }
+    var _options = options('Your Job was rejected', user.email, tpl.jobReject({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        reject_reason: reason,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function job_edit(user, reject_reason, id, _ecb, _scb) {
+    user = user.toJSON();
+    if (!user.confirm_code) {
+        return m.ecb(351, 'Already confirmed', _ecb)
+    }
+    var _options = options('Your Job was rejected to edit', user.email, tpl.jobEdit({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        reject_reason: reject_reason,
+        id: id,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
 
 module.exports = {
     send: _send,
     send_restore: send_restore,
-    send_confirm: send_confirm
+    send_confirm: send_confirm,
+    job_approve: job_approve,
+    job_reject: job_reject,
+    job_edit: job_edit
 };

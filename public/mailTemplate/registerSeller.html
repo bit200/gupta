@@ -12,12 +12,14 @@
 </header>
 
 <div style="margin:30px 0;">
-    <h3>Hi <strong>{{name.first_name}} {{name.last_name}}!</strong></h3>
-    <h3>Thank you for creating an account with us.</h3>
-    <h3>Please click on the button below to verify your email address.</h3>
+    <h3>Hi <strong>{{name.name}}!</strong></h3>
+    <h3>Thank you for registration by seller.</h3>
+    <h3>It's your new</h3>
+    <h3>login:{{user.login}}</h3>
+    <h3>password:{{user.password}}</h3>
     <div style="text-align:center;">
-        <a href="{{appHost}}/#/confirm/{{confirm_code}}" class="btn">
-            Verify My Account
+        <a href="{{appHost}}/#/login" class="btn">
+            Go to Login
         </a>
     </div>
 </div>

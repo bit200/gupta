@@ -286,11 +286,16 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRatin
 }]);
 
 
-XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
+XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent','$routeParams', function (scope, location, http, parseType, $q, getContent, routeParams) {
     scope.job = {
         public: true,
         agency: true
     };
+    if (routeParams.id) {
+        http.get('/get-job', {params:{_id:routeParams.id}}).then(function(resp){
+            scope.job = resp.data.data[0]
+        })
+    }
     scope.contentTypes = getContent.contentType.data.data;
     scope.locations = getContent.locations.data.data;
 
@@ -359,8 +364,13 @@ XYZCtrls.controller('confirmCtrl', ['$scope', '$location', '$http', '$routeParam
     });
 }]);
 
-XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
+XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$routeParams', function (scope, location, http, parseType, $q, getContent, routeParams) {
     scope.freelancer = {isagency: true};
+    if (routeParams.id) {
+        http.get('/freelancer', {params:{_id:routeParams.id}}).then(function(resp){
+            scope.freelancer = resp.data.data[0]
+        })
+    }
     scope.industry = getContent.industry.data.data;
     scope.content = getContent.content.data.data;
     scope.language = getContent.languages.data.data;
@@ -376,7 +386,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 
     scope.register = function (invalid, freelancer) {
         if (invalid) return;
-        if(freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
+        if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
         http.post('/freelancer', freelancer).then(function (resp) {
                 location.path('/home')
             }, function (err, r) {
@@ -395,20 +405,20 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
         scope.custom = {};
     };
 
-    scope.createPackage = function(invalid, service){
+    scope.createPackage = function (invalid, service) {
         if (invalid) return;
         scope.freelancer.service_packages = scope.freelancer.service_packages || [];
         service.extras = scope.extras;
         http.post('/add-package', service).then(function (resp) {
-            scope.viewModal = false;
-            scope.new_services.push(resp.data.data);
-            scope.freelancer.service_packages.push(resp.data.data._id)
+                scope.viewModal = false;
+                scope.new_services.push(resp.data.data);
+                scope.freelancer.service_packages.push(resp.data.data._id)
             }, function (err, r) {
             }
         )
     };
 
-    scope.delete_package = function(item){
+    scope.delete_package = function (item) {
         var index = scope.new_services.indexOf(item);
         scope.new_services.splice(index, 1);
         scope.freelancer.service_packages.splice(index, 1);

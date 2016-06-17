@@ -55,7 +55,7 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         scope.users = parseType.users(getContent.users.data.data);
         scope.agency = parseType.claim(getContent.agency.data.data);
         scope.job = parseType.job(getContent.job.data.data);
-        console.log('asdasd',scope.job)
+        console.log('asdasd', scope.job)
         scope.approved = function (user, i) {
             $http.get('/approved', {params: {username: user.username}}).then(function (resp) {
                 scope.users[i] = parseType.users([resp.data.data])[0];
@@ -85,8 +85,9 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
             scope.agencyRequest = item.elem;
         };
 
-        scope.showJob = function(bol, item){
+        scope.showJob = function (bol, type, item) {
             scope.showJobModal = bol;
+            scope.jobModalType = type;
             scope.JobChoice = item;
         };
 
@@ -100,11 +101,25 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
                 })
             })
         };
-        
-        
-        scope.approveJob = function(type) {
-            console.log('sdsd', scope.JobChoice)
-            $http.get('/' + type + '-job', {params: {_id: scope.JobChoice}}).then(function (resp) {
+
+
+        scope.approveJob = function (type, text, reject_type) {
+            console.log('sdsd', scope.JobChoice);
+
+            var params = {
+                params: {
+                    _id: scope.JobChoice
+                }
+            };
+            if (reject_type == 'suggest-edit') {
+                params.params.reject_reason = text
+                
+            }
+            if (reject_type == 'reject') {
+                params.params.reject_reason = text
+            }
+            console.log('/' + type + '-job')
+            $http.get('/' + type + '-job', params).then(function (resp) {
                 scope.showJobModal = false;
                 _.forEach(scope.job, function (item) {
                     if (item.elem._id == scope.JobChoice) {
