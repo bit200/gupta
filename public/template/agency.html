@@ -1,4 +1,6 @@
+
 <div ng-if="!requestBusiness">
+    <div class="container">
     <div class="row">
         <div class=" text-center "><h3>Claim your Agency Page</h3></div>
     </div>
@@ -12,11 +14,11 @@
                 <md-input-container class="md-block">
                     <label>Agency Name</label>
                     <input class="form-control" name="description" ng-model="job.description" required>
-               </md-input-container>
+                </md-input-container>
 
                 <!--<div class="col-md-3 col-xs-12 agency-text padding7 padding-top">Agency Name</div>-->
                 <!--<div class="col-md-9 col-xs-12 nopadding">-->
-                    <!--<input class="form-control">-->
+                <!--<input class="form-control">-->
                 <!--</div>-->
             </div>
             <div class="col-md-6 col-xs-12">
@@ -29,19 +31,19 @@
             </div>
         </div>
         <div class="btnSearch">
-        <button class="col-md-offset-0 col-md-2 col-xs-offset-1 col-xs-10 btn btn-default btn-search">
-            <span class="glyphicon glyphicon-search"></span>
-        </button>
+            <button class="col-md-offset-0 col-md-2 col-xs-offset-1 col-xs-10 btn btn-back btn-search">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
         </div>
     </div>
-    <div class="row">
-        <table class="col-xs-12 nopadding marginT20">
-            <tbody class="background-primary" style="height: 50px">
-            <td class=" heightSize inlineBlock width20 text-center text-white "
+    <div class="row paddingB40">
+        <table class="table col-xs-12 table-striped marginT20">
+
+            <th class=" heightSize inlineBlock width20 text-center text-white "
                 ng-repeat="(key, value) in agency[0]">
                 {{key}}
-            </td>
-            </tbody>
+            </th>
+
             <tr ng-repeat="item in agency">
                 <td class="inlineBlock width20 text-center agency-item">{{item.Logo}}</td>
                 <td class="inlineBlock width20 text-center agency-item">{{item['Agency Name']}}</td>
@@ -49,31 +51,35 @@
                 <td class="inlineBlock width20 text-center agency-item">{{item.Address}}</td>
                 <td ng-if="item.Status" class="inlineBlock width20 text-center agency-item">Claimed</td>
                 <td class="inlineBlock width20 text-center agency-item">
-                    <button ng-if="!item.Status" class="text-white background-orange btn"
+                    <button ng-if="!item.Status" class="text-white btn-default btn"
                             ng-click="claim(item['Agency Name'], true)">Claim
                     </button>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="row background-grey paddingLR20">
-        <div class="text-bold text-center padding10">Why you should claim your agency page?</div>
-    </div>
-    <div class="row background-grey paddingLR20">
-        <div class="text-bold padding10">Manage your own agency profile</div>
-        <div>Update information about your agency such as website URL, services that you offer, past clients, and
-            samples of
-            your work.
+
+    <div class="claimAgencyPage">
+        <div class="row  paddingLR20">
+            <div class="text-bold text-center padding10">Why you should claim your agency page?</div>
+        </div>
+        <div class="row paddingLR20">
+            <div class="text-bold padding10">Manage your own agency profile</div>
+            <div>Update information about your agency such as website URL, services that you offer, past clients, and
+                samples of
+                your work.
+            </div>
+        </div>
+        <div class="row  paddingLR20">
+            <div class="text-bold padding10">Respond to Jobs</div>
+            <div>Apply for jobs posted by businesses and communicate directly with then</div>
+        </div>
+        <div class="row  paddingLR20">
+            <div class="text-bold padding10">Analytics (Coming Soon)</div>
+            <div class="paddingB20">Keep a track of visitors and engagement on your agency profile page.</div>
         </div>
     </div>
-    <div class="row background-grey paddingLR20">
-        <div class="text-bold padding10">Respond to Jobs</div>
-        <div>Apply for jobs posted by businesses and communicate directly with then</div>
-    </div>
-    <div class="row background-grey paddingLR20">
-        <div class="text-bold padding10">Analytics (Coming Soon)</div>
-        <div class="paddingB20">Keep a track of visitors and engagement on your agency profile page.</div>
-    </div>
     <img src="../img/town.png" class="width100">
+    </div>
 </div>
 <div ng-if="requestBusiness" ng-include="'template/agencyRequest.html'"></div>
