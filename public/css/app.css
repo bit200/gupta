@@ -346,9 +346,6 @@ div.text-padding {
     color: #00B0F0;
 }
 
-.text-white, .text-white:hover, .text-white:focus {
-    color: #ffffff;
-}
 
 .border-blue {
     border: 2px solid #3D628D;
@@ -708,7 +705,7 @@ md-input-container.selectTerm span div {
     position: relative;
     display: flex;
     align-items: center;
-    width: auto;
+    width: 100%;
 }
 
 .selectdemoSelectHeader md-content._md {

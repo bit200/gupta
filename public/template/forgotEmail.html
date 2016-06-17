@@ -2,11 +2,19 @@
     <div class="login-form common-style-form">
         <form name="restorepass" class="">
             <div ng-if="send" class="form-group " ng-class="{'has-error': submitted && restorepass.email.$invalid}">
-                <label>Your Email</label>
-                <input name="email" type="email" class="form-control"
-                       placeholder="Input your email" ng-model="email" required
-                       ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'/>
+
+                <md-input-container class="md-block">
+                    <label>Your Email</label>
+                    <input name="email" type="email" class="form-control"
+                            ng-model="email" required
+                           ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'/>
+
+                </md-input-container>
+
+
             </div>
+
+
             <div class="form-group">
                 <button class="btn full-width btn-primary" type="submit"
                         ng-click="restore(restorepass.$invalid,email);send = false; submitted = true">{{button}}
