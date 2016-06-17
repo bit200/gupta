@@ -69,7 +69,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', '
     }
 }]);
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', 'getContent', function (scope, location, http, getContent) {
 
     scope.registration = function (invalid, data) {
         if (invalid) return;
@@ -89,8 +89,8 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
     };
 
 
-    //scope.arrayProviders = getContent.service.data.data;
-
+    scope.arrayProviders = getContent.service.data.data;
+    console.log(scope.arrayProviders);
 
     scope.profiles = [
         {

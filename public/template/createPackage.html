@@ -1,29 +1,55 @@
 <form name="service" novalidate>
-    <div class="row text-bold text-center">Create Package</div>
+    <div class="row text-bold text-center paddingB10">Create Package</div>
     <div class="row">
-        <div class="col-xs-6">
-            Package Title
+        <div class="col-xs-6 paddingT25">
+        Package Title
         </div>
-        <div class="col-xs-6 form-group" ng-class="{'has-error': submit && service.title.$invalid}">
-            <input class="form-control" ng-model="package.title" name="title" placeholder="I will write 4 blogs a month" required>
+        <!--<div class="col-xs-6 form-group" ng-class="{'has-error': submit && service.title.$invalid}">-->
+        <md-input-container class="col-xs-6 form-group md-block" ng-class="{'has-error': submit && service.title.$invalid}">
+            <label></label>
+            <input class="form-control" ng-model="package.title" placeholder="I will write 4 blogs a month" name="title"  required>
             <p class="error" ng-if="service.title.$error.required">Title is required</p>
-        </div>
+        </md-input-container>
+        <!--</div>-->
+        <!--<div class="col-xs-6">-->
+            <!--Package Title-->
+        <!--</div>-->
+        <!--<div class="col-xs-6 form-group" ng-class="{'has-error': submit && service.title.$invalid}">-->
+            <!--<input class="form-control" ng-model="package.title" name="title" placeholder="I will write 4 blogs a month" required>-->
+            <!--<p class="error" ng-if="service.title.$error.required">Title is required</p>-->
+        <!--</div>-->
+        <!---->
+        <!--<md-input-container class="md-block">-->
+            <!--<label>Login</label>-->
+            <!--<input class="form-control" ng-model="package.title" name="title" placeholder="I will write 4 blogs a month" required>-->
+            <!--<p class="error" ng-if="service.title.$error.required">Title is required</p>-->
+        <!--</md-input-container>-->
     </div>
     <div class="row marginT20">
         <div class="col-xs-6">
             Description about the Package (includes specifics such as Language, Location, ect)
         </div>
-        <div class="col-xs-6 form-group" ng-class="{'has-error': submit && service.description.$invalid}">
+        <!--<div class="col-xs-6 form-group" ng-class="{'has-error': submit && service.description.$invalid}">-->
+            <!--<input class="form-control" name="description" ng-model="package.description" required>-->
+            <!--<p class="error" ng-if="service.description.$error.required&&submit">Description is required</p>-->
+        <!--</div>-->
+        <md-input-container class="col-xs-6 form-group" ng-class="{'has-error': submit && service.description.$invalid}">
+            <label></label>
             <input class="form-control" name="description" ng-model="package.description" required>
-            <p class="error" ng-if="service.description.$error.required">Description is required</p>
-        </div>
+            <p class="error" ng-if="service.title.$error.required">Title is required</p>
+        </md-input-container>
     </div>
     <div class="row marginT20">
-        <div class="col-xs-6">Pricing in Rs.</div>
-        <div class="col-xs-6 form-group" ng-class="{'has-error': submit && service.price.$invalid}">
+        <div class="col-xs-6 paddingT25">Pricing in Rs.</div>
+        <!--<div class="col-xs-6 form-group" ng-class="{'has-error': submit && service.price.$invalid}">-->
+            <!--<input numbers-only class="form-control" name="price" ng-model="package.pricing" placeholder="10,000" required>-->
+            <!--<p class="error" ng-if="service.price.$error.required">Pricing is required</p>-->
+        <!--</div>-->
+        <md-input-container class="col-xs-6 form-group" ng-class="{'has-error': submit && service.price.$invalid}">
+            <label></label>
             <input numbers-only class="form-control" name="price" ng-model="package.pricing" placeholder="10,000" required>
             <p class="error" ng-if="service.price.$error.required">Pricing is required</p>
-        </div>
+        </md-input-container>
     </div>
     <div class="row marginT20" ng-init="addExtra=false">
         <div>Extras</div>
@@ -35,19 +61,28 @@
                 <div>Price in Rs.</div>
             </div>
         </div>
-        <div class="border-blue">
+        <div >
             <div ng-repeat="item in extras">
                 <div style="width: 49%" class="text-left inlineBlock paddingL10">{{item.description}}</div>
                 <div style="width: 49%" class="text-center inlineBlock">{{item.price}}</div>
             </div>
             <div ng-hide="!addExtra">
                 <form novalidate name="customExtra">
-                    <div style="width: 49%" class="text-left inlineBlock">
+                    <!--<div style="width: 49%" class="text-left inlineBlock">-->
+                        <!--<input class="form-control" ng-model="custom.description" placeholder="Description">-->
+                    <!--</div>-->
+                    <md-input-container style="width: 49%" class="text-left">
+                        <label></label>
                         <input class="form-control" ng-model="custom.description" placeholder="Description">
-                    </div>
-                    <div style="width: 49%" class="text-center inlineBlock">
+                    </md-input-container>
+
+                    <!--<div style="width: 49%" class="text-center inlineBlock">-->
+                        <!--<input numbers-only class="form-control" ng-model="custom.price" placeholder="Price">-->
+                    <!--</div>-->
+                    <md-input-container style="width: 49%" class="text-center" >
+                        <label></label>
                         <input numbers-only class="form-control" ng-model="custom.price" placeholder="Price">
-                    </div>
+                    </md-input-container>
                 </form>
             </div>
         </div>
@@ -59,12 +94,19 @@
         <div class="col-xs-6">
             What information you will need from the client for this package?
         </div>
-        <div class="col-xs-6 ">
-            <textarea class="form-control" ng-model="package.information"></textarea>
-        </div>
+        <!--<div class="col-xs-6 ">-->
+            <!--<textarea class="form-control" ng-model="package.information"></textarea>-->
+        <!--</div>-->
+
+        <md-input-container class="col-xs-6 md-block">
+            <label></label>
+            <!--<textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>-->
+            <textarea class="form-control" ng-model="package.information" md-select-on-focus=""></textarea>
+        </md-input-container>
+
     </div>
     <div class="row text-center marginT20">
-        <button type="submit" class="btn background-orange text-white" ng-click="createPackage(service.$invalid, package); submit=true">Submit</button>
-        <a class="btn btn-danger text-white" ng-click="addPackage(false)">Cancel</a>
+        <button type="submit" class="btn btn-default floatL " ng-click="createPackage(service.$invalid, package); submit=true">Submit</button>
+        <a class="btn btn-back floatR" ng-click="addPackage(false)">Cancel</a>
     </div>
 </form>

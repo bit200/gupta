@@ -29,7 +29,7 @@
                     <md-input-container class="md-block">
                         <label>Name</label>
                         <input class="form-control" name="name" unique-name ng-model="freelancer.name" required>
-                        <p style="position: relative;color: #a94442;" ng-if="freelancerRegistration.name.$error.unique">Name already is
+                        <p ng-if="freelancerRegistration.name.$error.unique">Name already is
                             taken</p>
                         <p class="error" ng-if="freelancerRegistration.name.$error.required">Name is required</p>
                     </md-input-container>
