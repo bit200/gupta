@@ -91,7 +91,16 @@
                             <td ng-repeat="(key,value) in item.data"><a class="pointer" ng-if="key=='Agency Name'"
                                                                         ng-click="showModal(true, item)">{{value}}</a><span
                                     ng-if="key!='Agency Name'">{{value}}</span></td>
+                            <td ng-if="!item.admin_approved">
+                                <button class="btn background-orange text-white" ng-click='approved(user, $index)'>
+                                    Approved
+                                </button>
+                            </td>
+                            <td ng-if="!item.admin_approved">
+                                <button class="btn btn-danger" ng-click="showReject(true, user, $index)">Reject</button>
+                            </td>
                         </tr>
+
                     </table>
                 </div>
             </div>
