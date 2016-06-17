@@ -243,6 +243,19 @@ li {
     background: white;
 }
 
+.job-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 99;
+    max-width: 400px;
+    max-height: 150px;
+    background: white;
+}
+
 .login {
     position: absolute;
     top: 0;

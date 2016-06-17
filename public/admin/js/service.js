@@ -38,6 +38,31 @@ XYZAdminCtrls.service('parseType', function () {
                 arr.push(obj)
             });
             return arr
+        },
+        job: function (item) {
+            var arr = [];
+            _.forEach(item, function (elem) {
+                var obj = { elem: elem,
+                    data: {
+                        title: elem.title || null,
+                        type: elem.type || null,
+                        description: elem.description || null,
+                        'Local preference': elem.local_preference || null,
+                        'Content Types': elem.content_types || null,
+                        budget: elem.budget || null,
+                        name: elem.name || null,
+                        mobile: elem.mobile || null,
+                        email: elem.email || null,
+                        'Company name': elem.company_name || null,
+                        website: elem.website || null,
+                        'Job Visibility': elem.job_visibility || null,
+                        'Date of completion': elem.date_of_completion || null,
+                        admin_approved: elem.admin_approved ? (elem.admin_approved == 1 ? 'Approved' : 'Rejected') : 'Not approve'
+                    }
+                };
+                arr.push(obj)
+            });
+            return arr
         }
     }
 });

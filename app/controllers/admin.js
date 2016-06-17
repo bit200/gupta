@@ -25,6 +25,10 @@ exports.get_business_users = function (req, res) {
     m.find(models.BusinessUser, {}, res, res, {populate: 'agency'})
 };
 
+exports.get_job = function (req, res) {
+    m.find(models.Job, {}, res, res)
+};
+
 
 exports.approve_agency = function (req, res) {
     var params = m.getBody(req);

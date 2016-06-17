@@ -18,3 +18,8 @@ exports.get_freelancer = function (req, res) {
     var params = m.getBody(req);
     m.find(models.Freelancer, params, res, res,{populate:'user'})
 }
+
+exports.add_package = function(req, res) {
+    var params = m.getBody(req);
+    m.create(models.Package, params, res, res)
+};

@@ -22,7 +22,8 @@ XYZAdmin.config(['$routeProvider', '$httpProvider',
                     getContent: function ($q, $http) {
                         return $q.all({
                             users: $http.get('/get-users'),
-                            agency: $http.get('/get-business-users')
+                            agency: $http.get('/get-business-users'),
+                            job: $http.get('/get-job')
                         })
                     }
                 }

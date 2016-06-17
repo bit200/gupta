@@ -54,6 +54,8 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         scope.delete = false;
         scope.users = parseType.users(getContent.users.data.data);
         scope.agency = parseType.claim(getContent.agency.data.data);
+        scope.job = parseType.job(getContent.job.data.data);
+        console.log('asdasd',scope.job)
         scope.approved = function (user, i) {
             $http.get('/approved', {params: {username: user.username}}).then(function (resp) {
                 scope.users[i] = parseType.users([resp.data.data])[0];
@@ -82,6 +84,11 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
             scope.showAgency = bol;
             scope.agencyRequest = item.elem;
         };
+
+        scope.showJob = function(bol, item){
+            scope.showJobModal = bol;
+            scope.JobChoice = item;
+        }
 
         scope.approveAgency = function (type, email) {
             $http.get('/' + type + '-agency', {params: {email: email}}).then(function (resp) {
