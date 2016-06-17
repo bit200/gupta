@@ -70,7 +70,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', '
     }
 }]);
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', 'getContent', function (scope, location, http, getContent) {
 
     scope.registration = function (invalid, data) {
         console.log(invalid)
@@ -91,8 +91,8 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope
     };
 
 
-    //scope.arrayProviders = getContent.service.data.data;
-
+    scope.arrayProviders = getContent.service.data.data;
+    console.log(scope.arrayProviders);
 
     scope.profiles = [
         {
@@ -376,7 +376,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 
     scope.register = function (invalid, freelancer) {
         if (invalid) return;
-        if(freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
+        if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
         http.post('/freelancer', freelancer).then(function (resp) {
                 location.path('/home')
             }, function (err, r) {
@@ -395,20 +395,20 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
         scope.custom = {};
     };
 
-    scope.createPackage = function(invalid, service){
+    scope.createPackage = function (invalid, service) {
         if (invalid) return;
         scope.freelancer.service_packages = scope.freelancer.service_packages || [];
         service.extras = scope.extras;
         http.post('/add-package', service).then(function (resp) {
-            scope.viewModal = false;
-            scope.new_services.push(resp.data.data);
-            scope.freelancer.service_packages.push(resp.data.data._id)
+                scope.viewModal = false;
+                scope.new_services.push(resp.data.data);
+                scope.freelancer.service_packages.push(resp.data.data._id)
             }, function (err, r) {
             }
         )
     };
 
-    scope.delete_package = function(item){
+    scope.delete_package = function (item) {
         var index = scope.new_services.indexOf(item);
         scope.new_services.splice(index, 1);
         scope.freelancer.service_packages.splice(index, 1);
