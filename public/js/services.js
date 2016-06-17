@@ -3,12 +3,12 @@
 /* Directives */
 XYZCtrls.service('safeApply', function () {
     return {
-        run: function($scope, type) {
+        run: function ($scope, type) {
             type = type || '$apply'
-            $scope.safeApply = function(fn) {
+            $scope.safeApply = function (fn) {
                 var phase = this.$root.$$phase;
-                if(phase == '$apply' || phase == '$digest') {
-                    if(fn && (typeof(fn) === 'function')) {
+                if (phase == '$apply' || phase == '$digest') {
+                    if (fn && (typeof(fn) === 'function')) {
                         fn();
                     }
                 } else {

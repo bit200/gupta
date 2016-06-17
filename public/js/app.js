@@ -304,8 +304,12 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'template/ViewMyJob.html',
                 controller: 'viewMyJobCtrl',
                 resolve: {
-                    auth: checkAuthCtrl
-                }
+                    auth: checkAuthCtrl,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            service: $http.get('/get-my-job', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}}),
+                        })
+                    }}
             })
             
             

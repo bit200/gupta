@@ -29,3 +29,8 @@ exports.add_package = function(req, res) {
     var params = m.getBody(req);
     m.create(models.Package, params, res, res)
 };
+
+exports.get_my_job = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.Job, {user: req.userId}, res, res, {populate: 'user'})
+};

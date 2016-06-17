@@ -322,8 +322,8 @@ exports.check_unique_freelancer = function (req, res) {
 
 };
 
+
 exports.get_user = function (req, res) {
     var params = m.getBody(req);
-    log('sdfdsf', params)
     m.findOne(models.Freelancer, {user: params.id}, res, res, {populate: 'user'})
-}
+};
