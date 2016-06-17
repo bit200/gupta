@@ -1,14 +1,18 @@
 <div class="container">
-    <div class="row">
-        <div class="text-center "><h4>Navigation</h4></div>
-    </div>
-    <div class="row">
-        <div class="row border-box">
+    <!--<div class="row">-->
+    <!--&lt;!&ndash;<div class="text-center "><h4>Navigation</h4></div>&ndash;&gt;-->
+    <!--</div>-->
+    <div class="row page-header">
+        <div class="row ">
             <div class="col-md-3">
                 <img class="user-logo" src="https://pbs.twimg.com/profile_images/688635344602857473/WeXpjdxN.jpg">
             </div>
             <div class="col-md-5 text-center">
-                <button class="btn border-blue user-search">Search</button>
+                <form class="navbar-form " role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
             </div>
 
             <div class="col-md-4">
@@ -19,7 +23,7 @@
                         <button class="btn btn-default text-white">My Jobs</button>
                     </div>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-offset-2 col-xs-4">
                     <div class="pointer"><a>As Buyer</a></div>
                     <div class="pointer"><a>As Seller</a></div>
                     <div class="pointer"><a>Profile</a></div>
@@ -28,14 +32,14 @@
                 </div>
             </div>
         </div>
-        <div ng-init="viewMore = true" class="row border-box relative" ng-class="{'user-service':viewMore}">
-            <div class="col-md-2 col-sm-3 col-xs-4 inlineBlock pointer" ng-repeat="item in arrayProviders"><a>
-                {{item}}</a></div>
-            <div class="col-md-2 col-sm-3 col-xs-4 inlineBlock"
-                 ng-class="{'user-view-more': viewMore, 'background-white': viewMore}"><span
-                    class="pointer" ng-click="viewMore = !viewMore">{{viewMore ? '+ View More' : '- Hide'}} </span>
-            </div>
-        </div>
+        <!--<div ng-init="viewMore = true" class="row border-box relative user-header" ng-class="{'user-service':viewMore}">-->
+        <!--<div class="col-md-2 col-sm-3 col-xs-4 inlineBlock pointer" ng-repeat="item in arrayProviders"><a>-->
+        <!--{{item}}</a></div>-->
+        <!--<div class="col-md-2 col-sm-3 col-xs-4 inlineBlock"-->
+        <!--ng-class="{'user-view-more': viewMore, 'background-white': viewMore}"><span-->
+        <!--class="pointer" ng-click="viewMore = !viewMore">{{viewMore ? '+ View More' : '- Hide'}} </span>-->
+        <!--</div>-->
+        <!--</div>-->
     </div>
     <div class="row paddingB20">
         <div class="col-md-3 nopadding">

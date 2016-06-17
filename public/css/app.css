@@ -29,7 +29,7 @@ html {
     right: 0;
     bottom: 0;
     margin: auto;
-    z-index: 98;
+    z-index: 600;
     background: rgba(0, 0, 0, 0.75);
 }
 
@@ -95,12 +95,23 @@ html {
     background-color: white;
 
 }
+.claimAgencyPage{
+    background-color: rgba(234, 234, 234, 0.48);
+    padding: 10px 0 10px 20px;
+}
+
+.btn-default-2{
+
+}
 
 .error {
     color: #ff0000;
     text-align: center;
 }
 
+.homePageLink{
+    padding-top: 8px;
+}
 .form-group button {
     margin-top: 5px;
 }
@@ -113,19 +124,33 @@ html {
     text-align: center
 }
 
-.top-home {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    hegiht: 70px;
-    /*margin: 10px 0 10px 0;*/
-    padding: 10px 0 10px 0;
-    background: white;
+.top-header{
+    padding-bottom: 50px;
 }
 
-.top-home input.form-control {
-    width: 40%;
+.top-home {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    /*margin: 10px 0 10px 0;*/
+    /*padding: 10px 0 10px 0;*/
+    background: white;
+    z-index: 500;
 }
+
+/*.top-home input.form-control {*/
+    /*width: 50%;*/
+/*}*/
+/*@media (max-width: 768px){*/
+    /*.top-home input.form-control{*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 992px) {*/
+    /*.top-home input.form-control{*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
 
 .btn-default {
     color: #f7961d;
@@ -138,12 +163,21 @@ html {
     background-color: #f7961d;
     border-color: white;
 }
+.user-header{
+    border: 3px solid whitesmoke;
+    border-radius: 5px;
+}
 
 .btn-back {
     color: white;
     background-color: #f7961d;
+}
+.btn-back:hover{
+    color:white;
+    background-color: #ff9c1d;
 
 }
+.
 
 div.row a.btn-back {
     float: right;
@@ -166,14 +200,13 @@ div.text-padding {
 }
 
 .back-service-provider {
-    margin: 90px 0 20px 0;
+    /*margin: 90px 0 20px 0;*/
 
 }
 .trendingJobs{
-    padding: 10px;
+    padding: 20px 5px 20px 5px;
     background-color:#F5F5F5 ;
-    margin: 90px 0 0 0;
-
+    margin-top: 90px;
 }
 
 .padding20 {
@@ -280,9 +313,9 @@ div.text-padding {
     float: left;
 }
 
-.border-box {
-    border: 1px solid black;
-}
+/*.border-box {*/
+    /*border: 1px solid black;*/
+/*}*/
 .border-bottom {
     border-bottom: 1px solid black;
 }
@@ -319,9 +352,19 @@ div.text-padding {
     }
 
 }
+.paddingB40{
+    padding-bottom: 40px;
+}
+
 
 .pointer {
     cursor: pointer;
+    /*float: right;*/
+}
+
+html,body{
+
+   width:100%;!important
 }
 
 .nopadding {
@@ -426,6 +469,14 @@ div.communitySP div.text-center {
     margin: auto;
     margin-bottom: 10px;
 }
+.star-icon{
+    color: #808080;
+    text-align: center;
+}
+.block-icon{
+    text-align: center;
+    padding-top: 10px;
+}
 
 div.block-popularity {
     width: 22%;
@@ -446,16 +497,43 @@ div.btnSearch{
     text-align: right;
 }
 
+@media (max-width: 992px) {
+    .profile{
+        width: 250px;
+        height: 370px;
+    }
+}
 @media (max-width: 768px) {
     .profile {
-        width: 115px;
-        height: 170px;
-        padding: 5px;
+        width: 300px;
+        height: 450px;
         font-size: 8pt;
     }
 
     .block-popularity {
         height: 10px;
+    }
+}
+@media (max-width: 768px) {
+
+    .star-icon{
+        font-size: 20px;
+        padding-top: 10px;
+        text-align: center;
+    }
+    .block-icon{
+        font-size: 20px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    div.block-popularity {
+        width: 22%;
+        height: 15px;
+        margin: 0px 1px;
+        font-size: 25px;
+        color: #f3db92;
+        display: inline-block;
     }
 }
 
@@ -492,7 +570,8 @@ div.btnSearch{
 .has-error p.error {
     color: #a94442;
     display: block;
-    position: relative;
+    position: absolute;
+    bottom: 0;
     font-size: 12px;
 }
 

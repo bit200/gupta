@@ -14,7 +14,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', '
 
         safeApply.run(rootScope);
     }
-    rootScope.$on( "$routeChangeStart", function(event, next, current) {
+    rootScope.$on("$routeChangeStart", function (event, next, current) {
         //..do something
         console.log('starttttt')
         scope.setAuth()
@@ -54,6 +54,10 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', '
         localStorage.clear();
         scope.setAuth()
         location.path('/login')
+    };
+
+    scope.homePage = function () {
+        location.path('/home')
     };
 
     scope.showMessage = false;

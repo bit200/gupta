@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="XYZApp">
+<html lang="en" ng-app="XYZApp" style="overflow-y:scroll;">
 <head>
     <meta charset="utf-8">
     <title>XYZOnline</title>
@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
     <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
 </head>
-<body ng-controller="MainCtrl" class="container">
-<div ng-include="'template/header.html'"></div>
+<body ng-controller="MainCtrl" class="container" style="width: 100%; position: relative ">
+<div ng-include="'template/header.html'" class="top-header"></div>
 <div class="body" ng-view></div>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/underscore/underscore-min.js"></script>
