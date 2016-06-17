@@ -5,7 +5,6 @@ XYZCtrls.service('safeApply', function () {
     return {
         run: function($scope, type) {
             type = type || '$apply'
-            console.log('safeapply', type)
             $scope.safeApply = function(fn) {
                 var phase = this.$root.$$phase;
                 if(phase == '$apply' || phase == '$digest') {
@@ -52,7 +51,6 @@ XYZCtrls.service('parseType', function () {
         agency: function (item) {
             var arr = [];
             _.forEach(item, function (elem) {
-                console.log(elem);
                 var obj = {
                     Logo: elem.logo || null,
                     'Agency Name': elem.name || null,

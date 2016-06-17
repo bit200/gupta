@@ -16,7 +16,6 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', '
     }
     rootScope.$on("$routeChangeStart", function (event, next, current) {
         //..do something
-        console.log('starttttt')
         scope.setAuth()
         //event.stopPropagation();  //if you don't want event to bubble up
     });
@@ -73,7 +72,6 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', '
 XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
 
     scope.registration = function (invalid, data) {
-        console.log(invalid)
         if (invalid) return;
         http.post('/sign-up', data).then(function (resp) {
                 location.path('/')
@@ -138,7 +136,6 @@ XYZCtrls.controller('userCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     scope.arrayTopics = getContent.topic.data.data;
     scope.user = getContent.user.data.data;
 
-    console.log(scope.arrayTopics);
 
     ngDialog.open({
         template: 'templateId',
@@ -317,7 +314,13 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
 XYZCtrls.controller('profileCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', function (scope, location, http, $routeParams, parseRating) {
     http.get('/get-user', {params: {id: $routeParams.id}}).then(function (resp) {
         scope.profile = parseRating.rating([resp.data.data])[0];
-        console.log(scope.profile)
+    })
+}]);
+
+
+XYZCtrls.controller('viewMyJobCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', function (scope, location, http, $routeParams, parseRating) {
+    http.get('/get-user', {params: {id: $routeParams.id}}).then(function (resp) {
+        scope.profile = parseRating.rating([resp.data.data])[0];
     })
 }]);
 
@@ -345,7 +348,6 @@ XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams
                 password: password
             }
         }).then(function (resp) {
-            console.log('resp', resp);
             scope._restore = true;
             scope.restoreText = 'Password have been changed.'
         }, function (err) {
@@ -453,9 +455,7 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
 
 
 XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
-    console.log("okokkokok true")
     scope.isAuth = function () {
-        console.log("ahdfhfhashdfhasdfhashdfhasdfhahsdfh true")
         return true
         //return getContent.user.data.data;
 

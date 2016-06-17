@@ -28,8 +28,9 @@
                 <div class="form-group" ng-class="{'has-error': submitted && freelancerRegistration.name.$invalid}">
                     <md-input-container class="md-block">
                         <label>Name</label>
-                        <input class="form-control" name="name" ng-model="freelancer.name" required>
-
+                        <input class="form-control" name="name" unique-name ng-model="freelancer.name" required>
+                        <p style="position: relative;color: #a94442;" ng-if="freelancerRegistration.name.$error.unique">Name already is
+                            taken</p>
                         <p class="error" ng-if="freelancerRegistration.name.$error.required">Name is required</p>
                     </md-input-container>
 
@@ -290,9 +291,8 @@
                 </div>
 
                 <div class="form-group">
-
                     <md-input-container class="selectTerm">
-                        <label>Languages in which u write</label>
+                        <label>Languages in which you write</label>
                         <md-select ng-model="freelancer.languages" md-on-close="clearSearchTerm()"
                                    data-md-container-class="selectdemoSelectHeader" multiple="">
                             <md-select-header class="demo-select-header">
@@ -452,7 +452,7 @@
                     <!--required</p>-->
                 </div>
                 <div class="form-group">
-                    <div>Upload samples of work</div>
+                    <div>Upload Profile Image</div>
                     <div class="text-right">
                         <a class="pointer">Attach Files</a>
                     </div>

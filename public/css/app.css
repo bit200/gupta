@@ -265,6 +265,10 @@ div.text-padding {
     margin-top: 20px;
 }
 
+.marginT50 {
+    margin-top: 50px;
+}
+
 .marginB30 {
     margin-bottom: 30px;
 }
@@ -311,6 +315,10 @@ div.text-padding {
 
 .floatL {
     float: left;
+}
+
+.font-size16 {
+    font-size: 16pt;
 }
 
 /*.border-box {*/
