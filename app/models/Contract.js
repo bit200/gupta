@@ -3,14 +3,15 @@ var mongoose = require('mongoose')
 
 var ContractSchema = mongoose.Schema({
     title: String,
+    information: String,
     buyer_name: String,
     buyer_company_name: String,
     seller_contact: String,
     seller_name: String,
     payment_basis: String,
-    start_date: Date,
-    completion_date: Date,
-    amount: Number,
+    expected_date: Date,
+    expected_completion: Date,
+    final_amount: Number,
     status: String,
     rating: Number,
 

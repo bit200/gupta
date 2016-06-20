@@ -3,6 +3,7 @@
 /* App Module */
 
 var XYZApp = angular.module('XYZApp', [
+    'angularModalService',
     'ngMaterial',
     'ngRoute',
     'rzModule',
@@ -41,7 +42,8 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 controller: 'RegistrationCtrl',
                 resolve: {
                     auth: checkAuthLogin,
-                    getContent: function() {}
+                    getContent: function () {
+                    }
                 }
             })
 
@@ -249,6 +251,19 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 }
             })
 
+            .when('/contract/create', {
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: checkAuthCtrl,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            contract: $http.get('/contract/create')
+                        })
+                    }
+                }
+            })
+
             .when('/user', {
                 templateUrl: 'template/user.html',
                 controller: 'userCtrl',
@@ -311,7 +326,8 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                         return $q.all({
                             service: $http.get('/get-my-job', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}}),
                         })
-                    }}
+                    }
+                }
             })
 
             .when('/my-profile', {
@@ -323,20 +339,47 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                         return $q.all({
                             user: $http.get('/me')
                         })
-                    }}
+                    }
+                }
             })
-            
-            
-            
+
 
             .otherwise({redirectTo: '/login'});
 
-        $httpProvider.interceptors.push(function ($q) {
+        $httpProvider.interceptors.push(function ($q, $injector) {
             return {
                 'responseError': function (rejection) {
                     if (rejection.status === 402) {
-                        localStorage.clear();
-                        location.reload();
+                        var getModalService = function () {
+                            if (!modalService)  var modalService = $injector.get('ModalService');
+                            return modalService;
+                        };
+                        var http = $injector.get('$http');
+                        getModalService().showModal({
+                            templateUrl: "template/modalWindow.html",
+                            controller: function ($scope) {
+                                $scope.close = function(data){
+                                    var http = $injector.get('$http');
+                                    function getToken(){
+                                        console.log('qqq');
+                                        http.get('/refresh-token', {params:{refresh_token: localStorage.getItem('refreshToken')}}).then(
+                                            function(resp){
+                                                localStorage.setItem('accessToken', resp.data.data.value)
+                                            },function(err){
+                                                localStorage.clear();
+                                                location.reload();
+                                            }
+                                        )
+                                    }
+                                    data ? getToken() : (localStorage.clear(),  location.reload());
+                                }
+                            }
+                        }).then(function (modal) {
+                            modal.element.modal();
+                            modal.close.then(function (result) {
+                            });
+
+                        });
                     }
                     return $q.reject(rejection);
                 },
@@ -350,6 +393,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
         });
     }
 ]);
+
 XYZApp.run(function ($rootScope, $location) {
     $rootScope.go = function (path) {
         $location.path(path)

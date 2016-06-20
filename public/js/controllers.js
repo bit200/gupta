@@ -453,16 +453,33 @@ XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'get
         }
         if (password.newPassword == password.confirm_password) {
             scope.failPassword = false;
-            http.post('/update-password', password).then(function(resp){
+            http.post('/update-password', password).then(function (resp) {
                 scope.changePassword = false;
-                notify({ message:'Password was changed!', duration:1000, position: 'right', classes: "alert-success"} );
-            }, function(err){
-                if(err.data.error == "Wrong password")
+                notify({message: 'Password was changed!', duration: 1000, position: 'right', classes: "alert-success"});
+            }, function (err) {
+                if (err.data.error == "Wrong password")
                     scope.wrongPassword = true;
             })
         }
     }
 }]);
+
+
+
+XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent',  function (scope, location, http, getContent) {
+    scope.contract = getContent.contract.data.data;
+
+    scope.createContract = function(type, data){
+        http.post('/contact/' + type, data).then(function(resp){
+            console.log('resp',resp)
+        }, function(err){
+            console.log('err', err)
+        })
+
+    }
+}]);
+
+
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.requestBusiness = false;
@@ -473,7 +490,7 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     };
 
     scope.sendRequest = function (invalid, data) {
-        if (invalid) return
+        if (invalid) return;
         scope.req = {
             data: data,
             agency: scope.choiceAgency

@@ -14,6 +14,7 @@
     "angularjs-slider": "^4.0.2",
     "angular-material": "^1.0.9",
     "ng-dialog": "^0.6.2",
-    "angular-notify": "^2.5.0"
+    "angular-notify": "^2.5.0",
+    "angular-modal-service": "^0.10.1"
   }
 }

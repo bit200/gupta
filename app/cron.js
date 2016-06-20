@@ -5,7 +5,7 @@ var CronJob = require('cron').CronJob
     , m = require('./m');
 
 
-new CronJob('* * * 5', clear_tokens, null, true);
+new CronJob('* * * * * 5', clear_tokens, null, true);
 
 
 function clear_tokens() {

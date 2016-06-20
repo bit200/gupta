@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var randomstring = require("randomstring");
 var client = require("../redis");
+// var _day = 1000 ;
 var _day = 1000 * 60 * 60 *  24;
 var live_period = 10 * _day;
 
@@ -37,7 +38,7 @@ AccessToken.methods.publish = function(){
 AccessToken.pre('save', function (next) {
     if (this.isNew) {
         this.value = randomstring.generate(48);
-        this.expire_date = new Date(this.createdAt) + this.expire_in
+        this.expire_date = new Date(this.createdAt) + this.expire_in;
         
         var key = 'token_' + this.value;
         var userId = this.user ? this.user._id || this.user : this.user;
