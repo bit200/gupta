@@ -6,7 +6,9 @@ var models = require('../db')
     , mail = require('../mail')
     , User = models.User
     , AccessToken = models.AccessToken
-    , RefreshToken = models.RefreshToken;
+    , RefreshToken = models.RefreshToken,
+    mkdirp = require('mkdirp');
+
 
 exports.doc = function (req, res) {
     res.render('index')
@@ -66,10 +68,12 @@ exports.tokens_list = function (req, res) {
  */
 exports.sign_in = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(User, {$or: [
-        {username: params.login},
-        {email: params.login}
-    ]}, res, function (user) {
+    m.findOne(User, {
+        $or: [
+            {username: params.login},
+            {email: params.login}
+        ]
+    }, res, function (user) {
         user.comparePassword(params.password, function (err, isMatch) {
             if (err || !isMatch) {
                 return m.ecb(401, err, res)
@@ -98,6 +102,14 @@ exports.sign_up = function (req, res) {
         params.password = md5(params.password);
     }
     m.create(User, params, res, function (user) {
+        console.log(user)
+
+        mkdirp(config.root+"/public/uploads/"+user._id.toString(),function(err){
+            if(err) console.log(err);
+            else {
+                console.log('Directory create!');}
+        });
+
         mail.send_confirm(user);
         m.scb(user.publish(), res);
 //        mkdirp('../../public/img/user'+user._id);

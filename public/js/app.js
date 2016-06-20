@@ -10,7 +10,8 @@ var XYZApp = angular.module('XYZApp', [
     'ui.select',
     'ngDialog',
     'cgNotify',
-    'XYZCtrls'
+    'XYZCtrls',
+    'ngFileUpload'
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider',

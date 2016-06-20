@@ -29,8 +29,10 @@
                     <md-input-container class="md-block">
                         <label>Name</label>
                         <input class="form-control" name="name" unique-name ng-model="freelancer.name" required>
+
                         <p ng-if="freelancerRegistration.name.$error.unique">Name already is
                             taken</p>
+
                         <p class="error" ng-if="freelancerRegistration.name.$error.required">Name is required</p>
                     </md-input-container>
 
@@ -223,7 +225,7 @@
                 <div class="form-group">
                     <div>Upload samples of work</div>
                     <div class="text-right">
-                        <a class="pointer">Attach Files</a>
+                        <a class="pointer" ng-click="attachFile()">Attach Files</a>
                     </div>
                 </div>
 
@@ -364,15 +366,18 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-4">
-                            <md-checkbox ng-click="priceHour=false;priceWord=false;freelancer.price=[]" ng-model="addService" class="md-warn">
+                            <md-checkbox ng-click="priceHour=false;priceWord=false;freelancer.price=[]"
+                                         ng-model="addService" class="md-warn">
                                 <span>Packaged Services(?)</span>
                             </md-checkbox>
                         </div>
                         <div class="col-xs-8">
-                            <a class="pointer" ng-click="priceHour=false; priceWord=false; freelancer.price=[]; addService=true; addPackage(addService)">Create Packages</a>
+                            <a class="pointer"
+                               ng-click="priceHour=false; priceWord=false; freelancer.price=[]; addService=true; addPackage(addService)">Create
+                                Packages</a>
                         </div>
                     </div>
-                    <div class="row" ng-if="freelancer.service_packages.length"    >
+                    <div class="row" ng-if="freelancer.service_packages.length">
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <td>Title</td>
@@ -402,7 +407,8 @@
                         <label>Contact Person Name</label>
                         <input class='form-control' name="contact_name" ng-model="freelancer.contact.name" required>
 
-                        <p class="error" ng-if="freelancerRegistration.contact_name.$error.required">Contact Person Name is
+                        <p class="error" ng-if="freelancerRegistration.contact_name.$error.required">Contact Person Name
+                            is
                             required</p>
                     </md-input-container>
 
@@ -418,9 +424,12 @@
                         <label>Email ID at which marketers can contact you</label>
                         <input class='form-control' name="contact_email" ng-model="freelancer.contact.email" required
                                ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
+
                         <p class="error" ng-if="freelancerRegistration.contact_email.$error.required">Email ID is
                             required</p>
-                        <p class="error" ng-if="freelancerRegistration.contact_email.$error.pattern">Email ID is invalid</p>
+
+                        <p class="error" ng-if="freelancerRegistration.contact_email.$error.pattern">Email ID is
+                            invalid</p>
 
                     </md-input-container>
                     <!--<div>Email ID at which marketers can contact you</div>-->
@@ -437,8 +446,10 @@
 
                     <md-input-container class="md-block">
                         <label>Mobile Number to send the contact request (will not be displayed)</label>
-                        <input class='form-control' phone-number name="contact_mobile" ng-model="freelancer.contact.mobile"
+                        <input class='form-control' phone-number name="contact_mobile"
+                               ng-model="freelancer.contact.mobile"
                                required>
+
                         <p class="error" ng-if="freelancerRegistration.contact_mobile.$error.required">Mobile Number is
                             required</p>
 
@@ -473,3 +484,77 @@
 <div ng-if="viewModal" class="delete-modal-block">
     <div class="createPackage" ng-include="'template/createPackage.html'"></div>
 </div>
+
+<script type="text/ng-template" id="attachFile">
+    <!--<div>-->
+        <!--<div class="modal-block-attachFiles">-->
+            <!--watching model:-->
+            <!--<div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div>-->
+            <!--on file change multiple:-->
+            <!--<div class="button" ngf-select="upload($files)" ngf-multiple="true">Select File</div>-->
+            <!--Drop File:-->
+
+            <!--Files:-->
+            <!--<ul>-->
+                <!--<li ng-repeat="f in files">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>-->
+            <!--</ul>-->
+                  <!--<span class="progress" ng-show="f.progress >= 0">-->
+                 <!--<div style="width:{{f.progress}}%"-->
+                      <!--ng-bind="f.progress + '%'"></div>-->
+                 <!--</span>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+    <!--<input type="file" oi-file="options">-->
+
+    <!--&lt;!&ndash; Загрузка перетаскиванием на область &ndash;&gt;-->
+    <!--<ul oi-file="options">-->
+        <!--<li ng-repeat="item in items">-->
+            <!--<img ng-src="{{item.thumb}}">-->
+        <!--</li>-->
+    <!--</ul>-->
+
+    <!--<input type="file" nv-file-select uploader="uploader"/><br/>-->
+    <!--<ul>-->
+        <!--<li ng-repeat="item in uploader.queue">-->
+            <!--Name: <span ng-bind="item.file.name"></span><br/>-->
+            <!--<button ng-click="item.upload()">upload</button>-->
+        <!--</li>-->
+    <!--</ul>-->
+    <form name="myForm">
+        <fieldset>
+            <legend>Upload on form submit</legend>
+
+            <!--<input type="file" ngf-select ng-model="picFile" name="file"-->
+                   <!--accept="image/*" ngf-max-size="3MB"-->
+                   <!--ngf-model-invalid="errorFile">-->
+
+            <div ngf-drop ngf-select ng-model="picFile" class="drop-box" >Drop</div>
+
+            <!--<div ngf-drop ngf-select ng-model="picFile" class="drop-box"-->
+                 <!--ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"-->
+                 <!--accept="image/*,application/pdf"-->
+                 <!--ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload-->
+            <!--</div>-->
+            <i ng-show="myForm.file.$error.maxSize">File too large
+                {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+            <div ng-show="picFile != undefined" style="width: 100px;height: 100px;">
+            <a href="" ng-click="open(picFile)">test</a>
+            <img ngf-src="picFile" ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"><a href="" class="boxclose" ng-click="picFile = null" ng-show="picFile"></a></div>
+            <br>
+            <button ng-click="uploadPic(picFile)">Submit</button>
+      <span class="progress" ng-show="picFile.progress >= 0">
+        <div style="width:{{picFile.progress}}%"
+             ng-bind="picFile.progress + '%'"></div>
+      </span>
+            <span ng-show="picFile.result">Upload Successful</span>
+            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+        </fieldset>
+        <br>
+
+    </form>
+
+</script>
+

@@ -36,6 +36,84 @@ html {
     width: 500px;
 
 }
+.modal-block-attachFiles{
+    height: 600px;
+    widows: 500px;
+}
+
+.button {
+    -moz-appearance: button;
+    /* Firefox */
+    -webkit-appearance: button;
+    /* Safari and Chrome */
+    padding: 10px;
+    margin: 10px;
+    width: 70px;
+}
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 98%;
+    height: 200px;
+    text-align: center;
+    padding-top: 3%;
+    margin: 10px;
+}
+.dragover {
+    border: 5px dashed blue;
+}
+.thumb {
+    width: 100px;
+    height:90px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+a.boxclose{
+    /* margin: 0 auto; */
+    /* text-align: center; */
+    /* float: right; */
+    /* margin-top: -119px; */
+    margin-right: 6px;
+    cursor: pointer;
+    color: #794747;
+    /* border: 1px solid #AEAEAE; */
+    /* border-radius: 30px; */
+    /* background: #605F61; */
+    /* font-size: 31px; */
+    /* font-weight: bold; */
+    display: inline-block;
+    line-height: 10px;
+    padding: 11px 3px;
+    /* padding: 40px 30px 0 0; */
+    position: absolute;
+    /* top: 23%; */
+    float: right;
+}
+a.boxclose:hover{
+
+}
+
+.boxclose:before {
+    content: "×";
+
+}
+
+form .progress {
+    line-height: 15px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
 
 .modal-block-body {
     position: fixed;
