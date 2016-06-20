@@ -583,8 +583,8 @@ div.btnSearch{
     background: #008000;
 }
 
-.lime-popularity {
-    background: greenyellow;
+.alert-success {
+    background-color: #dff0d8 !important;
 }
 
 .body {

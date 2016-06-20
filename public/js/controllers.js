@@ -431,7 +431,7 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 
 }]);
 
-XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', function (scope, location, http, $q, getContent) {
+XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'notify', function (scope, location, http, $q, getContent, notify) {
     scope.profile = getContent.user.data.data;
     scope.save = function (edit, invalid, profile) {
         if (edit || invalid) return;
@@ -441,9 +441,10 @@ XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'get
             console.log('err', err)
         })
     };
+
     scope.showModal = function (bol) {
         scope.changePassword = bol
-    }
+    };
 
     scope.change = function (invalid, password) {
         if (invalid) return;
@@ -454,6 +455,7 @@ XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'get
             scope.failPassword = false;
             http.post('/update-password', password).then(function(resp){
                 scope.changePassword = false;
+                notify({ message:'Password was changed!', duration:1000, position: 'right', classes: "alert-success"} );
             }, function(err){
                 if(err.data.error == "Wrong password")
                     scope.wrongPassword = true;
@@ -490,7 +492,7 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
 
 XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
     scope.isAuth = function () {
-        return true
+        return true;
         //return getContent.user.data.data;
 
     }
