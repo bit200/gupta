@@ -69,8 +69,7 @@ XYZCtrls.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', '
     }
 }]);
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', 'getContent', function (scope, location, http, getContent) {
-
+XYZCtrls.controller('RegistrationCtrl', ['$scope', '$location', '$http', function (scope, location, http) {
     scope.registration = function (invalid, data) {
         if (invalid) return;
         http.post('/sign-up', data).then(function (resp) {
@@ -84,13 +83,17 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', 'getContent', f
         location.path('/')
     };
 
+}]);
+
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', function (scope, location, http, $q, getContent) {
+
+
     scope.link = function (url) {
         location.path(url)
     };
 
 
     scope.arrayProviders = getContent.service.data.data;
-    console.log(scope.arrayProviders);
 
     scope.profiles = [
         {
@@ -283,13 +286,13 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRatin
 }]);
 
 
-XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent','$routeParams', function (scope, location, http, parseType, $q, getContent, routeParams) {
+XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$routeParams', function (scope, location, http, parseType, $q, getContent, routeParams) {
     scope.job = {
         public: true,
         agency: true
     };
     if (routeParams.id) {
-        http.get('/get-job', {params:{_id:routeParams.id}}).then(function(resp){
+        http.get('/get-job', {params: {_id: routeParams.id}}).then(function (resp) {
             scope.job = resp.data.data[0]
         })
     }
@@ -369,7 +372,7 @@ XYZCtrls.controller('confirmCtrl', ['$scope', '$location', '$http', '$routeParam
 XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$routeParams', function (scope, location, http, parseType, $q, getContent, routeParams) {
     scope.freelancer = {isagency: true};
     if (routeParams.id) {
-        http.get('/freelancer', {params:{_id:routeParams.id}}).then(function(resp){
+        http.get('/freelancer', {params: {_id: routeParams.id}}).then(function (resp) {
             scope.freelancer = resp.data.data[0]
         })
     }
@@ -426,6 +429,37 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
         scope.freelancer.service_packages.splice(index, 1);
     }
 
+}]);
+
+XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', function (scope, location, http, $q, getContent) {
+    scope.profile = getContent.user.data.data;
+    scope.save = function (edit, invalid, profile) {
+        if (edit || invalid) return;
+        http.post('/upload-profile', profile).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })
+    };
+    scope.showModal = function (bol) {
+        scope.changePassword = bol
+    }
+
+    scope.change = function (invalid, password) {
+        if (invalid) return;
+        if (password.newPassword != password.confirm_password) {
+            scope.failPassword = true
+        }
+        if (password.newPassword == password.confirm_password) {
+            scope.failPassword = false;
+            http.post('/update-password', password).then(function(resp){
+                scope.changePassword = false;
+            }, function(err){
+                if(err.data.error == "Wrong password")
+                    scope.wrongPassword = true;
+            })
+        }
+    }
 }]);
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {

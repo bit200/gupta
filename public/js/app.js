@@ -2,13 +2,14 @@
 
 /* App Module */
 
-var XYZApp = angular.module('XYZApp', ['ngMaterial',
+var XYZApp = angular.module('XYZApp', [
+    'ngMaterial',
     'ngRoute',
-    'XYZCtrls',
     'rzModule',
     'ui.select',
-    'ngDialog'
-
+    'ngDialog',
+    'cgNotify',
+    'XYZCtrls'
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider',
@@ -37,9 +38,10 @@ XYZApp.config(['$routeProvider', '$httpProvider',
         $routeProvider
             .when('/registration', {
                 templateUrl: 'template/registration.html',
-                controller: 'HomeCtrl',
+                controller: 'RegistrationCtrl',
                 resolve: {
-                    auth: checkAuthLogin
+                    auth: checkAuthLogin,
+                    getContent: function() {}
                 }
             })
 
@@ -301,13 +303,25 @@ XYZApp.config(['$routeProvider', '$httpProvider',
             })
 
             .when('/view-my-job/Buyer', {
-                templateUrl: 'template/ViewMyJob.html',
+                templateUrl: 'template/viewMyJob.html',
                 controller: 'viewMyJobCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
                     getContent: function ($q, $http) {
                         return $q.all({
                             service: $http.get('/get-my-job', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}}),
+                        })
+                    }}
+            })
+
+            .when('/my-profile', {
+                templateUrl: 'template/myProfile.html',
+                controller: 'myProfileCtrl',
+                resolve: {
+                    auth: checkAuthCtrl,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            user: $http.get('/me')
                         })
                     }}
             })

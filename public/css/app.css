@@ -2,8 +2,6 @@ html {
     overflow-y: scroll;
 }
 
-
-
 .block-center {
     display: inline-block;
     position: absolute;
@@ -48,6 +46,19 @@ html {
     margin: auto;
     z-index: 98;
     height: 200px;
+    width: 50%;
+    text-align: center;
+}
+
+.modal-block-change-password {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 98;
+    height: 335px;
     width: 50%;
     text-align: center;
 }
@@ -406,6 +417,10 @@ html,body{
     color: #a9a9a9;
 }
 
+.text-white, .text-white:hover, .text-white:focus{
+    color: #FFFFFF;
+}
+
 .text-primary {
     color: #00B0F0;
 }
@@ -586,8 +601,8 @@ div.btnSearch{
 
 .has-error p.error {
     color: #a94442;
-    display: block;
-    position: absolute;
+    display: inline-block;
+    /*position: absolute;*/
     bottom: 0;
     font-size: 12px;
 }
@@ -813,8 +828,7 @@ md-input-container.selectTerm span div {
 .selectdemoSelectHeader md-content._md {
     max-height: 240px;
 }
-/*html body {*/
-/*}   background-color: #F0F1F3;*/
+
 
 ._md-icon {
     display: inline;

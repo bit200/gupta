@@ -8,10 +8,10 @@ module.exports = function (app) {
     app.get('/get-user', auth.token,  users.get_user);
     app.get('/send-restore',  users.send_restore);
     app.get('/restore',  users.restore);
-    app.post('/update-password',  users.update_password);
+    app.post('/update-password', auth.token, users.update_password);
     app.get('/send-confirm',  users.send_confirm);
     app.get('/confirm',  users.confirm);
-    app.post('/upload-profile',  users.upload_profile);
+    app.post('/upload-profile',auth.token, users.upload_profile);
     app.post('/facebookSignin', users.facebookSignin);
     app.post('/linkedinSignin', users.linkedinSignin);
     app.post('/googleSignin', users.googleSignin);

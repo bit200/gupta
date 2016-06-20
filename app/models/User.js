@@ -35,13 +35,13 @@ var UserSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    reject_reason: String,
+        reject_reason: String,
     sex: String,
     thumbnail: String,
     facebookId: String,
     linkedinId: String,
     googleId: String,
-    phone: Number,
+    phone: String,
     isActive: {
         type:Number,
         default: 0

@@ -51,33 +51,23 @@ exports.me = function (req, res) {
  *
  */
 exports.update_password = function (req, res) {
-    var params = m.getBody(req)
-    redis.get('token_' + req.headers['authorization'], function (err, r) {
-        if (err || !r) {
-            return m.ecb(399, {
-                success: false,
-                message: "Failed to authenticate the token."
-            }, res);
-        }
-        var arr = r.split('_');
-        var userId = arr[0];
-        m.findOne(models.User, {_id: userId}, res, function (user) {
-            user.comparePassword(params.oldPassword, function (err, isMatch) {
-                if (err || !isMatch) {
-                    return m.ecb(401, err, res)
+    var params = m.getBody(req);
+    log('params', params, req.userId)
+    m.findOne(models.User, {_id: req.userId}, res, function (user) {
+        user.comparePassword(params.oldPassword, function (err, isMatch) {
+            if (err || !isMatch) {
+                return m.ecb(401, err, res)
+            }
+            user.password = md5(params.newPassword);
+            user.save(function (e, r) {
+                if (e) {
+                    m.ecb(399, e, res)
+                } else {
+                    m.scb(r.publish, res)
                 }
-                user.password = md5(params.newPassword);
-                user.save(function (e, r) {
-                    if (e) {
-                        m.ecb(399, e, res)
-                    } else {
-                        m.scb(r.publish, res)
-                    }
-                })
-            });
-        })
-    });
-
+            })
+        });
+    })
 };
 
 
@@ -166,7 +156,7 @@ exports.restore = function (req, res) {
  *
  */
 exports.upload_profile = function (req, res) {
-    var params = m.getBody(req)
+    var params = m.getBody(req);
     m.findUpdate(models.User, {email: params.email}, params, res, res, {publish: "true"})
 };
 

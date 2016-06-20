@@ -13,6 +13,7 @@
     "angular-ui-select": "^0.18.0",
     "angularjs-slider": "^4.0.2",
     "angular-material": "^1.0.9",
-    "ng-dialog": "^0.6.2"
+    "ng-dialog": "^0.6.2",
+    "angular-notify": "^2.5.0"
   }
 }
