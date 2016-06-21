@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+        <div class="common-style-form">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <form name="formContract" novalidate>
+                        <div class="form-group">
+                            <label>Contract ID</label>
+                            <div>{{contract._id}}</div>
+                        </div>
+
+                        <div class="text-bold padding7">Concract for</div>
+                        <div class="form-group">
+                            <label>Job title*</label>
+                            <div>{{contract.title}}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Job information</label>
+                            <div>{{contract.information}}</div>
+                        </div>
+
+                        <div class="text-bold padding7">Contracting Parties</div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
+                                    <label>Buyer Name*</label>
+                                    <div>{{contract.buyer_name}}</div>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.company_name.$invalid}">
+                                    <label>Buyer Company name*</label>
+                                    <div>{{contract.buyer_company_name}}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Seller Contact Person Name</label>
+                                    <div>{{contract.seller_contact}}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Seller Name</label>
+                                    <div>{{contract.seller_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h3>Terms</h3>
+                            <div class="col-md-7 marginT30">
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.payment_basis.$invalid}">
+                                    <label>Payment Basis*<br>(mention deliverables, rate, and no. of units)</label>
+                                    <div>{{contract.payment_basis}}</div>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
+                                    <label>Expexted Start Date</label>
+                                    <div>{{contract.expected_start}}</div>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
+                                    <label>Completion Date</label>
+                                    <div>{{contract.expected_completion}}</div>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
+                                    <label>Final Amount to be paid (Rs.)</label>
+                                    <div>{{contract.final_amount}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn background-orange text-white" ng-click="respond('approve'); submitted = true">Approve Contract</button>
+                <button class="btn btn-danger text-white" ng-click="respond('reject')">Reject Contract</button>
+                <buttond class="btn btn-primary text-white" ng-click="respond('suggest')">Suggest edits Contract</buttond>
+            </div>
+        </div>
+    </div>
+</div>

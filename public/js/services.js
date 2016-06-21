@@ -31,6 +31,7 @@ XYZCtrls.service('parseType', function () {
             });
             return arr
         },
+
         getByNumber: function (item, Arr) {
             var arr = [];
             _.forEach(item, function (value, key) {
@@ -40,6 +41,7 @@ XYZCtrls.service('parseType', function () {
             });
             return arr
         },
+
         getModel: function (Arr) {
             var arr = [];
             _.forEach(Arr, function (item) {
@@ -48,6 +50,7 @@ XYZCtrls.service('parseType', function () {
             });
             return arr
         },
+
         agency: function (item) {
             var arr = [];
             _.forEach(item, function (elem) {
@@ -62,6 +65,12 @@ XYZCtrls.service('parseType', function () {
 
             });
             return arr
+        },
+
+        contract: function(item) {
+            item.expected_start = new Date(item.expected_start);
+            item.expected_completion = new Date(item.expected_completion);
+            return item
         }
     }
 });
