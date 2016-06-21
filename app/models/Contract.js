@@ -6,7 +6,7 @@ var ContractSchema = mongoose.Schema({
     information: String,
     buyer_name: String,
     buyer_company_name: String,
-    buyer    : {
+    buyer: {
         type: Number,
         ref: 'User'
     },

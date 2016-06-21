@@ -1,7 +1,8 @@
 'use strict';
 
 /* App Module */
-var XYZCtrls = angular.module('XYZCtrls', [])
+var XYZCtrls = angular.module('XYZCtrls', []);
+
 var XYZApp = angular.module('XYZApp', [
     'angularModalService',
     'ngMaterial',
@@ -19,7 +20,7 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
         var checkAuthCtrl = function ($q, $rootScope) {
             var deferred = $q.defer();
             var token = window.localStorage.getItem('accessToken');
-            if (token) deferred.resolve()
+            if (token) deferred.resolve();
             else {
                 $rootScope.go('/login')
                 deferred.reject()
@@ -30,7 +31,7 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
             var deferred = $q.defer();
             var token = window.localStorage.getItem('accessToken');
             if (token) {
-                $rootScope.go('/home')
+                $rootScope.go('/home');
                 deferred.reject()
             } else {
                 deferred.resolve()
@@ -272,6 +273,20 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
                             contract: $http.get('/contract/', {params:{_id:$route.current.params.id}})
+                        })
+                    }]
+                }
+            })
+
+            .when('/contract/suggest/:id', {
+                templateUrl: 'template/contractSuggest.html',
+                controller: 'contractApproveCtrl',
+                resolve: {
+                    auth: checkAuthCtrl,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            contract: $http.get('/contract/', {params:{_id:$route.current.params.id}}),
+                            suggest: $http.get('/suggest/', {params:{contract:contract._id}})
                         })
                     }]
                 }

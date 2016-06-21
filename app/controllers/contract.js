@@ -13,7 +13,9 @@ exports.create_contract = function (req, res) {
 
 exports.approve_contract = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {status: 'approve'}, res, res)
+    m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {status: 'approve'}, res, function (contract) {
+        mail.invitePayment(contract.buyer, res, m.scb(contract))
+    }, {populate: 'buyer'})
 
 };
 
@@ -22,7 +24,6 @@ exports.update_contract = function (req, res) {
     var id = params._id;
     delete params._id;
     m.findUpdate(models.Contract, {_id: id, buyer: req.userId}, params, res, function (contract) {
-        log(JSON.stringify(contract,null, 2))
         mail.contractCreate(contract.seller, contract._id, res, m.scb(contract, res))
     }, {populate: 'seller'})
 };
@@ -50,6 +51,16 @@ exports.suggest_contract = function (req, res) {
     })
 };
 
+exports.suggest_contract_buyer = function (req, res) {
+    var params = m.getBody(req);
+    delete params._id;
+    m.create(models.SuggestContract, params, res, function (suggest) {
+        m.findOne(models.User, {_id: req.userId}, res, function (user) {
+            mail.contractSuggest(user, suggest.contract, suggest._id, res, m.scb(suggest, res))
+        })
+    })
+};
+
 
 exports.get_contract = function (req, res) {
     var params = m.getBody(req);
@@ -59,4 +70,10 @@ exports.get_contract = function (req, res) {
             {buyer: req.userId}
         ]
     }, res, res)
+};
+
+
+exports.get_suggest = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.Suggest, {contract: params.contract}, res, res)
 };

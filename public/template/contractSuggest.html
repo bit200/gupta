@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+        <div class="common-style-form">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <form name="formContract" novalidate>
+                        <div class="form-group">
+                            <label>Contract ID</label>
+                            <div>{{contract._id}}</div>
+                        </div>
+
+                        <div class="text-bold padding7">Concract for</div>
+                        <div class="form-group">
+                            <label>Job title</label>
+                            <div>{{contract.title}}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Job information</label>
+                            <div>{{contract.information}}</div>
+                        </div>
+
+                        <div class="text-bold padding7">Contracting Parties</div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
+                                    <label>Buyer Name</label>
+                                    <div>{{contract.buyer_name}}</div>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.company_name.$invalid}">
+                                    <label>Buyer Company name</label>
+                                    <div>{{contract.buyer_company_name}}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Seller Contact Person Name</label>
+                                    <div>{{contract.seller_contact}}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Seller Name</label>
+                                    <div>{{contract.seller_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h3>Terms</h3>
+                            <div class="col-md-7 marginT30">
+                                <div class="form-group" >
+                                    <md-input-container class="md-block">
+                                        <label>Payment Basis*<br>(mention deliverables, rate, and no. of units)</label>
+                                        <input class="form-control" name="payment_basis" ng-enter="createContract(contract); submitted=true" ng-model="contract.payment_basis" required>
+                                        <p class="text-grey" ng-if="contract.payment_basis == suggest.payment_basis">{{suggest.payment_basis}}</p>
+                                    </md-input-container>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
+                                    <md-datepicker ng-model="contract.expected_start" md-placeholder="Start Date*" md-open-on-focus=""></md-datepicker>
+                                    <p class="error" ng-if="formContract.expected_start.$error.required">Start Date is required</p>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
+                                    <md-datepicker ng-model="contract.expected_completion" md-placeholder="Completion Date*" md-open-on-focus=""></md-datepicker>
+                                    <p class="error" ng-if="formContract.expected_completion.$error.required">Completion Date is required</p>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
+                                    <md-input-container class="md-block">
+                                        <label>Final Amount to be paid (Rs.)* </label>
+                                        <input class="form-control" numbers-only="" name="final_amount" ng-enter="createContract(contract); submitted=true" ng-model="contract.final_amount" required>
+                                        <p class="text-grey" ng-if="contract.final_amount == suggest.final_amount">{{suggest.final_amount}}</p>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn background-orange text-white" ng-click="respond('apply'); submitted = true">Apply</button>
+                <button class="btn btn-danger text-white" ng-click="respond('cancel')">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

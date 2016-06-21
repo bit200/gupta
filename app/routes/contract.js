@@ -10,5 +10,7 @@ module.exports = function (app) {
     app.post('/contract/delete', auth.token, contract.delete_contract);
     app.post('/contract/reject', auth.token, contract.reject_contract);
     app.post('/contract/suggest', auth.token, contract.suggest_contract);
+    app.post('/contract/suggest-buyer', auth.token, contract.suggest_contract_buyer);
     app.get('/contract', auth.token, contract.get_contract);
+    app.get('/suggest', auth.token, contract.get_suggest);
 };
