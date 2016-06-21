@@ -2,51 +2,60 @@ var models = require('../db')
     , config = require('../config')
     , m = require('../m')
     , mail = require('../mail')
-    , _ = require('underscore')
+    , _ = require('underscore');
 
 
 exports.create_contract = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(models.User, {_id: req.userId}, res, function (user) {
-        m.create(models.Contract, {buyer_email: user.email, seller_email: params.email}, res, res)
-    })
+    m.create(models.Contract, {buyer: req.userId, seller: params.id}, res, res)
+
 };
+
 exports.approve_contract = function (req, res) {
     var params = m.getBody(req);
+    m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {status: 'approve'}, res, function (contract) {
+        mail.invitePayment(contract.buyer, res, m.scb(contract))
+    }, {populate: 'buyer'})
 
-    m.findUpdate(models.Contract, {_id: params._id}, {status: 'approve'}, res, res)
 };
 
 exports.update_contract = function (req, res) {
     var params = m.getBody(req);
     var id = params._id;
     delete params._id;
-    m.findOne(models.User, {email: params.seller_email}, res, function (user) {
-        m.findUpdate(models.Contract, {_id: id}, params, res, function (contract) {
-            mail.contractCreate(user, contract._id, res, m.scb(contract, res))
-        })
-    })
+    m.findUpdate(models.Contract, {_id: id, buyer: req.userId}, params, res, function (contract) {
+        mail.contractCreate(contract.seller, contract._id, res, m.scb(contract, res))
+    }, {populate: 'seller'})
 };
 
 exports.delete_contract = function (req, res) {
     var params = m.getBody(req);
-    m.findRemove(models.Contract, {_id: params._id}, res, res)
+    m.findRemove(models.Contract, {_id: params._id, buyer: req.userId}, res, res)
 };
 
 exports.reject_contract = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(models.User, {email: params.seller_email}, res, function (user) {
-        m.findUpdate(models.Contract, {_id: params._id}, {status: 'reject', reject_reason: params.reject_reason}, res, function (contract) {
-            mail.contractReject(user, contract._id, params.text, res, m.scb(contract, res))
-        })
-    })
+    m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {status: 'reject', reject_reason: params.reject_reason}, res, function (contract) {
+        mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
+    }, {populate: 'seller'})
+
 };
 
 exports.suggest_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
-    m.findOne(models.User, {email: params.seller_email}, res, function (user) {
-        m.create(models.SuggestContract, params, res, function (suggest) {
+    m.create(models.SuggestContract, params, res, function (suggest) {
+        m.findOne(models.User, {_id: req.userId}, res, function (user) {
+            mail.contractSuggest(user, suggest.contract, suggest._id, res, m.scb(suggest, res))
+        })
+    })
+};
+
+exports.suggest_contract_buyer = function (req, res) {
+    var params = m.getBody(req);
+    delete params._id;
+    m.create(models.SuggestContract, params, res, function (suggest) {
+        m.findOne(models.User, {_id: req.userId}, res, function (user) {
             mail.contractSuggest(user, suggest.contract, suggest._id, res, m.scb(suggest, res))
         })
     })
@@ -55,5 +64,16 @@ exports.suggest_contract = function (req, res) {
 
 exports.get_contract = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(models.Contract, {_id: params._id}, res, res)
+    m.findOne(models.Contract, {
+        _id: params._id, $or: [
+            {seller: req.userId},
+            {buyer: req.userId}
+        ]
+    }, res, res)
+};
+
+
+exports.get_suggest = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.Suggest, {contract: params.contract}, res, res)
 };

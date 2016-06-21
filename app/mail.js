@@ -16,7 +16,8 @@ var tpl = {
     contractCreate: swig.compileFile(config.root + '/public/mailTemplate/contractCreate.html'),
     contractApprove: swig.compileFile(config.root + '/public/mailTemplate/contractApprove.html'),
     contractReject: swig.compileFile(config.root + '/public/mailTemplate/contractReject.html'),
-    contractSuggest: swig.compileFile(config.root + '/public/mailTemplate/contractSuggest.html')
+    contractSuggest: swig.compileFile(config.root + '/public/mailTemplate/contractSuggest.html'),
+    invitePayment: swig.compileFile(config.root + '/public/mailTemplate/invitePayment.html')
 };
 
 var transporter = nodemailer.createTransport({
@@ -140,7 +141,6 @@ options = options('Your Job was rejected to edit', user.email, tpl.jobEdit({
 
 function contractCreate(user, contractID, _ecb, _scb) {
     user = user.toJSON();
-
     var _options = options('Contract ' + contractID + ' created!', user.email, tpl.contractCreate({
         name: {
             first: user.first_name,
@@ -155,7 +155,7 @@ function contractCreate(user, contractID, _ecb, _scb) {
 function contractApprove(user, contractID, _ecb, _scb) {
     user = user.toJSON();
 
-    var _options = options('Contract ' + contractID + ' was approved!', user.email, tpl.contractCreate({
+    var _options = options('Contract ' + contractID + ' was approved!', user.email, tpl.contractApprove({
         name: {
             first: user.first_name,
             last: user.last_name
@@ -169,7 +169,7 @@ function contractApprove(user, contractID, _ecb, _scb) {
 function contractReject(user, contractID, reason_reject, _ecb, _scb) {
     user = user.toJSON();
 
-    var _options = options('Contract ' + contractID + ' was rejected!', user.email, tpl.contractCreate({
+    var _options = options('Contract ' + contractID + ' was rejected!', user.email, tpl.contractReject({
         name: {
             first: user.first_name,
             last: user.last_name
@@ -196,6 +196,19 @@ function contractSuggest(user, contractID, suggestID, _ecb, _scb) {
     _send(_options, _ecb, _scb)
 }
 
+function invitePayment(user, contractID, suggestID, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Contract was suggested edit', user.email, tpl.invitePayment({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
 
 module.exports = {
     send: _send,
@@ -207,5 +220,6 @@ module.exports = {
     contractCreate: contractCreate,
     contractApprove: contractApprove,
     contractReject: contractReject,
-    contractSuggest: contractSuggest
+    contractSuggest: contractSuggest,
+    invitePayment: invitePayment
 };

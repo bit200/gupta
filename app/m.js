@@ -128,6 +128,8 @@ function save(model, _ecb, _scb, params) {
 }
 
 function findOne(model, query, _ecb, _scb, params) {
+    log('2',params.populate)
+
     params = params || {};
     if (!model) {
         ecb(399, 'Model not found', _ecb);
@@ -139,6 +141,8 @@ function findOne(model, query, _ecb, _scb, params) {
         .select(params.select || params.fields)
         .populate(params.populate || '')
         .exec(function (err, data) {
+            log('3',params.populate)
+
             data = data && data.publish && params.publish ? data.publish() : data
             _mongoose_cb_handler(err, data, _ecb, _scb, params)
         })
@@ -204,10 +208,30 @@ function insertMany(model, new_params, _ecb, _scb, params) {
 
 
 function findUpdate(model, query, new_params, _ecb, _scb, params) {
+    log('1',params.populate)
     findOne(model, query, _ecb, function (item) {
         item = _.extend(item, new_params);
-        save(item, _ecb, _scb, params)
-    })
+        save(item, _ecb, function(item){
+            console.log('save populate step1', item, params.populate)
+            if (params.populate) {
+                console.log('save populate step2 true')
+                item.populate(params.populate, function(err, b) {
+                    console.log('save populate step3 before', err, item)
+                    console.log('save populate step3 after', err, b)
+
+                    if (err) {
+                        ecb(398, item, _ecb)
+                    } else {
+                        scb(item, _scb)
+                    }
+                })
+            } else {
+                console.log('save populate step2 false')
+
+                scb(item, _scb)
+            }
+        }, params)
+    }, params)
 }
 
 
