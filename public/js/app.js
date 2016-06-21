@@ -252,14 +252,14 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                 }
             })
 
-            .when('/contract/create/:email', {
+            .when('/contract/create/:id', {
                 templateUrl: 'template/contractCreate.html',
                 controller: 'contractCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
-                            contract: $http.get('/contract/create/', {params:{email:$route.current.params.email}})
+                            contract: $http.get('/contract/create/', {params:{id:$route.current.params.id}})
                         })
                     }]
                 }

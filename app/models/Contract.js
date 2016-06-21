@@ -6,10 +6,16 @@ var ContractSchema = mongoose.Schema({
     information: String,
     buyer_name: String,
     buyer_company_name: String,
-    buyer_email: String,
+    buyer    : {
+        type: Number,
+        ref: 'User'
+    },
     seller_contact: String,
     seller_name: String,
-    seller_email: String,
+    seller: {
+        type: Number,
+        ref: 'User'
+    },
     payment_basis: String,
     expected_start: Date,
     expected_completion: Date,

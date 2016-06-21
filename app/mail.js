@@ -140,7 +140,6 @@ options = options('Your Job was rejected to edit', user.email, tpl.jobEdit({
 
 function contractCreate(user, contractID, _ecb, _scb) {
     user = user.toJSON();
-
     var _options = options('Contract ' + contractID + ' created!', user.email, tpl.contractCreate({
         name: {
             first: user.first_name,
@@ -155,7 +154,7 @@ function contractCreate(user, contractID, _ecb, _scb) {
 function contractApprove(user, contractID, _ecb, _scb) {
     user = user.toJSON();
 
-    var _options = options('Contract ' + contractID + ' was approved!', user.email, tpl.contractCreate({
+    var _options = options('Contract ' + contractID + ' was approved!', user.email, tpl.contractApprove({
         name: {
             first: user.first_name,
             last: user.last_name
@@ -169,7 +168,7 @@ function contractApprove(user, contractID, _ecb, _scb) {
 function contractReject(user, contractID, reason_reject, _ecb, _scb) {
     user = user.toJSON();
 
-    var _options = options('Contract ' + contractID + ' was rejected!', user.email, tpl.contractCreate({
+    var _options = options('Contract ' + contractID + ' was rejected!', user.email, tpl.contractReject({
         name: {
             first: user.first_name,
             last: user.last_name
