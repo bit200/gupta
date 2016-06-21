@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
     <link rel="stylesheet" href="bower_components/angular-notify/angular-notify.css">
 </head>
-<body class="container" style="width: 100%; position: relative">
+<body ng-controller="MainCtrl" class="container" style="width: 100%; position: relative">
 <div ng-include="'template/header.html'" class="top-header"></div>
 <div class="body" ng-view></div>
 <script src="bower_components/jquery/dist/jquery.js"></script>
