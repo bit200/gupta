@@ -17,7 +17,9 @@ var tpl = {
     contractApprove: swig.compileFile(config.root + '/public/mailTemplate/contractApprove.html'),
     contractReject: swig.compileFile(config.root + '/public/mailTemplate/contractReject.html'),
     contractSuggest: swig.compileFile(config.root + '/public/mailTemplate/contractSuggest.html'),
-    invitePayment: swig.compileFile(config.root + '/public/mailTemplate/invitePayment.html')
+    invitePayment: swig.compileFile(config.root + '/public/mailTemplate/invitePayment.html'),
+    contractSuggestApply: swig.compileFile(config.root + '/public/mailTemplate/contractSuggestApply.html'),
+    contractSuggestCancel: swig.compileFile(config.root + '/public/mailTemplate/contractSuggestCancel.html')
 };
 
 var transporter = nodemailer.createTransport({
@@ -196,14 +198,42 @@ function contractSuggest(user, contractID, suggestID, _ecb, _scb) {
     _send(_options, _ecb, _scb)
 }
 
-function invitePayment(user, contractID, suggestID, _ecb, _scb) {
+function invitePayment(user, _ecb, _scb) {
     user = user.toJSON();
 
-    var _options = options('Contract was suggested edit', user.email, tpl.invitePayment({
+    var _options = options('Invite payment', user.email, tpl.invitePayment({
         name: {
             first: user.first_name,
             last: user.last_name
         },
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function suggestCancel(user, contractID, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Your suggested changes was canceled', user.email, tpl.contractSuggestCancel({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        contractID:contractID,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function suggestApply(user, contractID, suggestID, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Your suggested changes was applied', user.email, tpl.contractSuggestApply({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        contractID:contractID,
         appHost: config.appHost
     }));
     _send(_options, _ecb, _scb)
@@ -221,5 +251,7 @@ module.exports = {
     contractApprove: contractApprove,
     contractReject: contractReject,
     contractSuggest: contractSuggest,
-    invitePayment: invitePayment
+    invitePayment: invitePayment,
+    suggestCancel: suggestCancel,
+    suggestApply: suggestApply
 };

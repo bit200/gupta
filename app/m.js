@@ -128,8 +128,6 @@ function save(model, _ecb, _scb, params) {
 }
 
 function findOne(model, query, _ecb, _scb, params) {
-    log('2',params.populate)
-
     params = params || {};
     if (!model) {
         ecb(399, 'Model not found', _ecb);
@@ -141,8 +139,6 @@ function findOne(model, query, _ecb, _scb, params) {
         .select(params.select || params.fields)
         .populate(params.populate || '')
         .exec(function (err, data) {
-            log('3',params.populate)
-
             data = data && data.publish && params.publish ? data.publish() : data
             _mongoose_cb_handler(err, data, _ecb, _scb, params)
         })

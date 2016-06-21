@@ -51,13 +51,21 @@ exports.suggest_contract = function (req, res) {
     })
 };
 
-exports.suggest_contract_buyer = function (req, res) {
+exports.suggest_contract_apply = function (req, res) {
     var params = m.getBody(req);
-    delete params._id;
-    m.create(models.SuggestContract, params, res, function (suggest) {
-        m.findOne(models.User, {_id: req.userId}, res, function (user) {
-            mail.contractSuggest(user, suggest.contract, suggest._id, res, m.scb(suggest, res))
-        })
+    delete params.suggest._id;
+    var item = _.extend(params.suggest.contract, params.suggest);
+    m.findUpdate(models.Contract, {_id: params.suggest.contract._id, buyer: req.userId}, item, res, function (contract) {
+            mail.suggestApply(contract.seller, contract._id, res, m.scb(contract, res))
+    }, {populate: 'seller'})
+};
+
+exports.suggest_contract_cancel = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models.SuggestContract, {_id: params.id}, res, function(){
+        m.findOne(models.Contract, {_id: params.id, buyer: req.userId}, res, function (contract) {
+            mail.suggestCancel(contract.seller, contract._id, res, m.scb(contract, res))
+        }, {populate: 'seller'})
     })
 };
 
@@ -75,5 +83,5 @@ exports.get_contract = function (req, res) {
 
 exports.get_suggest = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(models.Suggest, {contract: params.contract}, res, res)
+    m.findOne(models.SuggestContract, {_id: params._id}, res, res, {populate: 'contract'})
 };

@@ -280,13 +280,12 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
 
             .when('/contract/suggest/:id', {
                 templateUrl: 'template/contractSuggest.html',
-                controller: 'contractApproveCtrl',
+                controller: 'contractSuggestCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
-                            contract: $http.get('/contract/', {params: {_id: $route.current.params.id}}),
-                            suggest: $http.get('/suggest/', {params: {contract: contract._id}})
+                            suggest: $http.get('/suggest', {params: {_id: $route.current.params.id}})
                         })
                     }]
                 }
