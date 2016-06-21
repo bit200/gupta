@@ -223,9 +223,9 @@
 
                 </div>
                 <div class="form-group">
-                    <div>Upload samples of work</div>
+                    <div>Upload samples of work   <a class="pointer" ng-click="attachFile()">Attach Files</a>
+                    </div>
                     <div class="text-right">
-                        <a class="pointer" ng-click="attachFile()">Attach Files</a>
                         <div class="row Files" ng-repeat="globalFile in globalFiles track by $index">
                             <!--<a href="" ng-click="open(globalFile)">test</a>-->
                             <div class="col-xs-4 text-left">{{globalFile.name}}

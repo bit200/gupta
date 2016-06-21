@@ -464,13 +464,10 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$ht
                 controller: 'uploadFile'
             })
         }
-
-<<<<<<< HEAD
     }]);
 
 XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location', '$timeout', 'Upload', 'ngDialog',
     function (scope, rootScope, http, location, $timeout, Upload, ngDialog) {
-=======
         // scope.picFile = {};
         ////
         //scope.$watch("picFile", function (newvalue, oldvalue) {
@@ -479,7 +476,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
         // scope.uploader = new FileUploader({url:'/uploadFile'});
 
         //console.log(scope.uploader);
->>>>>>> 9f04f91a4106109d5a8d76615f6259224c949710
 
         scope.open = function (url) {
 
@@ -506,7 +502,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
             });
         };
 
-<<<<<<< HEAD
 
         scope.showDrop = true;
         scope.$watch('picFile', function (newValue, oldValue) {
@@ -518,7 +513,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
             }
         });
 
-=======
         scope.uploadPic = function (file) {
 
             file.upload = Upload.upload({
@@ -606,7 +600,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
 //};
 
 
->>>>>>> 9f04f91a4106109d5a8d76615f6259224c949710
     }])
 ;
 
@@ -644,19 +637,12 @@ XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'get
 }]);
 
 
-<<<<<<< HEAD
-XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent', function (scope, location, http, getContent) {
-    scope.contract = getContent.contract.data.data;
 
-    scope.createContract = function (type, data) {
-        http.post('/contact/' + type, data).then(function (resp) {
-=======
 XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent', 'ModalService', function (scope, location, http, getContent, ModalService) {
     scope.contract = getContent.contract.data.data;
     scope.createContract = function (invalid, type, data) {
         http.post('/contract/' + type, data).then(function (resp) {
             type == 'delete' ? location.path('/home') : location.path('/home');
->>>>>>> 9f04f91a4106109d5a8d76615f6259224c949710
             console.log('resp', resp)
         }, function (err) {
             console.log('err', err)
