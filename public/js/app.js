@@ -1,7 +1,7 @@
 'use strict';
 
 /* App Module */
-
+var XYZCtrls = angular.module('XYZCtrls', [])
 var XYZApp = angular.module('XYZApp', [
     'angularModalService',
     'ngMaterial',
@@ -50,7 +50,6 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
 
             .when('/login', {
                 templateUrl: 'template/login.html',
-                controller: 'MainCtrl',
                 resolve: {
                     auth: checkAuthLogin
                 }

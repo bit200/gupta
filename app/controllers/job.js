@@ -3,8 +3,8 @@ var models = require('../db')
     , m = require('../m'),
     fs = require('fs'),
     mkdirp = require('mkdirp'),
-    multer = require('multer');
-
+    multer = require('multer'),
+    async = require('async');
 
 
 exports.add_job = function (req, res) {
@@ -18,29 +18,54 @@ exports.get_job = function (req, res) {
     m.findOne(models.Job, params, res, res)
 };
 
+exports.deleteFile = function (req, res) {
+    async.series([
+        function (cb) {
+            m.find(models.UploadFile, {_id: req.body._id}, res, function (responce) {
+                fs.unlink("." + responce[0].url, function (err) {
+                    console.log(err);
+                });
+            });
+            cb(null)
+        },
+        function (cb) {
+            m.findRemove(models.UploadFile, {_id: req.body._id}, res, function (data) {
+                console.log(data)
+            })
+            cb(null, res.send('ok'))
+        }
+    ]);
+};
+
 exports.uploadFile = function (req, res) {
-    console.log("SSSASA")
+    var params = {};
     var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
-            console.log(file);
-            cb(null, './public/uploads/'+req.userId.toString())
+            params.originalName = file.originalname;
+            cb(null, './public/uploads/' + req.userId.toString())
         },
         filename: function (req, file, cb) {
             var datetimestamp = Date.now();
-            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+            params.title = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
+            params.url = '/public/uploads/' + req.userId.toString() + '/' + file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
+            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+
         }
     });
+
     var upload = multer({ //multer settings
         storage: storage
     }).single('file');
-    upload(req,res , function (err) {
-        if(err){
-            console.log(err)
-            res.json({error_code:1,err_desc:err});
+
+    upload(req, res, function (err) {
+        if (err) {
+            console.log(err);
+            res.json({error_code: 1, err_desc: err});
             return;
         }
-        res.json({error_code:0,err_desc:null});
+        m.create(models.UploadFile, params, res, res);
     });
+
     //UserController = function() {};
     // We are able to access req.files.file thanks to
     // the multiparty middleware
