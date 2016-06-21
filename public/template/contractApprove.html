@@ -70,14 +70,14 @@
                             </md-input-container>
                         </div>
                         <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
-                            <md-datepicker ng-model="contract.expected_start" md-placeholder="Start Date*" md-open-on-focus=""></md-datepicker>
-                            <p class="error" ng-if="formContract.expected_start.$error.required">Start Date is required</p>
+                            <md-datepicker ng-model="contract.expected_start" md-placeholder="Expected Start Date*" md-open-on-focus=""></md-datepicker>
+                            <p class="error" ng-if="formContract.expected_start.$error.required">Expected Start Date is required</p>
                         </div>
                         <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
-                            <md-datepicker ng-model="contract.expected_completion" md-placeholder="Completion Date*" md-open-on-focus=""></md-datepicker>
-                            <p class="error" ng-if="formContract.expected_completion.$error.required">Completion Date is required</p>
+                            <md-datepicker ng-model="contract.expected_completion" md-placeholder="Expected Completion Date*" md-open-on-focus=""></md-datepicker>
+                            <p class="error" ng-if="formContract.expected_completion.$error.required">Expected Completion Date is required</p>
                         </div>
-                        <div class="form-group" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
+                        <div class="form-group marginT20" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
                             <md-input-container class="md-block">
                                 <label>Final Amount to be paid (Rs.)* </label>
                                 <input class="form-control" numbers-only="" name="final_amount" ng-enter="createContract(contract); submitted=true" ng-model="contract.final_amount" required>
@@ -88,11 +88,10 @@
                 </div>
 
                 <div>
-                    <button class="btn background-orange text-white" ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">Create Contract</button>
-                    <button class="btn background-grey text-white" ng-click="preview()">Preview</button>
-                    <button class="btn btn-danger text-white" ng-click="createContract('false', 'delete', {_id: contract._id})">Delete</button>
+                    <button class="btn background-orange text-white" ng-click="respond('approve'); submitted = true">Approve Contract</button>
+                    <button class="btn btn-danger text-white" ng-click="respond('reject')">Reject Contract</button>
+                    <buttond class="btn btn-primary text-white" ng-click="respond('suggest')">Suggest edits Contract</buttond>
                 </div>
-                <div>(Note: the contract will be sent to the service provider for approval.)</div>
             </form>
         </div>
     </div>

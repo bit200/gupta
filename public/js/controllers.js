@@ -475,43 +475,43 @@ XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseTyp
 XYZCtrls.controller('uploadFile', ['$scope', '$http', '$location', '$timeout', 'Upload',
     function (scope, http, location, $timeout, Upload) {
 
-    // scope.picFile = {};
-    ////
-    //scope.$watch("picFile", function (newvalue, oldvalue) {
-    //     console.log(newvalue,oldvalue)
-    //}, true);
-    // scope.uploader = new FileUploader({url:'/uploadFile'});
+        // scope.picFile = {};
+        ////
+        //scope.$watch("picFile", function (newvalue, oldvalue) {
+        //     console.log(newvalue,oldvalue)
+        //}, true);
+        // scope.uploader = new FileUploader({url:'/uploadFile'});
 
-    //console.log(scope.uploader);
+        //console.log(scope.uploader);
 
-    scope.open = function (url) {
+        scope.open = function (url) {
 
-        console.log(url.$ngfBlobUrl.toString());
-        var win = window.open(url.$ngfBlobUrl, '_blank');
-        win.focus();
-    };
+            console.log(url.$ngfBlobUrl.toString());
+            var win = window.open(url.$ngfBlobUrl, '_blank');
+            win.focus();
+        };
 
 
-    scope.uploadPic = function (file) {
+        scope.uploadPic = function (file) {
 
-        file.upload = Upload.upload({
-            url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
-            data: {file: file} //pass file as data, should be user ng-model
-        });
-
-        file.upload.then(function (response) {
-            $timeout(function () {
-                file.result = response.data;
+            file.upload = Upload.upload({
+                url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
+                data: {file: file} //pass file as data, should be user ng-model
             });
-        }, function (response) {
-            if (response.status > 0)
-                scope.errorMsg = response.status + ': ' + response.data;
-        }, function (evt) {
-            file.progress = Math.min(100, parseInt(100.0 *
-            evt.loaded / evt.total));
-        });
 
-    }
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+
+        }
 //    then(function (resp) { //upload function returns a promise
 //        if(resp.data.error_code === 0){ //validate success
 //            $window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
@@ -579,7 +579,7 @@ XYZCtrls.controller('uploadFile', ['$scope', '$http', '$location', '$timeout', '
 //};
 
 
-}])
+    }])
 ;
 
 XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'notify', function (scope, location, http, $q, getContent, notify) {
@@ -616,20 +616,80 @@ XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'get
 }]);
 
 
-
-XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent',  function (scope, location, http, getContent) {
+XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent', 'ModalService', function (scope, location, http, getContent, ModalService) {
     scope.contract = getContent.contract.data.data;
-
-    scope.createContract = function(type, data){
-        http.post('/contact/' + type, data).then(function(resp){
-            console.log('resp',resp)
-        }, function(err){
+    scope.createContract = function (invalid, type, data) {
+        http.post('/contract/' + type, data).then(function (resp) {
+            type == 'delete' ? location.path('/home') : location.path('/home');
+            console.log('resp', resp)
+        }, function (err) {
             console.log('err', err)
         })
+    }
 
+    scope.preview = function () {
+        ModalService.showModal({
+            templateUrl: "template/modal/previewContract.html",
+            controller: function ($scope) {
+                $scope.contract = scope.contract;
+                $scope.contract.expected_start = parseDate($scope.contract.expected_start);
+                $scope.contract.expected_completion = parseDate($scope.contract.expected_completion);
+                function parseDate(date) {
+                    var today = new Date(date);
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+                    var yyyy = today.getFullYear();
+
+                    if (dd < 10) {
+                        dd = '0' + dd
+                    }
+
+                    if (mm < 10) {
+                        mm = '0' + mm
+                    }
+
+                    return (mm + '-' + dd + '-' + yyyy);
+                }
+
+            }
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (result) {
+            });
+
+        });
     }
 }]);
 
+XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'getContent', '$routeParams', 'parseType', function (scope, location, http, getContent, routeParams, parseType) {
+    scope.contract = parseType.contract(getContent.contract.data.data);
+    scope.createContract = function (invalid, type, data) {
+        http.post('/contract/' + type, data).then(function (resp) {
+            type == 'delete' ? location.path('/home') : location.path('/home');
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })
+    };
+
+    scope.respond = function (type) {
+        function approve() {
+            http.get('/contract/approve', {params: {_id: scope.contract._id}}).then(function(resp){
+                console.log(resp)
+            }, function(err){
+                console.log('err', err)
+            })
+        }
+
+        function reject() {
+
+        }
+
+        function suggest() {
+
+        }
+    }
+}]);
 
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {

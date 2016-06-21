@@ -14,8 +14,8 @@ var XYZApp = angular.module('XYZApp', [
     'ngFileUpload'
 ]);
 
-XYZApp.config(['$routeProvider', '$httpProvider',
-    function ($routeProvider, $httpProvider) {
+XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
+    function ($routeProvider, $httpProvider,$locationProvider) {
         var checkAuthCtrl = function ($q, $rootScope) {
             var deferred = $q.defer();
             var token = window.localStorage.getItem('accessToken');
@@ -252,16 +252,29 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                 }
             })
 
-            .when('/contract/create', {
+            .when('/contract/create/:email', {
                 templateUrl: 'template/contractCreate.html',
                 controller: 'contractCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
-                    getContent: function ($q, $http) {
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
-                            contract: $http.get('/contract/create')
+                            contract: $http.get('/contract/create/', {params:{email:$route.current.params.email}})
                         })
-                    }
+                    }]
+                }
+            })
+
+            .when('/contract/approve/:id', {
+                templateUrl: 'template/contractApprove.html',
+                controller: 'contractApproveCtrl',
+                resolve: {
+                    auth: checkAuthCtrl,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            contract: $http.get('/contract/', {params:{_id:$route.current.params.id}})
+                        })
+                    }]
                 }
             })
 
@@ -347,6 +360,11 @@ XYZApp.config(['$routeProvider', '$httpProvider',
 
             .otherwise({redirectTo: '/login'});
 
+        // $locationProvider.html5Mode({
+        //     enabled: true,
+        //     requireBase: false
+        // });
+
         $httpProvider.interceptors.push(function ($q, $injector) {
             return {
                 'responseError': function (rejection) {
@@ -357,7 +375,7 @@ XYZApp.config(['$routeProvider', '$httpProvider',
                         };
                         var http = $injector.get('$http');
                         getModalService().showModal({
-                            templateUrl: "template/modalWindow.html",
+                            templateUrl: "template/modal/modalWindow.html",
                             controller: function ($scope) {
                                 $scope.close = function(data){
                                     var http = $injector.get('$http');

@@ -7,4 +7,5 @@ module.exports = function (app) {
     app.get('/contract/create', auth.token, contract.create_contract);
     app.post('/contract/update', auth.token, contract.update_contract);
     app.post('/contract/delete', auth.token, contract.delete_contract);
+    app.get('/contract', auth.token, contract.get_contract);
 };

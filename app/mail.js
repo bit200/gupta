@@ -12,7 +12,8 @@ var tpl = {
     confirm: swig.compileFile(config.root + '/public/mailTemplate/register.html'),
     jobApprove: swig.compileFile(config.root + '/public/mailTemplate/jobApprove.html'),
     jobReject: swig.compileFile(config.root + '/public/mailTemplate/jobReject.html'),
-    jobEdit: swig.compileFile(config.root + '/public/mailTemplate/jobEdit.html')
+    jobEdit: swig.compileFile(config.root + '/public/mailTemplate/jobEdit.html'),
+    contractCreate: swig.compileFile(config.root + '/public/mailTemplate/contractCreate.html')
 };
 
 var transporter = nodemailer.createTransport({
@@ -97,9 +98,6 @@ function send_confirm(user, _ecb, _scb) {
 
 function job_approve(user, _ecb, _scb) {
     user = user.toJSON();
-    if (!user.confirm_code) {
-        return m.ecb(351, 'Already confirmed', _ecb)
-    }
     var _options = options('Approve your Job!', user.email, tpl.jobApprove({
         name: {
             first: user.first_name,
@@ -112,9 +110,6 @@ function job_approve(user, _ecb, _scb) {
 
 function job_reject(user, reason, _ecb, _scb) {
     user = user.toJSON();
-    if (!user.confirm_code) {
-        return m.ecb(351, 'Already confirmed', _ecb)
-    }
     var _options = options('Your Job was rejected', user.email, tpl.jobReject({
         name: {
             first: user.first_name,
@@ -128,16 +123,27 @@ function job_reject(user, reason, _ecb, _scb) {
 
 function job_edit(user, reject_reason, id, _ecb, _scb) {
     user = user.toJSON();
-    if (!user.confirm_code) {
-        return m.ecb(351, 'Already confirmed', _ecb)
-    }
-    var _options = options('Your Job was rejected to edit', user.email, tpl.jobEdit({
+options = options('Your Job was rejected to edit', user.email, tpl.jobEdit({
         name: {
             first: user.first_name,
             last: user.last_name
         },
         reject_reason: reject_reason,
         id: id,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function contractCreate(user, contractID, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Contract ' + contractID + ' created!', user.email, tpl.contractCreate({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        contractID: contractID,
         appHost: config.appHost
     }));
     _send(_options, _ecb, _scb)
@@ -150,5 +156,6 @@ module.exports = {
     send_confirm: send_confirm,
     job_approve: job_approve,
     job_reject: job_reject,
-    job_edit: job_edit
+    job_edit: job_edit,
+    contractCreate: contractCreate
 };
