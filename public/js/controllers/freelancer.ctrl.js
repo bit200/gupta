@@ -1,6 +1,6 @@
 /* Controllers */
 
-angular.module('XYZCtrls', []).controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent',
+angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent',
     '$routeParams', 'ngDialog', 'Upload', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, Upload) {
         scope.freelancer = {isagency: true};
         rootScope.globalFiles = [];
@@ -12,6 +12,7 @@ angular.module('XYZCtrls', []).controller('freelancerCtrl', ['$scope', '$rootSco
         scope.experience = _.range(51);
         scope.extras = [];
         scope.new_services = [];
+
 
         if (routeParams.id) {
             http.get('/freelancer', {params: {_id: routeParams.id}}).then(function (resp) {
@@ -78,14 +79,26 @@ angular.module('XYZCtrls', []).controller('freelancerCtrl', ['$scope', '$rootSco
             rootScope.globalFiles.splice(index, 1);
         };
 
+        scope.downloadPicProfile = function () {
+                ngDialog.open({
+                    template: 'attachImgProfile',
+                    className: 'ngdialog-theme-default',
+                    controller: 'uploadFile'
+                })
+            };
+
+
         scope.$watchCollection('globalFiles', function () {
             console.log(rootScope.globalFiles);
             ngDialog.closeAll();
         });
+        scope.$watchCollection('globalImg', function () {
+            console.log(rootScope.globalImg,'THERE');
+        });
 
         scope.attachFile = function () {
             ngDialog.open({
-                template: 'attachFile',
+                template: 'attachImgProfile',
                 className: 'ngdialog-theme-default',
                 controller: 'uploadFile'
             })

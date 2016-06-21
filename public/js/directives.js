@@ -16,7 +16,6 @@ XYZCtrls.directive('ngEnter', function () {
 });
 
 XYZCtrls.directive('shakeThat', ['$animate', function ($animate) {
-
     return {
         require: '^form',
         scope: {

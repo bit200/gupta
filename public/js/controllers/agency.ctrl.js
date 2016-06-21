@@ -1,5 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
+
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
     scope.requestBusiness = false;
     scope.agency = parseType.agency(getContent.agency.data.data);

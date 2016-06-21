@@ -39,6 +39,35 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
 
             }
         });
+        scope.$watch('picProfile', function (newValue, oldValue) {
+            if (newValue != undefined) {
+                console.log(newValue);
+                scope.showDrop = false;
+                rootScope.globalImg = newValue;
+                //scope.uploadPic(newValue);
+                //rootScope.globalFiles.push(newValue);
+
+            }
+        });
+
+
+        scope.uploadProfilePic = function(dataUrl, name){
+            file.upload = Upload.upload({
+                url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
+                data: {file: Upload.dataUrltoBlob(dataUrl, name)} //pass file as data, should be user ng-model
+            })
+            .then(function (response) {
+                $timeout(function () {
+                    scope.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                scope.progress = Math.min(100, parseInt(100.0 *
+                evt.loaded / evt.total));
+            });
+        }
 
         scope.uploadPic = function (file) {
 

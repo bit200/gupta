@@ -223,7 +223,7 @@
 
                 </div>
                 <div class="form-group">
-                    <div>Upload samples of work   <a class="pointer" ng-click="attachFile()">Attach Files</a>
+                    <div>Upload samples of work   <a class="pointer floatR" ng-click="attachFile()">Attach Files</a>
                     </div>
                     <div class="text-right">
                         <div class="row Files" ng-repeat="globalFile in globalFiles track by $index">
@@ -444,7 +444,7 @@
                 <div class="form-group">
                     <div>Upload Profile Image</div>
                     <div class="text-right">
-                        <a class="pointer">Attach Files</a>
+                        <a class="pointer" ng-click="downloadPicProfile()">Attach Files</a>
                     </div>
                 </div>
             </div>
@@ -492,9 +492,20 @@
         <fieldset>
             <legend>Upload on form submit</legend>
             <div class="testContainer">
-                <div ng-show="showDrop" ngf-drop ngf-select ng-model="picFile" class="drop-box">Drop</div>
-                 <span class="progress" ng-show="picFile.progress >= 0">
-                  <div style="width:{{picFile.progress}}%"
+                <div ng-show="showDrop" ngf-drop ngf-select ng-model="picProfile" class="drop-box">Drop</div>
+                <div ngf-drop  ng-model="picProfile" ngf-pattern="image/*"
+                     class="cropArea">
+                    <img-crop area-type="square" image="picProfile  | ngfDataUrl"
+                              result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+                    </img-crop>
+                </div>
+                <div>
+                    <img ng-src="{{croppedDataUrl}}" />
+                </div>
+                <button ng-click="upload(croppedDataUrl, picFile.name)">Submit</button>
+
+                 <span class="progress" ng-show="picProfile.progress >= 0">
+                  <div style="width:{{picProfile.progress}}%"
                        ng-bind="picFile.progress + '%'"></div>
                 </span>
                 <span ng-show="picFile.result">Upload Successful</span>

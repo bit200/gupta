@@ -1,7 +1,7 @@
 'use strict';
-
 /* App Module */
-var XYZCtrls = angular.module('XYZCtrls', [])
+
+var XYZCtrls = angular.module('XYZCtrls', []);
 var XYZApp = angular.module('XYZApp', [
     'angularModalService',
     'ngMaterial',
@@ -15,7 +15,7 @@ var XYZApp = angular.module('XYZApp', [
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
-    function ($routeProvider, $httpProvider,$locationProvider) {
+    function ($routeProvider, $httpProvider, $locationProvider) {
         var checkAuthCtrl = function ($q, $rootScope) {
             var deferred = $q.defer();
             var token = window.localStorage.getItem('accessToken');
@@ -258,7 +258,7 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                     auth: checkAuthCtrl,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
-                            contract: $http.get('/contract/create/', {params:{email:$route.current.params.email}})
+                            contract: $http.get('/contract/create/', {params: {email: $route.current.params.email}})
                         })
                     }]
                 }
@@ -271,7 +271,7 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                     auth: checkAuthCtrl,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
-                            contract: $http.get('/contract/', {params:{_id:$route.current.params.id}})
+                            contract: $http.get('/contract/', {params: {_id: $route.current.params.id}})
                         })
                     }]
                 }
@@ -311,11 +311,41 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                     auth: checkAuthCtrl,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            service: $http.get('/get-content', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}}),
-                            topic: $http.get('/get-content', {params: {name: 'Filters', query: {type: 'ContentWriting', filter: 'Industry Expertise'}, distinctName: 'name'}}),
-                            content: $http.get('/get-content', {params: {name: 'Filters', query: {type: 'ContentWriting', filter: 'Content Type'}, distinctName: 'name'}}),
-                            languages: $http.get('/get-content', {params: {name: 'Filters', query: {type: 'ContentWriting', filter: 'Languages'}, distinctName: 'name'}}),
-                            locations: $http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}}),
+                            service: $http.get('/get-content', {
+                                params: {
+                                    name: 'ServiceProvider',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            topic: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            content: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            languages: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Languages'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
                             freelancer: $http.get('/freelancer')
                         })
                     }
@@ -337,7 +367,13 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                     auth: checkAuthCtrl,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            service: $http.get('/get-my-job', {params: {name: 'ServiceProvider', query: {}, distinctName: 'name'}}),
+                            service: $http.get('/get-my-job', {
+                                params: {
+                                    name: 'ServiceProvider',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
                         })
                     }
                 }
@@ -376,20 +412,22 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                         getModalService().showModal({
                             templateUrl: "template/modal/modalWindow.html",
                             controller: function ($scope) {
-                                $scope.close = function(data){
+                                $scope.close = function (data) {
                                     var http = $injector.get('$http');
-                                    function getToken(){
+
+                                    function getToken() {
                                         console.log('qqq');
-                                        http.get('/refresh-token', {params:{refresh_token: localStorage.getItem('refreshToken')}}).then(
-                                            function(resp){
+                                        http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
+                                            function (resp) {
                                                 localStorage.setItem('accessToken', resp.data.data.value)
-                                            },function(err){
+                                            }, function (err) {
                                                 localStorage.clear();
                                                 location.reload();
                                             }
                                         )
                                     }
-                                    data ? getToken() : (localStorage.clear(),  location.reload());
+
+                                    data ? getToken() : (localStorage.clear(), location.reload());
                                 }
                             }
                         }).then(function (modal) {
