@@ -661,7 +661,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent
     }
 }]);
 
-XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'getContent', '$routeParams', 'parseType', function (scope, location, http, getContent, routeParams, parseType) {
+XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'getContent', '$routeParams', 'parseType', 'ModalService', function (scope, location, http, getContent, routeParams, parseType, ModalService) {
     scope.contract = parseType.contract(getContent.contract.data.data);
     scope.createContract = function (invalid, type, data) {
         http.post('/contract/' + type, data).then(function (resp) {
@@ -673,21 +673,72 @@ XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'get
     };
 
     scope.respond = function (type) {
+        switch (type) {
+            case 'approve':
+                approve();
+                break;
+            case 'reject':
+                reject();
+                break;
+            case 'suggest':
+                suggest();
+                break;
+        }
         function approve() {
-            http.get('/contract/approve', {params: {_id: scope.contract._id}}).then(function(resp){
+            console.log('1')
+            http.get('/contract/approve', {params: {_id: scope.contract._id}}).then(function (resp) {
                 console.log(resp)
-            }, function(err){
+            }, function (err) {
                 console.log('err', err)
             })
         }
 
         function reject() {
+            ModalService.showModal({
+                templateUrl: "template/modal/rejectContract.html",
+                controller: function ($scope) {
+                    $scope.send = function (text) {
+                        scope.contract.reject_reason = text
+                        http.post('/contract/reject', scope.contract).then(function (resp) {
+                            console.log(resp)
+                        }, function (err) {
+                            console.log('err', err)
+                        })
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
 
         }
 
         function suggest() {
+            ModalService.showModal({
+                templateUrl: "template/modal/suggestContract.html",
+                controller: function ($scope) {
+                    $scope.contract = scope.contract;
+                    $scope.send = function (model) {
+                        model.contract = scope.contract._id;
+                        http.post('/contract/suggest', model).then(function (resp) {
+                            console.log(resp)
+                        }, function (err) {
+                            console.log('err', err)
+                        })
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
 
         }
+
+
     }
 }]);
 
@@ -701,11 +752,13 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     };
 
     scope.sendRequest = function (invalid, data) {
+
         if (invalid) return;
         scope.req = {
             data: data,
             agency: scope.choiceAgency
         };
+
         http.post('/request-business', scope.req).then(function (resp) {
             scope.requestBusiness = false;
             _.forEach(scope.agency, function (item) {

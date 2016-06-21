@@ -55,20 +55,26 @@
                                 <h3>Terms</h3>
                                 <div class="col-md-7 marginT30">
                                     <div class="form-group" ng-class="{'has-error': submitted && formContract.payment_basis.$invalid}">
-                                        <label>Payment Basis*<br>(mention deliverables, rate, and no. of units)</label>
-                                        <div>{{contract.payment_basis}}</div>
+                                        <md-input-container class="md-block">
+                                            <label>Payment Basis*<br>(mention deliverables, rate, and no. of units)</label>
+                                            <input class="form-control" name="payment_basis" ng-enter="createContract(contract); submitted=true" ng-model="contract.payment_basis" required>
+                                            <p class="error" ng-if="formContract.payment_basis.$error.required">Payment Basis is required</p>
+                                        </md-input-container>
                                     </div>
                                     <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
-                                        <label>Expexted Start Date</label>
-                                        <div>{{contract.expected_start}}</div>
+                                        <md-datepicker ng-model="contract.expected_start" md-placeholder="Expected Start Date*" md-open-on-focus=""></md-datepicker>
+                                        <p class="error" ng-if="formContract.expected_start.$error.required">Expected Start Date is required</p>
                                     </div>
                                     <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
-                                        <label>Completion Date</label>
-                                        <div>{{contract.expected_completion}}</div>
+                                        <md-datepicker ng-model="contract.expected_completion" md-placeholder="Expected Completion Date*" md-open-on-focus=""></md-datepicker>
+                                        <p class="error" ng-if="formContract.expected_completion.$error.required">Expected Completion Date is required</p>
                                     </div>
-                                    <div class="form-group" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
-                                        <label>Final Amount to be paid (Rs.)</label>
-                                        <div>{{contract.final_amount}}</div>
+                                    <div class="form-group marginT20" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
+                                        <md-input-container class="md-block">
+                                            <label>Final Amount to be paid (Rs.)* </label>
+                                            <input class="form-control" numbers-only="" name="final_amount" ng-enter="createContract(contract); submitted=true" ng-model="contract.final_amount" required>
+                                            <p class="error" ng-if="formContract.final_amount.$error.required">Final Amount is required</p>
+                                        </md-input-container>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +83,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="close(true)" class="btn background-orange text-white" data-dismiss="modal">OK</button>
+                <button type="button" ng-click="send(contract)" class="btn background-orange text-white" data-dismiss="modal">Send</button>
+                <button type="button" ng-click="close(true)" class="btn btn-danger text-white" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>

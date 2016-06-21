@@ -13,7 +13,10 @@ var tpl = {
     jobApprove: swig.compileFile(config.root + '/public/mailTemplate/jobApprove.html'),
     jobReject: swig.compileFile(config.root + '/public/mailTemplate/jobReject.html'),
     jobEdit: swig.compileFile(config.root + '/public/mailTemplate/jobEdit.html'),
-    contractCreate: swig.compileFile(config.root + '/public/mailTemplate/contractCreate.html')
+    contractCreate: swig.compileFile(config.root + '/public/mailTemplate/contractCreate.html'),
+    contractApprove: swig.compileFile(config.root + '/public/mailTemplate/contractApprove.html'),
+    contractReject: swig.compileFile(config.root + '/public/mailTemplate/contractReject.html'),
+    contractSuggest: swig.compileFile(config.root + '/public/mailTemplate/contractSuggest.html')
 };
 
 var transporter = nodemailer.createTransport({
@@ -149,6 +152,50 @@ function contractCreate(user, contractID, _ecb, _scb) {
     _send(_options, _ecb, _scb)
 }
 
+function contractApprove(user, contractID, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Contract ' + contractID + ' was approved!', user.email, tpl.contractCreate({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        contractID: contractID,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function contractReject(user, contractID, reason_reject, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Contract ' + contractID + ' was rejected!', user.email, tpl.contractCreate({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        reason_reject: reason_reject,
+        contractID: contractID,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function contractSuggest(user, contractID, suggestID, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Contract was suggested edit', user.email, tpl.contractSuggest({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        contractID: contractID,
+        suggestID: suggestID,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
 
 module.exports = {
     send: _send,
@@ -157,5 +204,8 @@ module.exports = {
     job_approve: job_approve,
     job_reject: job_reject,
     job_edit: job_edit,
-    contractCreate: contractCreate
+    contractCreate: contractCreate,
+    contractApprove: contractApprove,
+    contractReject: contractReject,
+    contractSuggest: contractSuggest
 };
