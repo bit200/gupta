@@ -13,9 +13,9 @@
 
 <div style="margin:30px 0;">
     <h3>Hi <strong>{{name.first_name}} {{name.last_name}}!</strong></h3>
-    <h3>Contract {{contractID}} was suggest edit.</h3>
+    <h3>Your suggested changes in contract {{contractID}} was canceled.</h3>
     <div style="text-align:center;">
-        <a href="{{appHost}}/#/contract/suggest/{{suggestID}}" class="btn">
+        <a href="{{appHost}}/#/contract/approve/{{contractID}}" class="btn">
             Go to approve or reject
         </a>
     </div>
