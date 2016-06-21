@@ -226,10 +226,18 @@
                     <div>Upload samples of work</div>
                     <div class="text-right">
                         <a class="pointer" ng-click="attachFile()">Attach Files</a>
+                        <div class="row Files" ng-repeat="globalFile in globalFiles track by $index">
+                            <!--<a href="" ng-click="open(globalFile)">test</a>-->
+                            <div class="col-xs-4 text-left">{{globalFile.name}}
+                            </div>
+                            <div class="col-xs-8 floatR">
+                                <img ngf-src="globalFile" ng-show="globalFile" ngf-thumbnail="globalFile" class="thumb">
+                                <a href="" class="boxclose" ng-click="deleteNewFile(globalFile.result.data._id,$index)"
+                                   ng-show="globalFile"></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
 
@@ -256,13 +264,7 @@
                         </md-select>
                     </md-input-container>
 
-                    <!--<ui-select class="form-control" multiple ng-model="freelancer.industry_expertise" theme="bootstrap"-->
-                    <!--close-on-select="false" style="width: 100%;" title="Choose industries">-->
-                    <!--<ui-select-match placeholder="Select industries...">{{$item}}</ui-select-match>-->
-                    <!--<ui-select-choices repeat="item in industry | filter:$select.search">-->
-                    <!--{{item}}-->
-                    <!--</ui-select-choices>-->
-                    <!--</ui-select>-->
+
                 </div>
 
                 <div class="form-group">
@@ -283,13 +285,7 @@
                         </md-select>
                     </md-input-container>
 
-                    <!--<ui-select multiple ng-model="freelancer.content_type" theme="bootstrap" close-on-select="false"-->
-                    <!--style="width: 100%;" title="Choose contents">-->
-                    <!--<ui-select-match placeholder="Select contents...">{{$item}}</ui-select-match>-->
-                    <!--<ui-select-choices repeat="item in content | filter:$select.search">-->
-                    <!--{{item}}-->
-                    <!--</ui-select-choices>-->
-                    <!--</ui-select>-->
+
                 </div>
 
                 <div class="form-group">
@@ -309,14 +305,6 @@
                         </md-select>
                     </md-input-container>
 
-                    <!--<div>Languages in which u write</div>-->
-                    <!--<ui-select multiple ng-model="freelancer.languages" theme="bootstrap" close-on-select="false"-->
-                    <!--style="width: 100%;" title="Choose contents">-->
-                    <!--<ui-select-match placeholder="Select contents...">{{$item}}</ui-select-match>-->
-                    <!--<ui-select-choices repeat="item in language | filter:$select.search">-->
-                    <!--{{item}}-->
-                    <!--</ui-select-choices>-->
-                    <!--</ui-select>-->
                 </div>
 
                 <div class="form-group">
@@ -344,8 +332,6 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-3 paddingT20">
-                            <!--<input type="checkbox" ng-click="priceWord=false;service=false;freelancer.price.word = []"-->
-                            <!--ng-model="priceHour"> Rs. Per hour-->
 
 
                             <md-checkbox ng-click="priceWord=false;service=false;freelancer.price.word = []"
@@ -360,8 +346,6 @@
                                        ng-model="freelancer.price.hour">
 
                             </md-input-container>
-                            <!--<input class='form-control' numbers-only ng-disabled="!priceHour"-->
-                            <!--ng-model="freelancer.price.hour">-->
                         </div>
                     </div>
                     <div class="row">
@@ -455,12 +439,7 @@
 
                     </md-input-container>
 
-                    <!--<div>Mobile Number to send the contact request (will not be displayed)</div>-->
-                    <!--<input class='form-control' phone-number name="contact_mobile" ng-model="freelancer.contact.mobile"-->
-                    <!--required>-->
 
-                    <!--<p class="error" ng-if="freelancerRegistration.contact_mobile.$error.required">Mobile Number is-->
-                    <!--required</p>-->
                 </div>
                 <div class="form-group">
                     <div>Upload Profile Image</div>
@@ -486,70 +465,42 @@
 </div>
 
 <script type="text/ng-template" id="attachFile">
-    <!--<div>-->
-        <!--<div class="modal-block-attachFiles">-->
-            <!--watching model:-->
-            <!--<div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div>-->
-            <!--on file change multiple:-->
-            <!--<div class="button" ngf-select="upload($files)" ngf-multiple="true">Select File</div>-->
-            <!--Drop File:-->
 
-            <!--Files:-->
-            <!--<ul>-->
-                <!--<li ng-repeat="f in files">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>-->
-            <!--</ul>-->
-                  <!--<span class="progress" ng-show="f.progress >= 0">-->
-                 <!--<div style="width:{{f.progress}}%"-->
-                      <!--ng-bind="f.progress + '%'"></div>-->
-                 <!--</span>-->
-        <!--</div>-->
-    <!--</div>-->
-
-
-
-    <!--<input type="file" oi-file="options">-->
-
-    <!--&lt;!&ndash; Загрузка перетаскиванием на область &ndash;&gt;-->
-    <!--<ul oi-file="options">-->
-        <!--<li ng-repeat="item in items">-->
-            <!--<img ng-src="{{item.thumb}}">-->
-        <!--</li>-->
-    <!--</ul>-->
-
-    <!--<input type="file" nv-file-select uploader="uploader"/><br/>-->
-    <!--<ul>-->
-        <!--<li ng-repeat="item in uploader.queue">-->
-            <!--Name: <span ng-bind="item.file.name"></span><br/>-->
-            <!--<button ng-click="item.upload()">upload</button>-->
-        <!--</li>-->
-    <!--</ul>-->
     <form name="myForm">
         <fieldset>
             <legend>Upload on form submit</legend>
-
-            <!--<input type="file" ngf-select ng-model="picFile" name="file"-->
-                   <!--accept="image/*" ngf-max-size="3MB"-->
-                   <!--ngf-model-invalid="errorFile">-->
-
-            <div ngf-drop ngf-select ng-model="picFile" class="drop-box" >Drop</div>
-
-            <!--<div ngf-drop ngf-select ng-model="picFile" class="drop-box"-->
-                 <!--ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"-->
-                 <!--accept="image/*,application/pdf"-->
-                 <!--ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload-->
-            <!--</div>-->
+            <div class="testContainer">
+                <div ng-show="showDrop" ngf-drop ngf-select ng-model="picFile" class="drop-box">Drop</div>
+                 <span class="progress" ng-show="picFile.progress >= 0">
+                  <div style="width:{{picFile.progress}}%"
+                       ng-bind="picFile.progress + '%'"></div>
+                </span>
+                <span ng-show="picFile.result">Upload Successful</span>
+            </div>
             <i ng-show="myForm.file.$error.maxSize">File too large
                 {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
-            <div ng-show="picFile != undefined" style="width: 100px;height: 100px;">
-            <a href="" ng-click="open(picFile)">test</a>
-            <img ngf-src="picFile" ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"><a href="" class="boxclose" ng-click="picFile = null" ng-show="picFile"></a></div>
-            <br>
-            <button ng-click="uploadPic(picFile)">Submit</button>
-      <span class="progress" ng-show="picFile.progress >= 0">
-        <div style="width:{{picFile.progress}}%"
-             ng-bind="picFile.progress + '%'"></div>
-      </span>
-            <span ng-show="picFile.result">Upload Successful</span>
+            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+        </fieldset>
+        <br>
+
+    </form>
+
+</script>
+<script type="text/ng-template" id="attachImgProfile">
+
+    <form name="myForm">
+        <fieldset>
+            <legend>Upload on form submit</legend>
+            <div class="testContainer">
+                <div ng-show="showDrop" ngf-drop ngf-select ng-model="picFile" class="drop-box">Drop</div>
+                 <span class="progress" ng-show="picFile.progress >= 0">
+                  <div style="width:{{picFile.progress}}%"
+                       ng-bind="picFile.progress + '%'"></div>
+                </span>
+                <span ng-show="picFile.result">Upload Successful</span>
+            </div>
+            <i ng-show="myForm.file.$error.maxSize">File too large
+                {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
             <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
         </fieldset>
         <br>

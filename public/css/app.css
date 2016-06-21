@@ -36,7 +36,8 @@ html {
     width: 500px;
 
 }
-.modal-block-attachFiles{
+
+.modal-block-attachFiles {
     height: 600px;
     widows: 500px;
 }
@@ -50,6 +51,7 @@ html {
     margin: 10px;
     width: 70px;
 }
+
 .drop-box {
     background: #F8F8F8;
     border: 5px dashed #DDD;
@@ -59,17 +61,20 @@ html {
     padding-top: 3%;
     margin: 10px;
 }
+
 .dragover {
     border: 5px dashed blue;
 }
+
 .thumb {
-    width: 100px;
-    height:90px;
+    width: 60px;
+    height: 50px;
     float: none;
     position: relative;
     top: 7px;
 }
-a.boxclose{
+
+a.boxclose {
     /* margin: 0 auto; */
     /* text-align: center; */
     /* float: right; */
@@ -85,12 +90,14 @@ a.boxclose{
     display: inline-block;
     line-height: 10px;
     padding: 11px 3px;
+    font-size: 23px;
     /* padding: 40px 30px 0 0; */
     position: absolute;
     /* top: 23%; */
     float: right;
 }
-a.boxclose:hover{
+
+a.boxclose:hover {
 
 }
 
@@ -114,7 +121,9 @@ form .progress {
     background: orange;
     width: 0;
 }
-
+div.Files {
+    min-height: 70px;
+}
 .modal-block-body {
     position: fixed;
     top: 0;
@@ -141,8 +150,7 @@ form .progress {
     text-align: center;
 }
 
-.form-control:focus{
-
+.form-control:focus {
     box-shadow: none;
     -webkit-box-shadow: none;
 }
@@ -184,12 +192,13 @@ form .progress {
     background-color: white;
 
 }
-.claimAgencyPage{
+
+.claimAgencyPage {
     background-color: rgba(234, 234, 234, 0.48);
     padding: 10px 0 10px 20px;
 }
 
-.btn-default-2{
+.btn-default-2 {
 
 }
 
@@ -198,9 +207,10 @@ form .progress {
     text-align: center;
 }
 
-.homePageLink{
+.homePageLink {
     padding-top: 8px;
 }
+
 .form-group button {
     margin-top: 5px;
 }
@@ -213,7 +223,7 @@ form .progress {
     text-align: center
 }
 
-.top-header{
+.top-header {
     padding-bottom: 50px;
 }
 
@@ -228,17 +238,17 @@ form .progress {
 }
 
 /*.top-home input.form-control {*/
-    /*width: 50%;*/
+/*width: 50%;*/
 /*}*/
 /*@media (max-width: 768px){*/
-    /*.top-home input.form-control{*/
-        /*width: 100%;*/
-    /*}*/
+/*.top-home input.form-control{*/
+/*width: 100%;*/
+/*}*/
 /*}*/
 /*@media (max-width: 992px) {*/
-    /*.top-home input.form-control{*/
-        /*width: 100%;*/
-    /*}*/
+/*.top-home input.form-control{*/
+/*width: 100%;*/
+/*}*/
 /*}*/
 
 .btn-default {
@@ -246,7 +256,6 @@ form .progress {
     border-color: #f7961d;
 
 }
-
 
 .btn-default:focus {
     outline: none;
@@ -257,7 +266,8 @@ form .progress {
     background-color: #f7961d;
     border-color: transparent;
 }
-.user-header{
+
+.user-header {
     border: 3px solid whitesmoke;
     border-radius: 5px;
 }
@@ -266,11 +276,13 @@ form .progress {
     color: white;
     background-color: #f7961d;
 }
-.btn-back:hover{
-    color:white;
+
+.btn-back:hover {
+    color: white;
     background-color: #ff9c1d;
 
 }
+
 .
 
 div.row a.btn-back {
@@ -285,6 +297,12 @@ div.top-home div.text-right {
     padding-top: 8px;
 }
 
+div.test-container {
+
+    height: 200px;
+    widows: 400px;
+}
+
 div.text-padding {
     padding-bottom: 20px;
 }
@@ -297,9 +315,10 @@ div.text-padding {
     /*margin: 90px 0 20px 0;*/
 
 }
-.trendingJobs{
+
+.trendingJobs {
     padding: 20px 5px 20px 5px;
-    background-color:#F5F5F5 ;
+    background-color: #F5F5F5;
     margin-top: 90px;
 }
 
@@ -341,7 +360,9 @@ div.text-padding {
 
 .paddingT20 {
     padding-top: 20px;
-}.paddingT25 {
+}
+
+.paddingT25 {
     padding-top: 25px;
 }
 
@@ -418,7 +439,7 @@ div.text-padding {
 }
 
 /*.border-box {*/
-    /*border: 1px solid black;*/
+/*border: 1px solid black;*/
 /*}*/
 .border-bottom {
     border-bottom: 1px solid black;
@@ -456,19 +477,20 @@ div.text-padding {
     }
 
 }
-.paddingB40{
+
+.paddingB40 {
     padding-bottom: 40px;
 }
-
 
 .pointer {
     cursor: pointer;
     /*float: right;*/
 }
 
-html,body{
+html, body {
 
-   width:100%;!important
+    width: 100%;
+!important
 }
 
 .nopadding {
@@ -495,14 +517,13 @@ html,body{
     color: #a9a9a9;
 }
 
-.text-white, .text-white:hover, .text-white:focus{
+.text-white, .text-white:hover, .text-white:focus {
     color: #FFFFFF;
 }
 
 .text-primary {
     color: #00B0F0;
 }
-
 
 .border-blue {
     border: 2px solid #f7961d;
@@ -557,33 +578,34 @@ div.communitySP div.text-center {
     background: #00B0F0;
 }
 
-
 .rating-star {
     width: 20%;
 }
 
 .profile-poster {
 
-    background:pink;
-    width:100%;
+    background: pink;
+    width: 100%;
     height: 100%;
     /*border: 1px solid transparent;*/
     /*border-radius: 5px;*/
 }
 
 .profile {
-    width:15vw;
+    width: 15vw;
     height: 15vw;
     border: 1px solid #CECECE;
     border-radius: 5px;
     margin: auto;
     margin-bottom: 10px;
 }
-.star-icon{
+
+.star-icon {
     color: #808080;
     text-align: center;
 }
-.block-icon{
+
+.block-icon {
     text-align: center;
     padding-top: 10px;
 }
@@ -600,22 +622,25 @@ div.block-popularity {
 .btn-search {
     margin-top: 0px;
 }
-div.btnSearch{
-    padding-top:15px;
+
+div.btnSearch {
+    padding-top: 15px;
 }
+
 .agency-text {
     text-align: right;
 }
 
 @media (max-width: 992px) {
-    .profile{
-        width:35vw;
+    .profile {
+        width: 35vw;
         height: 38vw;
     }
 }
+
 @media (max-width: 768px) {
     .profile {
-        width:40vw;
+        width: 40vw;
         height: 40vw;
         font-size: 8pt;
     }
@@ -624,14 +649,16 @@ div.btnSearch{
         height: 10px;
     }
 }
+
 @media (max-width: 768px) {
 
-    .star-icon{
+    .star-icon {
         font-size: 20px;
         padding-top: 10px;
         text-align: center;
     }
-    .block-icon{
+
+    .block-icon {
         font-size: 20px;
         padding-top: 20px;
         text-align: center;
@@ -846,7 +873,7 @@ div.btnSearch{
     }
 }
 
-.heightSize{
+.heightSize {
     height: 45px;
 }
 
@@ -868,6 +895,7 @@ div.btnSearch{
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
 .text-label {
     padding-bottom: 20px;
 }
@@ -907,10 +935,10 @@ md-input-container.selectTerm span div {
     max-height: 240px;
 }
 
-
 ._md-icon {
     display: inline;
 }
-.border-orange{
+
+.border-orange {
     border-color: #f7961d;
 }

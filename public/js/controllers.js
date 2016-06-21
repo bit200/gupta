@@ -373,213 +373,140 @@ XYZCtrls.controller('confirmCtrl', ['$scope', '$location', '$http', '$routeParam
     });
 }]);
 
-XYZCtrls.controller('freelancerCtrl', ['$scope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent', '$routeParams', 'ngDialog', 'Upload', function (scope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, Upload) {
-    scope.freelancer = {isagency: true};
-    if (routeParams.id) {
-        http.get('/freelancer', {params: {_id: routeParams.id}}).then(function (resp) {
-            scope.freelancer = resp.data.data[0]
-        })
-    }
-    scope.industry = getContent.industry.data.data;
-    scope.content = getContent.content.data.data;
-    scope.language = getContent.languages.data.data;
-    scope.freelancerType = getContent.freelancerType.data.data;
-    scope.locations = getContent.locations.data.data;
-    scope.experience = _.range(51);
-    scope.extras = [];
-    scope.new_services = [];
-    scope.clearSearchTerm = function () {
-        scope.searchTerm = '';
-    };
-    scope.contentModel = parseType.getModel(scope.content);
+XYZCtrls.controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent',
+    '$routeParams', 'ngDialog', 'Upload', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, Upload) {
+        scope.freelancer = {isagency: true};
+        rootScope.globalFiles = [];
+        scope.industry = getContent.industry.data.data;
+        scope.content = getContent.content.data.data;
+        scope.language = getContent.languages.data.data;
+        scope.freelancerType = getContent.freelancerType.data.data;
+        scope.locations = getContent.locations.data.data;
+        scope.experience = _.range(51);
+        scope.extras = [];
+        scope.new_services = [];
 
-    scope.register = function (invalid, freelancer) {
-        if (invalid) return;
-        if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
-        http.post('/freelancer', freelancer).then(function (resp) {
-                location.path('/home')
-            }, function (err, r) {
-            }
-        )
-    };
+        if (routeParams.id) {
+            http.get('/freelancer', {params: {_id: routeParams.id}}).then(function (resp) {
+                scope.freelancer = resp.data.data[0]
+            })
+        }
+        scope.clearSearchTerm = function () {
+            scope.searchTerm = '';
+        };
 
-    scope.addPackage = function (bol) {
-        scope.viewModal = bol
-    };
 
-    scope.custom = {};
-    scope.submitExtra = function (invalid, extra) {
-        if (invalid) return;
-        scope.extras.push(extra);
+
+        scope.contentModel = parseType.getModel(scope.content);
+
+        scope.register = function (invalid, freelancer) {
+            if (invalid) return;
+            if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
+            http.post('/freelancer', freelancer).then(function (resp) {
+                    location.path('/home')
+                }, function (err, r) {
+                }
+            )
+        };
+
+        scope.addPackage = function (bol) {
+            scope.viewModal = bol
+        };
+
         scope.custom = {};
-    };
+        scope.submitExtra = function (invalid, extra) {
+            if (invalid) return;
+            scope.extras.push(extra);
+            scope.custom = {};
+        };
 
-    scope.createPackage = function (invalid, service) {
-        if (invalid) return;
-        scope.freelancer.service_packages = scope.freelancer.service_packages || [];
-        service.extras = scope.extras;
-        http.post('/add-package', service).then(function (resp) {
-                scope.viewModal = false;
-                scope.new_services.push(resp.data.data);
-                scope.freelancer.service_packages.push(resp.data.data._id)
-            }, function (err, r) {
+        scope.createPackage = function (invalid, service) {
+            if (invalid) return;
+            scope.freelancer.service_packages = scope.freelancer.service_packages || [];
+            service.extras = scope.extras;
+            http.post('/add-package', service).then(function (resp) {
+                    scope.viewModal = false;
+                    scope.new_services.push(resp.data.data);
+                    scope.freelancer.service_packages.push(resp.data.data._id)
+                }, function (err, r) {
+                }
+            )
+        };
+
+        scope.delete_package = function (item) {
+            var index = scope.new_services.indexOf(item);
+            scope.new_services.splice(index, 1);
+            scope.freelancer.service_packages.splice(index, 1);
+        };
+
+
+        scope.deleteNewFile = function (file_id, index) {
+            http({
+                url:'/deleteFile',
+                method:'DELETE',
+                data: {_id: file_id},
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+            }).success(function (res) {
+                console.log(res)
+            });
+            rootScope.globalFiles.splice(index, 1);
+        };
+
+        scope.$watchCollection('globalFiles', function () {
+            console.log(rootScope.globalFiles);
+            ngDialog.closeAll();
+        });
+
+        scope.attachFile = function () {
+            ngDialog.open({
+                template: 'attachFile',
+                className: 'ngdialog-theme-default',
+                controller: 'uploadFile'
+            })
+        }
+
+    }]);
+
+XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location', '$timeout', 'Upload', 'ngDialog',
+    function (scope, rootScope, http, location, $timeout, Upload, ngDialog) {
+
+        scope.open = function (url) {
+
+            console.log(url.$ngfBlobUrl.toString());
+            var win = window.open(url.$ngfBlobUrl, '_blank');
+            win.focus();
+        };
+
+        scope.uploadPic = function (file) {
+            file.upload = Upload.upload({
+                url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
+                data: {file: file} //pass file as data, should be user ng-model
+            });
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                evt.loaded / evt.total));
+            });
+        };
+
+
+        scope.showDrop = true;
+        scope.$watch('picFile', function (newValue, oldValue) {
+            if (newValue != undefined) {
+                scope.showDrop = false;
+                scope.uploadPic(newValue);
+                rootScope.globalFiles.push(newValue);
+
             }
-        )
-    };
-
-    scope.delete_package = function (item) {
-        var index = scope.new_services.indexOf(item);
-        scope.new_services.splice(index, 1);
-        scope.freelancer.service_packages.splice(index, 1);
-    };
-
-
-    scope.uploadPic = function (file) {
-
-        console.log(file.data)
-        file.upload = Upload.upload({
-            url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-            data: {file: file}
         });
 
-        file.upload.then(function (response) {
-            $timeout(function () {
-                console.log(response);
-                file.result = response.data;
-            });
-        }, function (response) {
-            if (response.status > 0)
-                scope.errorMsg = response.status + ': ' + response.data;
-        }, function (evt) {
-            // Math.min is to fix IE which reports 200% sometimes
-            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-        });
-    };
-
-
-    scope.attachFile = function () {
-        //ngDialog.open({
-        //    template: 'attachFile',
-        //    className: 'ngdialog-theme-default',
-        //    controller: 'freelancerCtrl'
-        //})
-        ngDialog.open({
-            template: 'attachFile',
-            className: 'ngdialog-theme-default',
-            controller: 'uploadFile'
-        })
-    }
-
-
-}]);
-XYZCtrls.controller('uploadFile', ['$scope', '$http', '$location', '$timeout', 'Upload',
-    function (scope, http, location, $timeout, Upload) {
-
-    // scope.picFile = {};
-    ////
-    //scope.$watch("picFile", function (newvalue, oldvalue) {
-    //     console.log(newvalue,oldvalue)
-    //}, true);
-    // scope.uploader = new FileUploader({url:'/uploadFile'});
-
-    //console.log(scope.uploader);
-
-    scope.open = function (url) {
-
-        console.log(url.$ngfBlobUrl.toString());
-        var win = window.open(url.$ngfBlobUrl, '_blank');
-        win.focus();
-    };
-
-
-    scope.uploadPic = function (file) {
-
-        file.upload = Upload.upload({
-            url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
-            data: {file: file} //pass file as data, should be user ng-model
-        });
-
-        file.upload.then(function (response) {
-            $timeout(function () {
-                file.result = response.data;
-            });
-        }, function (response) {
-            if (response.status > 0)
-                scope.errorMsg = response.status + ': ' + response.data;
-        }, function (evt) {
-            file.progress = Math.min(100, parseInt(100.0 *
-            evt.loaded / evt.total));
-        });
-
-    }
-//    then(function (resp) { //upload function returns a promise
-//        if(resp.data.error_code === 0){ //validate success
-//            $window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
-//        } else {
-//            $window.alert('an error occured');
-//        }
-//    }, function (resp) { //catch error
-//        console.log('Error status: ' + resp.status);
-//        $window.alert('Error status: ' + resp.status);
-//    }, function (evt) {
-//        console.log(evt);
-//        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-//        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-//        scope.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
-//    });
-//};
-
-//console.log(scope.picFile);
-
-
-//scope.uploadPic = function(file) {
-//    Upload.base64DataUrl(file).then(function (url) {
-//        http.post('/uploadFile', {img: url}).success(function (res) {
-//            console.log(res)
-//        })
-//
-//    });
-//};
-
-//scope.uploadPic = function(files){
-//    var data = "s";
-//    Upload.upload({
-//        url: '/uploadFile',
-//        method: 'POST',
-//        data: data, // Any data needed to be submitted along with the files
-//        file: files
-//    });
-//};
-
-//scope.file = {}; //Модель
-//scope.options = {
-//    //Вызывается для каждого выбранного файла
-//    change: function (file) {
-//        //В file содержится информация о файле
-//        //Загружаем на сервер
-//        file.$upload('/uploadFile', scope.file)
-//    }
-//}
-
-
-//scope.uploadPic =function(file){
-//    Upload.upload({
-//        url:'/uploadFile',
-//        data:  Upload.base64DataUrl(file)
-//    }).then(function (resp) {
-//        $timeout(function () {
-//            scope.result = resp.data;
-//        });
-//    }, function (response) {
-//        if (response.status > 0) scope.errorMsg = response.status
-//        + ': ' + response.data;
-//    }, function (evt) {
-//        scope.progress = parseInt(100.0 * evt.loaded / evt.total);
-//    });
-//};
-
-
-}])
+    }])
 ;
 
 XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'notify', function (scope, location, http, $q, getContent, notify) {
@@ -616,20 +543,18 @@ XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'get
 }]);
 
 
-
-XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent',  function (scope, location, http, getContent) {
+XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent', function (scope, location, http, getContent) {
     scope.contract = getContent.contract.data.data;
 
-    scope.createContract = function(type, data){
-        http.post('/contact/' + type, data).then(function(resp){
-            console.log('resp',resp)
-        }, function(err){
+    scope.createContract = function (type, data) {
+        http.post('/contact/' + type, data).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
             console.log('err', err)
         })
 
     }
 }]);
-
 
 
 XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
