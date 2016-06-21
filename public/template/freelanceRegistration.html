@@ -223,7 +223,7 @@
 
                 </div>
                 <div class="form-group">
-                    <div>Upload samples of work   <a class="pointer floatR" ng-click="attachFile()">Attach Files</a>
+                    <div>Upload samples of work <a class="pointer floatR" ng-click="attachFile()">Attach Files</a>
                     </div>
                     <div class="text-right">
                         <div class="row Files" ng-repeat="globalFile in globalFiles track by $index">
@@ -442,17 +442,26 @@
 
                 </div>
                 <div class="form-group">
-                    <div>Upload Profile Image</div>
-                    <div class="text-right">
-                        <a class="pointer" ng-click="downloadPicProfile()">Attach Files</a>
+                    <div>Upload Profile Image <a class="pointer floatR" ng-click="downloadPicProfile()">Attach Files</a>
                     </div>
                 </div>
+                <div class="row ">
+                    <!--<a href="" ng-click="open(globalFile)">test</a>-->
+
+                </div>
+                <div class="col-xs-12 floatL">
+                    <img ngf-src="globalImg[1]" ng-show="globalImg[1]" ngf-thumbnail="globalImg[0]" class="thumbImg">
+                    <a href="" class="boxclose" ng-click="deleteNewImg(globalImg[0].data._id)"
+                       ng-show="globalImg.length"></a>
+                </div>
             </div>
+
         </div>
+
         <div class="row paddingB20">
             <div class="col-md-12">
                 <button class="btn btn-default"
-                        ng-click="register(freelancerRegistration.$invalid,freelancer); submitted=true">Submit
+                        ng-click="register(freelancerRegistration.$invalid,freelancer,globalFiles,globalImg); submitted=true">Submit
                 </button>
                 <a href="/#/home" class="btn btn-back floatR">Cancel</a>
             </div>
@@ -491,28 +500,24 @@
     <form name="myForm">
         <fieldset>
             <legend>Upload on form submit</legend>
-            <div class="testContainer">
+            <div class="containerDrop" ng-class="{'containerCrop':showCrop}">
                 <div ng-show="showDrop" ngf-drop ngf-select ng-model="picProfile" class="drop-box">Drop</div>
-                <div ngf-drop  ng-model="picProfile" ngf-pattern="image/*"
+                <div ng-show="showCrop" ngf-drop ng-model="picProfile" ngf-pattern="image/*"
                      class="cropArea">
                     <img-crop area-type="square" image="picProfile  | ngfDataUrl"
                               result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
                     </img-crop>
                 </div>
                 <div>
-                    <img ng-src="{{croppedDataUrl}}" />
+                    <img ng-src="{{croppedDataUrl}}"/>
                 </div>
-                <button ng-click="upload(croppedDataUrl, picFile.name)">Submit</button>
+                <button ng-show="showCrop" ng-click="upload(croppedDataUrl, picProfile.name)">Submit</button>
 
-                 <span class="progress" ng-show="picProfile.progress >= 0">
-                  <div style="width:{{picProfile.progress}}%"
-                       ng-bind="picFile.progress + '%'"></div>
-                </span>
-                <span ng-show="picFile.result">Upload Successful</span>
-            </div>
-            <i ng-show="myForm.file.$error.maxSize">File too large
-                {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
-            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+        <span class="progress" ng-show="progress >= 0">
+          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+        </span>
+                <span ng-show="result">Upload Successful</span>
+                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
         </fieldset>
         <br>
 

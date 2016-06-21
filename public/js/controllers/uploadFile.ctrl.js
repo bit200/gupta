@@ -4,6 +4,9 @@ var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location', '$timeout', 'Upload', 'ngDialog',
     function (scope, rootScope, http, location, $timeout, Upload, ngDialog) {
 
+
+        scope.picProfileImg = [];
+        scope.showCrop = false;
         scope.open = function (url) {
 
             console.log(url.$ngfBlobUrl.toString());
@@ -39,11 +42,11 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
 
             }
         });
+
         scope.$watch('picProfile', function (newValue, oldValue) {
             if (newValue != undefined) {
-                console.log(newValue);
                 scope.showDrop = false;
-                rootScope.globalImg = newValue;
+                scope.showCrop = true;
                 //scope.uploadPic(newValue);
                 //rootScope.globalFiles.push(newValue);
 
@@ -51,43 +54,26 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
         });
 
 
-        scope.uploadProfilePic = function(dataUrl, name){
-            file.upload = Upload.upload({
-                url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
-                data: {file: Upload.dataUrltoBlob(dataUrl, name)} //pass file as data, should be user ng-model
-            })
-            .then(function (response) {
+
+        scope.upload = function (dataUrl, name) {
+            Upload.upload({
+                url: 'http://localhost:8080/uploadFile',
+                data: {
+                    file: Upload.dataUrltoBlob(dataUrl, name)
+                }
+            }).then(function (response) {
+                console.log(response);
+                rootScope.globalImg.push(response.data);
                 $timeout(function () {
                     scope.result = response.data;
+                    rootScope.globalImg.push(Upload.dataUrltoBlob(dataUrl, name))
                 });
             }, function (response) {
-                if (response.status > 0)
-                    scope.errorMsg = response.status + ': ' + response.data;
+                if (response.status > 0) scope.errorMsg = response.status
+                + ': ' + response.data;
             }, function (evt) {
-                scope.progress = Math.min(100, parseInt(100.0 *
-                evt.loaded / evt.total));
+                scope.progress = parseInt(100.0 * evt.loaded / evt.total);
             });
-        }
-
-        scope.uploadPic = function (file) {
-
-            file.upload = Upload.upload({
-                url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
-                data: {file: file} //pass file as data, should be user ng-model
-            });
-
-            file.upload.then(function (response) {
-                $timeout(function () {
-                    file.result = response.data;
-                });
-            }, function (response) {
-                if (response.status > 0)
-                    scope.errorMsg = response.status + ': ' + response.data;
-            }, function (evt) {
-                file.progress = Math.min(100, parseInt(100.0 *
-                evt.loaded / evt.total));
-            });
-
         }
 
     }]);
