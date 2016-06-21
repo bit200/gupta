@@ -1,7 +1,6 @@
 /* Controllers */
 
 angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', 'safeApply', function (scope, rootScope, location, http, safeApply) {
-    alert('ok')
 
     scope.setAuth = function () {
         rootScope.auth123 = window.localStorage.getItem('accessToken');
