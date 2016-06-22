@@ -19,7 +19,7 @@ var ContractSchema = mongoose.Schema({
     payment_basis: String,
     expected_start: Date,
     expected_completion: Date,
-    final_amount: Number,
+    amount: Number,
     status: String,
     reject_reason: String,
     rating: Number,

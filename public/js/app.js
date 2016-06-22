@@ -290,6 +290,19 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                 }
             })
 
+            .when('/contract/close/:id', {
+                templateUrl: 'template/contractClose.html',
+                controller: 'contractCloseCtrl',
+                resolve: {
+                    auth: checkAuthCtrl,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.post('/get-job', {_id: $route.current.params.id})
+                        })
+                    }]
+                }
+            })
+
             .when('/user', {
                 templateUrl: 'template/user.html',
                 controller: 'userCtrl',
@@ -373,20 +386,14 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                 }
             })
 
-            .when('/view-my-job/Buyer', {
+                .when('/view-my-job/Buyer', {
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'viewMyJobCtrl',
                 resolve: {
                     auth: checkAuthCtrl,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            service: $http.get('/get-my-job', {
-                                params: {
-                                    name: 'ServiceProvider',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
+                            jobs: $http.get('/get-my-job')
                         })
                     }
                 }

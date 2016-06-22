@@ -365,6 +365,9 @@ div.text-padding {
 .paddingT25 {
     padding-top: 25px;
 }
+.margin20 {
+    margin: 20px;
+}
 
 .marginLR20 {
     margin: 10px 1px;
@@ -945,4 +948,11 @@ md-input-container.selectTerm span div {
 
 .border-orange {
     border-color: #f7961d;
+}
+
+.img-close-contract {
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+    background-color: coral;
 }

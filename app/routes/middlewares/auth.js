@@ -23,7 +23,6 @@ function check_auth (req, res, next, role) {
         req.token = _token;
         req.userId = arr[0];
         req.userRole = arr[1];
-
         res._token_end_time = new Date().getTime();
 
         if (!role || (req.userRole == role)) {

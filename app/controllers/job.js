@@ -10,6 +10,7 @@ var models = require('../db')
 exports.add_job = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;
+    params.status = 'open'
     m.create(models.Job, params, res, res)
 };
 
@@ -105,6 +106,5 @@ exports.add_package = function (req, res) {
 };
 
 exports.get_my_job = function (req, res) {
-    var params = m.getBody(req);
-    m.find(models.Job, {user: req.userId}, res, res, {populate: 'user'})
+    m.find(models.Job, {user: req.userId}, res, res, {populate: 'user contract'})
 };

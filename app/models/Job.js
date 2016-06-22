@@ -16,6 +16,7 @@ var JobSchema = mongoose.Schema({
     job_visibility: Boolean,
     date_of_completion: Date,
     status: String, 
+    closed_date: Date,
     admin_approved: {
         type: Number,
         default:0

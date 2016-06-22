@@ -2,12 +2,13 @@ var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
 var CommentsSchema = mongoose.Schema({
-    contract: {
+    job: {
         type: Number,
-        ref: 'Contract'
+        ref: 'Job'
     },
-    type: String,
-    text: String,
+    closure: String,
+    rating: Number,
+    review: String,
     created_at: {
         type: Date,
         default: Date.now
@@ -20,5 +21,5 @@ CommentsSchema.plugin(autoIncrement.plugin, {
     field: '_id',
     startAt: 100000
 });
-
+    
 mongoose.model('Comments', CommentsSchema);

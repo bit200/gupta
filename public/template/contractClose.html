@@ -1,0 +1,40 @@
+<div class="row marginT50">
+    <div class="col-xs-6 col-xs-offset-3">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="text-bold">Job Title:   </span><a>  {{job.title}}</a>
+            </div>
+        </div>
+        <img class="img-close-contract marginTB20">
+        <span class="margin20">{{job.name}}</span>
+        <div class="row">
+            <div class="col-md-3">
+                Closure Comments
+            </div>
+            <div class="col-md-9">
+                <textarea class="form-control" ng-model="comments.closure"></textarea>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-3 marginTB20">
+                How would you like to rate the service provider
+            </div>
+            <div class="col-md-9 marginTB20">
+                <span class="glyphicon glyphicon-star pointer"></span>
+                <span class="glyphicon glyphicon-star pointer"></span>
+                <span class="glyphicon glyphicon-star pointer"></span>
+                <span class="glyphicon glyphicon-star pointer"></span>
+                <span class="glyphicon glyphicon-star-empty pointer"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Your Review Comments
+            </div>
+            <div class="col-md-9">
+                <textarea class="form-control" ng-model="comments.review"></textarea>
+            </div>
+        </div>
+        <button class="btn btn-default margin20" ng-click="send(comments)">Submit</button>
+    </div>
+</div>

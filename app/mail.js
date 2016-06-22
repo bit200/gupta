@@ -19,7 +19,8 @@ var tpl = {
     contractSuggest: swig.compileFile(config.root + '/public/mailTemplate/contractSuggest.html'),
     invitePayment: swig.compileFile(config.root + '/public/mailTemplate/invitePayment.html'),
     contractSuggestApply: swig.compileFile(config.root + '/public/mailTemplate/contractSuggestApply.html'),
-    contractSuggestCancel: swig.compileFile(config.root + '/public/mailTemplate/contractSuggestCancel.html')
+    contractSuggestCancel: swig.compileFile(config.root + '/public/mailTemplate/contractSuggestCancel.html'),
+    contractClose: swig.compileFile(config.root + '/public/mailTemplate/contractClose.html')
 };
 
 var transporter = nodemailer.createTransport({
@@ -239,6 +240,21 @@ function suggestApply(user, contractID, suggestID, _ecb, _scb) {
     _send(_options, _ecb, _scb)
 }
 
+function contractClose(user, contractID, closure, _ecb, _scb) {
+    user = user.toJSON();
+
+    var _options = options('Contract was closed', user.email, tpl.contractClose({
+        name: {
+            first: user.first_name,
+            last: user.last_name
+        },
+        closure_comment: closure,
+        contractID:contractID,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
 
 module.exports = {
     send: _send,
@@ -253,5 +269,7 @@ module.exports = {
     contractSuggest: contractSuggest,
     invitePayment: invitePayment,
     suggestCancel: suggestCancel,
-    suggestApply: suggestApply
+    suggestApply: suggestApply,
+    contractClose: contractClose
+
 };
