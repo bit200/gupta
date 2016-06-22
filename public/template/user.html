@@ -44,11 +44,11 @@
     <div class="row paddingB20">
         <div class="col-md-3 nopadding">
             <div class="full-width user-topic border-grey marginT20" ng-class="{'topic-close':close.topic}">
-                <div class="full-width user-topic-top">
+                <div class="full-width user-topic-top pointer" ng-click="close.topic = !close.topic">
                     <span class="glyphicon glyphicon-th-list"></span>
                     <span>Topics</span>
                     <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}"
-                       aria-hidden="true" ng-click="close.topic = !close.topic"></i>
+                       aria-hidden="true" ></i>
                 </div>
                 <div class="user-topic-bottom" toggle="close.topic">
                     <div class="full-width paddingB10">
@@ -73,11 +73,9 @@
             </div>
 
             <div class="full-width user-block marginT20 border-grey">
-                <div class="user-block-top" ng-click="close.blogger = !close.blogger">
+                <div class="user-block-top pointer" ng-click="close.blogger = !close.blogger">
                     <span>Blogger Type</span>
-                    <i class="fa pointer floatR"
-                       ng-class="{'fa-chevron-down':!close.blogger,'fa-chevron-up':close.blogger}" aria-hidden="true"
-                       ng-click="close.blogger = !close.blogger"></i>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.blogger,'fa-chevron-up':close.blogger}" aria-hidden="true"></i>
                 </div>
                 <div class="user-block-bottom" toggle="close.blogger">
 
@@ -98,10 +96,9 @@
             </div>
 
             <div class="full-width user-block marginT20 border-grey">
-                <div class="user-block-top" ng-click="close.web = !close.web">
+                <div class="user-block-top pointer" ng-click="close.web = !close.web">
                     <span>Web Blogs</span>
-                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.web,'fa-chevron-up': close.web}"
-                       aria-hidden="true" ng-click="close.web = !close.web"></i>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.web,'fa-chevron-up': close.web}" aria-hidden="true" ></i>
                 </div>
                 <div class="user-block-bottom" toggle="close.web">
                     <div class="paddingB10">Monthly Traffic</div>
@@ -121,11 +118,9 @@
             </div>
 
             <div class="full-width user-block marginT20 border-grey">
-                <div class="user-block-top" ng-click="close.social = !close.social">
+                <div class="user-block-top pointer" ng-click="close.social = !close.social">
                     <span>Social Media</span>
-                    <i class="fa pointer floatR"
-                       ng-class="{'fa-chevron-down':!close.social,'fa-chevron-up': close.social}" aria-hidden="true"
-                       ng-click="close.social = !close.social"></i>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.social,'fa-chevron-up': close.social}" aria-hidden="true"></i>
                 </div>
                 <div class="user-block-bottom" toggle="close.social">
                     <div class="paddingB10">Social Media Channels</div>
@@ -145,11 +140,9 @@
             </div>
 
             <div class="full-width user-block marginT20 border-grey">
-                <div class="user-block-top">
+                <div class="user-block-top pointer" ng-click="close.video = !close.video">
                     <span>Video</span>
-                    <i class="fa pointer floatR"
-                       ng-class="{'fa-chevron-down':!close.video,'fa-chevron-up': close.video}" aria-hidden="true"
-                       ng-click="close.video = !close.video"></i>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.video,'fa-chevron-up': close.video}" aria-hidden="true"></i>
                 </div>
                 <div class="user-block-bottom" toggle="close.video">
                     <div class="paddingB10">Subscribers</div>
@@ -159,11 +152,9 @@
             </div>
 
             <div class="full-width user-block marginT20 border-grey">
-                <div class="user-block-top">
+                <div class="user-block-top pointer" ng-click="close.geography = !close.web">
                     <span>Geography</span>
-                    <i class="fa pointer floatR"
-                       ng-class="{'fa-chevron-down':!close.geography,'fa-chevron-up': close.geography}"
-                       aria-hidden="true" ng-click="close.geography = !close.geography"></i>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.geography,'fa-chevron-up': close.geography}" aria-hidden="true"></i>
                 </div>
                 <div class="user-block-bottom" toggle="close.geography">
                     <div>
