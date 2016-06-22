@@ -10,46 +10,16 @@ var models = require('../db')
     , mail = require('../mail');
 
 
-/**
- * @api {get} /users Get all users
- * @apiName Users list
- *
- * @apiGroup User
- * @apiPermission Admin
- *
- * @apiParam {String} skip
- * @apiParam {String} limit
- * @apiParam {String} fields
- *
- */
 exports.list = function (req, res) {
     var params = m.getBody(req);
     m.find(models.User, {}, res, res, params)
 };
 
 
-/**
- * @api {get} /me Get user info by token value
- * @apiName User info
- * @apiGroup User
- * @apiPermission oAuth2
- *
- */
 exports.me = function (req, res) {
     m.findOne(models.User, {_id: req.userId}, res, res, {publish: true})
 };
 
-
-/**
- * @api {post} /update-password Update password
- * @apiName Update password
- * @apiGroup User
- * @apiPermission oAuth2
- *
- * @apiParam {String} oldPassword
- * @apiParam {String} newPassword
- *
- */
 exports.update_password = function (req, res) {
     var params = m.getBody(req);
     log('params', params, req.userId)
@@ -70,14 +40,6 @@ exports.update_password = function (req, res) {
     })
 };
 
-
-/**
- * @api {get} /send-confirm Send confirm code on user email
- * @apiName Send confirm
- * @apiGroup Email
-
- * @apiParam {String} login Username or Email
- */
 exports.send_confirm = function (req, res) {
     var login = m.getBody(req).login;
     m.findOne(models.User, {
@@ -90,15 +52,6 @@ exports.send_confirm = function (req, res) {
     })
 };
 
-
-/**
- * @api {get} /send-restore Send restore code for change password on user email
- * @apiName Send restore
- * @apiGroup Email
- *
- * @apiParam {String} login Username or Email
- *
- */
 exports.send_restore = function (req, res) {
     var email = m.getBody(req).email;
     m.findOne(models.User, {email: email}, res, function (user) {
@@ -106,15 +59,6 @@ exports.send_restore = function (req, res) {
     })
 };
 
-
-/**
- * @api {get} /confirm Confirm you email in DB by confirm code
- * @apiName Confirm
- * @apiGroup User
- *
- * @apiParam {String} confirm_code
- *
- */
 exports.confirm = function (req, res) {
     var code = m.getBody(req).confirm_code;
     m.findOne(models.User, {confirm_code: code}, res, function (user) {
@@ -125,16 +69,6 @@ exports.confirm = function (req, res) {
     })
 };
 
-
-/**
- * @api {get} /restore Change your password in DB by a restore code
- * @apiName Restore
- * @apiGroup User
- *
- * @apiParam {String} restore_code
- * @apiParam {String} password
- *
- */
 exports.restore = function (req, res) {
     var data = m.getBody(req);
     if (!data.password) {
@@ -144,22 +78,10 @@ exports.restore = function (req, res) {
     m.findUpdate(models.User, {restore_code: data.restore_code}, {restore_code: null, password: md5(data.password)}, res, res, {publish: true})
 };
 
-
-/**
- * @api {post} /upload-profile Post data for upload profile
- * @apiName Upload profile
- * @apiGroup User
- *
- * @apiParam {String} email require
- * @apiParam {String} first_name
- * @apiParam {String} last_name
- *
- */
 exports.upload_profile = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.User, {email: params.email}, params, res, res, {publish: "true"})
 };
-
 
 exports.linkedinSignin = function (req, res) {
     var user = req.body.user;
@@ -200,8 +122,7 @@ exports.linkedinSignin = function (req, res) {
             }
         }
     );
-}
-
+};
 
 exports.googleSignin = function (req, res) {
     var user = req.body.user;
@@ -251,7 +172,7 @@ exports.googleSignin = function (req, res) {
             }
         }
     );
-}
+};
 
 exports.facebookSignin = function (req, res) {
     var user = req.body.user;
@@ -294,7 +215,7 @@ exports.facebookSignin = function (req, res) {
             }
         }
     );
-}
+};
 
 exports.check_unique = function (req, res) {
     var username = req.query.username || '';
@@ -311,7 +232,6 @@ exports.check_unique_freelancer = function (req, res) {
     })
 
 };
-
 
 exports.get_user = function (req, res) {
     var params = m.getBody(req);

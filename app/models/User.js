@@ -50,14 +50,6 @@ var UserSchema = mongoose.Schema({
         type: Number,
         ref: 'Freelancer'
     },
-    work: {
-        type: Number,
-        ref: 'Work'
-    },
-    contact_detail:{
-        type: Number,
-        ref: 'ContactDetail'
-    },
     created_at: {
         type: Date,
         default: Date.now

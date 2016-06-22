@@ -19,6 +19,14 @@ var FreelancerSchema = mongoose.Schema({
     service_packages: Array,
     Attachments:Array,
     profile:String,
+    work: {
+        type: Number,
+        ref: 'Work'
+    },
+    contact_detail:{
+        type: Number,
+        ref: 'ContactDetail'
+    },
     rating: {
         type: Number,
         default: 0

@@ -3,6 +3,7 @@ var models = require('../db')
     , m = require('../m')
     , mail = require('../mail')
     , md5 = require('md5')
+    , randomstring = require('randomstring')
     , _ = require('underscore');
 
 
@@ -69,7 +70,12 @@ exports.suggest_edit_job = function (req, res) {
 
 exports.approved = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {username: params.username}, {admin_approved: 1}, res, res)
+    m.findUpdate(models.User, {username: params.username}, {admin_approved: 1}, res, function(user){
+        var newseller = {
+            login: randomstring.generate(10),
+            password: randomstring.generate(15)
+        };
+    })
 };
 
 exports.reject = function (req, res) {
