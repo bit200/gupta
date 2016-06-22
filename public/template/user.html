@@ -20,15 +20,15 @@
                     <div>Hi <label>{{user.first_name}} {{user.last_name}}</label></div>
                     <div>
                         <span class="glyphicon glyphicon-heart width20"></span>
-                        <button class="btn btn-default text-white">My Jobs</button>
+                        <a class="btn btn-default" href="/#/view-my-job/Buyer">My Jobs</a>
                     </div>
                 </div>
                 <div class="col-xs-offset-2 col-xs-4">
                     <div class="pointer"><a>As Buyer</a></div>
                     <div class="pointer"><a>As Seller</a></div>
-                    <div class="pointer"><a>Profile</a></div>
+                    <div class="pointer" ><a href="/#/my-profile">Profile</a></div>
                     <div class="pointer"><a>My Activities</a></div>
-                    <div class="pointer"><a>Logout</a></div>
+                    <div class="pointer" ng-click="logout()"><a>Logout</a></div>
                 </div>
             </div>
         </div>
@@ -191,9 +191,9 @@
         <div>
             <div class="modal-block">
                 <div class="modal-block-button">
-                    <button class="width35 btn btn-default">Post a Job</button>
+                    <a class="width35 btn btn-default" ng-click="test()" href="/#/post-job">Post a Job</a>
                     <span class="hidden-sm hidden-xs paddingLR40">or</span>
-                    <button class="width35 btn btn-default">View Service Providers</button>
+                    <a class="width35 btn btn-default" ng-click="test()" href="/#/category">View Service Providers</a>
                 </div>
             </div>
         </div>

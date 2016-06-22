@@ -261,9 +261,10 @@ div.Files {
 /*}*/
 /*}*/
 
-.btn-default {
+.btn-default, .btn-default:focus     {
     color: #f7961d;
     border-color: #f7961d;
+    background-color: white;
 
 }
 
@@ -290,7 +291,6 @@ div.Files {
 .btn-back:hover {
     color: white;
     background-color: #ff9c1d;
-
 }
 
 .

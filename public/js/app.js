@@ -199,7 +199,8 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                                     query: {},
                                     distinctName: 'name'
                                 }
-                            })
+                            }),
+                            clients: $http.get('/get-client')
                         })
                     }
                 }
@@ -332,6 +333,54 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
             })
 
             .when('/category', {
+                templateUrl: 'template/category.html',
+                controller: 'categoryCtrl',
+                resolve: {
+                    auth: checkAuthCtrl,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            service: $http.get('/get-content', {
+                                params: {
+                                    name: 'ServiceProvider',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            topic: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            content: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            languages: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Languages'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            freelancer: $http.get('/freelancer')
+                        })
+                    }
+                }
+            })
+
+            .when('/category/:filter', {
                 templateUrl: 'template/category.html',
                 controller: 'categoryCtrl',
                 resolve: {

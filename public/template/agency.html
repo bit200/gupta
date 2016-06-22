@@ -43,7 +43,7 @@
                 <td class="inlineBlock width20 text-center agency-item">{{item.Address}}</td>
                 <td ng-if="item.Status" class="inlineBlock width20 text-center agency-item">Claimed</td>
                 <td class="inlineBlock width20 text-center agency-item">
-                    <button ng-if="!item.Status" class="text-white btn-default btn"
+                    <button ng-if="!item.Status" class="btn-default btn"
                             ng-click="claim(item['Agency Name'], true)">Claim
                     </button>
                 </td>

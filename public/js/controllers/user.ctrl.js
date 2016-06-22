@@ -6,20 +6,15 @@ XYZCtrls.controller('userCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     scope.user = getContent.user.data.data;
 
 
+
     ngDialog.open({
         template: 'templateId',
         className: 'ngdialog-theme-default',
-        controller: function ctrl(dep) {
-
-
-        },
-        resolve: {
-            dep: function depFactory() {
-                return
+        controller: function ctrl($scope) {
+            $scope.test = function () {
+                ngDialog.closeAll();
             }
         }
-
-
     });
     scope.socialNetworks = [
         {

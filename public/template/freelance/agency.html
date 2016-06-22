@@ -1,7 +1,7 @@
 <div class="afade">
     <div class="row">
         <div class="col-md-6">
-            <h3 class="text-bold">Freelancer Information</h3>
+            <h3 class="text-bold">Agency Information</h3>
 
             <p>Please provide brief information</p>
 
@@ -9,10 +9,7 @@
                 <md-input-container class="md-block">
                     <label>Name</label>
                     <input class="form-control" name="name" unique-name ng-model="freelancer.name" required>
-
-                    <p ng-if="freelancerRegistration.name.$error.unique">Name already is
-                        taken</p>
-
+                    <p ng-if="freelancerRegistration.name.$error.unique">The Agence Name is already in. Email us to own the agency</p>
                     <p class="error" ng-if="freelancerRegistration.name.$error.required">Name is required</p>
                 </md-input-container>
 
@@ -27,10 +24,9 @@
                 <md-input-container class="md-block">
                     <label>Provide a short introduction of you (10-15 words)</label>
                     <input class="form-control" name="introduction" ng-model="freelancer.introduction" required>
-
                     <p class="error" ng-if="freelancerRegistration.introduction.$error.required">Introduction of you
-                        is required</p></md-input-container>
-
+                        is required</p>
+                </md-input-container>
                 <!--<div>Provide a short introduction of you (10-15 words)</div>-->
                 <!--<input class="form-control" name="introduction" ng-model="freelancer.introduction" required>-->
 
@@ -167,10 +163,19 @@
 
                 <md-input-container class="md-block">
                     <label>Past Clients that you have worked with</label>
-                    <input class='form-control' name="past_client" ng-model="freelancer.work.past_client" required>
-
-                    <p class="error" ng-if="freelancerRegistration.past_client.$error.required">Past Clients is
-                        required</p>
+                    <!--<input class='form-control' name="past_client" ng-model="freelancer.work.past_client" required>-->
+                    <md-select ng-model="freelancer.work.past_client" md-on-close="clearSearchTerm()"
+                               data-md-container-class="selectdemoSelectHeader" multiple="">
+                        <md-select-header class="demo-select-header">
+                            <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
+                                   class="demo-header-searchbox _md-text">
+                        </md-select-header>
+                        <md-optgroup label="locations">
+                            <md-option ng-value="item.name" ng-repeat="item in clients | filter:$select.search ">
+                                <img ng-src="{{item.img}}">{{item.name}}
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
                 </md-input-container>
 
             </div>

@@ -9,6 +9,7 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.language = getContent.languages.data.data;
         scope.freelancerType = getContent.freelancerType.data.data;
         scope.locations = getContent.locations.data.data;
+        scope.clients = getContent.clients.data.data;
         scope.experience = _.range(51);
         scope.extras = [];
         scope.new_services = [];

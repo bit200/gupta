@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', function (scope, location, http, parseRating, $q, getContent) {
+XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', '$q', 'getContent', function (scope, location, http, routeParams, parseRating, $q, getContent) {
     scope.arrayProviders = getContent.service.data.data;
     scope.arrayTopics = getContent.topic.data.data;
     scope.arrayContent = getContent.content.data.data;
@@ -8,6 +8,8 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRatin
     scope.arrayLocations = getContent.locations.data.data;
     scope.freelancer = parseRating.rating(getContent.freelancer.data.data);
     scope.freelancer = parseRating.popularity(getContent.freelancer.data.data);
+    if(routeParams)
+        scope.filter = routeParams.filter;
     scope.slider = {
         experience: {
             value: 3,
