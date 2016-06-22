@@ -73,6 +73,13 @@ html {
     position: relative;
     top: 7px;
 }
+.thumbImg{
+    width: 100px;
+    height: 90px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
 
 a.boxclose {
     /* margin: 0 auto; */
@@ -297,11 +304,7 @@ div.top-home div.text-right {
     padding-top: 8px;
 }
 
-div.test-container {
 
-    height: 200px;
-    widows: 400px;
-}
 
 div.text-padding {
     padding-bottom: 20px;
@@ -949,10 +952,37 @@ md-input-container.selectTerm span div {
 .border-orange {
     border-color: #f7961d;
 }
+<<<<<<< HEAD
 
 .img-close-contract {
     height: 50px;
     width: 50px;
     border-radius: 30px;
     background-color: coral;
+=======
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:500px;
+    height:350px;
+}
+form .progress {
+    line-height: 15px;
+}
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
+div.containerDrop {
+    height: 200px;!important
+}
+div.containerCrop{
+    height: 100%;
+>>>>>>> 35edfa82d9ea4d6a44699d92c75f885d8e6ac3a7
 }

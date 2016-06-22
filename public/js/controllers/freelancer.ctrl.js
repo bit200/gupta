@@ -12,7 +12,8 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.experience = _.range(51);
         scope.extras = [];
         scope.new_services = [];
-
+        scope.showLink = false;
+        rootScope.globalImg = [];
 
         if (routeParams.id) {
             http.get('/freelancer', {params: {_id: routeParams.id}}).then(function (resp) {
@@ -26,9 +27,15 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
 
         scope.contentModel = parseType.getModel(scope.content);
 
-        scope.register = function (invalid, freelancer) {
+        scope.register = function (invalid, freelancer,files,img) {
             if (invalid) return;
+            var arrayIdFiles = [];
+            for(var i = 0 ; i<files.length;i++){
+                arrayIdFiles.push(files[i].result.data._id);
+            }
             if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
+            freelancer.attachments = arrayIdFiles;
+            freelancer.profile = img[0].data._id;
             http.post('/freelancer', freelancer).then(function (resp) {
                     location.path('/home')
                 }, function (err, r) {
@@ -79,13 +86,27 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             rootScope.globalFiles.splice(index, 1);
         };
 
+        scope.deleteNewImg = function (file_id) {
+            http({
+                url: '/deleteFile',
+                method: 'DELETE',
+                data: {_id: file_id},
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+            }).success(function (res) {
+                console.log(res)
+            });
+            scope.showLink = false;
+            rootScope.globalImg = [];
+
+        };
+
         scope.downloadPicProfile = function () {
-                ngDialog.open({
-                    template: 'attachImgProfile',
-                    className: 'ngdialog-theme-default',
-                    controller: 'uploadFile'
-                })
-            };
+            ngDialog.open({
+                template: 'attachImgProfile',
+                className: 'ngdialog-theme-default',
+                controller: 'uploadFile'
+            })
+        };
 
 
         scope.$watchCollection('globalFiles', function () {
@@ -93,12 +114,15 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             ngDialog.closeAll();
         });
         scope.$watchCollection('globalImg', function () {
-            console.log(rootScope.globalImg,'THERE');
+            if (rootScope.globalImg) {
+                scope.showLink = true;
+                ngDialog.closeAll();
+            }
         });
 
         scope.attachFile = function () {
             ngDialog.open({
-                template: 'attachImgProfile',
+                template: 'attachFile',
                 className: 'ngdialog-theme-default',
                 controller: 'uploadFile'
             })

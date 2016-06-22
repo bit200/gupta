@@ -17,6 +17,8 @@ var FreelancerSchema = mongoose.Schema({
     service_price: Number,
     poster: String,
     service_packages: Array,
+    Attachments:Array,
+    profile:String,
     rating: {
         type: Number,
         default: 0

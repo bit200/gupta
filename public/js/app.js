@@ -11,7 +11,8 @@ var XYZApp = angular.module('XYZApp', [
     'ngDialog',
     'cgNotify',
     'XYZCtrls',
-    'ngFileUpload'
+    'ngFileUpload',
+    'ngImgCrop'
 ]);
 
 XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
