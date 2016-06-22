@@ -51,6 +51,7 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
 
             .when('/login', {
                 templateUrl: 'template/login.html',
+                controller: "LoginCtrl",
                 resolve: {
                     auth: checkAuthLogin
                 }
