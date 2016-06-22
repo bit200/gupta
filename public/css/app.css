@@ -73,7 +73,8 @@ html {
     position: relative;
     top: 7px;
 }
-.thumbImg{
+
+.thumbImg {
     width: 100px;
     height: 90px;
     float: none;
@@ -128,9 +129,11 @@ form .progress {
     background: orange;
     width: 0;
 }
+
 div.Files {
     min-height: 70px;
 }
+
 .modal-block-body {
     position: fixed;
     top: 0;
@@ -291,7 +294,6 @@ div.Files {
 }
 
 .
-
 div.row a.btn-back {
     float: right;
 }
@@ -303,8 +305,6 @@ div.row a.btn-back {
 div.top-home div.text-right {
     padding-top: 8px;
 }
-
-
 
 div.text-padding {
     padding-bottom: 20px;
@@ -326,11 +326,11 @@ div.text-padding {
 }
 
 .padding20 {
-    padding: 20px 0px;
+    padding: 20px 0;
 }
 
 .padding10 {
-    padding: 10px 0px;
+    padding: 10px 0;
 }
 
 .padding7 {
@@ -338,11 +338,11 @@ div.text-padding {
 }
 
 .paddingLR20 {
-    padding: 0px 20px;
+    padding: 0 20px;
 }
 
 .paddingLR40 {
-    padding: 0px 40px;
+    padding: 0 40px;
 }
 
 .paddingR20 {
@@ -368,6 +368,7 @@ div.text-padding {
 .paddingT25 {
     padding-top: 25px;
 }
+
 .margin20 {
     margin: 20px;
 }
@@ -381,7 +382,7 @@ div.text-padding {
 }
 
 .marginTB20 {
-    margin: 20px 0px;
+    margin: 20px 0;
 }
 
 .marginT20 {
@@ -499,12 +500,11 @@ div.text-padding {
 
 html, body {
 
-    width: 100%;
-!important
+    width: 100%!important;
 }
 
 .nopadding {
-    padding: 0px !important;
+    padding: 0!important;
 }
 
 .inlineBlock {
@@ -623,14 +623,14 @@ div.communitySP div.text-center {
 div.block-popularity {
     width: 22%;
     height: 15px;
-    margin: 0px 1px;
+    margin: 0 1px;
     font-size: 20px;
     color: #f3db92;
     display: inline-block;
 }
 
 .btn-search {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 div.btnSearch {
@@ -677,7 +677,7 @@ div.btnSearch {
     div.block-popularity {
         width: 22%;
         height: 15px;
-        margin: 0px 1px;
+        margin: 0 1px;
         font-size: 25px;
         color: #f3db92;
         display: inline-block;
@@ -756,7 +756,7 @@ div.btnSearch {
     }
 
     .user-logo {
-        margin: 0px 43%;
+        margin: 0 43%;
     }
 }
 
@@ -820,10 +820,10 @@ div.btnSearch {
 }
 
 .user-topic-input {
-    border: 0px;
+    border: 0;
     box-shadow: none;
     border-bottom: 1px solid;
-    border-radius: 0px;
+    border-radius: 0;
     margin-bottom: 10px;
 }
 
@@ -859,6 +859,16 @@ div.btnSearch {
 @media (max-width: 500px) {
     .modal-block-button > button {
         font-size: 9pt;
+    }
+}
+
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
@@ -952,37 +962,51 @@ md-input-container.selectTerm span div {
 .border-orange {
     border-color: #f7961d;
 }
-<<<<<<< HEAD
 
 .img-close-contract {
     height: 50px;
     width: 50px;
     border-radius: 30px;
     background-color: coral;
-=======
+}
+
 .cropArea {
     background: #E4E4E4;
     overflow: hidden;
-    width:500px;
-    height:350px;
+    width: 500px;
+    height: 350px;
 }
+
 form .progress {
     line-height: 15px;
 }
+
 .progress {
     display: inline-block;
     width: 100px;
     border: 3px groove #CCC;
 }
+
 .progress div {
     font-size: smaller;
     background: orange;
     width: 0;
 }
+
 div.containerDrop {
-    height: 200px;!important
+    height: 200px!important;
 }
-div.containerCrop{
+
+div.containerCrop {
     height: 100%;
->>>>>>> 35edfa82d9ea4d6a44699d92c75f885d8e6ac3a7
 }
+
+
+.fadechild>div {
+    animation: fade .6s ease forwards;
+}
+
+.afade {
+    animation: fade .6s ease forwards;
+}
+
