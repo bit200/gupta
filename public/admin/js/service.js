@@ -7,17 +7,20 @@ XYZAdminCtrls.service('parseType', function () {
             var arr = [];
             _.forEach(item, function (elem) {
                 var obj = {
-                    username: elem.username,
-                    role: elem.role || null,
-                    type: elem.type || null,
-                    first_name: elem.first_name || null,
-                    last_name: elem.last_name || null,
-                    email: elem.email || null,
-                    confirm_code: elem.confirm_code || null,
-                    admin_approved: elem.admin_approved,
-                    reject_reason: elem.reject_reason || null,
-                    sex: elem.sex || null,
-                    isActive: elem.isActive || null
+                    elem: elem,
+                    data: {
+                        Name: elem.name,
+                        Type: elem.role || null,
+                        Introduction: elem.introduction || null,
+                        Description: elem.description || null,
+                        'Freelancer Type': elem.freelancer_type || null,
+                        'Industry Expertise': elem.industry_expertise || null,
+                        Experience: elem.experience || null,
+                        admin_approved: elem.admin_approved,
+                        reject_reason: elem.reject_reason || null,
+                        sex: elem.sex || null,
+                        isActive: elem.isActive || null
+                    }
                 };
                 arr.push(obj)
             });
@@ -26,7 +29,8 @@ XYZAdminCtrls.service('parseType', function () {
         claim: function (item) {
             var arr = [];
             _.forEach(item, function (elem) {
-                var obj = { elem: elem,
+                var obj = {
+                    elem: elem,
                     data: {
                         'Agency Name': elem.agency.name || null,
                         'Service Category': elem.agency.category || null,
@@ -42,7 +46,8 @@ XYZAdminCtrls.service('parseType', function () {
         job: function (item) {
             var arr = [];
             _.forEach(item, function (elem) {
-                var obj = { elem: elem,
+                var obj = {
+                    elem: elem,
                     data: {
                         title: elem.title || null,
                         type: elem.type || null,

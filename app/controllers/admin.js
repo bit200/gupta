@@ -4,7 +4,8 @@ var models = require('../db')
     , mail = require('../mail')
     , md5 = require('md5')
     , randomstring = require('randomstring')
-    , _ = require('underscore');
+    , _ = require('underscore')
+    , mkdirp = require('mkdirp');
 
 
 exports.generate_admin = function (req, res) {
@@ -42,39 +43,49 @@ exports.reject_agency = function (req, res) {
 
 exports.approve_job = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function(job){
-        m.findOne(models.User, {_id: job.user}, res, function(user){
-            mail.job_approve(user, res, m.scb(job,res))
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function (job) {
+        m.findOne(models.User, {_id: job.user}, res, function (user) {
+            mail.job_approve(user, res, m.scb(job, res))
         })
     })
 };
 
 exports.reject_job = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2, reject_reason:params.reject_reason}, res, function(job){
-        m.findOne(models.User, {_id: job.user}, res, function(user){
-            mail.job_reject(user, res, params.reject_reason, m.scb(job,res))
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2, reject_reason: params.reject_reason}, res, function (job) {
+        m.findOne(models.User, {_id: job.user}, res, function (user) {
+            mail.job_reject(user, res, params.reject_reason, m.scb(job, res))
         })
     })
 };
 
 exports.suggest_edit_job = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 3, reject_reason:params.reject_reason}, res, function(job){
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 3, reject_reason: params.reject_reason}, res, function (job) {
         log(job)
-        m.findOne(models.User, {_id: job.user}, res, function(user){
-            mail.job_edit(user, params.reject_reason, params._id, res, m.scb(job,res))
+        m.findOne(models.User, {_id: job.user}, res, function (user) {
+            mail.job_edit(user, params.reject_reason, params._id, res, m.scb(job, res))
         })
     })
 };
 
 exports.approved = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {username: params.username}, {admin_approved: 1}, res, function(user){
+    m.findUpdate(models.User, {username: params.username}, {admin_approved: 1}, res, function (user) {
         var newseller = {
             login: randomstring.generate(10),
-            password: randomstring.generate(15)
+            password: md5(randomstring.generate(15))
         };
+        m.create(User, params, res, function (user) {
+            mkdirp(config.root + "/public/uploads/" + user._id.toString(), function (err) {
+                if (err) console.log(err);
+                else {
+                }
+            });
+            mail.registrationSeller(user, user.username);
+            m.scb({}, res);
+//        mkdirp('../../public/img/user'+user._id);
+        })
     })
 };
 
