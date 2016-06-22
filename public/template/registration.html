@@ -20,8 +20,10 @@
 
                 <md-input-container class="md-block">
                     <label>First Name</label>
-                    <input class="form-control" ng-enter="registration(reg)"
+                    <input class="form-control" name="first_name" ng-enter="registration(reg)"
                            ng-model="reg.first_name" required>
+                    <p class="error" ng-if="registr.first_name.$error.required">First name is required</p>
+
                 </md-input-container>
 
             </div>
