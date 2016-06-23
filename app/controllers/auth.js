@@ -66,15 +66,8 @@ exports.sign_up = function (req, res) {
     var params = req.body;
     if (params.password) params.password = md5(params.password);
     m.create(User, params, res, function (user) {
-<<<<<<< HEAD
-        mkdirp(config.root+"/public/uploads/"+user._id.toString(),function(err){
-            if(err) console.log(err);
-=======
-        console.log(user)
-
         mkdirp(config.root + "/public/uploads/" + user._id.toString(), function (err) {
             if (err) console.log(err);
->>>>>>> 12d50467c81b4f7c77c1f003df51c7da0f212155
             else {
                 console.log('Directory create!');
             }
