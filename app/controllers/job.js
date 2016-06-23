@@ -90,6 +90,14 @@ exports.add_freelancer = function (req, res) {
 
 exports.get_freelancer = function (req, res) {
     var params = m.getBody(req);
+    if (params.experience)
+        params.experience = {'$gte':params.experience};
+    if (params.package) {
+        params.service_packages= {'$not':{'$size':0}};
+        delete params.package
+    }
+
+    log('params', params);
     m.find(models.Freelancer, params, res, res, {populate: 'user'})
 };
 
