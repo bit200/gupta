@@ -28,8 +28,6 @@ XYZCtrls.directive('shakeThat', ['$animate', function ($animate) {
                 // tell angular to update scope
                 scope.$apply(function () {
                     // everything ok -> call submit fn from controller
-                    //console.log(form.$invalid);
-                    console.log(scope.errL);
                     scope.$watch(function () {
                         return form.$invalid
                     }, function (newElement, oldElement) {

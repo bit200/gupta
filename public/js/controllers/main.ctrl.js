@@ -13,8 +13,13 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
     });
 
     scope.formCorrect = false;
+    scope.headerSearch = '';
     scope.setAuth()
 
+    scope.headerSubmit = function (search) {
+        location.path('/category/' + search);
+        scope.headerSearch = ''
+    };
 
     scope.logout = function () {
         localStorage.clear();

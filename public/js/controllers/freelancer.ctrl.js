@@ -111,7 +111,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
 
 
         scope.$watchCollection('globalFiles', function () {
-            console.log(rootScope.globalFiles);
             ngDialog.closeAll();
         });
         scope.$watchCollection('globalImg', function () {

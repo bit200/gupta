@@ -429,11 +429,16 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                 }
             })
 
-            .when('/profile/user/:id', {
+            .when('/profile/seller/:id', {
                 templateUrl: 'template/profile.html',
                 controller: 'profileCtrl',
                 resolve: {
-                    auth: checkAuthCtrl
+                    auth: checkAuthCtrl,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            seller: $http.get('/freelancer', {params:{_id: $route.current.params.id}})
+                        })
+                    }]
                 }
             })
 
@@ -487,7 +492,6 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                                     var http = $injector.get('$http');
 
                                     function getToken() {
-                                        console.log('qqq');
                                         http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
                                             function (resp) {
                                                 localStorage.setItem('accessToken', resp.data.data.value)

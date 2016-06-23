@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
-var ContractDetailSchema = mongoose.Schema({
+var ContactDetailSchema = mongoose.Schema({
     name: String,
     email: String,
     mobile: String,
@@ -12,10 +12,10 @@ var ContractDetailSchema = mongoose.Schema({
 });
 
 
-ContractDetailSchema.plugin(autoIncrement.plugin, {
-    model: 'ContractDetail',
+ContactDetailSchema.plugin(autoIncrement.plugin, {
+    model: 'ContactDetail',
     field: '_id',
     startAt: 100000
 });
 
-mongoose.model('ContractDetail', ContractDetailSchema);
+mongoose.model('ContactDetail', ContactDetailSchema);

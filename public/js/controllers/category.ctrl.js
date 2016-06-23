@@ -10,7 +10,7 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
     scope.freelancer = parseRating.rating(getContent.freelancer.data.data);
     scope.freelancer = parseRating.popularity(getContent.freelancer.data.data);
     if(routeParams)
-        scope.filter = routeParams.filter;
+        scope.search = {name : routeParams.filter}
     scope.slider = {
         experience: {
             value: 3,
@@ -36,10 +36,13 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
                         return value + '+ year'
                     }
                     return value + ' years';
+                },
+                onEnd: function(r) {
+                    scope.submitFilter(scope.ownFilter); // logs 'on end slider-id'
                 }
             }
         }
-    }
+    };
 
     scope.submitFilter = function(data){
         var filter = angular.copy(data);
@@ -52,16 +55,16 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
         if (filter.location)
             filter.location= objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
-        console.log('send', filter);
         http.get('/freelancer', {params:filter}).then(function(resp){
             filter = {};
             scope.freelancer = parseRating.rating(resp.data.data);
             scope.freelancer = parseRating.popularity(resp.data.data);
-            console.log('scope', scope.freelancer);
-            console.log('resp',resp)
         }, function(err){
-            console.log('err',err)
         })
+    };
+
+    scope.showProfile = function(id){
+        location.path('/profile/seller/'+id)
     };
 
     function objInArr(obj){

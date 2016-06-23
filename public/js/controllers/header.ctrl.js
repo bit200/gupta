@@ -6,5 +6,4 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', function (sco
         //return getContent.user.data.data;
 
     }
-
 }]);
