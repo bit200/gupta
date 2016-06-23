@@ -18,6 +18,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 resolve: {
                     getContent: function ($q, $http) {
                         return $q.all({
+                            sellers: $http.get('/freelancer', {}),
                             service: $http.get('/get-content', {
                                 params: {
                                     name: 'ServiceProvider',

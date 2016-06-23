@@ -516,6 +516,10 @@ html, body {
     border: 1px solid #F1F1F1;
 }
 
+.noborder {
+    outline: none;
+}
+
 .btn-registration {
     padding: 5px 20px;
 }
@@ -977,6 +981,8 @@ div.containerCrop {
     left: 0;
     right: 0;
 }
+
+
 @media (max-width: 500px) {
     .auth-dialog .col-md-6:first-child{
         border-right: 0px

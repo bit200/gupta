@@ -8,7 +8,7 @@
     </div>
     <div class="row marginB30">
         <div class=" text-center  marginTB20"><h3> Featured Profiles</h3></div>
-        <div class="col-md-3 col-xs-6 col-sm-6 paddingB20" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 4" ng-click="showProfile(profile._id)">
+        <div class="col-md-3 col-xs-6 col-sm-6 paddingB20 noborder" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 4" ng-click="showProfile(profile._id)">
             <div class="profile">
                 <img class="profile-poster" ng-src="{{profile.poster}}">
             </div>
