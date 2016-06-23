@@ -17,13 +17,14 @@ var FreelancerSchema = mongoose.Schema({
     service_price: Number,
     poster: String,
     service_packages: Array,
-    Attachments:Array,
-    profile:String,
+    Attachments: Array,
+    profile: String,
+    number_employees: Number,
     work: {
         type: Number,
         ref: 'Work'
     },
-    contact_detail:{
+    contact_detail: {
         type: Number,
         ref: 'ContactDetail'
     },
@@ -40,7 +41,7 @@ var FreelancerSchema = mongoose.Schema({
         default: 0
     },
     user: {
-        type:Number,
+        type: Number,
         ref: 'User'
     },
     created_at: {

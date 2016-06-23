@@ -34,7 +34,7 @@ XYZCtrls.directive('shakeThat', ['$animate', function ($animate) {
 
                         //element.find('input').removeClass('shake')
                         if (newElement) {
-                            element.find('input').addClass('shake')
+                            element.find('input').addClass('shake');
 
                             scope.submitted = true;
                             //setTimeout(function () {

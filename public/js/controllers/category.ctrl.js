@@ -9,8 +9,10 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
     scope.arrayLocations = getContent.locations.data.data;
     scope.freelancer = parseRating.rating(getContent.freelancer.data.data);
     scope.freelancer = parseRating.popularity(getContent.freelancer.data.data);
-    if(routeParams)
-        scope.search = {name : routeParams.filter}
+    scope.ownFilter.agency = true;
+    scope.ownFilter.freelancer = true;
+    if (routeParams)
+        scope.mainSearch = {name: routeParams.filter}
     scope.slider = {
         experience: {
             value: 3,
@@ -37,40 +39,51 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
                     }
                     return value + ' years';
                 },
-                onEnd: function(r) {
+                onEnd: function (r) {
                     scope.submitFilter(scope.ownFilter); // logs 'on end slider-id'
                 }
             }
         }
     };
 
-    scope.submitFilter = function(data){
+    scope.submitFilter = function (data) {
         var filter = angular.copy(data);
         if (filter.industry_expertise)
-            filter.industry_expertise= objInArr(filter.industry_expertise);
+            filter.industry_expertise = objInArr(filter.industry_expertise);
+
+        if (filter.freelancer && filter.agency) {
+            delete filter.agency;
+            delete filter.freelancer;
+        }
+        if (filter.agency)
+            filter.type = 'agency';
+        delete filter.agency;
+        if (filter.freelancer)
+            filter.type = 'freelancer';
+        delete filter.freelancer;
         if (filter.content_type)
             filter.content_type = objInArr(filter.content_type);
         if (filter.languages)
-            filter.languages= objInArr(filter.languages);
+            filter.languages = objInArr(filter.languages);
         if (filter.location)
-            filter.location= objInArr(filter.location);
+            filter.location = objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
-        http.get('/freelancer', {params:filter}).then(function(resp){
+        http.get('/freelancer', {params: filter}).then(function (resp) {
             filter = {};
             scope.freelancer = parseRating.rating(resp.data.data);
             scope.freelancer = parseRating.popularity(resp.data.data);
-        }, function(err){
+        }, function (err) {
         })
     };
 
-    scope.showProfile = function(id){
-        location.path('/profile/seller/'+id)
+    scope.showProfile = function (id) {
+        location.path('/profile/seller/' + id)
     };
 
-    function objInArr(obj){
+    function objInArr(obj) {
         var arr = [];
-        _.each(obj, function(value,key){
-            if(value){
+        _.each(obj, function (value, key) {
+            if (value) {
                 arr.push(key)
             }
         });
