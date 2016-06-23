@@ -55,7 +55,7 @@
 
 
                         <div class="width75 inlineBlock">
-                            <input class="form-control user-topic-input" placeholder="Search by Service Provided">
+                            <input class="form-control user-topic-input" placeholder="Search by Service Provided" ng-model="userSearch">
                         </div>
                         <div class="width20 inlineBlock">
                             <span class="glyphicon glyphicon-search user-search-icon"></span>
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="full-width">
-                        <div ng-repeat="item in arrayTopics">
+                        <div ng-repeat="item in arrayTopics| filter:userSearch">
                             <md-checkbox ng-model="filter.topic[item]" class="md-warn">{{item}} Blog
                             </md-checkbox>
                             <!--<input type="checkbox" ng-model="filter.topic[item]">{{item}} Blog-->

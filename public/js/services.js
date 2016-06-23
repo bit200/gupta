@@ -54,16 +54,19 @@ XYZCtrls.service('parseType', function () {
         agency: function (item) {
             var arr = [];
             _.forEach(item, function (elem) {
-                var obj = {
-                    Logo: elem.logo || null,
-                    'Agency Name': elem.name || null,
-                    'Service Category': elem.category || null,
-                    Address: elem.number_street + ', ' + elem.street + ', ' + elem.city,
-                    Status: elem.status || false
-                };
-                arr.push(obj)
-
-            });
+                    var obj = {
+                        elem: elem,
+                        data: {
+                            Logo: elem.logo || null,
+                            'Agency Name': elem.name || null,
+                            'Service Category': elem.category || null,
+                            Address: elem.number_street + ', ' + elem.street + ', ' + elem.city,
+                            Status: elem.status || false
+                        }
+                    };
+                    arr.push(obj)
+                }
+            );
             return arr
         },
 
@@ -71,7 +74,8 @@ XYZCtrls.service('parseType', function () {
             item.expected_start = new Date(item.expected_start);
             item.expected_completion = new Date(item.expected_completion);
             return item
-        },
+        }
+        ,
 
         openJob: function (jobs, parseTime) {
             var arr = [];
@@ -89,7 +93,8 @@ XYZCtrls.service('parseType', function () {
                 arr.push(obj)
             });
             return arr
-        },
+        }
+        ,
 
         ongoingJob: function (jobs) {
             var arr = [];
@@ -107,7 +112,8 @@ XYZCtrls.service('parseType', function () {
                 arr.push(obj)
             });
             return arr
-        },
+        }
+        ,
 
         closedJob: function (jobs) {
             var arr = [];
@@ -128,7 +134,8 @@ XYZCtrls.service('parseType', function () {
         }
 
     }
-});
+})
+;
 
 XYZCtrls.service('parseTime', function () {
     return {

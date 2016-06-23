@@ -6,8 +6,8 @@ var models = require('../db')
     , mail = require('../mail')
     , User = models.User
     , AccessToken = models.AccessToken
-    , RefreshToken = models.RefreshToken,
-    mkdirp = require('mkdirp');
+    , RefreshToken = models.RefreshToken
+    , mkdirp = require('mkdirp');
 
 
 exports.doc = function (req, res) {
@@ -20,12 +20,6 @@ exports.test = function (req, res) {
 };
 
 
-/**
- * @api {get} /generate-admin Created admin with default password
- * @apiName Generate admin
- * @apiGroup Auth
- *
- */
 exports.generate_admin = function (req, res) {
     var password = md5('b8KuBSaqx5EuG');
     m.findCreateUpdate(User, {
@@ -38,14 +32,6 @@ exports.generate_admin = function (req, res) {
 };
 
 
-/**
- * @api {get} /tokens Get tokens list
- * @apiName Tokens list
- * @apiGroup Auth
- *
- * @apiPermission Admin
- *
- */
 exports.tokens_list = function (req, res) {
     redis.keys("token_*", function (err, arr) {
         if (err) {
@@ -58,14 +44,6 @@ exports.tokens_list = function (req, res) {
 };
 
 
-/**
- * @api {get} /sign-in Sign in and get token
- * @apiName Sign in
- * @apiGroup Auth
- *
- * @apiParam {String} login Username or Email
- * @apiParam {String} password
- */
 exports.sign_in = function (req, res) {
     var params = m.getBody(req);
     m.findOne(User, {
@@ -84,26 +62,22 @@ exports.sign_in = function (req, res) {
 };
 
 
-/**
- * @api {post} /sign-up Register a new user
- * @apiName Sign up
- * @apiGroup Auth
- *
- * @apiParam {String} username
- * @apiParam {String} first_name
- * @apiParam {String} last_name
- * @apiParam {String} password
- * @apiParam {String} email
- *
- */
 exports.sign_up = function (req, res) {
     var params = req.body;
     if (params.password) params.password = md5(params.password);
     m.create(User, params, res, function (user) {
+<<<<<<< HEAD
         mkdirp(config.root+"/public/uploads/"+user._id.toString(),function(err){
             if(err) console.log(err);
+=======
+        console.log(user)
+
+        mkdirp(config.root + "/public/uploads/" + user._id.toString(), function (err) {
+            if (err) console.log(err);
+>>>>>>> 12d50467c81b4f7c77c1f003df51c7da0f212155
             else {
-                console.log('Directory create!');}
+                console.log('Directory create!');
+            }
         });
 
         mail.send_confirm(user);
@@ -112,14 +86,6 @@ exports.sign_up = function (req, res) {
 };
 
 
-/**
- * @api {get} /refresh-token Refresh token
- * @apiName Refresh token
- * @apiGroup Auth
- *
- * @apiParam {String} refresh_token
- *
- */
 exports.refresh_token = function (req, res) {
     var token = m.getBody(req).refresh_token;
     m.findOne(RefreshToken, {value: token}, res, function (refreshToken) {

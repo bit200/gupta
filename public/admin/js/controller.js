@@ -55,7 +55,6 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         scope.users = parseType.users(getContent.users.data.data);
         scope.agency = parseType.claim(getContent.agency.data.data);
         scope.job = parseType.job(getContent.job.data.data);
-        console.log('asdasd', scope.job)
         scope.approved = function (user, i) {
             $http.get('/approved', {params: {username: user.username}}).then(function (resp) {
                 scope.users[i] = parseType.users([resp.data.data])[0];
@@ -113,7 +112,7 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
             };
             if (reject_type == 'suggest-edit') {
                 params.params.reject_reason = text
-                
+
             }
             if (reject_type == 'reject') {
                 params.params.reject_reason = text

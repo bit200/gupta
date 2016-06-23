@@ -24,7 +24,6 @@ XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'get
                 break;
         }
         function approve() {
-            console.log('1')
             http.get('/contract/approve', {params: {_id: scope.contract._id}}).then(function (resp) {
                 console.log(resp)
             }, function (err) {

@@ -36,7 +36,7 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             }
             if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
             freelancer.attachments = arrayIdFiles;
-            freelancer.profile = img[0].data._id;
+            // freelancer.profile = img[0].data._id;
             http.post('/freelancer', freelancer).then(function (resp) {
                     location.path('/home')
                 }, function (err, r) {
@@ -111,7 +111,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
 
 
         scope.$watchCollection('globalFiles', function () {
-            console.log(rootScope.globalFiles);
             ngDialog.closeAll();
         });
         scope.$watchCollection('globalImg', function () {

@@ -8,18 +8,12 @@
                 <i class="fa pointer floatR" ng-class="{'fa-chevron-down': !close.workType,'fa-chevron-up': close.workType}" aria-hidden="true" ng-click="close.workType = !close.workType"></i>
             </div>
             <div class="user-topic-bottom" toggle="close.workType">
-                <div class="full-width">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" ng-model="category.type" value="agency">
-                            Agency
-                        </label>
+                <div class="full-width marginLR20">
+                    <div>
+                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.agency" value="agency"> Agency
                     </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" ng-model="category.type" value="freelancer">
-                            Freelancer
-                        </label>
+                    <div>
+                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.freelancer" value="freelancer"> Freelancer
                     </div>
                 </div>
             </div>
@@ -34,15 +28,15 @@
             <div class="user-topic-bottom" toggle="close.topic">
                 <div class="full-width">
                     <div class="width75 inlineBlock">
-                        <input class="form-control user-topic-input" placeholder="Search by Service Provided">
+                        <input class="form-control user-topic-input" placeholder="Search by Service Provided" ng-model="search">
                     </div>
                     <div class="width20 inlineBlock">
                         <span class="glyphicon glyphicon-search user-search-icon"></span>
                     </div>
                 </div>
                 <div class="full-width">
-                    <div ng-repeat="item in arrayTopics">
-                        <input type="checkbox" ng-model="category.industry_expertise[item]">{{item}}
+                    <div ng-repeat="item in arrayTopics| filter:search">
+                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.industry_expertise[item]">{{item}}
                     </div>
                 </div>
             </div>
@@ -55,7 +49,7 @@
             </div>
             <div class="user-block-bottom" toggle="close.content">
                 <div ng-repeat="item in arrayContent">
-                    <input type="checkbox" ng-model="category.content_type[item]">{{item}}
+                    <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.content_type[item]">{{item}}
                 </div>
             </div>
         </div>
@@ -66,8 +60,7 @@
                 <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.experience,'fa-chevron-up': close.experience}" aria-hidden="true" ng-click="close.experience = !close.experience"></i>
             </div>
             <div class="user-block-bottom" toggle="close.experience">
-                <rzslider rz-slider-model="slider.experience.value"
-                          rz-slider-options="slider.experience.options"></rzslider>
+                <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
             </div>
         </div>
 
@@ -78,7 +71,7 @@
             </div>
             <div class="user-block-bottom" toggle="close.location">
                 <div ng-repeat="item in arrayLocations">
-                    <input type="checkbox" ng-model="category.location[item]">{{item}}
+                    <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.location[item]">{{item}}
                 </div>
             </div>
         </div>
@@ -90,7 +83,7 @@
             </div>
             <div class="user-block-bottom" toggle="close.languages">
                 <div ng-repeat="item in arrayLanguages">
-                    <input type="checkbox" ng-model="category.languages[item]">{{item}}
+                    <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.languages[item]">{{item}}
                 </div>
             </div>
         </div>
@@ -103,13 +96,13 @@
             <div class="user-block-bottom" toggle="close.package">
                 <div class="radio">
                     <label>
-                        <input type="radio" ng-model="category.package" value="Yes">
+                        <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="true">
                         Yes
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" ng-model="category.package" value="No">
+                        <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="false">
                         No
                     </label>
                 </div>
@@ -117,14 +110,20 @@
         </div>
     </div>
     <div class="col-md-9">
+        <h1></h1>
+        <input class="form-control" ng-model="mainSearch.name">
+
         <div class="full-width marginT20 border-box background-white" ng-init="category_active='rating'">
-            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-rating'}" ng-click="category_active='-rating'">Ratings</span></div>
-            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-view'}" ng-click="category_active='-view'">Profile Views</span></div>
-            <div class="width25 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == 'low'}" ng-click="category_active='low'">Low to High Price</span></div>
-            <div class="width25 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active='high'">High to Low Price</span></div>
+            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-rating'}" ng-click="category_active = '-rating'">Ratings</span></div>
+            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-view'}" ng-click="category_active = '-view'">Profile Views</span></div>
+            <div class="width24 inlineBlock padding10 text-center" ng-show="ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == '-number_employees'}" ng-click="category_active = '-number_employees'">Number of employees</span></div>
+            <div class="width25 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'low'}" ng-click="category_active = 'low'">Low to High Price</span></div>
+            <div class="width25 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active = 'high'">High to Low Price</span></div>
         </div>
         <div class="row marginT20">
-            <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:category.type ">
+            <div class="col-md-12 col-xs-6" ng-if="!(freelancer | orderBy:category_active | filter:category.type).length"><h3>Not one profile card not found</h3></div>
+
+            <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch" ng-click="showProfile(profile._id)">
                 <div class="profile">
                     <img ng-if="profile.poster" class="profile-poster" ng-src="{{profile.poster}}">
 
@@ -140,5 +139,3 @@
         </div>
     </div>
 </div>
-
-

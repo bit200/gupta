@@ -9,7 +9,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
         scope.showCrop = false;
         scope.open = function (url) {
 
-            console.log(url.$ngfBlobUrl.toString());
             var win = window.open(url.$ngfBlobUrl, '_blank');
             win.focus();
         };
@@ -62,7 +61,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
                     file: Upload.dataUrltoBlob(dataUrl, name)
                 }
             }).then(function (response) {
-                console.log(response);
                 rootScope.globalImg.push(response.data);
                 $timeout(function () {
                     scope.result = response.data;

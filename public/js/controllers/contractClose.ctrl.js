@@ -4,7 +4,6 @@ XYZCtrls.controller('contractCloseCtrl', ['$scope', '$location', '$http', 'getCo
     scope.job = getContent.job.data.data;
     scope.send = function(comments){
         comments.id = scope.job.contract;
-        console.log(scope.job)
         http.post('/contract/close', comments).then(function(resp){
             console.log('resp',resp)
         }, function(err){

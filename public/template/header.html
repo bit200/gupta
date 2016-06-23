@@ -16,9 +16,9 @@
             </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="headerSearch">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default" ng-click="headerSubmit(headerSearch);headerSearch=''">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right" ng-if="isLogged()">
                <li class="navbar-btn">

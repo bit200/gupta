@@ -42,13 +42,13 @@ exports.uploadFile = function (req, res) {
     var params = {};
     var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
-            console.log(file,"There!!!");
+            console.log(file, "There!!!");
             params.originalName = file.originalname;
             cb(null, './public/uploads/' + req.userId.toString())
         },
         filename: function (req, file, cb) {
             var datetimestamp = Date.now();
-            console.log(file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1],"there2");
+            console.log(file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1], "there2");
             params.title = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
             params.url = '/public/uploads/' + req.userId.toString() + '/' + file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
             cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
@@ -70,18 +70,37 @@ exports.uploadFile = function (req, res) {
     });
 
 
-
 };
 
 exports.add_freelancer = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;
-    m.create(models.Freelancer, params, res, res)
+    m.create(models.Work, params.work, res, function (work) {
+        params.work = work._id;
+        m.create(models.Contact, params.contact, res, function (contact) {
+            params.contact = contact._id
+            m.create(models.Freelancer, params, res, function (freelancer) {
+                m.findUpdate(models.User, {_id: req.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))
+            })
+        })
+    });
 };
 
 exports.get_freelancer = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Freelancer, params, res, res, {populate: 'user'})
+    if (params.experience)
+        params.experience = {'$gte': parseInt(params.experience)};
+    if (params.package == 'true') {
+        params.service_packages = {'$exists': true, '$not': {'$size': 0}};
+        delete params.package
+    }
+    if (params.package == 'false') {
+        params.service_packages = {'$exists': false};
+        delete params.package
+    }
+
+    log('params', params);
+    m.find(models.Freelancer, params, res, res, {populate: 'user contact_detail work'})
 };
 
 exports.add_package = function (req, res) {

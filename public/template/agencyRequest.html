@@ -63,7 +63,7 @@
             <!--<p style="position: relative" class="error" ng-if="_claim.email.$error.pattern">Email Id is invalid</p>-->
 
         </div>
-        <div class="row paddingB20" ng-class="{'has-error': submitted && _claim.phone.$invalid}">
+        <div class="row paddingB20 form-group" ng-class="{'has-error': submitted && _claim.phone.$invalid}">
 
             <md-input-container class="md-block">
                 <label>Phone Number</label>
@@ -74,7 +74,7 @@
             </md-input-container>
 
         </div>
-        <div class="row" ng-class="{'has-error': submitted && _claim.role.$invalid}">
+        <div class="row form-group"  ng-class="{'has-error': submitted && _claim.role.$invalid}">
 
             <md-input-container class="md-block">
                 <label>Your role in the agency</label>
@@ -90,7 +90,7 @@
             <!--<p style="position: relative" class="error" ng-if="_claim.role.$error.required">Your role in the agency is-->
             <!--required</p>-->
         </div>
-        <div class="row paddingB20">
+        <div class="row paddingB20 ">
             <md-checkbox ng-click="priceHour=false;service=false;freelancer.price.hour=[]"
                          ng-model="apply"
                          class="md-warn">I have the authority to _claim this account on behalf of the
