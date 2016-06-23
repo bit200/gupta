@@ -1,27 +1,5 @@
-<!--<div class="navbar navbar-default col-xs-12 top-home " ng-if="auth123">-->
-    <!--<div class="container">-->
-    <!--&lt;!&ndash;<div class="col-sm-12  text-center text-bolder">Banner image</div>&ndash;&gt;-->
-    <!--<div class="col-sm-12 ">-->
-        <!--<div class="col-xs-1 col-md-1 col-sm-1 homePageLink">-->
-            <!--<a href="#"    ng-click="homePage()">XYZ </a>-->
-        <!--</div>-->
-        <!--<div class="col-xs-4 col-sm-4 text-right col-md-2">I am looking for a</div>-->
-        <!--<div class="col-xs-5 col-sm-6 col-md-6">-->
-            <!--<input class="form-control" placeholder="Content Writer in Bangalore">-->
-        <!--</div>-->
-        <!--<div class=" col-xs-2 col-sm-1 col-md-offset-2 col-md-1">-->
-            <!--<button class="btn btn-default" type="submit"-->
-                    <!--ng-click="logout()">Logout-->
-            <!--</button>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-
-<nav class="navbar navbar-default top-home" ng-if="auth123">
+<nav class="navbar navbar-default top-home" ng-controller="HeaderCtrl">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -29,14 +7,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ng-click="homePage()" href="#">XYZ</a>
+            <a class="navbar-brand" style="padding: 0px;cursor: pointer" ng-click="go('/')" href=""><img ng-src="http://www.themediaant.com/images/themediant-logo.png" style="width: 70px" /></a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="navbar-text">I am looking for a</li>
-
             </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -44,13 +20,18 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" ng-if="isLogged()">
                <li class="navbar-btn">
                 <button class="btn btn-default " type="submit"
                 ng-click="logout()">Logout
                 </button>
                </li>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+            <ul class="nav navbar-nav navbar-right" ng-if="!isLogged()">
+               <li class="navbar-btn">
+                   <a href="" ng-click="showAuth()">Sign In / Sign Up</a>
+               </li>
+            </ul>
+        </div>
+    </div>
 </nav>

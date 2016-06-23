@@ -180,3 +180,42 @@ XYZCtrls.service('parseRating', function () {
         }
     }
 });
+
+XYZCtrls.service('AuthService', [ '$q', '$rootScope',
+        function($q, $rootScope){
+            var authTokens = {};
+            var loggedIn = false;
+
+            if (localStorage.getItem('accessToken')){
+                authTokens = {
+                    accessToken: localStorage.getItem('accessToken'),
+                    refreshToken: localStorage.getItem('refreshToken')
+                };
+                loggedIn = true
+            }
+
+            return {
+                setTokens: function(tokens){
+                    authTokens = tokens;
+                    localStorage.setItem('accessToken', tokens.accessToken);
+                    localStorage.setItem('refreshToken', tokens.refreshToken);
+                    loggedIn = true;
+                },
+                isLogged: function(){
+                    return loggedIn
+                },
+                logout: function(){
+                    localStorage.clear();
+                    loggedIn = false;
+                    $rootScope.go('/')
+                },
+                checkAuthCtrl: function () {
+                    var deferred = $q.defer();
+                    if (loggedIn) deferred.resolve();
+                    else {
+                        deferred.reject()
+                    }
+                    return deferred.promise;
+                }
+            };
+        }]);

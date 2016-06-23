@@ -98,12 +98,8 @@ exports.sign_in = function (req, res) {
  */
 exports.sign_up = function (req, res) {
     var params = req.body;
-    if (params.password) {
-        params.password = md5(params.password);
-    }
+    if (params.password) params.password = md5(params.password);
     m.create(User, params, res, function (user) {
-        console.log(user)
-
         mkdirp(config.root+"/public/uploads/"+user._id.toString(),function(err){
             if(err) console.log(err);
             else {
@@ -111,8 +107,7 @@ exports.sign_up = function (req, res) {
         });
 
         mail.send_confirm(user);
-        m.scb(user.publish(), res);
-//        mkdirp('../../public/img/user'+user._id);
+        m.createToken(models, user, res, res)
     })
 };
 

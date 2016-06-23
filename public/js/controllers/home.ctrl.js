@@ -1,35 +1,36 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', function (scope, location, http, $q, getContent) {
-
-    scope.cancelRegistration = function () {
-        location.path('/')
-    };
-
-    scope.link = function (url) {
-        location.path(url)
-    };
+XYZCtrls.controller('HomeCtrl', ['$scope', '$http', '$q', 'getContent', function (scope, http, $q, getContent) {
 
 
     scope.arrayProviders = getContent.service.data.data;
 
     scope.profiles = [
         {
-            poster: 'http://www.gizmonews.ru/wp-content/uploads/2013/01/gold-shirt-guy-550x699.jpg',
-            name: 'Darshit Lal',
+            poster: 'http://2.gravatar.com/avatar/b81520ea04d296bbf07052a36b1dc543?s=234&d=mm&r=g',
+            name: 'John Nash',
             rating: [1, 1, 1, 1, 0],
             popularity: [1, 1, 0, 0]
         },
         {
-            poster: 'http://www.vokrug.tv/pic/product/5/1/8/b/medium_518b990ee260dea2fa9b3df92a7a4020.png',
-            name: 'Madhup Nanda',
+            poster: 'http://www.grapessoftware.com/wp-content/uploads/2014/02/Hire-Developer-Sprite.png',
+            name: 'Kenneth Symons',
+            rating: [1, 1, 1, 0, 0],
+            popularity: [1, 1, 1, 0]
+        },
+        {
+            poster: 'https://odesk-prod-portraits.s3.amazonaws.com/Users:iosware-mobi:PortraitUrl_100?AWSAccessKeyId=1XVAX3FNQZAFC9GJCFR2&Expires=2147483647&Signature=3c63jaN8sAbSQibZ%2FpsKoJ5T8xM%3D&1457601951605782',
+            name: 'Artur Konor',
+            rating: [1, 1, 1, 0, 0],
+            popularity: [1, 1, 1, 0]
+        },
+        {
+            poster: 'https://www.host.al/assets/img/avatar.png',
+            name: 'David Grabovski',
             rating: [1, 1, 1, 0, 0],
             popularity: [1, 1, 1, 0]
         }
-        ,
-        {},
-        {}
     ];
 
     scope.jobs = [

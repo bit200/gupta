@@ -247,20 +247,6 @@ div.Files {
     z-index: 500;
 }
 
-/*.top-home input.form-control {*/
-/*width: 50%;*/
-/*}*/
-/*@media (max-width: 768px){*/
-/*.top-home input.form-control{*/
-/*width: 100%;*/
-/*}*/
-/*}*/
-/*@media (max-width: 992px) {*/
-/*.top-home input.form-control{*/
-/*width: 100%;*/
-/*}*/
-/*}*/
-
 .btn-default, .btn-default:focus     {
     color: #f7961d;
     border-color: #f7961d;
@@ -474,20 +460,6 @@ div.text-padding {
     font-weight: bold;
 }
 
-@media (min-width: 768px) {
-    .service-provider {
-        font-size: 9pt;
-    }
-
-}
-
-@media (min-width: 992px) {
-    .service-provider {
-        font-size: 10pt;
-        width: calc(100% / 5 - 20px);
-    }
-
-}
 
 .paddingB40 {
     padding-bottom: 40px;
@@ -641,59 +613,6 @@ div.btnSearch {
     text-align: right;
 }
 
-@media (max-width: 992px) {
-    .profile {
-        width: 35vw;
-        height: 38vw;
-    }
-}
-
-@media (max-width: 768px) {
-    .profile {
-        width: 40vw;
-        height: 40vw;
-        font-size: 8pt;
-    }
-
-    .block-popularity {
-        height: 10px;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .star-icon {
-        font-size: 20px;
-        padding-top: 10px;
-        text-align: center;
-    }
-
-    .block-icon {
-        font-size: 20px;
-        padding-top: 20px;
-        text-align: center;
-    }
-
-    div.block-popularity {
-        width: 22%;
-        height: 15px;
-        margin: 0 1px;
-        font-size: 25px;
-        color: #f3db92;
-        display: inline-block;
-    }
-}
-
-@media (max-width: 990px) {
-    .agency-text {
-        text-align: left;
-    }
-
-    .btn-search {
-        margin-top: 20px;
-    }
-}
-
 .green-popularity {
     background: #008000;
 }
@@ -707,7 +626,9 @@ div.btnSearch {
 }
 
 .form-group p.error {
+    position: absolute;
     display: none;
+    font-size: 12px;
 }
 
 .has-error input {
@@ -717,8 +638,7 @@ div.btnSearch {
 .has-error p.error {
     color: #a94442;
     display: inline-block;
-    /*position: absolute;*/
-    bottom: 0;
+    position: absolute;
     font-size: 12px;
 }
 
@@ -749,16 +669,6 @@ div.btnSearch {
     position: relative;
 }
 
-@media (max-width: 992px) {
-    .user-search {
-        margin: 0;
-        margin-bottom: 5%;
-    }
-
-    .user-logo {
-        margin: 0 43%;
-    }
-}
 
 .user-logo {
     max-height: 130px;
@@ -849,17 +759,15 @@ div.btnSearch {
 .modal-block-button {
     position: relative;
     top: 30%;
-    left: 10%;
+    text-align: center;
 }
 
 .ui-select-container {
     min-height: 34px;
 }
 
-@media (max-width: 500px) {
-    .modal-block-button > button {
-        font-size: 9pt;
-    }
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 510px
 }
 
 
@@ -1008,5 +916,132 @@ div.containerCrop {
 
 .afade {
     animation: fade .6s ease forwards;
+}
+
+
+.signupForm .form-group input{
+    border-radius: 0px !important;
+}
+
+.loginForm .form-group input{
+    border-radius: 0px !important;
+}
+
+.loginForm{
+    margin-top: 60px;
+}
+
+.login-btn {
+    color : white !important;
+    background-color: #d43f3a !important;
+    font-size: 16px !important;
+}
+
+
+.signup-btn {
+    color : white !important;
+    background-color: #575353 !important;
+    font-size: 16px !important;
+}
+
+.loginForm button.md-raised{
+    margin-top: 32px
+}
+.auth-dialog .col-md-6:first-child{
+    border-right: 1px solid lightgray;
+}
+
+.error-login{
+    font-size: 12px;
+    color: #a94442;;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+@media (max-width: 500px) {
+    .auth-dialog .col-md-6:first-child{
+        border-right: 0px
+    }
+
+    .loginForm{
+        margin-top: 0px;
+    }
+
+    .loginForm button.md-raised{
+        margin-top: 0px
+    }
+
+    .modal-block-button > button {
+        font-size: 9pt;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .service-provider {
+        font-size: 9pt;
+    }
+    /*.profile {*/
+        /*width: 40vw;*/
+        /*height: 40vw;*/
+        /*font-size: 8pt;*/
+    /*}*/
+
+    .block-popularity {
+        height: 10px;
+    }
+    .star-icon {
+        font-size: 20px;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    .block-icon {
+        font-size: 20px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    div.block-popularity {
+        width: 22%;
+        height: 15px;
+        margin: 0 1px;
+        font-size: 25px;
+        color: #f3db92;
+        display: inline-block;
+    }
+}
+
+@media (min-width: 992px) {
+    .auth-dialog{
+        width: 800px !important;
+    }
+    .agency-text {
+        text-align: left;
+    }
+
+    .btn-search {
+        margin-top: 20px;
+    }
+
+    .service-provider {
+        font-size: 10pt;
+        width: calc(100% / 5 - 20px);
+    }
+    .user-search {
+        margin: 0;
+        margin-bottom: 5%;
+    }
+
+    .user-logo {
+        margin: 0 43%;
+    }
+    /*.profile {*/
+        /*width: 35vw;*/
+        /*height: 38vw;*/
+    /*}*/
+
 }
 

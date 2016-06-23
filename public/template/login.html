@@ -2,13 +2,6 @@
     <div class="login-form common-style-form">
         <form name="loginForm" shake-that submitted="submitted" submit="submit()" novalidate>
             <div class="form-group" ng-class="{'has-error': submitted && loginForm.login.$invalid&&formCorrect}">
-                <!--<label>Login</label>-->
-                <!--<input class="form-control" ng-click="startInput()" name="login"-->
-                       <!--ng-enter="submitted=true;signin(loginForm.$invalid, login)" ng-model="login.login" required>-->
-
-                <!--<p class="error" ng-if="loginForm.login.$error.required">Login is required</p>-->
-
-
                 <md-input-container class="md-block">
                     <label>Login</label>
                     <input class="form-control" ng-click="startInput()" name="login"
@@ -19,14 +12,6 @@
             </div>
 
             <div class="form-group" ng-class="{'has-error': submitted && loginForm.password.$invalid&& formCorrect}">
-                <!--<label>Password</label>-->
-                <!--<input class="form-control" name="password" ng-click="startInput()"-->
-                       <!--ng-enter="submitted=true;signin(loginForm.$invalid, login)" type="password"-->
-                       <!--ng-model="login.password"-->
-                       <!--required>-->
-
-                <!--<p class="error" ng-if="loginForm.password.$error.required">Password is required</p>-->
-
                 <md-input-container class="md-block">
                     <label>Password</label>
                     <input class="form-control" name="password" ng-click="startInput()"
