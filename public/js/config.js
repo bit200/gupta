@@ -1,16 +1,16 @@
 angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationProvider',
     function ($routeProvider, $httpProvider, $locationProvider) {
-        var authResolve = ["$q", "AuthService", '$rootScope', function($q, AuthService, $rootScope) {
+        var authResolve = ["$q", "AuthService", '$rootScope', function ($q, AuthService, $rootScope) {
             var deferred = $q.defer();
-            AuthService.checkAuthCtrl().then(function(){
+            AuthService.checkAuthCtrl().then(function () {
                 deferred.resolve();
-            }, function(){
+            }, function () {
                 AuthService.showLogin('/');
                 deferred.reject();
             });
             return deferred.promise;
         }];
-        
+
         $routeProvider
             .when('/', {
                 templateUrl: 'template/home.html',
@@ -377,6 +377,47 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                             freelancer: $http.get('/freelancer')
                         })
                     }
+                }
+            })
+
+            .when('/category/service-provider/:provider', {
+                templateUrl: 'template/category.html',
+                controller: 'categoryCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            topic: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            content: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            languages: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Languages'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            freelancer: $http.get('/freelancer', {params: {freelancer_type: $route.current.params.provider}})
+                        })
+                    }]
                 }
             })
 

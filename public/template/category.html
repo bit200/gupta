@@ -1,143 +1,147 @@
 <div class="container">
-<div class="row">
-    <div class="col-md-3 nopadding">
+    <div class="row">
+        <div class="col-md-3 nopadding">
 
-        <div class="full-width work-type border-grey marginT20" ng-class="{'topic-close':close.workType}">
-            <div class="full-width user-topic-top">
-                <i class="fa fa-sitemap" aria-hidden="true"></i>
-                <span>Work type</span>
-                <i class="fa pointer floatR" ng-class="{'fa-chevron-down': !close.workType,'fa-chevron-up': close.workType}" aria-hidden="true" ng-click="close.workType = !close.workType"></i>
-            </div>
-            <div class="user-topic-bottom" toggle="close.workType">
-                <div class="full-width marginLR20">
-                    <div>
-                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.agency" value="agency"> Agency
-                    </div>
-                    <div>
-                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.freelancer" value="freelancer"> Freelancer
-                    </div>
+            <div class="full-width work-type border-grey marginT20" ng-class="{'topic-close':close.workType}">
+                <div class="full-width user-topic-top">
+                    <i class="fa fa-sitemap" aria-hidden="true"></i>
+                    <span>Work type</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down': !close.workType,'fa-chevron-up': close.workType}" aria-hidden="true" ng-click="close.workType = !close.workType"></i>
                 </div>
-            </div>
-        </div>
-
-        <div class="full-width user-topic border-grey marginT20" ng-class="{'topic-close':close.topic}">
-            <div class="full-width user-topic-top">
-                <i class="fa fa-sitemap" aria-hidden="true"></i>
-                <span>Industry Expertise</span>
-                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}" aria-hidden="true" ng-click="close.topic = !close.topic"></i>
-            </div>
-            <div class="user-topic-bottom" toggle="close.topic">
-                <div class="full-width">
-                    <div class="width75 inlineBlock">
-                        <input class="form-control user-topic-input" placeholder="Search by Service Provided" ng-model="search">
-                    </div>
-                    <div class="width20 inlineBlock">
-                        <span class="glyphicon glyphicon-search user-search-icon"></span>
-                    </div>
-                </div>
-                <div class="full-width">
-                    <div ng-repeat="item in arrayTopics| filter:search">
-                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.industry_expertise[item]">{{item}}
+                <div class="user-topic-bottom" toggle="close.workType">
+                    <div class="full-width marginLR20">
+                        <div>
+                            <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.agency" value="agency"> Agency
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.freelancer" value="freelancer"> Freelancer
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="full-width user-block marginT20 border-grey">
-            <div class="user-block-top">
-                <span>Content Type</span>
-                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.content,'fa-chevron-up':close.content}" aria-hidden="true" ng-click="close.content = !close.content"></i>
+            <div class="full-width user-topic border-grey marginT20" ng-class="{'topic-close':close.topic}">
+                <div class="full-width user-topic-top">
+                    <i class="fa fa-sitemap" aria-hidden="true"></i>
+                    <span>Industry Expertise</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}" aria-hidden="true" ng-click="close.topic = !close.topic"></i>
+                </div>
+                <div class="user-topic-bottom" toggle="close.topic">
+                    <div class="full-width">
+                        <div class="width75 inlineBlock">
+                            <input class="form-control user-topic-input" placeholder="Search by Service Provided" ng-model="search">
+                        </div>
+                        <div class="width20 inlineBlock">
+                            <span class="glyphicon glyphicon-search user-search-icon"></span>
+                        </div>
+                    </div>
+                    <div class="full-width">
+                        <div ng-repeat="item in arrayTopics| filter:search">
+                            <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.industry_expertise[item]">{{item}}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="user-block-bottom" toggle="close.content">
-                <div ng-repeat="item in arrayContent">
-                    <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.content_type[item]">{{item}}
+
+            <div class="full-width user-block marginT20 border-grey">
+                <div class="user-block-top">
+                    <span>Content Type</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.content,'fa-chevron-up':close.content}" aria-hidden="true" ng-click="close.content = !close.content"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.content">
+                    <div ng-repeat="item in arrayContent">
+                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.content_type[item]">{{item}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-width user-block marginT20 border-grey">
+                <div class="user-block-top">
+                    <span>Years of Experience</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.experience,'fa-chevron-up': close.experience}" aria-hidden="true" ng-click="close.experience = !close.experience"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.experience">
+                    <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
+                </div>
+            </div>
+
+            <div class="full-width user-block marginT20 border-grey">
+                <div class="user-block-top">
+                    <span>Geography</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.location,'fa-chevron-up': close.location}" aria-hidden="true" ng-click="close.location = !close.location"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.location">
+                    <div ng-repeat="item in arrayLocations">
+                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.location[item]">{{item}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-width user-block marginT20 border-grey">
+                <div class="user-block-top">
+                    <span>Languages</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.languages,'fa-chevron-up': close.languages}" aria-hidden="true" ng-click="close.languages = !close.languages"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.languages">
+                    <div ng-repeat="item in arrayLanguages">
+                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.languages[item]">{{item}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-width user-block marginT20 border-grey">
+                <div class="user-block-top">
+                    <span>Package Available</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.package,'fa-chevron-up': close.package}" aria-hidden="true" ng-click="close.package = !close.package"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.package">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="true">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="false">
+                            No
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-9">
+            <div class="row">
 
-        <div class="full-width user-block marginT20 border-grey">
-            <div class="user-block-top">
-                <span>Years of Experience</span>
-                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.experience,'fa-chevron-up': close.experience}" aria-hidden="true" ng-click="close.experience = !close.experience"></i>
-            </div>
-            <div class="user-block-bottom" toggle="close.experience">
-                <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
-            </div>
-        </div>
-
-        <div class="full-width user-block marginT20 border-grey">
-            <div class="user-block-top">
-                <span>Geography</span>
-                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.location,'fa-chevron-up': close.location}" aria-hidden="true" ng-click="close.location = !close.location"></i>
-            </div>
-            <div class="user-block-bottom" toggle="close.location">
-                <div ng-repeat="item in arrayLocations">
-                    <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.location[item]">{{item}}
+                <div class="col-md-8 padding3 marginT20 border-box background-white" ng-init="category_active='rating'">
+                    <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-rating'}" ng-click="category_active = '-rating'">Ratings</span></div>
+                    <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-view'}" ng-click="category_active = '-view'">Profile Views</span></div>
+                    <div class="width24 inlineBlock padding10 text-center" ng-show="ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == '-number_employees'}" ng-click="category_active = '-number_employees'">Number of employees</span>
+                    </div>
+                    <div class="width24 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'low'}" ng-click="category_active = 'low'">Low to High Price</span></div>
+                    <div class="width24 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active = 'high'">High to Low Price</span></div>
+                </div>
+                <div class="col-md-4 marginT20">
+                    <input class="form-control" ng-model="mainSearch.name">
                 </div>
             </div>
-        </div>
+            <div class="row marginT20">
+                <div class="col-md-12 col-xs-6 text-center" ng-if="!(freelancer | orderBy:category_active | filter:mainSearch).length"><h3>There are no profiles with that filters</h3></div>
 
-        <div class="full-width user-block marginT20 border-grey">
-            <div class="user-block-top">
-                <span>Languages</span>
-                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.languages,'fa-chevron-up': close.languages}" aria-hidden="true" ng-click="close.languages = !close.languages"></i>
-            </div>
-            <div class="user-block-bottom" toggle="close.languages">
-                <div ng-repeat="item in arrayLanguages">
-                    <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.languages[item]">{{item}}
-                </div>
-            </div>
-        </div>
+                <div class="col-md-3 col-xs-6 noborder pointer" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch" ng-click="showProfile(profile._id)">
+                    <div class="profile-detail">
+                        <img class="profile-poster-detail" ng-src="{{profile.poster}}">
 
-        <div class="full-width user-block marginT20 border-grey">
-            <div class="user-block-top">
-                <span>Package Available</span>
-                <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.package,'fa-chevron-up': close.package}" aria-hidden="true" ng-click="close.package = !close.package"></i>
-            </div>
-            <div class="user-block-bottom" toggle="close.package">
-                <div class="radio">
-                    <label>
-                        <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="true">
-                        Yes
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="false">
-                        No
-                    </label>
+                        <div class="text-center">{{profile.name}}</div>
+                        <div class="col-sm-12">
+                            <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-9">
-        <h1></h1>
-        <input class="form-control" ng-model="mainSearch.name">
-
-        <div class="full-width marginT20 border-box background-white" ng-init="category_active='rating'">
-            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-rating'}" ng-click="category_active = '-rating'">Ratings</span></div>
-            <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-view'}" ng-click="category_active = '-view'">Profile Views</span></div>
-            <div class="width24 inlineBlock padding10 text-center" ng-show="ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == '-number_employees'}" ng-click="category_active = '-number_employees'">Number of employees</span></div>
-            <div class="width25 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'low'}" ng-click="category_active = 'low'">Low to High Price</span></div>
-            <div class="width25 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active = 'high'">High to Low Price</span></div>
-        </div>
-        <div class="row marginT20">
-            <div class="col-md-12 col-xs-6" ng-if="!(freelancer | orderBy:category_active | filter:mainSearch).length"><h3>Not one profile card not found</h3></div>
-
-            <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch" ng-click="showProfile(profile._id)">
-                <div class="profile-detail">
-                    <img class="profile-poster-detail" ng-src="{{profile.poster}}">
-
-                    <div class="text-center">{{profile.name}}</div>
-                    <div class="col-sm-12">
-                        <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>

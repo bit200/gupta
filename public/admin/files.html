@@ -70,13 +70,13 @@
                         </tr>
                         <tr ng-repeat="user in users ">
                             <td ng-repeat="(key,value) in user.data | admin_filter">{{value}}</td>
-                            <td ng-if="!user.admin_approved">
-                                <button class="btn background-orange text-white" ng-click='approved(user, $index)'>
+                            <td ng-if="!user.elem.admin_approved">
+                                <button class="btn background-orange text-white" ng-click='approved(user.elem, $index)'>
                                     Approve
                                 </button>
                             </td>
-                            <td ng-if="!user.admin_approved">
-                                <button class="btn btn-danger" ng-click="showReject(true, user, $index)">Reject</button>
+                            <td ng-if="!user.elem.admin_approved">
+                                <button class="btn btn-danger" ng-click="showReject(true, user.elem, $index)">Reject</button>
                             </td>
                         </tr>
                     </table>

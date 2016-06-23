@@ -2,7 +2,6 @@
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', '$q', 'getContent', 'ModalService', function (scope, location, http, routeParams, parseRating, $q, getContent, ModalService) {
     scope.ownFilter = {}
-    scope.arrayProviders = getContent.service.data.data;
     scope.arrayTopics = getContent.topic.data.data;
     scope.arrayContent = getContent.content.data.data;
     scope.arrayLanguages = getContent.languages.data.data;
@@ -11,8 +10,11 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
     scope.freelancer = parseRating.popularity(getContent.freelancer.data.data);
     scope.ownFilter.agency = true;
     scope.ownFilter.freelancer = true;
-    if (routeParams)
-        scope.mainSearch = {name: routeParams.filter}
+
+    if (routeParams.filter)
+        scope.mainSearch = {name: routeParams.filter};
+    if (routeParams.provider)
+        scope.provider = routeParams.provider;
     scope.slider = {
         experience: {
             value: 3,
@@ -48,6 +50,8 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
 
     scope.submitFilter = function (data) {
         var filter = angular.copy(data);
+        if (scope.provider)
+            filter.freelancer_type = scope.provider;
         if (filter.industry_expertise)
             filter.industry_expertise = objInArr(filter.industry_expertise);
 
@@ -77,7 +81,7 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
     };
 
     scope.showProfile = function (id) {
-        http.get('/freelancer', {params:{_id: id}}).then(function(resp){
+        http.get('/freelancer', {params: {_id: id}}).then(function (resp) {
             ModalService.showModal({
                 templateUrl: "template//modal/modalSeller.html",
                 controller: function ($scope) {

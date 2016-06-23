@@ -53,6 +53,7 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
         scope.resObj = {};
         scope.delete = false;
         scope.users = parseType.users(getContent.users.data.data);
+        console.log('da', scope.users)
         scope.agency = parseType.claim(getContent.agency.data.data);
         scope.job = parseType.job(getContent.job.data.data);
         scope.approved = function (user, i) {

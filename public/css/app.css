@@ -247,7 +247,7 @@ div.Files {
     z-index: 500;
 }
 
-.btn-default, .btn-default:focus     {
+.btn-default, .btn-default:focus {
     color: #f7961d;
     border-color: #f7961d;
     background-color: white;
@@ -313,6 +313,10 @@ div.text-padding {
 
 .padding20 {
     padding: 20px 0;
+}
+
+.padding3 {
+    padding: 3px 0;
 }
 
 .padding10 {
@@ -436,7 +440,7 @@ div.text-padding {
 }
 
 .border-black {
-border: 1px solid black;
+    border: 1px solid black;
 }
 
 .border-bottom {
@@ -461,7 +465,6 @@ border: 1px solid black;
     font-weight: bold;
 }
 
-
 .paddingB40 {
     padding-bottom: 40px;
 }
@@ -473,11 +476,11 @@ border: 1px solid black;
 
 html, body {
 
-    width: 100%!important;
+    width: 100% !important;
 }
 
 .nopadding {
-    padding: 0!important;
+    padding: 0 !important;
 }
 
 .inlineBlock {
@@ -594,15 +597,6 @@ div.communitySP div.text-center {
     margin-bottom: 10px;
 }
 
-.profile-detail {
-    width: 10vw;
-    height: 10vw;
-    border: 1px solid #CECECE;
-    border-radius: 5px;
-    margin: auto;
-    margin-bottom: 70px;
-}
-
 .star-icon {
     color: #808080;
     text-align: center;
@@ -689,7 +683,6 @@ div.btnSearch {
     margin: 15% 0;
     position: relative;
 }
-
 
 .user-logo {
     max-height: 130px;
@@ -790,7 +783,6 @@ div.btnSearch {
 .ngdialog.ngdialog-theme-default .ngdialog-content {
     width: 510px
 }
-
 
 @keyframes fade {
     0% {
@@ -923,15 +915,14 @@ form .progress {
 }
 
 div.containerDrop {
-    height: 200px!important;
+    height: 200px !important;
 }
 
 div.containerCrop {
     height: 100%;
 }
 
-
-.fadechild>div {
+.fadechild > div {
     animation: fade .6s ease forwards;
 }
 
@@ -939,40 +930,39 @@ div.containerCrop {
     animation: fade .6s ease forwards;
 }
 
-
-.signupForm .form-group input{
+.signupForm .form-group input {
     border-radius: 0px !important;
 }
 
-.loginForm .form-group input{
+.loginForm .form-group input {
     border-radius: 0px !important;
 }
 
-.loginForm{
+.loginForm {
     margin-top: 60px;
 }
 
 .login-btn {
-    color : white !important;
+    color: white !important;
     background-color: #d43f3a !important;
     font-size: 16px !important;
 }
 
-
 .signup-btn {
-    color : white !important;
+    color: white !important;
     background-color: #575353 !important;
     font-size: 16px !important;
 }
 
-.loginForm button.md-raised{
+.loginForm button.md-raised {
     margin-top: 32px
 }
-.auth-dialog .col-md-6:first-child{
+
+.auth-dialog .col-md-6:first-child {
     border-right: 1px solid lightgray;
 }
 
-.error-login{
+.error-login {
     font-size: 12px;
     color: #a94442;;
     position: absolute;
@@ -982,17 +972,31 @@ div.containerCrop {
     right: 0;
 }
 
+.profile-detail {
+
+}
+
+.profile-detail {
+    width: 38vw;
+    height: 40vw;
+    font-size: 8pt;
+
+    border: 1px solid #CECECE;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 70px;
+}
 
 @media (max-width: 500px) {
-    .auth-dialog .col-md-6:first-child{
+    .auth-dialog .col-md-6:first-child {
         border-right: 0px
     }
 
-    .loginForm{
+    .loginForm {
         margin-top: 0px;
     }
 
-    .loginForm button.md-raised{
+    .loginForm button.md-raised {
         margin-top: 0px
     }
 
@@ -1001,25 +1005,26 @@ div.containerCrop {
     }
 }
 
-
 @media (min-width: 768px) {
     .service-provider {
         font-size: 9pt;
     }
-    /*.profile {*/
-        /*width: 40vw;*/
-        /*height: 40vw;*/
-        /*font-size: 8pt;*/
-    /*}*/
+
     .profile-detail {
-        width: 38vw;
-        height: 40vw;
+        width: 33vw;
+        height: 33vw;
         font-size: 8pt;
     }
 
+    /*.profile {*/
+    /*width: 40vw;*/
+    /*height: 40vw;*/
+    /*font-size: 8pt;*/
+    /*}*/
     .block-popularity {
         height: 10px;
     }
+
     .star-icon {
         font-size: 20px;
         padding-top: 10px;
@@ -1044,13 +1049,14 @@ div.containerCrop {
 
 @media (min-width: 992px) {
     .profile-detail {
-        width: 33vw;
-        height: 33vw;
+        width: 10vw;
+        height: 10vw;
     }
 
-    .auth-dialog{
+    .auth-dialog {
         width: 800px !important;
     }
+
     .agency-text {
         text-align: left;
     }
@@ -1063,6 +1069,7 @@ div.containerCrop {
         font-size: 10pt;
         width: calc(100% / 5 - 20px);
     }
+
     .user-search {
         margin: 0;
         margin-bottom: 5%;
@@ -1071,9 +1078,10 @@ div.containerCrop {
     .user-logo {
         margin: 0 43%;
     }
+
     /*.profile {*/
-        /*width: 35vw;*/
-        /*height: 38vw;*/
+    /*width: 35vw;*/
+    /*height: 38vw;*/
     /*}*/
 
 }

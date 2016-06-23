@@ -16,8 +16,8 @@ XYZAdminCtrls.service('parseType', function () {
                         'Freelancer Type': elem.freelancer_type || null,
                         'Industry Expertise': elem.industry_expertise || null,
                         Experience: elem.experience || null,
-                        admin_approved: elem.admin_approved,
-                        reject_reason: elem.reject_reason || null,
+                        'Admin Approved': elem.admin_approved,
+                        'Reject Reason': elem.reject_reason || null,
                         sex: elem.sex || null,
                         isActive: elem.isActive || null
                     }
