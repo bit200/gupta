@@ -5,7 +5,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             AuthService.checkAuthCtrl().then(function(){
                 deferred.resolve();
             }, function(){
-                $rootScope.$broadcast('show-auth', {redirectTo: '/'});
+                AuthService.showLogin('/');
                 deferred.reject();
             });
             return deferred.promise;
