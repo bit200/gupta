@@ -1,8 +1,15 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$http', '$q', 'getContent', function (scope, http, $q, getContent) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', function (scope, location, http, $q, getContent, parseRating, ModalService) {
 
+    scope.cancelRegistration = function () {
+        location.path('/')
+    };
+
+    scope.link = function (url) {
+        location.path(url)
+    };
 
     scope.arrayProviders = getContent.service.data.data;
 
@@ -32,6 +39,24 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$http', '$q', 'getContent', function
             popularity: [1, 1, 1, 0]
         }
     ];
+    // scope.profiles = parseRating.popularity(parseRating.rating(getContent.sellers.data.data));
+
+
+    scope.showProfile = function (id) {
+        http.get('/freelancer', {params: {_id: id}}).then(function (resp) {
+            ModalService.showModal({
+                templateUrl: "template//modal/modalSeller.html",
+                controller: function ($scope) {
+                    $scope.profile = parseRating.rating(resp.data.data)[0];
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
+        });
+    };
 
     scope.jobs = [
         {

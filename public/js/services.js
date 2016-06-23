@@ -200,8 +200,30 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                 };
                 loggedIn = true
             }
-
-            return {
+            var self = this;
+            var resObj = {
+                setTokens: function(tokens){
+                    authTokens = tokens;
+                    localStorage.setItem('accessToken', tokens.accessToken);
+                    localStorage.setItem('refreshToken', tokens.refreshToken);
+                    loggedIn = true;
+                },
+                isLogged: function(){
+                    return loggedIn
+                },
+                logout: function(){
+                    localStorage.clear();
+                    loggedIn = false;
+                    $rootScope.go('/')
+                },
+                checkAuthCtrl: function () {
+                    var deferred = $q.defer();
+                    if (loggedIn) deferred.resolve();
+                    else {
+                        deferred.reject()
+                    }
+                    return deferred.promise;
+                },
                 showLogin: function(redirectTo){
                     ModalService.showModal({
                         templateUrl: "template/modal/auth.html",
@@ -212,7 +234,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                                 $scope.loginError = '';
                                 if (invalid) return;
                                 $http.get('/sign-in', {params: {login: data.login, password: data.password}}).success(function (resp) {
-                                    AuthService.setTokens({
+                                    resObj.setTokens({
                                         accessToken: resp.data.accessToken.value,
                                         refreshToken: resp.data.refreshToken.value
                                     });
@@ -228,7 +250,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                                 $scope.emailError = '';
                                 if (invalid) return;
                                 $http.post('/sign-up', data).success(function (resp) {
-                                    AuthService.setTokens({
+                                    resObj.setTokens({
                                         accessToken: resp.data.accessToken.value,
                                         refreshToken: resp.data.refreshToken.value
                                     });
@@ -251,28 +273,9 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
 
                         });
                     });
-                },
-                setTokens: function(tokens){
-                    authTokens = tokens;
-                    localStorage.setItem('accessToken', tokens.accessToken);
-                    localStorage.setItem('refreshToken', tokens.refreshToken);
-                    loggedIn = true;
-                },
-                isLogged: function(){
-                    return loggedIn
-                },
-                logout: function(){
-                    localStorage.clear();
-                    loggedIn = false;
-                    $rootScope.go('/')
-                },
-                checkAuthCtrl: function () {
-                    var deferred = $q.defer();
-                    if (loggedIn) deferred.resolve();
-                    else {
-                        deferred.reject()
-                    }
-                    return deferred.promise;
                 }
+
             };
+
+            return resObj
         }]);

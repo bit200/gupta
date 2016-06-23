@@ -78,7 +78,6 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
 
     scope.showProfile = function (id) {
         http.get('/freelancer', {params:{_id: id}}).then(function(resp){
-            // console.log('resp', parseRating.rating(resp.data.data)[0]   )
             ModalService.showModal({
                 templateUrl: "template//modal/modalSeller.html",
                 controller: function ($scope) {
@@ -91,7 +90,6 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
 
             });
         });
-
     };
 
     function objInArr(obj) {

@@ -88,7 +88,8 @@ XYZApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
                                     query: {},
                                     distinctName: 'name'
                                 }
-                            })
+                            }),
+                            sellers: $http.get('/freelancer')
                         })
                     }
                 }

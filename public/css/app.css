@@ -566,8 +566,15 @@ div.communitySP div.text-center {
 }
 
 .profile-poster {
-
     background: pink;
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid transparent;*/
+    /*border-radius: 5px;*/
+}
+
+.profile-poster-detail {
+    background: lightgrey;
     width: 100%;
     height: 100%;
     /*border: 1px solid transparent;*/
@@ -581,6 +588,15 @@ div.communitySP div.text-center {
     border-radius: 5px;
     margin: auto;
     margin-bottom: 10px;
+}
+
+.profile-detail {
+    width: 10vw;
+    height: 10vw;
+    border: 1px solid #CECECE;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 70px;
 }
 
 .star-icon {
@@ -989,6 +1005,11 @@ div.containerCrop {
         /*height: 40vw;*/
         /*font-size: 8pt;*/
     /*}*/
+    .profile-detail {
+        width: 38vw;
+        height: 40vw;
+        font-size: 8pt;
+    }
 
     .block-popularity {
         height: 10px;
@@ -1016,6 +1037,11 @@ div.containerCrop {
 }
 
 @media (min-width: 992px) {
+    .profile-detail {
+        width: 33vw;
+        height: 33vw;
+    }
+
     .auth-dialog{
         width: 800px !important;
     }

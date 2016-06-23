@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row">
     <div class="col-md-3 nopadding">
 
@@ -121,11 +122,11 @@
             <div class="width25 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active = 'high'">High to Low Price</span></div>
         </div>
         <div class="row marginT20">
-            <div class="col-md-12 col-xs-6" ng-if="!(freelancer | orderBy:category_active | filter:category.type).length"><h3>Not one profile card not found</h3></div>
+            <div class="col-md-12 col-xs-6" ng-if="!(freelancer | orderBy:category_active | filter:mainSearch).length"><h3>Not one profile card not found</h3></div>
 
             <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch" ng-click="showProfile(profile._id)">
-                <div class="profile">
-                    <img ng-if="profile.poster" class="profile-poster" ng-src="{{profile.poster}}">
+                <div class="profile-detail">
+                    <img class="profile-poster-detail" ng-src="{{profile.poster}}">
 
                     <div class="text-center">{{profile.name}}</div>
                     <div class="col-sm-12">
@@ -138,4 +139,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
