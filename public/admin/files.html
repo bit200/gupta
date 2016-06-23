@@ -64,12 +64,12 @@
                 <div class="row">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <td ng-repeat="(key, value) in users[0]">{{key}}</td>
+                            <td ng-repeat="(key, value) in users[0].data">{{key}}</td>
                             <td>Approve</td>
                             <td>Reject</td>
                         </tr>
                         <tr ng-repeat="user in users ">
-                            <td ng-repeat="(key,value) in user | admin_filter">{{value}}</td>
+                            <td ng-repeat="(key,value) in user.data | admin_filter">{{value}}</td>
                             <td ng-if="!user.admin_approved">
                                 <button class="btn background-orange text-white" ng-click='approved(user, $index)'>
                                     Approve

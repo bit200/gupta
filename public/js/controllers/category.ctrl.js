@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', '$q', 'getContent', function (scope, location, http, routeParams, parseRating, $q, getContent) {
+XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', '$q', 'getContent', 'ModalService', function (scope, location, http, routeParams, parseRating, $q, getContent, ModalService) {
     scope.ownFilter = {}
     scope.arrayProviders = getContent.service.data.data;
     scope.arrayTopics = getContent.topic.data.data;
@@ -77,7 +77,21 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
     };
 
     scope.showProfile = function (id) {
-        location.path('/profile/seller/' + id)
+        http.get('/freelancer', {params:{_id: id}}).then(function(resp){
+            // console.log('resp', parseRating.rating(resp.data.data)[0]   )
+            ModalService.showModal({
+                templateUrl: "template//modal/modalSeller.html",
+                controller: function ($scope) {
+                    $scope.profile = parseRating.rating(resp.data.data)[0];
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
+        });
+
     };
 
     function objInArr(obj) {
