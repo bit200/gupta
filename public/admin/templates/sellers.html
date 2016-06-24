@@ -1,0 +1,84 @@
+<div class="content">
+    <div class="row">
+        <div class="col-md-11">
+            <input class="form-control marginTB20" ng-model="searchSeller.elem.name">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-default full-width marginTB20"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div>
+                <md-input-container class="selectTerm">
+                    <label>Category</label>
+                    <md-select ng-model="filter.elem.freelancer_type">
+                        <md-optgroup label="Select Category">
+                            <md-option ng-value="item" ng-repeat="item in service">
+                                {{item}}
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <div>
+                <md-input-container class="selectTerm">
+                    <label>Seller Type</label>
+                    <md-select ng-model="filter.elem.type">
+                        <md-optgroup label="Select type">
+                            <md-option value="freelancer">Freelancer</md-option>
+                            <md-option value="agency">Agency</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <div>
+                <md-input-container class="selectTerm">
+                    <label>Location</label>
+                    <md-select ng-model="filter.elem.location">
+                        <md-optgroup label="Select location">
+                            <md-option ng-value="item" ng-repeat="item in locations">
+                                {{item}}
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <div>
+                <md-input-container class="selectTerm">
+                    <label>Status</label>
+                    <md-select ng-model="filter.data.Status">
+                        <md-optgroup label="Select type">
+                            <md-option value="Listed">Listed</md-option>
+                            <md-option value="Pending Approval">Pending Approval</md-option>
+                            <md-option value="Deleted">Deleted</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div class="text-center paddingB10"><a class="pointer" ng-click="reset()">Reset</a></div>
+            <div class="full-width btn btn-default" ng-click="addSeller()">Add New Seller</div>
+        </div>
+        <div class="col-md-10">
+            <table class="table  table-striped">
+                <thead>
+                <tr>
+                    <td class="text-bold" ng-repeat="(key, value) in sellers[0].data">{{key}}</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="seller in sellers |filter:filter | filter:searchSeller">
+                    <td ng-repeat="(key,value) in seller.data">
+                        <span ng-if="key == 'Service Category'" ng-repeat="elem in seller.data[key] track by $index">{{elem}}<span ng-if="!$last">, </span></span>
+                        <span ng-if="key != 'Service Category' && key != 'Display Name'">{{value}}</span>
+                        <a class="pointer" ng-if="key == 'Display Name'" ng-click="showProfile(seller.elem._id)">{{value}}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

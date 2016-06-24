@@ -251,7 +251,6 @@ div.Files {
     color: #f7961d;
     border-color: #f7961d;
     background-color: white;
-
 }
 
 .btn-default:focus {
@@ -369,6 +368,9 @@ div.text-padding {
 
 .marginR10 {
     margin-right: 10%;
+}
+.marginL20 {
+    margin-left: 20px;
 }
 
 .marginTB20 {

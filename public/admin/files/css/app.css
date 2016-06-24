@@ -46,13 +46,21 @@ select {
     animation: fade .4s ease;
 }
 
-html {
-    overflow-y: scroll;
+
+.btn-default, .btn-default:focus {
+    color: #f7961d;
+    border-color: #f7961d;
+    background-color: white;
 }
 
-body {
-    /*padding-top: 20px;*/
-    /*overflow-y: scroll;*/
+.btn-default:focus {
+    outline: none;
+}
+
+.btn-default:hover {
+    color: white;
+    background-color: #f7961d;
+    border-color: transparent;
 }
 
 .link_categ {
@@ -265,7 +273,7 @@ li {
     right: 0;
     bottom: 0;
     margin:0 auto;
-    margin-top: 5%;
+    margin-top: 10%;
     z-index: 99;
     max-width: 400px;
     max-height: 350px;
@@ -315,3 +323,59 @@ li {
 
 
 
+
+.pointer {
+    cursor: pointer;
+    /*float: right;*/
+}
+.nopadding {
+    padding: 0 !important;
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.relative {
+    position: relative;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-bolder {
+    font-weight: bolder;
+}
+
+.text-grey {
+    color: #a9a9a9;
+}
+
+.text-white, .text-white:hover, .text-white:focus {
+    color: #FFFFFF;
+}
+
+.text-primary {
+    color: #00B0F0;
+}
+
+.border-blue {
+    border: 2px solid #f7961d;
+}
+
+.border-grey {
+    border: 1px solid #F1F1F1;
+}
+
+.noborder {
+    outline: none;
+}
+
+md-backdrop.md-select-backdrop {
+    z-index:103;
+}
+
+.md-select-menu-container {
+    z-index:19999;
+}

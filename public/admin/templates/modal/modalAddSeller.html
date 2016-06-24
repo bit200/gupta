@@ -1,0 +1,19 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-include="'templates/freelanceRegistration.html'"></div>
+            </div>
+            <div class="modal-footer">
+
+                <div class="row paddingB20">
+                    <div class="col-md-12">
+                        <button class="btn btn-default" ng-click="submitted=true;register(freelancerRegistration.$invalid,freelancer,globalFiles,globalImg);">Submit </button>
+                        <a href="/#/" class="btn btn-back floatR" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

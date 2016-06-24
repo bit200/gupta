@@ -3,6 +3,7 @@ var models = require('../db')
     , m = require('../m')
     , mail = require('../mail')
     , md5 = require('md5')
+    , async = require('async')
     , randomstring = require('randomstring')
     , _ = require('underscore')
     , mkdirp = require('mkdirp');
@@ -12,7 +13,6 @@ exports.generate_admin = function (req, res) {
     var password = md5('b8KuBSaqx5EuG');
     m.findCreateUpdate(models.User, {
         role: 'ADMIN',
-        username: 'admin',
         email: 'admin@example.com'
     }, {
         password: password
@@ -56,6 +56,36 @@ exports.reject_job = function (req, res) {
         m.findOne(models.User, {_id: job.user}, res, function (user) {
             mail.job_reject(user, res, params.reject_reason, m.scb(job, res))
         })
+    })
+};
+
+exports.add_seller = function (req, res) {
+    var params = m.getBody(req)
+        , arrFunc = [];
+    arrFunc.push(function (cb) {
+        if (params.work) {
+            m.create(models.Work, params.work, res, function (work) {
+                params.work = work._id;
+                cb()
+            })
+        } else {
+            cb()
+        }
+    });
+    arrFunc.push(function (cb) {
+        if (params.contact) {
+            m.create(models.ContactDetail, params.contact, res, function (contact) {
+                params.contact = contact._id;
+                cb()
+            })
+        } else {
+            cb()
+        }
+    });
+
+    // m.findUpdate(models.User, {_id: params.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))
+    async.parallel(function (e, r) {
+        m.create(models.Freelancer, params, res, res)
     })
 };
 

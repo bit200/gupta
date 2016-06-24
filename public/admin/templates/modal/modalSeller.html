@@ -1,4 +1,4 @@
-<div class="modal fade seller-modal">
+<div class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -6,7 +6,7 @@
                     <div class="col-md-3 background-white">
                         <div class="row">
                             <div class="col-xs-6 col-md-12 ">
-                                <img ng-if="profile.poster" class="full-width img-rounded" ng-src="{{profile.poster.url.replace('/public','')}}">
+                                <img ng-if="profile.poster" class="full-width img-rounded" ng-src="{{profile.poster}}">
                             </div>
                             <div class="col-md-12 col-xs-6">
                                 <div class="full-width marginT20 text-bold">{{profile.user.last_name}} {{profile.user.first_name}}</div>

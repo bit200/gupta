@@ -1,0 +1,27 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="panel-title">{{jobModalType}} job</h2>
+            </div>
+            <div class="modal-body" ng-if="jobModalType.toLowerCase() == 'reject'" >
+                <div class="panel-body">
+                    <div class="row m-t-20">
+                        <h3 class="text-center">Input reject reason</h3>
+                        <textarea class="form-control" ng-model="rejectText" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default waves-effect waves-light"
+                        ng-click="approveJob(jobModalType.toLowerCase(), rejectText, 'reject')" data-dismiss="modal">{{jobModalType}}
+                </button>
+                <button ng-if="jobModalType.toLowerCase() == 'reject'" class="btn btn-default waves-effect waves-light"
+                        ng-click="approveJob('suggest-edit', rejectText, 'suggest-edit')" data-dismiss="modal">{{jobModalType}} to edit
+                </button>
+                <button class="btn btn-default waves-effect" ng-click="showJob(false)" data-dismiss="modal">Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

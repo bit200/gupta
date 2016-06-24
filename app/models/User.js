@@ -7,10 +7,6 @@ var mongoose = require('mongoose')
     , m = require('../m');
 
 var UserSchema = mongoose.Schema({
-    username: {
-        type: String,
-        unique: true
-    },
     role: {
         type: String,
         default: 'USER'
@@ -105,6 +101,12 @@ UserSchema.plugin(uniqueValidator, {
 UserSchema.plugin(autoIncrement.plugin, {
     model: 'User',
     field: '_id',
+    startAt: 100000
+});
+
+UserSchema.plugin(autoIncrement.plugin, {
+    model: 'User',
+    field: 'username',
     startAt: 100000
 });
 

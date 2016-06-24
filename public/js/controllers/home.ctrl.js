@@ -19,9 +19,12 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     scope.showProfile = function (id) {
         http.get('/freelancer', {params: {_id: id}}).then(function (resp) {
             ModalService.showModal({
-                templateUrl: "template//modal/modalSeller.html",
+                templateUrl: "template/modal/modalSeller.html",
                 controller: function ($scope) {
                     $scope.profile = parseRating.rating(resp.data.data)[0];
+                    $scope.createChat = function(id){
+                                                
+                    }
                 }
             }).then(function (modal) {
                 modal.element.modal();
