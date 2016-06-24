@@ -15,4 +15,5 @@ module.exports = function (app) {
     app.get('/reject-job', auth.admin_only, admin.reject_job);
     app.get('/suggest-edit-job', auth.admin_only, admin.suggest_edit_job);
     app.get('/reject', auth.admin_only, admin.reject);
+    app.post('/add-seller', auth.admin_only, admin.add_seller);
 };

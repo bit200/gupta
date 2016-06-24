@@ -1,10 +1,10 @@
 var models = require('../db')
     , config = require('../config')
-    , m = require('../m'),
-    fs = require('fs'),
-    mkdirp = require('mkdirp'),
-    multer = require('multer'),
-    async = require('async');
+    , m = require('../m')
+    , fs = require('fs')
+    , mkdirp = require('mkdirp')
+    , multer = require('multer')
+    , async = require('async');
 
 
 exports.add_job = function (req, res) {
@@ -73,17 +73,45 @@ exports.uploadFile = function (req, res) {
 };
 
 exports.add_freelancer = function (req, res) {
-    var params = m.getBody(req);
-    params.user = req.userId;
-    m.create(models.Work, params.work, res, function (work) {
-        params.work = work._id;
-        m.create(models.ContactDetail, params.contact, res, function (contact) {
-            params.contact = contact._id
-            m.create(models.Freelancer, params, res, function (freelancer) {
-                m.findUpdate(models.User, {_id: req.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))
+    // var params = m.getBody(req);
+    // params.user = req.userId;
+    // m.create(models.Work, params.work, res, function (work) {
+    //     params.work = work._id;
+    //     m.create(models.ContactDetail, params.contact, res, function (contact) {
+    //         params.contact = contact._id
+    //         m.create(models.Freelancer, params, res, function (freelancer) {
+    //             m.findUpdate(models.User, {_id: req.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))
+    //         })
+    //     })
+    // });
+    var params = m.getBody(req)
+        , arrFunc = [];
+    arrFunc.push(function (cb) {
+        if (params.work) {
+            m.create(models.Work, params.work, res, function (work) {
+                params.work = work._id;
+                cb()
             })
-        })
+        } else {
+            cb()
+        }
     });
+    arrFunc.push(function (cb) {
+        if (params.contact) {
+            m.create(models.ContactDetail, params.contact, res, function (contact) {
+                params.contact = contact._id;
+                cb()
+            })
+        } else {
+            cb()
+        }
+    });
+
+    async.parallel(function (e, r) {
+        m.create(models.Freelancer, params, res, function(freelancer){
+            m.findUpdate(models.User, {_id: params.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))
+        })
+    })
 };
 
 exports.get_freelancer = function (req, res) {

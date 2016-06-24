@@ -43,6 +43,14 @@ XYZAdminCtrls.service('parseType', ['parseTime', function (parseTime) {
             });
             return arr
         },
+        getModel: function (Arr) {
+            var arr = [];
+            _.forEach(Arr, function (item) {
+                arr.push(item.split(' ').shift())
+
+            });
+            return arr
+        },
         job: function (item) {
             var arr = [];
             _.forEach(item, function (elem) {

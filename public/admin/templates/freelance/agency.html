@@ -1,0 +1,367 @@
+<form name="agencyRegistration" novalidate>
+    <div class="afade">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-bold">Agency Information</h3>
+
+                <p>Please provide brief information</p>
+
+                <div class="form-group" ng-class="{'has-error': submitted && agencyRegistration.name.$invalid}">
+                    <md-input-container class="md-block">
+                        <label>Name</label>
+                        <input class="form-control" name="name" unique-name ng-model="freelancer.name" required>
+
+
+                        <div ng-messages="submitted && agencyRegistration.name.$invalid">
+                            <div ng-show="submitted && agencyRegistration.name.$error.unique" ng-message="unique">Name already is taken</div>
+                            <div ng-show="submitted && agencyRegistration.name.$error.required" ng-message="required">Name is required</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div class="form-group"
+                     ng-class="{'has-error': submitted && agencyRegistration.introduction.$invalid}">
+                    <md-input-container class="md-block">
+                        <label>Provide a short introduction of you (10-15 words)</label>
+                        <input class="form-control" name="introduction" ng-model="freelancer.introduction" required>
+
+                        <div ng-messages="submitted && agencyRegistration.introduction.$invalid">
+                            <div ng-show="submitted && agencyRegistration.introduction.$error.required" ng-message="required">Introduction of you is required</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div class="form-group"
+                     ng-class="{'has-error': submitted && agencyRegistration.description.$invalid}">
+                    <md-input-container class="md-block">
+                        <label>Why should an organization pick you from many others?(your 200 words sales</label>
+                        <input class="form-control" name="description" ng-model="freelancer.description" required>
+
+                        <div ng-messages="submitted && agencyRegistration.description.$invalid">
+                            <div ng-show="submitted && agencyRegistration.description.$error.required" ng-message="required">Required field</div>
+                        </div>
+
+                    </md-input-container>
+                </div>
+
+                <div class="form-group">
+                    <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submitted && agencyRegistration.location.$invalid}">
+                        <label>Choose location</label>
+                        <md-select name="location" ng-model="freelancer.location" required>
+                            <md-option ng-repeat="item in locations" value="{{item}}">
+                                {{item}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="submitted && agencyRegistration.location.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && agencyRegistration.location.$error.required" ng-message="required">Required field</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div class="form-group testDisplay">
+
+                    <md-input-container class="selectTerm" ng-class="{'has-error': submitted && agencyRegistration.cities.$invalid}">
+                        <label>Cities where you can service</label>
+                        <md-select ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
+                                   data-md-container-class="selectdemoSelectHeader" multiple="" required>
+                            <md-select-header class="demo-select-header">
+                                <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
+                                       class="demo-header-searchbox _md-text">
+                            </md-select-header>
+                            <md-optgroup label="locations">
+                                <md-option ng-value="item" ng-repeat="item in locations | filter:$select.search ">
+                                    {{item}}
+                                </md-option>
+                            </md-optgroup>
+                            <div ng-messages="submitted && agencyRegistration.cities.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                                <div ng-show="submitted && agencyRegistration.cities.$error.required" ng-message="required">Required field</div>
+                            </div>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <div class="form-group">
+                    <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submitted && agencyRegistration.experience.$invalid}">
+                        <label>Years of Experience (in years)</label>
+                        <md-select ng-model="freelancer.experience" name="experience" required>
+                            <md-option ng-repeat="item in experience" value="{{item}}">
+                                {{item}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="submitted && agencyRegistration.experience.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && agencyRegistration.experience.$error.required" ng-message="required">Required field</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div class="form-group">
+                    <md-input-container class="selectTerm" ng-class="{'has-error': submitted && agencyRegistration.freelancer_type.$invalid}">
+                        <label>I want to register as a freelancer in</label>
+                        <md-select ng-model="freelancer.freelancer_type" md-on-close="clearSearchTerm()"
+                                   data-md-container-class="selectdemoSelectHeader" name="freelancer_type" required>
+                            <md-select-header class="demo-select-header">
+                                <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
+                                       class="demo-header-searchbox _md-text">
+                            </md-select-header>
+                            <md-optgroup label="locations">
+                                <md-option ng-value="item" ng-repeat="item in freelancerType | filter:$select.search ">
+                                    {{item}}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                        <div ng-messages="submitted && agencyRegistration.freelancer_type.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && agencyRegistration.freelancer_type.$error.required" ng-message="required">Required field</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+            <!--<div class="col-md-6">-->
+            <!--<h3 class="text-bold">Work</h3>-->
+            <!---->
+            <!--<p>Enter information about your past work</p>-->
+            <!---->
+            <!--<div class="form-group"-->
+            <!--ng-class="{'has-error': submitted && agencyRegistration.customers.$invalid}">-->
+            <!--<md-input-container class="md-block">-->
+            <!--<label>Number of Customers</label>-->
+            <!--<input class='form-control' name="customers" numbers-only ng-model="freelancer.work.customers">-->
+            <!--</div>-->
+            <!--<div class="form-group"-->
+            <!--ng-class="{'has-error': submitted && agencyRegistration.past_client.$invalid}">-->
+            <!---->
+            <!--<md-input-container class="md-block">-->
+            <!--<label>Past Clients that you have worked with</label>-->
+            <!--<input class='form-control' name="past_client" ng-model="freelancer.work.past_client">-->
+            <!--</md-input-container>-->
+            <!---->
+            <!--</div>-->
+            <!--<div class="form-group"-->
+            <!--ng-class="{'has-error': submitted && agencyRegistration.testimonials.$invalid}">-->
+            <!---->
+            <!--<md-input-container class="md-block">-->
+            <!--<label>Client Testimonials (also mention the client name)</label>-->
+            <!--<input class='form-control' name="testimonials" ng-model="freelancer.work.testimonials">-->
+            <!--</md-input-container>-->
+            <!--</div>-->
+            <!--<div class="form-group" ng-class="{'has-error': submitted && agencyRegistration.awards.$invalid}">-->
+            <!--<md-input-container class="md-block">-->
+            <!--<label>Awards and Recognition</label>-->
+            <!--<input class='form-control' name="awards" ng-model="freelancer.work.awards">-->
+            <!--</md-input-container>-->
+            <!---->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<div>Upload samples of work <a class="pointer floatR" ng-click="attachFile()">Attach Files</a>-->
+            <!--</div>-->
+            <!--<div class="text-right">-->
+            <!--<div class="row Files" ng-repeat="globalFile in globalFiles track by $index">-->
+            <!--<div class="col-xs-4 text-left">{{globalFile.name}}-->
+            <!--</div>-->
+            <!--<div class="col-xs-8 floatR">-->
+            <!--<img ngf-src="globalFile" ng-show="globalFile" ngf-thumbnail="globalFile" class="thumb">-->
+            <!--<a href="" class="boxclose" ng-click="deleteNewFile(globalFile.result.data._id,$index)"-->
+            <!--ng-show="globalFile"></a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!---->
+            <!--<div class="row">-->
+            <!--<div class="col-md-6">-->
+            <!--<h3 class="text-bold">Content Writing</h3>-->
+            <!---->
+            <!--<p>Please provide information about the Content Writing services you offer</p>-->
+            <!---->
+            <!--<div class="form-group">-->
+            <!--<md-input-container class="selectTerm">-->
+            <!--<label>Industry Expertise (select top 5)</label>-->
+            <!--<md-select ng-model="freelancer.industry_expertise" md-on-close="clearSearchTerm()"-->
+            <!--data-md-container-class="selectdemoSelectHeader" multiple>-->
+            <!--<md-select-header class="demo-select-header">-->
+            <!--<input ng-model="searchTerm" type="search" placeholder="Search for a cities.."-->
+            <!--class="demo-header-searchbox _md-text">-->
+            <!--</md-select-header>-->
+            <!--<md-optgroup label="locations">-->
+            <!--<md-option ng-value="item" ng-repeat="item in industry | filter:$select.search ">-->
+            <!--{{item}}-->
+            <!--</md-option>-->
+            <!--</md-optgroup>-->
+            <!--</md-select>-->
+            <!--</md-input-container>-->
+            <!---->
+            <!---->
+            <!--</div>-->
+            <!---->
+            <!--<div class="form-group">-->
+            <!---->
+            <!--<md-input-container class="selectTerm">-->
+            <!--<label>Content Type</label>-->
+            <!--<md-select ng-model="freelancer.content_type" md-on-close="clearSearchTerm()"-->
+            <!--data-md-container-class="selectdemoSelectHeader" multiple="">-->
+            <!--<md-select-header class="demo-select-header">-->
+            <!--<input ng-model="searchTerm" type="search" placeholder="Search for a cities.."-->
+            <!--class="demo-header-searchbox _md-text">-->
+            <!--</md-select-header>-->
+            <!--<md-optgroup label="locations">-->
+            <!--<md-option ng-value="item" ng-repeat="item in content | filter:$select.search ">-->
+            <!--{{item}}-->
+            <!--</md-option>-->
+            <!--</md-optgroup>-->
+            <!--</md-select>-->
+            <!--</md-input-container>-->
+            <!---->
+            <!---->
+            <!--</div>-->
+            <!---->
+            <!--<div class="form-group">-->
+            <!--<md-input-container class="selectTerm">-->
+            <!--<label>Languages in which you write</label>-->
+            <!--<md-select ng-model="freelancer.languages" md-on-close="clearSearchTerm()"-->
+            <!--data-md-container-class="selectdemoSelectHeader" multiple="">-->
+            <!--<md-select-header class="demo-select-header">-->
+            <!--<input ng-model="searchTerm" type="search" placeholder="Search for a cities.."-->
+            <!--class="demo-header-searchbox _md-text">-->
+            <!--</md-select-header>-->
+            <!--<md-optgroup label="locations">-->
+            <!--<md-option ng-value="item" ng-repeat="item in language | filter:$select.search">-->
+            <!--{{item}}-->
+            <!--</md-option>-->
+            <!--</md-optgroup>-->
+            <!--</md-select>-->
+            <!--</md-input-container>-->
+            <!---->
+            <!--</div>-->
+            <!---->
+            <!--<div class="form-group">-->
+            <!--<div>Please specify pricing for your services</div>-->
+            <!--<div class="row">-->
+            <!--<div class="col-xs-3 paddingT20">-->
+            <!--<md-checkbox ng-click="priceHour=false;service=false;freelancer.price.hour=[]"-->
+            <!--ng-model="priceWord"-->
+            <!--class="md-warn">Rs. Per word-->
+            <!--</md-checkbox>-->
+            <!--</div>-->
+            <!--<div class="col-xs-9">-->
+            <!--<md-input-container class="md-block">-->
+            <!--<input class='form-control' numbers-only ng-disabled="!priceWord"-->
+            <!--ng-model="freelancer.price.word" aria-label="Price Word">-->
+            <!---->
+            <!--</md-input-container>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+            <!--<div class="col-xs-3 paddingT20">-->
+            <!---->
+            <!---->
+            <!--<md-checkbox ng-click="priceWord=false;service=false;freelancer.price.word = []"-->
+            <!--ng-model="priceHour"-->
+            <!--class="md-warn">Rs. Per word-->
+            <!--</md-checkbox>-->
+            <!--</div>-->
+            <!--<div class="col-xs-9">-->
+            <!---->
+            <!--<md-input-container class="md-block">-->
+            <!--<input class='form-control' numbers-only ng-disabled="!priceHour"-->
+            <!--ng-model="freelancer.price.hour" aria-label="Price Hour">-->
+            <!---->
+            <!--</md-input-container>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+            <!--<div class="col-xs-4">-->
+            <!--<md-checkbox ng-click="priceHour=false;priceWord=false;freelancer.price=[]"-->
+            <!--ng-model="addService" class="md-warn">-->
+            <!--<span>Packaged Services(?)</span>-->
+            <!--</md-checkbox>-->
+            <!--</div>-->
+            <!--<div class="col-xs-8">-->
+            <!--<a class="pointer"-->
+            <!--ng-click="priceHour=false; priceWord=false; freelancer.price=[]; addService=true; addPackage(addService)">Create-->
+            <!--Packages</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row" ng-if="freelancer.service_packages.length">-->
+            <!--<table class="table table-bordered table-striped">-->
+            <!--<tr>-->
+            <!--<td>Title</td>-->
+            <!--<td>Price</td>-->
+            <!--<td>close</td>-->
+            <!--</tr>-->
+            <!--<tr ng-repeat="elem in new_services">-->
+            <!--<td>{{elem.title}}</td>-->
+            <!--<td>{{elem.pricing}}</td>-->
+            <!--<td><i class="fa fa-times" aria-hidden="true" ng-click="delete_package(elem)"></i></td>-->
+            <!--</tr>-->
+            <!---->
+            <!--</table>-->
+            <!---->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+            <!--<h3 class="text-bold">Contact Details</h3>-->
+            <!---->
+            <!--<p>Please provide contact details at which marketers can contact you</p>-->
+            <!---->
+            <!--<div class="form-group"-->
+            <!--ng-class="{'has-error': submitted && agencyRegistration.contact_name.$invalid}">-->
+            <!---->
+            <!--<md-input-container class="md-block">-->
+            <!--<label>Contact Person Name</label>-->
+            <!--<input class='form-control' name="contact_name" ng-model="freelancer.contact.name" required>-->
+            <!---->
+            <!--<div ng-messages="submitted && agencyRegistration.contact_name.$invalid">-->
+            <!--<div ng-show="submitted && agencyRegistration.contact_name.$error.required" ng-message="required">Contact Person Name is required</div>-->
+            <!--</div>-->
+            <!--</md-input-container>-->
+            <!--</div>-->
+            <!--<div class="form-group"-->
+            <!--ng-class="{'has-error': submitted && agencyRegistration.contact_email.$invalid}">-->
+            <!--<md-input-container class="md-block">-->
+            <!--<label>Email ID at which marketers can contact you</label>-->
+            <!--<input class='form-control' name="contact_email" ng-model="freelancer.contact.email" required-->
+            <!--ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>-->
+            <!---->
+            <!--<div ng-messages="submitted && agencyRegistration.contact_name.$invalid">-->
+            <!--<div ng-show="submitted && agencyRegistration.contact_email.$error.required" ng-message="required">Email ID is required</div>-->
+            <!--<div ng-show="submitted && !agencyRegistration.contact_email.$error.required && agencyRegistration.contact_email.$error.pattern"-->
+            <!--ng-message="pattern">Email ID is invalid</div>-->
+            <!--</div>-->
+            <!--</md-input-container>-->
+            <!--</div>-->
+            <!--<div class="form-group"-->
+            <!--ng-class="{'has-error': submitted && agencyRegistration.contact_mobile.$invalid}">-->
+            <!---->
+            <!--<md-input-container class="md-block">-->
+            <!--<label>Mobile Number to send the contact request (will not be displayed)</label>-->
+            <!--<input class='form-control' phone-number name="contact_mobile"-->
+            <!--ng-model="freelancer.contact.mobile"-->
+            <!--required>-->
+            <!---->
+            <!--<div ng-messages="submitted && agencyRegistration.contact_mobile.$invalid">-->
+            <!--<div ng-show="submitted && agencyRegistration.contact_mobile.$error.required" ng-message="required">Mobile Number is required</div>-->
+            <!--</div>-->
+            <!---->
+            <!--</md-input-container>-->
+            <!---->
+            <!---->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<div>Upload Profile Image <a class="pointer floatR" ng-click="downloadPicProfile()">Attach Files</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row ">-->
+            <!---->
+            <!--</div>-->
+            <!--<div class="col-xs-12 floatL">-->
+            <!--<img ngf-src="globalImg[1]" ng-show="globalImg[1]" ngf-thumbnail="globalImg[0]" class="thumbImg">-->
+            <!--<a href="" class="boxclose" ng-click="deleteNewImg(globalImg[0].data._id)"-->
+            <!--ng-show="globalImg.length"></a>-->
+            <!--</div>-->
+            <!--</div>-->
+
+        </div>
+
+    </div>
+</form>

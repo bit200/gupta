@@ -371,3 +371,11 @@ li {
 .noborder {
     outline: none;
 }
+
+md-backdrop.md-select-backdrop {
+    z-index:103;
+}
+
+.md-select-menu-container {
+    z-index:19999;
+}

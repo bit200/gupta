@@ -369,6 +369,9 @@ div.text-padding {
 .marginR10 {
     margin-right: 10%;
 }
+.marginL20 {
+    margin-left: 20px;
+}
 
 .marginTB20 {
     margin: 20px 0;

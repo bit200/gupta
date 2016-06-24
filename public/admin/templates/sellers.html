@@ -1,7 +1,14 @@
 <div class="content">
     <div class="row">
-        <div class="col-md-3">
-
+        <div class="col-md-11">
+            <input class="form-control marginTB20" ng-model="searchSeller.elem.name">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-default full-width marginTB20"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
             <div>
                 <md-input-container class="selectTerm">
                     <label>Category</label>
@@ -53,9 +60,9 @@
                 </md-input-container>
             </div>
             <div class="text-center paddingB10"><a class="pointer" ng-click="reset()">Reset</a></div>
-            <div class="full-width btn btn-default">Add New Seller</div>
+            <div class="full-width btn btn-default" ng-click="addSeller()">Add New Seller</div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <table class="table  table-striped">
                 <thead>
                 <tr>
@@ -63,7 +70,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="seller in sellers |filter:filter">
+                <tr ng-repeat="seller in sellers |filter:filter | filter:searchSeller">
                     <td ng-repeat="(key,value) in seller.data">
                         <span ng-if="key == 'Service Category'" ng-repeat="elem in seller.data[key] track by $index">{{elem}}<span ng-if="!$last">, </span></span>
                         <span ng-if="key != 'Service Category' && key != 'Display Name'">{{value}}</span>

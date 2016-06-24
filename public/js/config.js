@@ -152,8 +152,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                     distinctName: 'name'
                                 }
                             }),
-                            clients: $http.get('/get-client')
-                        })
+                            clients: $http.get('/get-client')                        })
                     }
                 }
             })

@@ -13,6 +13,8 @@
 
     <link href="files/css/switchery.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../bower_components/ng-dialog/css/ngDialog.css">
+    <link rel="stylesheet" href="../bower_components/ng-dialog/css/ngDialog-theme-default.css">
     <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css">
     <link href="files/css/core.css" rel="stylesheet" type="text/css">
     <link href="files/css/menu.css" rel="stylesheet" type="text/css">
@@ -64,6 +66,12 @@
                     </button>
                     <span class="clearfix"></span>
                 </div>
+                <div class="pull-left">
+                    <button ng-click="choice('category')" class="button-menu-mobile open-left waves-effect"
+                            ng-class="{choice:isActive.category}">Category
+                    </button>
+                    <span class="clearfix"></span>
+                </div>
 
 
                 <ul class="nav navbar-nav navbar-right pull-right">
@@ -104,6 +112,7 @@
 <script src="../bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>
 <script src="../bower_components/angular-aria/angular-aria.js"></script>
 <script src="../bower_components/angular-material/angular-material.js"></script>
+<script src="../bower_components/ng-dialog/js/ngDialog.min.js"></script>
 <script src="../admin/js/app.js"></script>
 <script src="../admin/js/controller.js"></script>
 <script src="../admin/js/directive.js"></script>

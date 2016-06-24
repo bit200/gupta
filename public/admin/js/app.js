@@ -7,7 +7,8 @@ var XYZAdmin = angular.module('XYZAdmin', [
     'XYZAdminCtrls',
     'bw.paging',
     'angularModalService',
-    'ngMaterial'
+    'ngMaterial',
+    'ngDialog'
 ]);
 
 XYZAdmin.config(['$routeProvider', '$httpProvider',
@@ -73,7 +74,36 @@ XYZAdmin.config(['$routeProvider', '$httpProvider',
                                     query: {},
                                     distinctName: 'name'
                                 }
-                            })
+                            }),
+                            industry: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'BloggersAndInfluencers', filter: 'Industry Expertise'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            content: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            languages: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Languages'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            freelancerType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'FreelancerType'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            clients: $http.get('/get-client')
                         })
                     }
                 }
