@@ -10,12 +10,8 @@
                 </div>
                 <div class="user-topic-bottom" toggle="close.workType">
                     <div class="full-width marginLR20">
-                        <div>
-                            <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.agency" value="agency"> Agency
-                        </div>
-                        <div>
-                            <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.freelancer" value="freelancer"> Freelancer
-                        </div>
+                        <md-checkbox ng-model="ownFilter.agency" ng-change="submitFilter(ownFilter)" class="md-warn">Agency</md-checkbox>
+                        <md-checkbox ng-model="ownFilter.freelancer" ng-change="submitFilter(ownFilter)" class="md-warn">Freelancer</md-checkbox>
                     </div>
                 </div>
             </div>
@@ -28,16 +24,14 @@
                 </div>
                 <div class="user-topic-bottom" toggle="close.topic">
                     <div class="full-width">
-                        <div class="width75 inlineBlock">
-                            <input class="form-control user-topic-input" placeholder="Search by Service Provided" ng-model="search">
-                        </div>
-                        <div class="width20 inlineBlock">
-                            <span class="glyphicon glyphicon-search user-search-icon"></span>
-                        </div>
+                        <md-input-container md-no-float class="md-block" style="margin-bottom: 0px">
+                            <input ng-model="search" type="text" placeholder="Search by Service Provided" >
+                            <md-icon md-svg-src="/img/search.svg" style="display:inline-block;"></md-icon>
+                        </md-input-container>
                     </div>
                     <div class="full-width">
                         <div ng-repeat="item in arrayTopics| filter:search">
-                            <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.industry_expertise[item]">{{item}}
+                            <md-checkbox ng-model="ownFilter.industry_expertise[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
                         </div>
                     </div>
                 </div>
@@ -50,7 +44,7 @@
                 </div>
                 <div class="user-block-bottom" toggle="close.content">
                     <div ng-repeat="item in arrayContent">
-                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.content_type[item]">{{item}}
+                        <md-checkbox ng-model="ownFilter.content_type[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
                     </div>
                 </div>
             </div>
@@ -72,7 +66,7 @@
                 </div>
                 <div class="user-block-bottom" toggle="close.location">
                     <div ng-repeat="item in arrayLocations">
-                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.location[item]">{{item}}
+                        <md-checkbox ng-model="ownFilter.location[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
                     </div>
                 </div>
             </div>
@@ -84,7 +78,7 @@
                 </div>
                 <div class="user-block-bottom" toggle="close.languages">
                     <div ng-repeat="item in arrayLanguages">
-                        <input type="checkbox" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.languages[item]">{{item}}
+                        <md-checkbox ng-model="ownFilter.languages[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
                     </div>
                 </div>
             </div>
@@ -95,40 +89,28 @@
                     <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.package,'fa-chevron-up': close.package}" aria-hidden="true" ng-click="close.package = !close.package"></i>
                 </div>
                 <div class="user-block-bottom" toggle="close.package">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="true">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" ng-change="submitFilter(ownFilter)" ng-model="ownFilter.package" value="false">
-                            No
-                        </label>
-                    </div>
+                    <md-radio-group ng-model="ownFilter.package">
+                        <md-radio-button ng-value="true" aria-label="Yes">Yes</md-radio-button>
+                        <md-radio-button ng-value="false" aria-label="No">No</md-radio-button>
+                    </md-radio-group>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
-            <div class="row">
+            <h1></h1>
+            <input class="form-control" ng-model="mainSearch.name">
 
-                <div class="col-md-8 padding3 marginT20 border-box background-white" ng-init="category_active='rating'">
-                    <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-rating'}" ng-click="category_active = '-rating'">Ratings</span></div>
-                    <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-view'}" ng-click="category_active = '-view'">Profile Views</span></div>
-                    <div class="width24 inlineBlock padding10 text-center" ng-show="ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == '-number_employees'}" ng-click="category_active = '-number_employees'">Number of employees</span>
-                    </div>
-                    <div class="width24 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'low'}" ng-click="category_active = 'low'">Low to High Price</span></div>
-                    <div class="width24 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active = 'high'">High to Low Price</span></div>
-                </div>
-                <div class="col-md-4 marginT20">
-                    <input class="form-control" ng-model="mainSearch.name">
-                </div>
+            <div class="full-width marginT20 border-box background-white" ng-init="category_active='rating'">
+                <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-rating'}" ng-click="category_active = '-rating'">Ratings</span></div>
+                <div class="width24 inlineBlock padding10 text-center"><span class="pointer" ng-class="{'active-category':category_active == '-view'}" ng-click="category_active = '-view'">Profile Views</span></div>
+                <div class="width24 inlineBlock padding10 text-center" ng-show="ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == '-number_employees'}" ng-click="category_active = '-number_employees'">Number of employees</span></div>
+                <div class="width25 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'low'}" ng-click="category_active = 'low'">Low to High Price</span></div>
+                <div class="width25 inlineBlock padding10 text-center" ng-show="!ownFilter.agency"><span class="pointer" ng-class="{'active-category':category_active == 'high'}" ng-click="category_active = 'high'">High to Low Price</span></div>
             </div>
             <div class="row marginT20">
-                <div class="col-md-12 col-xs-6 text-center" ng-if="!(freelancer | orderBy:category_active | filter:mainSearch).length"><h3>There are no profiles with that filters</h3></div>
+                <div class="col-md-12 col-xs-6" ng-if="!(freelancer | orderBy:category_active | filter:mainSearch).length"><h3>Not one profile card not found</h3></div>
 
-                <div class="col-md-3 col-xs-6 noborder pointer" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch" ng-click="showProfile(profile._id)">
+                <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch" ng-click="showProfile(profile._id)">
                     <div class="profile-detail">
                         <img class="profile-poster-detail" ng-src="{{profile.poster}}">
 

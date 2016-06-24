@@ -1,27 +1,19 @@
-<div class="container">
-    <h1 class="row text-center text-bold">Agency/Freelancer Registration</h1>
+<div class="container" ng-init="freelancer.type='agency'">
+    <h1 class="row text-center text-bold" ng-show="freelancer.type=='agency'">Agency Registration</h1>
+    <h1 class="row text-center text-bold" ng-show="freelancer.type=='freelancer'">Freelancer Registration</h1>
 
-    <form name="freelancerRegistration" novalidate>
-        <div class="row" ng-init="freelancer.type='agency'">
-            <div class="col-md-12">
-                <div class="radio-inline">
-                    <label>
-                        <input type="radio" ng-model="freelancer.type" value="agency">
-                        Agency
-                    </label>
-                </div>
-                <div class="radio-inline">
-                    <label>
-                        <input type="radio" ng-model="freelancer.type" value="freelancer">
-                        Freelancer
-                    </label>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <md-radio-group ng-model="freelancer.type">
+                <md-radio-button value="agency" class="md-primary">Agency</md-radio-button>
+                <md-radio-button value="freelancer" >Freelancer</md-radio-button>
+            </md-radio-group>
         </div>
+    </div>
 
-        <div ng-if="freelancer.type == 'agency'" ng-include="'/template/freelance/agency.html'"></div>
-        <div ng-if="freelancer.type == 'freelancer'" ng-include="'template/freelance/freelancer.html'"></div>
-    </form>
+    <div ng-show="freelancer.type == 'agency'" ng-include="'/template/freelance/agency.html'"></div>
+    <div ng-show="freelancer.type == 'freelancer'" ng-include="'template/freelance/freelancer.html'"></div>
 </div>
 
 <div ng-if="viewModal" class="delete-modal-block">

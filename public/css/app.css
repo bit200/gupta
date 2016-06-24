@@ -1047,6 +1047,10 @@ div.containerCrop {
     }
 }
 
+.has-error .md-select-value{
+    border-bottom-color: red;
+}
+
 @media (min-width: 992px) {
     .profile-detail {
         width: 10vw;
