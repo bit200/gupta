@@ -1,7 +1,7 @@
 /* Controllers */
 
 angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent',
-    '$routeParams', 'ngDialog', 'Upload', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, Upload) {
+    '$routeParams', 'ngDialog', 'AuthService', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, AuthService) {
         scope.freelancer = {isagency: true};
         rootScope.globalFiles = [];
         scope.industry = getContent.industry.data.data;
@@ -11,61 +11,77 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.locations = getContent.locations.data.data;
         scope.clients = getContent.clients.data.data;
         scope.experience = _.range(51);
-        scope.extras = [];
-        scope.new_services = [];
         scope.showLink = false;
         rootScope.globalImg = [];
+        scope.package = {};
+        scope.show = {};
 
-        if (routeParams.id) {
-            http.get('/freelancer', {params: {_id: routeParams.id}}).then(function (resp) {
-                scope.freelancer = resp.data.data[0]
-            })
+        scope.scrollToErr = function(){
+            $timeout(function(){
+                angular.element("body").animate({scrollTop: angular.element('.has-error').eq(0).offset().top - 100}, "slow");
+
+            },500)
+        };
+
+        if (AuthService.currentUser().freelancer){
+            scope.freelancer = AuthService.currentUser().freelancer;
         }
         scope.clearSearchTerm = function () {
             scope.searchTerm = '';
         };
 
-
         scope.contentModel = parseType.getModel(scope.content);
 
         scope.register = function (invalid, freelancer,files,img) {
-            if (invalid) return;
+            if (invalid) {
+                scope.scrollToErr()
+                return;
+            }
             var arrayIdFiles = [];
             for(var i = 0 ; i<files.length;i++){
                 arrayIdFiles.push(files[i].result.data._id);
             }
             if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
-            freelancer.attachments = arrayIdFiles;
-            // freelancer.profile = img[0].data._id;
+            freelancer.Attachments = freelancer.Attachments || [];
+            freelancer.Attachments = freelancer.Attachments.concat(arrayIdFiles)
+            if (img && img.length)
+                freelancer.poster = img[0].data._id;
             http.post('/freelancer', freelancer).then(function (resp) {
-                    location.path('/home')
-                }, function (err, r) {
-                }
-            )
+                rootScope.globalFiles = [];
+                AuthService.setCurrentUser()
+                location.path('/')
+            }, function (err, r) {
+            })
         };
 
-        scope.addPackage = function (bol) {
-            scope.viewModal = bol
+        scope.addExtra = function(obj){
+            obj = obj || {}
+            scope.package.extras = scope.package.extras || [];
+            if (obj.description && obj.price)
+                scope.package.extras.push(obj)
         };
 
-        scope.custom = {};
-        scope.submitExtra = function (invalid, extra) {
+        scope.createPackage = function(){
+            scope.priceHour=false; 
+            scope.priceWord=false; 
+            scope.freelancer.price=[]; 
+            scope.addService=true;
+            scope.package={};
+            scope.show.pkgModal=true;
+        }
+        
+        scope.submitPackage = function (invalid, service) {
             if (invalid) return;
-            scope.extras.push(extra);
-            scope.custom = {};
-        };
-
-        scope.createPackage = function (invalid, service) {
-            if (invalid) return;
-            scope.freelancer.service_packages = scope.freelancer.service_packages || [];
-            service.extras = scope.extras;
             http.post('/add-package', service).then(function (resp) {
-                    scope.viewModal = false;
-                    scope.new_services.push(resp.data.data);
-                    scope.freelancer.service_packages.push(resp.data.data._id)
-                }, function (err, r) {
-                }
-            )
+                angular.extend(scope.freelancer,resp.data)
+                scope.show.pkgModal = false;
+            }, function (err, r) {
+
+            })
+        };
+
+        scope.editPackage = function(pkg){
+            scope.package = angular.copy(pkg);
         };
 
         scope.delete_package = function (item) {

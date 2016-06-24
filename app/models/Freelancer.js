@@ -7,7 +7,7 @@ var FreelancerSchema = mongoose.Schema({
     introduction: String,
     description: String,
     location: String,
-    cities_service: Array,
+    cities: Array,
     experience: Number,
     freelancer_type: Array,
     industry_expertise: Array,
@@ -15,9 +15,18 @@ var FreelancerSchema = mongoose.Schema({
     languages: Array,
     service_type: String,
     service_price: Number,
-    poster: String,
-    service_packages: Array,
-    Attachments: Array,
+    poster: {
+        type: Number,
+        ref: 'UploadFile'
+    },
+    service_packages: [{
+        type: Number,
+        ref: 'Package'
+    }],
+    Attachments: [{
+        type: Number,
+        ref: 'UploadFile'
+    }],
     profile: String,
     number_employees: Number,
     work: {

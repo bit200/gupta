@@ -191,25 +191,21 @@ XYZCtrls.service('parseRating', function () {
 XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '$location',
         function($q, $rootScope, ModalService, $http, $location){
             var authTokens = {};
-            var loggedIn = false;
+            var loggedIn = false, currentUser;
 
-            if (localStorage.getItem('accessToken')){
-                authTokens = {
-                    accessToken: localStorage.getItem('accessToken'),
-                    refreshToken: localStorage.getItem('refreshToken')
-                };
-                loggedIn = true
-            }
-            var self = this;
             var resObj = {
                 setTokens: function(tokens){
                     authTokens = tokens;
                     localStorage.setItem('accessToken', tokens.accessToken);
                     localStorage.setItem('refreshToken', tokens.refreshToken);
+                    resObj.setCurrentUser()
                     loggedIn = true;
                 },
                 isLogged: function(){
                     return loggedIn
+                },
+                currentUser: function(){
+                    return currentUser
                 },
                 logout: function(){
                     localStorage.clear();
@@ -223,6 +219,11 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                         deferred.reject()
                     }
                     return deferred.promise;
+                },
+                setCurrentUser: function(){
+                    $http.get('/me').success(function(resp){
+                        currentUser = resp.data
+                    });
                 },
                 showLogin: function(redirectTo){
                     ModalService.showModal({
@@ -262,7 +263,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                             };
                             $scope.close = function(res){
                                 $element.modal('hide');
-                                close(res, 200)
+                                close(res, 200);
                             }
                         }
                     }).then(function (modal) {
@@ -276,6 +277,13 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                 }
 
             };
+            if (localStorage.getItem('accessToken')){
+                resObj.setTokens({
+                    accessToken: localStorage.getItem('accessToken'),
+                    refreshToken: localStorage.getItem('refreshToken')
+                });
+                loggedIn = true
+            }
 
             return resObj
         }]);

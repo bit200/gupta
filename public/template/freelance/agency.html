@@ -73,10 +73,10 @@
                                     {{item}}
                                 </md-option>
                             </md-optgroup>
-                            <div ng-messages="submitted && agencyRegistration.cities.$invalid" ng-class="{'md-auto-hide': !submitted}">
-                                <div ng-show="submitted && agencyRegistration.cities.$error.required" ng-message="required">Required field</div>
-                            </div>
                         </md-select>
+                        <div ng-messages="submitted && agencyRegistration.cities.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && agencyRegistration.cities.$error.required" ng-message="required">Required field</div>
+                        </div>
                     </md-input-container>
                 </div>
     
@@ -97,7 +97,7 @@
                     <md-input-container class="selectTerm" ng-class="{'has-error': submitted && agencyRegistration.freelancer_type.$invalid}">
                         <label>I want to register as a freelancer in</label>
                         <md-select ng-model="freelancer.freelancer_type" md-on-close="clearSearchTerm()"
-                                   data-md-container-class="selectdemoSelectHeader" name="freelancer_type" required>
+                                   data-md-container-class="selectdemoSelectHeader" name="freelancer_type" multiple required>
                             <md-select-header class="demo-select-header">
                                 <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
                                        class="demo-header-searchbox _md-text">
@@ -276,22 +276,25 @@
                             </md-checkbox>
                         </div>
                         <div class="col-xs-8">
-                            <a class="pointer"
-                               ng-click="priceHour=false; priceWord=false; freelancer.price=[]; addService=true; addPackage(addService)">Create
-                                Packages</a>
+                            <a class="pointer" ng-click="createPackage()">
+                                Create Packages
+                            </a>
                         </div>
                     </div>
                     <div class="row" ng-if="freelancer.service_packages.length">
                         <table class="table table-bordered table-striped">
                             <tr>
-                                <td>Title</td>
-                                <td>Price</td>
-                                <td>close</td>
+                                <td style="width: 30%">Price</td>
+                                <td style="width: 50%">Title</td>
+                                <td style="width: 20%">Action</td>
                             </tr>
-                            <tr ng-repeat="elem in new_services">
-                                <td>{{elem.title}}</td>
-                                <td>{{elem.pricing}}</td>
-                                <td><i class="fa fa-times" aria-hidden="true" ng-click="delete_package(elem)"></i></td>
+                            <tr ng-repeat="elem in freelancer.service_packages">
+                                <td style="width: 30%">{{elem.title}}</td>
+                                <td style="width: 50%">{{elem.pricing}}</td>
+                                <td style="width: 20%">
+                                    <ng-md-icon icon="cancel" ng-click="delete_package(elem)" style="fill: red;cursor: pointer"></ng-md-icon>
+                                    <ng-md-icon icon="mode_edit" ng-click="editPackage(elem);show.pkgModal=true" style="fill: #63acff;cursor: pointer"></ng-md-icon>
+                                </td>
                             </tr>
     
                         </table>
@@ -309,7 +312,7 @@
     
                     <md-input-container class="md-block">
                         <label>Contact Person Name</label>
-                        <input class='form-control' name="contact_name" ng-model="freelancer.contact.name" required>
+                        <input class='form-control' name="contact_name" ng-model="freelancer.contact_detail.name" required>
     
                         <div ng-messages="submitted && agencyRegistration.contact_name.$invalid">
                             <div ng-show="submitted && agencyRegistration.contact_name.$error.required" ng-message="required">Contact Person Name is required</div>
@@ -320,7 +323,7 @@
                      ng-class="{'has-error': submitted && agencyRegistration.contact_email.$invalid}">
                     <md-input-container class="md-block">
                         <label>Email ID at which marketers can contact you</label>
-                        <input class='form-control' name="contact_email" ng-model="freelancer.contact.email" required
+                        <input class='form-control' name="contact_email" ng-model="freelancer.contact_detail.email" required
                                ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
     
                         <div ng-messages="submitted && agencyRegistration.contact_name.$invalid">
@@ -336,7 +339,7 @@
                     <md-input-container class="md-block">
                         <label>Mobile Number to send the contact request (will not be displayed)</label>
                         <input class='form-control' phone-number name="contact_mobile"
-                               ng-model="freelancer.contact.mobile"
+                               ng-model="freelancer.contact_detail.mobile"
                                required>
     
                         <div ng-messages="submitted && agencyRegistration.contact_mobile.$invalid">
@@ -355,6 +358,7 @@
     
                 </div>
                 <div class="col-xs-12 floatL">
+                    <img ng-src="{{freelancer.poster.url.replace('/public', '')}}" ng-hide="globalImg.length" style="max-width: 90px"/>
                     <img ngf-src="globalImg[1]" ng-show="globalImg[1]" ngf-thumbnail="globalImg[0]" class="thumbImg">
                     <a href="" class="boxclose" ng-click="deleteNewImg(globalImg[0].data._id)"
                        ng-show="globalImg.length"></a>

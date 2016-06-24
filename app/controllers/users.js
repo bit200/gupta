@@ -17,7 +17,20 @@ exports.list = function (req, res) {
 
 
 exports.me = function (req, res) {
-    m.findOne(models.User, {_id: req.userId}, res, res, {publish: true})
+    m.findOne(models.User, {_id: req.userId}, res, res, {publish: true, populate: {
+        path: 'freelancer',
+        populate: [{
+            path: 'poster'
+        },{
+            path: 'work'
+        },{
+            path: 'service_packages'
+        },{
+            path: 'contact_detail'
+        },{
+            path: 'Attachments'
+        }]
+    }})
 };
 
 exports.update_password = function (req, res) {

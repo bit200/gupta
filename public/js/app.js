@@ -12,5 +12,6 @@ var XYZApp = angular.module('XYZApp', [
     'cgNotify',
     'XYZCtrls',
     'ngFileUpload',
-    'ngImgCrop'
+    'ngImgCrop',
+    'ngMdIcons'
 ]);

@@ -2,6 +2,7 @@ var models = require('../db')
     , config = require('../config')
     , m = require('../m'),
     fs = require('fs'),
+    _ = require('underscore'),
     mkdirp = require('mkdirp'),
     multer = require('multer'),
     async = require('async');
@@ -28,6 +29,16 @@ exports.deleteFile = function (req, res) {
                 });
             });
             cb(null)
+        },
+        function(cb){
+            models.Freelancer.findOne({user: req.userId}).exec(function(err, user){
+                if (user.Attachments && user.Attachments.length && user.Attachments.indexOf(req.body._id)>-1){
+                    user.Attachments.splice(user.Attachments.indexOf(req.body._id),1);
+                    user.save(function(){cb()})
+                }else{
+                    cb()
+                }
+            })
         },
         function (cb) {
             m.findRemove(models.UploadFile, {_id: req.body._id}, res, function (data) {
@@ -75,12 +86,30 @@ exports.uploadFile = function (req, res) {
 exports.add_freelancer = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;
-    m.create(models.Work, params.work, res, function (work) {
+    console.log(params.work)
+    var wQ = {}
+    if (params.work && params.work._id) wQ._id =  params.work._id
+    m.findCreateUpdate(models.Work, {_id: params.work._id} ,params.work, res, function (work) {
         params.work = work._id;
-        m.create(models.Contact, params.contact, res, function (contact) {
-            params.contact = contact._id
-            m.create(models.Freelancer, params, res, function (freelancer) {
-                m.findUpdate(models.User, {_id: req.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))
+        var cQ = {}
+        if (params.contact_detail && params.contact_detail._id) cQ._id =  params.contact_detail._id;
+        m.findCreateUpdate(models.ContactDetail, cQ, params.contact_detail, res, function (contact_detail) {
+            params.contact_detail = contact_detail._id
+            var fQ = {};
+            if (params._id) fQ._id =  params._id
+            m.findCreateUpdate(models.Freelancer, fQ, params, res, function (freelancer) {
+                m.findUpdate(models.User, {_id: req.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res), {populate: [{
+                    path: 'poster'
+                },{
+                    path: 'work'
+                },{
+                    path: 'service_packages'
+                },{
+                    path: 'contact_detail'
+                },{
+                    path: 'Attachments'
+                }]
+                })
             })
         })
     });
@@ -100,12 +129,51 @@ exports.get_freelancer = function (req, res) {
     }
 
     log('params', params);
-    m.find(models.Freelancer, params, res, res, {populate: 'user contact_detail work'})
+    m.find(models.Freelancer, params, res, res, {populate: 'user contact_detail work poster'})
 };
 
 exports.add_package = function (req, res) {
     var params = m.getBody(req);
-    m.create(models.Package, params, res, res)
+    var isNew = true;
+    async.waterfall([
+        function(cb){
+            if (params._id){
+                models.Package.findOne({_id: params._id}).exec(function(err, pkg){
+                    isNew = false;
+                    _.extend(pkg,params)
+                    cb(null,pkg)
+                });
+            }else{
+                cb(null, new models.Package(params))
+            }
+        },
+        function(pkg, cb){
+            pkg.save(function(){
+                cb(null,pkg)
+            })
+        },
+        function(pkg, cb){
+            models.Freelancer.findOne({user: req.userId}).populate('service_packages').exec(function(err, freelancer){
+                if (!isNew) {
+                    return cb(null, freelancer)
+                }else{
+                    if (!freelancer) freelancer = new models.Freelancer();
+                    freelancer.service_packages = freelancer.service_packages || [];
+                    freelancer.service_packages.push(pkg);
+                    freelancer.save(function(){
+                        freelancer.populate('service_packages', function(){
+                            cb(null, freelancer)
+                        })
+                    })
+                }
+            });
+        }
+    ],function(err, freelancer){
+        res.jsonp(freelancer)
+
+    })
+
+
 };
 
 exports.get_my_job = function (req, res) {

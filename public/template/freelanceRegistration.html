@@ -1,10 +1,9 @@
-<div class="container" ng-init="freelancer.type='agency'">
+<div class="container" ng-init="freelancer.type=freelancer.type || 'agency'">
     <h1 class="row text-center text-bold" ng-show="freelancer.type=='agency'">Agency Registration</h1>
     <h1 class="row text-center text-bold" ng-show="freelancer.type=='freelancer'">Freelancer Registration</h1>
 
     <div class="row">
         <div class="col-md-12">
-
             <md-radio-group ng-model="freelancer.type">
                 <md-radio-button value="agency" class="md-primary">Agency</md-radio-button>
                 <md-radio-button value="freelancer" >Freelancer</md-radio-button>
@@ -15,8 +14,7 @@
     <div ng-show="freelancer.type == 'agency'" ng-include="'/template/freelance/agency.html'"></div>
     <div ng-show="freelancer.type == 'freelancer'" ng-include="'template/freelance/freelancer.html'"></div>
 </div>
-
-<div ng-if="viewModal" class="delete-modal-block">
+<div ng-show="show.pkgModal" class="delete-modal-block">
     <div class="createPackage" ng-include="'template/createPackage.html'"></div>
 </div>
 
@@ -47,7 +45,7 @@
     <form name="myForm">
         <fieldset>
             <legend>Upload on form submit</legend>
-            <div class="containerDrop" ng-class="{'containerCrop':showCrop}">
+            <div class="containerDrop" ng-class="{'containerCrop':showCrop}" style="text-align: center;">
                 <div ng-show="showDrop" ngf-drop ngf-select ng-model="picProfile" class="drop-box">Drop</div>
                 <div ng-show="showCrop" ngf-drop ng-model="picProfile" ngf-pattern="image/*"
                      class="cropArea">
@@ -55,14 +53,11 @@
                               result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
                     </img-crop>
                 </div>
-                <div>
-                    <img ng-src="{{croppedDataUrl}}"/>
-                </div>
-                <button ng-show="showCrop" ng-click="upload(croppedDataUrl, picProfile.name)">Submit</button>
+                <button ng-show="showCrop" class="btn btn-default" style="margin-top: 10px;width: 200px;" ng-click="upload(croppedDataUrl, picProfile.name)">Submit</button>
 
-        <span class="progress" ng-show="progress >= 0">
-          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
-        </span>
+                <span class="progress" ng-show="progress >= 0">
+                  <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+                </span>
                 <span ng-show="result">Upload Successful</span>
                 <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
         </fieldset>

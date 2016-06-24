@@ -10,7 +10,7 @@
         <div class=" text-center  marginTB20"><h3> Featured Profiles</h3></div>
         <div class="col-md-3 col-xs-6 col-sm-6 paddingB20 noborder pointer" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 4" ng-click="showProfile(profile._id)">
             <div class="profile">
-                <img class="profile-poster" ng-src="{{profile.poster}}">
+                <img class="profile-poster" ng-src="{{profile.poster.url.replace('/public','')}}">
             </div>
             <div class="text-center">{{profile.name}}</div>
                 <div class="col-md-12 star-icon">
@@ -57,7 +57,13 @@
         <div class="row communitySP ">
             <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
             <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register"
-                    ng-click="go('/freelancer-registration')">Register with us
+                    ng-click="go('/freelancer-registration')">
+                <span ng-hide="currentUser().freelancer">
+                    Register with us
+                </span>
+                <span ng-show="currentUser().freelancer">
+                    Edit profile
+                </span>
             </button>
         </div>
 
