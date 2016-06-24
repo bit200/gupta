@@ -74,8 +74,7 @@ XYZCtrls.service('parseType', function () {
             item.expected_start = new Date(item.expected_start);
             item.expected_completion = new Date(item.expected_completion);
             return item
-        }
-        ,
+        },
 
         openJob: function (jobs, parseTime) {
             var arr = [];
@@ -256,7 +255,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                                     });
                                     $scope.close(q)
                                 }).error(function (err) {
-                                    if (err.errors.email)
+                                    if (err.errors && err.errors.email)
                                         $scope.emailError = 'The email already in use'
                                 })
                             };

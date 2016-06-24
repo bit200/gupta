@@ -2,7 +2,7 @@ var XYZAdminCtrls = angular.module('XYZAdminCtrls', [])
 
 XYZAdminCtrls.controller('loginCtrl', ['$location', '$timeout', '$scope', '$http',
     function ($location, $timeout, scope, $http) {
-        scope.auth = localStorage.getItem('accessToken') ? $location.path('/main') : false;
+        scope.auth = localStorage.getItem('accessToken') ? $location.path('/sellers') : false;
         scope.login = {};
         scope.loginSend = function (data) {
             $('.login-login').removeClass('failed');
@@ -13,7 +13,7 @@ XYZAdminCtrls.controller('loginCtrl', ['$location', '$timeout', '$scope', '$http
                 localStorage.setItem("refreshToken", resp.data.data.refreshToken.value);
                 scope.auth = true;
                 scope.MainContentLoaded = true;
-                $location.path('/main')
+                $location.path('/users')
             }, function (error) {
                 $location.path('/login');
                 if (error.data.error == 'Item not found') {
@@ -32,30 +32,13 @@ XYZAdminCtrls.controller('loginCtrl', ['$location', '$timeout', '$scope', '$http
         };
     }]);
 
-XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'parseType',
+XYZAdminCtrls.controller('userCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'parseType',
     function ($location, $timeout, scope, $http, rs, $q, getContent, parseType) {
         scope.isActive = {
-            users: true,
-            claim: false
+            users: true
         };
 
-        scope.choice = function (choice) {
-            _.forEach(scope.isActive, function (value, key) {
-                scope.isActive[key] = false
-            });
-            scope.isActive[choice] = true;
-        };
-
-        scope.logout = function (e) {
-            localStorage.clear();
-            scope.auth = false;
-        };
-        scope.resObj = {};
-        scope.delete = false;
         scope.users = parseType.users(getContent.users.data.data);
-        console.log('da', scope.users)
-        scope.agency = parseType.claim(getContent.agency.data.data);
-        scope.job = parseType.job(getContent.job.data.data);
         scope.approved = function (user, i) {
             $http.get('/approved', {params: {username: user.username}}).then(function (resp) {
                 scope.users[i] = parseType.users([resp.data.data])[0];
@@ -80,15 +63,29 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
             }
         };
 
-        scope.showModal = function (bol, item) {
-            scope.showAgency = bol;
-            scope.agencyRequest = item.elem;
+        scope.resObj = {};
+        scope.delete = false;
+    }]);
+
+XYZAdminCtrls.controller('claimCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'parseType', 'ModalService',
+    function ($location, $timeout, scope, $http, rs, $q, getContent, parseType, ModalService) {
+        scope.isActive = {
+            claims: true
         };
 
-        scope.showJob = function (bol, type, item) {
-            scope.showJobModal = bol;
-            scope.jobModalType = type;
-            scope.JobChoice = item;
+        scope.agency = parseType.claim(getContent.agency.data.data);
+        scope.showModal = function (bol, item) {
+            ModalService.showModal({
+                templateUrl: "templates/modal/agency.html",
+                controller: function ($scope) {
+                    $scope.agencyRequest = item.elem;
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            })
         };
 
         scope.approveAgency = function (type, email) {
@@ -101,24 +98,46 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
                 })
             })
         };
+    }]);
 
+XYZAdminCtrls.controller('jobCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'parseType', 'ModalService',
+    function ($location, $timeout, scope, $http, rs, $q, getContent, parseType, ModalService) {
+        scope.isActive = {
+            jobs: true
+        };
+        scope.job = parseType.job(getContent.job.data.data);
+        scope.showJob = function (bol, type, item) {
+            ModalService.showModal({
+                templateUrl: "templates/modal/job.html",
+                controller: function ($scope) {
+                    $scope.jobModalType = type;
+                    $scope.JobChoice = item;
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
 
+            })
+
+        };
         scope.approveJob = function (type, text, reject_type) {
-            console.log('sdsd', scope.JobChoice);
 
             var params = {
                 params: {
                     _id: scope.JobChoice
                 }
             };
+
             if (reject_type == 'suggest-edit') {
                 params.params.reject_reason = text
-
             }
+
             if (reject_type == 'reject') {
                 params.params.reject_reason = text
             }
-            console.log('/' + type + '-job')
+
+            console.log('/' + type + '-job');
             $http.get('/' + type + '-job', params).then(function (resp) {
                 scope.showJobModal = false;
                 _.forEach(scope.job, function (item) {
@@ -128,5 +147,65 @@ XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http'
                 })
             })
         }
+    }]);
+
+XYZAdminCtrls.controller('categoryCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'ModalService',
+    function ($location, $timeout, scope, $http, rs, $q, getContent, ModalService) {
+        scope.service = getContent.service.data.data;
+        scope.contentType = getContent.contentType.data.data;
+    }]);
+
+XYZAdminCtrls.controller('sellerCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope', '$q', 'getContent', 'parseType', 'ModalService', 'parseRating',
+    function ($location, $timeout, scope, $http, rs, $q, getContent, parseType, ModalService, parseRating) {
+        scope.isActive = {
+            sellers: true
+        };
+        scope.sellers = parseType.seller(getContent.sellers.data.data);
+        scope.service = getContent.service.data.data;
+        scope.locations = getContent.locations.data.data;
+        scope.showProfile = function (id) {
+            $http.get('/freelancer', {params: {_id: id}}).then(function (resp) {
+                ModalService.showModal({
+                    templateUrl: "templates/modal/modalSeller.html",
+                    controller: function ($scope) {
+                        $scope.profile = parseRating.rating(resp.data.data)[0];
+                        $scope.createChat = function (id) {
+
+                        }
+                    }
+                }).then(function (modal) {
+                    modal.element.modal();
+                    modal.close.then(function (result) {
+                    });
+
+                });
+            });
+        };
+
+        scope.reset = function () {
+            delete scope.filter
+        }
+    }]);
+
+XYZAdminCtrls.controller('mainCtrl', ['$location', '$timeout', '$scope', '$http', '$rootScope',
+    function (location, $timeout, scope, http, rs) {
+        scope.isActive = {
+            sellers: true
+        };
+
+        scope.choice = function (choice) {
+            _.forEach(scope.isActive, function (value, key) {
+                scope.isActive[key] = false
+            });
+            scope.isActive[choice] = true;
+            location.path('/' + choice)
+        };
+
+        scope.logout = function (e) {
+            localStorage.clear();
+            scope.auth = false;
+        };
+
+
     }]);
 

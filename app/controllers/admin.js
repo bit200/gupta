@@ -12,7 +12,6 @@ exports.generate_admin = function (req, res) {
     var password = md5('b8KuBSaqx5EuG');
     m.findCreateUpdate(models.User, {
         role: 'ADMIN',
-        username: 'admin',
         email: 'admin@example.com'
     }, {
         password: password

@@ -46,12 +46,7 @@ exports.tokens_list = function (req, res) {
 
 exports.sign_in = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(User, {
-        $or: [
-            {username: params.login},
-            {email: params.login}
-        ]
-    }, res, function (user) {
+    m.findOne(User, {email: params.login}, res, function (user) {
         user.comparePassword(params.password, function (err, isMatch) {
             if (err || !isMatch) {
                 return m.ecb(401, err, res)
@@ -72,7 +67,6 @@ exports.sign_up = function (req, res) {
                 console.log('Directory create!');
             }
         });
-
         mail.send_confirm(user);
         m.createToken(models, user, res, res)
     })

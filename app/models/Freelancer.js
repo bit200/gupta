@@ -20,6 +20,10 @@ var FreelancerSchema = mongoose.Schema({
     Attachments: Array,
     profile: String,
     number_employees: Number,
+    isActive: {
+        type: Number,
+        default:0
+    },
     work: {
         type: Number,
         ref: 'Work'

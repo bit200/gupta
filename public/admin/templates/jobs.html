@@ -1,0 +1,26 @@
+<div class="content">
+    <div>
+        <div class="users-block">
+            <div class="row">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td ng-repeat="(key, value) in job[0].data">{{key}}</td>
+                    </tr>
+                    <tr ng-repeat="item in job">
+                        <td ng-repeat="(key,value) in item.data">
+                            <span ng-if="key=='Local preference' || key=='Content Types'" ng-repeat="elem in item.data[key] track by $index">{{elem}}<span ng-if="!$last">, </span></span>
+                            <span ng-if="key!='Content Types' && key!='Local preference' && value != 'Not approve'">{{value}}</span>
+                            <button ng-if="value == 'Not approve'" class="btn btn-default" ng-click="showJob(true, 'Approve', item.elem._id)">
+                                Approve
+                            </button>
+                            <button ng-if="value == 'Not approve'" class="btn btn-default" ng-click="showJob(true, 'Reject', item.elem._id)">
+                                Reject
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

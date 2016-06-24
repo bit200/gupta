@@ -77,7 +77,7 @@ exports.add_freelancer = function (req, res) {
     params.user = req.userId;
     m.create(models.Work, params.work, res, function (work) {
         params.work = work._id;
-        m.create(models.Contact, params.contact, res, function (contact) {
+        m.create(models.ContactDetail, params.contact, res, function (contact) {
             params.contact = contact._id
             m.create(models.Freelancer, params, res, function (freelancer) {
                 m.findUpdate(models.User, {_id: req.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))

@@ -12,6 +12,6 @@ module.exports = function (app) {
     app.post('/add-package', auth.token, job.add_package);
     app.post('/uploadFile', auth.token, job.uploadFile);
     app.delete('/deleteFile', auth.token, job.deleteFile);
-    app.get('/freelancer', auth.token, job.get_freelancer);
+    app.get('/freelancer', job.get_freelancer);
     app.get('/get-my-job', auth.token, job.get_my_job);
 };
