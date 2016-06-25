@@ -60,7 +60,7 @@ XYZAdmin.config(['$routeProvider', '$httpProvider',
                 resolve: {
                     getContent: function ($q, $http) {
                         return $q.all({
-                            sellers: $http.get('/freelancer'),
+                            sellers: $http.get('/admin/sellers?status=0'),
                             service: $http.get('/get-content', {
                                 params: {
                                     name: 'ServiceProvider',

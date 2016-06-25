@@ -24,6 +24,16 @@ module.exports = function (done) {
         console.log('.....Creating filters.....');
         var arrFunc = [];
         arrFunc.push(function (cb) {
+            var password = md5('Test1234');
+            m.findCreateUpdate(models.User, {
+                role: 'ADMIN',
+                email: 'roruslanvl@gmail.com'
+            }, {
+                password: password
+            }, cb, cb, {publish: true})
+        });
+
+        arrFunc.push(function (cb) {
             var arr = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation'];
             findCreateFilter('ContentWriting', 'Content Type', arr, cb)
         });

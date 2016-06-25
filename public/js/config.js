@@ -18,7 +18,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 resolve: {
                     getContent: function ($q, $http) {
                         return $q.all({
-                            sellers: $http.get('/freelancer', {}),
+                            sellers: $http.get('/freelancers', {}),
                             service: $http.get('/get-content', {
                                 params: {
                                     name: 'ServiceProvider',
@@ -114,13 +114,19 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 templateUrl: 'template/freelanceRegistration.html',
                 controller: 'freelancerCtrl',
                 resolve: {
-                    auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
                             industry: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
                                     query: {type: 'BloggersAndInfluencers', filter: 'Industry Expertise'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            service: $http.get('/get-content', {
+                                params: {
+                                    name: 'ServiceProvider',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             }),
@@ -151,8 +157,9 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                     query: {},
                                     distinctName: 'name'
                                 }
-                            }),
-                            clients: $http.get('/get-client')                        })
+                            })
+                            // clients: $http.get('/get-client')
+                        })
                     }
                 }
             })

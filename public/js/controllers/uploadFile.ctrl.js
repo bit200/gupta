@@ -46,9 +46,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
             if (newValue != undefined) {
                 scope.showDrop = false;
                 scope.showCrop = true;
-                //scope.uploadPic(newValue);
-                //rootScope.globalFiles.push(newValue);
-
             }
         });
 
@@ -56,7 +53,7 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
 
         scope.upload = function (dataUrl, name) {
             Upload.upload({
-                url: 'http://localhost:8080/uploadFile',
+                url: '/uploadFile',
                 data: {
                     file: Upload.dataUrltoBlob(dataUrl, name)
                 }

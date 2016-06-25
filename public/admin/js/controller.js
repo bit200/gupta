@@ -161,18 +161,16 @@ XYZAdminCtrls.controller('sellerCtrl', ['$location', '$timeout', '$scope', '$htt
             sellers: true
         };
         //TODO: incorrect status
-
-        scope.sellers = parseType.seller(getContent.sellers.data.data);
+        scope.sellers = getContent.sellers.data;
         scope.service = getContent.service.data.data;
         scope.locations = getContent.locations.data.data;
         scope.showProfile = function (id) {
-            $http.get('/freelancer', {params: {_id: id}}).then(function (resp) {
+            $http.get('/admin/seller/'+id).then(function (resp) {
                 ModalService.showModal({
                     templateUrl: "templates/modal/modalSeller.html",
                     controller: function ($scope) {
-                        $scope.profile = parseRating.rating(resp.data.data)[0];
-                        $scope.createChat = function (id) {
-                        }
+                        $scope.profile = resp.data;
+                        $scope.createChat = function (id) {}
                     }
                 }).then(function (modal) {
                     modal.element.modal();

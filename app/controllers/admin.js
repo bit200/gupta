@@ -9,14 +9,17 @@ var models = require('../db')
     , mkdirp = require('mkdirp');
 
 
-exports.generate_admin = function (req, res) {
-    var password = md5('b8KuBSaqx5EuG');
-    m.findCreateUpdate(models.User, {
-        role: 'ADMIN',
-        email: 'admin@example.com'
-    }, {
-        password: password
-    }, res, res, {publish: true})
+exports.get_sellers = function (req, res) {
+    var q = {};
+    if (req.query.status) q.status = parseInt(req.query.status);
+    models.Freelancer.find().select('type name location').lean().exec(function(err, freelancers){
+        res.json(freelancers)
+    })
+};
+exports.get_seller = function (req, res) {
+    models.Freelancer.findOne({_id: req.params.id}).populate('poster Attachments work contact_detail service_packages user').exec(function(err, freelancer){
+        res.json(freelancer)
+    })
 };
 
 exports.get_users = function (req, res) {

@@ -1,5 +1,5 @@
 
-<div ng-if="!requestBusiness">
+<div>
     <div class="container">
     <div class="row">
         <div class=" text-center "><h3>Claim your Agency Page</h3></div>
@@ -12,13 +12,13 @@
             <div class="col-md-6 col-xs-12">
                 <md-input-container class="md-block">
                     <label>Agency Name</label>
-                    <input class="form-control" name="description" ng-model="search.data['Agency Name']" required>
+                    <input class="form-control" name="description" ng-model="search.name" required>
                 </md-input-container>
             </div>
             <div class="col-md-6 col-xs-12">
                 <md-input-container class="md-block">
                     <label>City</label>
-                    <input class="form-control" name="description" ng-model="search.elem.city" required>
+                    <input class="form-control" name="description" ng-model="search.location" required>
                 </md-input-container>
             </div>
         </div>
@@ -31,23 +31,26 @@
     <div class="row paddingB40">
         <table class="table col-xs-12 table-striped marginT20">
 
-            <th class="heightSize inlineBlock width20 text-center"
-                ng-repeat="(key, value) in agency[0].data">
-                {{key}}
-            </th>
+            <thead>
+                <th class="text-center">Logo</th>
+                <th class="text-center">Agency Name</th>
+                <th class="text-center">Service Category</th>
+                <th class="text-center">Address</th>
+                <th class="text-center">Status</th>
+            </thead>
 
-            <tr ng-repeat="item in agency| filter:search:false">
-                <td class="inlineBlock width20 text-center agency-item">{{item.elem.Logo}}</td>
-                <td class="inlineBlock width20 text-center agency-item">{{item.data['Agency Name']}}</td>
-                <td class="inlineBlock width20 text-center agency-item">{{item.data['Service Category']}}</td>
-                <td class="inlineBlock width20 text-center agency-item">{{item.elem.number_street}}, {{item.elem.street}}, {{item.elem.city}}</td>
-                <td ng-if="item.data.Status" class="inlineBlock width20 text-center agency-item">Claimed</td>
-                <td class="inlineBlock width20 text-center agency-item">
-                    <button ng-if="!item.data.Status" class="btn-default btn"
-                            ng-click="claim(item.elem['Agency Name'], true)">Claim
-                    </button>
-                </td>
-            </tr>
+            <tbody>
+                <tr ng-repeat="item in agencies | filter:search">
+                    <td class="text-center"><img ng-src="{{item.poster.url.replace('/public', '')}}" style="max-width: 50px"/></td>
+                    <td class="text-center">{{item.name}}</td>
+                    <td class="text-center">{{item.service_type}}</td>
+                    <td class="text-center">{{item.location}}</td>
+                    <td class="text-center">
+                        <span ng-if="item._id==currentUser().freelancer._id" ng-click="requestBusiness=true">Claimed</span>
+                        <button ng-if="item._id!=currentUser().freelancer._id" class="btn btn-default">Claim</button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

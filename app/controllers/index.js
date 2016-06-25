@@ -26,33 +26,37 @@ exports.get_client = function (req, res) {
 
 
 exports.get_agency = function (req, res) {
-    var params = m.getBody(req);
-    var arrfunc = [];
-    m.find(models.Agency, {}, res, function (agency) {
-        m.distinct(models.UserClaimAgency, {user: req.userId}, 'agency', res, function (arr) {
-            _.forEach(agency, function (item) {
-                arrfunc.push(function (cb) {
-                    item.status = _.flatten(arr).indexOf(item.name) > -1;
-                    cb()
-                })
+    async.waterfall([
+        function(cb){
+            if (!req.userId) return cb(null, [])
+            models.BusinessUser.find({user: req.userId}).exec(function(err, businessUsers){
+                cb(null,_.map(businessUsers, function(businessUser){
+                    return businessUser.agency
+                }))
             });
-            async.parallel(arrfunc, function (e, r) {
-                m.scb(agency, res)
-            })
-        })
-    })
+        },
+        function(linkedAgencies, cb){
+            models.Freelancer.find({type: 'agency'}).populate('poster contact_detail').exec(function(err, freelancers){
+                res.json({
+                    linkedAgencies: linkedAgencies || [],
+                    agencies: freelancers
+                });
+                cb()
+            });
+        }
+    ]);
 };
 
 exports.request_business = function (req, res) {
-    var params = m.getBody(req);
-    m.findOne(models.Agency, {name: params.agency}, res, function (agency) {
-        params.data.agency = agency._id;
-        m.findOne(models.BusinessUser, {agency: agency._id, email: params.data.email}, function (err) {
-            m.create(models.BusinessUser, params.data, res, function (data) {
-                m.create(models.UserClaimAgency, {agency: agency.name, user: req.userId}, res, m.scb(data, res))
-            });
-        }, function () {
-            m.scb('find', res)
-        })
-    })
+    // var params = m.getBody(req);
+    // m.findOne(models.Agency, {name: params.agency}, res, function (agency) {
+    //     params.data.agency = agency._id;
+    //     m.findOne(models.BusinessUser, {agency: agency._id, email: params.data.email}, function (err) {
+    //         m.create(models.BusinessUser, params.data, res, function (data) {
+    //             m.create(models.UserClaimAgency, {agency: agency.name, user: req.userId}, res, m.scb(data, res))
+    //         });
+    //     }, function () {
+    //         m.scb('find', res)
+    //     })
+    // })
 };

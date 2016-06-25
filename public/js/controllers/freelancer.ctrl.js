@@ -1,7 +1,7 @@
 /* Controllers */
 
 angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent',
-    '$routeParams', 'ngDialog', 'AuthService', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, AuthService) {
+    '$routeParams', 'ngDialog', 'notify', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, notify) {
         scope.freelancer = {isagency: true};
         rootScope.globalFiles = [];
         scope.industry = getContent.industry.data.data;
@@ -9,12 +9,13 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.language = getContent.languages.data.data;
         scope.freelancerType = getContent.freelancerType.data.data;
         scope.locations = getContent.locations.data.data;
-        scope.clients = getContent.clients.data.data;
         scope.experience = _.range(51);
         scope.showLink = false;
         rootScope.globalImg = [];
-        scope.package = {};
+        scope.newPackage = {};
         scope.show = {};
+
+
 
         scope.scrollToErr = function(){
             $timeout(function(){
@@ -23,15 +24,14 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             },500)
         };
 
-        if (AuthService.currentUser().freelancer){
-            scope.freelancer = AuthService.currentUser().freelancer;
-        }
         scope.clearSearchTerm = function () {
             scope.searchTerm = '';
         };
 
         scope.contentModel = parseType.getModel(scope.content);
 
+        scope.arrayProviders = getContent.service.data.data;
+        
         scope.register = function (invalid, freelancer,files,img) {
             if (invalid) {
                 scope.scrollToErr()
@@ -44,21 +44,30 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
             freelancer.Attachments = freelancer.Attachments || [];
             freelancer.Attachments = freelancer.Attachments.concat(arrayIdFiles)
-            if (img && img.length)
+            if (img && img.length){
                 freelancer.poster = img[0].data._id;
-            http.post('/freelancer', freelancer).then(function (resp) {
+            }
+            console.log(freelancer)
+            http.post('/freelancer/request', freelancer).then(function (resp) {
                 rootScope.globalFiles = [];
-                AuthService.setCurrentUser()
-                location.path('/')
+                var has_sent = ngDialog.open({
+                    template: 'has_sent',
+                    className: 'ngdialog-theme-default',
+                });
+                has_sent.closePromise.then(function(){
+                    rootScope.go('/')
+                });
             }, function (err, r) {
             })
         };
 
+
         scope.addExtra = function(obj){
             obj = obj || {}
-            scope.package.extras = scope.package.extras || [];
+            if (!scope.newPackage.package) scope.newPackage.package = {};
+            scope.newPackage.package.extras = scope.newPackage.package.extras || [];
             if (obj.description && obj.price)
-                scope.package.extras.push(obj)
+                scope.newPackage.package.extras.push(obj)
         };
 
         scope.createPackage = function(){
@@ -66,22 +75,28 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             scope.priceWord=false; 
             scope.freelancer.price=[]; 
             scope.addService=true;
-            scope.package={};
+            scope.newPackage={};
             scope.show.pkgModal=true;
         }
         
-        scope.submitPackage = function (invalid, service) {
+        scope.submitPackage = function (invalid) {
             if (invalid) return;
-            http.post('/add-package', service).then(function (resp) {
-                angular.extend(scope.freelancer,resp.data)
-                scope.show.pkgModal = false;
-            }, function (err, r) {
-
-            })
+            scope.freelancer.newPackages = scope.freelancer.newPackages || [];
+            if (scope.newPackage.index || scope.newPackage.index == 0){
+                scope.freelancer.newPackages[scope.newPackage.index] = angular.copy(scope.newPackage.package);
+            }
+            else
+                scope.freelancer.newPackages.push(angular.copy(scope.newPackage.package));
+            scope.show.pkgModal = false;
+            scope.newPackage = {};
         };
 
-        scope.editPackage = function(pkg){
-            scope.package = angular.copy(pkg);
+        scope.editPackage = function($index, pkg){
+            scope.newPackage ={
+                package: angular.copy(pkg),
+                index: $index
+            }
+            console.log(scope.newPackage.index)
         };
 
         scope.delete_package = function (item) {
@@ -98,7 +113,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
                 data: {_id: file_id},
                 headers: {"Content-Type": "application/json;charset=utf-8"}
             }).success(function (res) {
-                console.log(res)
             });
             rootScope.globalFiles.splice(index, 1);
         };
@@ -110,7 +124,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
                 data: {_id: file_id},
                 headers: {"Content-Type": "application/json;charset=utf-8"}
             }).success(function (res) {
-                console.log(res)
             });
             scope.showLink = false;
             rootScope.globalImg = [];

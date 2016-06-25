@@ -37,6 +37,21 @@ function check_auth (req, res, next, role) {
     })
 }
 module.exports = {
+    checkIfUser: function (req, res, next) {
+        var _token = req.headers['authorization']
+        if (!_token) return next();
+        redis.get('token_' + _token, function(err, r){
+            if (err || !r) return next();
+            var arr = r.split('_')
+            if (arr[1] == 'ADMIN') return next();
+
+            req.token = _token;
+            req.userId = arr[0];
+            req.userRole = arr[1];
+            res._token_end_time = new Date().getTime();
+            next();
+        })
+    },
     token: function (req, res, next) {
         check_auth(req, res, next)
     },

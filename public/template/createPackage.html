@@ -4,21 +4,21 @@
 
     <md-input-container class="full-width">
         <label>Package Title</label>
-        <input ng-model="package.title" name="title"/>
+        <input ng-model="newPackage.package.title" name="title"/>
         <div ng-messages="submittedPkg && service.title.$invalid">
             <div ng-show="submittedPkg && service.title.$error.required" ng-message="required">Title is required</div>
         </div>
     </md-input-container>
     <md-input-container class="full-width">
         <label>Description</label>
-        <textarea ng-model="package.description" name="description"></textarea>
+        <textarea ng-model="newPackage.package.description" name="description"></textarea>
         <div ng-messages="submittedPkg && service.description.$invalid">
             <div ng-show="submittedPkg && service.description.$error.required" ng-message="required">Description is required</div>
         </div>
     </md-input-container>
     <md-input-container class="full-width">
         <label>Price in Rs.</label>
-        <input numbers-only name="price" ng-model="package.pricing" placeholder="10,000">
+        <input numbers-only name="price" ng-model="newPackage.package.pricing" placeholder="10,000">
         <div ng-messages="submittedPkg && service.price.$invalid">
             <div ng-show="submittedPkg && service.price.$error.required" ng-message="required">Price is required</div>
         </div>
@@ -27,11 +27,11 @@
 
     <div layout-gt-sm="row">
         <table>
-            <tr ng-repeat="item in package.extras" style="border-bottom: 1px solid lightgray">
+            <tr ng-repeat="item in newPackage.package.extras" style="border-bottom: 1px solid lightgray">
                 <td style="width: 30%">{{item.price}}</td>
                 <td style="width: 60%">{{item.description}}</td>
                 <td style="width: 10%">
-                    <ng-md-icon icon="cancel" ng-click="package.extras.splice($index,1)" style="fill: red;cursor: pointer"></ng-md-icon>
+                    <ng-md-icon icon="cancel" ng-click="newPackage.package.extras.splice($index,1)" style="fill: red;cursor: pointer"></ng-md-icon>
                 </td>
             </tr>
             <tr>
@@ -56,7 +56,7 @@
 
     <md-input-container class="full-width">
         <label>What information you will need from the client for this package?</label>
-        <textarea ng-model="package.information" md-select-on-focus="" name="information"></textarea>
+        <textarea ng-model="newPackage.package.information" md-select-on-focus="" name="information"></textarea>
         <div ng-messages="submittedPkg && service.information.$invalid">
             <div ng-show="submittedPkg && service.information.$error.required" ng-message="required">Information is required</div>
         </div>

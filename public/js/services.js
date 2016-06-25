@@ -207,6 +207,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                     return currentUser
                 },
                 logout: function(){
+                    currentUser = '';
                     localStorage.clear();
                     loggedIn = false;
                     $rootScope.go('/')
