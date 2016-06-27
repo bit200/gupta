@@ -30,16 +30,16 @@
 </div>
 <div class="container">
 
-    <div class="text-center" ng-show="TotalItems">
-        <uib-pagination total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
-    </div>
+    <!--<div class="text-center" ng-show="TotalItems">-->
+        <!--<uib-pagination total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>-->
+    <!--</div>-->
     <div class="relative" ng-show="TotalItems">
         <div class="loading" ng-show="showLoading">
             <loading w="45" margin-top="100"></loading>
         </div>
         <open-job jobs="body"></open-job>
     </div>
-    <div class="text-center" ng-show="TotalItems">
-        <uib-pagination total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+    <div class="text-center" ng-show="numPage > 1">
+        <uib-pagination items-per-page="limit" total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPage"></uib-pagination>
     </div>
 </div>

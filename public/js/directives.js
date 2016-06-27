@@ -212,10 +212,13 @@ XYZCtrls.directive('viewMyJob', function () {
             scope.maxSize = 5;
             scope.TotalItems = 0;
             scope.currentPage = 1;
-            scope.limit = 20;
+            scope.limit = 5;
             var last_press;
             var timer = 500;
             scope.trueSearch = function (search) {
+                if (!search)
+                    search = ' ';
+                console.log("searchsearchsearchsearchsearch", search)
                 last_press = new Date().getTime();
                 var cur_press = last_press;
                 setTimeout(function () {
@@ -232,6 +235,8 @@ XYZCtrls.directive('viewMyJob', function () {
             };
 
             scope.enterSearch = function (search) {
+                if (!search)
+                    search = ' ';
                 scope.currentPage = 1;
                 scope.render(search)
             };
@@ -244,10 +249,10 @@ XYZCtrls.directive('viewMyJob', function () {
 
                 if (scope.currentPage) {
                     obj.skip = (scope.Page - 1) * scope.limit;
-                    obj.limit = 20;
+                    obj.limit = scope.limit;
                 }
 
-                if (scope.search) {
+                if (scope.search && scope.search != ' ') {
                     obj.search = scope.search
                 }
                 return obj;
@@ -257,9 +262,23 @@ XYZCtrls.directive('viewMyJob', function () {
             scope.render = function (params) {
                 scope.showLoading = true;
                 var obj = create_obj(params);
+                var index = 0
+
+                function cb() {
+
+                    if (++index == 2) {
+                        scope.showLoading = false;
+                        console.log('oks')
+                    }
+                    console.log('afterrrrrr', index)
+                }
+
                 http.get(scope.url, {params: obj}).then(function (resp) {
                     console.log('resp', resp);
+                    cb()
+
                     scope.body = [];
+
                     _.each(resp.data.data, function (job) {
                         var obj = {
                             elem: job,
@@ -274,11 +293,20 @@ XYZCtrls.directive('viewMyJob', function () {
                         scope.body.push(obj)
                     });
 
-                    http.get(scope.url + '/count', {params: obj}).then(function (resp) {
-                        scope.TotalItems = resp.data.data;
-                        scope.showLoading = false;
-                    })
+
+                }, function (err) {
+                    console.log('qe')
+                    cb()
                 })
+                http.get(scope.url + '/count', {params: obj}).then(function (resp) {
+                        cb()
+                        scope.TotalItems = resp.data.data;
+                    }
+                    , function (err) {
+                        scope.TotalItems = 0;
+
+                        cb()
+                    })
             };
 
             scope.render();
@@ -316,17 +344,6 @@ XYZCtrls.directive('myJob', function () {
 
         },
         controller: ['$scope', '$http', function (scope, http) {
-            var params = {
-                query: {},
-                params: {
-                    limit: 20,
-                    skip: 0
-                }
-            };
-
-            $http.get($scope.url, params).then(function (resp) {
-                console.log('resp', resp)
-            });
 
             var open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
             var ongoing = ['Job Title', 'Service Provider', 'Expected Completion Date', 'Contract Amount (Rs.)', 'Pending Amount', 'Action'];
