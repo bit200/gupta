@@ -17,12 +17,14 @@ exports.add_job = function (req, res) {
 
 exports.list = function(query){
     return function (req, res) {
+        console.log("mbody", m.getBody(req))
         m.find(models.Job, query, res, res)
     }
 };
 
 exports.count = function(query){
     return function (req, res) {
+        console.log("mbody", m.getBody(req))
         m.count(models.Job, query, res, res)
     }
 };
