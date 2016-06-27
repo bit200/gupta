@@ -97,7 +97,32 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            // .when('/job/edit/:id', {
+            .when('/job/edit/:id', {
+                templateUrl: 'template/editJob.html',
+                controller: 'jobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.get('/api/job/' + $route.current.params.id),
+                            contentType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }]
+                }
+            })
             .when('/post-job/recreate/:id', {
                 templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
