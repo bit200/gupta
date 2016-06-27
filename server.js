@@ -19,7 +19,12 @@ var express = require('express')
     , consolidate = require('consolidate')
     , port = process.env.PORT || 8080
     , fs = require('fs')
+    , jwt = require('express-jwt')
     , autoIncrement = require('mongoose-auto-increment');
+
+var jwtCheck = jwt({
+    secret: config.adminJWTSecret
+});
 
 var connection = mongoose.connect(config.database);
 autoIncrement.initialize(connection);
@@ -57,6 +62,7 @@ app.set('views', __dirname + '/public');
 app.engine('html', consolidate.swig);
 app.set('view engine', 'html');
 app.use('/', express.static(__dirname + '/public'));
+app.use('/admin/api', jwtCheck);
 
 var routes_path = __dirname + '/app/routes';
 var walkRoutes = function(path) {

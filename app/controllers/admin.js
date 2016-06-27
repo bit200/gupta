@@ -2,17 +2,40 @@ var models = require('../db')
     , config = require('../config')
     , m = require('../m')
     , mail = require('../mail')
-    , md5 = require('md5')
-    , async = require('async')
-    , randomstring = require('randomstring')
-    , _ = require('underscore')
+    , _ = require('lodash')
+    , jwt = require('jsonwebtoken')
+    , Admin = models.Admin
     , mkdirp = require('mkdirp');
+var randomstring = require("randomstring");
 
+function createToken(admin) {
+    return jwt.sign(_.omit(admin, 'password'), config.adminJWTSecret, { expiresInMinutes: 60*5 });
+}
+exports.login = function (req, res) {
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).send("You must send the username and the password");
+    }
+
+    var params = m.getBody(req);
+    m.findOne(Admin, {email: params.email}, res, function (admin) {
+        if (!admin) {
+            return res.status(401).send("The username or password don't match");
+        }
+
+        if (!admin.password === req.body.password) {
+            return res.status(401).send("The username or password don't match");
+        }
+
+        res.status(201).send({
+            id_token: createToken(admin)
+        });
+    });
+};
 
 exports.get_sellers = function (req, res) {
     var q = {};
-    if (req.query.status) q.status = parseInt(req.query.status);
-    models.Freelancer.find().select('type name location').lean().exec(function(err, freelancers){
+    if (req.query.registrationStatus) q.registrationStatus = parseInt(req.query.registrationStatus);
+    models.Freelancer.find(q).select('type name location').lean().exec(function(err, freelancers){
         res.json(freelancers)
     })
 };
@@ -22,107 +45,30 @@ exports.get_seller = function (req, res) {
     })
 };
 
-exports.get_users = function (req, res) {
-    m.find(models.User, {}, res, res)
-};
-
-exports.get_business_users = function (req, res) {
-    m.find(models.BusinessUser, {}, res, res, {populate: 'agency'})
-};
-
-exports.get_job = function (req, res) {
-    m.find(models.Job, {}, res, res)
-};
-
-exports.approve_agency = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: true}, res, res)
-};
-
-exports.reject_agency = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: false}, res, res)
-};
-
-exports.approve_job = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function (job) {
-        m.findOne(models.User, {_id: job.user}, res, function (user) {
-            mail.job_approve(user, res, m.scb(job, res))
-        })
-    })
-};
-
-exports.reject_job = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2, reject_reason: params.reject_reason}, res, function (job) {
-        m.findOne(models.User, {_id: job.user}, res, function (user) {
-            mail.job_reject(user, res, params.reject_reason, m.scb(job, res))
-        })
-    })
-};
-
-exports.add_seller = function (req, res) {
-    var params = m.getBody(req)
-        , arrFunc = [];
-    arrFunc.push(function (cb) {
-        if (params.work) {
-            m.create(models.Work, params.work, res, function (work) {
-                params.work = work._id;
-                cb()
+exports.approve_registration = function (req, res) {
+    var password = randomstring.generate(7)
+    models.Freelancer.findOne({_id: req.params.id}).populate('contact_detail').exec(function(err, freelancer){
+        m.create(models.User, {username: freelancer.contact_detail.email, password: password}, res, function(user){
+            freelancer.user = user
+            freelancer.registrationStatus = 1;
+            freelancer.save(function(){
+                mail.approveAgencyRegistration({
+                    freelancer: freelancer,
+                    username: user.username,
+                    password: user.password
+                }, freelancer.name);
+                res.send(200)
             })
-        } else {
-            cb()
-        }
+        });
     });
-    arrFunc.push(function (cb) {
-        if (params.contact) {
-            m.create(models.ContactDetail, params.contact, res, function (contact) {
-                params.contact = contact._id;
-                cb()
-            })
-        } else {
-            cb()
-        }
-    });
-
-    // m.findUpdate(models.User, {_id: params.userId}, {freelancer: freelancer._id}, res, m.scb(freelancer, res))
-    async.parallel(function (e, r) {
-        m.create(models.Freelancer, params, res, res)
-    })
 };
 
-exports.suggest_edit_job = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 3, reject_reason: params.reject_reason}, res, function (job) {
-        log(job)
-        m.findOne(models.User, {_id: job.user}, res, function (user) {
-            mail.job_edit(user, params.reject_reason, params._id, res, m.scb(job, res))
-        })
-    })
-};
+exports.reject_registration = function (req, res) {
+    m.findUpdate(models.Freelancer, {_id: req.params.id}, {registrationStatus: 2}, res, function(freelancer){
+        mail.rejectAgencyRegistration({
+            freelancer: freelancer
+        }, freelancer.name);
+        res.send(200)
+    }, {populate: 'contact_detail'});
 
-exports.approved = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.User, {username: params.username}, {admin_approved: 1}, res, function (user) {
-        var newseller = {
-            login: randomstring.generate(10),
-            password: md5(randomstring.generate(15))
-        };
-        m.create(User, params, res, function (user) {
-            mkdirp(config.root + "/public/uploads/" + user._id.toString(), function (err) {
-                if (err) console.log(err);
-                else {
-                }
-            });
-            mail.registrationSeller(user, user.username);
-            m.scb({}, res);
-//        mkdirp('../../public/img/user'+user._id);
-        })
-    })
-};
-
-exports.reject = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.User, {username: params.username}, {admin_approved: 2, reject_reason: params.reject_reason}, res, res)
 };

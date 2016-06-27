@@ -4,6 +4,7 @@ var models = require('../db')
     , md5 = require('md5')
     , redis = require('../redis')
     , mail = require('../mail')
+    , Admin = models.Admin
     , User = models.User
     , AccessToken = models.AccessToken
     , RefreshToken = models.RefreshToken
@@ -12,23 +13,6 @@ var models = require('../db')
 
 exports.doc = function (req, res) {
     res.render('index')
-};
-
-
-exports.test = function (req, res) {
-    m.find(User, {}, res, res)
-};
-
-
-exports.generate_admin = function (req, res) {
-    var password = md5('b8KuBSaqx5EuG');
-    m.findCreateUpdate(User, {
-        role: 'ADMIN',
-        username: 'admin',
-        email: 'admin@example.com'
-    }, {
-        password: password
-    }, res, res, {publish: true})
 };
 
 
@@ -42,7 +26,6 @@ exports.tokens_list = function (req, res) {
     })
 
 };
-
 
 exports.sign_in = function (req, res) {
     var params = m.getBody(req);

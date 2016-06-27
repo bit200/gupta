@@ -11,7 +11,7 @@ exports.index = function (req, res) {
     res.render('src')
 };
 exports.admin = function (req, res) {
-    res.render('admin/admin-index')
+    res.render('admin/index')
 };
 
 m.create(models.Client, {name:'coca-cola'});

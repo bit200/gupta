@@ -1,0 +1,397 @@
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    #navbar .input-group {
+        max-width: 515px;
+        padding-right: 15px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #navbar .input-group {
+        max-width: 630px;
+        padding-right: 15px;
+    }
+}
+
+select {
+    height: 26px;
+    overflow: hidden;
+    margin-right: 5px;
+    border: 1px solid #D9D9DA !important;
+    opacity: 0.85;
+    padding: 0 25px 0 7px;
+    background: transparent;
+    color: #7F7F7F;
+    font-weight: 400;
+    border-radius: 5px;
+    min-height: 35px;
+    -webkit-appearance: none;
+    background: url(/img/down-arrow.png) right 5px center no-repeat;
+    background-size: 7px auto;
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+[ng-view] > div, pre {
+    animation: fade .4s ease;
+}
+
+
+.btn-default, .btn-default:focus {
+    color: #f7961d;
+    border-color: #f7961d;
+    background-color: white;
+}
+
+.btn-default:focus {
+    outline: none;
+}
+
+.btn-default:hover {
+    color: white;
+    background-color: #f7961d;
+    border-color: transparent;
+}
+
+.link_categ {
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis;
+    widht: 100%;
+}
+
+.ib {
+    display: inline-block;
+}
+
+h1 {
+    border-bottom: 1px solid gray;
+}
+
+.active, .active:focus, a:hover {
+    color: orange;
+    text-decoration: none;
+}
+
+.padding-top {
+    padding-top: 70px;
+    padding-bottom: 100px;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+
+.navbar-text-token {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 5px;
+    color: #777;
+}
+
+.token-block {
+    padding-top: 8px;
+}
+
+.detail-type {
+    font-size: 15px;
+    margin-top: 6px;
+    margin-right: 10px;
+    float: left;
+}
+
+.np {
+    padding: 0;
+}
+
+.detail-params {
+    margin-bottom: 10px;
+}
+
+.input-group-addon {
+    min-width: 150px;
+}
+
+h2 {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.left-bar {
+    margin-top: 5px;
+}
+
+html {
+    background: #f5f5f5;
+}
+
+.login > ul {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 2px 1px 10px;
+    max-width: 450px;
+    max-height: 350px;
+    padding: 30px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+}
+
+.has-error p.error
+
+.login > ul > li:first-child {
+    padding: 20px;
+    font-size: 14pt;
+    font-weight: 700;
+}
+
+.login-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 200px;
+    font-weight: 700;
+}
+
+.list-group-item:hover {
+    background: white;
+}
+
+.login-field > div {
+    text-align: center;
+    margin: 10px 0px;
+    font-weight: 700;
+}
+
+.failed {
+    border: 1px solid red !important;
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    transition: all .5s ease;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+
+    }
+}
+
+.for_fade > div {
+    animation: fade .7s ease forwards;
+}
+
+li {
+    list-style-type: none;
+}
+
+.add-btns {
+    text-align: center;
+}
+
+.add-btn {
+    width: 15%;
+    margin: 15px 5px;
+}
+
+.add-table {
+    background: #f5f5f5;
+    border: 2px solid #F0F0F0;
+    padding: 20px 0 10px 0;
+}
+
+.delete-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 99;
+    max-width: 400px;
+    max-height: 260px;
+    background: white;
+}
+
+.agency-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 99;
+    max-width: 400px;
+    max-height: 300px;
+    background: white;
+}
+
+.job-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 99;
+    max-width: 400px;
+    max-height: 250px;
+    background: white;
+}
+
+.login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin:0 auto;
+    margin-top: 10%;
+    z-index: 99;
+    max-width: 400px;
+    max-height: 350px;
+    background: white;
+}
+
+.delete-modal-block {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 98;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.panel-body {
+    overflow: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.whiteBack {
+    background: #F5F5F5 !important;
+}
+
+.table {
+    background: rgba(255, 165, 0, 0.33);
+}
+
+.cont-loaded {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background: linear-gradient(to top, rgb(254, 252, 234), rgb(197, 214, 220));
+}
+
+.add-button-text {
+    padding-right: 10px;
+}
+
+.choice, .choice:hover {
+    color: #f9ff32;
+}
+
+
+
+
+.pointer {
+    cursor: pointer;
+    /*float: right;*/
+}
+.nopadding {
+    padding: 0 !important;
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.relative {
+    position: relative;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-bolder {
+    font-weight: bolder;
+}
+
+.text-grey {
+    color: #a9a9a9;
+}
+
+.text-white, .text-white:hover, .text-white:focus {
+    color: #FFFFFF;
+}
+
+.text-primary {
+    color: #00B0F0;
+}
+
+.border-blue {
+    border: 2px solid #f7961d;
+}
+
+.border-grey {
+    border: 1px solid #F1F1F1;
+}
+
+.noborder {
+    outline: none;
+}
+
+md-backdrop.md-select-backdrop {
+    z-index:103;
+}
+
+.md-select-menu-container {
+    z-index:19999;
+}
+
+#loading-bar .bar {
+    background: #ff0c05;
+}
+
+#loading-bar .peg {
+    -webkit-box-shadow: #ff0c05 1px 0 6px 1px;
+    -moz-box-shadow: #ff0c05 1px 0 6px 1px;
+    -ms-box-shadow: #ff0c05 1px 0 6px 1px;
+    box-shadow: #ff0c05 1px 0 6px 1px;
+}
+
+#loading-bar-spinner .spinner-icon{
+    border-top-color: #ff0c05;
+    border-left-color: #ff0c05;
+}

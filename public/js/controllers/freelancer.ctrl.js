@@ -47,7 +47,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             if (img && img.length){
                 freelancer.poster = img[0].data._id;
             }
-            console.log(freelancer)
             http.post('/freelancer/request', freelancer).then(function (resp) {
                 rootScope.globalFiles = [];
                 var has_sent = ngDialog.open({

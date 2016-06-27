@@ -29,7 +29,7 @@ var FreelancerSchema = mongoose.Schema({
     profile: String,
     number_employees: Number,
     //0 - pending, 1-approved, 2-rejected
-    status: {
+    registrationStatus: {
         type: Number,
         default:0
     },

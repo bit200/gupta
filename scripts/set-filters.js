@@ -24,12 +24,9 @@ module.exports = function (done) {
         console.log('.....Creating filters.....');
         var arrFunc = [];
         arrFunc.push(function (cb) {
-            var password = md5('Test1234');
-            m.findCreateUpdate(models.User, {
-                role: 'ADMIN',
-                email: 'roruslanvl@gmail.com'
-            }, {
-                password: password
+            m.create(models.Admin, {
+                email: 'roruslanvl@gmail.com',
+                password_plain: 'Test1234'
             }, cb, cb, {publish: true})
         });
 

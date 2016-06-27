@@ -10,6 +10,7 @@ var nodemailer = require('nodemailer')
 var tpl = {
     restore: swig.compileFile(config.root + '/public/mailTemplate/forgotPassword.html'),
     confirm: swig.compileFile(config.root + '/public/mailTemplate/register.html'),
+    
     jobApprove: swig.compileFile(config.root + '/public/mailTemplate/jobApprove.html'),
     jobReject: swig.compileFile(config.root + '/public/mailTemplate/jobReject.html'),
     jobEdit: swig.compileFile(config.root + '/public/mailTemplate/jobEdit.html'),
@@ -22,36 +23,38 @@ var tpl = {
     contractSuggestCancel: swig.compileFile(config.root + '/public/mailTemplate/contractSuggestCancel.html'),
     contractClose: swig.compileFile(config.root + '/public/mailTemplate/contractClose.html'),
     registrationSeller: swig.compileFile(config.root + '/public/mailTemplate/registerSeller.html'),
-    registrationSellerEdit: swig.compileFile(config.root + '/public/mailTemplate/registerSellerEdit.html')
+    registrationSellerEdit: swig.compileFile(config.root + '/public/mailTemplate/registerSellerEdit.html'),
+
+
+
+    approveAgencyRegistration: swig.compileFile(config.root + '/public/mailTemplate/approveAgencyRegistration.html'),
+    rejectAgencyRegistration: swig.compileFile(config.root + '/public/mailTemplate/rejectAgencyRegistration.html'),
+    newRegistration_admin: swig.compileFile(config.root + '/public/mailTemplate/newRegistration_admin.html')
+    
 };
 
-var transporter = nodemailer.createTransport({
-    pool: true,
-    host: 'smtp.mailgun.org',
-    port: 587,
-    secure: true, // use SSL
-    auth: {
-        user: 'postmaster@themediaant.mailgun.org',
-        pass: '42w5ehl0f6e8'
+var transporter = require('nodemailer').createTransport(smtpTransport({
+    host: config.smtp.host,
+    secure: false,
+    port: 25,
+    auth: config.smtp.auth,
+    tls: {
+        rejectUnauthorized: false
     }
-});
-
-transporter = nodemailer.createTransport(
-    smtpTransport('smtps://postmaster@themediaant.mailgun.org:42w5ehl0f6e8@smtp.mailgun.org')
-);
+}));
 
 function options(subject, to, html_options) {
-    var defaultOpts = {
-        from: config.noreply,
+    return {
+        from: config.adminEmail,
         subject: subject,
         to: to,
         html: html_options
     };
-    return defaultOpts;
 }
 
 function _send(mailOptions, _ecb, _scb) {
     transporter.sendMail(mailOptions, function (err, info) {
+        console.log(err, info)
         if (err) {
             m.ecb(350, err, _ecb)
         } else {
@@ -257,11 +260,38 @@ function contractClose(user, contractID, closure, _ecb, _scb) {
     _send(_options, _ecb, _scb)
 }
 
-function registrationSeller(user, name,  _ecb, _scb) {
-    user = user.toJSON();
-    var _options = options('Contract was closed', user.email, tpl.registrationSeller({
+function registrationSeller(freelancer, name,  _ecb, _scb) {
+    freelancer = freelancer.toJSON();
+    var _options = options('Congratulations', user.email, tpl.registrationSeller({
         name: name,
-        user: user,
+        freelancer: freelancer,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+
+
+function newRegistration_admin(freelancer, _ecb, _scb) {
+    freelancer = freelancer.toJSON();
+    var _options = options('New registration come up', config.adminEmail, tpl.newRegistration_admin({
+        freelancer: freelancer,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function rejectAgencyRegistration(obj, _ecb, _scb) {
+    var _options = options('Registration rejected', obj.freelancer.contact_detail.email, tpl.rejectAgencyRegistration({
+        obj: obj,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function approveAgencyRegistration(obj, _ecb, _scb) {
+    var _options = options('Registration approved', obj.freelancer.contact_detail.email, tpl.approveAgencyRegistration({
+        obj: obj,
         appHost: config.appHost
     }));
     _send(_options, _ecb, _scb)
@@ -283,6 +313,10 @@ module.exports = {
     suggestCancel: suggestCancel,
     suggestApply: suggestApply,
     contractClose: contractClose,
-    registrationSeller: registrationSeller
+    registrationSeller: registrationSeller,
+
+    newRegistration_admin: newRegistration_admin,
+    rejectAgencyRegistration: rejectAgencyRegistration,
+    approveAgencyRegistration: approveAgencyRegistration
 
 };

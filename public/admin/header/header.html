@@ -1,0 +1,49 @@
+<div class="topbar" ng-controller="HeaderCtrl">
+
+    <div class="topbar-left">
+        <div class="text-center">
+            <a href="" class="logo">
+                <span>XYZ Online</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="">
+                <!--<div class="pull-left">-->
+                    <!--<button ng-click="isActive='users';" class="button-menu-mobile open-left waves-effect"-->
+                            <!--ng-class="{active: isActive=='users'}">Users-->
+                    <!--</button>-->
+                    <!--<span class="clearfix"></span>-->
+                <!--</div>-->
+                <!--<div class="pull-left">-->
+                    <!--<button ng-click="isActive='claims'" class="button-menu-mobile open-left waves-effect"-->
+                            <!--ng-class="{active:isActive=='claims'}">Claims-->
+                    <!--</button>-->
+                    <!--<span class="clearfix"></span>-->
+                <!--</div>-->
+                <!--<div class="pull-left">-->
+                    <!--<button ng-click="isActive='jobs'" class="button-menu-mobile open-left waves-effect"-->
+                            <!--ng-class="{active: isActive=='jobs'}">Jobs-->
+                    <!--</button>-->
+                    <!--<span class="clearfix"></span>-->
+                <!--</div>-->
+                <div class="pull-left">
+                    <button ng-click="isActive='sellers';$state.go('sellers');" class="button-menu-mobile open-left waves-effect"
+                            ng-class="{active:isActive=='sellers'}">Sellers
+                    </button>
+                    <span class="clearfix"></span>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <li class="dropdown">
+                        <a href="#" data-target="#" class="waves-effect waves-light" aria-expanded="false">
+                            <div ng-click="logout(event)">Logout</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -992,6 +992,7 @@ div.containerCrop {
 .freelancer-info-profile .modal-dialog{
     width: 800px;
 }
+
 @media (max-width: 500px) {
     .auth-dialog .col-md-6:first-child {
         border-right: 0px

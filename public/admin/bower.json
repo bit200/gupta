@@ -1,0 +1,30 @@
+{
+  "name": "admin",
+  "version": "0.0.0",
+  "description": "admin part",
+  "main": "app.js",
+  "dependencies": {
+    "angular": "1.4.10",
+    "angular-animate": "1.4.10",
+    "bootstrap": "3.1.1",
+    "jquery": "2.1.4",
+    "underscore": "1.8.3",
+    "angular-ui-select": "^0.18.0",
+    "angularjs-slider": "^4.0.2",
+    "angular-material": "^1.0.9",
+    "ng-dialog": "^0.6.2",
+    "angular-notify": "^2.5.0",
+    "angular-modal-service": "^0.10.1",
+    "ng-file-upload": "^12.0.4",
+    "ng-droplet": "^0.5.16",
+    "ng-img-crop": "ngImgCrop#^0.3.2",
+    "angular-loading-bar": "^0.9.0",
+    "font-awesome": "~4.2.0",
+    "ui-router": "~0.2.11",
+    "angular-jwt": "~0.0.4",
+    "a0-angular-storage": "~0.0.6",
+    "typekit-load": "~0.1.2",
+    "angular-ui-router": "~0.2.11",
+    "angular-smart-table": "^2.1.8"
+  }
+}

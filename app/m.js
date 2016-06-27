@@ -612,7 +612,7 @@ function _findRemove(model, query, _ecb, _scb, params) {
 }
 
 function createToken(models, user, _ecb, _scb) {
-    var query = {user: user._id, role: user.role}
+    var query = {user: user._id, role: 'user'}
     findCreate(models.AccessToken, query, null, _ecb, function (accessToken) {
         findCreate(models.RefreshToken, query, null, _ecb, function (refreshToken) {
             scb({

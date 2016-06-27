@@ -13,7 +13,16 @@ var resObj = {
     help : 'The Media Ant <help@themediaant.com>',
     m20Help : 'M20 <help@m20.in>',
     appHost : 'http://localhost:8080',
-    apiHost : "http://139.162.29.37:9000"
+    apiHost : "http://139.162.29.37:9000",
+    adminJWTSecret: 'asdasdADS23432dsfds1111',
+    adminEmail: 'roruslanvl@gmail.com',
+    smtp:{
+        host: "smtp.gmail.com",
+        auth: {
+            user: "themediaant777@gmail.com",
+            pass: "xyzonline"
+        }
+    }
 };
 
 if (process.env.NODE_ENV=='production'){

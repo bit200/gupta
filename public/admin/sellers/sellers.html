@@ -1,0 +1,30 @@
+<table class="table table-striped" st-safe-src="sellers" st-table="sellersCopy">
+    <thead>
+    <tr>
+        <th st-sort-default="{{$index==0}}" class="text-bold pointer" st-sort="{{key}}" ng-repeat="(key, value) in sellers[0]">{{key}}</th>
+        <th>Actions</th>
+    </tr>
+    <tr>
+        <th ng-repeat="(key, value) in sellers[0]"><input class="form-control" placeholder="Search..." st-search="{{key}}"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="seller in sellersCopy">
+        <td ng-repeat="(key,value) in seller">
+            {{value}}
+        </td>
+        <td>
+            <button ng-click="profileDetails(seller._id)" class="btn btn-default">Details</button>
+            <button ng-click="rejectApproveProfile('approve', seller._id, $index)" class="btn btn-success">Approve</button>
+            <button ng-click="rejectApproveProfile('reject', seller._id, $index)" class="btn btn-danger">Reject</button>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5" class="text-center">
+            <div st-pagination="" st-items-by-page="20" st-displayed-pages="7"></div>
+        </td>
+    </tr>
+    </tfoot>
+</table>

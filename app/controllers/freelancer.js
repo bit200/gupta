@@ -2,6 +2,7 @@ var models = require('../db')
     , config = require('../config')
     , m = require('../m'),
     fs = require('fs'),
+    mail = require('../mail'),
     _ = require('underscore'),
     mkdirp = require('mkdirp'),
     multer = require('multer'),
@@ -13,9 +14,7 @@ exports.freelancer_request = function (req, res) {
         function(cb){
             if (!params.newPackages) return cb()
             async.forEach(params.newPackages, function(pkg, ct){
-                var q = {};
-                if (pkg._id) q._id = pkg._id
-                m.findCreateUpdate(models.Package, q, pkg, res, function (saved_pkg) {
+                m.create(models.Package, pkg, res, function (saved_pkg) {
                     if (!params.service_packages) params.service_packages = [];
                     params.service_packages.push(saved_pkg._id);
                     ct();
@@ -24,29 +23,29 @@ exports.freelancer_request = function (req, res) {
         },
         function(cb){
             if (!params.work) return cb()
-            var q = {};
-            if (params.work._id) q._id = params.work._id
-            m.findCreateUpdate(models.Work, q, params.work, res, function (work) {
+            m.create(models.Work, params.work, res, function (work) {
                 params.work = work._id;
                 cb()
             })
         },function(cb){
             if (!params.contact_detail) return cb()
-            var q = {}
-            if (params.contact_detail._id) q._id = params.contact_detail._id
-            m.findCreateUpdate(models.ContactDetail, q, params.contact_detail, res, function (contact_detail) {
+            m.create(models.ContactDetail, params.contact_detail, res, function (contact_detail) {
                 params.contact_detail = contact_detail._id
                 cb();
             })
         }
     ], function(){
         if (req.userId){
-            console.log(params, req.userId)
-            m.findCreateUpdate(models.Freelancer, {_id: req.userId}, params, res, res)
+            m.findCreateUpdate(models.Freelancer, {_id: req.userId}, params, res, function(freelancer){
+                mail.newRegistration_admin(freelancer);
+                res.send(freelancer)
+            })
         }
         else{
-            console.log(params)
-            m.create(models.Freelancer,params,res,res)
+            m.create(models.Freelancer,params,res,function(freelancer){
+                mail.newRegistration_admin(freelancer);
+                res.send(freelancer)
+            })
             
         }
     });
