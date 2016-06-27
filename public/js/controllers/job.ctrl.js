@@ -5,20 +5,23 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         public: true,
         agency: true
     };
+    scope.contentTypes = getContent.contentType.data.data;
+    scope.locations = getContent.locations.data.data;
     if (routeParams.id) {
         var job = getContent.job.data.data[0];
         job.date_of_completion = new Date(job.date_of_completion);
         scope.job = job
+        scope.job.content = parseEdit(scope.job.content_types)
+        scope.job.location = parseEdit(scope.job.local_preference)
     }
 
-    scope.arrayProvidersModel = parseType.getModel(scope.contentTypes);
 
     scope.applyJob = function (id) {
         ModalService.showModal({
             templateUrl: "template/modal/applyJob.html",
             controller: function ($scope, $http) {
-                $scope.close = function(text){
-                    $http.post('/api/job-apply', {job:id, message:text}).then(function(resp){
+                $scope.close = function (text) {
+                    $http.post('/api/job-apply', {job: id, message: text}).then(function (resp) {
                         console.log('resp', resp)
                     })
                 }
@@ -30,11 +33,30 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
 
         });
     };
+    function parseEdit(array){
+        var obj = {};
+        _.each(array, function(item){
+            obj[item] = true;
+        });
+        return obj
+    }
+
     scope.addJob = function (invalid, job) {
         if (invalid) return;
         job.content_types = parseType.get(job.content, scope.contentTypes);
         job.local_preference = parseType.get(job.location, scope.locations);
         http.post('/job', job).then(function (resp) {
+                location.path('/home')
+            }, function (err, r) {
+            }
+        )
+    };
+
+    scope.editJob = function (invalid, job) {
+        if (invalid) return;
+        job.content_types = parseType.get(job.content, scope.contentTypes);
+        job.local_preference = parseType.get(job.location, scope.locations);
+        http.put('/api/job', job).then(function (resp) {
                 location.path('/home')
             }, function (err, r) {
             }
