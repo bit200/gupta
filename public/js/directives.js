@@ -212,6 +212,19 @@ XYZCtrls.directive('viewMyJob', function () {
             scope.maxSize = 5;
             scope.TotalItems = 0;
             scope.CurrentPage = 1;
+            var last_press;
+            var timer = 500
+            scope.trueSearch = function(search){
+                last_press = new Date().getTime();
+                var cur_press = last_press;
+                setTimeout(function(){
+                    if (cur_press === last_press) {
+                        scope.search(search)
+                    }
+                }, timer)
+
+            };
+
             scope.search = function (search) {
                 http.get(scope.url, {params: {search: search}}).then(function (resp) {
                     console.log('resp', resp);
