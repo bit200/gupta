@@ -13,6 +13,7 @@ var JobSchema = mongoose.Schema({
         default: 0
     },
     job_status: String,
+    communication_status: String,
     job: {
         type: Number,
         ref: 'Job'
