@@ -39,6 +39,12 @@ function pubParams(params, query) {
 exports.getInfo = function (req, res) {
     m.get(models.Job, {_id: req.params._id}, res, res)
 }
+
+exports.update = function (req, res) {
+    var job = m.getBody(req).data
+    m.findUpdate(models.Job, {_id: job._id}, job, res, res)
+}
+
 exports.add_job = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;

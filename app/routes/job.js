@@ -10,8 +10,10 @@ module.exports = function (app) {
     app.post('/get-job', auth.token, job.get_job);
     app.get('/get-my-job', auth.token, job.get_my_job);
 
-    var all_query = {}
     app.get('/api/job/:_id', job.getInfo)
+    app.put('/api/job', job.update)
+
+    var all_query = {}
     app.get('/api/jobs/all', job.list(all_query))
     app.get('/api/jobs/all/count', job.count(all_query))
 };
