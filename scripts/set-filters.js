@@ -1,6 +1,7 @@
 var config = require('../app/config'),
     m = require(config.root + 'app/m'),
     models = require(config.root + 'app/db'),
+    md5 = require('md5'),
     _ = require('underscore'),
     Job = models.Job,
     Location = models.Location,

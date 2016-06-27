@@ -1,9 +1,51 @@
-<div class="container">
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<div class="container" ng-controller='chatCtrl'>
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="chat-fileds"></div>
-            <textarea class="form-control" rows="4" ng-model="message"></textarea>
-            <button class="btn btn-default" ng-click="sendMess(message)">Send</button>
+        <div class="col-md-2">
+            <h2>Chats</h2>
+                <div ng-repeat="item in Jobs" class="panel panel-default red"
+                     style="margin-top: 5%; cursor:pointer;"
+                     ng-click="selectJob(item.jobId)">
+                    <div class="panel-heading">{{item.title}}</div>
+                    <div class="panel-body">{{item.user}}</div>
+                </div>
+            {{chatspace.messages[0]}}
+        </div>
+        <div class="col-md-8 ">
+            <div class="panel panel-collapse " id="collapseOne">
+            <form name="chatForm">
+                <div class="panel-body">
+                    <ul class="chat">
+
+                        <li ng-repeat="msg in chatspace.messages" class=" "
+                            ng-class="{true:' left', false:' right'}[msg.sender==chatspace.currentUser]">
+                            <span class="chat-img " ng-class="{true:' pull-left', false:' pull-right'}[msg.sender==chatspace.currentUser]">
+                       <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle"/>
+                       </span>
+
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong>
+                                    <small class="text-muted" ng-class="{true:' pull-right', false:' pull-left'}[msg.sender==chatspace.currentUser]">
+                                        <span class="glyphicon glyphicon-time"></span> {{msg.time}} mins ago
+                                    </small>
+                                </div>
+                                <p>
+                                    {{msg.message}}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="chat-fileds"></div>
+                    <textarea class="form-control" rows="4" ng-model="message" name="myName" required></textarea>
+                    <span ng-show="chatForm.myName.$invalid && chatspace.submitted">The name is required.</span>
+                    <button class="btn btn-default" ng-click="sendMess(message,chatForm.myName.$invalid);chatspace.submitted=true">Send</button>
+                    <span ng-if="chatspace.errorSend" class="text-danger">Message not send</span>
+                </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

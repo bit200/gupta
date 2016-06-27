@@ -3,7 +3,9 @@ var mongoose = require('mongoose')
 
 var ChatRoomSchema = mongoose.Schema({
     name: String,
-    users: Array,
+    buyer: Number,
+    seller: Number,
+    job: Number,
     message: Array,
     created_at: {
         type: Date,

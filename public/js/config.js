@@ -32,14 +32,13 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             })
             .when('/forgot/email', {
                 templateUrl: 'template/forgotEmail.html',
-                controller: 'forgotCtrl',
+                controller: 'forgotCtrl'
             })
 
             .when('/forgot/restore/:restoreCode', {
                 templateUrl: 'template/forgotRestore.html',
                 controller: 'forgotCtrl'
             })
-
             .when('/confirm/:confirmCode', {
                 templateUrl: 'template/confirm.html',
                 controller: 'confirmCtrl'
@@ -82,6 +81,11 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                         })
                     }
                 }
+            })
+
+            .when('/messages', {
+                templateUrl: 'template/chat.html',
+                controller: 'chatCtrl'
             })
 
             .when('/job/:id', {

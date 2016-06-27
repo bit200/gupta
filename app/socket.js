@@ -5,6 +5,16 @@
     exports.boot = function(server) {
         io = socket(server);
          io.on('connection', function(socket) {
+             log('socket connect')
+             log('socket connect')
+             log('socket connect')
+             log('socket connect')
+             log('socket connect')
+             log('socket connect')
+             log('socket connect')
+             log('socket connect')
+             log('socket connect')
+             log('socket connectdd')
              socket.emit('id',socket.id);
              socket.join(socket.id);
         });
