@@ -2,6 +2,7 @@ var config = require('../app/config'),
     m = require(config.root + 'app/m'),
     models = require(config.root + 'app/db'),
     _ = require('underscore'),
+    Job = models.Job,
     Location = models.Location,
     async = require('async');
 
@@ -19,7 +20,7 @@ function findCreateFilter(name, filter, arr, cb) {
 }
 
 module.exports = function (done) {
-    
+
     var FAKE_JOB_COUNT = 100
     Job.count({}).exec(function(err, count) {
         console.log('err, count')
@@ -50,7 +51,7 @@ module.exports = function (done) {
         }
         var count = 0;
         _.forEach(arr, function (item) {
-            m.create(models.Job, item, function(err, a, b){
+            m.create(Job, item, function(err, a, b){
                 console.log("errrr", err, a, b)
             }, function () {
                 count++;
