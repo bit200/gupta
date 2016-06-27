@@ -36,6 +36,9 @@ function pubParams(params, query) {
     }
 }
 
+exports.getInfo = function (req, res) {
+    m.get(models.Job, {_id: req.params._id}, res, res)
+}
 exports.add_job = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;

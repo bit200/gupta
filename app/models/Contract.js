@@ -23,7 +23,6 @@ var ContractSchema = mongoose.Schema({
     status: String,
     reject_reason: String,
     rating: Number,
-
     created_at: {
         type: Date,
         default: Date.now

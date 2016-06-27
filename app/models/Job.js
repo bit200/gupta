@@ -30,6 +30,10 @@ var JobSchema = mongoose.Schema({
         type: Number,
         ref: 'Contract'
     },
+    contracts: [{
+        type: Number,
+        ref: 'Contract'
+    }],
     created_at: {
         type: Date,
         default: Date.now
