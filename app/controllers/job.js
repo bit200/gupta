@@ -68,7 +68,7 @@ exports.getInfo = function (req, res) {
 }
 
 exports.update = function (req, res) {
-    var job = m.getBody(req).data
+    var job = m.getBody(req)
     m.findUpdate(models.Job, {_id: job._id}, job, res, res)
 }
 
