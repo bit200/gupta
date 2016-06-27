@@ -29,4 +29,4 @@ JobSchema.plugin(autoIncrement.plugin, {
     startAt: 100000
 });
 
-mongoose.model('ApplyJob', JobSchema);
+mongoose.model('JobApply', JobSchema);
