@@ -183,16 +183,78 @@ XYZCtrls.directive('uniqueName', function ($http) {
 })
 
 
-XYZCtrls.directive('toggle', function() {
+XYZCtrls.directive('toggle', function () {
     return {
         scope: {
             toggle: '='
         },
-        link: function(scope, elem, attrs) {
-            scope.$watch('toggle', function(val){
+        link: function (scope, elem, attrs) {
+            scope.$watch('toggle', function (val) {
                 if (typeof val === 'boolean')
                     elem.slideToggle();
             })
         }
     }
+});
+
+
+XYZCtrls.directive('viewMyJob', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            typeJob: '=',
+            typeUser: '='
+        },
+        templateUrl: 'template/templateViewMyJob.html',
+        controller: ['$scope', '$http', function (scope, http) {
+            scope.header = 'View My Jobs - ' + scope.typeUser + ' views'
+            scope.maxSize = 5;
+            scope.TotalItems = 6555;
+            scope.CurrentPage = 1;
+            scope.search = function(search) {
+                http.get(scope.url, {params: {search: search}}).then(function (resp) {
+                    console.log('resp', resp);
+                    scope.body = resp.data.data;
+                    http.get(scope.url + '/count', {params: {search: search}}).then(function (resp) {
+                        scope.TotalItems = resp.data.data;
+                    })
+                })
+            }
+        }]
+    };
+});
+
+XYZCtrls.directive('myJob', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            typeJob: '='
+        },
+        templateUrl: 'template/templateJob.html',
+        link: function (scope, element, attrs) {
+
+        },
+        controller: ['$scope', '$http', function ($scope, $http) {
+            var params = {
+                query: {},
+                params: {
+                    limit: 20,
+                    skip: 0
+                }
+            };
+
+            $http.get($scope.url, params).then(function (resp) {
+                console.log('resp', resp)
+            });
+
+            var open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
+            var ongoing = ['Job Title', 'Service Provider', 'Expected Completion Date', 'Contract Amount (Rs.)', 'Pending Amount', 'Action'];
+            var closed = ['Job Title', 'Service Provider', 'Job Closed Date', 'Status when closed', 'Amount Disbursed (Rs.)', 'Action'];
+
+            var openSelect = ['Communicate', 'Accept', 'Reject']
+
+        }]
+    };
 });

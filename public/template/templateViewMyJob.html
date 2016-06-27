@@ -1,0 +1,36 @@
+<h2 class="text-bold text-center marginT20">{{header}}</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h3 class="text-bold">View My Jobs</h3>
+        <div class="col-md-2 padding7">By Status</div>
+        <div class="col-md-4 nopadding">
+            <select class="form-control" name="singleSelect" ng-model="data.jobs" ng-init="data.jobs='Open'">
+                <option value="Open">Open Jobs</option>
+                <option value="Ongoing">Ongoing Jobs</option>
+                <option value="Closed">Closed Jobs</option>
+            </select>
+        </div>
+        <div class="col-md-2 padding7">
+            View Jobs as
+        </div>
+        <div class="col-md-4 nopadding">
+            <select class="form-control" name="singleSelect" ng-model="data.view" ng-init="data.view='Buyer'">
+                <option value="Buyer">Buyer</option>
+                <option value="Seller">Seller</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-1 marginTB20 padding7">Search Job</div>
+    <div class="col-md-10 marginTB20">
+        <input class="form-control" ng-model="searchJob" ng-enter="search(searchJob)">
+    </div>
+</div>
+<div class="text-center">
+    <uib-pagination total-items="TotalItems" ng-model="CurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></uib-pagination>
+</div>
+
+<div class="text-center">
+    <uib-pagination total-items="TotalItems" ng-model="CurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></uib-pagination>
+</div>
