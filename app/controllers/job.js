@@ -38,6 +38,11 @@ function pubParams(params, query) {
 
 exports.applyJob = function (req, res) {
     var params = m.getBody(req);
+    console.log("apply for job", req.userId)
+    var params = _.extend(params, {
+        user: req.userId,
+        freelancer: req.freelancerId
+    })
     m.create(models.JobApply, params, res, res)
 }
 

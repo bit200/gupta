@@ -15,10 +15,10 @@ module.exports = function (app) {
 
 
 
-    app.post('/api/job-apply', auth.token, job.applyJob)
+    app.post('/api/job-apply', auth.freelancer_token, job.applyJob)
     app.put('/api/job-apply', job.applyJobUpdate)
     app.delete('/api/job-apply', job.applyJobRemove)
-    app.get('/api/job-apply/:job_id', auth.token, job.getApplyInfo)
+    app.get('/api/job-apply/:job_id', auth.freelancer_token, job.getApplyInfo)
 
     
     var all_query = {}
