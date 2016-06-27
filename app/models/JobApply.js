@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 
 var JobSchema = mongoose.Schema({
     message: String,
-    seller: {
+    freelancer: {
         type: Number,
         ref: 'Freelancer'
     },
