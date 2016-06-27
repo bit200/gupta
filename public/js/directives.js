@@ -207,26 +207,52 @@ XYZCtrls.directive('viewMyJob', function () {
             typeUser: '='
         },
         templateUrl: 'template/templateViewMyJob.html',
-        controller: ['$scope', '$http', 'parseTime', function (scope, http, parseTime) {
+        controller: ['$scope', '$http', 'parseTime', '$rootScope', function (scope, http, parseTime, rootScope) {
             scope.header = 'View My Jobs - ' + scope.typeUser + ' views'
             scope.maxSize = 5;
             scope.TotalItems = 0;
-            scope.CurrentPage = 1;
+            scope.currentPage = 1;
+            scope.limit = 20;
             var last_press;
-            var timer = 500
-            scope.trueSearch = function(search){
+            var timer = 500;
+            scope.trueSearch = function (search) {
                 last_press = new Date().getTime();
                 var cur_press = last_press;
-                setTimeout(function(){
+                setTimeout(function () {
                     if (cur_press === last_press) {
-                        scope.render(search)
+                        scope.currentPage = 1;
+                        scope.render({'search': search})
                     }
                 }, timer)
 
             };
 
-            scope.render = function (search) {
-                http.get(scope.url, {params: {search: search}}).then(function (resp) {
+            scope.changePage = function (page) {
+                scope.render({page: page});
+            };
+
+            function create_obj(params) {
+                params = params || {};
+                scope.Page = params.page || scope.currentPage;
+                scope.search = params.search || scope.search;
+                var obj = {};
+
+                if (scope.currentPage) {
+                    obj.skip = (scope.Page - 1) * scope.limit;
+                    obj.limit = 20;
+                }
+
+                if (scope.search) {
+                    obj.search = scope.search
+                }
+                    return obj;
+
+            }
+
+            scope.render = function (params) {
+
+                var obj = create_obj(params);
+                http.get(scope.url, {params: obj}).then(function (resp) {
                     console.log('resp', resp);
                     scope.body = [];
                     _.each(resp.data.data, function (job) {
@@ -240,11 +266,12 @@ XYZCtrls.directive('viewMyJob', function () {
                         scope.body.push(obj)
                     });
 
-                    http.get(scope.url + '/count', {params: {search: search}}).then(function (resp) {
+                    http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         scope.TotalItems = resp.data.data;
                     })
                 })
-            }
+            };
+
             scope.render();
         }]
     };
