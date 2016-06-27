@@ -36,12 +36,39 @@ function pubParams(params, query) {
     }
 }
 
+exports.applyJob = function (req, res) {
+    var params = m.getBody(req);
+    console.log("apply for job", req.userId)
+    var params = _.extend(params, {
+        user: req.userId,
+        freelancer: req.freelancerId
+    })
+    m.create(models.JobApply, params, res, res)
+}
+
+
+exports.applyJobUpdate = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.JobApply, {_id: params._id}, params, res, res)
+}
+
+exports.applyJobRemove = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models.JobApply, {_id: params._id}, res, res)
+}
+
+exports.getApplyInfo = function (req, res) {
+    var params = m.getBody(req);
+    console.log("paramsmsmsmsmsm", params)
+    m.find(models.JobApply, {job: req.params.job_id, freelancer: req.freelancerId}, res, res)
+}
+
 exports.getInfo = function (req, res) {
     m.find(models.Job, {_id: req.params._id}, res, res, {populate: 'user'})
 }
 
 exports.update = function (req, res) {
-    var job = m.getBody(req).data
+    var job = m.getBody(req)
     m.findUpdate(models.Job, {_id: job._id}, job, res, res)
 }
 

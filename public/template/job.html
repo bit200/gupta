@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row marginT20">
+        <div class="col-md-3 pull-right">
+            <button ng-if="!isApply" class="btn btn-default" ng-click="applyJob(job._id)">Apply for Job</button>
+            <button ng-if="isApply" class="btn btn-default-hover" ng-click="showApplyInfo(job._id)">Edit your apply</button>
+        </div>
+        <div class="col-md-9 pull-left">
+            <div class="row">
+                <h2 class="col-md-12">{{job.title}}</h2>
+            </div>
+
+
+            <div class="row marginT20">
+                <div class="col-md-12">{{job.description}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Location</div>
+                <div class="col-md-6">
+                    <div ng-repeat="location in job.local_preference">
+                        {{location}}<span ng-if="!$last">,</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Type</div>
+                <div class="col-md-6">{{job.type}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Budget</div>
+                <div class="col-md-6">{{job.budget}}  Rs.</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Client Name</div>
+                <div class="col-md-6">{{job.name}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Mobile phone number</div>
+                <div class="col-md-6">{{job.mobile}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Email</div>
+                <div class="col-md-6">{{job.email}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Company name</div>
+                <div class="col-md-6">{{job.company_name}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Website URL</div>
+                <div class="col-md-6">{{job.website}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Job Visibility</div>
+                <div class="col-md-6">{{job.job_visibility ? 'Public' : 'Private'}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="text-bold text-label col-md-6">Categories</div>
+                <div class="col-md-6">
+                    <div ng-repeat="item in job.content_types">
+                        {{item}}<span ng-if="!$last">,</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Expected Date of Completion</div>
+                <div class="col-md-6">
+                    <md-datepicker disabled ng-model="job.date_of_completion" md-placeholder="Enter date" md-open-on-focus=""></md-datepicker>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

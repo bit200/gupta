@@ -23,6 +23,40 @@ function findCreateFilter(name, filter, arr, cb) {
 module.exports = function (done) {
 
     var FAKE_JOB_COUNT = 100
+    var userID = 100086;
+    m.findOne(models.Freelancer, {user: userID}, function(){
+        models.Freelancer.create({
+            "type": "freelancer",
+            "name": "test test",
+            "introduction": "asfdasdasd",
+            "description": "asdasda",
+            "location": "Delhi",
+            "user": userID,
+            "rating": 3,
+            "popularity": 3,
+            "view": 20,
+            "service_type": "word",
+            "service_price": 24,
+            "languages": [
+                "Marathi",
+                "Telugu"
+            ],
+            "content_type": [
+                "Press Release Writing"
+            ],
+            "industry_expertise": [
+                "Health and Fitness",
+                "Travel and Tourism",
+                "Science"
+            ],
+            "freelancer_type": [
+                "Digital Marketing"
+            ],
+            "cities_service": []
+        }, function(err, r){
+            console.log("Fake freelancer creation", err, r)
+        })
+    })
     Job.count({}).exec(function(err, count) {
         console.log('err, count')
         if (count > FAKE_JOB_COUNT - 1) {
@@ -361,6 +395,36 @@ module.exports = function (done) {
                     "description": "asdasda",
                     "location": "Delhi",
                     "user": 100028,
+                    "rating": 3,
+                    "popularity": 3,
+                    "view": 20,
+                    "service_type": "word",
+                    "service_price": 24,
+                    "poster": "http://f1-legend.ru/_ld/18/08806603.jpg",
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                },
+                {
+                    "type": "freelancer",
+                    "name": "test test",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100001,
                     "rating": 3,
                     "popularity": 3,
                     "view": 20,
