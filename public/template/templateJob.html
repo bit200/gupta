@@ -1,70 +1,15 @@
 <table class="border-grey table table-bordered table-striped">
     <thead>
     <tr>
-        <td ng-repeat="type in jobType">{{type}}</td>
+        <td ng-repeat="type in open">{{type}}</td>
     </thead>
     <tbody>
-    <tr ng-repeat="job in jobs[data.jobs]| filter: data.jobs.toLowerCase()">
-        <td ng-repeat="(key, value) in job.data">{{value}}</td>
+    <tr ng-repeat="job in jobs">
+        <td ng-repeat="(key, value) in job">{{value}}</td>
         <td>
-            <select class="form-control" name="singleSelect" ng-model="view.jobs[job.elem._id]">
+            <select class="form-control" name="singleSelect" ng-model="view.jobs[$index]">
                 <option value="">--Choice action--</option>
-                <option ng-repeat="select in jobSelect" value="$index">{{select}}</option>
-            </select>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<table ng-if="typeJob=='Ongoing'" class="border-grey table table-bordered table-striped">
-    <thead>
-    <tr>
-        <td>Job Title</td>
-        <td>Service Provider</td>
-        <td>Expected Completion Date</td>
-        <td>Contract Amount (Rs.)</td>
-        <td>Pending Amount</td>
-        <td>Action</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="job in jobs[data.jobs]| filter: data.jobs.toLowerCase()">
-        <td ng-repeat="(key, value) in job.data">{{value}}</td>
-        <td>
-            <select class="form-control" name="singleSelect" ng-model="view.jobs[job.elem._id]">
-                <option value="">--Choice action--</option>
-                <option value="0">Communicate</option>
-                <option value="1">View Contract</option>
-                <option value="2">Edit Contract</option>
-                <option value="3">Pause Contract</option>
-                <option value="4">Close Contract</option>
-                <option value="5">Initiate Payment</option>
-            </select>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<table ng-if="typeJob=='Closed'" class="border-grey table table-bordered table-striped">
-    <thead>
-    <tr>
-        <td>Job Title</td>
-        <td>Service Provider</td>
-        <td>Job Closed Date</td>
-        <td>Status when closed</td>
-        <td>Amount Disbursed (Rs.)</td>
-        <td>Action</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="job in jobs[data.jobs]| filter: data.jobs.toLowerCase()">
-        <td ng-repeat="(key, value) in job.data">{{value}}</td>
-        <td>
-            <select class="form-control" name="singleSelect" ng-model="view.jobs[job.elem._id]">
-                <option value="">--Choice action--</option>
-                <option value="0">View Job</option>
-                <option ng-if="job.status !='Removed'" value="1">View Contract</option>
-                <option value="2">Recreate Job</option>
+                <option ng-repeat="select in openSelect" value="$index">{{select}}</option>
             </select>
         </td>
     </tr>

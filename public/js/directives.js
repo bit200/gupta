@@ -207,20 +207,46 @@ XYZCtrls.directive('viewMyJob', function () {
             typeUser: '='
         },
         templateUrl: 'template/templateViewMyJob.html',
-        controller: ['$scope', '$http', function (scope, http) {
+        controller: ['$scope', '$http', 'parseTime', function (scope, http, parseTime) {
             scope.header = 'View My Jobs - ' + scope.typeUser + ' views'
             scope.maxSize = 5;
-            scope.TotalItems = 6555;
+            scope.TotalItems = 0;
             scope.CurrentPage = 1;
-            scope.search = function(search) {
+            scope.search = function (search) {
                 http.get(scope.url, {params: {search: search}}).then(function (resp) {
                     console.log('resp', resp);
-                    scope.body = resp.data.data;
+                    scope.body = [];
+                    _.each(resp.data.data, function (job) {
+                        var obj = {
+                            title: job.title || null,
+                            service_provider: job.name || null,
+                            response: job.response || null,
+                            status: job.status || null,
+                            date: parseTime.date(job.created_at) || null
+                        }
+                        scope.body.push(obj)
+                    });
+
                     http.get(scope.url + '/count', {params: {search: search}}).then(function (resp) {
                         scope.TotalItems = resp.data.data;
                     })
                 })
             }
+        }]
+    };
+});
+
+XYZCtrls.directive('openJob', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            jobs: '='
+        },
+        templateUrl: 'template/templateJob.html',
+        controller: ['$scope', '$http', function (scope, http) {
+            scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
+            scope.openSelect = ['Communicate', 'Accept', 'Reject']
         }]
     };
 });
@@ -236,7 +262,7 @@ XYZCtrls.directive('myJob', function () {
         link: function (scope, element, attrs) {
 
         },
-        controller: ['$scope', '$http', function ($scope, $http) {
+        controller: ['$scope', '$http', function (scope, http) {
             var params = {
                 query: {},
                 params: {
