@@ -25,7 +25,7 @@ var JobSchema = mongoose.Schema({
 });
 
 JobSchema.plugin(autoIncrement.plugin, {
-    model: 'Job',
+    model: 'JobApply',
     field: '_id',
     startAt: 100000
 });

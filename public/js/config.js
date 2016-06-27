@@ -85,7 +85,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             })
 
             .when('/job/:id', {
-                templateUrl: 'template/postJob.html',
+                templateUrl: 'template/job.html',
                 controller: 'jobCtrl',
                 resolve: {
                     auth: authResolve,
