@@ -231,7 +231,7 @@ XYZCtrls.directive('viewMyJob', function () {
                 scope.render({page: page});
             };
 
-            scope.enterSearch = function(search){
+            scope.enterSearch = function (search) {
                 scope.currentPage = 1;
                 scope.render(search)
             };
@@ -250,33 +250,39 @@ XYZCtrls.directive('viewMyJob', function () {
                 if (scope.search) {
                     obj.search = scope.search
                 }
-                    return obj;
+                return obj;
 
             }
 
             scope.render = function (params) {
+                scope.showLoading = true;
                 var obj = create_obj(params);
                 http.get(scope.url, {params: obj}).then(function (resp) {
                     console.log('resp', resp);
                     scope.body = [];
                     _.each(resp.data.data, function (job) {
                         var obj = {
-                            title: job.title || null,
-                            service_provider: job.name || null,
-                            response: job.response || null,
-                            status: job.status || null,
-                            date: parseTime.date(job.created_at) || null
-                        }
+                            elem: job,
+                            data: {
+                                title: job.title || null,
+                                service_provider: job.name || null,
+                                response: job.response || null,
+                                status: job.status || null,
+                                date: parseTime.date(job.created_at) || null
+                            }
+                        };
                         scope.body.push(obj)
                     });
 
                     http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         scope.TotalItems = resp.data.data;
+                        scope.showLoading = false;
                     })
                 })
             };
 
             scope.render();
+
         }]
     };
 });
@@ -291,7 +297,9 @@ XYZCtrls.directive('openJob', function () {
         templateUrl: 'template/directive/templateJob.html',
         controller: ['$scope', '$http', function (scope, http) {
             scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
-            scope.openSelect = ['Communicate', 'Accept', 'Reject']
+            scope.action = function (id, type) {
+                console.log('da', id, type)
+            }
         }]
     };
 });

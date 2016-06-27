@@ -178,3 +178,16 @@
     position: absolute;
     z-index: 999;
 }
+
+.text-orange-link, .text-orange-link:hover {
+    color: #f7961d;
+}
+
+.text-bottom-line {
+    text-decoration: underline;
+}
+
+.block {
+    display: block;
+    margin: 0 auto;
+}

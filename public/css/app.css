@@ -323,7 +323,8 @@ div.text-padding {
 }
 
 .padding7 {
-    padding: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 
 .paddingLR20 {

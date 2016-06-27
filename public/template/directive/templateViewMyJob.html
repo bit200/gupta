@@ -1,3 +1,4 @@
+<div class="container">
 <h2 class="text-bold text-center marginT20">{{header}}</h2>
 <div class="row">
     <div class="col-md-6">
@@ -22,12 +23,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-1 marginTB20 padding7">Search Job</div>
-    <div class="col-md-10 marginTB20">
-        <input class="form-control" ng-model="searchJob" ng-change="trueSearch(searchJob)" ng-enter="enterSearch({'search': searchJob})">
+    <div class="col-md-12 marginTB20">
+        <input class="form-control" placeholder="Search for a job" ng-model="searchJob" ng-change="trueSearch(searchJob)" ng-enter="enterSearch({'search': searchJob})">
     </div>
 </div>
-<div class="container" ng-init="showLoading = true">
+</div>
+<div class="container">
 
     <div class="text-center" ng-show="TotalItems">
         <uib-pagination total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
