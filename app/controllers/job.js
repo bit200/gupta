@@ -23,16 +23,15 @@ function pubParams(params, query) {
                 }]
             }]
         }
-
-        var _params = {
-            limit: params.limit || 20,
-            skip: params.skip || 0
-        }
-
-        return {
-            params: _params,
-            query: _query
-        }
+    }
+    
+    var _params = {
+        limit: params.limit || 20,
+        skip: params.skip || 0
+    }
+    return {
+        params: _params,
+        query: _query
     }
 }
 
