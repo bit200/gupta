@@ -206,7 +206,7 @@ XYZCtrls.directive('viewMyJob', function () {
             typeJob: '=',
             typeUser: '='
         },
-        templateUrl: 'template/templateViewMyJob.html',
+        templateUrl: 'template/directive/templateViewMyJob.html',
         controller: ['$scope', '$http', 'parseTime', '$rootScope', function (scope, http, parseTime, rootScope) {
             scope.header = 'View My Jobs - ' + scope.typeUser + ' views'
             scope.maxSize = 5;
@@ -288,7 +288,7 @@ XYZCtrls.directive('openJob', function () {
             url: '=',
             jobs: '='
         },
-        templateUrl: 'template/templateJob.html',
+        templateUrl: 'template/directive/templateJob.html',
         controller: ['$scope', '$http', function (scope, http) {
             scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
             scope.openSelect = ['Communicate', 'Accept', 'Reject']
@@ -303,7 +303,7 @@ XYZCtrls.directive('myJob', function () {
             url: '=',
             typeJob: '='
         },
-        templateUrl: 'template/templateJob.html',
+        templateUrl: 'template/directive/templateJob.html',
         link: function (scope, element, attrs) {
 
         },
@@ -329,3 +329,17 @@ XYZCtrls.directive('myJob', function () {
         }]
     };
 });
+
+XYZCtrls.directive('loading', function () {
+    return {
+        restrict: 'E',
+        templateUrl: 'template/directive/loading.html',
+        scope: {
+            w: "=?",
+            h: "=?",
+            marginTop: "=?",
+            marginBottom: "=?"
+        }
+    }
+})
+

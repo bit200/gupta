@@ -27,6 +27,9 @@
         <input class="form-control" ng-model="searchJob" ng-change="trueSearch(searchJob)" ng-enter="enterSearch({'search': searchJob})">
     </div>
 </div>
+<div ng-show="!TotalItems">
+    <loading w="30" margin-top="100"></loading>
+</div>
 <div class="text-center" ng-show="TotalItems">
     <uib-pagination total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ></uib-pagination>
 </div>
