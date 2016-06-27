@@ -2,10 +2,14 @@ var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
 var JobSchema = mongoose.Schema({
-    description: String,
+    message: String,
     seller: {
         type: Number,
         ref: 'Freelancer'
+    },
+    user: {
+        type: Number,
+        ref: 'User'
     },
     status: String,
     status_priority: {

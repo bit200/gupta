@@ -13,6 +13,14 @@ module.exports = function (app) {
     app.get('/api/job/:_id', job.getInfo)
     app.put('/api/job', job.update)
 
+
+
+    app.post('/api/job-apply', auth.token, job.applyJob)
+    app.put('/api/job-apply', job.applyJobUpdate)
+    app.delete('/api/job-apply', job.applyJobRemove)
+    app.get('/api/job-apply/:job_id', auth.token, job.getApplyInfo)
+
+    
     var all_query = {}
     app.get('/api/jobs/all', job.list(all_query))
     app.get('/api/jobs/all/count', job.count(all_query))

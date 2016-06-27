@@ -36,6 +36,27 @@ function pubParams(params, query) {
     }
 }
 
+exports.applyJob = function (req, res) {
+    var params = m.getBody(req);
+    m.create(models.JobApply, params, res, res)
+}
+
+
+exports.applyJobUpdate = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.JobApply, {_id: params._id}, params, res, res)
+}
+
+exports.applyJobRemove = function (req, res) {
+    var params = m.getBody(req);
+    m.remove(models.JobApply, {_id: params._id}, res, res)
+}
+
+exports.getApplyInfo = function (req, res) {
+    var params = m.getBody(req);
+    m.remove(models.JobApply, {_id: params._id}, res, res)
+}
+
 exports.getInfo = function (req, res) {
     m.find(models.Job, {_id: req.params._id}, res, res, {populate: 'user'})
 }
