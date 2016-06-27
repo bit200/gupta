@@ -17,10 +17,7 @@ var AdminSchema = mongoose.Schema({
 
 
 AdminSchema.pre('save', function (next) {
-    var admin = this;
-    if (admin.password_plain) {
-        admin.password = md5(admin.password_plain);
-    }
+    if (this.password) this.password = md5(this.password);
     next()
 });
 

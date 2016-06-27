@@ -234,7 +234,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                             $scope.signin = function (invalid, data) {
                                 $scope.loginError = '';
                                 if (invalid) return;
-                                $http.get('/sign-in', {params: {login: data.login, password: data.password}}).success(function (resp) {
+                                $http.get('/sign-in', {params: {username: data.username, password: data.password}}).success(function (resp) {
                                     resObj.setTokens({
                                         accessToken: resp.data.accessToken.value,
                                         refreshToken: resp.data.refreshToken.value
@@ -263,7 +263,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                             };
                             $scope.close = function(res){
                                 $element.modal('hide');
-                                close(res, 200);
+                                close(res, 500);
                             }
                         }
                     }).then(function (modal) {

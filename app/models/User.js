@@ -9,6 +9,7 @@ var mongoose = require('mongoose')
 var UserSchema = mongoose.Schema({
     username: String,
     password: String,
+    restore_code: String,
 
 
 
@@ -26,7 +27,6 @@ var UserSchema = mongoose.Schema({
     //     type: String,
     //     default: randomstring.generate(30)
     // },
-    // restore_code: String,
     // admin_approved: {
     //     type: Number,
     //     default: 0
@@ -62,21 +62,17 @@ var UserSchema = mongoose.Schema({
 //
 //
 UserSchema.pre('save', function (next) {
-    var user = this;
-    if (user.password_plain) {
-        user.password = md5(user.password_plain);
-    }
-
+    if (this.password) 
+        this.password = md5(this.password);
     next()
 });
+UserSchema.methods.comparePassword = function (candidatePassword, cb) {
+    log(candidatePassword)
+    var isEqual = md5(candidatePassword) == this.password;
+    log(md5(candidatePassword) == this.password)
 
-// UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-//     log(candidatePassword)
-//     var isEqual = md5(candidatePassword) == this.password;
-//     log(md5(candidatePassword) == this.password)
-//
-//     cb(isEqual ? null : 'Wrong password', isEqual)
-// };
+    cb(isEqual ? null : 'Wrong password', isEqual)
+};
 //
 // function validateEmail(email) {
 //     if (!email) {
@@ -86,13 +82,13 @@ UserSchema.pre('save', function (next) {
 //     return re.test(email)
 // };
 //
-// UserSchema.methods.publish = function () {
-//     var _this = this.toJSON();
-//     delete _this.password;
-//     delete _this.confirm_code;
-//     delete _this.__v;
-//     return _this
-// };
+UserSchema.methods.publish = function () {
+    var _this = this.toJSON();
+    delete _this.password;
+    delete _this.confirm_code;
+    delete _this.__v;
+    return _this
+};
 //
 // UserSchema.plugin(uniqueValidator, {
 //     message: 'The {PATH} is already in use'

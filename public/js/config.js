@@ -18,7 +18,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 resolve: {
                     getContent: function ($q, $http) {
                         return $q.all({
-                            sellers: $http.get('/freelancers', {}),
+                            sellers: $http.get('/api/freelancers', {}),
                             service: $http.get('/get-content', {
                                 params: {
                                     name: 'ServiceProvider',
@@ -45,14 +45,15 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 controller: 'confirmCtrl'
             })
 
-            .when('/agency', {
-                templateUrl: 'template/agency.html',
+            .when('/agencies', {
+                templateUrl: 'template/agencies.html',
                 controller: 'agencyCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            agency: $http.get('/get-agency')
+                            agencies: $http.get('/api/freelancers'),
+                            businessAccounts: $http.get('/api/my/business_accounts')
                         })
                     }
                 }

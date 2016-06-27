@@ -14,6 +14,11 @@ var BusinessUserSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
+    // 0 pending, 1 approved, 2 rejected
+    status: {
+        type: Number,
+        default: 0
+    },
     user: {
       type: Number,
       ref: 'User'

@@ -44,11 +44,10 @@ exports.get_seller = function (req, res) {
         res.json(freelancer)
     })
 };
-
 exports.approve_registration = function (req, res) {
     var password = randomstring.generate(7)
     models.Freelancer.findOne({_id: req.params.id}).populate('contact_detail').exec(function(err, freelancer){
-        m.create(models.User, {username: freelancer.contact_detail.email, password: password}, res, function(user){
+        m.create(models.User, {username: freelancer.contact_detail.email, password: password},res,function( user){
             freelancer.user = user
             freelancer.registrationStatus = 1;
             freelancer.save(function(){

@@ -43,11 +43,15 @@
                 <tr ng-repeat="item in agencies | filter:search">
                     <td class="text-center"><img ng-src="{{item.poster.url.replace('/public', '')}}" style="max-width: 50px"/></td>
                     <td class="text-center">{{item.name}}</td>
-                    <td class="text-center">{{item.service_type}}</td>
+                    <td class="text-center"><span ng-repeat="type in item.freelancer_type">{{type}}<span ng-if="!$last">, </span> </span></td>
                     <td class="text-center">{{item.location}}</td>
                     <td class="text-center">
-                        <span ng-if="item._id==currentUser().freelancer._id" ng-click="requestBusiness=true">Claimed</span>
-                        <button ng-if="item._id!=currentUser().freelancer._id" class="btn btn-default">Claim</button>
+                        <div ng-if="!item.business_account">
+                            <span ng-if="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 0}).length" >Pending</span>
+                            <span ng-if="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 1}).length" >Claimed</span>
+                            <button ng-if="!(businessAccounts | filter:{agency: item._id,  user: current_user._id}).length" ng-click="claim(item)" class="btn btn-default">Claim</button>
+                        </div>
+                        <span ng-if="item.business_account">Claimed</span>
                     </td>
                 </tr>
             </tbody>
@@ -77,4 +81,3 @@
     <img src="../img/town.png" class="width100">
     </div>
 </div>
-<div ng-if="requestBusiness" ng-include="'template/agencyRequest.html'"></div>

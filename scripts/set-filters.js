@@ -26,7 +26,7 @@ module.exports = function (done) {
         arrFunc.push(function (cb) {
             m.create(models.Admin, {
                 email: 'roruslanvl@gmail.com',
-                password_plain: 'Test1234'
+                password: 'Test1234'
             }, cb, cb, {publish: true})
         });
 

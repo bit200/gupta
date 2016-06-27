@@ -1,29 +1,41 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', function (scope, location, http, parseType, $q, getContent) {
-    scope.requestBusiness = false;
-    scope.agencies = getContent.agency.data.agencies;
-    scope.claim = function (agency, bol) {
-        scope.choiceAgency = agency;
-        scope.requestBusiness = bol;
-    };
+XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', 'ModalService', 'AuthService',
+    function (scope, location, http, parseType, $q, getContent, ModalService, AuthService) {
+    scope.current_user = AuthService.currentUser();
+    scope.agencies_area = {};
+    scope.agencies = getContent.agencies.data.data;
+    scope.businessAccounts = getContent.businessAccounts.data || [];
+    scope.claim = function (agency) {
+        ModalService.showModal({
+            templateUrl: "template/modal/claimForm.html",
+            inputs: {
+                agency: agency
+            },
+            controller: function ($scope, close, $element, agency) {
+                $scope.agency = agency;
+                $scope.sendRequest = function (invalid, claimData) {
+                    if (invalid) return;
+                    claimData.agency = agency._id; 
 
-    scope.sendRequest = function (invalid, data) {
-
-        if (invalid) return;
-        scope.req = {
-            data: data,
-            agency: scope.choiceAgency
-        };
-
-        http.post('/request-business', scope.req).then(function (resp) {
-            scope.requestBusiness = false;
-            _.forEach(scope.agency, function (item) {
-                if (item['Agency Name'] == scope.choiceAgency) {
-                    item.Status = true
+                    http.post('/api/claim_request', claimData).success(function (resp) {
+                        scope.businessAccounts.push(resp);                    
+                        $scope.close();
+                    })
+                };
+                $scope.close = function(res){
+                    $element.modal('hide');
+                    close(res, 500);
                 }
-            })
-        })
+
+            }
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (result) {
+            });
+        });
+
     };
+
 }]);

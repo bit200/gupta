@@ -46,17 +46,3 @@ exports.get_agency = function (req, res) {
         }
     ]);
 };
-
-exports.request_business = function (req, res) {
-    // var params = m.getBody(req);
-    // m.findOne(models.Agency, {name: params.agency}, res, function (agency) {
-    //     params.data.agency = agency._id;
-    //     m.findOne(models.BusinessUser, {agency: agency._id, email: params.data.email}, function (err) {
-    //         m.create(models.BusinessUser, params.data, res, function (data) {
-    //             m.create(models.UserClaimAgency, {agency: agency.name, user: req.userId}, res, m.scb(data, res))
-    //         });
-    //     }, function () {
-    //         m.scb('find', res)
-    //     })
-    // })
-};

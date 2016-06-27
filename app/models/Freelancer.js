@@ -29,10 +29,12 @@ var FreelancerSchema = mongoose.Schema({
     profile: String,
     number_employees: Number,
     //0 - pending, 1-approved, 2-rejected
+
     registrationStatus: {
         type: Number,
         default:0
     },
+    
     rejected_reason: String,
     isActive: {
         type: Number,
@@ -61,6 +63,10 @@ var FreelancerSchema = mongoose.Schema({
     user: {
         type: Number,
         ref: 'User'
+    },
+    business_account: {
+        type: Number,
+        ref: 'BusinessUser'
     },
     created_at: {
         type: Date,

@@ -28,9 +28,7 @@
             JOB(test)
         </button>
 
-        <button class="btn-default btn  button-home-register " ng-click="go('/agency')">Agency
-            page(test)
-        </button>
+        <button class="btn-default btn  button-home-register " ng-click="go('/agencies')">Agencies page</button>
 
         <button class=" btn btn-default button-home-register " ng-click="go('/user')">User
             page(test)
@@ -56,14 +54,8 @@
     <footer>
         <div class="row communitySP ">
             <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
-            <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register"
-                    ng-click="go('/freelancer-registration')">
-                <span ng-hide="currentUser().freelancer">
+            <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register" ng-hide="isLogged()" ng-click="go('/freelancer-registration')">
                     Register with us
-                </span>
-                <span ng-show="currentUser().freelancer">
-                    Edit profile
-                </span>
             </button>
         </div>
 

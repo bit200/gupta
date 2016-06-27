@@ -154,18 +154,23 @@ exports.add_package = function (req, res) {
     })
 };
 
+exports.my_business_accounts = function (req, res) {
+    models.BusinessUser.find({user: req.userId}).exec(function(err, business_accounts){
+        res.jsonp(business_accounts)
+    });
+};
+
 exports.get_freelancers = function (req, res) {
     var params = m.getBody(req);
-    if (params.experience)
-        params.experience = {'$gte': parseInt(params.experience)};
-    if (params.package == 'true') {
-        params.service_packages = {'$exists': true, '$not': {'$size': 0}};
-        delete params.package
-    }
-    if (params.package == 'false') {
-        params.service_packages = {'$exists': false};
-        delete params.package
-    }
-    params.status = 1;
-    m.find(models.Freelancer, params, res, res, {populate: 'user contact_detail work poster'})
+    params.registrationStatus = 1;
+    m.find(models.Freelancer, params, res, res)
+};
+
+exports.claim_request = function(req,res){
+    var params = m.getBody(req);
+    params.user = req.userId;
+    new models.BusinessUser(params).save(function(business_user){
+        mail.newClaim(business_user);
+        res.json(business_user);
+    })
 };

@@ -29,7 +29,10 @@ var tpl = {
 
     approveAgencyRegistration: swig.compileFile(config.root + '/public/mailTemplate/approveAgencyRegistration.html'),
     rejectAgencyRegistration: swig.compileFile(config.root + '/public/mailTemplate/rejectAgencyRegistration.html'),
-    newRegistration_admin: swig.compileFile(config.root + '/public/mailTemplate/newRegistration_admin.html')
+    newRegistration_admin: swig.compileFile(config.root + '/public/mailTemplate/newRegistration_admin.html'),
+    newClaim: swig.compileFile(config.root + '/public/mailTemplate/newClaim.html'),
+    claimApproved: swig.compileFile(config.root + '/public/mailTemplate/claimApproved.html'),
+    claimRejected: swig.compileFile(config.root + '/public/mailTemplate/claimRejected.html')
     
 };
 
@@ -297,6 +300,29 @@ function approveAgencyRegistration(obj, _ecb, _scb) {
     _send(_options, _ecb, _scb)
 }
 
+function newClaim(obj, _ecb, _scb) {
+    var _options = options('New claim for agency', config.adminEmail, tpl.newClaim({
+        obj: obj,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function claimApproved(obj, _ecb, _scb) {
+    var _options = options('Your agency claim has been approved', obj.email, tpl.claimApproved({
+        obj: obj,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
+
+function claimRejected(obj, _ecb, _scb) {
+    var _options = options('Your agency claim has been approved', obj.email, tpl.claimRejected({
+        obj: obj,
+        appHost: config.appHost
+    }));
+    _send(_options, _ecb, _scb)
+}
 
 module.exports = {
     send: _send,
@@ -317,6 +343,9 @@ module.exports = {
 
     newRegistration_admin: newRegistration_admin,
     rejectAgencyRegistration: rejectAgencyRegistration,
-    approveAgencyRegistration: approveAgencyRegistration
+    approveAgencyRegistration: approveAgencyRegistration,
+    newClaim: newClaim,
+    claimApproved: claimApproved,
+    claimRejected: claimRejected
 
 };

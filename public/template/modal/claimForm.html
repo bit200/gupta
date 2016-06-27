@@ -1,0 +1,84 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                    <form name="_claim" novalidate>
+                        <h3 class="text-center">Claim your Agency - Request for a Business</h3>
+                        <h3 class="text-center">Request for a Business user Account for <a class="pointer">{{agencies_area.selectedAgency.name}}</a></h3>
+                        <div class="row">
+                            <div class="form-group col-xs-5" ng-class="{'has-error': submitted && _claim.firstName.$invalid}">
+                                <md-input-container class="md-block">
+                                    <label>First Name</label>
+                                    <input class="form-control" name="firstName" ng-model="agencyRequest.first_name" required>
+
+                                    <div ng-messages="submitted && _claim.firstName.$invalid">
+                                        <div ng-show="submitted && _claim.firstName.$error.required" ng-message="required">First Name is required</div>
+                                    </div>
+                                </md-input-container>
+
+                            </div>
+                            <div class="form-group col-xs-6 col-xs-offset-1"
+                                 ng-class="{'has-error': submitted && _claim.lastName.$invalid}">
+
+                                <md-input-container class="md-block">
+                                    <label>Last Name</label>
+                                    <input class="form-control" name="lastName" ng-model="agencyRequest.last_name" required>
+
+                                    <div ng-messages="submitted && _claim.lastName.$invalid">
+                                        <div ng-show="submitted && _claim.lastName.$error.required" ng-message="required">Last Name is required</div>
+                                    </div>
+                                </md-input-container>
+
+                            </div>
+                        </div>
+                        <div class=" form-group" ng-class="{'has-error': submitted && _claim.email.$invalid}">
+                            <md-input-container class="md-block">
+                                <label>Email Id</label>
+                                <input type="email" name="email" required class="form-control" ng-model="agencyRequest.email"
+                                       ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
+
+                                <div ng-messages="submitted && _claim.email.$invalid">
+                                    <div ng-show="submitted && _claim.email.$error.required" ng-message="required">Email is required</div>
+                                    <div ng-show="submitted && _claim.email.$error.required && _claim.email.$error.pattern" ng-message="pattern">Email is invalid</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class=" form-group" ng-class="{'has-error': submitted && _claim.phone.$invalid}">
+
+                            <md-input-container class="md-block">
+                                <label>Phone Number</label>
+                                <input phone-number class="form-control" name="phone" ng-model="agencyRequest.phone" required>
+
+                                <div ng-messages="submitted && _claim.phone.$invalid">
+                                    <div ng-show="submitted && _claim.phone.$error.required" ng-message="required">Phone Number is required</div>
+                                </div>
+                            </md-input-container>
+
+                        </div>
+                        <div class="form-group"  ng-class="{'has-error': submitted && _claim.role.$invalid}">
+
+                            <md-input-container class="md-block">
+                                <label>Your role in the agency</label>
+                                <input class="form-control" name="role" ng-model="agencyRequest.role" required>
+
+                                <div ng-messages="submitted && _claim.role.$invalid">
+                                    <div ng-show="submitted && _claim.role.$error.required" ng-message="required">Your role is required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class=" ">
+                            <md-checkbox ng-click="priceHour=false;service=false;freelancer.price.hour=[]" ng-model="apply" class="md-warn">
+                                I have the authority to claim this account on behalf of the business
+                            </md-checkbox>
+                        </div>
+                        <div>
+                            <button type="submit" ng-disabled="!apply" class="btn btn-default" ng-click="sendRequest(_claim.$invalid,agencyRequest);submitted=true">
+                                Submit
+                            </button>
+                            <button class="btn btn-back floatR" ng-click="close()">Cancel</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
