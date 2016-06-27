@@ -37,7 +37,7 @@ function pubParams(params, query) {
 }
 
 exports.getInfo = function (req, res) {
-    m.find(models.Job, {_id: req.params._id}, res, res)
+    m.find(models.Job, {_id: req.params._id}, res, res, {populate: 'user'})
 }
 
 exports.update = function (req, res) {
