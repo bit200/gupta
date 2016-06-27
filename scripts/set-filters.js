@@ -19,6 +19,51 @@ function findCreateFilter(name, filter, arr, cb) {
 }
 
 module.exports = function (done) {
+    
+    var FAKE_JOB_COUNT = 100
+    Job.count({}).exec(function(err, count) {
+        console.log('err, count')
+        if (count > FAKE_JOB_COUNT - 1) {
+            console.log('FAKE JOBS ALREADY CREATED')
+            return
+        }
+        console.log('FAKE JOBS CREATION PROCESS')
+        var arrFunc = [];
+        var arr = [];
+
+        for (var i = 0; i < FAKE_JOB_COUNT; i++) {
+            function plus_i (text) {
+                return text + ' ' + i
+            }
+            arr.push({
+                title: plus_i('Job title '),
+                description: plus_i('Description description', + i),
+                budget: 100 + i,
+                name: plus_i('Name'),
+                mobile: plus_i('Phone number'),
+                company_name: plus_i('Company name'),
+                website: plus_i('http://Website'),
+                admin_approved: 1,
+                user: 100000,
+                created_at: new Date().getTime() - i * 24 * 3600 * 1000
+            })
+        }
+        var count = 0;
+        _.forEach(arr, function (item) {
+            m.create(models.Job, item, function(err, a, b){
+                console.log("errrr", err, a, b)
+            }, function () {
+                count++;
+                if (arr.length == count) {
+                    console.log('Fake jobs created')
+
+                }
+            })
+        });
+
+    })
+
+
     Location.count().exec(function (err, count) {
         if (count) return done();
         console.log('.....Creating filters.....');
