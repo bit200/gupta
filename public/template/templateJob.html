@@ -1,17 +1,13 @@
-<table class="border-grey table table-bordered table-striped">
-    <thead>
-    <tr>
-        <td ng-repeat="type in open">{{type}}</td>
-    </thead>
-    <tbody>
-    <tr ng-repeat="job in jobs">
-        <td ng-repeat="(key, value) in job">{{value}}</td>
-        <td>
-            <select class="form-control" name="singleSelect" ng-model="view.jobs[$index]">
-                <option value="">--Choice action--</option>
-                <option ng-repeat="select in openSelect" value="$index">{{select}}</option>
-            </select>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-xs-2 text-bold marginLR20" ng-repeat="type in open">{{type}}</div>
+</div>
+
+<div class="row" ng-repeat="job in jobs">
+    <div class="col-xs-2 marginB10" ng-repeat="(key, value) in job">{{value}}</div>
+    <div class="col-xs-2 marginB10">
+        <select class="form-control" name="singleSelect" ng-model="view.jobs[$index]">
+            <option value="">--Choice action--</option>
+            <option ng-repeat="select in openSelect" value="$index">{{select}}</option>
+        </select>
+    </div>
+</div>

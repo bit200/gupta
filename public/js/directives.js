@@ -219,13 +219,13 @@ XYZCtrls.directive('viewMyJob', function () {
                 var cur_press = last_press;
                 setTimeout(function(){
                     if (cur_press === last_press) {
-                        scope.search(search)
+                        scope.render(search)
                     }
                 }, timer)
 
             };
 
-            scope.search = function (search) {
+            scope.render = function (search) {
                 http.get(scope.url, {params: {search: search}}).then(function (resp) {
                     console.log('resp', resp);
                     scope.body = [];
@@ -245,6 +245,7 @@ XYZCtrls.directive('viewMyJob', function () {
                     })
                 })
             }
+            scope.render();
         }]
     };
 });

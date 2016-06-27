@@ -363,7 +363,7 @@ div.text-padding {
 }
 
 .marginLR20 {
-    margin: 10px 1px;
+    margin: 10px 0;
 }
 
 .marginR10 {
@@ -391,6 +391,9 @@ div.text-padding {
 
 .marginB30 {
     margin-bottom: 30px;
+}
+.marginB10 {
+    margin-bottom: 10px;
 }
 
 .width20 {
