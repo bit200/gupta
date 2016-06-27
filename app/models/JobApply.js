@@ -7,12 +7,10 @@ var JobSchema = mongoose.Schema({
         type: Number,
         ref: 'Freelancer'
     },
-    status: {
-        text: String,
-        priority: {
-            type: Number,
-            default: 0 //Rejected priority is -1
-        }
+    status: String,
+    status_priority: {
+        type: Number,
+        default: 0
     },
     job_status: String,
     job: {
@@ -31,4 +29,4 @@ JobSchema.plugin(autoIncrement.plugin, {
     startAt: 100000
 });
 
-mongoose.model('Job', JobSchema);
+mongoose.model('ApplyJob', JobSchema);
