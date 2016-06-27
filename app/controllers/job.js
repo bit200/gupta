@@ -15,6 +15,19 @@ exports.add_job = function (req, res) {
     m.create(models.Job, params, res, res)
 };
 
+exports.list = function(query){
+    return function (req, res) {
+        m.find(models.Job, query, res, res)
+    }
+};
+
+exports.count = function(query){
+    return function (req, res) {
+        m.count(models.Job, query, res, res)
+    }
+};
+
+
 exports.get_job = function (req, res) {
     var params = m.getBody(req);
     m.findOne(models.Job, params, res, res)
