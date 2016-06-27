@@ -22,14 +22,15 @@ function findCreateFilter(name, filter, arr, cb) {
 module.exports = function (done) {
 
     var FAKE_JOB_COUNT = 100
-    m.findOne(models.Freelancer, {user: 100001}, function(){
+    var userID = 100086;
+    m.findOne(models.Freelancer, {user: userID}, function(){
         models.Freelancer.create({
             "type": "freelancer",
             "name": "test test",
             "introduction": "asfdasdasd",
             "description": "asdasda",
             "location": "Delhi",
-            "user": 100001,
+            "user": userID,
             "rating": 3,
             "popularity": 3,
             "view": 20,
