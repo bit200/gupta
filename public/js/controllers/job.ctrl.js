@@ -1,10 +1,10 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$routeParams', 'ModalService', function (scope, location, http, parseType, $q, getContent, routeParams, ModalService) {
-    scope.job = {
-        public: true,
-        agency: true
-    };
+    // scope.job = {
+    //     public: true,
+    //     agency: true
+    // };
     scope.contentTypes = getContent.contentType.data.data;
     scope.locations = getContent.locations.data.data;
     if (routeParams.id) {
@@ -14,7 +14,13 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         if(getContent.apply)
             scope.isApply = getContent.apply.data.data[0];
         scope.job.content = parseEdit(scope.job.content_types);
-        scope.job.location = parseEdit(scope.job.local_preference)
+        scope.job.location = parseEdit(scope.job.local_preference);
+        scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
+    } else {
+        scope.job = {
+            job_visibility: 'true',
+            type: 'Agency'
+        }
     }
 
 

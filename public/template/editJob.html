@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="row" ng-init="job.type = 'Agency'">
+    <div class="row">
         <div class="text-bold text-label">Do you have a preference for a type of professional</div>
         <!--<div class="pointer" ng-click="job.agency = tr  ue;job.freelancer = false">-->
         <!--<input type="checkbox" ng-click="job.freelancer = false" ng-model="job.agency"> Agency-->
@@ -42,7 +42,6 @@
         <!--</div>-->
         <div class="col-xs-4">
             <div class="radio-inline">
-
                 <label>
                     <input class="" type="radio" ng-model="job.type" value="Agency">
                     Agency
@@ -113,16 +112,16 @@
     </div>
     <div class="row">
         <div class="col-xs-5">Job Visibility</div>
-        <div class="form-group" ng-init="job.job_visibility = 'Public'">
+        <div class="form-group">
             <div class="radio-inline">
                 <label>
-                    <input class="" type="radio" ng-model="job.job_visibility" value="Public">
+                    <input class="" type="radio" ng-model="job.job_visibility" value="true">
                     Public
                 </label>
             </div>
             <div class="radio-inline">
                 <label>
-                    <input class="" type="radio" ng-model="job.job_visibility" value="Private">
+                    <input class="" type="radio" ng-model="job.job_visibility" value="false">
                     Private
                 </label>
             </div>
