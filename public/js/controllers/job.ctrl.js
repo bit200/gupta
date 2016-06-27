@@ -6,12 +6,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         agency: true
     };
     if (routeParams.id) {
-        http.get('/get-job', {params: {_id: routeParams.id}}).then(function (resp) {
-            scope.job = resp.data.data[0]
-        })
+        scope.job = getContent.job.data.data
     }
-    scope.contentTypes = getContent.contentType.data.data;
-    scope.locations = getContent.locations.data.data;
 
     scope.arrayProvidersModel = parseType.getModel(scope.contentTypes);
 

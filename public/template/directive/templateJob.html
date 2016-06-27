@@ -3,7 +3,7 @@
 </div>
 
 <div class="row" ng-repeat="job in jobs">
-    <div class="col-xs-2 marginB10 text-center" ng-repeat="(key, value) in job.data">{{value}}</div>
+    <div class="col-xs-2 marginB10 text-center" ng-repeat="(key, value) in job.data"><span ng-if="key != 'title'">{{value}}</span><a href="/#/job/{{job.elem._id}}" ng-if="key == 'title'">{{value}}</a></div>
     <div class="col-xs-2 marginB10 text-center">
         <div>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Commuticate')">Communicate</a>
@@ -15,7 +15,6 @@
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Close Contract')">Close Contract</a>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Initiate Payment')">Initiate Payment</a>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Recreate Job')">Recreate Job</a>
-
         </div>
     </div>
 </div>
