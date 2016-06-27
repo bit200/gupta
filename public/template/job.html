@@ -1,16 +1,21 @@
 <div class="container">
     <div class="row marginT20">
-        <div class="col-md-9">
+        <div class="col-md-3 pull-right">
+            <button ng-if="!isApply" class="btn btn-default" ng-click="applyJob(job._id)">Apply for Job</button>
+            <button ng-if="isApply" class="btn btn-default-hover" ng-click="showApplyInfo(job._id)">Edit your apply</button>
+        </div>
+        <div class="col-md-9 pull-left">
+            <div class="row">
+                <h2 class="col-md-12">{{job.title}}</h2>
+            </div>
+
+
             <div class="row marginT20">
-                <h3 class="col-md-12">{{job.title}}</h3>
+                <div class="col-md-12">{{job.description}}</div>
             </div>
 
             <div class="row marginT20">
-                <h4 class="col-md-12">{{job.description}}</h4>
-            </div>
-
-            <div class="row marginT20">
-                <div class="col-md-6 text-bold text-label">Do you have a location preference?</div>
+                <div class="col-md-6 text-bold">Location</div>
                 <div class="col-md-6">
                     <div ng-repeat="location in job.local_preference">
                         {{location}}<span ng-if="!$last">,</span>
@@ -19,22 +24,37 @@
             </div>
 
             <div class="row marginT20">
+                <div class="col-md-6 text-bold">Type</div>
                 <div class="col-md-6">{{job.type}}</div>
-                <div class="col-md-6">{{job.mobile}}</div>
-                </div>
+            </div>
 
             <div class="row marginT20">
-                <div class="col-md-6 text-bold">What is your budget for this marketing campaign</div>
+                <div class="col-md-6 text-bold">Budget</div>
                 <div class="col-md-6">{{job.budget}}  Rs.</div>
             </div>
 
             <div class="row marginT20">
-                <div class="col-md-6">{{job.email}}</div>
+                <div class="col-md-6 text-bold">Client Name</div>
                 <div class="col-md-6">{{job.name}}</div>
             </div>
 
             <div class="row marginT20">
+                <div class="col-md-6 text-bold">Mobile phone number</div>
+                <div class="col-md-6">{{job.mobile}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Email</div>
+                <div class="col-md-6">{{job.email}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Company name</div>
                 <div class="col-md-6">{{job.company_name}}</div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-6 text-bold">Website URL</div>
                 <div class="col-md-6">{{job.website}}</div>
             </div>
 
@@ -44,7 +64,7 @@
             </div>
 
             <div class="row marginT20">
-                <div class="text-bold text-label col-md-6">Which of the following Content Types are you looking for?</div>
+                <div class="text-bold text-label col-md-6">Categories</div>
                 <div class="col-md-6">
                     <div ng-repeat="item in job.content_types">
                         {{item}}<span ng-if="!$last">,</span>
@@ -60,8 +80,6 @@
             </div>
 
         </div>
-        <div class="col-md-3">
-            <button class="btn btn-default" ng-click="applyJob(job._id)">Apply for Job</button>
-        </div>
+
     </div>
 </div>

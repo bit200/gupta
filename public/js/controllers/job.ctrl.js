@@ -10,10 +10,13 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
     if (routeParams.id) {
         var job = getContent.job.data.data[0];
         job.date_of_completion = new Date(job.date_of_completion);
-        scope.job = job
-        scope.job.content = parseEdit(scope.job.content_types)
+        scope.job = job;
+        if(getContent.apply)
+            scope.isApply = getContent.apply.data.data[0];
+        scope.job.content = parseEdit(scope.job.content_types);
         scope.job.location = parseEdit(scope.job.local_preference)
     }
+
 
 
     scope.applyJob = function (id) {
@@ -22,7 +25,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             controller: function ($scope, $http) {
                 $scope.close = function (text) {
                     $http.post('/api/job-apply', {job: id, message: text}).then(function (resp) {
-                        console.log('resp', resp)
+                        console.log('resp', resp);
+                        scope.isApply = resp.data.data;
                     })
                 }
             }
@@ -61,4 +65,25 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             }
         )
     };
+
+    scope.showApplyInfo = function(id){
+        ModalService.showModal({
+            templateUrl: "template/modal/applyJob.html",
+            controller: function ($scope, $http) {
+                $scope.isApply = true
+                $scope.text = scope.isApply.message;
+                $scope.close = function (text) {
+                    $http.post('/api/job-apply', {job: id, message: text}).then(function (resp) {
+                        console.log('resp', resp)
+                        scope.isApply = resp.data.data;
+                    })
+                }
+            }
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (result) {
+            });
+
+        });
+    }
 }]);

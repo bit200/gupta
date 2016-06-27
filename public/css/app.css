@@ -263,6 +263,14 @@ div.Files {
     border-color: transparent;
 }
 
+.btn-default-hover,.btn-default-hover:hover {
+    color: white;
+    background-color: #f7961d;
+    border-color: transparent;
+}
+
+
+
 .user-header {
     border: 3px solid whitesmoke;
     border-radius: 5px;
@@ -278,7 +286,7 @@ div.Files {
     background-color: #ff9c1d;
 }
 
-.
+
 div.row a.btn-back {
     float: right;
 }
@@ -370,12 +378,17 @@ div.text-padding {
 .marginR10 {
     margin-right: 10%;
 }
+
 .marginL20 {
     margin-left: 20px;
 }
 
 .marginTB20 {
     margin: 20px 0;
+}
+
+.marginT8 {
+    margin-top: 8px;
 }
 
 .marginT20 {
@@ -393,6 +406,7 @@ div.text-padding {
 .marginB30 {
     margin-bottom: 30px;
 }
+
 .marginB10 {
     margin-bottom: 10px;
 }
@@ -929,7 +943,7 @@ form .progress {
 }
 
 /*div.containerDrop {*/
-    /*height: 200px !important;*/
+/*height: 200px !important;*/
 /*}*/
 
 div.containerCrop {
@@ -1001,9 +1015,10 @@ div.containerCrop {
     margin-bottom: 70px;
 }
 
-.freelancer-info-profile .modal-dialog{
+.freelancer-info-profile .modal-dialog {
     width: 800px;
 }
+
 @media (max-width: 500px) {
     .auth-dialog .col-md-6:first-child {
         border-right: 0px
@@ -1023,7 +1038,7 @@ div.containerCrop {
 }
 
 @media (min-width: 768px) {
-    .seller-modal .modal-dialog{
+    .seller-modal .modal-dialog {
         width: 800px;
     }
 
@@ -1068,7 +1083,7 @@ div.containerCrop {
     }
 }
 
-.has-error .md-select-value{
+.has-error .md-select-value {
     border-bottom-color: red;
 }
 
@@ -1111,3 +1126,7 @@ div.containerCrop {
 
 }
 
+.dashed, .dashed:hover {
+    text-decoration: none;
+    border-bottom: 1px dashed;
+}

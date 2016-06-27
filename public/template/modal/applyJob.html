@@ -2,7 +2,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Apply for Job</h4>
+                <h4 ng-if="!isApply" class="modal-title">Apply for Job</h4>
+                <h4 ng-if="isApply" class="modal-title">Edit your apply info</h4>
             </div>
             <div class="modal-body">
                 <textarea class="form-control" ng-model="text" rows="3" placeholder="Input description"></textarea>
