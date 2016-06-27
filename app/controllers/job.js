@@ -7,6 +7,33 @@ var models = require('../db')
     multer = require('multer'),
     async = require('async');
 
+function pubParams(params, query) {
+    params = params || {}
+    var search = params.search
+    var _query = query
+
+    if (search) {
+        var regexp = new RegExp(search, 'i')
+        _query = {
+            $and: [query, {
+                $or: [{
+                    title: regexp
+                }, {
+                    description: regexp
+                }]
+            }]
+        }
+    }
+    
+    var _params = {
+        limit: params.limit || 20,
+        skip: params.skip || 0
+    }
+    return {
+        params: _params,
+        query: _query
+    }
+}
 
 exports.add_job = function (req, res) {
     var params = m.getBody(req);
@@ -15,17 +42,20 @@ exports.add_job = function (req, res) {
     m.create(models.Job, params, res, res)
 };
 
-exports.list = function(query){
+exports.list = function (query) {
     return function (req, res) {
-        console.log("mbody", m.getBody(req))
-        m.find(models.Job, query, res, res)
+        var queryParams = m.getBody(req)
+        var info = pubParams(queryParams, query)
+        m.find(models.Job, info.query, res, res, info.params)
     }
 };
 
-exports.count = function(query){
+exports.count = function (query) {
     return function (req, res) {
-        console.log("mbody", m.getBody(req))
-        m.count(models.Job, query, res, res)
+        var queryParams = m.getBody(req)
+        var info = pubParams(queryParams, query)
+        console.log("info", info, info.params)
+        m.count(models.Job, info.query, res, res, info.params)
     }
 };
 
