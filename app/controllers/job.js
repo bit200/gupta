@@ -54,13 +54,13 @@ exports.applyJobUpdate = function (req, res) {
 
 exports.applyJobRemove = function (req, res) {
     var params = m.getBody(req);
-    m.remove(models.JobApply, {_id: params._id}, res, res)
+    m.findRemove(models.JobApply, {_id: params._id}, res, res)
 }
 
 exports.getApplyInfo = function (req, res) {
     var params = m.getBody(req);
     console.log("paramsmsmsmsmsm", params)
-    m.remove(models.JobApply, {job: params._id, freelancer: req.freelancerId}, res, res)
+    m.find(models.JobApply, {job: params._id, freelancer: req.freelancerId}, res, res)
 }
 
 exports.getInfo = function (req, res) {

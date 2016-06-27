@@ -92,20 +92,9 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
                             job: $http.get('/api/job/' + $route.current.params.id),
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
+                            apply: $http.get('/api/job-apply/' + $route.current.params.id),
+                            contentType:{data:{data:''}},
+                            locations: {data:{data:''}}
                         })
                     }]
                 }
@@ -536,7 +525,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                             controller: function ($scope) {
                                 $scope.close = function (data) {
                                     var http = $injector.get('$http');
-
                                     function getToken() {
                                         console.log('qqq');
                                         http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
@@ -548,7 +536,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                             }
                                         )
                                     }
-
                                     data ? getToken() : (localStorage.clear(), location.reload());
                                 }
                             }

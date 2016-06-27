@@ -57,7 +57,6 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         job.content_types = parseType.get(job.content, scope.contentTypes);
         job.local_preference = parseType.get(job.location, scope.locations);
         http.put('/api/job', job).then(function (resp) {
-                location.path('/home')
             }, function (err, r) {
             }
         )

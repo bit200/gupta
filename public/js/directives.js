@@ -366,5 +366,15 @@ XYZCtrls.directive('loading', function () {
             marginBottom: "=?"
         }
     }
-})
+});
+
+XYZCtrls.directive('text-animation', function () {
+    return {
+        restrict: 'E',
+        templateUrl: 'template/directive/textAnimation.html',
+        scope: {
+            text: "="
+        }
+    }
+});
 

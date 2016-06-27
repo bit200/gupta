@@ -1,5 +1,5 @@
 <div class="container">
-<div class="text-center "><h3> Post a Job</h3></div>
+<div class="text-center "><h3> Edit the Job</h3></div>
 <form name="postjob" novalidate>
     <div class="row form-group" ng-class="{'has-error': submitted && postjob.title.$invalid}">
         <md-input-container class="md-block">
@@ -136,11 +136,14 @@
             <md-datepicker ng-model="job.date_of_completion" md-placeholder="Enter date" md-open-on-focus=""></md-datepicker>
         </div>
     </div>
-    <div class="row paddingT20 paddingB20">
-        <button type="submit" class="btn btn-default"
-                ng-click="editJob(postjob.$invalid,job); submitted=true">Edit
+    <div class="marginT20">
+        <text-animation text="'Thanks, your changes have been updated!'"></text-animation>
+    </div>
+    <div class="row paddingT20 paddingB20 text-center">
+        <button type="submit" class="btn btn-default width100px"
+                ng-click="editJob(postjob.$invalid,job); submitted=true">Update
         </button>
-        <a href="/#/home" class="btn btn-back floatR">Cancel</a></button>
+        <a href="/#/home" class="btn btn-back width100px">Cancel</a></button>
     </div>
 </form>
 </div>

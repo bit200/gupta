@@ -433,6 +433,10 @@ div.text-padding {
     width: 100%;
 }
 
+.width100px {
+    min-width: 100px;
+}
+
 .floatR {
     float: right;
 }
@@ -495,6 +499,10 @@ html, body {
 
 .relative {
     position: relative;
+}
+
+.absolute {
+    position: absolute;
 }
 
 .text-bold {
