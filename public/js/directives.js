@@ -231,6 +231,11 @@ XYZCtrls.directive('viewMyJob', function () {
                 scope.render({page: page});
             };
 
+            scope.enterSearch = function(search){
+                scope.currentPage = 1;
+                scope.render(search)
+            };
+
             function create_obj(params) {
                 params = params || {};
                 scope.Page = params.page || scope.currentPage;
@@ -250,7 +255,6 @@ XYZCtrls.directive('viewMyJob', function () {
             }
 
             scope.render = function (params) {
-
                 var obj = create_obj(params);
                 http.get(scope.url, {params: obj}).then(function (resp) {
                     console.log('resp', resp);
