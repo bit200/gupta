@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-xs-2 text-bold marginLR20 text-center" ng-repeat="type in open">{{type}}</div>
+</div>
+
+<div class="row" ng-repeat="job in jobs">
+    <div class="col-xs-2 marginB10 text-center" ng-repeat="(key, value) in job.data"><span ng-if="key != 'title'">{{value}}</span><a href="/#/job/{{job.elem._id}}" ng-if="key == 'title'">{{value}}</a></div>
+    <div class="col-xs-2 marginB10 text-center">
+        <div>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Commuticate')">Communicate</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="acceptJob(job)">Accept</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Reject')">Reject</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'View Contract')">View Contract</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Edit Contract')">Edit Contract</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Pause Contract')">Pause Contract</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Close Contract')">Close Contract</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Initiate Payment')">Initiate Payment</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Recreate Job')">Recreate Job</a>
+        </div>
+    </div>
+</div>

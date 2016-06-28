@@ -1,5 +1,7 @@
 var redis = require('../../redis');
 var config = require('../../../app/config');
+var models = require('../../db');
+var m = require('../../m');
 function check_auth (req, res, next, role) {
     var _token = req.headers['authorization']
     if (!_token) {
@@ -11,9 +13,8 @@ function check_auth (req, res, next, role) {
     res._token_start_time = new Date().getTime();
 
     redis.get('token_' + _token, function(err, r){
-        console.log(r)
-        if (err || !r || r.split('_')[1]!=role) {
-            return res.status(401).send({
+        if (err || !r) {
+            return res.status(402).send({
                 success: false,
                 message: "Failed to authenticate the token."
             });
@@ -43,6 +44,21 @@ module.exports = {
     },
     token: function (req, res, next) {
         check_auth(req, res, next, 'user')
+    },
+    freelancer_token: function(req, res, next) {
+        check_auth(req, res, function(){
+            m.findOne(models.Freelancer, {user: req.userId}, function() {
+                res.status(403).send({
+                    success: false,
+                    message: ["Permission error. You need to login as a freelancer"].join('')
+                })
+            }, function(freelancer){
+                req.freelancerId = freelancer._id
+                req.freelancer = freelancer
+                next()    
+            })
+            
+        })
     },
     admin_only: function (req, res, next) {
         check_auth(req, res, next, 'admin')

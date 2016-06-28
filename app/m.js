@@ -80,12 +80,13 @@ function distinct(model, query, fieldName, _ecb, _scb) {
 
 function find(model, query, _ecb, _scb, params) {
     params = params || {};
-    params.skip = parseInt(params.skip)
-    params.limit = parseInt(params.limit)
+    params.skip = +params.skip
+    params.limit = +params.limit
     if (!model) {
         ecb(399, 'Model not found', _ecb)
         return;
     }
+    console.log("paramssssss", params)
     model
         .find(query)
         .sort(params.sort)

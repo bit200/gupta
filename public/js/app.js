@@ -13,5 +13,6 @@ var XYZApp = angular.module('XYZApp', [
     'XYZCtrls',
     'ngFileUpload',
     'ngImgCrop',
-    'ngMdIcons'
+    'ngMdIcons',
+    'ui.bootstrap'
 ]);

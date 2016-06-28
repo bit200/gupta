@@ -183,16 +183,238 @@ XYZCtrls.directive('uniqueName', function ($http) {
 })
 
 
-XYZCtrls.directive('toggle', function() {
+XYZCtrls.directive('toggle', function () {
     return {
         scope: {
             toggle: '='
         },
-        link: function(scope, elem, attrs) {
-            scope.$watch('toggle', function(val){
+        link: function (scope, elem, attrs) {
+            scope.$watch('toggle', function (val) {
                 if (typeof val === 'boolean')
                     elem.slideToggle();
             })
         }
     }
 });
+
+
+XYZCtrls.directive('viewMyJob', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            typeJob: '=',
+            typeUser: '='
+        },
+        templateUrl: 'template/directive/templateViewMyJob.html',
+        controller: ['$scope', '$http', 'parseTime', '$rootScope', function (scope, http, parseTime, rootScope) {
+            scope.header = 'View My Jobs - ' + scope.typeUser + ' views'
+            scope.maxSize = 5;
+            scope.TotalItems = 0;
+            scope.currentPage = 1;
+            scope.limit = 5;
+            var last_press;
+            var timer = 500;
+            scope.trueSearch = function (search) {
+                if (!search)
+                    search = ' ';
+                console.log("searchsearchsearchsearchsearch", search)
+                last_press = new Date().getTime();
+                var cur_press = last_press;
+                setTimeout(function () {
+                    if (cur_press === last_press) {
+                        scope.currentPage = 1;
+                        scope.render({'search': search})
+                    }
+                }, timer)
+
+            };
+
+            scope.changePage = function (page) {
+                scope.render({page: page});
+            };
+
+            scope.enterSearch = function (search) {
+                if (!search)
+                    search = ' ';
+                scope.currentPage = 1;
+                scope.render(search)
+            };
+
+            function create_obj(params) {
+                params = params || {};
+                scope.Page = params.page || scope.currentPage;
+                scope.search = params.search || scope.search;
+                var obj = {};
+
+                if (scope.currentPage) {
+                    obj.skip = (scope.Page - 1) * scope.limit;
+                    obj.limit = scope.limit;
+                }
+
+                if (scope.search && scope.search != ' ') {
+                    obj.search = scope.search
+                }
+                return obj;
+
+            }
+
+            scope.render = function (params) {
+                scope.showLoading = true;
+                var obj = create_obj(params);
+                var index = 0;
+
+                function cb() {
+
+                    if (++index == 2) {
+                        scope.showLoading = false;
+                    }
+                }
+
+                http.get(scope.url, {params: obj}).then(function (resp) {
+                    cb();
+
+                    scope.body = [];
+
+                    _.each(resp.data.data, function (job) {
+                        var obj = {
+                            elem: job,
+                            data: {
+                                title: job.title || null,
+                                service_provider: job.name || null,
+                                response: job.response || null,
+                                status: job.status || null,
+                                date: parseTime.date(job.created_at) || null
+                            }
+                        };
+                        scope.body.push(obj)
+                    });
+
+
+                }, function (err) {
+                    cb();
+                });
+                http.get(scope.url + '/count', {params: obj}).then(function (resp) {
+                        cb();
+                        scope.TotalItems = resp.data.data;
+                    }
+                    , function (err) {
+                        scope.TotalItems = 0;
+                        cb();
+                    })
+            };
+
+            scope.render();
+
+        }]
+    };
+});
+
+XYZCtrls.directive('openJob', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            jobs: '='
+        },
+        templateUrl: 'template/directive/templateJob.html',
+        controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
+            scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
+            scope.action = function (id, type) {
+                console.log('da', id, type)
+            };
+            scope.acceptJob = function (job) {
+                ModalService.showModal({
+                    templateUrl: "template/modal/createContract.html",
+                    controller: function ($scope, $http, $element, close) {
+                        $scope.contract = {};
+                        $scope.contract.title = job.elem.title;
+                        $scope.contract.information = job.elem.description;
+                        $scope.contract.buyer_name = job.elem.name;
+                        $scope.contract.buyer_company_name = job.elem.company_name;
+                        $scope.contract.payment_basis = job.elem.budget;
+                        $scope.contract.final_amount = job.elem.budget;
+                        $scope.contract.expected_start = new Date();
+                        $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
+                        $scope.closeModal = function () {
+                            $element.modal('hide');
+                            $timeout(function () {
+                                location.path('contract/' + $scope.contract_id)
+                            }, 100)
+                        };
+                        $scope.createContract = function (invalid, type, data) {
+                            if (invalid) return;
+                            $scope.showLoading = true;
+                            data.seller_id = 0;
+                            $http.post('/api/contract/', data).then(function (resp) {
+                                $scope.showLoading = false;
+                                $scope.isCreated = true;
+                                $scope.contract_id = resp.data.data._id;
+                                console.log($scope.contract_id)
+                                // $element.modal('hide');
+                                console.log('resp', resp)
+                            }, function (err) {
+                                if (err.status = 404) {
+                                    $scope.error = 'Buyer/Seller not found';
+                                } else {
+                                    $scope.error = err.error
+                                }
+                                $scope.showLoading = false;
+                                console.log('err', err)
+                            })
+                        }
+                    }
+                }).then(function (modal) {
+                    modal.element.modal();
+                });
+            }
+        }]
+    };
+});
+
+XYZCtrls.directive('myJob', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            typeJob: '='
+        },
+        templateUrl: 'template/directive/templateJob.html',
+        link: function (scope, element, attrs) {
+
+        },
+        controller: ['$scope', '$http', function (scope, http) {
+
+            var open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
+            var ongoing = ['Job Title', 'Service Provider', 'Expected Completion Date', 'Contract Amount (Rs.)', 'Pending Amount', 'Action'];
+            var closed = ['Job Title', 'Service Provider', 'Job Closed Date', 'Status when closed', 'Amount Disbursed (Rs.)', 'Action'];
+
+            var openSelect = ['Communicate', 'Accept', 'Reject']
+
+        }]
+    };
+});
+
+XYZCtrls.directive('loading', function () {
+    return {
+        restrict: 'E',
+        templateUrl: 'template/directive/loading.html',
+        scope: {
+            w: "=?",
+            h: "=?",
+            marginTop: "=?",
+            marginBottom: "=?"
+        }
+    }
+});
+
+XYZCtrls.directive('text-animation', function () {
+    return {
+        restrict: 'E',
+        templateUrl: 'template/directive/textAnimation.html',
+        scope: {
+            text: "="
+        }
+    }
+});
+

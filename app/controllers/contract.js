@@ -7,8 +7,9 @@ var models = require('../db')
 
 exports.create_contract = function (req, res) {
     var params = m.getBody(req);
+    console.log("params", params, req.userId)
+    params.buyer = req.userId
     m.create(models.Contract, {buyer: req.userId, seller: params.id}, res, res)
-
 };
 
 exports.approve_contract = function (req, res) {

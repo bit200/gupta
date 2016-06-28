@@ -6,9 +6,20 @@ var ChatMessageSchema = mongoose.Schema({
         type: Number,
         ref: 'ChatRoom'
     },
-    users: {
+    job: {
+        type: Number
+    },
+    from: {
         type: Number,
         ref: 'User'
+    },
+    to: {
+        type: Number,
+        ref: 'User'
+    },
+    read: {
+        type:Boolean,
+        default:false
     },
     message: String,
     created_at: {

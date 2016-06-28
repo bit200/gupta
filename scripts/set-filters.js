@@ -1,7 +1,9 @@
 var config = require('../app/config'),
     m = require(config.root + 'app/m'),
     models = require(config.root + 'app/db'),
+    md5 = require('md5'),
     _ = require('underscore'),
+    Job = models.Job,
     Location = models.Location,
     async = require('async');
 
@@ -19,6 +21,85 @@ function findCreateFilter(name, filter, arr, cb) {
 }
 
 module.exports = function (done) {
+
+    var FAKE_JOB_COUNT = 100
+    var userID = 100086;
+    m.findOne(models.Freelancer, {user: userID}, function(){
+        models.Freelancer.create({
+            "type": "freelancer",
+            "name": "test test",
+            "introduction": "asfdasdasd",
+            "description": "asdasda",
+            "location": "Delhi",
+            "user": userID,
+            "rating": 3,
+            "popularity": 3,
+            "view": 20,
+            "service_type": "word",
+            "service_price": 24,
+            "languages": [
+                "Marathi",
+                "Telugu"
+            ],
+            "content_type": [
+                "Press Release Writing"
+            ],
+            "industry_expertise": [
+                "Health and Fitness",
+                "Travel and Tourism",
+                "Science"
+            ],
+            "freelancer_type": [
+                "Digital Marketing"
+            ],
+            "cities_service": []
+        }, function(err, r){
+            console.log("Fake freelancer creation", err, r)
+        })
+    })
+    Job.count({}).exec(function(err, count) {
+        console.log('err, count')
+        if (count > FAKE_JOB_COUNT - 1) {
+            console.log('FAKE JOBS ALREADY CREATED')
+            return
+        }
+        console.log('FAKE JOBS CREATION PROCESS')
+        var arrFunc = [];
+        var arr = [];
+
+        for (var i = 0; i < FAKE_JOB_COUNT; i++) {
+            function plus_i (text) {
+                return text + ' ' + i
+            }
+            arr.push({
+                title: plus_i('Job title '),
+                description: plus_i('Description description', + i),
+                budget: 100 + i,
+                name: plus_i('Name'),
+                mobile: plus_i('Phone number'),
+                company_name: plus_i('Company name'),
+                website: plus_i('http://Website'),
+                admin_approved: 1,
+                user: 100000,
+                created_at: new Date().getTime() - i * 24 * 3600 * 1000
+            })
+        }
+        var count = 0;
+        _.forEach(arr, function (item) {
+            m.create(Job, item, function(err, a, b){
+                console.log("errrr", err, a, b)
+            }, function () {
+                count++;
+                if (arr.length == count) {
+                    console.log('Fake jobs created')
+
+                }
+            })
+        });
+
+    })
+
+
     Location.count().exec(function (err, count) {
         if (count) return done();
         console.log('.....Creating filters.....');
@@ -180,193 +261,223 @@ module.exports = function (done) {
 
         arrFunc.push(function (cb) {
 
-        var arr = [
-        {
-            "type" : "freelancer",
-            "name" : "test2 test2",
-            "introduction" : "asfdasdasd",
-            "description" : "asdasda",
-            "location" : "Delhi",
-            "user" : 100080,
-            "rating" : 1,
-            "popularity" : 1,
-            "view" : 1900,
-            "service_type" : "word",
-            "service_price" : 1,
-            "poster" : "http://2.bp.blogspot.com/-mxUOaP7O7zE/VAnmIljIGoI/AAAAAAAANN0/UmtA1zptSSs/s1600/_DSC4232.jpg",
-            "languages" : [
-            "Marathi",
-            "Telugu"
-        ],
-            "content_type" : [
-            "Press Release Writing"
-        ],
-            "industry_expertise" : [
-            "Health and Fitness",
-            "Travel and Tourism",
-            "Science"
-        ],
-            "freelancer_type" : [
-            "Digital Marketing"
-        ],
-            "cities_service" : []
-        },
+            var arr = [
+                {
+                    "type": "freelancer",
+                    "name": "test2 test2",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100080,
+                    "rating": 1,
+                    "popularity": 1,
+                    "view": 1900,
+                    "service_type": "word",
+                    "service_price": 1,
+                    "poster": "http://2.bp.blogspot.com/-mxUOaP7O7zE/VAnmIljIGoI/AAAAAAAANN0/UmtA1zptSSs/s1600/_DSC4232.jpg",
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                },
 
 
-        {
-            "type" : "agency",
-            "name" : "test test",
-            "introduction" : "asfdasdasd",
-            "description" : "asdasda",
-            "location" : "Delhi",
-            "user" : 100022,
-            "rating" : 4,
-            "popularity" : 4,
-            "view" : 999,
-            "service_type" : "hour",
-            "service_price" : 551,
-            "poster" : "http://svit24.net/images/stories/articles/2012/Curiosities/01-2012/-%D0%B8%D0%BD%D0%B4%D1%83%D1%81.jpg",
-            "languages" : [
-            "Marathi",
-            "Telugu"
-        ],
-            "content_type" : [
-            "Press Release Writing"
-        ],
-            "industry_expertise" : [
-            "Health and Fitness",
-            "Travel and Tourism",
-            "Science"
-        ],
-            "freelancer_type" : [
-            "Digital Marketing"
-        ],
-            "cities_service" : []
-        },
+                {
+                    "type": "agency",
+                    "name": "test test",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100022,
+                    "rating": 4,
+                    "popularity": 4,
+                    "view": 999,
+                    "service_type": "hour",
+                    "service_price": 551,
+                    "poster": "http://svit24.net/images/stories/articles/2012/Curiosities/01-2012/-%D0%B8%D0%BD%D0%B4%D1%83%D1%81.jpg",
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                },
 
-            {
-            "type" : "freelancer",
-            "name" : "test3 test3",
-            "introduction" : "asfdasdasd",
-            "description" : "asdasda",
-            "location" : "Delhi",
-            "user" : 100023,
-            "rating" : 3,
-            "popularity" : 3,
-            "view" : 78,
-            "service_type" : "word",
-            "service_price" : 8,
-            "poster" : "https://pp.vk.me/c9249/v9249019/85e/U5hcz7MPt58.jpg",
-            "languages" : [
-            "Marathi",
-            "Telugu"
-        ],
-            "content_type" : [
-            "Press Release Writing"
-        ],
-            "industry_expertise" : [
-            "Health and Fitness",
-            "Travel and Tourism",
-            "Science"
-        ],
-            "freelancer_type" : [
-            "Digital Marketing"
-        ],
-            "cities_service" : []
-        },
-        {
-            "type" : "agency",
-            "name" : "test test",
-            "introduction" : "asfdasdasd",
-            "description" : "asdasda",
-            "location" : "Delhi",
-            "user" : 100025,
-            "rating" : 5,
-            "popularity" : 5,
-            "view" : 545,
-            "service_type" : "hour",
-            "service_price" : 3000,
-            "poster" : "http://peshera.org/khrono/Fotos-19/foto-118.jpg",
-            "languages" : [
-            "Marathi",
-            "Telugu"
-        ],
-            "content_type" : [
-            "Press Release Writing"
-        ],
-            "industry_expertise" : [
-            "Health and Fitness",
-            "Travel and Tourism",
-            "Science"
-        ],
-            "freelancer_type" : [
-            "Digital Marketing"
-        ],
-            "cities_service" : []
-        },
-        {
-            "type" : "freelancer",
-            "name" : "test test",
-            "introduction" : "asfdasdasd",
-            "description" : "asdasda",
-            "location" : "Delhi",
-            "user" : 100028,
-            "rating" : 3,
-            "popularity" : 3,
-            "view" : 20,
-            "service_type" : "word",
-            "service_price" : 24,
-            "poster" : "http://f1-legend.ru/_ld/18/08806603.jpg",
-            "languages" : [
-            "Marathi",
-            "Telugu"
-        ],
-            "content_type" : [
-            "Press Release Writing"
-        ],
-            "industry_expertise" : [
-            "Health and Fitness",
-            "Travel and Tourism",
-            "Science"
-        ],
-            "freelancer_type" : [
-            "Digital Marketing"
-        ],
-            "cities_service" : []
-        },
-        {
-            "type" : "agency",
-            "name" : "test test",
-            "introduction" : "asfdasdasd",
-            "description" : "asdasda",
-            "location" : "Delhi",
-            "user" : 100033,
-            "rating" : 2,
-            "popularity" : 2,
-            "view" : 130,
-            "poster" : "http://f2.s.qip.ru/15A7EBwSn.jpg",
-            "service_type" : "word",
-            "service_price" : 20,
-            "languages" : [
-            "Marathi",
-            "Telugu"
-        ],
-            "content_type" : [
-            "Press Release Writing"
-        ],
-            "industry_expertise" : [
-            "Health and Fitness",
-            "Travel and Tourism",
-            "Science"
-        ],
-            "freelancer_type" : [
-            "Digital Marketing"
-        ],
-            "cities_service" : []
-        }];
+                {
+                    "type": "freelancer",
+                    "name": "test3 test3",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100023,
+                    "rating": 3,
+                    "popularity": 3,
+                    "view": 78,
+                    "service_type": "word",
+                    "service_price": 8,
+                    "poster": "https://pp.vk.me/c9249/v9249019/85e/U5hcz7MPt58.jpg",
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                },
+                {
+                    "type": "agency",
+                    "name": "test test",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100025,
+                    "rating": 5,
+                    "popularity": 5,
+                    "view": 545,
+                    "service_type": "hour",
+                    "service_price": 3000,
+                    "poster": "http://peshera.org/khrono/Fotos-19/foto-118.jpg",
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                },
+                {
+                    "type": "freelancer",
+                    "name": "test test",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100028,
+                    "rating": 3,
+                    "popularity": 3,
+                    "view": 20,
+                    "service_type": "word",
+                    "service_price": 24,
+                    "poster": "http://f1-legend.ru/_ld/18/08806603.jpg",
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                },
+                {
+                    "type": "freelancer",
+                    "name": "test test",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100001,
+                    "rating": 3,
+                    "popularity": 3,
+                    "view": 20,
+                    "service_type": "word",
+                    "service_price": 24,
+                    "poster": "http://f1-legend.ru/_ld/18/08806603.jpg",
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                },
+                {
+                    "type": "agency",
+                    "name": "test test",
+                    "introduction": "asfdasdasd",
+                    "description": "asdasda",
+                    "location": "Delhi",
+                    "user": 100033,
+                    "rating": 2,
+                    "popularity": 2,
+                    "view": 130,
+                    "poster": "http://f2.s.qip.ru/15A7EBwSn.jpg",
+                    "service_type": "word",
+                    "service_price": 20,
+                    "languages": [
+                        "Marathi",
+                        "Telugu"
+                    ],
+                    "content_type": [
+                        "Press Release Writing"
+                    ],
+                    "industry_expertise": [
+                        "Health and Fitness",
+                        "Travel and Tourism",
+                        "Science"
+                    ],
+                    "freelancer_type": [
+                        "Digital Marketing"
+                    ],
+                    "cities_service": []
+                }];
             var count = 0;
             _.forEach(arr, function (item) {
-                m.findCreate(models.Freealncer, item, {}, {}, function () {
+                m.findCreate(models.Freelancer, item, {}, {}, function () {
                     count++;
                     if (arr.length == count) {
                         cb()
@@ -375,6 +486,21 @@ module.exports = function (done) {
             });
         });
 
+        // arrFunc.push(function (cb) {
+        //     for (var i = 0; i < 100; i++) {
+        //
+        //     }
+        //     var arr = [];
+        //     var count = 0;
+        //     _.forEach(arr, function (item) {
+        //         m.findCreate(models.Freelancer, item, {}, {}, function () {
+        //             count++;
+        //             if (arr.length == count) {
+        //                 cb()
+        //             }
+        //         })
+        //     });
+        // });
 
         async.parallel(arrFunc, function () {
             console.log('Filters created');

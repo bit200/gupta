@@ -12,9 +12,17 @@ var ContractSchema = mongoose.Schema({
     },
     seller_contact: String,
     seller_name: String,
+    freelancer: {
+        type: Number,
+        ref: 'Freelancer'
+    },
     seller: {
         type: Number,
         ref: 'User'
+    },
+    job: {
+        type: Number,
+        ref: 'Job'
     },
     payment_basis: String,
     expected_start: Date,
@@ -23,7 +31,6 @@ var ContractSchema = mongoose.Schema({
     status: String,
     reject_reason: String,
     rating: Number,
-
     created_at: {
         type: Date,
         default: Date.now

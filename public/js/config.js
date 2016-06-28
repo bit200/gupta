@@ -32,14 +32,13 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             })
             .when('/forgot/email', {
                 templateUrl: 'template/forgotEmail.html',
-                controller: 'forgotCtrl',
+                controller: 'forgotCtrl'
             })
 
             .when('/forgot/restore/:restoreCode', {
                 templateUrl: 'template/forgotRestore.html',
                 controller: 'forgotCtrl'
             })
-
             .when('/confirm/:confirmCode', {
                 templateUrl: 'template/confirm.html',
                 controller: 'confirmCtrl'
@@ -85,7 +84,67 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/post-job/edit/:id', {
+            .when('/messages', {
+                templateUrl: 'template/chat.html',
+                controller: 'chatCtrl'
+            })
+
+            .when('/jobs', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'viewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            jobs: $http.get('/get-my-job')
+                        })
+                    }
+                }
+            })
+
+            .when('/job/:id', {
+                templateUrl: 'template/job.html',
+                controller: 'jobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.get('/api/job/' + $route.current.params.id),
+                            apply: $http.get('/api/job-apply/' + $route.current.params.id),
+                            contentType:{data:{data:''}},
+                            locations: {data:{data:''}}
+                        })
+                    }]
+                }
+            })
+
+            .when('/job/edit/:id', {
+                templateUrl: 'template/editJob.html',
+                controller: 'jobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.get('/api/job/' + $route.current.params.id),
+                            contentType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }]
+                }
+            })
+            .when('/post-job/recreate/:id', {
                 templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
                 resolve: {
@@ -436,7 +495,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/view-my-job/Buyer', {
+            .when('/jobs/buyer/open', {
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'viewMyJobCtrl',
                 resolve: {
@@ -484,7 +543,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                             controller: function ($scope) {
                                 $scope.close = function (data) {
                                     var http = $injector.get('$http');
-
                                     function getToken() {
                                         console.log('qqq');
                                         http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
@@ -496,7 +554,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                             }
                                         )
                                     }
-
                                     data ? getToken() : (localStorage.clear(), location.reload());
                                 }
                             }

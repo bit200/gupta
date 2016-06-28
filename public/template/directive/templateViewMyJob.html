@@ -1,0 +1,45 @@
+<div class="container">
+<h2 class="text-bold text-center marginT20">{{header}}</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h3 class="text-bold">View My Jobs</h3>
+        <div class="col-md-2 padding7">By Status</div>
+        <div class="col-md-4 nopadding">
+            <select class="form-control" name="singleSelect" ng-model="data.jobs" ng-init="data.jobs='Open'">
+                <option value="Open">Open Jobs</option>
+                <option value="Ongoing">Ongoing Jobs</option>
+                <option value="Closed">Closed Jobs</option>
+            </select>
+        </div>
+        <div class="col-md-2 padding7">
+            View Jobs as
+        </div>
+        <div class="col-md-4 nopadding">
+            <select class="form-control" name="singleSelect" ng-model="data.view" ng-init="data.view='Buyer'">
+                <option value="Buyer">Buyer</option>
+                <option value="Seller">Seller</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 marginTB20">
+        <input class="form-control" placeholder="Search for a job" ng-model="searchJob" ng-change="trueSearch(searchJob)" ng-enter="enterSearch({'search': searchJob})">
+    </div>
+</div>
+</div>
+<div class="container">
+
+    <!--<div class="text-center" ng-show="TotalItems">-->
+        <!--<uib-pagination total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>-->
+    <!--</div>-->
+    <div class="relative" ng-show="TotalItems">
+        <div class="loading" ng-show="showLoading">
+            <loading w="45" margin-top="100"></loading>
+        </div>
+        <open-job jobs="body"></open-job>
+    </div>
+    <div class="text-center" ng-show="numPage > 1">
+        <uib-pagination items-per-page="limit" total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPage"></uib-pagination>
+    </div>
+</div>

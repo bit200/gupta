@@ -39,7 +39,7 @@ html {
 
 .modal-block-attachFiles {
     height: 600px;
-    widows: 500px;
+    width: 500px;
 }
 
 .button {
@@ -200,7 +200,11 @@ div.Files {
     margin-top: 10%;
     padding: 20px 20px 5px 20px;
     background-color: white;
-
+}
+.contract-style-form {
+    margin: 0 auto;
+    padding: 20px 20px 5px 20px;
+    background-color: white;
 }
 
 .claimAgencyPage {
@@ -208,9 +212,7 @@ div.Files {
     padding: 10px 0 10px 20px;
 }
 
-.btn-default-2 {
 
-}
 
 .error {
     color: #ff0000;
@@ -263,6 +265,14 @@ div.Files {
     border-color: transparent;
 }
 
+.btn-default-hover,.btn-default-hover:hover {
+    color: white;
+    background-color: #f7961d;
+    border-color: transparent;
+}
+
+
+
 .user-header {
     border: 3px solid whitesmoke;
     border-radius: 5px;
@@ -278,10 +288,8 @@ div.Files {
     background-color: #ff9c1d;
 }
 
-.
-div.row a.btn-back {
-    float: right;
-}
+
+
 
 .logOut-btn {
     padding: 20px 0 0 0;
@@ -323,7 +331,8 @@ div.text-padding {
 }
 
 .padding7 {
-    padding: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 
 .paddingLR20 {
@@ -363,18 +372,23 @@ div.text-padding {
 }
 
 .marginLR20 {
-    margin: 10px 1px;
+    margin: 10px 0;
 }
 
 .marginR10 {
     margin-right: 10%;
 }
+
 .marginL20 {
     margin-left: 20px;
 }
 
 .marginTB20 {
     margin: 20px 0;
+}
+
+.marginT8 {
+    margin-top: 8px;
 }
 
 .marginT20 {
@@ -391,6 +405,10 @@ div.text-padding {
 
 .marginB30 {
     margin-bottom: 30px;
+}
+
+.marginB10 {
+    margin-bottom: 10px;
 }
 
 .width20 {
@@ -427,6 +445,10 @@ div.text-padding {
 
 .width100 {
     width: 100%;
+}
+
+.width100px {
+    min-width: 100px;
 }
 
 .floatR {
@@ -493,6 +515,10 @@ html, body {
     position: relative;
 }
 
+.absolute {
+    position: absolute;
+}
+
 .text-bold {
     font-weight: bold;
 }
@@ -503,6 +529,10 @@ html, body {
 
 .text-grey {
     color: #a9a9a9;
+}
+
+.text-error {
+    color: #ff0000;
 }
 
 .text-white, .text-white:hover, .text-white:focus {
@@ -917,7 +947,7 @@ form .progress {
 }
 
 /*div.containerDrop {*/
-    /*height: 200px !important;*/
+/*height: 200px !important;*/
 /*}*/
 
 div.containerCrop {
@@ -989,7 +1019,7 @@ div.containerCrop {
     margin-bottom: 70px;
 }
 
-.freelancer-info-profile .modal-dialog{
+.freelancer-info-profile .modal-dialog {
     width: 800px;
 }
 
@@ -1012,7 +1042,7 @@ div.containerCrop {
 }
 
 @media (min-width: 768px) {
-    .seller-modal .modal-dialog{
+    .seller-modal .modal-dialog {
         width: 800px;
     }
 
@@ -1057,7 +1087,7 @@ div.containerCrop {
     }
 }
 
-.has-error .md-select-value{
+.has-error .md-select-value {
     border-bottom-color: red;
 }
 
@@ -1100,3 +1130,21 @@ div.containerCrop {
 
 }
 
+.dashed, .dashed:hover {
+    text-decoration: none;
+    border-bottom: 1px dashed;
+}
+
+.header-my-job, .header-my-job:focus {
+    display: inline-block;
+    font-weight: bold;
+    color: #c1c1c1;
+    margin-top: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-my-job:hover {
+    text-decoration: none;
+    color: #f7961d;
+}
