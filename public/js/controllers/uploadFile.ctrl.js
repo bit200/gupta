@@ -15,8 +15,8 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
 
         scope.uploadPic = function (file) {
             file.upload = Upload.upload({
-                url: 'http://localhost:8080/uploadFile', //webAPI exposed to upload the file
-                data: {file: file} //pass file as data, should be user ng-model
+                url: '/uploadFile', 
+                data: {file: file}
             });
             file.upload.then(function (response) {
                 $timeout(function () {
@@ -49,8 +49,6 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
             }
         });
 
-
-
         scope.upload = function (dataUrl, name) {
             Upload.upload({
                 url: '/uploadFile',
@@ -58,10 +56,11 @@ XYZCtrls.controller('uploadFile', ['$scope', '$rootScope', '$http', '$location',
                     file: Upload.dataUrltoBlob(dataUrl, name)
                 }
             }).then(function (response) {
+                if (!rootScope.globalImg) rootScope.globalImg = [];
                 rootScope.globalImg.push(response.data);
                 $timeout(function () {
                     scope.result = response.data;
-                    rootScope.globalImg.push(Upload.dataUrltoBlob(dataUrl, name))
+                    // rootScope.globalImg.push(Upload.dataUrltoBlob(dataUrl, name))
                 });
             }, function (response) {
                 if (response.status > 0) scope.errorMsg = response.status

@@ -97,6 +97,31 @@ XYZCtrls.directive('phoneNumber', function () {
     };
 });
 
+XYZCtrls.directive('equals', function() {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            if(!ngModel) return; // do nothing if no ng-model
+
+            scope.$watch(attrs.ngModel, function() {
+                validate();
+            });
+
+            attrs.$observe('equals', function (val) {
+                validate();
+            });
+
+            var validate = function() {
+                var val1 = ngModel.$viewValue;
+                var val2 = attrs.equals;
+
+                ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
+            };
+        }
+    }
+});
+
 XYZCtrls.directive("passwordVerify", function () {
     return {
         require: "ngModel",
@@ -115,6 +140,8 @@ XYZCtrls.directive("passwordVerify", function () {
                 if (value) {
                     ctrl.$parsers.unshift(function (viewValue) {
                         var origin = scope.passwordVerify;
+                        console.log(origin, viewValue, scope.passwordVerify);
+
                         if (origin !== viewValue) {
                             ctrl.$setValidity("passwordVerify", false);
                             return undefined;
@@ -129,23 +156,6 @@ XYZCtrls.directive("passwordVerify", function () {
     };
 });
 
-XYZCtrls.directive('uniqueUsername', function ($http) {
-    return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function (scope, element, attrs, ngModel) {
-            element.bind('blur', function (e) {
-                if (element.val().length < 4) return;
-                ngModel.$loading = true;
-
-                $http.get("/api/checkUnique?username=" + element.val()).success(function (data) {
-                    ngModel.$loading = false;
-                    ngModel.$setValidity('unique', !data.count);
-                });
-            });
-        }
-    };
-})
 XYZCtrls.directive('uniqueEmail', function ($http) {
     return {
         restrict: 'A',

@@ -58,15 +58,6 @@ angular.module( 'admin.business_accounts', [
 
 
 
-        $scope.rejectApproveAccount = function(status, accId, $index){
-            cfpLoadingBar.start()
-            $http.get('/admin/api/business_accounts/'+status+'/'+accId).success(function(account){
-                $scope.business_accounts.splice($index)
-                cfpLoadingBar.complete()
-                notify({message: 'Business account with id ' + accId + ' has been succesfully '+ (status == 'reject' ? 'rejected' : 'approved'), position: 'right'});
-            });
-        };
-
         $scope.business_accounts_area = {};
         
         $scope.reject = function(business_account, $index){
@@ -98,8 +89,8 @@ angular.module( 'admin.business_accounts', [
         $scope.rejectApproveAccount = function(status, accId, $index, body){
             cfpLoadingBar.start()
             $http.post('/admin/api/business_accounts/'+status+'/'+accId, body || {}).success(function(account){
-                $scope.business_accounts.splice($index)
-                cfpLoadingBar.complete()
+                $scope.business_accounts.splice($index, 1);
+                cfpLoadingBar.complete();
                 notify({message: 'Business account with id ' + accId + ' has been succesfully '+ (status == 'reject' ? 'rejected' : 'approved'), position: 'right'});
             });
         };

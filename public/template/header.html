@@ -24,14 +24,15 @@
             <a href="/#/jobs/buyer/open" class="header-my-job marginL20">My Jobs</a>
             <ul class="nav navbar-nav navbar-right" ng-if="isLogged()">
                <li class="navbar-btn">
-                <button class="btn btn-default " type="submit"
-                ng-click="logout()">Logout
-                </button>
+                   <button class="btn btn-default " type="submit" ng-click="logout()">Logout</button>
+               </li>
+               <li class="navbar-btn">
+                   <button class="btn btn-default" ng-click="go('/profile')">Edit Profile</button>
                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-if="!isLogged()">
                <li class="navbar-btn">
-                   <a href="" ng-click="showAuth()">Sign In</a>
+                   <a href="" ng-click="showAuth()">Sign In / Sign up</a>
                </li>
             </ul>
         </div>

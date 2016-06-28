@@ -383,7 +383,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                     distinctName: 'name'
                                 }
                             }),
-                            user: $http.get('/me')
+                            user: $http.get('/api/user/me')
                         })
                     }
                 }
@@ -489,7 +489,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 templateUrl: 'template/category.html',
                 controller: 'categoryCtrl',
                 resolve: {
-                    auth: authResolve,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
                             topic: $http.get('/get-content', {
@@ -520,7 +519,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                     distinctName: 'name'
                                 }
                             }),
-                            freelancer: $http.get('/freelancer', {params: {freelancer_type: $route.current.params.provider}})
+                            freelancer: $http.get('/api/freelancers', {params: {freelancer_type: $route.current.params.provider}})
                         })
                     }]
                 }
@@ -535,14 +534,14 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             })
 
 
-            .when('/my-profile', {
+            .when('/profile', {
                 templateUrl: 'template/myProfile.html',
                 controller: 'myProfileCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            user: $http.get('/me')
+                            user: $http.get('/api/user/me')
                         })
                     }
                 }

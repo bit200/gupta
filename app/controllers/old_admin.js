@@ -130,7 +130,7 @@ exports.suggest_edit_job = function (req, res) {
 
 exports.approved = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {username: params.username}, {admin_approved: 1}, res, function (user) {
+    m.findUpdate(models.User, {email: params.email}, {admin_approved: 1}, res, function (user) {
         var newseller = {
             login: randomstring.generate(10),
             password: md5(randomstring.generate(15))
@@ -141,7 +141,7 @@ exports.approved = function (req, res) {
                 else {
                 }
             });
-            mail.registrationSeller(user, user.username);
+            mail.registrationSeller(user, user.email);
             m.scb({}, res);
 //        mkdirp('../../public/img/user'+user._id);
         })
@@ -150,5 +150,5 @@ exports.approved = function (req, res) {
 
 exports.reject = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {username: params.username}, {admin_approved: 2, reject_reason: params.reject_reason}, res, res)
+    m.findUpdate(models.User, {email: params.email}, {admin_approved: 2, reject_reason: params.reject_reason}, res, res)
 };

@@ -221,7 +221,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                     return deferred.promise;
                 },
                 setCurrentUser: function(){
-                    $http.get('/me').success(function(resp){
+                    $http.get('/api/user/me').success(function(resp){
                         currentUser = resp.data
                     });
                 },
@@ -234,7 +234,7 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                             $scope.signin = function (invalid, data) {
                                 $scope.loginError = '';
                                 if (invalid) return;
-                                $http.get('/sign-in', {params: {username: data.username, password: data.password}}).success(function (resp) {
+                                $http.get('/sign-in', {params: {email: data.email, password: data.password}}).success(function (resp) {
                                     resObj.setTokens({
                                         accessToken: resp.data.accessToken.value,
                                         refreshToken: resp.data.refreshToken.value

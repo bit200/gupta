@@ -205,23 +205,14 @@ function insertMany(model, new_params, _ecb, _scb, params) {
 
 
 function findUpdate(model, query, new_params, _ecb, _scb, params) {
-    params = params || {}
-    findOne(model, query, _ecb, function (item) {
-        item = _.extend(item, new_params);
-        save(item, _ecb, function(item){
-            if (params.populate) {
-                item.populate(params.populate, function(err, b) {
-                    if (err) {
-                        ecb(398, item, _ecb)
-                    } else {
-                        scb(item, _scb)
-                    }
-                })
+    model.update(query, new_params, {}, function (err, item) {
+            if (err) {
+                ecb(398, err, _ecb)
             } else {
                 scb(item, _scb)
             }
-        }, params)
-    }, params)
+        }
+    );
 }
 
 
