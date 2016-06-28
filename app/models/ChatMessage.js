@@ -17,6 +17,10 @@ var ChatMessageSchema = mongoose.Schema({
         type: Number,
         ref: 'User'
     },
+    read: {
+        type:Boolean,
+        default:false
+    },
     message: String,
     created_at: {
         type: Date,

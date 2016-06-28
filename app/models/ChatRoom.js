@@ -3,10 +3,23 @@ var mongoose = require('mongoose')
 
 var ChatRoomSchema = mongoose.Schema({
     name: String,
-    buyer: Number,
-    seller: Number,
-    job: Number,
-    message: Array,
+    buyer: {
+        type:Number,
+        ref: 'User'
+    },
+    seller: {
+        type: Number,
+        ref: 'User'
+    },
+    job: {
+        type:Number,
+        ref:'Job'
+    },
+    messages: Array,
+    unreadMessages:{
+        status: Boolean,
+        date: Date //date last unread message
+    },
     created_at: {
         type: Date,
         default: Date.now
