@@ -29,15 +29,15 @@ var UserSchema = mongoose.Schema({
     }
 });
 
-//
-// UserSchema.methods.send_restore = function (ecb, scb) {
-//     this.restore_code = this.restore_code || randomstring.generate(30);
-//     m.save(this, ecb, function (_this) {
-//         mail.send_restore(_this, ecb, scb)
-//     })
-// };
-//
-//
+
+UserSchema.methods.send_restore = function (ecb, scb) {
+    this.restore_code = this.restore_code || randomstring.generate(30);
+    m.save(this, ecb, function (_this) {
+        mail.send_restore(_this, ecb, scb)
+    })
+};
+
+
 UserSchema.pre('save', function (next) {
     if (this.password) 
         this.password = md5(this.password);

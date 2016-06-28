@@ -170,6 +170,8 @@ exports.get_freelancers = function (req, res) {
         if (value instanceof  Array)
             params[key] = {$in: params[key]}
     })
+    if (params.experience)
+        params.experience = {$gte: parseInt(params.experience)}
     console.log(params)
     m.find(models.Freelancer, params, res, res, {populate: 'poster'})
 };

@@ -110,17 +110,16 @@
             <div class="row marginT20">
                 <div class="col-md-12 col-xs-6" ng-if="!(freelancer | orderBy:category_active | filter:mainSearch).length"><h3>Not one profile card not found</h3></div>
 
-                <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch" ng-click="showProfile(profile._id)">
+                <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancer | orderBy:category_active | filter:mainSearch">
                     <div class="profile-detail">
-                        <img class="profile-poster-detail" ng-src="{{profile.poster}}">
-
-                        <div class="text-center">{{profile.name}}</div>
-                        <div class="col-sm-12">
-                            <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
-                        </div>
+                        <img class="profile-poster-detail" ng-src="{{profile.poster.url}}">
+                        <ul style="list-style-type: none;">
+                            <li>{{profile.name}}</li>
+                            <li>{{profile.location}}</li>
+                        </ul>
+                        <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
+                        <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
+                        <button class="btn btn-default full-width" ng-click="showProfile(profile._id)">View Details</button>
                     </div>
                 </div>
             </div>

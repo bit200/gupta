@@ -73,7 +73,7 @@ exports.restore = function (req, res) {
         m.ecb(350, {error: "Password can't be empty"}, res);
         return;
     }
-    m.findUpdate(models.User, {restore_code: data.restore_code}, {restore_code: null, password: md5(data.password)}, res, res, {publish: true})
+    m.findUpdate(models.User, {restore_code: data.restore_code}, {restore_code: null, password: data.password}, res, res, {publish: true})
 };
 
 exports.update_profile = function (req, res) {

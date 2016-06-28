@@ -4,11 +4,12 @@ XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams
     scope.send = true;
     scope.submitted = false;
     scope.button = 'Send';
+    
     scope.restore = function (invalid, email) {
         scope.error = "";
         if (invalid) return;
         scope.button = 'Wait';
-        http.get('/send-restore', {params: {email: email}}).then(function (resp) {
+        http.get('/api/send-restore', {params: {email: email}}).then(function (resp) {
             scope.send = false;
         }, function (err) {
             scope.button = 'Send';
@@ -17,7 +18,7 @@ XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams
     };
     scope._restore = false;
     scope.restorePassword = function (password) {
-        http.get('/restore', {
+        http.get('/api/restore', {
             params: {
                 restore_code: routeParams.restoreCode,
                 password: password

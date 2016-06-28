@@ -1,20 +1,19 @@
 <div class="restore-form block-center">
-    <div ng-if="!_restore">
-        <form class="common-style-form">
-            <div class="form-group" ng-class="{'has-error': submitted && registr.password.$invalid}">
-                <label>Password</label>
-                <input class="form-control" ng-enter="registration(reg)" name="password" type="password" ng-model="password" required>
-                <p style="position: relative" class="error" ng-if="registr.password.$error.required">Password is required</p>
-            </div>
+    <form class="common-style-form">
+        <div class="form-group" ng-class="{'has-error': submitted && registr.password.$invalid}">
+            <label>Password</label>
+            <input class="form-control" name="password" type="password" ng-model="password" required>
+            <p style="position: relative" class="error" ng-if="registr.password.$error.required">Password is required</p>
+        </div>
 
-            <div class="form-group" ng-class="{'has-error': submitted && registr.confirm.$invalid}">
-                <label>Confirm Password</label>
-                <input class="form-control" ng-enter="registration(reg)" type="password" name="confirm" ng-model="confirm" data-password-verify="password" required>
-                <p style="position: relative" class="error" ng-if="registr.confirm.$error.required">Confirm password is required</p>
-            </div>
-            <button ng-if="!_restore" class="btn btn-primary full-width marginT20" ng-click="restorePassword(password)">{{button}}</button>
-        </form>
-    </div>
+        <div class="form-group" ng-class="{'has-error': submitted && registr.confirm.$invalid}">
+            <label>Confirm Password</label>
+            <input class="form-control" type="password" name="confirm" ng-model="confirm" equals="password" required>
+            <p style="position: relative" class="error" ng-if="!registr.confirm.$error.required && registr.confirm.$error.equals">Doesn't match</p>
+            <p style="position: relative" class="error" ng-if="registr.confirm.$error.required">Confirm password is required</p>
+        </div>
+        <button class="btn btn-primary full-width marginT20" ng-click="restorePassword(password)">{{button}}</button>
+    </form>
     <div>{{restoreText}}</div>
     <button class="btn btn-primary full-width marginT20" ng-click="go('/login')">Go to Login</button>
 </div>

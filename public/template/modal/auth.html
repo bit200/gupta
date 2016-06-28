@@ -7,8 +7,8 @@
                         <h4 class="text-center">I'm already Registered</h4>
                         <form name="loginForm" class="loginForm" shake-that novalidate>
                             <div class="form-group" ng-class="{'has-error': submittedLogin && loginForm.email.$invalid}">
-                                <input class="form-control" ng-click="startInput()" name="email" placeholder="Login" ng-model="loginObj.email" unique-email required>
-                                <p class="error" ng-if="loginForm.email.$error.required">Login is required</p>
+                                <input class="form-control" ng-click="startInput()" name="email" placeholder="Login" ng-model="loginObj.email" required>
+                                <p class="error" ng-if="submittedLogin && loginForm.email.$error.required">Login is required</p>
                             </div>
 
                             <div class="form-group" ng-class="{'has-error': submittedLogin && loginForm.password.$invalid}">
@@ -16,7 +16,7 @@
                                        ng-model="loginObj.password"
                                        placeholder="password"
                                        required>
-                                <p class="error" ng-if="loginForm.password.$error.required">Password is required</p>
+                                <p class="error" ng-if="submittedLogin && loginForm.password.$error.required">Password is required</p>
                             </div>
 
                             <div class="form-group ">

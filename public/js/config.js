@@ -19,10 +19,10 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     getContent: function ($q, $http) {
                         return $q.all({
                             sellers: $http.get('/api/freelancers', {}),
-                            service: $http.get('/get-content', {
+                            freelancerType: $http.get('/get-content', {
                                 params: {
-                                    name: 'ServiceProvider',
-                                    query: {},
+                                    name: 'Filters',
+                                    query: {type: 'FreelancerType'},
                                     distinctName: 'name'
                                 }
                             })

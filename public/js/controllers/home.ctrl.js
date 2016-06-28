@@ -12,7 +12,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         location.path(url)
     };
 
-    scope.arrayProviders = getContent.service.data.data;
+    scope.arrayProviders = getContent.freelancerType.data.data;
     scope.profiles = parseRating.rating(getContent.sellers.data.data);
     scope.profiles = parseRating.popularity(scope.profiles);
 

@@ -22,6 +22,7 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         ref: 'Package'
     }],
+    service_providers: Array,
     Attachments: [{
         type: Number,
         ref: 'UploadFile'

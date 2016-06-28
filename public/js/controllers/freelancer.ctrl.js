@@ -14,6 +14,7 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         rootScope.globalImg = [];
         scope.newPackage = {};
         scope.show = {};
+        scope.arrayProviders = getContent.service.data.data;
 
 
 
@@ -30,8 +31,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
 
         scope.contentModel = parseType.getModel(scope.content);
 
-        scope.arrayProviders = getContent.service.data.data;
-        
         scope.sendRequest = function (freelancer,files,img) {
             var arrayIdFiles = [];
             for(var i = 0 ; i<files.length;i++){
@@ -43,7 +42,7 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             if (img && img.length){
                 freelancer.poster = img[0].data._id;
             }
-            http.post('/freelancer/request', freelancer).then(function (resp) {
+            http.post('/api/freelancer/request', freelancer).then(function (resp) {
                 rootScope.globalFiles = [];
                 var has_sent = ngDialog.open({
                     template: 'has_sent',

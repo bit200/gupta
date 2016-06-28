@@ -113,10 +113,10 @@
                 <md-select ng-model="freelancer.freelancer_type" md-on-close="clearSearchTerm()"
                            data-md-container-class="selectdemoSelectHeader" name="freelancer_type" multiple required>
                     <md-select-header class="demo-select-header">
-                        <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
+                        <input ng-model="searchTerm" type="search" placeholder="Search.."
                                class="demo-header-searchbox _md-text">
                     </md-select-header>
-                    <md-optgroup label="locations">
+                    <md-optgroup>
                         <md-option ng-value="item" ng-repeat="item in freelancerType | filter:$select.search ">
                             {{item}}
                         </md-option>
@@ -127,7 +127,7 @@
                 </div>
             </md-input-container>
         </div>
-        <md-button class="md-raised" ng-click="submittedAbout=true;aboutForm.$invalid ? scrollToErr() : activeTab = 'expertise'"> NEXT </md-button>
+       <md-button class="md-raised" ng-click="submittedAbout=true;aboutForm.$invalid ? scrollToErr() : activeTab = 'expertise'"> NEXT </md-button>
     </form>
     <form name="expertiseForm" ng-show="activeTab == 'expertise'">
         <h3 class="text-bold">Content Writing</h3>

@@ -47,6 +47,7 @@ exports.get_seller = function (req, res) {
 exports.approve_registration = function (req, res) {
     var password = randomstring.generate(7)
     models.Freelancer.findOne({_id: req.params.id}).populate('contact_detail').exec(function(err, freelancer){
+        if (freelancer.user) return res.send(200)
         m.create(models.User, {email: freelancer.contact_detail.email, password: password},res,function( user){
             freelancer.user = user
             freelancer.registrationStatus = 1;
