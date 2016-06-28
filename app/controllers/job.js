@@ -71,12 +71,34 @@ exports.job_stats = function(req, res) {
     })
 }
 
+exports.list = function (query) {
+    return function (req, res) {
+        var queryParams = m.getBody(req)
+        var info = pubParams(queryParams, query)
+        m.find(models.Job, info.query, res, res, info.params)
+    }
+};
+
+exports.count = function (query) {
+    return function (req, res) {
+        var queryParams = m.getBody(req)
+        var info = pubParams(queryParams, query)
+        console.log("info", info, info.params)
+        m.count(models.Job, info.query, res, res, info.params)
+    }
+};
+
 exports.buyer_open = function(req, res) {
-    var userId = req.userId
+    var queryParams = m.getBody(req)
+    var info = pubParams(queryParams, {buyer: req.userId})
+    info.params.populate = 'job freelancer'
+    m.find(models.JobApply, info.query, res, res, info.params)
 
 }
 exports.buyer_open_count = function(req, res) {
-
+    var queryParams = m.getBody(req)
+    var info = pubParams(queryParams, {buyer: req.userId})
+    m.count(models.JobApply, info.query, res, res, info.params)
 }
 
 exports.applyJobUpdate = function (req, res) {
@@ -111,22 +133,7 @@ exports.add_job = function (req, res) {
     m.create(models.Job, params, res, res)
 };
 
-exports.list = function (query) {
-    return function (req, res) {
-        var queryParams = m.getBody(req)
-        var info = pubParams(queryParams, query)
-        m.find(models.Job, info.query, res, res, info.params)
-    }
-};
 
-exports.count = function (query) {
-    return function (req, res) {
-        var queryParams = m.getBody(req)
-        var info = pubParams(queryParams, query)
-        console.log("info", info, info.params)
-        m.count(models.Job, info.query, res, res, info.params)
-    }
-};
 
 
 exports.get_job = function (req, res) {

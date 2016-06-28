@@ -23,6 +23,6 @@ module.exports = function (app) {
     app.get('/api/jobs/all', job.list(all_query))
     app.get('/api/jobs/all/count', job.count(all_query))
 
-    app.get('/api/jobs/buyer/open', job.buyer_open)
-    app.get('/api/jobs/buyer/open/count', job.buyer_open_count)
+    app.get('/api/jobs/buyer/open', auth.token, job.buyer_open)
+    app.get('/api/jobs/buyer/open/count', auth.token, job.buyer_open_count)
 };
