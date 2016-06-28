@@ -63,11 +63,33 @@ exports.approve_registration = function (req, res) {
 };
 
 exports.reject_registration = function (req, res) {
-    m.findUpdate(models.Freelancer, {_id: req.params.id}, {registrationStatus: 2}, res, function(freelancer){
+    console.log(req.params.id, req.body)
+    m.findUpdate(models.Freelancer, {_id: req.params.id}, {registrationStatus: 2, reject_reason: req.body.reject_reason}, res, function(freelancer){
         mail.rejectAgencyRegistration({
             freelancer: freelancer
         }, freelancer.name);
         res.send(200)
     }, {populate: 'contact_detail'});
 
+};
+
+exports.business_accounts = function (req, res) {
+    models.BusinessUser.find(req.query).populate('agency').exec(function(err, business_accounts){
+        res.jsonp(business_accounts)
+    });
+};
+
+exports.approve_account = function (req, res) {
+    m.findUpdate(models.BusinessUser, {_id: req.params.id}, {status: 1}, res, function(account){
+        m.findUpdate(models.Freelancer, {_id: account.agency}, {business_account: account._id}, res, function(){
+            mail.claimApproved(account);
+            res.send(200)
+        });
+    });
+};
+
+exports.reject_account = function (req, res) {
+    m.findUpdate(models.BusinessUser, {_id: req.params.id}, {status: 2, reject_reason: req.body.reject_reason}, res, function(account){
+        res.jsonp(account)
+    });
 };

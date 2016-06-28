@@ -16,3 +16,18 @@
 .st-sort-default:before {content: '\25B1'}
 .st-sort-ascent:before {content: '\25B2'}
 .st-sort-descent:before {content: '\25BC'}
+
+.active_tab{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.hasError textarea{
+    border: 1px solid red;
+}
+
+.rejecting-row td{
+    background: rgb(219, 164, 164) !important;
+    color: white;
+    font-weight: bold;
+}

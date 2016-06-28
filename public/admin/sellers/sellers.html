@@ -1,4 +1,5 @@
-<table class="table table-striped" st-safe-src="sellers" st-table="sellersCopy">
+<h2 ng-if="!sellers.length" class="text-center">No pending sellers</h2>
+<table class="table table-striped" st-safe-src="sellers" st-table="sellersCopy" ng-if="sellers.length">
     <thead>
     <tr>
         <th st-sort-default="{{$index==0}}" class="text-bold pointer" st-sort="{{key}}" ng-repeat="(key, value) in sellers[0]">{{key}}</th>
@@ -9,14 +10,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="seller in sellersCopy">
+    <tr ng-repeat="seller in sellersCopy" ng-class="{'rejecting-row': seller_area.rejectedItemIndex == $index}">
         <td ng-repeat="(key,value) in seller">
             {{value}}
         </td>
         <td>
-            <button ng-click="profileDetails(seller._id)" class="btn btn-default">Details</button>
-            <button ng-click="rejectApproveProfile('approve', seller._id, $index)" class="btn btn-success">Approve</button>
-            <button ng-click="rejectApproveProfile('reject', seller._id, $index)" class="btn btn-danger">Reject</button>
+            <span ng-click="profileDetails(seller._id)" style="color: blue" class="pointer glyphicon glyphicon-list-alt"></span>
+            <span ng-confirm-click="Are you sure your want to approve seller <b>{{seller.name}} </b> ?"
+                  ng-confirm-action="rejectApproveProfile('approve', seller._id, $index)"
+                  style="color: green" class="pointer glyphicon glyphicon-ok"></span>
+
+            <span ng-click="reject(seller, $index)" style="color: red" class="pointer glyphicon glyphicon-remove"></span>
         </td>
     </tr>
     </tbody>

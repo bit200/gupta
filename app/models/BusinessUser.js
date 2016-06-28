@@ -10,6 +10,7 @@ var BusinessUserSchema = mongoose.Schema({
     },
     phone: String,
     role: String,
+    reject_reason: String,
     isActive: {
         type: Boolean,
         default: true

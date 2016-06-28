@@ -1,6 +1,7 @@
 angular.module( 'admin', [
   'admin.login',
   'admin.sellers',
+  'admin.business_accounts',
   'angular-jwt',
   'angular-storage',
   'angularModalService',
