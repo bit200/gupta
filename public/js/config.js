@@ -92,15 +92,15 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             .when('/jobs', {
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'viewMyJobCtrl',    
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            url: {url:'/api/jobs/all'},
-                            user: 'All'
-                        })
-                    }
-                }
+                // resolve: {
+                //     auth: authResolve
+                //     // getContent: function ($q, $http) {
+                //     //     return $q.all({
+                //     //         url: {url:'/api/jobs/all'},
+                //     //         user: 'All'
+                //     //     })
+                //     // }
+                // }
             })
 
             .when('/job/:id', {
