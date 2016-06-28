@@ -11,6 +11,10 @@ var JobSchema = mongoose.Schema({
         type: Number,
         ref: 'User'
     },
+    buyer: {
+        type: Number,
+        ref: 'User'
+    },
     status: String,
     status_priority: {
         type: Number,

@@ -38,12 +38,17 @@ function pubParams(params, query) {
 
 exports.applyJob = function (req, res) {
     var params = m.getBody(req);
-    console.log("apply for job", req.userId)
     var params = _.extend(params, {
         user: req.userId,
         freelancer: req.freelancerId
     })
-    m.create(models.JobApply, params, res, res)
+    m.findOne(models.Job, {_id: params.job}, res, function(job){
+        params.buyer = job.user
+        m.create(models.JobApply, params, res, function(item){
+            console.log('ahahahah', item)
+            res.status(403).send('Error')
+        })
+    })
 }
 
 exports.job_stats = function(req, res) {
