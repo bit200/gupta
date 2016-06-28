@@ -89,6 +89,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 controller: 'chatCtrl'
             })
 
+
             .when('/jobs', {
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'viewMyJobCtrl',    
@@ -96,7 +97,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            url: {url:'/api/jobs/all'}
+                            url: {url:'/api/jobs/all'},
+                            user: 'All'
                         })
                     }
                 }
@@ -154,7 +156,22 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            url: {url:'/api/jobs/buyer/open'}
+                            url: {url:'/api/jobs/buyer/open'},
+                            user: 'Buyer'
+                        })
+                    }
+                }
+            })
+
+            .when('/jobs/seller/open', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'viewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            url: {url:'/api/jobs/seller/open'},
+                            user: 'Seller'
                         })
                     }
                 }

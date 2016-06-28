@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-xs-2 text-bold marginLR20 text-center" ng-repeat="type in open">{{type}}</div>
+</div>
+
+<div class="row" ng-repeat="job in jobs">
+    <div class="col-xs-2 marginB10 text-center" ng-repeat="(key, value) in job.data"><span ng-if="key != 'title' && key!= 'response'">{{value}}</span> <a class="pointer" ng-if="key == 'response'">Application</a><a href="/#/job/{{job.elem._id}}" ng-if="key == 'title'">{{value}}</a></div>
+    <div class="col-xs-2 marginB10 text-center">
+        <div>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Commuticate')">Communicate</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'View My Application')">View My Application</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'View Job')">View Job</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Mark Complete')">Mark  Complete</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'View Contract')">View Contract</a>
+        </div>
+    </div>
+</div>

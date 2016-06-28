@@ -11,4 +11,5 @@ XYZCtrls.controller('viewMyJobCtrl', ['$scope','getContent', function (scope, ge
     scope.bigTotalItems = 6555;
     scope.bigCurrentPage = 20 ;
     scope.url = getContent.url.url
+    scope.typeUser = getContent.user
 }]);
