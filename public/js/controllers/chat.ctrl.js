@@ -11,19 +11,52 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$routeParams',
         errorSend:false,
         submitted:false
     };
-
-    scope.msg= [
-        { messages:[
-            {sender:'1',message:'OnePerson', time:12},
-            {sender:'2',message:'TwoPerson', time:12},
-            {sender:'1',message:'TherePerson', time:12}]
+    scope.ChatRoom=[
+        {
+            name:'Chat1',
+            buyer:100001,
+            seller:100000,
+            job:100099,
+            messages:[],
+            unreadMessages:{
+                status:false,
+                date:''
+            },
+            created_at:Date.now
         },
-        { messages:[
-            {sender:'2',message:'OnePerson', time:21},
-            {sender:'1',message:'TwoPerson', time:22},
-            {sender:'2',message:'TherePerson', time:23}]
+        {
+            name:'Chat2',
+            buyer:100001,
+            seller:100000,
+            job:100098,
+            messages:[],
+            unreadMessages:{
+                status:false,
+                date:''
+            },
+            created_at:Date.now
         }
     ];
+
+
+
+    //scope.msg= [
+    //    { messages:[
+    //        {sender:'1',message:'OnePerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'2',message:'TwoPerson', time:12},
+    //        {sender:'1',message:'TherePerson', time:12}]
+    //    }
+    //];
+
+    scope.msg=[];
     scope.chatUser=[];
     scope.Jobs=[];
 
@@ -39,6 +72,9 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$routeParams',
 
     scope.selectJob=function(jobId){
         console.log('sads',jobId);
+        console.log(scope.ChatRoom);
+        localStorage.setItem('chatJob',scope.ChatRoom[jobId].job);
+        localStorage.setItem('chatUser',scope.ChatRoom[jobId].seller);
         scope.chatspace.jobId=jobId;
         if (scope.msg[jobId-1])
         {
@@ -46,21 +82,52 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$routeParams',
             scope.chatspace.messages=scope.msg[jobId-1].messages;
         }
         else
-            scope.chatspace.messages=[{message:'Start Conversation'}]
+            scope.chatspace.messages=[];
     };
 
     scope.sendMess= function(message,invalid){
         if(invalid)
             return;
         scope.chatspace.submitted=false;
-        http.post('/chat/'+scope.chatspace.jobId+'/'+scope.chatspace.currentUser, message).then(function (resp) {
-
+        var messageParams={
+            room: scope.chatspace.jobId,
+            job: scope.ChatRoom[scope.chatspace.jobId].job,
+            from: scope.ChatRoom[scope.chatspace.jobId].seller,
+            to: scope.ChatRoom[scope.chatspace.jobId].buyer,
+            message:message
+        };
+        http.post('/chatMessage', messageParams).then(function (resp) {
+            console.log(resp);
+            message='';
+            scope.msg.push();
+            var getMsg=resp.data.data;
+            Date.parse(data.data.created_at)
+            var diff = Math.abs(new Date('2011/10/09 12:00') - new Date('2011/10/09 00:00'));
+            var minutes = Math.floor((diff/1000)/60);
+            if (minutes>=1440)
+                getMsg.created_at='Yesterday';
+            else if (minutes >= 60)
+                getMsg.created_at=minutes/60+'hour ago';
+            else
+                getMsg.created_at=minutes+'min ago';
         }, function (err, r) {
             scope.chatspace.errorSend=true;
             console.log(err,'9*+++');
         })
+    };
+
+    if(localStorage.getItem('chatJob'))
+    {
+        var job=localStorage.getItem('chatJob'),
+            seller=localStorage.getItem('chatUser');
+        console.log('j',job,'s',seller);
+        scope.ChatRoom.forEach(function(chat,index){
+            if((chat.job==job)&&(chat.seller==seller))
+            {
+                scope.chatspace.jobId=index;
+                scope.selectJob(index);
+            }
+        })
     }
-
-
 
 }]);

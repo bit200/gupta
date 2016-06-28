@@ -8,11 +8,11 @@ var models = require('../db')
     async = require('async');
 
 
-exports.get_job = function (req, res) {
+exports.createMsg = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(models.Job, params, res, res)
+    m.create(models.ChatMessage, params, res, res,{})
 };
 
-exports.get_my_job = function (req, res) {
-    m.find(models.Job, {user: req.userId}, res, res, {populate: 'user contract'})
+exports.getMsg = function (req, res) {
+    m.find(models.ChatMessage, {user: req.userId}, res, res, {populate: 'user contract'})
 };
