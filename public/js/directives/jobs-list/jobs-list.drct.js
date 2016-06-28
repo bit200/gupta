@@ -1,15 +1,68 @@
-XYZCtrls.directive('viewMyJob', function () {
+XYZCtrls.directive('jobsList', function () {
     return {
         restrict: 'E',
         scope: {
-            url: '=',
+            url: '@',
             typeJob: '=',
             typeUser: '=',
-            header: '='
+            showLoading: '@',
+            template: '@',
+            header: '@'
         },
-        templateUrl: 'js/directive/jobs-list/jobs-list.html',
-        controller: ['$scope', '$http', 'parseTime', '$rootScope','$location', function (scope, http, parseTime, rootScope, location) {
+        templateUrl: 'js/directives/jobs-list/jobs-list.html',
+        controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', function (scope, http, parseTime, rootScope, location) {
             console.log("directive", scope.header)
+            scope.templateHeader = ['js/directives/jobs-list/templates/', scope.template, '/header.html'].join('')
+            scope.templateItem = ['js/directives/jobs-list/templates/', scope.template, '/item.html'].join('')
+
+            function create_obj(params) {
+                params = params || {};
+                scope.Page = params.page || scope.currentPage;
+                scope.search = params.search || scope.search;
+                var obj = {};
+
+                if (scope.currentPage) {
+                    obj.skip = (scope.Page - 1) * scope.limit;
+                    obj.limit = scope.limit;
+                }
+
+                if (scope.search && scope.search != ' ') {
+                    obj.search = scope.search
+                }
+                return obj;
+            }
+
+            scope.render = function (params) {
+                scope.showLoading = true;
+                var obj = {};
+
+                var index = 0;
+
+                function cb() {
+                    if (++index == 2) {
+                        scope.showLoading = false;
+                    }
+                }
+
+                http.get(scope.url, {params: obj}).success(function (data) {
+                        cb();
+                        scope.items = data.data;
+                    }, function (err) {
+                        scope.error = 'An error. Please try again later';
+                        cb();
+                    });
+                
+                http.get(scope.url + '/count', {params: obj}).then(function (resp) {
+                        cb();
+                        scope.TotalItems = resp.data.data;
+                    }
+                    , function (err) {
+                        scope.TotalItems = 0;
+                        cb();
+                    })
+            };
+
+            scope.render();
             // scope.header = 'Header page'
             // scope.header = 'View My Jobs - ' + scope.typeUser + ' views';
             // scope.maxSize = 5;
@@ -52,23 +105,7 @@ XYZCtrls.directive('viewMyJob', function () {
             //     scope.render(search)
             // };
             //
-            // function create_obj(params) {
-            //     params = params || {};
-            //     scope.Page = params.page || scope.currentPage;
-            //     scope.search = params.search || scope.search;
-            //     var obj = {};
-            //
-            //     if (scope.currentPage) {
-            //         obj.skip = (scope.Page - 1) * scope.limit;
-            //         obj.limit = scope.limit;
-            //     }
-            //
-            //     if (scope.search && scope.search != ' ') {
-            //         obj.search = scope.search
-            //     }
-            //     return obj;
-            //
-            // }
+
             //
             // scope.render = function (params) {
             //     scope.showLoading = true;
