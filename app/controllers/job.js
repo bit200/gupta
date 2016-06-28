@@ -44,10 +44,7 @@ exports.applyJob = function (req, res) {
     })
     m.findOne(models.Job, {_id: params.job}, res, function(job){
         params.buyer = job.user
-        m.create(models.JobApply, params, res, function(item){
-            console.log('ahahahah', item)
-            res.status(403).send('Error')
-        })
+        m.create(models.JobApply, params, res, res)
     })
 }
 
