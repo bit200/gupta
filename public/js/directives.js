@@ -207,7 +207,7 @@ XYZCtrls.directive('viewMyJob', function () {
             typeUser: '='
         },
         templateUrl: 'template/directive/templateViewMyJob.html',
-        controller: ['$scope', '$http', 'parseTime', '$rootScope', function (scope, http, parseTime, rootScope) {
+        controller: ['$scope', '$http', 'parseTime', '$rootScope','$location', function (scope, http, parseTime, rootScope, location) {
             scope.header = 'View My Jobs - ' + scope.typeUser + ' views';
             scope.maxSize = 5;
             scope.TotalItems = 0;
@@ -230,8 +230,13 @@ XYZCtrls.directive('viewMyJob', function () {
 
             };
 
+            scope.data = {view : scope.typeUser};
             scope.changePage = function (page) {
                 scope.render({page: page});
+            };
+
+            scope.switchRole = function() {
+              location.path('/jobs/'+scope.data.view.toLowerCase()+'/open')
             };
 
             scope.enterSearch = function (search) {
@@ -446,12 +451,12 @@ XYZCtrls.directive('allJobsBuyer', function () {
                     controller: function ($scope, $http, $element, close) {
                         $scope.contract = {};
                         // console.log('job', job)
-                        $scope.contract.title = job.elem.job.title;
-                        $scope.contract.information = job.elem.job.description;
-                        $scope.contract.buyer_name = job.elem.freelancer.name;
-                        $scope.contract.buyer_company_name = job.elem.job.company_name;
-                        $scope.contract.payment_basis = job.elem.job.budget;
-                        $scope.contract.final_amount = job.elem.job.budget;
+                        $scope.contract.title = job.elem.title;
+                        $scope.contract.information = job.elem.description;
+                        $scope.contract.buyer_name = job.elem.name;
+                        $scope.contract.buyer_company_name = job.elem.company_name;
+                        $scope.contract.payment_basis = job.elem.budget;
+                        $scope.contract.final_amount = job.elem.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
                         // console.log('asdasd',$scope.contract)

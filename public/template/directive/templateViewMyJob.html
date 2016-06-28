@@ -15,7 +15,7 @@
             View Jobs as
         </div>
         <div class="col-md-4 nopadding">
-            <select class="form-control" name="singleSelect" ng-model="data.view" ng-init="data.view='Buyer'">
+            <select class="form-control" name="singleSelect" ng-model="data.view" ng-change="switchRole()">
                 <option value="Buyer">Buyer</option>
                 <option value="Seller">Seller</option>
             </select>
