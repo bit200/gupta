@@ -56,8 +56,15 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         job.content_types = parseType.get(job.content, scope.contentTypes);
         job.local_preference = parseType.get(job.location, scope.locations);
         http.post('/job', job).then(function (resp) {
-                location.path('/home')
-            }, function (err, r) {
+            scope.isCreated = true;
+            scope.job_id = resp.data.data._id;
+            $("html, body").animate({ scrollTop: 0 }, "fast");
+            }, function (err) {
+            if (err.status = 404) {
+                scope.error =  'Job can\'t created. Try again';
+            } else {
+                scope.error = err.error
+            }
             }
         )
     };

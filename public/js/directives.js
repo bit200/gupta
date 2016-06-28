@@ -336,13 +336,23 @@ XYZCtrls.directive('openJob', function () {
                         $scope.contract.final_amount = job.elem.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
-                        $scope.createContract = function (invalid, type, data, modal) {
+                        $scope.createContract = function (invalid, type, data) {
                             if (invalid) return;
-                            $element.modal('hide');
+                            $scope.showLoading = true;
                             data.seller_id = 0;
                             $http.post('/api/contract/', data).then(function (resp) {
+                                $scope.showLoading = false;
+                                $scope.isCreated = true;
+                                $scope.contract_id = resp.data.data._id;
+                                // $element.modal('hide');
                                 console.log('resp', resp)
                             }, function (err) {
+                                if (err.status = 404) {
+                                    $scope.error =  'Buyer/Seller not found';
+                                } else {
+                                    $scope.error = err.error
+                                }
+                                $scope.showLoading = false;
                                 console.log('err', err)
                             })
                         }

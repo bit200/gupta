@@ -531,6 +531,10 @@ html, body {
     color: #a9a9a9;
 }
 
+.text-error {
+    color: #ff0000;
+}
+
 .text-white, .text-white:hover, .text-white:focus {
     color: #FFFFFF;
 }

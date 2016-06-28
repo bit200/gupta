@@ -201,8 +201,9 @@
     z-index: 999;
 }
 
-.text-orange-link, .text-orange-link:hover {
+.text-orange-link, .text-orange-link:hover, .text-orange-link:focus {
     color: #f7961d;
+    text-decoration: none;
 }
 
 .text-bottom-line {
