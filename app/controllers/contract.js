@@ -8,17 +8,14 @@ var models = require('../db')
 exports.create_contract = function (req, res) {
     var params = m.getBody(req);
     params.buyer = req.userId
-    params.status = 'wait seller approvement'
+    params.status = 'Wait seller contract approvement'
+    console.log("contntntntnttntnt", params)
     m.create(models.Contract, {buyer: req.userId, seller: params.id}, res, function(contract){
-        console.log("contracttttttttttttttt", contract)
-        m.findOne(models.JobApply, {job: contract.job, freelancer: contract.freelancer}, function(){
-            contract.remove()
-            res.send(400)
+        m.findOne(models.JobApply, {job: contract.job, freelancer: contract.freelancer}, function(jobApply){
+            res.status(400).send('Error')
         }, function(jobApply){
-            console.log("jobApply", jobApply)
-            contract.remove()
-            res.send(400)
-
+            jobApply.contract = contract._id
+            m.save(jobApply, res, res)
         })
     })
 };

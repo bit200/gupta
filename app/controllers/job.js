@@ -98,6 +98,20 @@ exports.buyer_open_count = function(req, res) {
     m.count(models.JobApply, info.query, res, res, info.params)
 }
 
+exports.seller_open = function(req, res) {
+    var queryParams = m.getBody(req)
+    var info = pubParams(queryParams, {seller: req.userId})
+    info.params.populate = 'job freelancer buyer'
+    m.find(models.JobApply, info.query, res, res, info.params)
+
+}
+exports.seller_open_count = function(req, res) {
+    var queryParams = m.getBody(req)
+    var info = pubParams(queryParams, {seller: req.userId})
+    m.count(models.JobApply, info.query, res, res, info.params)
+}
+
+
 exports.applyJobUpdate = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.JobApply, {_id: params._id}, params, res, res)

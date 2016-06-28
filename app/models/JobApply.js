@@ -19,8 +19,11 @@ var JobSchema = mongoose.Schema({
         type: Number,
         ref: 'User'
     },
-    status: String,
-    status_sort_number: {
+    status: {
+        type: String,
+        default: 'New Applicant'
+    },
+    status_priority: {
         type: Number,
         default: 0
     },
@@ -35,6 +38,17 @@ var JobSchema = mongoose.Schema({
         default: Date.now
     }
 });
+var sort_obj = {
+    'Wait seller contract approvement': 1000,
+    'New Applicant': 1,
+    'Rejected': -100,
+    'Communicated': 100
+}
+
+JobSchema.pre('save', function(next){
+    this.status_priority = sort_obj[this.status] || -100
+    next();
+})
 
 JobSchema.plugin(autoIncrement.plugin, {
     model: 'JobApply',
