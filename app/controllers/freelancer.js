@@ -163,7 +163,11 @@ exports.my_business_accounts = function (req, res) {
 exports.get_freelancers = function (req, res) {
     var params = m.getBody(req);
     params.registrationStatus = 1;
-    m.find(models.Freelancer, params, res, res)
+    m.find(models.Freelancer, params, res, res, {populate: 'poster'})
+};
+
+exports.get_freelancer = function (req, res) {
+    m.find(models.Freelancer, {_id: req.params.id}, res, res, {populate: 'poster service_packages Attachments contact_detail business_account'})
 };
 
 exports.claim_request = function(req,res){
