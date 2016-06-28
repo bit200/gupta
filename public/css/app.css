@@ -1137,6 +1137,7 @@ div.containerCrop {
     color: #c1c1c1;
     margin-top: 15px;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
 .header-my-job:hover {
