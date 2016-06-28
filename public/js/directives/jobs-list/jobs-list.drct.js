@@ -3,8 +3,6 @@ XYZCtrls.directive('jobsList', function () {
         restrict: 'E',
         scope: {
             url: '@',
-            typeJob: '=',
-            typeUser: '=',
             showLoading: '@',
             template: '@',
             header: '@'
@@ -15,6 +13,14 @@ XYZCtrls.directive('jobsList', function () {
             scope.templateHeader = ['js/directives/jobs-list/templates/', scope.template, '/header.html'].join('')
             scope.templateItem = ['js/directives/jobs-list/templates/', scope.template, '/item.html'].join('')
 
+            var actions = {
+                'buyer-open': ['Comunicate', 'Accept', 'Reject']
+            }
+            scope.actions = actions[scope.template]
+            scope.doAction = function(action, item) {
+                console.log('action , item', action , item)
+            }
+            
             function create_obj(params) {
                 params = params || {};
                 scope.Page = params.page || scope.currentPage;
@@ -47,6 +53,8 @@ XYZCtrls.directive('jobsList', function () {
                 http.get(scope.url, {params: obj}).success(function (data) {
                         cb();
                         scope.items = data.data;
+                        console.log("itemsmsmsmsmmsms", scope.items)
+                        console.log("itemsmsmsmsmmsms", scope.items[0])
                     }, function (err) {
                         scope.error = 'An error. Please try again later';
                         cb();
@@ -63,6 +71,11 @@ XYZCtrls.directive('jobsList', function () {
             };
 
             scope.render();
+
+
+            scope.accept = function() {
+                console.log('accept')
+            }
             // scope.header = 'Header page'
             // scope.header = 'View My Jobs - ' + scope.typeUser + ' views';
             // scope.maxSize = 5;

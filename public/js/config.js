@@ -10,8 +10,22 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             });
             return deferred.promise;
         }];
+        var getResolve = function (params) {
+            return ["$q", function ($q) {
+                var deferred = $q.defer();
+                deferred.resolve(params);
+                return deferred.promise;
+            }]
+        }
+        var getStatic = function (params) {
+            return {
+                info: getResolve(params)
+            }
+        }
+
 
         $routeProvider
+
             .when('/', {
                 templateUrl: 'template/home.html',
                 controller: 'HomeCtrl',
@@ -88,21 +102,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 controller: 'chatCtrl'
             })
 
-
-            .when('/jobs', {
-                templateUrl: 'template/viewMyJob.html',
-                controller: 'viewMyJobCtrl',    
-                // resolve: {
-                //     auth: authResolve
-                //     // getContent: function ($q, $http) {
-                //     //     return $q.all({
-                //     //         url: {url:'/api/jobs/all'},
-                //     //         user: 'All'
-                //     //     })
-                //     // }
-                // }
-            })
-
             .when('/job/:id', {
                 templateUrl: 'template/job.html',
                 controller: 'jobCtrl',
@@ -147,32 +146,39 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
+            .when('/jobs', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: getStatic({
+                    template: 'jobs-all',
+                    header: 'All jobs',
+                    url: '/api/jobs/all'
+                })
+            })
 
             .when('/jobs/buyer/open', {
                 templateUrl: 'template/viewMyJob.html',
-                controller: 'viewMyJobCtrl',
+                controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            url: {url:'/api/jobs/buyer/open'},
-                            user: 'Buyer'
-                        })
-                    }
+                    info: getResolve({
+                        template: 'buyer-open',
+                        header: 'Open jobs',
+                        url: '/api/jobs/buyer/open'
+                    })
                 }
             })
 
             .when('/jobs/seller/open', {
                 templateUrl: 'template/viewMyJob.html',
-                controller: 'viewMyJobCtrl',
+                controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            url: {url:'/api/jobs/seller/open'},
-                            user: 'Seller'
-                        })
-                    }
+                    info: getResolve({
+                        template: 'seller-open',
+                        header: 'Open jobs',
+                        url: '/api/jobs/seller/open'
+                    })
                 }
             })
 
