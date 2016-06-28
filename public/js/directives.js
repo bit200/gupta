@@ -231,11 +231,14 @@ XYZCtrls.directive('viewMyJob', function () {
             };
 
             scope.data = {view : scope.typeUser};
+            if(scope.data.view == 'All')
+                scope.data.view = 'Buyer';
             scope.changePage = function (page) {
                 scope.render({page: page});
             };
 
             scope.switchRole = function() {
+
               location.path('/jobs/'+scope.data.view.toLowerCase()+'/open')
             };
 
@@ -279,7 +282,7 @@ XYZCtrls.directive('viewMyJob', function () {
                 http.get(scope.url, {params: obj}).then(function (resp) {
                     cb();
                     scope.body = [];
-                    console.log('sfsdfsdxcvnmhuiku', resp.data.data)
+                    // console.log('sfsdfsdxcvnmhuiku', resp.data.data)
                     if (scope.typeUser == 'Buyer') {
                         _.each(resp.data.data, function (job) {
                             var obj = {
