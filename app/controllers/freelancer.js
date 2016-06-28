@@ -181,7 +181,7 @@ exports.get_freelancer = function (req, res) {
 exports.claim_request = function(req,res){
     var params = m.getBody(req);
     params.user = req.userId;
-    new models.BusinessUser(params).save(function(business_user){
+    new models.BusinessUser(params).save(function(err, business_user){
         mail.newClaim(business_user);
         res.json(business_user);
     })

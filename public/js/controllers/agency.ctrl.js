@@ -20,8 +20,7 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
                     claimData.agency = agency._id; 
 
                     http.post('/api/claim_request', claimData).success(function (resp) {
-                        scope.businessAccounts.push(resp);                    
-                        $scope.close();
+                        $scope.close(resp);
                     })
                 };
                 $scope.close = function(res){
@@ -33,6 +32,9 @@ XYZCtrls.controller('agencyCtrl', ['$scope', '$location', '$http', 'parseType', 
         }).then(function (modal) {
             modal.element.modal();
             modal.close.then(function (result) {
+                if (result){
+                    scope.businessAccounts.push(result);
+                }
             });
         });
 
