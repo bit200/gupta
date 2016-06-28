@@ -9,6 +9,7 @@ exports.create_contract = function (req, res) {
     var params = m.getBody(req);
     console.log("params", params, req.userId)
     params.buyer = req.userId
+    params.status = 'Wait Freelancer Approve'
     m.create(models.Contract, {buyer: req.userId, seller: params.id}, res, res)
 };
 
