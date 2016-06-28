@@ -21,6 +21,27 @@ angular.module( 'admin.sellers', [
     .controller( 'SellersCtrl', function SellersController( $scope, $http, store, jwtHelper, sellers, ModalService, cfpLoadingBar, notify) {
         $scope.sellers = sellers.data;
         $scope.seller_area = {};
+
+        $scope.selectFilter = 'pending';
+
+        $scope.changeFilter = function(selectFilter){
+            var params = '';
+            switch (selectFilter){
+                case 'pending':
+                    params = '?&registrationStatus=0';
+                    break;
+                case 'approved':
+                    params = '?&registrationStatus=1';
+                    break;
+                case 'rejected':
+                    params = '?&registrationStatus=2';
+                    break;
+            }
+            $http.get('/admin/api/sellers'+params).success(function(sellers){
+                $scope.sellers = sellers;
+            });
+        };
+
         $scope.profileDetails = function(id){
             $http.get('/admin/api/seller/'+id).then(function (resp) {
                 ModalService.showModal({

@@ -1,34 +1,50 @@
-<h2 ng-if="!sellers.length" class="text-center">No pending sellers</h2>
-<table class="table table-striped" st-safe-src="sellers" st-table="sellersCopy" ng-if="sellers.length">
-    <thead>
-    <tr>
-        <th st-sort-default="{{$index==0}}" class="text-bold pointer" st-sort="{{key}}" ng-repeat="(key, value) in sellers[0]">{{key}}</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <th ng-repeat="(key, value) in sellers[0]"><input class="form-control" placeholder="Search..." st-search="{{key}}"/></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="seller in sellersCopy" ng-class="{'rejecting-row': seller_area.rejectedItemIndex == $index}">
-        <td ng-repeat="(key,value) in seller">
-            {{value}}
-        </td>
-        <td>
-            <span ng-click="profileDetails(seller._id)" style="color: blue" class="pointer glyphicon glyphicon-list-alt"></span>
-            <span ng-confirm-click="Are you sure your want to approve seller <b>{{seller.name}} </b> ?"
-                  ng-confirm-action="rejectApproveProfile('approve', seller._id, $index)"
-                  style="color: green" class="pointer glyphicon glyphicon-ok"></span>
+<div style="margin-top: 20px">
+    <select ng-model="selectFilter" style="width: 200px" ng-change="changeFilter(selectFilter)" class="form-control">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+    </select>
+    <h2 ng-if="!sellers.length" class="text-center">No sellers</h2>
+    <table class="table table-striped" st-safe-src="sellers" st-table="sellersCopy" ng-if="sellers.length">
+        <thead>
+        <tr>
+            <th>Agency Name</th>
+            <th>Service Categories</th>
+            <th>Currently owned by</th>
+            <th>Claimed by</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="seller in sellersCopy" ng-class="{'rejecting-row': seller_area.rejectedItemIndex == $index}">
+            <td><a href="" ng-click="profileDetails(seller._id)">{{seller.name}}</a></td>
+            <td><span ng-repeat="category in seller.freelancer_type">{{category }}<span ng-show="!$last">,</span> </span></td>
+            <td></td>
+            <td>{{seller.business_account.first_name}} {{seller.business_account.last_name}}</td>
+            <td>
+                <span ng-if="seller.business_account">Claimed</span>
+                <span ng-if="!seller.business_account">Unclaimed</span>
+            </td>
+            <td>
+                <span ng-confirm-click="Are you sure your want to approve seller <b>{{seller.name}} </b> ?"
+                      ng-confirm-action="rejectApproveProfile('approve', seller._id, $index)"
+                      ng-show="seller.registrationStatus==0 || seller.registrationStatus==2"
+                      style="color: green" class="pointer glyphicon glyphicon-ok"></span>
 
-            <span ng-click="reject(seller, $index)" style="color: red" class="pointer glyphicon glyphicon-remove"></span>
-        </td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="5" class="text-center">
-            <div st-pagination="" st-items-by-page="20" st-displayed-pages="7"></div>
-        </td>
-    </tr>
-    </tfoot>
-</table>
+                <span ng-click="reject(seller, $index)" style="color: red"
+                      ng-show="seller.registrationStatus==0 || seller.registrationStatus==1"
+                      class="pointer glyphicon glyphicon-remove"></span>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="6" class="text-center">
+                <div st-pagination="" st-items-by-page="20" st-displayed-pages="7"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

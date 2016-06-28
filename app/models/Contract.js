@@ -16,7 +16,7 @@ var ContractSchema = mongoose.Schema({
         type: Number,
         ref: 'Freelancer'
     },
-    seller: { 
+    seller: {
         type: Number,
         ref: 'User'
     },
@@ -29,7 +29,7 @@ var ContractSchema = mongoose.Schema({
     expected_completion: Date,
     amount: Number,
     status: String,
-    status_sort_number: {
+    status_priority: {
         type: Number,
         default: 0
     },
@@ -42,13 +42,13 @@ var ContractSchema = mongoose.Schema({
 });
 
 var sort_obj = {
-    'wait seller approvement': 0,
-    'closed': -1,
-    'ongoing': 1
+    'Wait seller contract approvement': 0,
+    'Closed': -1,
+    'Ongoing': 1
 }
 
 ContractSchema.pre('save', function(next){
-    this.status_sort_number = sort_obj[this.status] || -100
+    this.status_priority = sort_obj[this.status] || -100
     next();
 })
 
