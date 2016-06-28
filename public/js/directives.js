@@ -347,10 +347,14 @@ XYZCtrls.directive('openJob', function () {
                         $scope.createContract = function (invalid, type, data) {
                             if (invalid) return;
                             $scope.showLoading = true;
+                            data.seller = job.elem.user;
+                            data.freelancer = job.elem.freelancer._id;
+                            console.log(data)
                             $http.post('/api/contract/', data).then(function (resp) {
                                 $scope.showLoading = false;
                                 $scope.isCreated = true;
-                                $scope.contract_id = resp.data.data._id;
+                                // $scope.contract_id = resp.data.data._id;
+
                             }, function (err) {
                                 if (err.status = 404) {
                                     $scope.error = 'Buyer/Seller not found';
