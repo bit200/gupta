@@ -1,10 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$routeParams', 'ModalService', function (scope, location, http, parseType, $q, getContent, routeParams, ModalService) {
-    // scope.job = {
-    //     public: true,
-    //     agency: true
-    // };
+XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$routeParams', 'ModalService', '$timeout',
+    function (scope, location, http, parseType, $q, getContent, routeParams, ModalService, $timeout) {
     scope.contentTypes = getContent.contentType.data.data;
     scope.locations = getContent.locations.data.data;
     if (routeParams.id) {
@@ -24,6 +21,12 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         }
     }
 
+    scope.scrollToErr = function(){
+        $timeout(function(){
+            angular.element("body").animate({scrollTop: angular.element('.has-error').eq(0).offset().top - 100}, "slow");
+
+        },500)
+    };
     scope.applyJob = function (id) {
         ModalService.showModal({
             templateUrl: "template/modal/applyJob.html",
@@ -51,7 +54,10 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
     }
 
     scope.addJob = function (invalid, job) {
-        if (invalid) return;
+        if (invalid) {
+            scope.scrollToErr()
+            return;
+        }
         job.content_types = parseType.get(job.content, scope.contentTypes);
         job.local_preference = parseType.get(job.location, scope.locations);
         http.post('/job', job).then(function (resp) {

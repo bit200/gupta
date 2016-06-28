@@ -58,11 +58,10 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/post-job', {
+            .when('/post-job/:category?', {
                 templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
                 resolve: {
-                    auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
                             contentType: $http.get('/get-content', {
