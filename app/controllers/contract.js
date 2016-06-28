@@ -7,9 +7,17 @@ var models = require('../db')
 
 exports.create_contract = function (req, res) {
     var params = m.getBody(req);
-    console.log("params", params, req.userId)
     params.buyer = req.userId
-    m.create(models.Contract, {buyer: req.userId, seller: params.id}, res, res)
+    params.status = 'Wait seller contract approvement'
+    console.log("contntntntnttntnt", params)
+    m.create(models.Contract, {buyer: req.userId, seller: params.id}, res, function(contract){
+        m.findOne(models.JobApply, {job: contract.job, freelancer: contract.freelancer}, function(jobApply){
+            res.status(400).send('Error')
+        }, function(jobApply){
+            jobApply.contract = contract._id
+            m.save(jobApply, res, res)
+        })
+    })
 };
 
 exports.approve_contract = function (req, res) {

@@ -7,11 +7,12 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
     // };
     scope.contentTypes = getContent.contentType.data.data;
     scope.locations = getContent.locations.data.data;
+    scope.stats = getContent.stats.data.data;
     if (routeParams.id) {
         var job = getContent.job.data.data[0];
         job.date_of_completion = new Date(job.date_of_completion);
         scope.job = job;
-        if(getContent.apply)
+        if (getContent.apply)
             scope.isApply = getContent.apply.data.data[0];
         scope.job.content = parseEdit(scope.job.content_types);
         scope.job.location = parseEdit(scope.job.local_preference);
@@ -23,8 +24,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         }
     }
 
-
-
+    console.log(scope.stats);
     scope.applyJob = function (id) {
         ModalService.showModal({
             templateUrl: "template/modal/applyJob.html",
@@ -43,9 +43,9 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
 
         });
     };
-    function parseEdit(array){
+    function parseEdit(array) {
         var obj = {};
-        _.each(array, function(item){
+        _.each(array, function (item) {
             obj[item] = true;
         });
         return obj
@@ -56,15 +56,15 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         job.content_types = parseType.get(job.content, scope.contentTypes);
         job.local_preference = parseType.get(job.location, scope.locations);
         http.post('/job', job).then(function (resp) {
-            scope.isCreated = true;
-            scope.job_id = resp.data.data._id;
-            $("html, body").animate({ scrollTop: 0 }, "fast");
+                scope.isCreated = true;
+                scope.job_id = resp.data.data._id;
+                $("html, body").animate({scrollTop: 0}, "fast");
             }, function (err) {
-            if (err.status = 404) {
-                scope.error =  'Job can\'t created. Try again';
-            } else {
-                scope.error = err.error
-            }
+                if (err.status = 404) {
+                    scope.error = 'Job can\'t created. Try again';
+                } else {
+                    scope.error = err.error
+                }
             }
         )
     };
@@ -79,7 +79,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         )
     };
 
-    scope.showApplyInfo = function(id){
+    scope.showApplyInfo = function (id) {
         ModalService.showModal({
             templateUrl: "template/modal/applyJob.html",
             controller: function ($scope, $http) {

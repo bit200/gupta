@@ -8,8 +8,6 @@ XYZCtrls.controller('viewMyJobCtrl', ['$scope', '$location', '$http', 'getConten
     scope.jobs.Closed = parseType.closedJob(getContent.jobs.data.data);
     scope.status = 'Open';
 
-
-
     scope.totalItems = 64;
     scope.currentPage = 4;
 
@@ -18,7 +16,6 @@ XYZCtrls.controller('viewMyJobCtrl', ['$scope', '$location', '$http', 'getConten
     };
 
     scope.pageChanged = function() {
-        $log.log('Page changed to: ' + scope.currentPage);
     };
 
     scope.maxSize = 7;

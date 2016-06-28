@@ -29,6 +29,10 @@ var ContractSchema = mongoose.Schema({
     expected_completion: Date,
     amount: Number,
     status: String,
+    status_priority: {
+        type: Number,
+        default: 0
+    },
     reject_reason: String,
     rating: Number,
     created_at: {
@@ -37,6 +41,16 @@ var ContractSchema = mongoose.Schema({
     }
 });
 
+var sort_obj = {
+    'Wait seller contract approvement': 0,
+    'Closed': -1,
+    'Ongoing': 1
+}
+
+ContractSchema.pre('save', function(next){
+    this.status_priority = sort_obj[this.status] || -100
+    next();
+})
 
 ContractSchema.plugin(autoIncrement.plugin, {
     model: 'Contract',

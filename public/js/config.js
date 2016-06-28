@@ -111,8 +111,9 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                         return $q.all({
                             job: $http.get('/api/job/' + $route.current.params.id),
                             apply: $http.get('/api/job-apply/' + $route.current.params.id),
-                            contentType:{data:{data:''}},
-                            locations: {data:{data:''}}
+                            stats: $http.get('/api/job-stats/' + $route.current.params.id),
+                            contentType: {data: {data: ''}},
+                            locations: {data: {data: ''}}
                         })
                     }]
                 }
@@ -502,7 +503,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            jobs: $http.get('/get-my-job')
+                            jobs: $http.get('/api/jobs/buyer/open')
                         })
                     }
                 }
@@ -543,6 +544,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                             controller: function ($scope) {
                                 $scope.close = function (data) {
                                     var http = $injector.get('$http');
+
                                     function getToken() {
                                         console.log('qqq');
                                         http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
@@ -554,6 +556,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                             }
                                         )
                                     }
+
                                     data ? getToken() : (localStorage.clear(), location.reload());
                                 }
                             }
