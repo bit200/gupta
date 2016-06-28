@@ -163,6 +163,14 @@ exports.my_business_accounts = function (req, res) {
 exports.get_freelancers = function (req, res) {
     var params = m.getBody(req);
     params.registrationStatus = 1;
+    if (params.freelancer_type){
+        params.freelancer_type = {$in: [params.freelancer_type]}
+    };
+    _.each(params, function(value, key){
+        if (value instanceof  Array)
+            params[key] = {$in: params[key]}
+    })
+    console.log(params)
     m.find(models.Freelancer, params, res, res, {populate: 'poster'})
 };
 

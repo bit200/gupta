@@ -29,7 +29,7 @@ exports.tokens_list = function (req, res) {
 
 exports.sign_in = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(User, {username: params.username}, res, function (user) {
+    m.findOne(User, {email: params.email}, res, function (user) {
         user.comparePassword(params.password, function (err, isMatch) {
             if (err || !isMatch) {
                 return m.ecb(401, err, res)

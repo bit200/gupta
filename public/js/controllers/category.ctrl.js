@@ -72,7 +72,7 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
         if (filter.location)
             filter.location = objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
-        http.get('/freelancer', {params: filter}).then(function (resp) {
+        http.get('/api/freelancers', {params: filter}).then(function (resp) {
             filter = {};
             scope.freelancer = parseRating.rating(resp.data.data);
             scope.freelancer = parseRating.popularity(resp.data.data);
@@ -81,9 +81,9 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
     };
 
     scope.showProfile = function (id) {
-        http.get('/freelancer', {params: {_id: id}}).then(function (resp) {
+        http.get('/api/freelancer/'+id).then(function (resp) {
             ModalService.showModal({
-                templateUrl: "template//modal/modalSeller.html",
+                templateUrl: "template/modal/modalSeller.html",
                 controller: function ($scope) {
                     $scope.profile = parseRating.rating(resp.data.data)[0];
                 }

@@ -7,45 +7,22 @@ var mongoose = require('mongoose')
     , m = require('../m');
 
 var UserSchema = mongoose.Schema({
-    username: String,
+    email: {
+        type: String,
+        trim: true,
+        unique: true,
+        validate: [validateEmail, 'Please fill a valid email address']
+    }, //it's an email field
     password: String,
     restore_code: String,
-
-
-
-    // type: String,
-    // first_name: String,
-    // last_name: String,
-    // email: {
-    //     type: String,
-    //     trim: true,
-    //     unique: true,
-    //     validate: [validateEmail, 'Please fill a valid email address']
-    // },
-    // emailHash: String,
-    // confirm_code: {
-    //     type: String,
-    //     default: randomstring.generate(30)
-    // },
-    // admin_approved: {
-    //     type: Number,
-    //     default: 0
-    // },
-    // reject_reason: String,
-    // sex: String,
-    // thumbnail: String,
-    // facebookId: String,
-    // linkedinId: String,
-    // googleId: String,
-    // phone: String,
-    // isActive: {
-    //     type:Number,
-    //     default: 0
-    // },
-    // freelancer: {
-    //     type: Number,
-    //     ref: 'Freelancer'
-    // },
+    first_name: String,
+    last_name: String,
+    phone: String,
+    company_name: String,
+    poster: {
+        type: Number,
+        ref: 'UploadFile'
+    },
     created_at: {
         type: Date,
         default: Date.now
@@ -66,22 +43,20 @@ UserSchema.pre('save', function (next) {
         this.password = md5(this.password);
     next()
 });
-UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-    log(candidatePassword)
-    var isEqual = md5(candidatePassword) == this.password;
-    log(md5(candidatePassword) == this.password)
 
+UserSchema.methods.comparePassword = function (candidatePassword, cb) {
+    var isEqual = md5(candidatePassword) == this.password;
     cb(isEqual ? null : 'Wrong password', isEqual)
 };
-//
-// function validateEmail(email) {
-//     if (!email) {
-//         return true;
-//     }
-//     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//     return re.test(email)
-// };
-//
+
+function validateEmail(email) {
+    if (!email) {
+        return true;
+    }
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email)
+};
+
 UserSchema.methods.publish = function () {
     var _this = this.toJSON();
     delete _this.password;
