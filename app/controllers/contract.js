@@ -9,9 +9,11 @@ exports.create_contract = function (req, res) {
     var params = m.getBody(req);
     params.buyer = req.userId
     params.status = 'Wait seller contract approvement'
-    console.log("contntntntnttntnt", params)
-    m.create(models.Contract, {buyer: req.userId, seller: params.id}, res, function(contract){
-        m.findOne(models.JobApply, {job: contract.job, freelancer: contract.freelancer}, function(jobApply){
+    console.log("@@@@@@@@@@@@@@@@@@@params", params)
+    m.create(models.Contract, params, res, function(contract){
+        var query = {job: contract.job, freelancer: contract.freelancer}
+        console.log('created contract', query)
+        m.findOne(models.JobApply, query, function(jobApply){
             res.status(400).send('Error')
         }, function(jobApply){
             jobApply.contract = contract._id

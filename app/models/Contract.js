@@ -28,7 +28,9 @@ var ContractSchema = mongoose.Schema({
     expected_start: Date,
     expected_completion: Date,
     amount: Number,
-    status: String,
+    status: {
+        type: String
+    },
     status_priority: {
         type: Number,
         default: 0
@@ -48,7 +50,9 @@ var sort_obj = {
 }
 
 ContractSchema.pre('save', function(next){
-    this.status_priority = sort_obj[this.status] || -100
+    console.log('this.status', this.status, sort_obj[this.status])
+    var priority = sort_obj[this.status]
+    this.status_priority = priority || priority == 0 ? priority : -100
     next();
 })
 
