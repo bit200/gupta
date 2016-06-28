@@ -374,7 +374,6 @@ XYZCtrls.directive('openJobBuyer', function () {
                     templateUrl: "template/modal/createContract.html",
                     controller: function ($scope, $http, $element, close) {
                         $scope.contract = {};
-                        // console.log('job', job)
                         $scope.contract.title = job.elem.job.title;
                         $scope.contract.information = job.elem.job.description;
                         $scope.contract.buyer_name = job.elem.freelancer.name;
@@ -383,7 +382,6 @@ XYZCtrls.directive('openJobBuyer', function () {
                         $scope.contract.final_amount = job.elem.job.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
-                        // console.log('asdasd',$scope.contract)
                         $scope.closeModal = function () {
                             $element.modal('hide');
                             $timeout(function () {
@@ -395,6 +393,7 @@ XYZCtrls.directive('openJobBuyer', function () {
                             $scope.showLoading = true;
                             data.seller = job.elem.user;
                             data.freelancer = job.elem.freelancer._id;
+                            data.job = job.elem.job._id;
                             // console.log(data);
                             $http.post('/api/contract/', data).then(function (resp) {
                                 $scope.showLoading = false;
