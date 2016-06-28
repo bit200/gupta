@@ -72,6 +72,7 @@ exports.list = function (query) {
     return function (req, res) {
         var queryParams = m.getBody(req)
         var info = pubParams(queryParams, query)
+        info.params.populate = 'user'
         m.find(models.Job, info.query, res, res, info.params)
     }
 };

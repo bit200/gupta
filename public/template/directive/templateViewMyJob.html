@@ -15,7 +15,7 @@
             View Jobs as
         </div>
         <div class="col-md-4 nopadding">
-            <select class="form-control" name="singleSelect" ng-model="data.view" ng-init="data.view='Buyer'">
+            <select class="form-control" name="singleSelect" ng-model="data.view" ng-change="switchRole()">
                 <option value="Buyer">Buyer</option>
                 <option value="Seller">Seller</option>
             </select>
@@ -37,7 +37,9 @@
         <div class="loading" ng-show="showLoading">
             <loading w="45" margin-top="100"></loading>
         </div>
-        <open-job jobs="body"></open-job>
+        <open-job-buyer ng-if="typeUser == 'Buyer'" jobs="body"></open-job-buyer>
+        <open-job-seller ng-if="typeUser == 'Seller'" jobs="body"></open-job-seller>
+        <all-jobs-buyer ng-if="typeUser == 'All'" jobs="body"></all-jobs-buyer>
     </div>
     <div class="text-center" ng-show="numPage > 1">
         <uib-pagination items-per-page="limit" total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPage"></uib-pagination>

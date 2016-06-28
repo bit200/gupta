@@ -208,137 +208,47 @@ XYZCtrls.directive('toggle', function () {
 });
 
 
-XYZCtrls.directive('viewMyJob', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            url: '=',
-            typeJob: '=',
-            typeUser: '='
-        },
-        templateUrl: 'template/directive/templateViewMyJob.html',
-        controller: ['$scope', '$http', 'parseTime', '$rootScope', function (scope, http, parseTime, rootScope) {
-            scope.header = 'View My Jobs - ' + scope.typeUser + ' views';
-            scope.maxSize = 5;
-            scope.TotalItems = 0;
-            scope.currentPage = 1;
-            scope.limit = 5;
-            var last_press;
-            var timer = 500;
-            scope.trueSearch = function (search) {
-                if (!search)
-                    search = ' ';
-                last_press = new Date().getTime();
-                var cur_press = last_press;
-                setTimeout(function () {
-                    if (cur_press === last_press) {
-                        scope.currentPage = 1;
-                        scope.render({'search': search})
-                    }
-                }, timer)
 
-            };
 
-            scope.changePage = function (page) {
-                scope.render({page: page});
-            };
-
-            scope.enterSearch = function (search) {
-                if (!search)
-                    search = ' ';
-                scope.currentPage = 1;
-                scope.render(search)
-            };
-
-            function create_obj(params) {
-                params = params || {};
-                scope.Page = params.page || scope.currentPage;
-                scope.search = params.search || scope.search;
-                var obj = {};
-
-                if (scope.currentPage) {
-                    obj.skip = (scope.Page - 1) * scope.limit;
-                    obj.limit = scope.limit;
-                }
-
-                if (scope.search && scope.search != ' ') {
-                    obj.search = scope.search
-                }
-                return obj;
-
-            }
-
-            scope.render = function (params) {
-                scope.showLoading = true;
-                var obj = create_obj(params);
-                var index = 0;
-
-                function cb() {
-
-                    if (++index == 2) {
-                        scope.showLoading = false;
-                    }
-                }
-
-                http.get(scope.url, {params: obj}).then(function (resp) {
-                    cb();
-                    scope.body = [];
-                    console.log('sfsdfsdxcvnmhuiku',resp.data.data)
-                    _.each(resp.data.data, function (job) {
-                        var obj = {
-                            elem: job,
-                            data: {
-                                title: job.job.title || null,
-                                service_provider: job.freelancer.name || null,
-                                response: job.message || null,
-                                status: job.status || null,
-                                date: parseTime.date(job.created_at) || null
-                            }
-                        };
-                        scope.body.push(obj)
-                    });
-                    console.log('asd', scope.body)
-                }, function (err) {
-                    console.log('asdsa',err)
-                    if (err.status = 403)
-                        scope.error = 'Error';
-                    cb();
-                });
-                http.get(scope.url + '/count', {params: obj}).then(function (resp) {
-                        cb();
-                        scope.TotalItems = resp.data.data;
-                    }
-                    , function (err) {
-                        scope.TotalItems = 0;
-                        cb();
-                    })
-            };
-
-            scope.render();
-
-        }]
-    };
-});
-
-XYZCtrls.directive('openJob', function () {
+XYZCtrls.directive('openJobSeller', function () {
     return {
         restrict: 'E',
         scope: {
             url: '=',
             jobs: '='
         },
-        templateUrl: 'template/directive/templateJob.html',
+        templateUrl: 'template/directive/templateJobSeller.html',
+        controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
+            scope.open = ['Job Title', 'Client name', 'View Application', 'Status', 'Date Applied', 'Action'];
+            scope.action = function (id, type) {
+                console.log('da', id, type)
+            };
+
+
+        }]
+    };
+});
+
+
+XYZCtrls.directive('openJobBuyer', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            jobs: '='
+        },
+        templateUrl: 'template/directive/templateJobBuyer.html',
         controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
             scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
             scope.action = function (id, type) {
                 console.log('da', id, type)
             };
             scope.rejectJob = function (id) {
-                http.get('/api/job-apply/reject/'+id).then(function(resp){
-                    console.log('resp',resp)
+                http.get('/api/job-apply/reject/' + id).then(function (resp) {
+                    console.log('resp', resp)
                     scope.jobs = resp.data.data
-                }, function(err){
-                    console.log('err',err)
+                }, function (err) {
+                    console.log('err', err)
                 })
             };
 
@@ -347,7 +257,6 @@ XYZCtrls.directive('openJob', function () {
                     templateUrl: "template/modal/createContract.html",
                     controller: function ($scope, $http, $element, close) {
                         $scope.contract = {};
-                        console.log('job', job)
                         $scope.contract.title = job.elem.job.title;
                         $scope.contract.information = job.elem.job.description;
                         $scope.contract.buyer_name = job.elem.freelancer.name;
@@ -356,7 +265,79 @@ XYZCtrls.directive('openJob', function () {
                         $scope.contract.final_amount = job.elem.job.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
-                        console.log('asdasd',$scope.contract)
+                        $scope.openUrl = function () {
+                            $element.modal('hide');
+                            $timeout(function () {
+                                location.path('contract/' + $scope.contract_id)
+                            }, 100)
+                        };
+                        $scope.createContract = function (invalid, type, data) {
+                            if (invalid) return;
+                            $scope.showLoading = true;
+                            data.seller = job.elem.user;
+                            data.freelancer = job.elem.freelancer._id;
+                            data.job = job.elem.job._id;
+                            // console.log(data);
+                            $http.post('/api/contract/', data).then(function (resp) {
+                                $scope.showLoading = false;
+                                $scope.isCreated = true;
+                                // $scope.contract_id = resp.data.data._id;
+
+                            }, function (err) {
+                                if (err.status = 404) {
+                                    $scope.error = 'Buyer/Seller not found';
+                                } else {
+                                    $scope.error = err.error
+                                }
+                                $scope.showLoading = false;
+                            })
+                        }
+                    }
+                }).then(function (modal) {
+                    modal.element.modal();
+                });
+            }
+        }]
+    };
+});
+
+XYZCtrls.directive('allJobsBuyer', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            url: '=',
+            jobs: '='
+        },
+        templateUrl: 'template/directive/templateJobBuyer.html',
+        controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
+            scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
+            scope.action = function (id, type) {
+                console.log('da', id, type)
+            };
+            scope.rejectJob = function (id) {
+                http.get('/api/job-apply/reject/' + id).then(function (resp) {
+                    console.log('resp', resp)
+                    scope.jobs = resp.data.data
+                }, function (err) {
+                    console.log('err', err)
+                })
+            };
+
+            scope.acceptJob = function (job) {
+                ModalService.showModal({
+                    templateUrl: "template/modal/createContract.html",
+                    controller: function ($scope, $http, $element, close) {
+                        $scope.contract = {};
+                        // console.log('job', job)
+                        $scope.contract.title = job.elem.title;
+                        $scope.contract.information = job.elem.description;
+                        $scope.contract.buyer_name = job.elem.name;
+                        $scope.contract.buyer_company_name = job.elem.company_name;
+                        $scope.contract.payment_basis = job.elem.budget;
+                        $scope.contract.final_amount = job.elem.budget;
+                        $scope.contract.expected_start = new Date();
+                        $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
+                        // console.log('asdasd',$scope.contract)
                         $scope.closeModal = function () {
                             $element.modal('hide');
                             $timeout(function () {
@@ -368,7 +349,7 @@ XYZCtrls.directive('openJob', function () {
                             $scope.showLoading = true;
                             data.seller = job.elem.user;
                             data.freelancer = job.elem.freelancer._id;
-                            console.log(data)
+                            // console.log(data);
                             $http.post('/api/contract/', data).then(function (resp) {
                                 $scope.showLoading = false;
                                 $scope.isCreated = true;

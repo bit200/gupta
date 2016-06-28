@@ -46,7 +46,9 @@ var sort_obj = {
 }
 
 JobSchema.pre('save', function(next){
-    this.status_priority = sort_obj[this.status] || -100
+    var priority = sort_obj[this.status]
+    this.status_priority = priority || priority == 0 ? priority : -100
+    
     next();
 })
 

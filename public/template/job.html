@@ -3,7 +3,7 @@
         <div class="col-md-3 pull-right">
             <button ng-if="!isApply" class="btn btn-default" ng-click="applyJob(job._id)">Apply for Job</button>
             <button ng-if="isApply" class="btn btn-default-hover" ng-click="showApplyInfo(job._id)">Edit your apply</button>
-            <div><a ng-if="isApply" class="text-orange-link text-bottom-dashed" ng-click="showApplyInfo(job._id)">You has apply for job</a></div>
+            <div><a ng-if="isApply" class="text-orange-link text-bottom-dashed">You has apply for job</a></div>
             <div ng-if="error">{{error}}</div>
 
             <div ng-repeat="item in job.stats">{{item}}</div>
