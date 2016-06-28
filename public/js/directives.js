@@ -262,20 +262,17 @@ XYZCtrls.directive('viewMyJob', function () {
             scope.render = function (params) {
                 scope.showLoading = true;
                 var obj = create_obj(params);
-                var index = 0
+                var index = 0;
 
                 function cb() {
 
                     if (++index == 2) {
                         scope.showLoading = false;
-                        console.log('oks')
                     }
-                    console.log('afterrrrrr', index)
                 }
 
                 http.get(scope.url, {params: obj}).then(function (resp) {
-                    console.log('resp', resp);
-                    cb()
+                    cb();
 
                     scope.body = [];
 
@@ -295,17 +292,15 @@ XYZCtrls.directive('viewMyJob', function () {
 
 
                 }, function (err) {
-                    console.log('qe')
-                    cb()
-                })
+                    cb();
+                });
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
-                        cb()
+                        cb();
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {
                         scope.TotalItems = 0;
-
-                        cb()
+                        cb();
                     })
             };
 

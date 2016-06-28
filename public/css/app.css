@@ -208,9 +208,7 @@ div.Files {
     padding: 10px 0 10px 20px;
 }
 
-.btn-default-2 {
 
-}
 
 .error {
     color: #ff0000;
@@ -1127,4 +1125,17 @@ div.containerCrop {
 .dashed, .dashed:hover {
     text-decoration: none;
     border-bottom: 1px dashed;
+}
+
+.header-my-job {
+    display: inline-block;
+    font-weight: bold;
+    color: #c1c1c1;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+.header-my-job:hover {
+    text-decoration: none;
+    color: #f7961d;
 }

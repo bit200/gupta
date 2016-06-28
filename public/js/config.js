@@ -88,6 +88,19 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 controller: 'chatCtrl'
             })
 
+            .when('/jobs', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'viewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            jobs: $http.get('/get-my-job')
+                        })
+                    }
+                }
+            })
+
             .when('/job/:id', {
                 templateUrl: 'template/job.html',
                 controller: 'jobCtrl',
