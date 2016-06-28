@@ -200,7 +200,11 @@ div.Files {
     margin-top: 10%;
     padding: 20px 20px 5px 20px;
     background-color: white;
-
+}
+.contract-style-form {
+    margin: 0 auto;
+    padding: 20px 20px 5px 20px;
+    background-color: white;
 }
 
 .claimAgencyPage {
