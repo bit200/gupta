@@ -97,7 +97,6 @@ exports.buyer_open = function (req, res) {
 exports.rejectJobApply = function(req, res) {
     res.send("rejected")
 }
-
 exports.buyer_open_count = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {buyer: req.userId})
