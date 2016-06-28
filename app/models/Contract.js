@@ -16,7 +16,7 @@ var ContractSchema = mongoose.Schema({
         type: Number,
         ref: 'Freelancer'
     },
-    seller: {
+    seller: { 
         type: Number,
         ref: 'User'
     },
