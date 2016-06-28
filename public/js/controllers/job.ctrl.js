@@ -7,7 +7,6 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
     // };
     scope.contentTypes = getContent.contentType.data.data;
     scope.locations = getContent.locations.data.data;
-    scope.stats = getContent.stats.data.data;
     if (routeParams.id) {
         var job = getContent.job.data.data[0];
         job.date_of_completion = new Date(job.date_of_completion);
@@ -16,6 +15,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             scope.isApply = getContent.apply.data.data[0];
         scope.job.content = parseEdit(scope.job.content_types);
         scope.job.location = parseEdit(scope.job.local_preference);
+        scope.stats = getContent.stats.data.data;
         scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
     } else {
         scope.job = {
@@ -24,7 +24,6 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         }
     }
 
-    console.log(scope.stats);
     scope.applyJob = function (id) {
         ModalService.showModal({
             templateUrl: "template/modal/applyJob.html",

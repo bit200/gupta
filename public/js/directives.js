@@ -208,7 +208,7 @@ XYZCtrls.directive('viewMyJob', function () {
         },
         templateUrl: 'template/directive/templateViewMyJob.html',
         controller: ['$scope', '$http', 'parseTime', '$rootScope', function (scope, http, parseTime, rootScope) {
-            scope.header = 'View My Jobs - ' + scope.typeUser + ' views'
+            scope.header = 'View My Jobs - ' + scope.typeUser + ' views';
             scope.maxSize = 5;
             scope.TotalItems = 0;
             scope.currentPage = 1;
@@ -272,25 +272,25 @@ XYZCtrls.directive('viewMyJob', function () {
 
                 http.get(scope.url, {params: obj}).then(function (resp) {
                     cb();
-
                     scope.body = [];
-
                     _.each(resp.data.data, function (job) {
                         var obj = {
                             elem: job,
                             data: {
-                                title: job.title || null,
-                                service_provider: job.name || null,
+                                title: job.job.title || null,
+                                service_provider: job.freelancer.name || null,
                                 response: job.response || null,
-                                status: job.status || null,
+                                status: job.job.status || null,
                                 date: parseTime.date(job.created_at) || null
                             }
                         };
                         scope.body.push(obj)
                     });
-
-
+                    console.log('asd', scope.body)
                 }, function (err) {
+                    console.log('asdsa',err)
+                    if (err.status = 403)
+                        scope.error = 'Error';
                     cb();
                 });
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
@@ -335,6 +335,7 @@ XYZCtrls.directive('openJob', function () {
                         $scope.contract.final_amount = job.elem.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
+                        console.log('asdasd',$scope.contract)
                         $scope.closeModal = function () {
                             $element.modal('hide');
                             $timeout(function () {
@@ -342,16 +343,14 @@ XYZCtrls.directive('openJob', function () {
                             }, 100)
                         };
                         $scope.createContract = function (invalid, type, data) {
+                            console.log(invalid)
                             if (invalid) return;
                             $scope.showLoading = true;
-                            data.seller_id = 0;
+                            $scope.freelancer = {id :0};
                             $http.post('/api/contract/', data).then(function (resp) {
                                 $scope.showLoading = false;
                                 $scope.isCreated = true;
                                 $scope.contract_id = resp.data.data._id;
-                                console.log($scope.contract_id)
-                                // $element.modal('hide');
-                                console.log('resp', resp)
                             }, function (err) {
                                 if (err.status = 404) {
                                     $scope.error = 'Buyer/Seller not found';
@@ -359,7 +358,6 @@ XYZCtrls.directive('openJob', function () {
                                     $scope.error = err.error
                                 }
                                 $scope.showLoading = false;
-                                console.log('err', err)
                             })
                         }
                     }

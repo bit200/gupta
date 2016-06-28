@@ -3,9 +3,11 @@
         <div class="col-md-3 pull-right">
             <button ng-if="!isApply" class="btn btn-default" ng-click="applyJob(job._id)">Apply for Job</button>
             <button ng-if="isApply" class="btn btn-default-hover" ng-click="showApplyInfo(job._id)">Edit your apply</button>
-            <button ng-if="isApply" class="btn btn-default-hover" ng-click="showApplyInfo(job._id)">You has apply for job</button>
+            <div><a ng-if="isApply" class="text-orange-link text-bottom-dashed" ng-click="showApplyInfo(job._id)">You has apply for job</a></div>
+            <div ng-if="error">{{error}}</div>
         </div>
         <div class="col-md-9 pull-left">
+            <div><a class="pointer text-orange-link text-bottom-dashed" href="/#/jobs/buyer/open">Back on page with my jobs</a></div>
             <div class="row">
                 <h2 class="col-md-12">{{job.title}}</h2>
             </div>

@@ -89,6 +89,7 @@ exports.buyer_open = function(req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {buyer: req.userId})
     info.params.populate = 'job freelancer'
+    console.log("infofofofofo", info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }

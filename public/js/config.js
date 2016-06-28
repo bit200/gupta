@@ -96,7 +96,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
-                            jobs: $http.get('/get-my-job')
+                            url: {url:'/api/jobs/all'}
                         })
                     }
                 }
@@ -145,6 +145,22 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }]
                 }
             })
+
+
+            .when('/jobs/buyer/open', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'viewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            url: {url:'/api/jobs/buyer/open'}
+                        })
+                    }
+                }
+            })
+
+
             .when('/post-job/recreate/:id', {
                 templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
@@ -496,18 +512,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/jobs/buyer/open', {
-                templateUrl: 'template/viewMyJob.html',
-                controller: 'viewMyJobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            jobs: $http.get('/api/jobs/buyer/open')
-                        })
-                    }
-                }
-            })
 
             .when('/my-profile', {
                 templateUrl: 'template/myProfile.html',
