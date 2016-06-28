@@ -16,9 +16,9 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             scope.stats = getContent.stats.data.data;
             console.log('rere', scope.stats)
             scope.job.stats = []
-            scope.job.stats.push(scope.stats.interviews > 1 ? scope.stats.interviews + ' Interviews' : scope.stats.interviews + ' Interview');
-            scope.job.stats.push(scope.stats.applicants > 1 ? scope.stats.applicants + ' Applicants' : scope.stats.applicants + ' Applicant');
-            scope.job.stats.push(scope.stats.hired > 1 ? scope.stats.hired + ' Hireds' : scope.stats.hired + ' Hired');
+            scope.job.stats.push(scope.stats.interviews == 1 ? {count: scope.stats.interviews, name: 'Interviews'} : {count: scope.stats.interviews, name: 'Interview'});
+            scope.job.stats.push(scope.stats.applicants == 1 ? {count: scope.stats.applicants, name: 'Applicants'} : {count: scope.stats.applicants, name: 'Applicant'});
+            scope.job.stats.push(scope.stats.hired == 1 ? {count: scope.stats.hired, name: 'Hired'} : {count: scope.stats.hired, name: 'fHired'});
         }
         scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
     } else {

@@ -84,7 +84,9 @@ selector .sel-items > div {
     width: 105%;
     margin-left: -2.5%;
 }
-
+.container.new {
+    margin-top: 30px;
+}
 
 .job-search {
     border: 1px solid #9b9fa2;
@@ -147,4 +149,20 @@ jobs-list .fitems {
 }
 .lloading.hid-loading {
     animation: fadeOut .4s ease forwards;
+}
+
+.action {
+    display: block;
+}
+
+
+
+
+.stat-item {
+    padding: 5px 0;
+}
+
+
+.w100 {
+    min-width: 100%;
 }

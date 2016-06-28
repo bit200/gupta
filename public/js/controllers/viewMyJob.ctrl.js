@@ -1,5 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('viewMyJobCtrl', ['$scope', function (scope) {
+XYZCtrls.controller('ViewMyJobCtrl', ['$scope', 'info', function (scope, info) {
+    scope.info = info
 }]);
