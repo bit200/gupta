@@ -20,6 +20,25 @@ angular.module( 'admin.business_accounts', [
     })
     .controller( 'BusinessAccountsCtrl', function BusinessAccountsController( $scope, $http, store, jwtHelper, business_accounts, ModalService, cfpLoadingBar, notify) {
         $scope.business_accounts = business_accounts.data;
+        $scope.selectFilter = 'pending';
+
+        $scope.changeFilter = function(selectFilter){
+            var params = '';
+            switch (selectFilter){
+                case 'pending':
+                    params = '?&status=0';
+                    break;
+                case 'approved':
+                    params = '?&status=1';
+                    break;
+                case 'rejected':
+                    params = '?&status=2';
+                    break;
+            }
+            $http.get('/admin/api/business_accounts'+params).success(function(business_accounts){
+                $scope.business_accounts = business_accounts;
+            });
+        };
 
         $scope.showAgencyDetails = function(id){
             $http.get('/admin/api/seller/'+id).then(function (resp) {
@@ -36,6 +55,8 @@ angular.module( 'admin.business_accounts', [
                 });
             });
         };
+
+
 
         $scope.rejectApproveAccount = function(status, accId, $index){
             cfpLoadingBar.start()

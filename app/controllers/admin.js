@@ -35,7 +35,7 @@ exports.login = function (req, res) {
 exports.get_sellers = function (req, res) {
     var q = {};
     if (req.query.registrationStatus) q.registrationStatus = parseInt(req.query.registrationStatus);
-    models.Freelancer.find(q).select('type name location').lean().exec(function(err, freelancers){
+    models.Freelancer.find(q).populate('business_account').lean().exec(function(err, freelancers){
         res.json(freelancers)
     })
 };

@@ -1,48 +1,63 @@
-<h2 ng-if="!business_accounts.length" class="text-center">No pending accounts</h2>
-<table class="table table-striped" st-safe-src="business_accounts" st-table="business_accountsCopy" ng-if="business_accounts.length">
-    <thead>
-    <tr>
+<div style="margin-top: 20px">
+    <select ng-model="selectFilter" style="width: 200px" ng-change="changeFilter(selectFilter)" class="form-control">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+    </select>
+    <h2 ng-if="!business_accounts.length" class="text-center">No accounts</h2>
 
-        <th st-sort-default="true" class="text-bold pointer" st-sort="first_name">First Name</th>
-        <th class="text-bold pointer" st-sort="last_name">Last Name</th>
-        <th class="text-bold pointer" st-sort="email">Email</th>
-        <th class="text-bold pointer" st-sort="phone">Phone</th>
-        <th class="text-bold pointer" st-sort="role">Role</th>
-        <th class="text-bold pointer">Agency</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <th><input class="form-control" placeholder="Search..." st-search="first_name"/></th>
-        <th><input class="form-control" placeholder="Search..." st-search="last_name"/></th>
-        <th><input class="form-control" placeholder="Search..." st-search="email"/></th>
-        <th><input class="form-control" placeholder="Search..." st-search="phone"/></th>
-        <th><input class="form-control" placeholder="Search..." st-search="role"/></th>
-        <th><input class="form-control" placeholder="Search..." st-search="agency"/></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="business_account in business_accountsCopy" ng-class="{'rejecting-row': business_accounts_area.rejectedItemIndex == $index}">
-        <td>{{business_account.first_name}}</td>
-        <td>{{business_account.last_name}}</td>
-        <td>{{business_account.email}}</td>
-        <td>{{business_account.phone}}</td>
-        <td>{{business_account.role}}</td>
-        <td><a href="" ng-click="showAgencyDetails(business_account.agency._id)">{{business_account.agency.name}}</a></td>
-        <td>
-            <span ng-confirm-click="Are you sure your want to approve business user <b>{{business_account.first_name}} {{business_account.last_name}}</b> ?"
-                  ng-confirm-action="rejectApproveAccount('approve', business_account._id, $index)"
-                  style="color: green" class="pointer glyphicon glyphicon-ok"></span>
+    <table class="table table-striped" st-safe-src="business_accounts" st-table="business_accountsCopy" ng-if="business_accounts.length">
+        <thead>
+        <tr>
 
-            <span ng-click="reject(business_account, $index)" style="color: red" class="pointer glyphicon glyphicon-remove"></span>
-        </td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="7" class="text-center">
-            <div st-pagination="" st-items-by-page="20" st-displayed-pages="7"></div>
-        </td>
-    </tr>
-    </tfoot>
-</table>
+            <th st-sort-default="true" class="text-bold pointer" st-sort="first_name">First Name</th>
+            <th class="text-bold pointer" st-sort="last_name">Last Name</th>
+            <th class="text-bold pointer" st-sort="email">Email</th>
+            <th class="text-bold pointer" st-sort="phone">Phone</th>
+            <th class="text-bold pointer" st-sort="role">Role</th>
+            <th class="text-bold pointer">Agency</th>
+            <th ng-if="selectFilter=='rejected'" class="text-bold pointer">Reject reason</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <th><input class="form-control" placeholder="Search..." st-search="first_name"/></th>
+            <th><input class="form-control" placeholder="Search..." st-search="last_name"/></th>
+            <th><input class="form-control" placeholder="Search..." st-search="email"/></th>
+            <th><input class="form-control" placeholder="Search..." st-search="phone"/></th>
+            <th><input class="form-control" placeholder="Search..." st-search="role"/></th>
+            <th><input class="form-control" placeholder="Search..." st-search="agency"/></th>
+            <th ng-if="selectFilter=='rejected'"></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="business_account in business_accountsCopy" ng-class="{'rejecting-row': business_accounts_area.rejectedItemIndex == $index}">
+            <td>{{business_account.first_name}}</td>
+            <td>{{business_account.last_name}}</td>
+            <td>{{business_account.email}}</td>
+            <td>{{business_account.phone}}</td>
+            <td>{{business_account.role}}</td>
+            <td><a href="" ng-click="showAgencyDetails(business_account.agency._id)">{{business_account.agency.name}}</a></td>
+            <td ng-if="selectFilter=='rejected'">{{business_account.reject_reason}}</td>
+            <td>
+                <span ng-confirm-click="Are you sure your want to approve business user <b>{{business_account.first_name}} {{business_account.last_name}}</b> ?"
+                      ng-confirm-action="rejectApproveAccount('approve', business_account._id, $index)"
+                      ng-show="business_account.status==0 || business_account.status==2"
+                      style="color: green" class="pointer glyphicon glyphicon-ok"></span>
+
+                <span ng-click="reject(business_account, $index)" style="color: red"
+                      ng-show="business_account.status==0 || business_account.status==1"
+                      class="pointer glyphicon glyphicon-remove"></span>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="7" class="text-center">
+                <div st-pagination="" st-items-by-page="20" st-displayed-pages="7"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
