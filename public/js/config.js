@@ -91,7 +91,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
 
             .when('/jobs', {
                 templateUrl: 'template/viewMyJob.html',
-                controller: 'viewMyJobCtrl',
+                controller: 'viewMyJobCtrl',    
                 resolve: {
                     auth: authResolve,
                     getContent: function ($q, $http) {

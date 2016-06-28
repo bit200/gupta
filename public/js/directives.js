@@ -273,14 +273,15 @@ XYZCtrls.directive('viewMyJob', function () {
                 http.get(scope.url, {params: obj}).then(function (resp) {
                     cb();
                     scope.body = [];
+                    console.log('sfsdfsdxcvnmhuiku',resp.data.data)
                     _.each(resp.data.data, function (job) {
                         var obj = {
                             elem: job,
                             data: {
                                 title: job.job.title || null,
                                 service_provider: job.freelancer.name || null,
-                                response: job.response || null,
-                                status: job.job.status || null,
+                                response: job.message || null,
+                                status: job.status || null,
                                 date: parseTime.date(job.created_at) || null
                             }
                         };
@@ -343,7 +344,6 @@ XYZCtrls.directive('openJob', function () {
                             }, 100)
                         };
                         $scope.createContract = function (invalid, type, data) {
-                            console.log(invalid)
                             if (invalid) return;
                             $scope.showLoading = true;
                             $scope.freelancer = {id :0};
