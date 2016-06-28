@@ -39,7 +39,7 @@ function pubParams(params, query) {
 exports.applyJob = function (req, res) {
     var params = m.getBody(req);
     var params = _.extend(params, {
-        user: req.userId,
+        seller: req.userId,
         freelancer: req.freelancerId
     })
     m.findOne(models.Job, {_id: params.job}, res, function (job) {
@@ -47,6 +47,18 @@ exports.applyJob = function (req, res) {
         m.create(models.JobApply, params, res, res)
     })
 }
+
+exports.applyJobUpdate = function (req, res) {
+    var params = m.getBody(req);
+    var query = {
+        seller: req.userId,
+        freelancer: req.freelancerId,
+        job: params.job
+    }
+    console.log("cchchchchchch", query, params)
+    m.findUpdate2(models.JobApply, query, {message: params.message}, res, res, params)
+}
+
 
 exports.job_stats = function (req, res) {
     var _id = req.params._id
@@ -108,6 +120,7 @@ exports.seller_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {seller: req.userId})
     info.params.populate = 'job freelancer buyer'
+    console.log('infofofofofof', info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
@@ -118,10 +131,6 @@ exports.seller_open_count = function (req, res) {
 }
 
 
-exports.applyJobUpdate = function (req, res) {
-    var params = m.getBody(req);
-    m.findUpdate(models.JobApply, {_id: params._id}, params, res, res)
-}
 
 exports.applyJobRemove = function (req, res) {
     var params = m.getBody(req);
