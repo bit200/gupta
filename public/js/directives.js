@@ -218,7 +218,6 @@ XYZCtrls.directive('viewMyJob', function () {
             scope.trueSearch = function (search) {
                 if (!search)
                     search = ' ';
-                console.log("searchsearchsearchsearchsearch", search)
                 last_press = new Date().getTime();
                 var cur_press = last_press;
                 setTimeout(function () {
