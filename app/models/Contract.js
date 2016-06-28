@@ -16,6 +16,10 @@ var ContractSchema = mongoose.Schema({
         type: Number,
         ref: 'User'
     },
+    job: {
+        type: Number,
+        ref: 'Job'
+    },
     payment_basis: String,
     expected_start: Date,
     expected_completion: Date,

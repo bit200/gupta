@@ -46,6 +46,33 @@ exports.applyJob = function (req, res) {
     m.create(models.JobApply, params, res, res)
 }
 
+exports.job_stats = function(req, res) {
+    var _id = req.params._id
+    async.parallel({
+        applicants: function(cb) {
+            models.JobApply.count({job: _id}).exec(cb)
+        },
+        interviews: function(cb) {
+            models.ChatRoom.count({job: _id}).exec(cb)
+        },
+        hired: function(cb) {
+            models.Contract.count({job: _id}).exec(cb)
+        }
+    }, function(err, data){
+        res.send({
+            err: err,
+            data: data
+        })
+    })
+}
+
+exports.buyer_open = function(req, res) {
+    var userId = req.userId
+
+}
+exports.buyer_open_count = function(req, res) {
+
+}
 
 exports.applyJobUpdate = function (req, res) {
     var params = m.getBody(req);
