@@ -6,10 +6,11 @@
                 <h4 ng-if="isApply" class="modal-title">Edit your apply info</h4>
             </div>
             <div class="modal-body">
+                <small>Why do you fit for the job?</small>
                 <textarea class="form-control" ng-model="text" rows="12" placeholder="Provide a short introduction of you or your skills"></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="close(text)" class="btn btn-default" data-dismiss="modal">Apply</button>
+                <button type="button" ng-click="onSendApply(text, isApply ? 'put' : 'post')" class="btn btn-default">{{isApply ? 'Edit the apply': 'Send the apply'}}</button>
                 <button type="button" class="btn background-orange text-white" data-dismiss="modal">Cancel</button>
             </div>
         </div>

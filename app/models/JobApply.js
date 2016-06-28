@@ -7,7 +7,7 @@ var JobSchema = mongoose.Schema({
         type: Number,
         ref: 'Freelancer'
     },
-    user: {
+    seller: {
         type: Number,
         ref: 'User'
     },

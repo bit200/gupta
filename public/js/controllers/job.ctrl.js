@@ -18,7 +18,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             scope.job.stats = []
             scope.job.stats.push(scope.stats.interviews == 1 ? {count: scope.stats.interviews, name: 'Interviews'} : {count: scope.stats.interviews, name: 'Interview'});
             scope.job.stats.push(scope.stats.applicants == 1 ? {count: scope.stats.applicants, name: 'Applicants'} : {count: scope.stats.applicants, name: 'Applicant'});
-            scope.job.stats.push(scope.stats.hired == 1 ? {count: scope.stats.hired, name: 'Hired'} : {count: scope.stats.hired, name: 'fHired'});
+            scope.job.stats.push(scope.stats.hired == 1 ? {count: scope.stats.hired, name: 'Hired'} : {count: scope.stats.hired, name: 'Hired'});
         }
         scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
     } else {
@@ -37,12 +37,9 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
     scope.applyJob = function (id) {
         ModalService.showModal({
             templateUrl: "template/modal/applyJob.html",
-            controller: function ($scope, $http) {
-                $scope.close = function (text) {
-                    $http.post('/api/job-apply', {job: id, message: text}).then(function (resp) {
-                        console.log('resp', resp);
-                        scope.isApply = resp.data.data;
-                    })
+            controller: function ($scope, $element) {
+                $scope.onSendApply = function(text, type) {
+                    sendApply(text, type, $element)
                 }
             }
         }).then(function (modal) {
@@ -90,18 +87,22 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             }
         )
     };
-
-    scope.showApplyInfo = function (id) {
+    function sendApply (text, type, $element) {
+        console.log('hahahahahahahahahah', text)
+        http[type]('/api/job-apply', {job: scope.job._id, message: text}).then(function (resp) {
+            console.log("fhfhfhfhfhfhhf", resp)
+            scope.isApply = resp.data.data;
+            $element.modal('hide');
+        })
+    }
+    scope.showApplyInfo = function () {
         ModalService.showModal({
             templateUrl: "template/modal/applyJob.html",
-            controller: function ($scope, $http) {
+            controller: function ($scope, $element) {
                 $scope.isApply = true
                 $scope.text = scope.isApply.message;
-                $scope.close = function (text) {
-                    $http.post('/api/job-apply', {job: id, message: text}).then(function (resp) {
-                        console.log('resp', resp)
-                        scope.isApply = resp.data.data;
-                    })
+                $scope.onSendApply = function(text, type) {
+                    sendApply(text, type, $element)
                 }
             }
         }).then(function (modal) {

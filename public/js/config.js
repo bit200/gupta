@@ -169,6 +169,19 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
+            .when('/jobs/buyer/ongoing', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        template: 'buyer-ongoing',
+                        header: 'Ongoing jobs',
+                        url: '/api/jobs/buyer/ongoing'
+                    })
+                }
+            })
+
             .when('/jobs/seller/open', {
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
