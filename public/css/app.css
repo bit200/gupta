@@ -39,7 +39,7 @@ html {
 
 .modal-block-attachFiles {
     height: 600px;
-    widows: 500px;
+    width: 500px;
 }
 
 .button {
@@ -1131,7 +1131,7 @@ div.containerCrop {
     border-bottom: 1px dashed;
 }
 
-.header-my-job {
+.header-my-job, .header-my-job:focus {
     display: inline-block;
     font-weight: bold;
     color: #c1c1c1;

@@ -340,7 +340,7 @@ XYZCtrls.directive('openJob', function () {
                             if (invalid) return;
                             $element.modal('hide');
                             data.seller_id = 0;
-                            $http.post('/api/contract/' + type, data).then(function (resp) {
+                            $http.post('/api/contract/', data).then(function (resp) {
                                 console.log('resp', resp)
                             }, function (err) {
                                 console.log('err', err)
