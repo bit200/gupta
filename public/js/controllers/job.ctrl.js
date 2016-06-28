@@ -12,7 +12,14 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             scope.isApply = getContent.apply.data.data[0];
         scope.job.content = parseEdit(scope.job.content_types);
         scope.job.location = parseEdit(scope.job.local_preference);
-        scope.stats = getContent.stats.data.data;
+        if (getContent.stats) {
+            scope.stats = getContent.stats.data.data;
+            console.log('rere', scope.stats)
+            scope.job.stats = []
+            scope.job.stats.push(scope.stats.interviews > 1 ? scope.stats.interviews + ' Interviews' : scope.stats.interviews + ' Interview');
+            scope.job.stats.push(scope.stats.applicants > 1 ? scope.stats.applicants + ' Applicants' : scope.stats.applicants + ' Applicant');
+            scope.job.stats.push(scope.stats.hired > 1 ? scope.stats.hired + ' Hireds' : scope.stats.hired + ' Hired');
+        }
         scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
     } else {
         scope.job = {

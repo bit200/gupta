@@ -273,14 +273,15 @@ XYZCtrls.directive('viewMyJob', function () {
                 http.get(scope.url, {params: obj}).then(function (resp) {
                     cb();
                     scope.body = [];
+                    console.log('sfsdfsdxcvnmhuiku',resp.data.data)
                     _.each(resp.data.data, function (job) {
                         var obj = {
                             elem: job,
                             data: {
                                 title: job.job.title || null,
                                 service_provider: job.freelancer.name || null,
-                                response: job.response || null,
-                                status: job.job.status || null,
+                                response: job.message || null,
+                                status: job.status || null,
                                 date: parseTime.date(job.created_at) || null
                             }
                         };
@@ -322,17 +323,27 @@ XYZCtrls.directive('openJob', function () {
             scope.action = function (id, type) {
                 console.log('da', id, type)
             };
+            scope.rejectJob = function (id) {
+                http.get('/api/job-apply/reject/'+id).then(function(resp){
+                    console.log('resp',resp)
+                    scope.jobs = resp.data.data
+                }, function(err){
+                    console.log('err',err)
+                })
+            };
+
             scope.acceptJob = function (job) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
                     controller: function ($scope, $http, $element, close) {
                         $scope.contract = {};
-                        $scope.contract.title = job.elem.title;
-                        $scope.contract.information = job.elem.description;
-                        $scope.contract.buyer_name = job.elem.name;
-                        $scope.contract.buyer_company_name = job.elem.company_name;
-                        $scope.contract.payment_basis = job.elem.budget;
-                        $scope.contract.final_amount = job.elem.budget;
+                        console.log('job', job)
+                        $scope.contract.title = job.elem.job.title;
+                        $scope.contract.information = job.elem.job.description;
+                        $scope.contract.buyer_name = job.elem.freelancer.name;
+                        $scope.contract.buyer_company_name = job.elem.job.company_name;
+                        $scope.contract.payment_basis = job.elem.job.budget;
+                        $scope.contract.final_amount = job.elem.job.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
                         console.log('asdasd',$scope.contract)
@@ -343,14 +354,16 @@ XYZCtrls.directive('openJob', function () {
                             }, 100)
                         };
                         $scope.createContract = function (invalid, type, data) {
-                            console.log(invalid)
                             if (invalid) return;
                             $scope.showLoading = true;
-                            $scope.freelancer = {id :0};
+                            data.seller = job.elem.user;
+                            data.freelancer = job.elem.freelancer._id;
+                            console.log(data)
                             $http.post('/api/contract/', data).then(function (resp) {
                                 $scope.showLoading = false;
                                 $scope.isCreated = true;
-                                $scope.contract_id = resp.data.data._id;
+                                // $scope.contract_id = resp.data.data._id;
+
                             }, function (err) {
                                 if (err.status = 404) {
                                     $scope.error = 'Buyer/Seller not found';
