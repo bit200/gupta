@@ -39,7 +39,7 @@ html {
 
 .modal-block-attachFiles {
     height: 600px;
-    widows: 500px;
+    width: 500px;
 }
 
 .button {
@@ -200,7 +200,11 @@ div.Files {
     margin-top: 10%;
     padding: 20px 20px 5px 20px;
     background-color: white;
-
+}
+.contract-style-form {
+    margin: 0 auto;
+    padding: 20px 20px 5px 20px;
+    background-color: white;
 }
 
 .claimAgencyPage {
@@ -208,9 +212,7 @@ div.Files {
     padding: 10px 0 10px 20px;
 }
 
-.btn-default-2 {
 
-}
 
 .error {
     color: #ff0000;
@@ -527,6 +529,10 @@ html, body {
 
 .text-grey {
     color: #a9a9a9;
+}
+
+.text-error {
+    color: #ff0000;
 }
 
 .text-white, .text-white:hover, .text-white:focus {
@@ -1127,4 +1133,18 @@ div.containerCrop {
 .dashed, .dashed:hover {
     text-decoration: none;
     border-bottom: 1px dashed;
+}
+
+.header-my-job, .header-my-job:focus {
+    display: inline-block;
+    font-weight: bold;
+    color: #c1c1c1;
+    margin-top: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-my-job:hover {
+    text-decoration: none;
+    color: #f7961d;
 }

@@ -262,20 +262,17 @@ XYZCtrls.directive('viewMyJob', function () {
             scope.render = function (params) {
                 scope.showLoading = true;
                 var obj = create_obj(params);
-                var index = 0
+                var index = 0;
 
                 function cb() {
 
                     if (++index == 2) {
                         scope.showLoading = false;
-                        console.log('oks')
                     }
-                    console.log('afterrrrrr', index)
                 }
 
                 http.get(scope.url, {params: obj}).then(function (resp) {
-                    console.log('resp', resp);
-                    cb()
+                    cb();
 
                     scope.body = [];
 
@@ -295,17 +292,15 @@ XYZCtrls.directive('viewMyJob', function () {
 
 
                 }, function (err) {
-                    console.log('qe')
-                    cb()
-                })
+                    cb();
+                });
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
-                        cb()
+                        cb();
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {
                         scope.TotalItems = 0;
-
-                        cb()
+                        cb();
                     })
             };
 
@@ -323,10 +318,48 @@ XYZCtrls.directive('openJob', function () {
             jobs: '='
         },
         templateUrl: 'template/directive/templateJob.html',
-        controller: ['$scope', '$http', function (scope, http) {
+        controller: ['$scope', '$http', 'ModalService', function (scope, http, ModalService) {
             scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
             scope.action = function (id, type) {
                 console.log('da', id, type)
+            };
+            scope.acceptJob = function (job) {
+                ModalService.showModal({
+                    templateUrl: "template/modal/createContract.html",
+                    controller: function ($scope, $http, $element) {
+                        $scope.contract = {};
+                        $scope.contract.title = job.elem.title;
+                        $scope.contract.information = job.elem.description;
+                        $scope.contract.buyer_name = job.elem.name;
+                        $scope.contract.buyer_company_name = job.elem.company_name;
+                        $scope.contract.payment_basis = job.elem.budget;
+                        $scope.contract.final_amount = job.elem.budget;
+                        $scope.contract.expected_start = new Date();
+                        $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
+                        $scope.createContract = function (invalid, type, data) {
+                            if (invalid) return;
+                            $scope.showLoading = true;
+                            data.seller_id = 0;
+                            $http.post('/api/contract/', data).then(function (resp) {
+                                $scope.showLoading = false;
+                                $scope.isCreated = true;
+                                $scope.contract_id = resp.data.data._id;
+                                // $element.modal('hide');
+                                console.log('resp', resp)
+                            }, function (err) {
+                                if (err.status = 404) {
+                                    $scope.error =  'Buyer/Seller not found';
+                                } else {
+                                    $scope.error = err.error
+                                }
+                                $scope.showLoading = false;
+                                console.log('err', err)
+                            })
+                        }
+                    }
+                }).then(function (modal) {
+                    modal.element.modal();
+                });
             }
         }]
     };
