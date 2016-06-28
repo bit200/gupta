@@ -30,6 +30,16 @@ exports.approve_contract = function (req, res) {
 
 };
 
+exports.rejectJob = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {status: 'approve'}, res, function (contract) {
+        m.findUpdate(models.Job, {contract: contract._id}, {status: 'applied'}, res, function () {
+            mail.invitePayment(contract.buyer, res, m.scb(contract))
+        })
+    }, {populate: 'buyer'})
+
+};
+
 exports.update_contract = function (req, res) {
 var params = m.getBody(req);
     var id = params._id;
