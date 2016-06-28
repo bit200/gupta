@@ -4,7 +4,7 @@ var contract = require('../controllers/contract');
 
 module.exports = function (app) {
     var auth = require('./middlewares/auth');
-    app.get('/contract/create', auth.token, contract.create_contract);
+
     app.get('/contract/approve', auth.token, contract.approve_contract);
     app.post('/contract/update', auth.token, contract.update_contract);
     app.post('/contract/delete', auth.token, contract.delete_contract);
@@ -15,4 +15,6 @@ module.exports = function (app) {
     app.get('/contract/suggest-cancel', auth.token, contract.suggest_contract_cancel);
     app.get('/contract', auth.token, contract.get_contract);
     app.get('/suggest', auth.token, contract.get_suggest);
+    app.post('/api/contract', auth.token, contract.create_contract);
+
 };

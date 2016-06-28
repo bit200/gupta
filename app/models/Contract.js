@@ -12,6 +12,10 @@ var ContractSchema = mongoose.Schema({
     },
     seller_contact: String,
     seller_name: String,
+    freelancer: {
+        type: Number,
+        ref: 'Freelancer'
+    },
     seller: {
         type: Number,
         ref: 'User'
