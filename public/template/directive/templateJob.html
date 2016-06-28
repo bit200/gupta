@@ -8,7 +8,7 @@
         <div>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Commuticate')">Communicate</a>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="acceptJob(job)">Accept</a>
-            <a class=" pointer block text-orange-link text-bottom-line" href="/#/job/edit/{{job.elem._id}}">Reject</a>
+            <a class=" pointer block text-orange-link text-bottom-line" ng-click="rejectJob(job.elem._id)">Reject</a>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'View Contract')">View Contract</a>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Edit Contract')">Edit Contract</a>
             <a class=" pointer block text-orange-link text-bottom-line" ng-click="action(job.elem._id, 'Pause Contract')">Pause Contract</a>

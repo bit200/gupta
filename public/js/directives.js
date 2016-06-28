@@ -323,6 +323,15 @@ XYZCtrls.directive('openJob', function () {
             scope.action = function (id, type) {
                 console.log('da', id, type)
             };
+            scope.rejectJob = function (id) {
+                http.get('/api/job-apply/reject/'+id).then(function(resp){
+                    console.log('resp',resp)
+                    scope.jobs = resp.data.data
+                }, function(err){
+                    console.log('err',err)
+                })
+            };
+
             scope.acceptJob = function (job) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
