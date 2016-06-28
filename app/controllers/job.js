@@ -42,25 +42,25 @@ exports.applyJob = function (req, res) {
         user: req.userId,
         freelancer: req.freelancerId
     })
-    m.findOne(models.Job, {_id: params.job}, res, function(job){
+    m.findOne(models.Job, {_id: params.job}, res, function (job) {
         params.buyer = job.user
         m.create(models.JobApply, params, res, res)
     })
 }
 
-exports.job_stats = function(req, res) {
+exports.job_stats = function (req, res) {
     var _id = req.params._id
     async.parallel({
-        applicants: function(cb) {
+        applicants: function (cb) {
             models.JobApply.count({job: _id}).exec(cb)
         },
-        interviews: function(cb) {
+        interviews: function (cb) {
             models.ChatRoom.count({job: _id}).exec(cb)
         },
-        hired: function(cb) {
+        hired: function (cb) {
             models.Contract.count({job: _id}).exec(cb)
         }
-    }, function(err, data){
+    }, function (err, data) {
         res.send({
             err: err,
             data: data
@@ -85,7 +85,7 @@ exports.count = function (query) {
     }
 };
 
-exports.buyer_open = function(req, res) {
+exports.buyer_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {buyer: req.userId})
     info.params.populate = 'job freelancer'
@@ -93,20 +93,24 @@ exports.buyer_open = function(req, res) {
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
-exports.buyer_open_count = function(req, res) {
+
+exports.rejectJobApply = function(req, res) {
+    res.send("rejected")
+}
+exports.buyer_open_count = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {buyer: req.userId})
     m.count(models.JobApply, info.query, res, res, info.params)
 }
 
-exports.seller_open = function(req, res) {
+exports.seller_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {seller: req.userId})
     info.params.populate = 'job freelancer buyer'
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
-exports.seller_open_count = function(req, res) {
+exports.seller_open_count = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {seller: req.userId})
     m.count(models.JobApply, info.query, res, res, info.params)
@@ -144,8 +148,6 @@ exports.add_job = function (req, res) {
     params.status = 'open'
     m.create(models.Job, params, res, res)
 };
-
-
 
 
 exports.get_job = function (req, res) {
