@@ -9,8 +9,8 @@
             </div>
             <div class="modal-body realtive">
                 <div ng-if="isCreated">
-                    <div>Congratulations! Your contract is successfully created.</div>
-                    <a class="text-orange-link" href="/#/contract/{{contract_id}}">See your contract</a>
+                    <div>Congratulations! Your contract has sent to seller.</div>
+                    <a class="text-orange-link pointer" ng-click="closeModal()" data-dismiss="modal">See your contract</a>
                 </div>
                 <div ng-if="!isCreated" class="contract-style-form">
                     <form name="formContract" novalidate>

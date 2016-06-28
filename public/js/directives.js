@@ -318,7 +318,7 @@ XYZCtrls.directive('openJob', function () {
             jobs: '='
         },
         templateUrl: 'template/directive/templateJob.html',
-        controller: ['$scope', '$http', 'ModalService', function (scope, http, ModalService) {
+        controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
             scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
             scope.action = function (id, type) {
                 console.log('da', id, type)
@@ -326,7 +326,7 @@ XYZCtrls.directive('openJob', function () {
             scope.acceptJob = function (job) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
-                    controller: function ($scope, $http, $element) {
+                    controller: function ($scope, $http, $element, close) {
                         $scope.contract = {};
                         $scope.contract.title = job.elem.title;
                         $scope.contract.information = job.elem.description;
@@ -336,6 +336,12 @@ XYZCtrls.directive('openJob', function () {
                         $scope.contract.final_amount = job.elem.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
+                        $scope.closeModal = function () {
+                            $element.modal('hide');
+                            $timeout(function () {
+                                location.path('contract/' + $scope.contract_id)
+                            }, 100)
+                        };
                         $scope.createContract = function (invalid, type, data) {
                             if (invalid) return;
                             $scope.showLoading = true;
@@ -344,11 +350,12 @@ XYZCtrls.directive('openJob', function () {
                                 $scope.showLoading = false;
                                 $scope.isCreated = true;
                                 $scope.contract_id = resp.data.data._id;
+                                console.log($scope.contract_id)
                                 // $element.modal('hide');
                                 console.log('resp', resp)
                             }, function (err) {
                                 if (err.status = 404) {
-                                    $scope.error =  'Buyer/Seller not found';
+                                    $scope.error = 'Buyer/Seller not found';
                                 } else {
                                     $scope.error = err.error
                                 }
