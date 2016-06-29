@@ -10,8 +10,8 @@ XYZCtrls.directive('jobsList', function () {
         templateUrl: 'js/directives/jobs-list/jobs-list.html',
         controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService', function (scope, http, parseTime, rootScope, location, ModalService) {
             console.log("directive", scope.header)
-            scope.templateHeader = ['js/directives/jobs-list/templates/', scope.template, '/header.html'].join('')
-            scope.templateItem = ['js/directives/jobs-list/templates/', scope.template, '/item.html'].join('')
+            scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('')
+            scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('')
 
             var actions = {
                 'buyer-open': ['Comunicate', 'Accept', 'Reject']
