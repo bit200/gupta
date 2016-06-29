@@ -14,11 +14,11 @@ exports.admin = function (req, res) {
     res.render('admin/index')
 };
 
-m.create(models.Client, {name:'coca-cola'});
 exports.get_content = function (req, res) {
     var params = m.getBody(req);
     m.distinct(models[params.name], JSON.parse(params.query), params.distinctName, res, res)
 };
+
 
 exports.get_client = function (req, res) {
     m.find(models.Client, {}, res, res)

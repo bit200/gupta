@@ -1,125 +1,115 @@
 <div class="container">
-    <div class="row" ng-init="active_page = 'Summary'">
-        <div class="col-md-3 background-white">
-            <div class="row">
-                <div class="col-xs-6 col-md-12 ">
-                    <img ng-if="profile.poster" class="full-width img-rounded" ng-src="{{profile.poster.url.replace('/public','')}}">
-                </div>
-                <div class="col-md-12 col-xs-6">
-                    <div class="full-width marginT20 text-bold">{{profile.user.last_name}} {{profile.user.first_name}}</div>
-                    <div class="padding10"><i class="fa fa-map-marker" aria-hidden="true"></i> {{profile.location}}</div>
-                    <button class="btn btn-primary width80"><i class="fa fa-envelope-o" aria-hidden="true"></i> Connect</button>
-                    <div class="full-width padding10 text-bold"><i class="fa fa-heart-o" aria-hidden="true"></i> Add to Favorite</div>
-                </div>
+    <div style="height: 30px">
+        <ul class="breadcrumbs inline-list">
+            <li>Home</li>
+            <li> / </li>
+            <li ng-show="ownFilter.freelancer_type">{{ownFilter.freelancer_type}}</li>
+            <li ng-show="ownFilter.freelancer_type"> / </li>
+            <li>View profile</li>
+            <li> / </li>
+            <li>Profile Details</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="full-width" ng-src="{{viewProfile.poster.url}}">
+            <h3>{{viewProfile.name}}</h3>
+            <p>{{viewProfile.introduction}}</p>
+            <p>
+                <ng-md-icon icon="location_on" style="fill: lightgray;top: 7px;position: relative;"></ng-md-icon>
+                {{viewProfile.location}}</p>
+            <div>
+                <ng-md-icon icon="remove_red_eye" style="fill: lightgray;top: -12px;position: relative;"></ng-md-icon>
+                <p style="display: inline-block;margin-bottom: 0px;">
+                    Profile Views {{viewsCount}}
+                    <br />
+                    <small>Last 90 days</small>
+                </p>
+            </div>
+            <p style="cursor: pointer;" ng-if="isLogged()" ng-init="checkFavorited()">
+                <span ng-hide="profileFavorited" ng-click="addFavorite()">
+                    <ng-md-icon icon="favorite_border" style="fill: lightgray;top: 7px;position: relative;"></ng-md-icon>
+                    Add Favorite
+                </span>
+                <span ng-show="profileFavorited" ng-click="removeFavorite()">
+                    <ng-md-icon icon="favorite" style="fill: red;top: 7px;position: relative;"></ng-md-icon>
+                    Remove Favorite
+                </span>
+
+            </p>
+
+            <div>
+                <h3>RECENT HISTORY</h3>
+                <p>Last account activity : {{viewProfile.last_activity | date}}</p>
+                <p>Past project : ----- </p>
+                <p>Active project : ----- </p>
             </div>
         </div>
         <div class="col-md-9">
+            <ul class="profile-menu">
+                <li ng-click="active_profile_menu='pricing'" ng-class="{active: active_profile_menu=='pricing'}">PRICING AND PACKAGES</li>
+                <li ng-click="active_profile_menu='profile'" ng-class="{active: active_profile_menu=='profile'}">PROFILE</li>
+                <li ng-click="active_profile_menu='portfolio'" ng-class="{active: active_profile_menu=='portfolio'}">PORTFOLIO</li>
+            </ul>
 
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="col-xs-4 text-bold pointer" ng-click="active_page = 'Summary'">Summary</div>
-                    <div class="col-xs-4 text-bold pointer" ng-click="active_page = 'Details'">Details</div>
-                    <div class="col-xs-4 text-bold pointer" ng-click="active_page = 'Work'">Work</div>
+            <section ng-show="active_profile_menu=='pricing'">
+                <div ng-show="viewProfile.price.word || viewProfile.price.hour">
+                    <h4>PRICING</h4>
+                    <p ng-show="viewProfile.price.hour"> Per hour: {{viewProfile.price.hour}}</p>
+                    <p ng-show="viewProfile.price.word"> Per word: {{viewProfile.price.word}}</p>
                 </div>
-            </div>
-            <div class="row border-bottom"></div>
-
-            <div ng-if="active_page == 'Summary'">
-                <div class="col-xs-12">
-                    <div class="">Website: {{profile.website ? profile.website : 'N/A'}}</div>
-                    <div class="inlineBlock marginT20">
-                        <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
+                <div ng-show="viewProfile.service_packages">
+                    <h4>PACKAGES</h4>
+                    <div ng-repeat="pkg in viewProfile.service_packages">
+                        <h5>{{pkg.title}}</h5>
+                        <p>{{pkg.description}}</p>
+                        <p>Prices: {{pkg.pricing}}</p>
+                        <ul>
+                            <li ng-repeat="extra in pkg.extras">
+                                {{extra.price}} {{extra.description}}
+                            </li>
+                        </ul>
                     </div>
-                    <div class="marginT20"><i class="fa fa-eye" aria-hidden="true"></i> Profile view: {{profile.view}}</div>
-                    <div class="marginTB20">{{profile.introduction}}</div>
                 </div>
-
-
+            </section>
+            <section ng-show="active_profile_menu=='profile'">
+                <p>{{viewProfile.description}}</p>
                 <div class="row">
-                    <div class="col-xs-12">
-                        <div class="col-xs-3 background-white profile-block">
-                            <div class="text-bold text-primary">Industry Expertise</div>
-                            <div class="border-bottom"></div>
-                            <div class="inlineBlock" ng-repeat="item in profile.industry_expertise">{{item}}{{$last? '':', '}}</div>
+                    <div class="col-md-4" ng-if="viewProfile.industry_expertise.length">
+                        <div class="profile-exp-block">
+                            <h5>INDUSTRY EXPERTISE</h5>
+                            <p>
+                                <span ng-repeat="industry_expertise in viewProfile.industry_expertise">{{industry_expertise}}<span ng-if="!$last">, </span></span>
+                            </p>
                         </div>
-                        <div class="col-xs-offset-1 col-xs-3 background-white profile-block">
-                            <div class="text-bold text-primary">Content Type</div>
-                            <div class="border-bottom"></div>
-                            <div class="inlineBlock" ng-repeat="item in profile.content_type">{{item}}{{$last? '':', '}}</div>
+                    </div>
+                    <div class="col-md-4" ng-if="viewProfile.content_type.length">
+                        <div class="profile-exp-block">
+                            <h5>CONTENT TYPE</h5>
+                            <p>
+                                <span ng-repeat="content_type in viewProfile.content_type">{{content_type}}<span ng-if="!$last">, </span></span>
+                            </p>
                         </div>
-                        <div class="col-xs-offset-1 col-xs-3 background-white profile-block">
-                            <div class="text-bold text-primary">Languages</div>
-                            <div class="border-bottom"></div>
-                            <div class="inlineBlock" ng-repeat="item in profile.languages">{{item}}{{$last? '':', '}}</div>
+                    </div>
+                    <div class="col-md-4" ng-if="viewProfile.languages.length">
+                        <div class="profile-exp-block">
+                            <h5>LANGUAGES</h5>
+                            <p>
+                                <span ng-repeat="language in viewProfile.languages">{{language}}<span ng-if="!$last">, </span></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" ng-if="viewProfile.freelancer_type.length">
+                        <div class="profile-exp-block">
+                            <h5>YARS OF EXPERIENCE 10</h5>
+                            <p>
+                                <span ng-repeat="service_provider in viewProfile.freelancer_type">{{service_provider}}<span ng-if="!$last">, </span></span>
+                            </p>
                         </div>
                     </div>
                 </div>
-
-                <div class="marginT20">
-                    <div class="text-primary padding10 text-bold">Pricing</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10">
-                        <div class="width20 inlineBlock paddingR20">{{profile.service_type ? 'Per' : ''}} {{profile.service_type}}</div>
-                        <div class="inlineBlock">{{profile.service_price}}</div>
-                    </div>
-                </div>
-
-                <div class="marginT20">
-                    <div class="text-primary padding10 text-bold">Packages</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10">
-
-                    </div>
-                </div>
-            </div>
-
-            <div ng-if="active_page == 'Details'" class="marginT20">
-                <div class="col-xs-12 profile-block background-white">
-                    <div class="text-primary padding10">Description</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10">{{profile.description}}</div>
-                </div>
-                <div class="col-xs-12 profile-block background-white marginT20">
-                    <div class="text-primary padding10">Key Stats</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10">
-                        <div class="width20 inlineBlock padding10 border-black">
-                            <div class="text-center text-bold">Years of Experience</div>
-                            <div class="text-center marginT20">{{profile.experience ? profile.experience : 0}}</div>
-                        </div>
-                        <div class="width20 inlineBlock padding10 border-black">
-                            <div class="text-center text-bold">Numbers of Clients</div>
-                            <div class="text-center marginT20">{{profile.work.customers ? profile.work.customers : 0}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 profile-block background-white marginT20">
-                    <div class="text-primary padding10">Awards and Recognition</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10">{{profile.awards}}</div>
-                </div>
-            </div>
-
-            <div ng-if="active_page == 'Work'" class="marginT20">
-                <div class="width35 inlineBlock marginTB20">Number of Clients</div>
-                <div class="inlineBlock">{{profile.work.customers}}</div>
-                <div class="col-xs-12 profile-block background-white">
-                    <div class="text-primary padding10">Past Clients</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10"></div>
-                </div>
-                <div class="col-xs-12 profile-block background-white marginT20">
-                    <div class="text-primary padding10">Samples of Work</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10"></div>
-                </div>
-                <div class="col-xs-12 profile-block background-white marginT20">
-                    <div class="text-primary padding10">Client Testimonials</div>
-                    <div class="border-bottom"></div>
-                    <div class="padding10"></div>
-                </div>
-            </div>
-
+            </section>
+            <section></section>
         </div>
     </div>
 </div>

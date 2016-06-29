@@ -198,41 +198,27 @@
             <div>Please specify pricing for your services</div>
             <div class="row">
                 <div class="col-xs-3 paddingT20">
-                    <md-checkbox ng-click="priceHour=false;service=false;freelancer.price.hour=[]"
-                                 ng-model="priceWord"
-                                 class="md-warn">Rs. Per word
-                    </md-checkbox>
+                    <md-checkbox ng-model="priceWord" class="md-warn">Rs. Per word</md-checkbox>
                 </div>
                 <div class="col-xs-9">
                     <md-input-container class="md-block">
-                        <input class='form-control' numbers-only ng-disabled="!priceWord"
-                               ng-model="freelancer.price.word" aria-label="Price Word">
-
+                        <input class='form-control' numbers-only ng-disabled="!priceWord" ng-model="freelancer.price.word" aria-label="Price Word">
                     </md-input-container>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-3 paddingT20">
-
-
-                    <md-checkbox ng-click="priceWord=false;service=false;freelancer.price.word = []"
-                                 ng-model="priceHour"
-                                 class="md-warn">Rs. Per word
-                    </md-checkbox>
+                    <md-checkbox ng-model="priceHour" class="md-warn">Rs. Per word</md-checkbox>
                 </div>
                 <div class="col-xs-9">
-
                     <md-input-container class="md-block">
-                        <input class='form-control' numbers-only ng-disabled="!priceHour"
-                               ng-model="freelancer.price.hour" aria-label="Price Hour">
-
+                        <input class='form-control' numbers-only ng-disabled="!priceHour" ng-model="freelancer.price.hour" aria-label="Price Hour">
                     </md-input-container>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <md-checkbox ng-click="priceHour=false;priceWord=false;freelancer.price=[]"
-                                 ng-model="addService" class="md-warn">
+                    <md-checkbox ng-model="addService" class="md-warn">
                         <span>Packaged Services(?)</span>
                     </md-checkbox>
                 </div>

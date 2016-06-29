@@ -1,0 +1,59 @@
+.flex.menu {
+    height: 50px;
+    list-style-type: none;
+    margin: 0;
+    line-height: 1;
+    padding-left: 0px;
+    padding-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.js .flex.menu {
+    /* If we have JavaScript enabled and we're just waiting for flexMenu to load and run, hide list items that don't fit on one line. If JavaScript is not enabled, just show 'em all. */
+    height: 1.5em;
+    overflow: hidden;
+}
+
+.flex.menu > li {
+    margin: 0 0 0 1.5em;
+    float: left;
+    cursor: pointer;
+    padding-bottom: 8px;
+}
+
+.flex.menu > li.active {
+    border-bottom: 3px solid lightgrey;
+}
+
+.flex.menu > li:first-child {
+    margin-left: 0;
+}
+
+.flex.menu a {
+    cursor: pointer;
+}
+
+
+.flexMenu-popup {
+    z-index: 9999;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background: white;
+}
+
+.lt-ie8 .flexMenu-popup {
+}
+
+.flexMenu-popup li {
+    margin-top: 5px;
+}
+.flexMenu-popup a {
+    display: block;
+}
+
+.flexMenu-popup a:hover {
+    cursor: pointer;
+    display: block;
+}

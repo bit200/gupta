@@ -30,7 +30,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
             modal.element.modal();
             modal.close.then(function (result) {console.log(result)
                 if (result)
-                    $location.path(result)
+                    $location.url(result)
             });
 
         });

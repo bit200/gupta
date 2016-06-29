@@ -1,23 +1,29 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', '$q', 'getContent', 'ModalService', function (scope, location, http, routeParams, parseRating, $q, getContent, ModalService) {
+XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', '$q', 'getContent', 'ModalService', '$route', '$location',
+    function (scope, location, http, routeParams, parseRating, $q, getContent, ModalService, $route, $location) {
     scope.ownFilter = {}
     scope.arrayTopics = getContent.topic.data.data;
     scope.arrayContent = getContent.content.data.data;
     scope.arrayLanguages = getContent.languages.data.data;
     scope.arrayLocations = getContent.locations.data.data;
-    scope.freelancer = parseRating.rating(getContent.freelancer.data.data);
-    scope.freelancer = parseRating.popularity(getContent.freelancer.data.data);
+    scope.arrayProviders = getContent.arrayProviders.data.data;
+    scope.freelancers = [];
     scope.ownFilter.agency = true;
     scope.ownFilter.freelancer = true;
 
-    if (routeParams.filter)
-        scope.mainSearch = {name: routeParams.filter};
-    if (routeParams.provider)
-        scope.provider = routeParams.provider;
+
+    scope.setActiveProvider = function(provider){
+        scope.ownFilter.freelancer_type = provider;
+        scope.submitFilter(scope.ownFilter)
+        $location.search({provider: provider})
+    };
+    if ($location.search().provider)
+        scope.ownFilter.freelancer_type = $location.search().provider;
+        
     scope.slider = {
         experience: {
-            value: 3,
+            value: 0,
             options: {
                 floor: 0,
                 ceil: 15,
@@ -50,8 +56,6 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
 
     scope.submitFilter = function (data) {
         var filter = angular.copy(data);
-        if (scope.provider)
-            filter.freelancer_type = scope.provider;
         if (filter.industry_expertise)
             filter.industry_expertise = objInArr(filter.industry_expertise);
 
@@ -72,28 +76,42 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routePara
         if (filter.location)
             filter.location = objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
-        http.get('/api/freelancers', {params: filter}).then(function (resp) {
+        http.get('/api/freelancers?'+ $.param(filter)).then(function (resp) {
             filter = {};
-            scope.freelancer = parseRating.rating(resp.data.data);
-            scope.freelancer = parseRating.popularity(resp.data.data);
+            scope.freelancers = resp.data.data;
         }, function (err) {
         })
     };
 
-    scope.showProfile = function (id) {
-        http.get('/api/freelancer/'+id).then(function (resp) {
-            ModalService.showModal({
-                templateUrl: "template/modal/modalSeller.html",
-                controller: function ($scope) {
-                    $scope.profile = parseRating.rating(resp.data.data)[0];
-                }
-            }).then(function (modal) {
-                modal.element.modal();
-                modal.close.then(function (result) {
-                });
+    scope.submitFilter(scope.ownFilter);
 
-            });
+    scope.showProfile = function (id) {
+        scope.profileFavorited = false;
+        scope.active_profile_menu = 'profile';
+        http.post('/api/freelancer/'+id+'/views');
+        http.get('/api/freelancer/'+id+'/views?days=90').success(function(viewsCount){
+            scope.viewsCount = viewsCount
         });
+        http.get('/api/freelancer/'+id).success(function(resp) {
+            console.log(resp)
+            scope.viewProfile = resp.data;
+        });
+    };
+
+    scope.checkFavorited = function(){
+        http.get('/api/freelancer/'+id+'/check_favorite').success(function (resp) {
+            scope.profileFavorited = resp
+        });
+    };
+
+    scope.addFavorite = function(){
+        http.get('/api/freelancer/'+scope.viewProfile._id+'/favorite/add');
+        scope.profileFavorited = true
+    };
+
+    scope.removeFavorite = function(){
+        http.get('/api/freelancer/'+scope.viewProfile._id+'/favorite/remove');
+        scope.profileFavorited = false
     };
 
     function objInArr(obj) {

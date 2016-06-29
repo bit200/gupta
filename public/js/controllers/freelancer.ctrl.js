@@ -36,7 +36,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             for(var i = 0 ; i<files.length;i++){
                 arrayIdFiles.push(files[i].result.data._id);
             }
-            if (freelancer.service_price) freelancer.service_price = freelancer.price[freelancer.service_type]
             freelancer.Attachments = freelancer.Attachments || [];
             freelancer.Attachments = freelancer.Attachments.concat(arrayIdFiles)
             if (img && img.length){
@@ -65,10 +64,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         };
 
         scope.createPackage = function(){
-            scope.priceHour=false; 
-            scope.priceWord=false; 
-            scope.freelancer.price=[]; 
-            scope.addService=true;
             scope.newPackage={};
             scope.show.pkgModal=true;
         }

@@ -161,10 +161,13 @@ exports.my_business_accounts = function (req, res) {
 };
 
 exports.get_freelancers = function (req, res) {
-    var params = m.getBody(req);
+    var params = req.query;
     params.registrationStatus = 1;
     if (params.freelancer_type){
         params.freelancer_type = {$in: [params.freelancer_type]}
+    };
+    if (params.content_type){
+        params.content_type = {$in: params.content_type}
     };
     _.each(params, function(value, key){
         if (value instanceof  Array)
@@ -172,12 +175,47 @@ exports.get_freelancers = function (req, res) {
     })
     if (params.experience)
         params.experience = {$gte: parseInt(params.experience)}
-    console.log(params)
     m.find(models.Freelancer, params, res, res, {populate: 'poster'})
 };
 
 exports.get_freelancer = function (req, res) {
-    m.find(models.Freelancer, {_id: req.params.id}, res, res, {populate: 'poster service_packages Attachments contact_detail business_account'})
+    m.findOne(models.Freelancer, {_id: req.params.id}, res, res, {populate: 'poster service_packages Attachments contact_detail business_account'})
+};
+
+exports.freelancer_views_count = function (req, res) {
+    var q = {freelancer: req.params.id}
+    if (req.query.days) {
+        var d = new Date();
+        d.setDate(d.getDate()-parseInt(req.query.days));
+        q.created_at = {$gte: d};
+    }
+    models.ViewsProfile.count(q).exec(function(err, count){
+        res.json(count);
+    });
+};
+
+exports.add_freelancer_view = function (req, res) {
+    new models.ViewsProfile({freelancer: req.params.id}).save(function(){
+        res.send(200);
+    });
+};
+
+exports.add_favorite = function (req, res) {
+    new models.Favorite({owner: req.userId, freelancer: req.params.id}).save(function(){
+        res.send(200);
+    });
+};
+
+exports.remove_favorite = function (req, res) {
+    models.Favorite.remove({owner: req.userId, freelancer: req.params.id}).exec(function(){
+        res.send(200);
+    });
+};
+
+exports.check_favorite = function (req, res) {
+    models.Favorite.count({owner: req.userId, freelancer: req.params.id}).exec(function(err, count){
+        res.send(!!count);
+    });
 };
 
 exports.claim_request = function(req,res){

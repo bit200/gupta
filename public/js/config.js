@@ -401,106 +401,10 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
-
             .when('/category', {
                 templateUrl: 'template/category.html',
                 controller: 'categoryCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            service: $http.get('/get-content', {
-                                params: {
-                                    name: 'ServiceProvider',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            topic: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            content: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            languages: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Languages'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            freelancer: $http.get('/freelancer')
-                        })
-                    }
-                }
-            })
-
-            .when('/category/:filter', {
-                templateUrl: 'template/category.html',
-                controller: 'categoryCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            service: $http.get('/get-content', {
-                                params: {
-                                    name: 'ServiceProvider',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            topic: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            content: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            languages: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Languages'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            freelancer: $http.get('/freelancer')
-                        })
-                    }
-                }
-            })
-
-            .when('/category/service-provider/:provider', {
-                templateUrl: 'template/category.html',
-                controller: 'categoryCtrl',
+                reloadOnSearch: false,
                 resolve: {
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
@@ -532,7 +436,13 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                                     distinctName: 'name'
                                 }
                             }),
-                            freelancer: $http.get('/api/freelancers', {params: {freelancer_type: $route.current.params.provider}})
+                            arrayProviders: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'FreelancerType'},
+                                    distinctName: 'name'
+                                }
+                            })
                         })
                     }]
                 }

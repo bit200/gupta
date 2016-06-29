@@ -1151,3 +1151,45 @@ div.containerCrop {
 .has-error .form-control{
     border-color: red !important;
 }
+
+[role="button"]:focus {outline:0;}
+
+.profile-menu{
+    padding-left: 0px;
+    list-style: none;
+    border-bottom: 1px solid lightgray;
+
+}
+
+.profile-menu li {
+    display: inline-block;
+    margin-right: 15%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.profile-menu li.active{
+    font-weight: bold;
+    border-bottom: 3px solid gray;
+}
+
+.profile-exp-block{
+    border: 2px solid lightgray;
+    height: 200px;
+    padding: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.profile-exp-block h5{
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-exp-block p{
+}
+
+ul.inline-list { list-style-type: none; padding-left: 0px;}
+ul.inline-list li { display:inline-block; padding-right: 5px }

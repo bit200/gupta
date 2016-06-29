@@ -4,6 +4,7 @@ var mongoose = require('mongoose')
 var ServiceProviderSchema = mongoose.Schema({
     name: String,
     isActive: Boolean,
+    sub_categories: Array,
     created_at: {
         type: Date,
         default: Date.now

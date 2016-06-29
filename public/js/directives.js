@@ -409,13 +409,19 @@ XYZCtrls.directive('loading', function () {
     }
 });
 
-XYZCtrls.directive('text-animation', function () {
+XYZCtrls.directive('flexMenu', function ($timeout) {
     return {
-        restrict: 'E',
-        templateUrl: 'template/directive/textAnimation.html',
         scope: {
-            text: "="
+            flexMenu: '='
+        },
+        link: function (scope, element, attrs) {
+            scope.$watchCollection('flexMenu', function(arr){
+                if (arr && arr.length){
+                    $timeout(function(){
+                        $(element).flexMenu();
+                    },100)
+                }
+            })
         }
     }
 });
-
