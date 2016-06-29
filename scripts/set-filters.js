@@ -143,19 +143,18 @@ module.exports = function (done) {
                 })
             });
         });
+            arrFunc.push(function (cb) {
+                var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
+                    'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
+                findCreateFilter('FreelancerType', '', arr, cb)
+            });
 
-        arrFunc.push(function (cb) {
-            var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
-                'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
-            findCreateFilter('FreelancerType', '', arr, cb)
+            async.parallel(arrFunc, function () {
+                console.log('Filters created');
+                done()
+            })
+
         });
-
-        async.parallel(arrFunc, function () {
-            console.log('Filters created');
-            done()
-        })
-
-    });
-};
+    };
 
 

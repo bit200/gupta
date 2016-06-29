@@ -29,11 +29,11 @@ jobs-list>div {
 jobs-list .items {
     min-height: 400px;
 }
-.job-title {
+.title3 {
     text-transform: uppercase;
     color: #333945;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 15px;
     padding-top: 0;
     margin-top: 0;
     letter-spacing: 0.8px;
@@ -43,8 +43,8 @@ jobs-list .items {
     box-shadow: 2px 4px 13px rgba(0,0,0,0.3);
 }
 .job-nav {
-    padding: 15px;
-    padding-bottom: 80px;
+    padding: 20px;
+    /*padding-bottom: 80px;*/
 }
 
 selector {
@@ -77,7 +77,7 @@ selector .sel-items > div {
 .job-nav .sel-items div {
     padding: 10px 15px;
 }
-.job-nav .sel-items, .job-nav {
+.job-nav .sel-items, .job-nav, .bcg {
     background: #f6f6f6;
 }
 .job-nav .sel-items {
@@ -134,6 +134,10 @@ a {
 jobs-list .fitems {
     padding: 10px;
     border-bottom: 1px solid #ecebf0;
+
+}
+jobs-list .fitems {
+    word-break: break-all;
 }
 
 
@@ -165,4 +169,137 @@ jobs-list .fitems {
 
 .w100 {
     min-width: 100%;
+}
+.btn {
+    transition: all .4s ease;
+}
+.btn.wide {
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+.btn.btn-my, .btn.btn-my2:hover {
+    background: #6e6e76;
+    color: white;
+    outline: none;
+}
+
+.btn.btn-my:hover, .btn.btn-my2 {
+    background: white;
+    color: #6e6e76;
+    border: 1px solid #94949c;
+    outline: none;
+}
+.btn.btn-grey {
+    color: #4c4c4c;
+    border-bottom: 2px solid grey;
+    background: #cccccc;
+    padding: 10px;
+    font-weight: 400;
+}
+.btn {
+    outline: none!important;
+}
+textarea {
+    max-width: 100%;
+}
+
+.cont {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+.title2, .title3 {
+    color: #3d4048;
+}
+.title2 {
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
+.lightRed {
+    color: #e53d32;
+}
+.title2:after {
+    content: ' ';
+    width: 40px;
+    border-bottom: 2px solid #e53d32;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.separator {
+    width: 100%;
+    margin: 30px 0;
+    border-bottom: 1px solid #f1f0f0;
+}
+
+.separator2 {
+    width: 100%;
+    margin: 30px 0;
+}
+
+small {
+    font-weight: 500;
+    margin-top: 25px;
+    margin-bottom: 7px;
+    display: block;
+}
+
+.mtop5 {
+    margin-top: 5px;
+    display: block;
+}
+.mtop10 {
+    margin-top: 10px;
+    display: block;
+}
+.mtop20 {
+    margin-top: 20px;
+    display: block;
+}
+.mtop30 {
+    margin-top: 30px;
+    display: block;
+}
+.mtop35 {
+    margin-top: 30px;
+    display: block;
+}
+.padd0 {
+    padding: 0;
+}
+.paddv15 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+form .form-control {
+    box-shadow: none!important;
+}
+.md-block {
+    margin: 18px 0;
+}
+
+md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
+    background-color: rgba(50, 57, 67, 0.82);
+}
+md-input-container:not(.md-input-invalid).md-input-focused label {
+    color: rgba(50, 57, 67, 0.82);
+}
+md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    /*border-color: #323943;*/
+    border-color: rgba(50, 57, 67, 0.82);
+}
+md-radio-group.md-default-theme.md-focused:not(:empty) .md-checked .md-container:before, md-radio-group.md-focused:not(:empty) .md-checked .md-container:before {
+    background: rgba(185, 174, 178, 0.26);
+}
+md-input-container textarea.md-input {
+    min-height: 87px;
+}
+
+#postjob .form-group {
+    margin-bottom: 0;
 }

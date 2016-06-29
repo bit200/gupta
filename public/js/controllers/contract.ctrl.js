@@ -1,6 +1,21 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('contractCtrl', ['$scope', '$location', '$http', 'getContent', 'ModalService', function (scope, location, http, getContent, ModalService) {
+XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', function (scope, rootScope, location, http, getContent, ModalService) {
+    scope.job = rootScope.getContent(getContent, 'job') || {}
+    scope.freelancer = rootScope.getContent(getContent, 'freelancer') || {}
+    scope.buyer = rootScope.getContent(getContent, 'user') || {}
+    console.log("buyyyerr", scope.buyer, scope.job, scope.freelancer)
+    scope.contract = {
+        title: scope.job.title,
+        seller: scope.freelancer,
+        buyer: scope.buyer,
+        budget: scope.job.budget,
+        buyer_name: rootScope.getBuyerName(scope.buyer),
+        buyer_company_name: scope.buyer.company_name,
+        seller_contact: String,
+        seller_name: scope.freelancer.name,
+    }
+    return;
     scope.contract = getContent.contract.data.data;
     scope.createContract = function (invalid, type, data) {
         http.post('/contract/' + type, data).then(function (resp) {

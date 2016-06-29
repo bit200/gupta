@@ -10,18 +10,20 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             });
             return deferred.promise;
         }];
+        
         var getResolve = function (params) {
             return ["$q", function ($q) {
                 var deferred = $q.defer();
                 deferred.resolve(params);
                 return deferred.promise;
             }]
-        }
+        };
+        
         var getStatic = function (params) {
             return {
                 info: getResolve(params)
             }
-        }
+        };
 
 
         $routeProvider
@@ -72,30 +74,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/post-job/:category?', {
-                templateUrl: 'template/postJob.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }
-                }
-            })
 
             .when('/messages', {
                 templateUrl: 'template/chat.html',
@@ -119,9 +97,50 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
+            .when('/job/apply/:id', {
+                templateUrl: 'template/applyForJob.html',
+                controller: 'jobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.get('/api/job/' + $route.current.params.id),
+                            apply: $http.get('/api/job-apply/' + $route.current.params.id),
+                            contentType: {data: {data: ''}},
+                            locations: {data: {data: ''}}
+                        })
+                    }]
+                }
+            })
+            
+            .when('/post-job/:category?', {
+                templateUrl: 'template/postJob.html',
+                controller: 'postJobCtrl',
+                resolve: {
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            contentType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }
+                }
+            })
+
             .when('/job/edit/:id', {
                 templateUrl: 'template/editJob.html',
-                controller: 'jobCtrl',
+                controller: 'postJobCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
@@ -145,56 +164,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }]
                 }
             })
-
-            .when('/jobs', {
-                templateUrl: 'template/viewMyJob.html',
-                controller: 'ViewMyJobCtrl',
-                resolve: getStatic({
-                    template: 'jobs-all',
-                    header: 'All jobs',
-                    url: '/api/jobs/all'
-                })
-            })
-
-            .when('/jobs/buyer/open', {
-                templateUrl: 'template/viewMyJob.html',
-                controller: 'ViewMyJobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    info: getResolve({
-                        template: 'buyer-open',
-                        header: 'Open jobs',
-                        url: '/api/jobs/buyer/open'
-                    })
-                }
-            })
-
-            .when('/jobs/buyer/ongoing', {
-                templateUrl: 'template/viewMyJob.html',
-                controller: 'ViewMyJobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    info: getResolve({
-                        template: 'buyer-ongoing',
-                        header: 'Ongoing jobs',
-                        url: '/api/jobs/buyer/ongoing'
-                    })
-                }
-            })
-
-            .when('/jobs/seller/open', {
-                templateUrl: 'template/viewMyJob.html',
-                controller: 'ViewMyJobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    info: getResolve({
-                        template: 'seller-open',
-                        header: 'Open jobs',
-                        url: '/api/jobs/seller/open'
-                    })
-                }
-            })
-
 
             .when('/post-job/recreate/:id', {
                 templateUrl: 'template/postJob.html',
@@ -221,6 +190,87 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
+
+
+
+            .when('/me', {
+                templateUrl: 'template/me.html',
+                controller: ['info', '$scope', function(info, scope) {
+                    scope.info = info
+                }],
+                resolve: {
+                    info: function ($q, $http) {
+                        return $q.all({
+                            info: $http.get('/api/me')
+                        })
+                    }
+                }
+            })
+            .when('/jobs', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: getStatic({
+                    template: 'jobs-all',
+                    header: 'All jobs',
+                    url: '/api/jobs/all'
+                })
+            })
+            .when('/jobs/buyer/my', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        template: 'buyer-my',
+                        header: 'My Posted jobs',
+                        url: '/api/jobs/buyer/my',
+                        acts: ['Communicate', 'Accept', 'Reject']
+                    })
+                }
+            })
+            .when('/jobs/buyer/open', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        template: 'buyer-open',
+                        header: 'Open jobs',
+                        url: '/api/jobs/buyer/open',
+                        acts: ['Communicate', 'Accept', 'Reject']
+                    })
+                }
+            })
+
+            .when('/jobs/buyer/ongoing', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        template: 'buyer-ongoing',
+                        header: 'Ongoing jobs',
+                        url: '/api/jobs/buyer/ongoing',
+                        acts: ['Communicate', 'View Contract', 'Edit Contract', 'Pause Contract', 'Close Contract', 'Initiate Payment']
+                    })
+                }
+            })
+
+            .when('/jobs/seller/open', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        template: 'seller-open',
+                        header: 'Open jobs',
+                        url: '/api/jobs/seller/open',
+                        acts: ['View Application', 'Communicate', 'View Job']
+
+                    })
+                }
+            })
+
 
             .when('/freelancer-registration', {
                 templateUrl: 'template/freelanceRegistration.html',
@@ -322,6 +372,20 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
+            .when('/contract/create/:job/:freelancer', {
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.get('/api/info/Job/'+ $route.current.params.job),
+                            freelancer: $http.get('/api/info/Freelancer/'+ $route.current.params.freelancer),
+                            user: $http.get('/api/user/me')
+                        })
+                    }]
+                }
+            })
 
             .when('/contract/create/:id', {
                 templateUrl: 'template/contractCreate.html',
@@ -343,7 +407,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     auth: authResolve,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
-                            contract: $http.get('/contract/', {params: {_id: $route.current.params.id}})
+                            freelancer: $http.get('/contract/', {params: {_id: $route.current.params.id}})
                         })
                     }]
                 }

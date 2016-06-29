@@ -15,6 +15,13 @@ exports.list = function (req, res) {
     m.find(models.User, {}, res, res, params)
 };
 
+exports.me_ids = function(req, res) {
+    res.send({
+        userId: req.userId,
+        freelancerId: req.freelancerId
+    })
+}
+
 
 exports.me = function (req, res) {
     m.findOne(models.User, {_id: req.userId}, res, res, {publish: true, populate: {path: 'poster'}})

@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
     <link rel="stylesheet" type="text/css" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css">
 </head>
-<body ng-controller="MainCtrl" class="container" style="width: 100%; position: relative">
+<body ng-controller="MainCtrl"  style="width: 100%; position: relative">
 <div ng-include="'template/header.html'" class="top-header"></div>
 <div class="body" ng-view></div>
 <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -47,6 +47,11 @@
 <script src="js/directives/jobs-list/jobs-list.drct.js"></script>
 <script src="js/directives/selector/selector.drct.js"></script>
 <script src="js/directives/budget/budget.drct.js"></script>
+<script src="js/directives/freelancer/freelancer.drct.js"></script>
+<script src="js/directives/short-preview/short-preview.drct.js"></script>
+<script src="js/directives/buyer/buyer.drct.js"></script>
+<script src="js/directives/date/date.drct.js"></script>
+<script src="js/directives/acts/acts.drct.js"></script>
 <script src="js/services.js"></script>
 <script src="js/filter.js"></script>
 <script src="js/run.js"></script>
@@ -64,6 +69,7 @@
 <script src="js/controllers/header.ctrl.js"></script>
 <script src="js/controllers/home.ctrl.js"></script>
 <script src="js/controllers/job.ctrl.js"></script>
+<script src="js/controllers/postjob.ctrl.js"></script>
 <script src="js/controllers/myProfile.ctrl.js"></script>
 <script src="js/controllers/profile.ctrl.js"></script>
 <script src="js/controllers/uploadFile.ctrl.js"></script>
