@@ -1,5 +1,7 @@
-angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationProvider',
-    function ($routeProvider, $httpProvider, $locationProvider) {
+// angular.module('XYZApp').config(['$stateParamsProvider', '$httpProvider', '$locationProvider',
+//     function ($stateParamsProvider, $httpProvider, $locationProvider) {
+angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider) {
         var authResolve = ["$q", "AuthService", '$rootScope', function ($q, AuthService, $rootScope) {
             var deferred = $q.defer();
             AuthService.checkAuthCtrl().then(function () {
@@ -26,9 +28,9 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
         };
 
 
-        $routeProvider
-
-            .when('/', {
+        $stateProvider
+            .state('home', {
+                url: '/',
                 templateUrl: 'template/home.html',
                 controller: 'HomeCtrl',
                 resolve: {
@@ -46,21 +48,25 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
-            .when('/forgot/email', {
+            .state('forgot_email', {
+                url: '/forgot/email',
                 templateUrl: 'template/forgotEmail.html',
                 controller: 'forgotCtrl'
             })
 
-            .when('/forgot/restore/:restoreCode', {
+            .state('forgot_restore', {
+                url: '/forgot/restore/:restoreCode',
                 templateUrl: 'template/forgotRestore.html',
                 controller: 'forgotCtrl'
             })
-            .when('/confirm/:confirmCode', {
+            .state('confirm', {
+                url: '/confirm/:confirmCode',
                 templateUrl: 'template/confirm.html',
                 controller: 'confirmCtrl'
             })
 
-            .when('/agencies', {
+            .state('agencies', {
+                url: '/agencies',
                 templateUrl: 'template/agencies.html',
                 controller: 'agencyCtrl',
                 resolve: {
@@ -74,22 +80,23 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-
-            .when('/messages', {
+            .state('messages', {
+                url: '/messages',
                 templateUrl: 'template/chat.html',
                 controller: 'chatCtrl'
             })
 
-            .when('/job/:id', {
+            .state('job', {
+                url: '/job/:id',
                 templateUrl: 'template/job.html',
                 controller: 'jobCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            job: $http.get('/api/job/' + $route.current.params.id),
-                            apply: $http.get('/api/job-apply/' + $route.current.params.id),
-                            stats: $http.get('/api/job-stats/' + $route.current.params.id),
+                            job: $http.get('/api/job/' + $stateParams.id),
+                            apply: $http.get('/api/job-apply/' + $stateParams.id),
+                            stats: $http.get('/api/job-stats/' + $stateParams.id),
                             contentType: {data: {data: ''}},
                             locations: {data: {data: ''}}
                         })
@@ -97,15 +104,16 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/job/apply/:id', {
+            .state('job_apply', {
+                url: '/job/apply/:id',
                 templateUrl: 'template/applyForJob.html',
                 controller: 'jobCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            job: $http.get('/api/job/' + $route.current.params.id),
-                            apply: $http.get('/api/job-apply/' + $route.current.params.id),
+                            job: $http.get('/api/job/' + $stateParams.id),
+                            apply: $http.get('/api/job-apply/' + $stateParams.id),
                             contentType: {data: {data: ''}},
                             locations: {data: {data: ''}}
                         })
@@ -113,7 +121,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
             
-            .when('/post-job/:category?', {
+            .state('job_post', {
+                url: '/post-job/:category?',
                 templateUrl: 'template/postJob.html',
                 controller: 'postJobCtrl',
                 resolve: {
@@ -138,14 +147,15 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/job/edit/:id', {
+            .state('job_edit', {
+                url: '/job/edit/:id',
                 templateUrl: 'template/editJob.html',
                 controller: 'postJobCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            job: $http.get('/api/job/' + $route.current.params.id),
+                            job: $http.get('/api/job/' + $stateParams.id),
                             contentType: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
@@ -165,7 +175,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/post-job/recreate/:id', {
+            .state('job_recreate', {
+                url: '/post-job/recreate/:id',
                 templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
                 resolve: {
@@ -193,7 +204,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
 
 
 
-            .when('/me', {
+            .state('me', {
+                url: '/me',
                 templateUrl: 'template/me.html',
                 controller: ['info', '$scope', function(info, scope) {
                     scope.info = info
@@ -206,7 +218,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
-            .when('/jobs', {
+            .state('jobs', {
+                url: '/jobs',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: getStatic({
@@ -215,7 +228,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     url: '/api/jobs/all'
                 })
             })
-            .when('/jobs/buyer/my', {
+            .state('jobs_buyer_my', {
+                url: '/jobs/buyer/my',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -228,7 +242,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     })
                 }
             })
-            .when('/jobs/buyer/open', {
+            .state('jobs_buyer_open', {
+                url: '/jobs/buyer/open',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -242,7 +257,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/jobs/buyer/ongoing', {
+            .state('jobs_buyer_ongoing', {
+                url: '/jobs/buyer/ongoing',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -256,7 +272,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/jobs/seller/open', {
+            .state('jobs_seller_open', {
+                url: '/jobs/seller/open',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -272,7 +289,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             })
 
 
-            .when('/freelancer-registration', {
+            .state('freelancer_registration', {
+                url: '/freelancer-registration',
                 templateUrl: 'template/freelanceRegistration.html',
                 controller: 'freelancerCtrl',
                 resolve: {
@@ -326,7 +344,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/freelancer/:id', {
+            .state('freelancer_id', {
+                url: '/freelancer/:id',
                 templateUrl: 'template/freelanceRegistration.html',
                 controller: 'freelancerCtrl',
                 resolve: {
@@ -372,74 +391,80 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
-            .when('/contract/create/:job/:freelancer', {
+            .state('contract_create_job_freelancer', {
+                url: '/contract/create/:job/:freelancer',
                 templateUrl: 'template/contractCreate.html',
                 controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            job: $http.get('/api/info/Job/'+ $route.current.params.job),
-                            freelancer: $http.get('/api/info/Freelancer/'+ $route.current.params.freelancer),
+                            job: $http.get('/api/info/Job/'+ $stateParams.job),
+                            freelancer: $http.get('/api/info/Freelancer/'+ $stateParams.freelancer),
                             user: $http.get('/api/user/me')
                         })
                     }]
                 }
             })
 
-            .when('/contract/create/:id', {
+            .state('contract_create', {
+                url: '/contract/create/:id',
                 templateUrl: 'template/contractCreate.html',
                 controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            contract: $http.get('/contract/create/', {params: {id: $route.current.params.id}})
+                            contract: $http.get('/contract/create/', {params: {id: $stateParams.id}})
                         })
                     }]
                 }
             })
 
-            .when('/contract/approve/:id', {
+            .state('contract_approve', {
+                url: '/contract/approve/:id',
                 templateUrl: 'template/contractApprove.html',
                 controller: 'contractApproveCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            freelancer: $http.get('/contract/', {params: {_id: $route.current.params.id}})
+                            freelancer: $http.get('/contract/', {params: {_id: $stateParams.id}})
                         })
                     }]
                 }
             })
 
-            .when('/contract/suggest/:id', {
+            .state('contract_suggest', {
+                url: '/contract/suggest/:id',
                 templateUrl: 'template/contractSuggest.html',
                 controller: 'contractSuggestCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            suggest: $http.get('/suggest', {params: {_id: $route.current.params.id}})
+                            suggest: $http.get('/suggest', {params: {_id: $stateParams.id}})
                         })
                     }]
                 }
             })
 
-            .when('/contract/close/:id', {
+            .state('contract_close', {
+                url: '/contract/close/:id',
                 templateUrl: 'template/contractClose.html',
                 controller: 'contractCloseCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            job: $http.post('/get-job', {_id: $route.current.params.id})
+                            job: $http.post('/get-job', {_id: $stateParams.id})
                         })
                     }]
                 }
             })
 
-            .when('/user', {
+            .state('user', {
+                url: '/user',
                 templateUrl: 'template/user.html',
                 controller: 'userCtrl',
                 resolve: {
@@ -465,12 +490,13 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
-            .when('/category', {
+            .state('category', {
+                url: '/category',
                 templateUrl: 'template/category.html',
                 controller: 'categoryCtrl',
                 reloadOnSearch: false,
                 resolve: {
-                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
                             topic: $http.get('/get-content', {
                                 params: {
@@ -512,7 +538,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-            .when('/profile/user/:id', {
+            .state('profile_user', {
+                url: '/profile/user/:id',
                 templateUrl: 'template/profile.html',
                 controller: 'profileCtrl',
                 resolve: {
@@ -521,7 +548,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             })
 
 
-            .when('/profile', {
+            .state('/profile', {
+                url: '/profile',
                 templateUrl: 'template/myProfile.html',
                 controller: 'myProfileCtrl',
                 resolve: {
@@ -535,7 +563,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             })
 
 
-            .otherwise({redirectTo: '/'});
+        $urlRouterProvider.otherwise('/');
 
         // $locationProvider.html5Mode({
         //     enabled: true,

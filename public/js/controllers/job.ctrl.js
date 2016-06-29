@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$routeParams', 'ModalService', '$timeout',
-    function (scope, location, http, parseType, $q, getContent, routeParams, ModalService, $timeout) {
+XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
+    function (scope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
       
         scope.estimations = [
             'Less then 1 week',
@@ -17,7 +17,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         scope.contentTypes = getContent.contentType.data.data;
         scope.locations = getContent.locations.data.data;
 
-        if (routeParams.id) {
+        if (stateParams.id) {
             var job = getContent.job.data.data[0];
             job.date_of_completion = new Date(job.date_of_completion);
             scope.job = job;

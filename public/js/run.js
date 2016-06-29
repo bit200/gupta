@@ -1,6 +1,9 @@
-angular.module('XYZApp').run(function ($rootScope, $location, AuthService) {
+angular.module('XYZApp').run(function ($rootScope, $location, AuthService, $state) {
     $rootScope.currentUser = AuthService.currentUser;
     $rootScope.isLogged = AuthService.isLogged;
+
+    $rootScope.$state = $state
+    
     $rootScope.go = function (path) {
         $location.path(path)
     }

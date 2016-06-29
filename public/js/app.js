@@ -5,7 +5,6 @@ var XYZCtrls = angular.module('XYZCtrls', []);
 var XYZApp = angular.module('XYZApp', [
     'angularModalService',
     'ngMaterial',
-    'ngRoute',
     'rzModule',
     'ui.select',
     'ngDialog',
@@ -14,5 +13,6 @@ var XYZApp = angular.module('XYZApp', [
     'ngFileUpload',
     'ngImgCrop',
     'ngMdIcons',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.router'
 ]);

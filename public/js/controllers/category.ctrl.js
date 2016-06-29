@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating', '$q', 'getContent', 'ModalService', '$route', '$location',
-    function (scope, location, http, routeParams, parseRating, $q, getContent, ModalService, $route, $location) {
+XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', 'ModalService', '$route', '$location',
+    function (scope, location, http, parseRating, $q, getContent, ModalService, $route, $location) {
     scope.ownFilter = {}
     scope.arrayTopics = getContent.topic.data.data;
     scope.arrayContent = getContent.content.data.data;

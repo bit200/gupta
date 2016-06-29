@@ -1,6 +1,6 @@
 
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$routeParams', 'parseRating',  function (scope, location, http, routeParams, parseRating) {
+XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http',  function (scope, location, http) {
 
 
     scope.chatspace={

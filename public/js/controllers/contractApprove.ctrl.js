@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'getContent', '$routeParams', 'parseType', 'ModalService', function (scope, location, http, getContent, routeParams, parseType, ModalService) {
+XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'getContent', '$stateParams', 'parseType', 'ModalService', function (scope, location, http, getContent, stateParams, parseType, ModalService) {
     scope.contract = parseType.contract(getContent.contract.data.data);
     scope.createContract = function (invalid, type, data) {
         http.post('/contract/' + type, data).then(function (resp) {

@@ -1,7 +1,7 @@
 /* Controllers */
 
 angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent',
-    '$routeParams', 'ngDialog', 'notify', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, routeParams, ngDialog, notify) {
+    '$stateParams', 'ngDialog', 'notify', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, stateParams, ngDialog, notify) {
         scope.freelancer = {isagency: true};
         rootScope.globalFiles = [];
         scope.industry = getContent.industry.data.data;

@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams', function (scope, location, http, routeParams) {
+XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$stateParams', function (scope, location, http, stateParams) {
     scope.send = true;
     scope.submitted = false;
     scope.button = 'Send';
@@ -20,7 +20,7 @@ XYZCtrls.controller('forgotCtrl', ['$scope', '$location', '$http', '$routeParams
     scope.restorePassword = function (password) {
         http.get('/api/restore', {
             params: {
-                restore_code: routeParams.restoreCode,
+                restore_code: stateParams.restoreCode,
                 password: password
             }
         }).then(function (resp) {
