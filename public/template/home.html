@@ -1,9 +1,41 @@
-<div class="home-page container">
+<div class="background-woman">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <h1 class="text-center text-woman-image">Lorem ipsum dolor sit amet consectetur adipiscing</h1>
 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="row background-grey">
+                    <div class="col-sm-4">
+                        <div class="full-width input-border-home-woman">
+                            <span class="fa fa-map-marker input-home-maker"></span>
+                            <input class="form-control input-home-woman paddingL40 relative" placeholder="Choice City">
+                            <span class="fa fa-angle-down input-home-chevron"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="full-width input-border-home-woman">
+                            <input class="form-control input-home-woman" placeholder="What are you looking for?">
+                            <span class="fa fa-search input-home-search"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
     <div class="row back-service-provider">
         <div class="col-sm-12 text-center "><h3>Find Service Providers</h3></div>
         <div class="marginLR20" ng-repeat="item in arrayProviders">
-            <div class="service-provider" ng-click="viewServiceProvider(item)">{{item}}</div>
+            <!--<div class="service-provider" ng-click="viewServiceProvider(item)">-->
+            <div class="service-provider relative">
+                <div class="fa fa-cogs text-center service-provider-icon"></div>
+                <div>{{item}}</div>
+            </div>
         </div>
     </div>
     <div class="row marginB30">
@@ -13,7 +45,7 @@
                 <img class="profile-poster" ng-src="{{profile.poster.url.replace('/public','')}}">
             </div>
             <div class="text-center">{{profile.name}}</div>
-                <div class="col-md-12 star-icon">
+            <div class="col-md-12 star-icon">
                 <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon"
                       ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
             </div>
@@ -55,7 +87,7 @@
         <div class="row communitySP ">
             <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
             <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register" ng-hide="isLogged()" ng-click="go('/freelancer-registration')">
-                    Register with us
+                Register with us
             </button>
         </div>
 
