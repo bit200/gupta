@@ -292,8 +292,8 @@ function rejectAgencyRegistration(obj, _ecb, _scb) {
     _send(_options, _ecb, _scb)
 }
 
-function approveAgencyRegistration(obj, _ecb, _scb) {
-    var _options = options('Registration approved', obj.freelancer.contact_detail.email, tpl.approveAgencyRegistration({
+function approveAgencyRegistration(obj, email, _ecb, _scb) {
+    var _options = options('Registration approved', email, tpl.approveAgencyRegistration({
         obj: obj,
         appHost: config.appHost
     }));

@@ -1,26 +1,16 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', 'ModalService', '$route', '$location',
-    function (scope, location, http, parseRating, $q, getContent, ModalService, $route, $location) {
+XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent',
+    function (scope, location, http, parseRating, $q, getContent) {
     scope.ownFilter = {}
     scope.arrayTopics = getContent.topic.data.data;
     scope.arrayContent = getContent.content.data.data;
     scope.arrayLanguages = getContent.languages.data.data;
     scope.arrayLocations = getContent.locations.data.data;
-    scope.arrayProviders = getContent.arrayProviders.data.data;
     scope.freelancers = [];
     scope.ownFilter.agency = true;
     scope.ownFilter.freelancer = true;
 
-
-    scope.setActiveProvider = function(provider){
-        scope.ownFilter.freelancer_type = provider;
-        scope.submitFilter(scope.ownFilter)
-        $location.search({provider: provider})
-    };
-    if ($location.search().provider)
-        scope.ownFilter.freelancer_type = $location.search().provider;
-        
     scope.slider = {
         experience: {
             value: 0,
@@ -83,36 +73,13 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRatin
         })
     };
 
-    scope.submitFilter(scope.ownFilter);
+    scope.$watch('activeProvider', function(val){
+        if (val)
+            scope.ownFilter.freelancer_type = val;
+        scope.submitFilter(scope.ownFilter);
+    });
 
-    scope.showProfile = function (id) {
-        scope.profileFavorited = false;
-        scope.active_profile_menu = 'profile';
-        http.post('/api/freelancer/'+id+'/views');
-        http.get('/api/freelancer/'+id+'/views?days=90').success(function(viewsCount){
-            scope.viewsCount = viewsCount
-        });
-        http.get('/api/freelancer/'+id).success(function(resp) {
-            console.log(resp)
-            scope.viewProfile = resp.data;
-        });
-    };
 
-    scope.checkFavorited = function(){
-        http.get('/api/freelancer/'+id+'/check_favorite').success(function (resp) {
-            scope.profileFavorited = resp
-        });
-    };
-
-    scope.addFavorite = function(){
-        http.get('/api/freelancer/'+scope.viewProfile._id+'/favorite/add');
-        scope.profileFavorited = true
-    };
-
-    scope.removeFavorite = function(){
-        http.get('/api/freelancer/'+scope.viewProfile._id+'/favorite/remove');
-        scope.profileFavorited = false
-    };
 
     function objInArr(obj) {
         var arr = [];
@@ -125,3 +92,29 @@ XYZCtrls.controller('categoryCtrl', ['$scope', '$location', '$http', 'parseRatin
     }
 
 }]);
+
+XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', '$http', '$stateParams',
+    function (scope, location, http, $q, getContent, $http, $stateParams) {
+        scope.viewsCount = getContent.viewsCount.data;
+        scope.viewProfile = getContent.profile.data.data;
+        scope.active_profile_menu = 'profile';
+
+        $http.post('/api/freelancer/'+$stateParams.id+'/views');
+
+        scope.checkFavorited = function(){
+            http.get('/api/freelancer/'+$stateParams.id+'/check_favorite').success(function (resp) {
+                scope.profileFavorited = resp
+            });
+        };
+
+        scope.addFavorite = function(){
+            http.get('/api/freelancer/'+scope.viewProfile._id+'/favorite/add');
+            scope.profileFavorited = true
+        };
+
+        scope.removeFavorite = function(){
+            http.get('/api/freelancer/'+scope.viewProfile._id+'/favorite/remove');
+            scope.profileFavorited = false
+        };
+
+    }]);

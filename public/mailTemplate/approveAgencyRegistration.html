@@ -14,13 +14,15 @@
 <div style="margin:30px 0;">
     <h3>Hi <strong>{{obj.freelancer.name}}!</strong></h3>
     <h3>Congratulations! Your registration has been confirmed! </h3>
-    <div>
-        Credentials to login to site:
-        <br />
-        Login: {{obj.email}}
-        <br />
-        Password: {{obj.password}}
-    </div>
+    {% if (obj.email) %}
+        <div>
+            Credentials to login to site:
+            <br />
+            Login: {{obj.email}}
+            <br />
+            Password: {{obj.password}}
+        </div>
+    {%endif%}
     <div style="text-align:center;">
         <a href="{{appHost}}/#/home" class="btn">
             Go to site

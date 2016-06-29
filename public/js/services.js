@@ -190,7 +190,7 @@ XYZCtrls.service('parseRating', function () {
 XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '$location',
         function($q, $rootScope, ModalService, $http, $location){
             var authTokens = {};
-            var loggedIn = false, currentUser;
+            var loggedIn = false, currentUser, currentFreelancer;
 
             var resObj = {
                 setTokens: function(tokens){
@@ -206,8 +206,12 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                 currentUser: function(){
                     return currentUser
                 },
+                currentFreelancer: function(){
+                    return currentFreelancer
+                },
                 logout: function(){
                     currentUser = '';
+                    currentFreelancer = '';
                     localStorage.clear();
                     loggedIn = false;
                     $rootScope.go('/')
@@ -221,6 +225,9 @@ XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '
                     return deferred.promise;
                 },
                 setCurrentUser: function(){
+                    $http.get('/api/freelancer/me').success(function(resp){
+                        currentFreelancer = resp.data
+                    });
                     $http.get('/api/user/me').success(function(resp){
                         currentUser = resp.data
                     });

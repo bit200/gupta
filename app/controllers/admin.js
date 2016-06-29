@@ -47,7 +47,12 @@ exports.get_seller = function (req, res) {
 exports.approve_registration = function (req, res) {
     var password = randomstring.generate(7)
     models.Freelancer.findOne({_id: req.params.id}).populate('contact_detail').exec(function(err, freelancer){
-        if (freelancer.user) return res.send(200)
+        if (freelancer.user) {
+            mail.approveAgencyRegistration({
+                freelancer: freelancer,
+            }, freelancer.freelancer.contact_detail.email);
+            return res.send(200)
+        }
         m.create(models.User, {email: freelancer.contact_detail.email, password: password},res,function( user){
             freelancer.user = user
             freelancer.registrationStatus = 1;
@@ -55,8 +60,8 @@ exports.approve_registration = function (req, res) {
                 mail.approveAgencyRegistration({
                     freelancer: freelancer,
                     email: user.email,
-                    password: user.password
-                }, freelancer.name);
+                    password: password
+                }, user.email);
                 res.send(200)
             })
         });
@@ -64,7 +69,6 @@ exports.approve_registration = function (req, res) {
 };
 
 exports.reject_registration = function (req, res) {
-    console.log(req.params.id, req.body)
     m.findUpdate(models.Freelancer, {_id: req.params.id}, {registrationStatus: 2, reject_reason: req.body.reject_reason}, res, function(freelancer){
         mail.rejectAgencyRegistration({
             freelancer: freelancer
@@ -81,12 +85,34 @@ exports.business_accounts = function (req, res) {
 };
 
 exports.approve_account = function (req, res) {
-    m.findUpdate(models.BusinessUser, {_id: req.params.id}, {status: 1}, res, function(account){
-        m.findUpdate(models.Freelancer, {_id: account.agency}, {business_account: account._id}, res, function(){
-            mail.claimApproved(account);
-            res.send(200)
-        });
+    models.BusinessUser.findOne({_id: req.params.id}).exec(function(err, b_account){
+        b_account.status = 1;
+        if (!b_account.user){
+            var password = randomstring.generate(7)
+            new models.User({email: b_account.email, password: password}).save(function(err, user){
+                if (!user) res.send(200);
+                b_account.user = user;
+                b_account.save(function(){
+                    console.log(b_account)
+                    mail.claimApproved(b_account);
+                    m.findUpdate(models.Freelancer, {_id: b_account.agency}, {business_account: b_account._id}, res, function(freelancer){
+                        mail.approveAgencyRegistration({
+                            freelancer: freelancer,
+                            email: user.email,
+                            password: password
+                        }, user.email);
+                        res.send(freelancer)
+                    })
+                })
+            })
+        }else{
+            b_account.save(function(){
+                mail.claimApproved(b_account);
+                m.findUpdate(models.Freelancer, {_id: b_account.agency}, {business_account: b_account._id}, res, res)
+            })
+        }
     });
+
 };
 
 exports.reject_account = function (req, res) {

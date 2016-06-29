@@ -155,6 +155,7 @@ exports.add_package = function (req, res) {
 };
 
 exports.my_business_accounts = function (req, res) {
+    if (!req.userId) return res.jsonp([]);
     models.BusinessUser.find({user: req.userId}).exec(function(err, business_accounts){
         res.jsonp(business_accounts)
     });
@@ -180,6 +181,10 @@ exports.get_freelancers = function (req, res) {
 
 exports.get_freelancer = function (req, res) {
     m.findOne(models.Freelancer, {_id: req.params.id}, res, res, {populate: 'poster service_packages Attachments contact_detail business_account'})
+};
+
+exports.get_current_freelancer = function (req, res) {
+    m.findOne(models.Freelancer, {_id: req.userId}, res, res, {populate: 'poster service_packages Attachments contact_detail business_account'})
 };
 
 exports.freelancer_views_count = function (req, res) {
@@ -220,7 +225,8 @@ exports.check_favorite = function (req, res) {
 
 exports.claim_request = function(req,res){
     var params = m.getBody(req);
-    params.user = req.userId;
+    if (req.userId)
+        params.user = req.userId;
     new models.BusinessUser(params).save(function(err, business_user){
         mail.newClaim(business_user);
         res.json(business_user);

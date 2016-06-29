@@ -5,7 +5,7 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
 
     scope.headerSubmit = function (search) {
         location.path('/category/' + search);
-        scope.headerSearch = ''
+        scope.headerSearch = '';
     };
 
     scope.showMessage = false;
@@ -17,4 +17,9 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         scope.errP = false;
         scope.submitted = false;
     }
+
+    scope.setActiveProvider = function(provider){
+        scope.activeProvider = provider;
+    };
+
 }]);

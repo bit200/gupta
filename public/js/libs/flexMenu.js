@@ -46,7 +46,7 @@
             s = $.extend({
                 'threshold' : 2, // [integer] If there are this many items or fewer in the list, we will not display a "View More" link and will instead let the list break to the next line. This is useful in cases where adding a "view more" link would actually cause more things to break  to the next line.
                 'cutoff' : 2, // [integer] If there is space for this many or fewer items outside our "more" popup, just move everything into the more menu. In that case, also use linkTextAll and linkTitleAll instead of linkText and linkTitle. To disable this feature, just set this value to 0.
-                'linkText' : 'More', // [string] What text should we display on the "view more" link?
+                'linkText' : 'View More', // [string] What text should we display on the "view more" link?
                 'linkTitle' : 'View More', // [string] What should the title of the "view more" button be?
                 'linkTextAll' : 'Menu', // [string] If we hit the cutoff, what text should we display on the "view more" link?
                 'linkTitleAll' : 'Open/Close Menu', // [string] If we hit the cutoff, what should the title of the "view more" button be?

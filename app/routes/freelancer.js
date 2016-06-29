@@ -4,10 +4,11 @@ var freelancer = require('../controllers/freelancer');
 
 module.exports = function (app) {
     var auth = require('./middlewares/auth');
+    app.get('/api/freelancer/me', auth.token, freelancer.get_current_freelancer);
     app.get('/api/freelancer/:id', freelancer.get_freelancer);
     app.get('/api/freelancers', freelancer.get_freelancers);
-    app.get('/api/my/business_accounts', auth.token, freelancer.my_business_accounts);
-    app.post('/api/claim_request', auth.token, freelancer.claim_request);
+    app.get('/api/my/business_accounts', auth.checkIfUser, freelancer.my_business_accounts);
+    app.post('/api/claim_request', auth.checkIfUser, freelancer.claim_request);
     app.post('/api/freelancer/request', auth.checkIfUser, freelancer.freelancer_request);
 
     app.get('/api/freelancer/:id/views', freelancer.freelancer_views_count);

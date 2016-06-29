@@ -30,7 +30,7 @@
 <div class="container">
     <div class="row back-service-provider">
         <div class="col-sm-12 text-center "><h2 class="marginTB10">Find Service Providers</h2></div>
-        <div class="marginLR20" ng-repeat="item in arrayProviders">
+        <div class="marginLR20" ng-repeat="item in arrayProviders" ng-click="$state.go('categories');activeProvider=item;">
             <div class="service-provider relative">
                 <div class="fa fa-cogs text-center service-provider-icon"></div>
                 <div>{{item}}</div>
@@ -41,7 +41,8 @@
 <div class="background-lightgrey">
     <div class="container">
         <div class=" text-center marginTB20"><h2 class="marginTB10"> Featured Profiles</h2></div>
-        <div class="col-md-3 col-xs-6 col-sm-6 paddingB20 noborder pointer" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 8" ng-click="showProfile(profile._id)">
+        <div class="col-md-3 col-xs-6 col-sm-6 paddingB20 noborder pointer" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 8"
+             ng-click="$state.go('categories.profile', {id: profile._id})">
             <div class="profile">
                 <img class="profile-poster" ng-src="{{profile.poster.url.replace('/public','')}}">
                 <div class="profile-info">
@@ -78,7 +79,7 @@
 <footer>
     <div class="row communitySP ">
         <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
-        <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register" ng-hide="isLogged()" ng-click="go('/freelancer-registration')">
+        <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register" ng-hide="currentFreelancer()" ng-click="$state.go('freelancer_registration')">
             Register with us
         </button>
     </div>
@@ -89,4 +90,3 @@
         <div class="col-sm-4 text-right"> 150 Jobs Posted</div>
     </div>
 </footer>
-</div>

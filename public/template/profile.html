@@ -3,8 +3,8 @@
         <ul class="breadcrumbs inline-list">
             <li>Home</li>
             <li> / </li>
-            <li ng-show="ownFilter.freelancer_type">{{ownFilter.freelancer_type}}</li>
-            <li ng-show="ownFilter.freelancer_type"> / </li>
+            <li ng-show="activeProvider">{{activeProvider}}</li>
+            <li ng-show="activeProvider"> / </li>
             <li>View profile</li>
             <li> / </li>
             <li>Profile Details</li>
@@ -23,7 +23,7 @@
                 <p style="display: inline-block;margin-bottom: 0px;">
                     Profile Views {{viewsCount}}
                     <br />
-                    <small>Last 90 days</small>
+                    <b>Last 90 days</b>
                 </p>
             </div>
             <p style="cursor: pointer;" ng-if="isLogged()" ng-init="checkFavorited()">
@@ -61,10 +61,11 @@
                 <div ng-show="viewProfile.service_packages">
                     <h4>PACKAGES</h4>
                     <div ng-repeat="pkg in viewProfile.service_packages">
-                        <h5>{{pkg.title}}</h5>
-                        <p>{{pkg.description}}</p>
+                        <h5>Title: {{pkg.title}}</h5>
+                        <p>Description: {{pkg.description}}</p>
                         <p>Prices: {{pkg.pricing}}</p>
-                        <ul>
+                        <h5>Extras</h5>
+                        <ul style="padding-left: 0px;list-style: none;">
                             <li ng-repeat="extra in pkg.extras">
                                 {{extra.price}} {{extra.description}}
                             </li>
@@ -101,7 +102,7 @@
                     </div>
                     <div class="col-md-4" ng-if="viewProfile.freelancer_type.length">
                         <div class="profile-exp-block">
-                            <h5>YARS OF EXPERIENCE 10</h5>
+                            <h5>YEARS OF EXPERIENCE 10</h5>
                             <p>
                                 <span ng-repeat="service_provider in viewProfile.freelancer_type">{{service_provider}}<span ng-if="!$last">, </span></span>
                             </p>
@@ -109,7 +110,12 @@
                     </div>
                 </div>
             </section>
-            <section></section>
+            <section ng-show="active_profile_menu=='portfolio'">
+                <p>Customers Count: {{viewProfile.work.customers}}</p>
+                <p>Past client: {{viewProfile.work.past_client}}</p>
+                <p>Testimonials: {{viewProfile.work.testimonials}}</p>
+                <p>Awards: {{viewProfile.work.awards}}</p>
+            </section>
         </div>
     </div>
 </div>

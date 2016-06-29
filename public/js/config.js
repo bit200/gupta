@@ -70,7 +70,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 templateUrl: 'template/agencies.html',
                 controller: 'agencyCtrl',
                 resolve: {
-                    auth: authResolve,
                     getContent: function ($q, $http) {
                         return $q.all({
                             agencies: $http.get('/api/freelancers'),
@@ -490,13 +489,13 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 }
             })
-            .state('category', {
-                url: '/category',
+            .state('categories', {
+                url: '/categories',
                 templateUrl: 'template/category.html',
-                controller: 'categoryCtrl',
+                controller: 'CategoriesCtrl',
                 reloadOnSearch: false,
                 resolve: {
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http) {
                         return $q.all({
                             topic: $http.get('/get-content', {
                                 params: {
@@ -537,6 +536,23 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
+            .state('categories.profile', {
+                url: '/profile/:id',
+                views: {
+                  "@": {
+                      controller: 'ViewProfileCtrl',
+                      templateUrl: 'template/profile.html'
+                  }
+                },
+                resolve: {
+                    getContent: function ($q, $http, $stateParams) {
+                        return $q.all({
+                            viewsCount: $http.get('/api/freelancer/'+$stateParams.id+'/views?days=90'),
+                            profile: $http.get('/api/freelancer/'+$stateParams.id)
+                        })
+                    }
+                }
+            })
 
             .state('profile_user', {
                 url: '/profile/user/:id',
@@ -545,23 +561,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     auth: authResolve
                 }
-            })
-
-
-            .state('/profile', {
-                url: '/profile',
-                templateUrl: 'template/myProfile.html',
-                controller: 'myProfileCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            user: $http.get('/api/user/me')
-                        })
-                    }
-                }
-            })
-
+            });
 
         $urlRouterProvider.otherwise('/');
 

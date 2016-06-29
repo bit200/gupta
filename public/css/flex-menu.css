@@ -1,12 +1,10 @@
 .flex.menu {
-    height: 50px;
+    height: 45px;
     list-style-type: none;
     margin: 0;
     line-height: 1;
     padding-left: 0px;
-    padding-top: 25px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid lightgrey;
+    padding-top: 13px;
 }
 
 .js .flex.menu {
@@ -19,11 +17,12 @@
     margin: 0 0 0 1.5em;
     float: left;
     cursor: pointer;
-    padding-bottom: 8px;
+    padding-bottom: 15px;
 }
 
 .flex.menu > li.active {
-    border-bottom: 3px solid lightgrey;
+    /*color: red;*/
+    border-bottom: 3px solid red;
 }
 
 .flex.menu > li:first-child {

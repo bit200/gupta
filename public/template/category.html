@@ -1,13 +1,5 @@
 <div class="container">
-    <div>
-        <ul class="flex menu" flex-menu="arrayProviders">
-            <li ng-click="setActiveProvider(provider)"
-                ng-class="{active: ownFilter.freelancer_type == provider}"
-                ng-repeat="provider in arrayProviders">{{provider}}</li>
-        </ul>
-    </div>
-    <section ng-if="!viewProfile">
-        <div class="row">
+    <div class="row">
             <div class="col-md-3 nopadding">
 
                 <div class="full-width work-type border-grey" ng-class="{'topic-close':close.workType}">
@@ -117,12 +109,10 @@
                             </ul>
                             <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
                             <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
-                            <button class="btn btn-default full-width" ng-click="showProfile(profile._id)">View Details</button>
+                            <button class="btn btn-default full-width" ng-click="$state.go('categories.profile', {id: profile._id})">View Details</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <section ng-if="viewProfile" ng-include="'template/profile.html'"></section>
 </div>
