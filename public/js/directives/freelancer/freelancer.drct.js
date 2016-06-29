@@ -1,4 +1,4 @@
-XYZCtrls.directive('seller', function () {
+XYZCtrls.directive('freelancer', function () {
     return {
         restrict: 'E',
         scope: {
