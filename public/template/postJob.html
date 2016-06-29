@@ -14,8 +14,8 @@
         <form ng-if="!isCreated" name="postjob" novalidate>
             <div class="row form-group" ng-class="{'has-error': submitted && postjob.title.$invalid}">
                 <md-input-container class="md-block">
-                    <label>Job Title</label>
-                    <input class="form-control " name="title" ng-model="job.title" required>
+                    <div class="title3">Job Title</div>
+                    <input class="form-control" name="title" ng-model="job.title" required>
                     <div ng-messages="submitted && postjob.title.$error.$invalid">
                         <div ng-show="submitted && postjob.title.$error.required" ng-message="required">Required field</div>
                     </div>
@@ -32,7 +32,7 @@
             <div class="row form-group" ng-class="{'has-error': submitted && postjob.description.$invalid}">
                 <md-input-container class="md-block">
                     <label>Provide a description of your requirements</label>
-                    <input class="form-control" name="description" ng-model="job.description" required>
+                    <textarea class="form-control" name="description" ng-model="job.description" required rows="12s"></textarea>
                     <div ng-messages="submitted && postjob.description.$error.$invalid">
                         <div ng-show="submitted && postjob.description.$error.required" ng-message="required">Required field</div>
                     </div>
@@ -144,7 +144,7 @@
             <div class="text-error" ng-if="error">{{error}}</div>
             <div class="row paddingT20 paddingB20">
                 <button type="submit" class="btn btn-grey w100"
-                        ng-click="addJob(postjob.$invalid,job); submitted=true">Submit
+                        ng-click="addJob(postjob.$invalid, job); submitted=true">Submit
                 </button>
             </div>
         </form>

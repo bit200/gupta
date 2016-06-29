@@ -11,8 +11,12 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             'More than 6 months'
         ]
 
+        console.log('getContent', getContent)
+
+
         scope.contentTypes = getContent.contentType.data.data;
         scope.locations = getContent.locations.data.data;
+
         if (routeParams.id) {
             var job = getContent.job.data.data[0];
             job.date_of_completion = new Date(job.date_of_completion);
@@ -45,7 +49,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         } else {
             scope.job = {
                 job_visibility: 'true',
-                type: 'Agency'
+                type: 'Agency',
+                title: 'hi'
             }
         }
 

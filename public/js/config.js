@@ -71,30 +71,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
-            .when('/post-job/:category?', {
-                templateUrl: 'template/postJob.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }
-                }
-            })
+
 
             .when('/messages', {
                 templateUrl: 'template/chat.html',
@@ -133,6 +110,31 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }]
                 }
             })
+            
+            .when('/post-job/:category?', {
+                templateUrl: 'template/postJob.html',
+                controller: 'jobCtrl',
+                resolve: {
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            contentType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }
+                }
+            })
 
             .when('/job/edit/:id', {
                 templateUrl: 'template/editJob.html',
@@ -160,6 +162,34 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }]
                 }
             })
+
+            .when('/post-job/recreate/:id', {
+                templateUrl: 'template/postJob.html',
+                controller: 'jobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            contentType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }
+                }
+            })
+
+
 
             .when('/me', {
                 templateUrl: 'template/me.html',
@@ -239,32 +269,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
-
-            .when('/post-job/recreate/:id', {
-                templateUrl: 'template/postJob.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }
-                }
-            })
 
             .when('/freelancer-registration', {
                 templateUrl: 'template/freelanceRegistration.html',
