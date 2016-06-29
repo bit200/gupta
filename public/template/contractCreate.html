@@ -1,105 +1,108 @@
-<!--<div class="cont">-->
-    <!--<div>-->
-        <!---->
-    <!--</div>-->
-<!--</div>-->
-<div class="row">
-    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
-        <div class="common-style-form">
-            <form name="formContract" novalidate>
-                <div class="form-group">
-
-                    <label>Contract ID</label>
-                    <label>{{contract._id}}</label>
-                </div>
-
-                <div>Concract for</div>
-                <div class="form-group">
-                    <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
-                        <label>Job title*</label>
-                        <input class="form-control" name="title" ng-enter="createContract(contract); submitted=true" ng-model="contract.title" required>
-                        <p class="error" ng-if="formContract.title.$error.required">Buyer Name is required</p>
-
-                    </md-input-container>
-                </div>
-
-                <div class="form-group">
-                    <md-input-container class="md-block">
-                        <label>Job information</label>
-                        <input class="form-control" ng-enter="createContract(contract); submitted=true" ng-model="contract.information">
-                    </md-input-container>
-                </div>
-
-                <div class="text-bold ">Contracting Parties</div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
-                            <md-input-container class="md-block">
-                                <label>Buyer Name*</label>
-                                <input class="form-control" name="buyer_name" ng-enter="createContract(contract); submitted=true" ng-model="contract.buyer_name" required>
-                                <p class="error" ng-if="formContract.buyer_name.$error.required">Buyer Name is required</p>
-                            </md-input-container>
-                        </div>
-                        <div class="form-group" ng-class="{'has-error': submitted && formContract.company_name.$invalid}">
-                            <md-input-container class="md-block">
-                                <label>Buyer Company name*</label>
-                                <input class="form-control" name="buyer_company_name" ng-enter="createContract(contract); submitted=true" ng-model="contract.buyer_company_name" required>
-                                <p class="error" ng-if="formContract.company_name.$error.required">Buyer Company name is required</p>
-                            </md-input-container>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <md-input-container class="md-block">
-                                <label>Seller Contact Person Name</label>
-                                <input class="form-control" ng-enter="createContract(contract); submitted=true" ng-model="contract.seller_contact">
-                            </md-input-container>
-                        </div>
-                        <div class="form-group">
-                            <md-input-container class="md-block">
-                                <label>Seller Name</label>
-                                <input class="form-control" ng-enter="createContract(contract); submitted=true" ng-model="contract.seller_name">
-                            </md-input-container>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <h3>Terms</h3>
-                    <div class="col-md-7 marginT30">
-                        <div class="form-group" ng-class="{'has-error': submitted && formContract.payment_basis.$invalid}">
-                            <md-input-container class="md-block">
-                                <label>Payment Basis*<br>(mention deliverables, rate, and no. of units)</label>
-                                <input class="form-control" name="payment_basis" ng-enter="createContract(contract); submitted=true" ng-model="contract.payment_basis" required>
-                                <p class="error" ng-if="formContract.payment_basis.$error.required">Payment Basis is required</p>
-                            </md-input-container>
-                        </div>
-                        <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
-                            <md-datepicker ng-model="contract.expected_start" md-placeholder="Start Date*" md-open-on-focus=""></md-datepicker>
-                            <p class="error" ng-if="formContract.expected_start.$error.required">Start Date is required</p>
-                        </div>
-                        <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
-                            <md-datepicker ng-model="contract.expected_completion" md-placeholder="Completion Date*" md-open-on-focus=""></md-datepicker>
-                            <p class="error" ng-if="formContract.expected_completion.$error.required">Completion Date is required</p>
-                        </div>
-                        <div class="form-group" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
-                            <md-input-container class="md-block">
-                                <label>Final Amount to be paid (Rs.)* </label>
-                                <input class="form-control" numbers-only="" name="final_amount" ng-enter="createContract(contract); submitted=true" ng-model="contract.final_amount" required>
-                                <p class="error" ng-if="formContract.final_amount.$error.required">Final Amount is required</p>
-                            </md-input-container>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <button class="btn background-orange text-white" ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">Create Contract</button>
-                    <button class="btn background-grey text-white" ng-click="preview()">Preview</button>
-                    <button class="btn btn-danger text-white" ng-click="createContract('false', 'delete', {_id: contract._id})">Delete</button>
-                </div>
-                <div>(Note: the contract will be sent to the service provider for approval.)</div>
-            </form>
+<div class="container new">
+    <div class="cont">
+        <h1 class="title2">Create a contract</h1>
+        <div class="separator2"></div>
+        <div ng-if="isCreated">
+            <h2 class="text-center">Congratulations! Your jobs is successfully created.</h2>
+            <div class="text-center">
+                <a class="text-orange-link" href="/#/job/{{job_id}}">See this job</a>
+                <br>
+                <a class="text-orange-link" href="/#/jobs/buyer/open">See all your active job</a>
+            </div>
         </div>
+
+
+        <form name="formContract" novalidate>
+            <div>Concract for <freelancer item="contract.seller"></freelancer></div>
+            <div class="separator2"></div>
+            <div class="separator2"></div>
+            <div class="form-group">
+                <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                    <label>Job title*</label>
+                    <input class="form-control" name="title" ng-enter="createContract(contract); submitted=true" ng-model="contract.title" required>
+                    <p class="error" ng-if="formContract.title.$error.required">Buyer Name is required</p>
+
+                </md-input-container>
+            </div>
+
+            <div class="form-group">
+                <md-input-container class="md-block">
+                    <label>Job information</label>
+                    <input class="form-control" ng-enter="createContract(contract); submitted=true" ng-model="contract.information">
+                </md-input-container>
+            </div>
+
+            <div class="text-bold ">Contracting Parties</div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
+                        <md-input-container class="md-block">
+                            <label>Buyer Name*</label>
+                            <input class="form-control" name="buyer_name" ng-enter="createContract(contract); submitted=true" ng-model="contract.buyer_name" required>
+                            <p class="error" ng-if="formContract.buyer_name.$error.required">Buyer Name is required</p>
+                        </md-input-container>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': submitted && formContract.company_name.$invalid}">
+                        <md-input-container class="md-block">
+                            <label>Buyer Company name*</label>
+                            <input class="form-control" name="buyer_company_name" ng-enter="createContract(contract); submitted=true" ng-model="contract.buyer_company_name" required>
+                            <p class="error" ng-if="formContract.company_name.$error.required">Buyer Company name is required</p>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <md-input-container class="md-block">
+                            <label>Seller Contact Person Name</label>
+                            <input class="form-control" ng-enter="createContract(contract); submitted=true" ng-model="contract.seller_contact">
+                        </md-input-container>
+                    </div>
+                    <div class="form-group">
+                        <md-input-container class="md-block">
+                            <label>Seller Name</label>
+                            <input class="form-control" ng-enter="createContract(contract); submitted=true" ng-model="contract.seller_name">
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3>Terms</h3>
+                <div class="col-md-7 marginT30">
+                    <div class="form-group" ng-class="{'has-error': submitted && formContract.payment_basis.$invalid}">
+                        <md-input-container class="md-block">
+                            <label>Payment Basis*<br>(mention deliverables, rate, and no. of units)</label>
+                            <input class="form-control" name="payment_basis" ng-enter="createContract(contract); submitted=true" ng-model="contract.payment_basis" required>
+                            <p class="error" ng-if="formContract.payment_basis.$error.required">Payment Basis is required</p>
+                        </md-input-container>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
+                        <md-datepicker ng-model="contract.expected_start" md-placeholder="Start Date*" md-open-on-focus=""></md-datepicker>
+                        <p class="error" ng-if="formContract.expected_start.$error.required">Start Date is required</p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
+                        <md-datepicker ng-model="contract.expected_completion" md-placeholder="Completion Date*" md-open-on-focus=""></md-datepicker>
+                        <p class="error" ng-if="formContract.expected_completion.$error.required">Completion Date is required</p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
+                        <md-input-container class="md-block">
+                            <label>Final Amount to be paid (Rs.)* </label>
+                            <input class="form-control" numbers-only="" name="final_amount" ng-enter="createContract(contract); submitted=true" ng-model="contract.final_amount" required>
+                            <p class="error" ng-if="formContract.final_amount.$error.required">Final Amount is required</p>
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn background-orange text-white" ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">Create Contract</button>
+                <button class="btn background-grey text-white" ng-click="preview()">Preview</button>
+                <button class="btn btn-danger text-white" ng-click="createContract('false', 'delete', {_id: contract._id})">Delete</button>
+            </div>
+            <div>(Note: the contract will be sent to the service provider for approval.)</div>
+        </form>
+
     </div>
+
 </div>

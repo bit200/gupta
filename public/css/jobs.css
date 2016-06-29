@@ -21,8 +21,6 @@
         opacity: .8;
     }
 }
-body {
-}
 
 jobs-list>div {
     margin-top: 35px;
@@ -222,12 +220,12 @@ textarea {
     font-size: 20px;
 }
 .lightRed {
-    color: #f1b9b8;
+    color: #e53d32;
 }
 .title2:after {
     content: ' ';
     width: 40px;
-    border-bottom: 2px solid #f1b9b8;
+    border-bottom: 2px solid #e53d32;
     display: block;
     margin: 0 auto;
     margin-top: 15px;

@@ -7,8 +7,13 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     console.log("buyyyerr", scope.buyer, scope.job, scope.freelancer)
     scope.contract = {
         title: scope.job.title,
-        buyer: scope.buyer.name,
-        
+        seller: scope.freelancer,
+        buyer: scope.buyer,
+        budget: scope.job.budget,
+        buyer_name: rootScope.getBuyerName(scope.buyer),
+        buyer_company_name: scope.buyer.company_name,
+        seller_contact: String,
+        seller_name: scope.freelancer.name,
     }
     return;
     scope.contract = getContent.contract.data.data;
