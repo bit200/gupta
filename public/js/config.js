@@ -119,6 +119,23 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
+            .when('/job/apply/:id', {
+                templateUrl: 'template/applyForJob.html',
+                controller: 'jobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.get('/api/job/' + $route.current.params.id),
+                            apply: $http.get('/api/job-apply/' + $route.current.params.id),
+                            stats: $http.get('/api/job-stats/' + $route.current.params.id),
+                            contentType: {data: {data: ''}},
+                            locations: {data: {data: ''}}
+                        })
+                    }]
+                }
+            })
+
             .when('/job/edit/:id', {
                 templateUrl: 'template/editJob.html',
                 controller: 'jobCtrl',

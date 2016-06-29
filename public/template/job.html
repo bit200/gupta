@@ -3,10 +3,11 @@
         <div class="col-sm-3">
             <div class="job-nav">
                 <div>
-                    <button ng-if="!isApply" class="btn btn-default w100" ng-click="applyJob(job._id)">Apply for Job</button>
-                    <button ng-if="isApply" class="btn btn-default-hover w100" ng-click="showApplyInfo(job._id)">Edit your
-                        apply
-                    </button>
+                    <a ng-if="!isApply" class="btn btn-my2 w100" href="#/job/apply/{{job._id}}">Apply for the Job</a>
+                    <a ng-if="isApply" class="btn btn-my w100" href="#/job/apply/{{job._id}}">View your apply</a>
+                    <!--<button ng-if="!isApply" class="btn btn-my2 w100" ng-click="applyJob(job._id)">Apply for the Job</button>-->
+                    <!--<button ng-if="isApply" class="btn btn-my2 w100" ng-click="showApplyInfo(job._id)">View your apply-->
+                    <!--</button>-->
                     <div><small ng-if="isApply" class="">You have already applied for the job</small></div>
                     <div ng-if="error">{{error}}</div>
                     <div style="margin-top: 10px;"></div>
