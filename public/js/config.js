@@ -162,6 +162,19 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                 }
             })
 
+            .when('/me', {
+                templateUrl: 'template/me.html',
+                controller: ['info', '$scope', function(info, scope) {
+                    scope.info = info
+                }],
+                resolve: {
+                    info: function ($q, $http) {
+                        return $q.all({
+                            info: $http.get('/api/me')
+                        })
+                    }
+                }
+            })
             .when('/jobs', {
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
@@ -171,7 +184,19 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     url: '/api/jobs/all'
                 })
             })
-
+            .when('/jobs/buyer/my', {
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        template: 'buyer-my',
+                        header: 'My Posted jobs',
+                        url: '/api/jobs/buyer/my',
+                        acts: ['Communicate', 'Accept', 'Reject']
+                    })
+                }
+            })
             .when('/jobs/buyer/open', {
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
