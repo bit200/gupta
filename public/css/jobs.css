@@ -79,7 +79,7 @@ selector .sel-items > div {
 .job-nav .sel-items div {
     padding: 10px 15px;
 }
-.job-nav .sel-items, .job-nav {
+.job-nav .sel-items, .job-nav, .bcg {
     background: #f6f6f6;
 }
 .job-nav .sel-items {
@@ -175,6 +175,10 @@ jobs-list .fitems {
 .btn {
     transition: all .4s ease;
 }
+.btn.wide {
+    padding-right: 25px;
+    padding-left: 25px;
+}
 
 .btn.btn-my, .btn.btn-my2:hover {
     background: #6e6e76;
@@ -192,7 +196,6 @@ jobs-list .fitems {
     color: #4c4c4c;
     border-bottom: 2px solid grey;
     background: #cccccc;
-    margin-bottom: 20px;
     padding: 10px;
     font-weight: 400;
 }
@@ -207,6 +210,7 @@ textarea {
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
+    padding-bottom: 20px;
 }
 
 .title2 {
@@ -256,4 +260,19 @@ small {
 .mtop20 {
     margin-top: 20px;
     display: block;
+}
+.mtop30 {
+    margin-top: 30px;
+    display: block;
+}
+.mtop35 {
+    margin-top: 30px;
+    display: block;
+}
+.padd0 {
+    padding: 0;
+}
+.paddv15 {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
