@@ -261,7 +261,7 @@ function findUpdateWithToken(model, _token, query, new_params, _ecb, _scb, param
 function getId (item) {
     return item ? item._id || item : item
 }
-function isOwner (model, user1, user2) {
+function isOwner (item, user1, user2) {
     user1 = getId(user1)
     user2 = getId(user2)
     var users_arr = []

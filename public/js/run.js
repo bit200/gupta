@@ -9,12 +9,12 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     }
     
     $rootScope.getContent = function(getContent, field) {
-        return getContent[field].data.data
+        return getContent[field] && getContent[field].data ? getContent[field].data.data : null
     }
+
     $rootScope.scrollToErr = function () {
         $timeout(function () {
             angular.element("body").animate({scrollTop: angular.element('.has-error').eq(0).offset().top - 100}, "slow");
-
         }, 500)
     };
 
