@@ -71,7 +71,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
-
             .when('/post-job/:category?', {
                 templateUrl: 'template/postJob.html',
                 controller: 'jobCtrl',
