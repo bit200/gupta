@@ -329,6 +329,14 @@ div.text-padding {
     padding-left: 10px;
 }
 
+.paddingR10 {
+    padding-right: 10px;
+}
+
+
+.paddingB50 {
+    padding-bottom: 50px;
+}
 
 .paddingB20 {
     padding-bottom: 20px;
@@ -494,10 +502,6 @@ div.text-padding {
     animation: block-up 500ms ease forwards;
 }
 
-
-
-
-
 .paddingB40 {
     padding-bottom: 40px;
 }
@@ -614,11 +618,14 @@ div.communitySP div.text-center {
 }
 
 .profile-poster {
-    background: pink;
-    width: 100%;
-    height: 70%;
-    /*border: 1px solid transparent;*/
-    /*border-radius: 5px;*/
+    background: rgba(255, 255, 255, 0.41);
+    width: 96%;
+    height: 96%;
+    margin: 1.5%;
+}
+
+.profile-img {
+    height: 190px
 }
 
 .profile-poster-detail {
@@ -630,16 +637,38 @@ div.communitySP div.text-center {
 }
 
 .profile {
-    width: 15vw;
-    height: 15vw;
     border: 1px solid #CECECE;
-    border-radius: 5px;
     margin: auto;
-    margin-bottom: 10px;
+    position: relative;
+    opacity: 1;
+    transition: all 500ms;
+}
+
+.profile:hover {
+    opacity: 0.1;
+    /*animation: block-up 500ms ease forwards;*/
 }
 
 .profile-info {
-    
+    width: 100%;
+}
+
+.profile-info-name {
+    width: 100%;
+    height: 50%;
+    color: #EC423F;
+    font-size: 14pt;
+    padding: 12px;
+    padding-left: 20px;
+}
+
+.profile-info-type {
+    width: 100%;
+    height: 50%;
+    border-top: 1px solid #EBEBEB;
+    font-size: 14pt;
+    padding: 12px;
+    padding-left: 20px;
 }
 
 .star-icon {
