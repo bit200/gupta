@@ -65,15 +65,21 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
 
 
 exports.applyJob = function (req, res) {
-    var params = m.getBody(req);
-    var params = _.extend(params, {
+    var params = _.extend(m.getBody(req), {
         seller: req.userId,
         freelancer: req.freelancerId
     })
-    m.findOne(models.Job, {_id: params.job}, res, function (job) {
+    console.log('paramsssssssssss', params)
+    m.findOne(models.Job, {_id: params.job}, res, function(job){
         params.buyer = job.user
-        m.create(models.JobApply, params, res, res)
+        console.log('hahahahahhahaha', job)
+        m.findCreateUpdate(models.JobApply, {
+            job: job._id,
+            freelancer: params.freelancer,
+            seller: params.seller
+        }, params, res, res)
     })
+
 }
 
 exports.applyJobUpdate = function (req, res) {

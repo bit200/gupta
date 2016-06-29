@@ -128,7 +128,6 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                         return $q.all({
                             job: $http.get('/api/job/' + $route.current.params.id),
                             apply: $http.get('/api/job-apply/' + $route.current.params.id),
-                            stats: $http.get('/api/job-stats/' + $route.current.params.id),
                             contentType: {data: {data: ''}},
                             locations: {data: {data: ''}}
                         })
