@@ -35,7 +35,7 @@ jobs-list .items {
     text-transform: uppercase;
     color: #333945;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 15px;
     padding-top: 0;
     margin-top: 0;
     letter-spacing: 0.8px;
@@ -279,4 +279,28 @@ small {
 }
 form .form-control {
     box-shadow: none!important;
+}
+.md-block {
+    margin: 18px 0;
+}
+
+md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
+    background-color: rgba(50, 57, 67, 0.82);
+}
+md-input-container:not(.md-input-invalid).md-input-focused label {
+    color: rgba(50, 57, 67, 0.82);
+}
+md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    /*border-color: #323943;*/
+    border-color: rgba(50, 57, 67, 0.82);
+}
+md-radio-group.md-default-theme.md-focused:not(:empty) .md-checked .md-container:before, md-radio-group.md-focused:not(:empty) .md-checked .md-container:before {
+    background: rgba(185, 174, 178, 0.26);
+}
+md-input-container textarea.md-input {
+    min-height: 87px;
+}
+
+#postjob .form-group {
+    margin-bottom: 0;
 }
