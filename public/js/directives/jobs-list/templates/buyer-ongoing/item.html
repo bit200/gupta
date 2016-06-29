@@ -1,10 +1,13 @@
 <div class="col-xs-3">
     <a href="#/job/{{item._id}}">{{item.job.title}}</a></div>
 <div class="col-xs-2">
-    {{item.freelancer.name}}
+    <seller item="item"></seller>
 </div>
 <div class="col-xs-2">
     <a>Response</a>
+</div>
+<div class="col-xs-2">
+    <div>{{item.status}}</div>
 </div>
 <div class="col-xs-2">
     <div>{{item.status}}</div>
