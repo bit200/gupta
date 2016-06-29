@@ -164,7 +164,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     info: getResolve({
                         template: 'buyer-open',
                         header: 'Open jobs',
-                        url: '/api/jobs/buyer/open'
+                        url: '/api/jobs/buyer/open',
+                        acts: ['Communicate', 'Accept', 'Reject']
                     })
                 }
             })
@@ -177,7 +178,8 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     info: getResolve({
                         template: 'buyer-ongoing',
                         header: 'Ongoing jobs',
-                        url: '/api/jobs/buyer/ongoing'
+                        url: '/api/jobs/buyer/ongoing',
+                        acts: ['Communicate', 'View Contract', 'Edit Contract', 'Pause Contract', 'Close Contract', 'Initiate Payment']
                     })
                 }
             })
