@@ -254,7 +254,8 @@ small {
 .mtop5 {
     margin-top: 5px;
     display: block;
-}.mtop10 {
+}
+.mtop10 {
     margin-top: 10px;
     display: block;
 }

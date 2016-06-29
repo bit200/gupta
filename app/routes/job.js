@@ -9,6 +9,8 @@ module.exports = function (app) {
     app.post('/job', job.add_job);
     app.post('/get-job', auth.token, job.get_job);
     app.get('/get-my-job', auth.token, job.get_my_job);
+    
+    app.get('/api/info/:model/:_id', job.get_info)
 
     app.get('/api/job/:_id', job.getInfo)
     app.put('/api/job', job.update)
@@ -20,12 +22,8 @@ module.exports = function (app) {
     app.delete('/api/job-apply', job.applyJobRemove)
     app.get('/api/job-apply/:job_id', auth.freelancer_token, job.getApplyInfo)
 
-    app.get('/api/me', auth.freelancer_token, function(req, res){
-        res.send({
-            userId: req.userId,
-            freelancerId: req.freelancerId
-        })
-    })
+   
+    
     job.fn('/api/jobs/all', auth.token, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
 

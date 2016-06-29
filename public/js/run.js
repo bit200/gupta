@@ -4,6 +4,9 @@ angular.module('XYZApp').run(function ($rootScope, $location, AuthService) {
     $rootScope.go = function (path) {
         $location.path(path)
     }
-
+    
+    $rootScope.getContent = function(getContent, field) {
+        return getContent[field].data.data
+    }
    
 });

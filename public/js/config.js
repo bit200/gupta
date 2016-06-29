@@ -115,7 +115,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
             
             .when('/post-job/:category?', {
                 templateUrl: 'template/postJob.html',
-                controller: 'jobCtrl',
+                controller: 'postJobCtrl',
                 resolve: {
                     getContent: function ($q, $http) {
                         return $q.all({
@@ -140,7 +140,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
 
             .when('/job/edit/:id', {
                 templateUrl: 'template/editJob.html',
-                controller: 'jobCtrl',
+                controller: 'postJobCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
@@ -372,6 +372,20 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     }
                 }
             })
+            .when('/contract/create/:job/:freelancer', {
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
+                        return $q.all({
+                            job: $http.get('/api/info/Job/'+ $route.current.params.job),
+                            freelancer: $http.get('/api/info/Freelancer/'+ $route.current.params.freelancer),
+                            user: $http.get('/api/user/me')
+                        })
+                    }]
+                }
+            })
 
             .when('/contract/create/:id', {
                 templateUrl: 'template/contractCreate.html',
@@ -393,7 +407,7 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     auth: authResolve,
                     getContent: ['$q', '$http', '$route', function ($q, $http, $route) {
                         return $q.all({
-                            contract: $http.get('/contract/', {params: {_id: $route.current.params.id}})
+                            freelancer: $http.get('/contract/', {params: {_id: $route.current.params.id}})
                         })
                     }]
                 }
