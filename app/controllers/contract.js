@@ -41,6 +41,24 @@ exports.approve_contract = function (req, res) {
 
 };
 
+exports.detailed = function (req, res) {
+    var params = req.params
+
+    m.findOne(models.Contract, {_id: params._id}, res, function (contract) {
+
+        if (m.isOwner(contract, req.userId, req.freelancerId)) {
+            res.send({
+                data: contract
+            })
+        } else {
+            res.status(400).send({
+                data: 'Another owner'
+            })
+        }
+    }, {populate: 'buyer seller freelancer job'})
+
+};
+
 exports.rejectJob = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {status: 'approve'}, res, function (contract) {

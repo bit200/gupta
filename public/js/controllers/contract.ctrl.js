@@ -7,7 +7,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     console.log("buyyyerr", scope.buyer, scope.job, scope.freelancer)
     scope.contract = {
         title: scope.job.title,
-        seller: scope.freelancer,
+        freelancer: scope.freelancer,
+        seller: scope.freelancer.user,
         buyer: scope.buyer,
         budget: scope.job.budget,
         buyer_name: rootScope.getBuyerName(scope.buyer),
@@ -25,6 +26,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         } else {
             console.log("data", data)
             data.seller = getId(data.seller)
+            data.freelancer = getId(data.freelancer)
             data.buyer = getId(data.buyer)
             data.job = getId(scope.job)
             

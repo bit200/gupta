@@ -406,6 +406,32 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
+            .state('contract_edit', {
+                url: '/contract/edit/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
+                        })
+                    }]
+                }
+            })
+            .state('contract_detailed', {
+                url: '/contract/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
+                        })
+                    }]
+                }
+            })
 
             .state('contract_create', {
                 url: '/contract/create/:id',

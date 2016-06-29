@@ -18,11 +18,11 @@ XYZCtrls.directive('acts', function () {
                         , freelancer = getInfo(item, 'freelancer')
                     return '#/contract/create/' + getId(job) + '/' + getId(freelancer)
                 },
-                'Veiw Contract': function(item) {
-                    return '#/contract/' + item._id
+                'View Contract': function(item) {
+                    return '#/contract/' + getId(item)
                 },
                 'Edit Contract': function(item) {
-                    return '#/contract/edit/' + item._id
+                    return '#/contract/edit/' + getId(item)
                 }
             }
 
