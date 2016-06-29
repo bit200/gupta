@@ -35,7 +35,7 @@ module.exports = function (app) {
 
 
     job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId }'
-        , {populate: 'job freelancer', sort: '-created_at'}, app)
+        , {populate: 'job freelancer buyer', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId }'
         , {populate: 'job buyer', sort: '-created_at'}, app)

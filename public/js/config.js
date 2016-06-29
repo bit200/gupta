@@ -192,7 +192,9 @@ angular.module('XYZApp').config(['$routeProvider', '$httpProvider', '$locationPr
                     info: getResolve({
                         template: 'seller-open',
                         header: 'Open jobs',
-                        url: '/api/jobs/seller/open'
+                        url: '/api/jobs/seller/open',
+                        acts: ['View Application', 'Communicate', 'View Job']
+
                     })
                 }
             })

@@ -134,6 +134,10 @@ a {
 jobs-list .fitems {
     padding: 10px;
     border-bottom: 1px solid #ecebf0;
+
+}
+jobs-list .fitems {
+    word-break: break-all;
 }
 
 
