@@ -36,6 +36,34 @@ function pubParams(params, query) {
     }
 }
 
+
+exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
+    var theInstructions = 'return ' + middleware;
+    var middlewareFn = new Function(theInstructions);
+
+    if (auth) {
+        app.get(url, auth, routing('find'))
+        app.get(url + 'count', auth, routing('count'))
+    } else {
+        app.get(url, routing('find'))
+        app.get(url + 'count', routing('count'))
+    }
+
+    function routing (type) {
+        return function (req, res) {
+            var queryParams = m.getBody(req)
+            var query = middlewareFn.call(req)
+            var info = pubParams(queryParams, query)
+            console.log('infofofofofo', info, query)
+            info.params.populate = extra_params.populate || ''
+            info.params.sort = extra_params.sort || info.params.sort || ''
+
+            m[type](models[modelName], info.query, res, res, info.params)
+        }
+    }
+}
+
+
 exports.applyJob = function (req, res) {
     var params = m.getBody(req);
     var params = _.extend(params, {
@@ -107,7 +135,25 @@ exports.buyer_open = function (req, res) {
 
 }
 
-exports.rejectJobApply = function(req, res) {
+exports.count = function (query) {
+    return function (req, res) {
+        var queryParams = m.getBody(req)
+        var info = pubParams(queryParams, query)
+        console.log("info", info, info.params)
+        m.count(models.Job, info.query, res, res, info.params)
+    }
+};
+
+exports.buyer_open = function (req, res) {
+    var queryParams = m.getBody(req)
+    var info = pubParams(queryParams, {buyer: req.userId})
+    info.params.populate = 'job freelancer'
+    console.log("infofofofofo", info)
+    m.find(models.JobApply, info.query, res, res, info.params)
+
+}
+
+exports.rejectJobApply = function (req, res) {
     res.send("rejected")
 }
 exports.buyer_open_count = function (req, res) {
@@ -129,7 +175,6 @@ exports.seller_open_count = function (req, res) {
     var info = pubParams(queryParams, {seller: req.userId})
     m.count(models.JobApply, info.query, res, res, info.params)
 }
-
 
 
 exports.applyJobRemove = function (req, res) {
