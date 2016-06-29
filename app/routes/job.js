@@ -20,11 +20,19 @@ module.exports = function (app) {
     app.delete('/api/job-apply', job.applyJobRemove)
     app.get('/api/job-apply/:job_id', auth.freelancer_token, job.getApplyInfo)
 
-
+    app.get('/api/me', auth.freelancer_token, function(req, res){
+        res.send({
+            userId: req.userId,
+            freelancerId: req.freelancerId
+        })
+    })
     job.fn('/api/jobs/all', auth.token, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{ buyer: this.userId }'
+        , {populate: 'job freelancer', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/buyer/my', auth.token, 'Job', '{ user: this.userId }'
         , {populate: 'job freelancer', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId }'
