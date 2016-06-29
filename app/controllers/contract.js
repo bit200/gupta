@@ -7,11 +7,20 @@ var models = require('../db')
 
 exports.create_contract = function (req, res) {
     var params = m.getBody(req);
-    params.buyer = req.userId
     params.status = 'Wait seller contract approvement'
     console.log("@@@@@@@@@@@@@@@@@@@params", params)
-    m.create(models.Contract, params, res, function(contract){
-        var query = {job: contract.job, freelancer: contract.freelancer}
+    var query = {
+        seller: params.seller,
+        buyer: params.buyer,
+        job: params.job
+    }
+
+    m.findCreateUpdate(models.Contract, query, params, res, function(contract){
+        res.send({
+            data: contract
+        })
+        return;
+        // var query = {job: contract.job, freelancer: contract.freelancer}
         console.log('created contract', query)
         m.findOne(models.JobApply, query, function(jobApply){
             res.status(400).send('Error')

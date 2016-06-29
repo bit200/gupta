@@ -28,6 +28,7 @@ var ContractSchema = mongoose.Schema({
     expected_start: Date,
     expected_completion: Date,
     amount: Number,
+    final_amount: Number,
     status: {
         type: String
     },

@@ -12,18 +12,30 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         budget: scope.job.budget,
         buyer_name: rootScope.getBuyerName(scope.buyer),
         buyer_company_name: scope.buyer.company_name,
-        seller_contact: String,
+        seller_contact: scope.freelancer.contact_detail,
         seller_name: scope.freelancer.name,
+        final_amount: scope.job.budget
     }
-    return;
-    scope.contract = getContent.contract.data.data;
+    var getId = function(item) {
+        return item._id || item
+    }
     scope.createContract = function (invalid, type, data) {
-        http.post('/contract/' + type, data).then(function (resp) {
-            type == 'delete' ? location.path('/home') : location.path('/home');
-            console.log('resp', resp)
-        }, function (err) {
-            console.log('err', err)
-        })
+        if (invalid) {
+            rootScope.scrollToErr()
+        } else {
+            console.log("data", data)
+            data.seller = getId(data.seller)
+            data.buyer = getId(data.buyer)
+            data.job = getId(scope.job)
+            
+            http.post('/api/contract', data).then(function (resp) {
+                // type == 'delete' ? location.path('/home') : location.path('/home');
+                console.log('resp', resp)
+            }, function (err) {
+                console.log('err', err)
+            })
+        }
+
     }
 
     scope.preview = function () {

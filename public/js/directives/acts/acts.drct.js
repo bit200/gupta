@@ -16,8 +16,13 @@ XYZCtrls.directive('acts', function () {
                 'Accept': function(item){
                     var job = getInfo(item, 'job')
                         , freelancer = getInfo(item, 'freelancer')
-                    console.log("accept", job, freelancer, item)
                     return '#/contract/create/' + getId(job) + '/' + getId(freelancer)
+                },
+                'Veiw Contract': function(item) {
+                    return '#/contract/' + item._id
+                },
+                'Edit Contract': function(item) {
+                    return '#/contract/edit/' + item._id
                 }
             }
 
