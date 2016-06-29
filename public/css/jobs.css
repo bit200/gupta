@@ -1,0 +1,278 @@
+
+@keyframes fadeOut {
+    0% {
+        opacity: .8;
+    }
+    99% {
+        opacity: 0;
+
+    }
+    100% {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: .8;
+    }
+}
+body {
+}
+
+jobs-list>div {
+    margin-top: 35px;
+}
+
+jobs-list .items {
+    min-height: 400px;
+}
+.title3 {
+    text-transform: uppercase;
+    color: #333945;
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 0;
+    margin-top: 0;
+    letter-spacing: 0.8px;
+    padding-bottom: 15px;
+}
+.job-items {
+    box-shadow: 2px 4px 13px rgba(0,0,0,0.3);
+}
+.job-nav {
+    padding: 20px;
+    /*padding-bottom: 80px;*/
+}
+
+selector {
+    width: 100%;
+    position: relative;
+    display: block;
+}
+
+selector .selected {
+    border-bottom: 1px solid #9b9fa2;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+selector .selected, selector .sel-items > div {
+    outline: none;
+}
+
+selector .sel-items > div {
+    cursor: pointer;
+}
+
+.sel-items {
+    position: absolute;
+    box-shadow: 2px 4px 13px rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+
+.job-nav .sel-items div {
+    padding: 10px 15px;
+}
+.job-nav .sel-items, .job-nav, .bcg {
+    background: #f6f6f6;
+}
+.job-nav .sel-items {
+    width: 105%;
+    margin-left: -2.5%;
+}
+.container.new {
+    margin-top: 30px;
+}
+
+.job-search {
+    border: 1px solid #9b9fa2;
+    width: 100%;
+    padding: 7px 13px;
+    outline: none;
+    box-shadow: none;
+    transition: all .4s ease;
+}
+.job-search:focus {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.job-nav .sub-title {
+    color: #343843;
+    text-transform: uppercase;
+    padding: 25px 0 15px 0;
+    font-size: 14.5px;
+    font-weight: 500;
+}
+a {
+    cursor: pointer;
+}
+.job-nav .sub-select {
+    padding-bottom: 10px;
+}
+
+.job-head {
+    background: #6e6e76;
+    color: white;
+    text-transform: uppercase;
+    padding: 15px 0;
+    font-weight: 500;
+}
+
+.row.nomargin {
+    margin-left: 0;
+    margin-right: 0;
+}
+.row.nomarginxs {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+jobs-list .fitems {
+    padding: 10px;
+    border-bottom: 1px solid #ecebf0;
+
+}
+jobs-list .fitems {
+    word-break: break-all;
+}
+
+
+.lloading {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background-color: white;
+    position: absolute;
+    z-index: 999;
+    animation: fadeIn .4s ease forwards;
+
+}
+.lloading.hid-loading {
+    animation: fadeOut .4s ease forwards;
+}
+
+.action {
+    display: block;
+}
+
+
+
+
+.stat-item {
+    padding: 5px 0;
+}
+
+
+.w100 {
+    min-width: 100%;
+}
+.btn {
+    transition: all .4s ease;
+}
+.btn.wide {
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+.btn.btn-my, .btn.btn-my2:hover {
+    background: #6e6e76;
+    color: white;
+    outline: none;
+}
+
+.btn.btn-my:hover, .btn.btn-my2 {
+    background: white;
+    color: #6e6e76;
+    border: 1px solid #94949c;
+    outline: none;
+}
+.btn.btn-grey {
+    color: #4c4c4c;
+    border-bottom: 2px solid grey;
+    background: #cccccc;
+    padding: 10px;
+    font-weight: 400;
+}
+.btn {
+    outline: none!important;
+}
+textarea {
+    max-width: 100%;
+}
+
+.cont {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.title2 {
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    color: #4f535d;
+}
+.lightRed {
+    color: #f1b9b8;
+}
+.title2:after {
+    content: ' ';
+    width: 40px;
+    border-bottom: 2px solid #f1b9b8;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.separator {
+    width: 100%;
+    margin: 30px 0;
+    border-bottom: 1px solid #f1f0f0;
+}
+
+.separator2 {
+    width: 100%;
+    margin: 30px 0;
+}
+
+small {
+    font-weight: 500;
+    margin-top: 25px;
+    margin-bottom: 7px;
+    display: block;
+}
+
+.mtop5 {
+    margin-top: 5px;
+    display: block;
+}.mtop10 {
+    margin-top: 10px;
+    display: block;
+}
+.mtop20 {
+    margin-top: 20px;
+    display: block;
+}
+.mtop30 {
+    margin-top: 30px;
+    display: block;
+}
+.mtop35 {
+    margin-top: 30px;
+    display: block;
+}
+.padd0 {
+    padding: 0;
+}
+.paddv15 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

@@ -13,6 +13,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     };
 
     scope.arrayProviders = getContent.service.data.data;
+        console.log('asdas', getContent)
     scope.profiles = parseRating.rating(getContent.sellers.data.data);
     scope.profiles = parseRating.popularity(scope.profiles);
 

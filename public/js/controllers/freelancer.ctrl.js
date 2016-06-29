@@ -32,11 +32,7 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
 
         scope.arrayProviders = getContent.service.data.data;
         
-        scope.register = function (invalid, freelancer,files,img) {
-            if (invalid) {
-                scope.scrollToErr()
-                return;
-            }
+        scope.sendRequest = function (freelancer,files,img) {
             var arrayIdFiles = [];
             for(var i = 0 ; i<files.length;i++){
                 arrayIdFiles.push(files[i].result.data._id);

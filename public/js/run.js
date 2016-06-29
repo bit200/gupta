@@ -4,4 +4,6 @@ angular.module('XYZApp').run(function ($rootScope, $location, AuthService) {
     $rootScope.go = function (path) {
         $location.path(path)
     }
+
+   
 });

@@ -97,6 +97,31 @@ XYZCtrls.directive('phoneNumber', function () {
     };
 });
 
+XYZCtrls.directive('equals', function() {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            if(!ngModel) return; // do nothing if no ng-model
+
+            scope.$watch(attrs.ngModel, function() {
+                validate();
+            });
+
+            attrs.$observe('equals', function (val) {
+                validate();
+            });
+
+            var validate = function() {
+                var val1 = ngModel.$viewValue;
+                var val2 = attrs.equals;
+
+                ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
+            };
+        }
+    }
+});
+
 XYZCtrls.directive("passwordVerify", function () {
     return {
         require: "ngModel",
@@ -115,6 +140,8 @@ XYZCtrls.directive("passwordVerify", function () {
                 if (value) {
                     ctrl.$parsers.unshift(function (viewValue) {
                         var origin = scope.passwordVerify;
+                        console.log(origin, viewValue, scope.passwordVerify);
+
                         if (origin !== viewValue) {
                             ctrl.$setValidity("passwordVerify", false);
                             return undefined;
@@ -129,23 +156,6 @@ XYZCtrls.directive("passwordVerify", function () {
     };
 });
 
-XYZCtrls.directive('uniqueUsername', function ($http) {
-    return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function (scope, element, attrs, ngModel) {
-            element.bind('blur', function (e) {
-                if (element.val().length < 4) return;
-                ngModel.$loading = true;
-
-                $http.get("/api/checkUnique?username=" + element.val()).success(function (data) {
-                    ngModel.$loading = false;
-                    ngModel.$setValidity('unique', !data.count);
-                });
-            });
-        }
-    };
-})
 XYZCtrls.directive('uniqueEmail', function ($http) {
     return {
         restrict: 'A',
@@ -198,142 +208,7 @@ XYZCtrls.directive('toggle', function () {
 });
 
 
-XYZCtrls.directive('viewMyJob', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            url: '=',
-            typeJob: '=',
-            typeUser: '='
-        },
-        templateUrl: 'template/directive/templateViewMyJob.html',
-        controller: ['$scope', '$http', 'parseTime', '$rootScope','$location', function (scope, http, parseTime, rootScope, location) {
-            scope.header = 'View My Jobs - ' + scope.typeUser + ' views';
-            scope.maxSize = 5;
-            scope.TotalItems = 0;
-            scope.currentPage = 1;
-            scope.limit = 5;
-            console.log('scope', scope.typeUser)
-            var last_press;
-            var timer = 500;
-            scope.trueSearch = function (search) {
-                if (!search)
-                    search = ' ';
-                last_press = new Date().getTime();
-                var cur_press = last_press;
-                setTimeout(function () {
-                    if (cur_press === last_press) {
-                        scope.currentPage = 1;
-                        scope.render({'search': search})
-                    }
-                }, timer)
 
-            };
-
-            scope.data = {view : scope.typeUser};
-            if(scope.data.view == 'All')
-                scope.data.view = 'Buyer';
-            scope.changePage = function (page) {
-                scope.render({page: page});
-            };
-
-            scope.switchRole = function() {
-
-              location.path('/jobs/'+scope.data.view.toLowerCase()+'/open')
-            };
-
-            scope.enterSearch = function (search) {
-                if (!search)
-                    search = ' ';
-                scope.currentPage = 1;
-                scope.render(search)
-            };
-
-            function create_obj(params) {
-                params = params || {};
-                scope.Page = params.page || scope.currentPage;
-                scope.search = params.search || scope.search;
-                var obj = {};
-
-                if (scope.currentPage) {
-                    obj.skip = (scope.Page - 1) * scope.limit;
-                    obj.limit = scope.limit;
-                }
-
-                if (scope.search && scope.search != ' ') {
-                    obj.search = scope.search
-                }
-                return obj;
-
-            }
-
-            scope.render = function (params) {
-                scope.showLoading = true;
-                var obj = create_obj(params);
-                var index = 0;
-
-                function cb() {
-
-                    if (++index == 2) {
-                        scope.showLoading = false;
-                    }
-                }
-
-                http.get(scope.url, {params: obj}).then(function (resp) {
-                    cb();
-                    scope.body = [];
-                    // console.log('sfsdfsdxcvnmhuiku', resp.data.data)
-                    if (scope.typeUser == 'Buyer') {
-                        _.each(resp.data.data, function (job) {
-                            var obj = {
-                                elem: job,
-                                data: {
-                                    title: job.job.title || null,
-                                    service_provider: job.freelancer.name || null,
-                                    response: job.message || null,
-                                    status: job.status || null,
-                                    date: parseTime.date(job.created_at) || null
-                                }
-                            };
-                            scope.body.push(obj)
-                        });
-                    }
-                    if (scope.typeUser == 'All') {
-                        _.each(resp.data.data, function (job) {
-                            var obj = {
-                                elem: job,
-                                data: {
-                                    title: job.title || null,
-                                    service_provider: job.name || null,
-                                    response: job.message || null,
-                                    status: job.status || null,
-                                    date: parseTime.date(job.created_at) || null
-                                }
-                            };
-                            scope.body.push(obj)
-                        });
-                    }
-                }, function (err) {
-                    console.log('asdsa', err)
-                    if (err.status = 403)
-                        scope.error = 'Error';
-                    cb();
-                });
-                http.get(scope.url + '/count', {params: obj}).then(function (resp) {
-                        cb();
-                        scope.TotalItems = resp.data.data;
-                    }
-                    , function (err) {
-                        scope.TotalItems = 0;
-                        cb();
-                    })
-            };
-
-            scope.render();
-
-        }]
-    };
-});
 
 XYZCtrls.directive('openJobSeller', function () {
     return {
@@ -390,7 +265,7 @@ XYZCtrls.directive('openJobBuyer', function () {
                         $scope.contract.final_amount = job.elem.job.budget;
                         $scope.contract.expected_start = new Date();
                         $scope.contract.expected_completion = new Date(new Date().getTime() + 1000 * 3600 * 24 * 30);
-                        $scope.closeModal = function () {
+                        $scope.openUrl = function () {
                             $element.modal('hide');
                             $timeout(function () {
                                 location.path('contract/' + $scope.contract_id)

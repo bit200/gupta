@@ -203,25 +203,25 @@ function insertMany(model, new_params, _ecb, _scb, params) {
     });
 }
 
+function findUpdate2(model, query, new_params, _ecb, _scb, params) {
+    console.log('hahdfahsdfhashdfahsdfhashdfashdfhasdhfashdfhasdhfashdfhasdfh', query, new_params)
+    findOne(model, query, _ecb, function (item) {
+        console.log('ahahhahahahahahahahah', item)
+        item = _.extend(item, new_params);
+        save(item, _ecb, _scb, params)
+    })
+
+}
 
 function findUpdate(model, query, new_params, _ecb, _scb, params) {
-    params = params || {}
-    findOne(model, query, _ecb, function (item) {
-        item = _.extend(item, new_params);
-        save(item, _ecb, function(item){
-            if (params.populate) {
-                item.populate(params.populate, function(err, b) {
-                    if (err) {
-                        ecb(398, item, _ecb)
-                    } else {
-                        scb(item, _scb)
-                    }
-                })
+    model.update(query, new_params, {}, function (err, item) {
+            if (err) {
+                ecb(398, err, _ecb)
             } else {
                 scb(item, _scb)
             }
-        }, params)
-    }, params)
+        }
+    );
 }
 
 
@@ -251,6 +251,7 @@ function findUpdateWithToken(model, _token, query, new_params, _ecb, _scb, param
 
 function findCreateUpdate(model, query, new_params, _ecb, _scb, params) {
     new_params = _.extend({}, query, new_params);
+    
     findOne(model, query, function (code, err) {
         if (code == 397) {
             create(model, new_params, _ecb, _scb, params)
@@ -636,6 +637,7 @@ module.exports = {
     find: find,
     distinct: distinct,
     findLean: findLean,
+    findUpdate2: findUpdate2,
     findOne: findOne,
     save: save,
     create: create,

@@ -1,7 +1,3 @@
-html {
-    overflow-y: scroll;
-}
-
 .block-center {
     display: inline-block;
     position: absolute;
@@ -286,8 +282,7 @@ div.text-padding {
 }
 
 .back-service-provider {
-    /*margin: 90px 0 20px 0;*/
-
+    margin-bottom: 50px;
 }
 
 .trendingJobs {
@@ -365,6 +360,11 @@ div.text-padding {
 
 .marginL20 {
     margin-left: 20px;
+}
+
+.marginTB10 {
+    margin-top: 10%;
+    margin-bottom: 6%;
 }
 
 .marginTB20 {
@@ -456,15 +456,15 @@ div.text-padding {
 }
 
 .service-provider-icon {
-    margin-top: 25%;
+    margin-top: 10%;
     height: 50%;
     margin-bottom: 5%;
-    font-size: 40pt !important;}
+    font-size: 40pt !important;
+}
 
 .service-provider {
     border: 1px solid #d8e6f3;
     width: calc(100% / 2 - 20px);
-    height: 80px;
     display: inline-block;
     float: left;
     margin: 15px 10px;
@@ -478,6 +478,7 @@ div.text-padding {
     font-weight: bold;
     background-color: #F6F6F6;
     transition: all 500ms;
+    min-height: 140px;
 }
 
 @keyframes block-up  {
@@ -488,7 +489,7 @@ div.text-padding {
 .service-provider:hover {
     background-color: #EA2B29;
     color: white;
-    bottom:10px;
+    bottom: 5px;
     box-shadow: 5px 5px 6px 0 #cccbcb;
     animation: block-up 500ms ease forwards;
 }
@@ -615,7 +616,7 @@ div.communitySP div.text-center {
 .profile-poster {
     background: pink;
     width: 100%;
-    height: 100%;
+    height: 70%;
     /*border: 1px solid transparent;*/
     /*border-radius: 5px;*/
 }
@@ -635,6 +636,10 @@ div.communitySP div.text-center {
     border-radius: 5px;
     margin: auto;
     margin-bottom: 10px;
+}
+
+.profile-info {
+    
 }
 
 .star-icon {
@@ -675,6 +680,7 @@ div.btnSearch {
 .alert-success {
     background-color: #dff0d8 !important;
 }
+
 
 .body {
     height: 100%;
@@ -933,7 +939,7 @@ md-input-container.selectTerm span div {
 }
 
 .cropArea {
-    background: #E4E4E4;
+    /*background: #E4E4E4;*/
     overflow: hidden;
     width: 100%;
     height: 350px;
@@ -1143,10 +1149,6 @@ div.containerCrop {
     margin-bottom: 70px;
 }
 
-.test {
-    background: url(images/comment-author.gif) no-repeat scroll 7px 7px
-}
-
 .navigation-active {
     color: #E52D27;
     border-bottom: 1px solid #E52D27;
@@ -1161,6 +1163,10 @@ div.containerCrop {
     background: #8E8F91;
     opacity: 0.8;
     border-radius: 5px;
+}
+
+.background-lightgrey {
+    background: #F9F9F9;
 }
 
 .input-home-woman {
@@ -1207,6 +1213,26 @@ div.containerCrop {
     top: 14px;
     font-size: 25pt !important;
     opacity: 0.8;
+}
+
+
+.header-my-job, .header-my-job:focus {
+    display: inline-block;
+    font-weight: bold;
+    color: #c1c1c1;
+    margin-top: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-my-job:hover {
+    text-decoration: none;
+    color: #f7961d;
+}
+
+
+.has-error .form-control{
+    border-color: red !important;
 }
 
 @media (min-width: 768px) {
@@ -1316,7 +1342,7 @@ div.containerCrop {
     }
 
     .auth-dialog {
-        width: 500px !important;
+        width: 800px !important;
     }
 
     .agency-text {

@@ -1,8 +1,8 @@
 'use strict';
 var job = require('../controllers/job'),
+    // models = require('../models'),
     multiparty = require('connect-multiparty'),
     multipartyMiddleware = multiparty();
-
 
 module.exports = function (app) {
     var auth = require('./middlewares/auth');
@@ -16,17 +16,30 @@ module.exports = function (app) {
     app.post('/api/job-apply', auth.freelancer_token, job.applyJob)
     app.get('/api/job-apply/reject/:_id', auth.token, job.rejectJobApply)
     app.get('/api/job-stats/:_id', job.job_stats)
-    app.put('/api/job-apply', job.applyJobUpdate)
+    app.put('/api/job-apply', auth.freelancer_token, job.applyJobUpdate)
     app.delete('/api/job-apply', job.applyJobRemove)
     app.get('/api/job-apply/:job_id', auth.freelancer_token, job.getApplyInfo)
 
-    var all_query = {}
-    app.get('/api/jobs/all', job.list(all_query))
-    app.get('/api/jobs/all/count', job.count(all_query))
 
-    app.get('/api/jobs/buyer/open', auth.token, job.buyer_open)
-    app.get('/api/jobs/buyer/open/count', auth.token, job.buyer_open_count)
+    job.fn('/api/jobs/all', auth.token, 'Job', '{}'
+        , {populate: 'user', sort: '-created_at'}, app)
 
-    app.get('/api/jobs/seller/open', auth.token, job.seller_open)
-    app.get('/api/jobs/seller/open/count', auth.token, job.seller_open_count)
+    job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{ buyer: this.userId }'
+        , {populate: 'job freelancer', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId }'
+        , {populate: 'freelancer job', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId }'
+        , {populate: 'user', sort: '-created_at'}, app)
+
+
+    job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId }'
+        , {populate: 'job freelancer buyer', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId }'
+        , {populate: 'job buyer', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId }'
+        , {populate: 'user', sort: '-created_at'}, app)
 };

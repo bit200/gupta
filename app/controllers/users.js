@@ -17,20 +17,7 @@ exports.list = function (req, res) {
 
 
 exports.me = function (req, res) {
-    m.findOne(models.User, {_id: req.userId}, res, res, {publish: true, populate: {
-        path: 'freelancer',
-        populate: [{
-            path: 'poster'
-        },{
-            path: 'work'
-        },{
-            path: 'service_packages'
-        },{
-            path: 'contact_detail'
-        },{
-            path: 'Attachments'
-        }]
-    }})
+    m.findOne(models.User, {_id: req.userId}, res, res, {publish: true, populate: {path: 'poster'}})
 };
 
 exports.update_password = function (req, res) {
@@ -41,7 +28,6 @@ exports.update_password = function (req, res) {
             if (err || !isMatch) {
                 return m.ecb(401, err, res)
             }
-            user.password = md5(params.newPassword);
             user.save(function (e, r) {
                 if (e) {
                     m.ecb(399, e, res)
@@ -57,7 +43,6 @@ exports.send_confirm = function (req, res) {
     var login = m.getBody(req).login;
     m.findOne(models.User, {
         $or: [
-            {username: login},
             {email: login}
         ]
     }, res, function (user) {
@@ -91,9 +76,9 @@ exports.restore = function (req, res) {
     m.findUpdate(models.User, {restore_code: data.restore_code}, {restore_code: null, password: md5(data.password)}, res, res, {publish: true})
 };
 
-exports.upload_profile = function (req, res) {
+exports.update_profile = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {email: params.email}, params, res, res, {publish: "true"})
+    m.findUpdate(models.User, {_id: req.userId}, params, res, res, {publish: "true"})
 };
 
 exports.linkedinSignin = function (req, res) {

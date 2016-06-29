@@ -3,11 +3,12 @@ var mongoose = require('mongoose')
 
 var JobSchema = mongoose.Schema({
     message: String,
+    budget: String,
     freelancer: {
         type: Number,
         ref: 'Freelancer'
     },
-    user: {
+    seller: {
         type: Number,
         ref: 'User'
     },
