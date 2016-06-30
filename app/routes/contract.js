@@ -10,6 +10,7 @@ module.exports = function (app) {
     app.post('/contract/delete', auth.token, contract.delete_contract);
     app.post('/contract/reject', auth.token, contract.reject_contract);
 
+    app.post('/api/contract/approve/:_id', auth.token, contract.approve_contract);
     app.post('/api/contract/reject/:_id', auth.token, contract.reject_contract);
     app.post('/api/contract/pause/:_id', auth.token, contract.pause_contract);
     app.post('/api/contract/resume/:_id', auth.token, contract.resume_contract);

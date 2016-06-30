@@ -37,9 +37,13 @@ exports.create_contract = function (req, res) {
 
 exports.approve_contract = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {status: 'approve'}, res, function (contract) {
-        m.findUpdate(models.Job, {contract: contract._id}, {status: 'applied'}, res, function () {
-            mail.invitePayment(contract.buyer, res, m.scb(contract))
+    console.log('ongoinggggggggggggggggg', req.params._id)
+    m.findUpdate(models.Contract, {_id: req.params._id, seller: req.userId}, {status: 'ongoing'}, res, function (contract) {
+        console.log('ongoinggggggggggggggggg', contract)
+
+        m.findUpdate(models.JobApply, {job: contract.job, seller: contract.seller}, {status: 'contract started'}, res, function () {
+            res.send("ok")
+            // mail.invitePayment(contract.buyer, res, m.scb(contract))
         })
     }, {populate: 'buyer'})
 

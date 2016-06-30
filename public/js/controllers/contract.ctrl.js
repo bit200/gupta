@@ -58,6 +58,14 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         })
     }
 
+    scope.approve = function () {
+        http.post('/api/contract/approve/' + scope.contract._id).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })   
+    }
+    
     scope.resume = function() {
         http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
             console.log('resp', resp)

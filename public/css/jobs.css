@@ -331,6 +331,11 @@ form .form-control {
     margin: 0;
 }
 
+[ui-view] {
+    animation: fade .4s ease;
+
+}
+
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
     background-color: rgba(50, 57, 67, 0.82);
 }
