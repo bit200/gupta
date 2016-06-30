@@ -490,7 +490,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         return $q.all({
                             contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
                             info: getResolveQ($q, {
-                                isApprovePage: true,
+                                is_approve_page: true,
                                 from_seller: true,
                                 from_buyer: true
                             })
@@ -499,23 +499,46 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-            .state('contract_suggest', {
-                url: '/contract/suggest/:id',
+            .state('contract_suggest_to_buyer', {
+                url: '/contract/suggest-edits-to-buyer/:id',
                 templateUrl: 'template/contractCreate.html',
                 controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                isSuggestPage: true
+                            contract: $http.get('/api/contract/suggest/detailed/'+ $stateParams.id, {
+                                params: {
+                                    to_buyer: true
+                                }
+                            }),
+                            info: getResolveQ($q,{
+                                is_suggest_page: true,
+                                to_buyer: true
                             })
                         })
                     }]
                 }
             })
-
+            .state('contract_suggest_to_seller', {
+                url: '/contract/suggest-edits-to-seller/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/sugest/detailed/'+ $stateParams.id, {params: {
+                                to_seller: true
+                            }}),
+                            info: getResolveQ($q, {
+                                is_suggest_page: true,
+                                to_seller: true
+                            })
+                        })
+                    }]
+                }
+            })
             .state('contract_close', {
                 url: '/contract/close/:id',
                 templateUrl: 'template/contractClose.html',

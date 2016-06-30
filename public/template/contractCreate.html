@@ -2,8 +2,8 @@
     <div class="cont">
         <h1 class="title2"><span ng-if="!contract._id">Create a contract</span>
             <span ng-if="contract._id">
-                <span ng-if="!info.isSuggestPage">Edit contract #{{contract._id}}</span>
-                <span ng-if="info.isSuggestPage">Suggest edits for contract #{{contract._id}}</span>
+                <span ng-if="!info.is_suggest_page">Edit contract #{{contract._id}}</span>
+                <span ng-if="info.is_suggest_page">Suggest edits for contract #{{contract._id}}</span>
             </span>
         </h1>
         <div class="separator2"></div>
@@ -24,7 +24,7 @@
             </div>
             <div class="separator2"></div>
             <div class="separator2"></div>
-            <div class="iblock">
+            <div class="iblock tset2" is-edited="title">
                 <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
                     <div class="title3">Job title*</div>
                     <input class="form-control" name="title" ng-enter="createContract(contract); submitted=true"
@@ -34,7 +34,7 @@
                 </md-input-container>
             </div>
 
-            <div class="iblock">
+            <div class="iblock" is-edited="information">
                 <md-input-container class="md-block">
                     <div class="title3">Job information</div>
                     <input class="form-control" ng-enter="createContract(contract); submitted=true"
@@ -46,7 +46,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="iblock" ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
+                    <div class="iblock" is-edited="buyer_name" ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
                         <md-input-container class="md-block">
                             <div class="title3">Buyer Name*</div>
                             <input class="form-control" name="buyer_name"
@@ -55,7 +55,7 @@
                             <p class="error" ng-if="formContract.buyer_name.$error.required">Buyer Name is required</p>
                         </md-input-container>
                     </div>
-                    <div class="iblock" ng-class="{'has-error': submitted && formContract.company_name.$invalid}">
+                    <div class="iblock" is-edited="buyer_company_name" ng-class="{'has-error': submitted && formContract.company_name.$invalid}">
                         <md-input-container class="md-block">
                             <div class="title3">Buyer Company name*</div>
                             <input class="form-control" name="buyer_company_name"
@@ -67,14 +67,14 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="iblock">
+                    <div class="iblock" is-edited="seller_contact">
                         <md-input-container class="md-block">
                             <div class="title3">Seller Contact Person Name</div>
                             <input class="form-control" ng-enter="createContract(contract); submitted=true"
                                    ng-model="contract.seller_contact">
                         </md-input-container>
                     </div>
-                    <div class="iblock">
+                    <div class="iblock" is-edited="seller_name">
                         <md-input-container class="md-block">
                             <div class="title3">Seller Name</div>
                             <input class="form-control" ng-enter="createContract(contract); submitted=true"
@@ -89,7 +89,8 @@
                     <div class="title3">Terms</div>
                 </div>
                 <div class="col-md-6">
-                    <div class="iblock" ng-class="{'has-error': submitted && formContract.payment_basis.$invalid}">
+                    <div class="iblock" is-edited="payment_basis"
+                         ng-class="{'has-error': submitted && formContract.payment_basis.$invalid}">
                         <md-input-container class="md-block">
                             <div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>
                             <input class="form-control" name="payment_basis"
@@ -102,14 +103,14 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="iblock"
+                    <div class="iblock" is-edited="expected_start"
                          ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
                         <md-datepicker ng-model="contract.expected_start" md-placeholder="Start Date*"
                                        md-open-on-focus=""></md-datepicker>
                         <p class="error" ng-if="formContract.expected_start.$error.required">Start Date is
                             required</p>
                     </div>
-                    <div class="iblock"
+                    <div class="iblock" is-edited="expected_completion"
                          ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
                         <md-datepicker ng-model="contract.expected_completion" md-placeholder="Completion Date*"
                                        md-open-on-focus=""></md-datepicker>
@@ -118,7 +119,7 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="iblock"
+                    <div class="iblock" is-edited="final_amount"
                          ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
                         <md-input-container class="md-block">
                             <div class="title3">Final Amount to be paid (Rs.)*</div>
@@ -131,7 +132,7 @@
                     </div>
                     <!--<small>Note: the contract will be sent to the service provider for approval</small>-->
                 </div>
-                <div ng-if="!info.isSuggestPage">
+                <div ng-if="!info.is_suggest_page">
                     <div class="col-md-6">
                         <button class="btn btn-grey w100"
                                 ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">
@@ -143,10 +144,10 @@
                         <button class="btn btn-grey w100" ng-click="preview()">Preview</button>
                     </div>
                 </div>
-                <div ng-if="info.isSuggestPage">
+                <div ng-if="info.is_suggest_page">
                     <div class="col-md-6">
                         <button class="btn btn-grey w100"
-                                ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">
+                                ng-click="suggestEdits(formContract.$invalid, 'update', contract); submitted = true">
                             Suggest Edits
                         </button>
                     </div>
