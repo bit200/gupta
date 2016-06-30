@@ -8,6 +8,7 @@
         <h1 class="title2" ng-if="info.is_pause_page">Pause Contract #{{contract._id}}</h1>
         <h1 class="title2" ng-if="info.is_resume_page">Resume Contract #{{contract._id}}</h1>
         <div class="separator2"></div>
+
         <div ng-if="info.is_reject_page">
             <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
                 <div class="title3">Reject Reason</div>
@@ -77,7 +78,7 @@
 
         <div>
             <div class="iblock">
-                <freelancer item="contract.freelancer"></freelancer>
+                <freelancer with-photo="true" item="contract.freelancer"></freelancer>
             </div>
         </div>
         <div class="iblock">
