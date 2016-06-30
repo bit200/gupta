@@ -118,6 +118,24 @@ XYZCtrls.directive('acts', function () {
                         ui_sref: sref("contract_detailed", {id: getInfoId(item, 'contract')})
                     }
                 },
+                'View Suggestion': function () {
+                    return {
+                        is_visible: function() {
+                            if (is_role('*', 'open') && (item.status == 'suggest approving'))
+                                return true
+                        },
+                        ui_sref: sref("contract_suggest_info", {id: getInfoId(item, 'contract')})
+                    }
+                },
+                'Edit Suggestion': function () {
+                    return {
+                        is_visible: function() {
+                            if (is_role('seller', 'open') && (item.status == 'suggest approving'))
+                                return true
+                        },
+                        ui_sref: sref("contract_suggest", {id: getInfoId(item, 'contract')})
+                    }
+                },
                 'Edit Contract': function () {
                     return {
                         is_visible: function() {

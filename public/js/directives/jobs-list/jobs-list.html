@@ -17,7 +17,7 @@
                 <div class="row" ng-repeat="item in items">
                     <div ng-include="templateItem" class="row nomarginxs fitems"></div>
                 </div>
-                <div ng-if="!items.length" class="row">
+                <div ng-if="!items.length && !showLoading" class="row">
                     <div class="row nomarginxs fitems emptyjobs">
                         There is no jobs with that params
                     </div>

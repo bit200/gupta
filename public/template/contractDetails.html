@@ -1,5 +1,6 @@
 <div class="cont">
 
+    <h1 class="title2" ng-if="info.is_suggest_view_page">View Suggestion for #{{contract._id}}</h1>
     <h1 class="title2" ng-if="info.is_details_page">Contract Details #{{contract._id}}</h1>
     <h1 class="title2" ng-if="info.is_approve_page">Approve Contract #{{contract._id}}</h1>
     <h1 class="title2" ng-if="info.is_close_page">Close Contract #{{contract._id}}</h1>
@@ -153,6 +154,20 @@
             </div>
         </div>
 
+        <div ng-if="info.is_suggest_view_page">
+            <div class="col-md-12">
+                <div class="separator"></div>
+            </div>
+
+
+            <div class="col-md-6">
+                <button class="btn btn-grey w100" ng-click="approve()">Approve the suggestion</button>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-grey w100">Suggest new terms</a>
+            </div>
+        </div>
+
         <div ng-if="info.is_approve_page">
             <div class="col-md-12">
                 <div class="separator"></div>
@@ -166,7 +181,7 @@
                 <a class="btn btn-grey w100" ui-sref="contract_reject({id: contract._id})">Reject</a>
             </div>
             <div class="col-md-4">
-                <a ui-sref="contract_suggest_from_seller({id: contract._id})" class="btn btn-grey w100">Suggest
+                <a ui-sref="contract_suggest({id: contract._id})" class="btn btn-grey w100">Suggest
                     Edits</a>
             </div>
         </div>

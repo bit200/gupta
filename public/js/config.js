@@ -487,6 +487,22 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
+            .state('contract_suggest_info', {
+                url: '/suggestion/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_suggest_view_page: true
+                            })
+                        })
+                    }]
+                }
+            })
 
             .state('contract_create', {
                 url: '/contract/create/:id',
@@ -584,29 +600,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
-            .state('contract_suggest_from_buyer', {
-                url: '/contract/suggest-edits-from-buyer/:id',
-                templateUrl: 'template/contractCreate.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/suggest-from-buyer/detailed/'+ $stateParams.id, {
-                                params: {
-                                    to_buyer: true
-                                }
-                            }),
-                            info: getResolveQ($q,{
-                                is_suggest_page: true,
-                                from_buyer: true
-                            })
-                        })
-                    }]
-                }
-            })
-            .state('contract_suggest_from_seller', {
-                url: '/contract/suggest-edits-from-seller/:id',
+           
+            .state('contract_suggest', {
+                url: '/contract/suggest-edits/:id',
                 templateUrl: 'template/contractCreate.html',
                 controller: 'contractCtrl',
                 resolve: {

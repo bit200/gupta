@@ -183,7 +183,7 @@ jobs-list .fitems {
     background-color: white;
     position: absolute;
     z-index: 999;
-    animation: fadeIn .5s ease forwards;
+    /*animation: fadeIn .1s ease forwards;*/
 
 }
 .lloading.hid-loading {
@@ -273,7 +273,7 @@ freelancer img {
 }
 .title2:after {
     content: ' ';
-    width: 70px;
+    width: 45px;
     border-bottom: 2px solid #e53d32;
     display: block;
     margin: 0 auto;
@@ -333,9 +333,8 @@ form .form-control {
     margin: 0;
 }
 
-[ui-view] {
+.body>div {
     animation: fade .4s ease;
-
 }
 
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
@@ -384,6 +383,6 @@ md-input-container {
     opacity: 1;
 }
 .emptyjobs {
-    padding: 100px 0!important;
+    padding: 50px 0!important;
     text-align: center;
 }
