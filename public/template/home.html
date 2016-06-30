@@ -43,13 +43,13 @@
         <div class=" text-center marginTB20"><h2 class="marginTB10"> Featured Profiles</h2></div>
         <div class="row">
             <!--<div class="col-md-3 col-xs-6 col-sm-6 paddingB20 noborder pointer" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 8" ng-click="showProfile(profile._id)">-->
-            <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 8"
+            <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;" ng-repeat="profile in profiles | orderBy:'-view'" ng-if="$index < 8"
                  ng-click="$state.go('categories.profile', {id: profile._id})">
                 <div class="like-field"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
                 <div class="profile">
                     <div class="front">
                         <div class="profile-img">
-                            <img class="profile-poster" ng-src="{{profile.poster.url.replace('/public','')}}">
+                            <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
                         </div>
                         <div class="profile-info">
                             <div class="text-center profile-info-name">{{profile.name}}</div>

@@ -9,7 +9,6 @@ var models = require('../db')
     , redis = require('../redis')
     , mail = require('../mail');
 
-
 exports.list = function (req, res) {
     var params = m.getBody(req);
     m.find(models.User, {}, res, res, params)

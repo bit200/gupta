@@ -17,19 +17,11 @@ var FreelancerSchema = mongoose.Schema({
         word: Number,
         hour: Number
     },
-    poster: {
-        type: Number,
-        ref: 'UploadFile'
-    },
     service_packages: [{
         type: Number,
         ref: 'Package'
     }],
     service_providers: Array,
-    Attachments: [{
-        type: Number,
-        ref: 'UploadFile'
-    }],
     profile: String,
     number_employees: Number,
     //0 - pending, 1-approved, 2-rejected
@@ -46,10 +38,6 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         ref: 'Work'
     },
-    portfolio: [{
-        type: Number,
-        ref: 'Portfolio'
-    }],
     contact_detail: {
         type: Number,
         ref: 'ContactDetail'
