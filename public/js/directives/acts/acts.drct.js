@@ -130,10 +130,19 @@ XYZCtrls.directive('acts', function () {
                 'Pause Contract': function () {
                     return {
                         is_visible: function() {
-                            if (is_role('buyer', 'ongoing'))
+                            if (is_role('buyer', 'ongoing') && item.status != 'paused')
                                 return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("contract_pause", {id: getInfoId(item, 'contract')})
+                    }
+                },
+                'Resume Contract': function () {
+                    return {
+                        is_visible: function() {
+                            if (is_role('buyer', 'ongoing') && item.status == 'paused')
+                                return true
+                        },
+                        ui_sref: sref("contract_resume", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Close Contract': function () {
@@ -142,7 +151,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'ongoing'))
                                 return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("contract_close", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Initiate Payment': function () {
