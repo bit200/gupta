@@ -1,30 +1,28 @@
-<div class="container new" ng-init="apply = getContent.apply.data.data; job = apply.job;">
-    <div class="cont">
-        <h1 class="title2">Application for job #{{apply.job._id}}</h1>
-        <div class="separator2"></div>
-        <h2 class="title3">
-            {{job.title}}
-        </h2>
-        <short-preview limit=100 value="job.description"></short-preview>
-        <a href="#/job/{{job._id}}" class="mtop5">View job posting</a>
-        <div class="separator"></div>
-        <small ng-if="isApply"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> You have already applied for the job</small>
-        <div class="title3">Cover Letter</div>
-        <div>{{apply.message}}</div>
-        <div class="separator2"></div>
-        <div class="title3">Your estimated budget</div>
-        <div>{{apply.budget}}</div>
-        <div class="separator2"></div>
+<div class="cont" ng-init="apply = getContent.apply.data.data; job = apply.job;">
+    <h1 class="title2">Application for job #{{apply.job._id}}</h1>
+    <div class="separator2"></div>
+    <h2 class="title3">
+        {{job.title}}
+    </h2>
+    <short-preview limit=100 value="job.description"></short-preview>
+    <a href="#/job/{{job._id}}" class="mtop5">View job posting</a>
+    <div class="separator"></div>
+    <small ng-if="isApply"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> You have already applied for the job</small>
+    <div class="title3">Cover Letter</div>
+    <div>{{apply.message}}</div>
+    <div class="separator2"></div>
+    <div class="title3">Your estimated budget</div>
+    <div>{{apply.budget}}</div>
+    <div class="separator2"></div>
 
-        <div class="title3">Estimation duration</div>
-        <div class="form-group">
-            {{apply.time_estimation}}
-        </div>
-        <div class="separator2"></div>
-        <div>
-            <a href="#/job/apply/{{job._id}}" class="btn btn-grey w100">Edit your application</a>
-        </div>
-
+    <div class="title3">Estimation duration</div>
+    <div class="form-group">
+        {{apply.time_estimation}}
+    </div>
+    <div class="separator2"></div>
+    <div>
+        <a href="#/job/apply/{{job._id}}" class="btn btn-grey w100">Edit your application</a>
     </div>
 
 </div>
+

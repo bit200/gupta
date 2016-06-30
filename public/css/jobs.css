@@ -45,6 +45,7 @@ jobs-list>div {
 jobs-list .items {
     min-height: 400px;
 }
+
 .title3 {
     text-transform: uppercase;
     color: #333945;
@@ -241,12 +242,16 @@ jobs-list .fitems {
 textarea {
     max-width: 100%;
 }
+.container.job {
+    padding-top: 15px;
+}
 
 .cont {
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
     padding-bottom: 20px;
+    padding-top: 25px;
 }
 .title2, .title3 {
     color: #3d4048;
