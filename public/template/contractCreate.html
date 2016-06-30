@@ -19,13 +19,8 @@
 
         <form name="formContract" novalidate>
             <div>
-<<<<<<< Updated upstream
                 <div class="title3">Contract for</div>
                 <freelancer item="contract.freelancer"></freelancer>
-=======
-                <span class="title35">Concract for</span>
-                <freelancer item="contract.seller"></freelancer>
->>>>>>> Stashed changes
             </div>
             <div class="separator2"></div>
             <div class="separator2"></div>
@@ -46,15 +41,9 @@
                            ng-model="contract.information">
                 </md-input-container>
             </div>
-<<<<<<< Updated upstream
 
             <div class="text-bold title3">Contracting Parties</div>
 
-=======
-            <div class="separator2"></div>
-            <div class="separator2"></div>
-            <div class="text-bold title3">Contracting Parties</div>
->>>>>>> Stashed changes
             <div class="row">
                 <div class="col-md-6">
                     <div class="iblock" is-edited="buyer_name" ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
@@ -97,7 +86,6 @@
 
             <div class="row">
                 <div class="col-xs-12">
-<<<<<<< Updated upstream
                     <div class="title3">Terms</div>
                 </div>
                 <div class="col-md-6">
@@ -109,25 +97,11 @@
                                    ng-enter="createContract(contract); submitted=true" ng-model="contract.payment_basis"
                             >
                             <!--required>-->
-=======
-                <div class="title3">Terms</div>
-                </div>
-
-                <div class="col-xs-6">
-                    <div class="title3">Payment Basis (mention deliverables, rate, and no. of units)</div>
-
-                    <div class="form-group" ng-class="{'has-error': submitted && formContract.payment_basis.$invalid}">
-                        <md-input-container class="md-block">
-                            <input class="form-control" name="payment_basis"
-                                   ng-enter="createContract(contract); submitted=true" ng-model="contract.payment_basis"
-                                   required>
->>>>>>> Stashed changes
                             <p class="error" ng-if="formContract.payment_basis.$error.required">Payment Basis is
                                 required</p>
                         </md-input-container>
                     </div>
                 </div>
-<<<<<<< Updated upstream
                 <div class="col-md-6">
                     <div class="iblock" is-edited="expected_start"
                          ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
@@ -137,22 +111,12 @@
                             required</p>
                     </div>
                     <div class="iblock" is-edited="expected_completion"
-=======
-                <div class="col-xs-6">
-                    <div class="form-group" ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
-                        <md-datepicker ng-model="contract.expected_start" md-placeholder="Start Date*"
-                                       md-open-on-focus=""></md-datepicker>
-                        <p class="error" ng-if="formContract.expected_start.$error.required">Start Date is required</p>
-                    </div>
-                    <div class="form-group"
->>>>>>> Stashed changes
                          ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
                         <md-datepicker ng-model="contract.expected_completion" md-placeholder="Completion Date*"
                                        md-open-on-focus=""></md-datepicker>
                         <p class="error" ng-if="formContract.expected_completion.$error.required">Completion Date is
                             required</p>
                     </div>
-<<<<<<< Updated upstream
                 </div>
                 <div class="col-md-12">
                     <div class="iblock" is-edited="final_amount"
@@ -162,22 +126,10 @@
                             <input class="form-control" numbers-only="" name="final_amount"
                                    ng-enter="createContract(contract); submitted=true"
                                    ng-model="contract.final_amount" required>
-=======
-
-                </div>
-                <div class="col-xs-12">
-                    <div class="form-group" ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
-                        <md-input-container class="md-block">
-                            <div class="title3">Final Amount to be paid (Rs.)* </div>
-                            <input class="form-control" numbers-only="" name="final_amount"
-                                   ng-enter="createContract(contract); submitted=true" ng-model="contract.final_amount"
-                                   required>
->>>>>>> Stashed changes
                             <p class="error" ng-if="formContract.final_amount.$error.required">Final Amount is
                                 required</p>
                         </md-input-container>
                     </div>
-<<<<<<< Updated upstream
                     <!--<small>Note: the contract will be sent to the service provider for approval</small>-->
                 </div>
                 <div ng-if="!info.is_suggest_page">
@@ -207,25 +159,6 @@
             </div>
 
             <div>
-=======
-                    <small>The contract will be sent to the service provider for approval</small>
-
-                </div>
-
-                <div class="col-xs-6">
-                    <button class="btn btn-grey w100"
-                            ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">Create
-                        Contract
-                    </button>
-                </div>
-                <div class="col-xs-6">
-                    <button class="btn btn-grey w100" ng-click="preview()">Preview</button>
-                    <!--<button class="btn btn-danger text-white"-->
-                    <!--ng-click="createContract('false', 'delete', {_id: contract._id})">Delete-->
-                    <!--</button>-->
-                </div>
-
->>>>>>> Stashed changes
             </div>
         </form>
 

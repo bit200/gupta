@@ -8,10 +8,7 @@ XYZCtrls.directive('freelancer', function () {
         template: '<a href="#/profile/user/{{seller.user}}">{{seller.name}}</a>',
         controller: ['$scope', function (scope) {
             scope.seller = scope.item ? scope.item.freelancer || scope.item : null
-<<<<<<< Updated upstream
             console.log('hahahahhaha')
-=======
->>>>>>> Stashed changes
         }]
     };
 });
