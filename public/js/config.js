@@ -49,7 +49,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                     distinctName: 'name'
                                 }
                             }),
-                            jobs: $http.get('/api/jobs/all')
+                            jobs: $http.get('/api/jobs/popular')
                         })
                     }
                 }
