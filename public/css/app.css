@@ -376,7 +376,8 @@ div.text-padding {
 }
 
 .marginTB20 {
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .marginT8 {
@@ -463,6 +464,10 @@ div.text-padding {
     border-bottom: 1px solid black;
 }
 
+.border-bottom-grey {
+    border-bottom: 1px solid black;
+}
+
 .service-provider-icon {
     margin-top: 10%;
     height: 50%;
@@ -474,6 +479,7 @@ div.text-padding {
     border: 1px solid #d8e6f3;
     width: calc(100% / 2 - 20px);
     display: inline-block;
+    float: left;
     float: left;
     margin: 15px 10px;
     text-align: center;
@@ -520,7 +526,7 @@ html, body {
     padding: 0 !important;
 }
 
-.inlineBlock {
+.inline-block {
     display: inline-block;
 }
 
@@ -617,9 +623,17 @@ div.communitySP div.text-center {
     width: 20%;
 }
 
+.glyphicon-star-red {
+    color: red;
+}
+
+.glyphicon-star-white {
+    color:white;
+}
+
 .profile-poster {
     background: rgba(255, 255, 255, 0.41);
-    width: 96%;
+    width: 97%;
     height: 96%;
     margin: 1.5%;
 }
@@ -632,8 +646,6 @@ div.communitySP div.text-center {
     background: lightgrey;
     width: 100%;
     height: 100%;
-    /*border: 1px solid transparent;*/
-    /*border-radius: 5px;*/
 }
 
 .profile {
@@ -642,11 +654,75 @@ div.communitySP div.text-center {
     position: relative;
     opacity: 1;
     transition: all 500ms;
+    backface-visibility: hidden;
+    overflow: hidden;
 }
 
-.profile:hover {
-    opacity: 0.1;
-    /*animation: block-up 500ms ease forwards;*/
+.font {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    opacity: 1;
+    transition: all .5s ease;
+}
+
+.back {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 54;
+    opacity: 0;
+    transition: all .5s ease;
+    background-color: black;
+    transform: translateY(300px);
+}
+
+
+.profile:hover .back {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+
+.profile:hover .front {
+
+}
+
+.profile-back {
+    background-color: black;
+    color: white;
+}
+
+.profile-back-name {
+    margin-top: 15%;
+    text-align: center;
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.profile-back-introduction {
+    text-align: center;
+    font-size: 14pt;
+    margin-top: 10px;
+}
+
+.profile-back-description {
+    text-align: center;
+    margin-top: 20px;
+    overflow: hidden;
+    max-height: 80px;
+    text-overflow: ellipsis;
+    padding: 0px 10px;
+}
+
+.profile-back-rating-block {
+    position: absolute;
+    width: 100%;
+    bottom: 30px;
+    text-align: center;
 }
 
 .profile-info {
@@ -669,6 +745,68 @@ div.communitySP div.text-center {
     font-size: 14pt;
     padding: 12px;
     padding-left: 20px;
+}
+
+.job-logo {
+    background-color: #565A5D;
+    color: white;
+    font-size: 18px;
+    white-space: nowrap;
+    padding: 0px 6px;
+    height: 120px;
+    width: 125px;
+    font-weight: bold;
+    padding-top: 28%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.job-types {
+    text-transform: uppercase;
+    font-size: 12pt;
+    color: #555A5B;
+}
+
+.job-button {
+    color: #676767;
+    border-color: #D5D5D5;
+    background-color: #D5D5D5;
+    border-bottom: 4px solid #BBBBBB;
+}
+
+.job-button:hover {
+    color: #ffffff;
+    border-color: #3E3E3E;
+    background-color: #3E3E3E;
+    border-bottom: 4px solid #000000;
+}
+
+.hidden-xs-down {
+    display: none;
+}
+
+.job-title {
+    height: 67px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.job-info {
+    background-color: #F9F9F9;
+    height: 125px;
+}
+
+.job-info-location {
+    padding: 10%;
+    width: 100%;
+    font-size: 13pt;
+    color: #55595C;
+}
+
+.job-info-price {
+    padding: 3% 10%;
+    font-size: 14pt;
+    color: #55595C;
 }
 
 .star-icon {
@@ -1259,10 +1397,32 @@ div.containerCrop {
     color: #f7961d;
 }
 
+.like-field {
+    position: absolute;
+    z-index: 30;
+    background-color: rgba(77, 77, 77, 0.48);
+    padding: 7px 10px;
+    border-radius: 33px;
+    border: 1px solid;
+    right: 14px;
+    top: 10px;
+}
+.like-field-heart:hover {
+    color: #EA2B29;
+}
+
+.like-field-heart {
+    color: white;
+    font-size: 15pt;
+    padding-top: 4px;
+}
+
 
 .has-error .form-control{
     border-color: red !important;
 }
+
+
 
 @media (min-width: 768px) {
     .seller-modal .modal-dialog {
@@ -1279,11 +1439,7 @@ div.containerCrop {
         font-size: 8pt;
     }
 
-    /*.profile {*/
-    /*width: 40vw;*/
-    /*height: 40vw;*/
-    /*font-size: 8pt;*/
-    /*}*/
+
     .block-popularity {
         height: 10px;
     }
@@ -1361,6 +1517,10 @@ div.containerCrop {
         top: 23px;
         font-size: 25pt !important;
         opacity: 0.8;
+    }
+    
+    .hidden-xs-down {
+        display: inline-block;
     }
 }
 

@@ -48,7 +48,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                     query: {type: 'FreelancerType'},
                                     distinctName: 'name'
                                 }
-                            })
+                            }),
+                            jobs: $http.get('/api/jobs/all')
                         })
                     }
                 }
