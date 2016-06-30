@@ -40,17 +40,10 @@ var ContractSchema = mongoose.Schema({
     expected_start: Date,
     expected_completion: Date,
     amount: Number,
-    final_amount: Number,
     wait_seller: Boolean,
     wait_buyer: Boolean,
     final_amount: Number,
-    payment_basis: String,
-    expected_start: Date,
-    expected_completion: Date,
     budget: Number,
-    status: {
-        type: String
-    },
     status_priority: {
         type: Number,
         default: 0
