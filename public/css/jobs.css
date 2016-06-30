@@ -259,6 +259,10 @@ textarea {
 .lightRed {
     color: #e53d32;
 }
+.rating .filled {
+    color: #21568b;
+}
+
 freelancer img {
     width: 35px;
     height: 35px;

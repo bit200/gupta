@@ -36,6 +36,11 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         return item ? item._id || item : null
     }
 
+    scope.rating = 5;
+    scope.rateFunction = function(rating) {
+        alert('Rating selected - ' + rating);
+    };
+
     scope.reject = function(message) {
         http.post('/api/contract/reject/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
             console.log('resp', resp)

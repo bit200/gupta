@@ -562,7 +562,22 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
-
+            .state('contract_close', {
+                url: '/contract/close/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_close_page: true
+                            })
+                        })
+                    }]
+                }
+            })
             .state('contract_suggest_from_buyer', {
                 url: '/contract/suggest-edits-from-buyer/:id',
                 templateUrl: 'template/contractCreate.html',
@@ -604,19 +619,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-            .state('contract_close', {
-                url: '/contract/close/:id',
-                templateUrl: 'template/contractClose.html',
-                controller: 'contractCloseCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            job: $http.post('/get-job', {_id: $stateParams.id})
-                        })
-                    }]
-                }
-            })
+
 
             .state('user', {
                 url: '/user',
