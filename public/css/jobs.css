@@ -60,6 +60,7 @@ jobs-list .items {
 }
 .job-nav {
     padding: 20px;
+    margin-top: 30px;
     /*padding-bottom: 80px;*/
 }
 

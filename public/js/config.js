@@ -237,8 +237,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 }
             })
-            .state('jobs', {
+
+            .state('jobs_list', {
                 url: '/jobs',
+                templateUrl: 'js/directives/jobs-list/jobs-content.html',
+                abstract: true
+            })
+            .state('jobs_list.all', {
+                url: '',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: getStatic({
@@ -247,8 +253,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     url: '/api/jobs/all'
                 })
             })
-            .state('jobs_buyer_my', {
-                url: '/jobs/buyer/my',
+            .state('jobs_list.buyer_my', {
+                url: '/buyer/my',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -259,8 +265,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     })
                 }
             })
-            .state('jobs_buyer_open', {
-                url: '/jobs/buyer/open',
+            .state('jobs_list.buyer_open', {
+                url: '/buyer/open',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -272,8 +278,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-            .state('jobs_buyer_ongoing', {
-                url: '/jobs/buyer/ongoing',
+            .state('jobs_list.buyer_ongoing', {
+                url: '/buyer/ongoing',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -284,8 +290,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     })
                 }
             })
-            .state('jobs_buyer_closed', {
-                url: '/jobs/buyer/closed',
+            .state('jobs_list.buyer_closed', {
+                url: '/buyer/closed',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -297,8 +303,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-            .state('jobs_seller_open', {
-                url: '/jobs/seller/open',
+            .state('jobs_list.seller_open', {
+                url: '/seller/open',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -309,8 +315,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     })
                 }
             })
-            .state('jobs_seller_ongoing', {
-                url: '/jobs/seller/ongoing',
+            .state('jobs_list.seller_ongoing', {
+                url: '/seller/ongoing',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
@@ -322,7 +328,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('jobs_seller_closed', {
-                url: '/jobs/seller/closed',
+                url: '/seller/closed',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
