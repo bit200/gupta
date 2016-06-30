@@ -9,9 +9,11 @@ module.exports = function (app) {
     app.post('/contract/update', auth.token, contract.update_contract);
     app.post('/contract/delete', auth.token, contract.delete_contract);
     app.post('/contract/reject', auth.token, contract.reject_contract);
-    app.delete('/api/contract/reject/:_id', auth.token, contract.reject_contract);
-    app.delete('/api/contract/pause/:_id', auth.token, contract.pause_contract);
-    app.delete('/api/contract/resume/:_id', auth.token, contract.resume_contract);
+
+    app.post('/api/contract/reject/:_id', auth.token, contract.reject_contract);
+    app.post('/api/contract/pause/:_id', auth.token, contract.pause_contract);
+    app.post('/api/contract/resume/:_id', auth.token, contract.resume_contract);
+
     app.post('/contract/suggest', auth.token, contract.suggest_contract);
     app.post('/api/contract/suggest', auth.token, contract.suggest_contract);
     app.post('/contract/close', auth.token, contract.close_contract);

@@ -1,7 +1,12 @@
 <div class="container">
     <div class="cont">
-        <h1 class="title2" ng-if="!info.is_reject_page">Contract Details #{{contract._id}}</h1>
+        <h1 class="title2" ng-if="info.is_details_page">Contract Details #{{contract._id}}</h1>
+        <h1 class="title2" ng-if="info.is_approve_page">Approve Contract #{{contract._id}}</h1>
+        <h1 class="title2" ng-if="info.is_close_page">Close Contract #{{contract._id}}</h1>
         <h1 class="title2" ng-if="info.is_reject_page">Reject Contract #{{contract._id}}</h1>
+        <h1 class="title2" ng-if="info.is_pause_page">Pause Contract #{{contract._id}}</h1>
+        <h1 class="title2" ng-if="info.is_resume_page">Resume Contract #{{contract._id}}</h1>
+
         <div ng-if="info.is_reject_page">
             <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
                 <div class="title3">Reject Reason</div>
@@ -11,9 +16,43 @@
 
             </md-input-container>
             <button class="btn btn-grey w100" ng-click="reject(contract)">Send Reject Request</button>
-            <div class="separator"></div>
-
         </div>
+
+        <div ng-if="info.is_resume_page">
+            <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Resume Comment</div>
+                <textarea style="height: 100px!important;" class="form-control" name="title" ng-enter="createContract(contract); submitted=true"
+                          ng-model="contract.resume_reason" required >\n\n\n</textarea>
+                <p class="error" ng-if="formContract.title.$error.required">Reason can't be empty</p>
+
+            </md-input-container>
+            <button class="btn btn-grey w100" ng-click="resume(contract)">Send Resume Request</button>
+        </div>
+
+        <div ng-if="info.is_pause_page">
+            <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Pause Reason</div>
+                <textarea style="height: 100px!important;" class="form-control" name="title" ng-enter="createContract(contract); submitted=true"
+                          ng-model="contract.pause_reason" required >\n\n\n</textarea>
+                <p class="error" ng-if="formContract.title.$error.required">Reason can't be empty</p>
+
+            </md-input-container>
+            <button class="btn btn-grey w100" ng-click="pause(contract)">Send Pause Request</button>
+        </div>
+        <div ng-if="info.is_close_page">
+            <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Pause Reason</div>
+                <textarea style="height: 100px!important;" class="form-control" name="title" ng-enter="createContract(contract); submitted=true"
+                          ng-model="contract.pause_reason" required >\n\n\n</textarea>
+                <p class="error" ng-if="formContract.title.$error.required">Reason can't be empty</p>
+
+            </md-input-container>
+            <button class="btn btn-grey w100" ng-click="pause(contract)">Send Close Request</button>
+        </div>
+        <div class="separator2"></div>
+
+        <h1 ng-if="info.is_pause_page || info.is_reject_page || info.is_resume_page || info.is_close_page" class="title2">Contract details</h1>
+
         <div>
             <div class="iblock">
 
@@ -21,7 +60,6 @@
                 <freelancer item="contract.freelancer"></freelancer>
             </div>
         </div>
-        <div class="separator2"></div>
         <div class="iblock">
             <div class="title3">Job title</div>
             <div>{{contract.title}}</div>

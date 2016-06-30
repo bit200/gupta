@@ -473,7 +473,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_details_page: true
+                            })
                         })
                     }]
                 }

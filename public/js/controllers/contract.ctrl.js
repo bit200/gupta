@@ -36,20 +36,39 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         return item ? item._id || item : null
     }
 
-    scope.reject = function() {
-        http.delete('/api/contract/reject/' + scope.contract._id).then(function (resp) {
+    scope.reject = function(message) {
+        http.post('/api/contract/reject/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
             console.log('resp', resp)
         }, function (err) {
             console.log('err', err)
         })
     }
-    scope.pause = function() {
-        http.post('/api/contract/pause/' + scope.contract._id).then(function (resp) {
+
+    scope.pause = function(message) {
+        http.post('/api/contract/pause/' + scope.contract._id, {pause_reason: scope.contract.pause_reason}).then(function (resp) {
             console.log('resp', resp)
         }, function (err) {
             console.log('err', err)
         })
     }
+
+    scope.resume = function() {
+        http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })
+    }
+
+    scope.close = function(data){
+        console.log('close info', data)
+        http.post('/api/contract/close', data).then(function(resp){
+            console.log('resp',resp)
+        }, function(err){
+            console.log('err',err)
+        })
+    }
+
     scope.suggestEdits = function(invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()
