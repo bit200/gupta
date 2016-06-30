@@ -103,7 +103,7 @@ exports.pause_contract = function (req, res) {
 
     m.findUpdate(models.Contract, {_id: params._id, buyer: req.userId}, {
         status: 'paused',
-        reject_reason: params.reject_reason
+        pause_reason: params.pause_reason
     }, res, function (contract) {
         res.send('ok')
         // mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
@@ -115,7 +115,7 @@ exports.resume_contract = function (req, res) {
 
     m.findUpdate(models.Contract, {_id: params._id, buyer: req.userId}, {
         status: 'ongoing',
-        reject_reason: params.reject_reason
+        resume_reason: params.resume_reason
     }, res, function (contract) {
         res.send('ok')
         // mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
@@ -142,7 +142,8 @@ exports.suggest_contract = function (req, res) {
 exports.close_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
-    m.findUpdate(models.Contract, {_id: params.id, buyer: req.userId}, {status: 'close'}, res, function (contract) {
+    params.status = 'closed'
+    m.findUpdate(models.Contract, {_id: req.params._id, buyer: req.userId}, params, res, function (contract) {
         m.findUpdate(models.Job, {contract: contract._id}, {status: 'closed'}, res, function (job) {
             params.job = job._id;
             m.create(models.Comments, params, res, function () {

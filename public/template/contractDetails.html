@@ -50,10 +50,12 @@
                 <textarea style="height: 100px!important;" class="form-control" name="closure_comments" submitted=true"
                           ng-model="contract.closure_comment" required></textarea>
                 <p class="error" ng-if="formContract.title.$error.required">Closure comment can't be empty</p>
-
             </md-input-container>
             <div class="title3">How would you like to rate the service provider</div>
-            <div>Stars</div>
+            <select ng-options="item as item for item in [1,2,3,4,5]" ng-model="contract.rating" class="form-control">
+                <option>asdfasdf</option>
+            </select>
+
             <div class="separator2"></div>
             <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
 
@@ -63,7 +65,7 @@
                 <p class="error" ng-if="formContract.title.$error.required">Closure comment can't be empty</p>
             </md-input-container>
 
-            <button class="btn btn-grey w100" ng-click="pause(contract)">Close the Contract</button>
+            <button class="btn btn-grey w100" ng-click="close(contract)">Close the Contract</button>
         </div>
 
         <div ng-if="info.is_pause_page || info.is_reject_page || info.is_resume_page || info.is_close_page">

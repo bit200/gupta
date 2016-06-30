@@ -67,7 +67,11 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
     scope.close = function(data){
         console.log('close info', data)
-        http.post('/api/contract/close', data).then(function(resp){
+        http.post('/api/contract/close/' + data._id, {
+            review_comment: data.review_comment,
+            closure_comment: data.closure_comment,
+            rating: data.rating
+        }).then(function(resp){
             console.log('resp',resp)
         }, function(err){
             console.log('err',err)
