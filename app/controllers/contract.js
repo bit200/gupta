@@ -88,9 +88,9 @@ exports.delete_contract = function (req, res) {
 };
 
 exports.reject_contract = function (req, res) {
-    var params = req.params;
+    var params = m.getBody(req);
 
-    m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {
+    m.findUpdate(models.Contract, {_id: req.params._id, seller: req.userId}, {
         status: 'rejected',
         reject_reason: params.reject_reason
     }, res, function (contract) {
@@ -99,9 +99,9 @@ exports.reject_contract = function (req, res) {
 };
 
 exports.pause_contract = function (req, res) {
-    var params = req.params;
-
-    m.findUpdate(models.Contract, {_id: params._id, buyer: req.userId}, {
+    var params = m.getBody(req);
+    console.log('asdfasdfasdfasdf', params, req.params)
+    m.findUpdate(models.Contract, {_id: req.params._id, buyer: req.userId}, {
         status: 'paused',
         pause_reason: params.pause_reason
     }, res, function (contract) {
@@ -111,9 +111,9 @@ exports.pause_contract = function (req, res) {
 };
 
 exports.resume_contract = function (req, res) {
-    var params = req.params;
-
-    m.findUpdate(models.Contract, {_id: params._id, buyer: req.userId}, {
+    var params = m.getBody(req);
+    console.log('apramaa', params)
+    m.findUpdate(models.Contract, {_id: req.params._id, buyer: req.userId}, {
         status: 'ongoing',
         resume_reason: params.resume_reason
     }, res, function (contract) {

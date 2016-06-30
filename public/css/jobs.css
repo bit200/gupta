@@ -355,4 +355,24 @@ md-input-container {
     margin-bottom: 0;
 }
 
-
+.ftp {
+    position: absolute;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transition: all .4s ease;
+    display: none;
+    opacity: 0;
+    padding: 10px;
+    margin-left: -80px;
+    width: 300px;
+    transition: all .4s ease;
+    z-index: 100;
+}
+.tp {
+    display: block;
+    position: relative;
+}
+.tp:hover .ftp{
+    display: block;
+    opacity: 1;
+}

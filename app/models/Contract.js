@@ -51,8 +51,12 @@ var ContractSchema = mongoose.Schema({
     status: {
         type: String
     },
+
     reject_reason: String,
     pause_reason: String,
+    resume_reason: String,
+    closure_comment: String,
+    review_comment: String,
     rating: Number,
     created_at: {
         type: Date,

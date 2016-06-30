@@ -50,6 +50,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     }
 
     scope.pause = function(message) {
+        console.log('pause reasone', scope.contract.puase_reason)
         http.post('/api/contract/pause/' + scope.contract._id, {pause_reason: scope.contract.pause_reason}).then(function (resp) {
             console.log('resp', resp)
         }, function (err) {
