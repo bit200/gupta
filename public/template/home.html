@@ -119,10 +119,10 @@
     </div>
 </div>
 
-<div class="register-with-us-img">
+<div class="register-with-us-img" ng-hide="isLogged()" >
     <h2 class="text-center text-white register-with-us-text">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
     <div class="text-center">
-        <button class="btn btn-red text-white">REGISTER WITH US</button>
+        <button class="btn btn-red text-white" ng-click="go('/freelancer-registration')">REGISTER WITH US</button>
     </div>
 </div>
 
