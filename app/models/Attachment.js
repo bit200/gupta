@@ -26,4 +26,23 @@ AttachmentSchema.virtual('url').get(function() {
     return '/uploads/'+this.path+'/'+this.name;
 });
 
+var deleteFolderRecursive = function(path) {
+    if( fs.existsSync(path) ) {
+        fs.readdirSync(path).forEach(function(file,index){
+            var curPath = path + "/" + file;
+            if(fs.lstatSync(curPath).isDirectory()) { // recurse
+                deleteFolderRecursive(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+};
+
+AttachmentSchema.pre('remove', function(next) {
+    deleteFolderRecursive('/public/uploads/'+this.path+'/'+this.name)
+    next();
+});
+
 mongoose.model('Attachment', AttachmentSchema);

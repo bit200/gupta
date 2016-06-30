@@ -8,47 +8,29 @@ var models = require('../db')
     multer = require('multer'),
     async = require('async');
 
+exports.add_update_contact_detail = function (req, res) {
+    if (req.body.id){
+        req.body.id = parseInt(req.body.id)
+        m.findUpdate(models.ContactDetail, {_id: parseInt(req.body._id)}, req.body,res,res)
+    }else 
+        m.create(models.ContactDetail, req.body,res,res)
+};
+
 exports.freelancer_request = function (req, res) {
     var params = m.getBody(req);
-    async.parallel([
-        function(cb){
-            if (!params.newPackages) return cb()
-            async.forEach(params.newPackages, function(pkg, ct){
-                m.create(models.Package, pkg, res, function (saved_pkg) {
-                    if (!params.service_packages) params.service_packages = [];
-                    params.service_packages.push(saved_pkg._id);
-                    ct();
-                })
-            },cb)
-        },
-        function(cb){
-            if (!params.work) return cb()
-            m.create(models.Work, params.work, res, function (work) {
-                params.work = work._id;
-                cb()
-            })
-        },function(cb){
-            if (!params.contact_detail) return cb()
-            m.create(models.ContactDetail, params.contact_detail, res, function (contact_detail) {
-                params.contact_detail = contact_detail._id
-                cb();
-            })
-        }
-    ], function(){
-        if (req.userId){
-            m.findCreateUpdate(models.Freelancer, {_id: req.userId}, params, res, function(freelancer){
-                mail.newRegistration_admin(freelancer);
-                res.send(freelancer)
-            })
-        }
-        else{
-            m.create(models.Freelancer,params,res,function(freelancer){
-                mail.newRegistration_admin(freelancer);
-                res.send(freelancer)
-            })
-            
-        }
-    });
+    if (req.userId){
+        m.findCreateUpdate(models.Freelancer, {user: req.userId}, params, res, function(freelancer){
+            mail.newRegistration_admin(freelancer);
+            res.send(freelancer)
+        })
+    }
+    else{
+        m.create(models.Freelancer,params,res,function(freelancer){
+            mail.newRegistration_admin(freelancer);
+            res.send(freelancer)
+        })
+        
+    }
 };
 
 exports.deleteFile = function (req, res) {

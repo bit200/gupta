@@ -9,19 +9,6 @@ var models = require('../db')
     async = require('async');
 
 
-var deleteFolderRecursive = function(path) {
-    if( fs.existsSync(path) ) {
-        fs.readdirSync(path).forEach(function(file,index){
-            var curPath = path + "/" + file;
-            if(fs.lstatSync(curPath).isDirectory()) { // recurse
-                deleteFolderRecursive(curPath);
-            } else { // delete file
-                fs.unlinkSync(curPath);
-            }
-        });
-        fs.rmdirSync(path);
-    }
-};
 exports.delete_package = function (req, res) {
     models.Package.find({_id: req.params.id}).remove(function(){
         models.Freelancer.findOne({service_packages: {$in: [req.params.id]}}).exec(function(err, freelancer){
@@ -30,7 +17,6 @@ exports.delete_package = function (req, res) {
                 freelancer.save()
             }
         });
-        deleteFolderRecursive(config.root + '/public/uploads/packages/' + req.params.id);
         res.send(200)     
     })
 };
@@ -58,22 +44,30 @@ exports.add_update_package = function (req, res) {
             })
         },
         filename: function (req, file, cb) {
-            req.body.preview = file.originalname;
-            cb(null, req.body.preview)
+            cb(null, new Date().getTime() + '_' + file.originalname)
         }
     });
 
     var upload = multer({
         storage: storage
-    }).any();
+    }).single('file');
 
     upload(req, res, function (err) {
         getPackage(req, function(){
-            delete req.body.id
-            packg = _.extend(packg,req.body);
-            packg.save(function(err,pkg){
-                res.jsonp(pkg)
-            });
+            new models.Attachment({
+                originalName: req.file.originalname,
+                name: req.file.filename,
+                path: 'packages/'+ packg._id
+            }).save(function(err, attach){
+                delete req.body.id
+                req.body.preview = attach;
+                packg = _.extend(packg,req.body);
+                packg.save(function(err,pkg){
+                    pkg.populate('preview', function(){
+                        res.jsonp(pkg)
+                    })
+                });
+            })
         });
     });
 };

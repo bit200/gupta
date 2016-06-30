@@ -13,9 +13,9 @@
 
     <ul class="nav nav-tabs" ng-init="activeTab='about'">
         <li ng-class="{active: activeTab == 'about'}"><a href="">ABOUT</a></li>
-        <li ng-class="{active: activeTab == 'expertise'}"><a href="">EXPERTISE</a></li>
+        <li ng-click="activeTab = 'expertise'" ng-class="{active: activeTab == 'expertise'}"><a href="">EXPERTISE</a></li>
         <li ng-click="activeTab = 'work'" ng-class="{active: activeTab == 'work'}"><a href="">WORK</a></li>
-        <li ng-class="{active: activeTab == 'contact'}"><a href="">CONTACT</a></li>
+        <li ng-click="activeTab = 'contact'" ng-class="{active: activeTab == 'contact'}"><a href="">CONTACT</a></li>
     </ul>
 
     <form name="aboutForm" ng-show="activeTab == 'about'">
@@ -248,7 +248,7 @@
                         <td style="width: 20%">Action</td>
                     </tr>
                     <tr ng-repeat="elem in freelancer.service_packages">
-                        <td style="width: 30%"><img style="max-height: 70px;" ng-if="elem.preview_url" ng-src="{{elem.preview_url}}"></td>
+                        <td style="width: 30%"><img style="max-height: 70px;" ng-if="elem.preview.url" ng-src="{{elem.preview.url}}"></td>
                         <td style="width: 30%">{{elem.title}}</td>
                         <td style="width: 50%">{{elem.pricing}}</td>
                         <td style="width: 20%">
@@ -388,29 +388,47 @@
 
 
         </div>
-        <div class="form-group">
-            <div>Upload Profile Image <a class="pointer floatR" ng-click="downloadPicProfile()">Attach Files</a>
-            </div>
+        <div class="text-right pointer" ng-click="show.profilePreview=true">
+            <img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">
+            <span style="font-size: 20px">Attach samples</span> <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
         </div>
-        <div class="col-xs-12 floatL">
-            <img ng-src="{{freelancer.poster.url.replace('/public', '')}}" ng-hide="globalImg.length" style="max-width: 90px"/>
-            <img ngf-src="globalImg[1]" ng-show="globalImg[1]" ngf-thumbnail="globalImg[0]" class="thumbImg">
-            <a href="" class="boxclose" ng-click="deleteNewImg(globalImg[0].data._id)"
-               ng-show="globalImg.length"></a>
-        </div>
+
         <div class="row">
             <div class="col-md-6 text-left">
                 <md-button class="md-raised" ng-click="activeTab='work'"> PREVIOUS </md-button>
             </div>
             <div class="col-md-6 text-right">
-                <md-button class="md-raised" ng-click="submittedContact=true;contactForm.$invalid ? scrollToErr() : sendRequest(freelancer,globalFiles,globalImg)"> SUBMIT </md-button>
+                <md-button class="md-raised" ng-click="submittedContact=true;addContactDetails(contactForm.$invalid)"> SUBMIT </md-button>
             </div>
         </div>
     </form>
 
 </div>
+
 <div ng-if="show.pkgModal" class="delete-modal-block">
     <div class="createPackage" ng-include="'template/freelancer_registration/create_package.html'"></div>
+</div>
+
+<div ng-if="show.profilePreview" class="delete-modal-block">
+    <div class="createPackage">
+        <form name="myForm">
+        <fieldset>
+            <legend>Upload on form submit</legend>
+            <div ngf-drop ngf-select ng-model="profilePreview" class="drop-box">Drop</div>
+            <div class="containerDrop" style="text-align: center;">
+                <div ngf-drop ng-model="profilePreview" ngf-pattern="image/*" class="cropArea">
+                    <img-crop area-type="square" image="profilePreview | ngfDataUrl"
+                              result-image="croppedProfile" ng-init="croppedProfile=''">
+                    </img-crop>
+                </div>
+                <button class="btn btn-default" style="margin-top: 10px;width: 200px;"
+                        ng-click="croppedProfile ? freelancer.contact_detail.preview=croppedProfile : '';show.profilePreview=false;">Submit</button>
+                <button class="btn btn-default" style="margin-top: 10px;width: 200px;"
+                        ng-click="show.profilePreview=false;">CANCEL</button>
+            </div>
+        </fieldset>
+        </form>
+    </div>
 </div>
 
 <script type="text/ng-template" id="attachFile">

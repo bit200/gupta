@@ -37,30 +37,6 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.contentModel = scope.content;
 
 
-        scope.sendRequest = function (freelancer,files,img) {
-            var arrayIdFiles = [];
-            for(var i = 0 ; i<files.length;i++){
-                arrayIdFiles.push(files[i].result.data._id);
-            }
-            freelancer.Attachments = freelancer.Attachments || [];
-            freelancer.Attachments = freelancer.Attachments.concat(arrayIdFiles)
-            if (img && img.length){
-                freelancer.poster = img[0].data._id;
-            }
-            http.post('/api/freelancer/request', freelancer).then(function (resp) {
-                rootScope.globalFiles = [];
-                var has_sent = ngDialog.open({
-                    template: 'has_sent',
-                    className: 'ngdialog-theme-default',
-                });
-                has_sent.closePromise.then(function(){
-                    rootScope.go('/')
-                });
-            }, function (err, r) {
-            })
-        };
-
-
         scope.addExtra = function(obj){
             obj = obj || {}
             if (!scope.newPackage.package) scope.newPackage.package = {};
@@ -133,7 +109,7 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.deleteWorkFile = function(id){
             http.delete('/api/work/attachment/'+id)
         };
-        
+        scope.croppedProfilePreview = '';
         scope.submitWork = function(){
             if (Object.keys(scope.freelancer.work).length === 0) {
                 scope.activeTab = 'contact';
@@ -152,6 +128,28 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             }, function (evt) {
             });
 
+        };
+
+        scope.addContactDetailPreview = function(file){
+            scope.contactDetailPreview = file;
+        };
+        
+        scope.addContactDetails = function(invalid){
+            if (invalid) return;
+            http.post('/api/freelancer/contact_detail', scope.freelancer.contact_detail).success(function(resp){
+                scope.freelancer.contact_detail = resp.data;
+                if (scope.freelancer.work && !scope.freelancer.work._id)
+                    delete scope.freelancer.work
+                http.post('/api/freelancer/request', scope.freelancer).success(function(resp){
+                    var has_sent = ngDialog.open({
+                        template: 'has_sent',
+                        className: 'ngdialog-theme-default',
+                    });
+                    has_sent.closePromise.then(function(){
+                        rootScope.go('/')
+                    });
+                });
+            });
         };
 
     }]);

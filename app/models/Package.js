@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
+var _ = require('underscore');
 
 var PackageSchema = mongoose.Schema({
     title: String,
@@ -7,7 +8,10 @@ var PackageSchema = mongoose.Schema({
     pricing: Number,
     extras: Array,
     information: String,
-    preview: String,
+    preview: {
+        type: Number,
+        ref: 'Attachment'
+    },
     created_at: {
         type: Date,
         default: Date.now
@@ -25,7 +29,9 @@ PackageSchema.plugin(autoIncrement.plugin, {
     startAt: 100000
 });
 
-PackageSchema.virtual('preview_url').get(function() {
-    return this.preview ? '/uploads/packages/'+this._id+'/'+this.preview : '';
+PackageSchema.pre('remove', function(next) {
+    var models = require('../db')
+    models.Attachment.remove({_id: this.preview}).exec();
+    next();
 });
 mongoose.model('Package', PackageSchema);

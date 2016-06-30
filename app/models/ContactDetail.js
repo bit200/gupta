@@ -5,10 +5,7 @@ var ContactDetailSchema = mongoose.Schema({
     name: String,
     email: String,
     mobile: String,
-    poster: {
-        type: Number,
-        ref: 'UploadFile'
-    },
+    preview: String,
     created_at: {
         type: Date,
         default: Date.now
