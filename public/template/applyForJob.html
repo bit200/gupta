@@ -1,30 +1,28 @@
-<div class="container new">
-    <div class="cont">
-        <h1 class="title2">Apply for the job</h1>
-        <div class="separator2"></div>
-        <h2 class="title3">
-            {{job.title}}
-        </h2>
-        <short-preview limit=100 value="job.description"></short-preview>
-        <a href="#/job/{{job._id}}" class="mtop5">View job posting</a>
-        <div class="separator"></div>
-        <small ng-if="isApply"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> You have already applied for the job</small>
-        <small>Cover Letter</small>
-        <textarea class="form-control" ng-model="new_apply.message" rows=12 placeholder="Provide a short introduction of you or your skills"></textarea>
-        <small>Уour estimated budget</small>
-        <input class="form-control" ng-model="new_apply.budget" placeholder="Provide the amount" />
-        <small>Estimation duration</small>
-        <div class="form-group">
-            <select class="form-control"
-                    ng-init="new_apply.time_estimation = new_apply.time_estimation || estimations[0]"
-                    ng-model="new_apply.time_estimation"
-                    ng-options="item for item in estimations">
-            </select>
-        </div>
-        <div class="separator2"></div>
-        <div>
-            <button class="btn btn-grey w100" ng-click="sendApplyNew(new_apply)">{{!isApply? 'Apply for the job' : 'Update your application'}}</button>
-        </div>
+<div class="cont">
+    <h1 class="title2">Apply for the job</h1>
+    <div class="separator2"></div>
+    <h2 class="title3">
+        {{job.title}}
+    </h2>
+    <short-preview limit=100 value="job.description"></short-preview>
+    <a href="#/job/{{job._id}}" class="mtop5">View job posting</a>
+    <div class="separator"></div>
+    <small ng-if="isApply"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> You have already applied for the job</small>
+    <small>Cover Letter</small>
+    <textarea class="form-control" ng-model="new_apply.message" rows=12 placeholder="Provide a short introduction of you or your skills"></textarea>
+    <small>Уour estimated budget</small>
+    <input class="form-control" ng-model="new_apply.budget" placeholder="Provide the amount" />
+    <small>Estimation duration</small>
+    <div class="form-group">
+        <select class="form-control"
+                ng-init="new_apply.time_estimation = new_apply.time_estimation || estimations[0]"
+                ng-model="new_apply.time_estimation"
+                ng-options="item for item in estimations">
+        </select>
     </div>
-
+    <div class="separator2"></div>
+    <div>
+        <button class="btn btn-grey w100" ng-click="sendApplyNew(new_apply)">{{!isApply? 'Apply for the job' : 'Update your application'}}</button>
+    </div>
 </div>
+

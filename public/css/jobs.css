@@ -12,6 +12,22 @@
         display: none;
     }
 }
+@keyframes fadeOutTop {
+    0% {
+        opacity: .8;
+        transform: translateY(0);
+    }
+    99% {
+        opacity: 0;
+        transform: translateY(-10px)
+
+    }
+    100% {
+        visibility: hidden;
+        display: none;
+    }
+}
+
 
 @keyframes fadeIn {
     0% {
@@ -26,9 +42,6 @@ jobs-list>div {
     margin-top: 35px;
 }
 
-jobs-list .items {
-    min-height: 400px;
-}
 .title3 {
     text-transform: uppercase;
     color: #333945;
@@ -40,10 +53,11 @@ jobs-list .items {
     padding-bottom: 15px;
 }
 .job-items {
-    box-shadow: 2px 4px 13px rgba(0,0,0,0.3);
+    box-shadow: 2px 4px 13px rgba(0,0,0,0.18);
 }
 .job-nav {
     padding: 20px;
+    margin-top: 30px;
     /*padding-bottom: 80px;*/
 }
 
@@ -80,6 +94,27 @@ selector .sel-items > div {
 .job-nav .sel-items, .job-nav, .bcg {
     background: #f6f6f6;
 }
+.iblock {
+    /*background: #f6f6f6;*/
+    padding: 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+    transition: all 0.4s ease;
+}
+.iblock .title3:after {
+    animation: fadeOutTop .4s ease;
+}
+.iblock.edited .title3:after {
+    content: ' (edited)';
+    font-size: 11px;
+    text-transform: lowercase;
+    color: grey;
+    animation: fade .5s ease;
+}
+.iblock.suggested {
+    background: #f6f6f6
+}
+
 .job-nav .sel-items {
     width: 105%;
     margin-left: -2.5%;
@@ -148,11 +183,11 @@ jobs-list .fitems {
     background-color: white;
     position: absolute;
     z-index: 999;
-    animation: fadeIn .4s ease forwards;
+    /*animation: fadeIn .1s ease forwards;*/
 
 }
 .lloading.hid-loading {
-    animation: fadeOut .4s ease forwards;
+    animation: fadeOut .5s ease forwards;
 }
 
 .action {
@@ -203,12 +238,16 @@ jobs-list .fitems {
 textarea {
     max-width: 100%;
 }
+.container.job {
+    padding-top: 15px;
+}
 
 .cont {
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
     padding-bottom: 20px;
+    padding-top: 25px;
 }
 .title2, .title3 {
     color: #3d4048;
@@ -222,9 +261,19 @@ textarea {
 .lightRed {
     color: #e53d32;
 }
+.rating .filled {
+    color: #21568b;
+}
+
+freelancer img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
 .title2:after {
     content: ' ';
-    width: 40px;
+    width: 45px;
     border-bottom: 2px solid #e53d32;
     display: block;
     margin: 0 auto;
@@ -240,6 +289,7 @@ textarea {
 .separator2 {
     width: 100%;
     margin: 30px 0;
+    height: 1px;
 }
 
 small {
@@ -280,7 +330,11 @@ form .form-control {
     box-shadow: none!important;
 }
 .md-block {
-    margin: 18px 0;
+    margin: 0;
+}
+
+.body>div {
+    animation: fade .4s ease;
 }
 
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
@@ -299,7 +353,36 @@ md-radio-group.md-default-theme.md-focused:not(:empty) .md-checked .md-container
 md-input-container textarea.md-input {
     min-height: 87px;
 }
+md-input-container {
+    margin: 0;
+}
 
 #postjob .form-group {
     margin-bottom: 0;
+}
+
+.ftp {
+    position: absolute;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transition: all .4s ease;
+    display: none;
+    opacity: 0;
+    padding: 10px;
+    margin-left: -80px;
+    width: 300px;
+    transition: all .4s ease;
+    z-index: 100;
+}
+.tp {
+    display: block;
+    position: relative;
+}
+.tp:hover .ftp{
+    display: block;
+    opacity: 1;
+}
+.emptyjobs {
+    padding: 50px 0!important;
+    text-align: center;
 }

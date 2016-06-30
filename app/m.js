@@ -685,6 +685,7 @@ module.exports = {
     redisHgetall: redisHgetall,
     redisMembers: redisMembers,
     getIDs: getIDs,
+    getId: getId,
     putInRedis: putInRedis,
     putInRedisOneItem: putInRedisOneItem,
     deleteRedis: deleteRedis,

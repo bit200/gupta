@@ -42,59 +42,145 @@
     <div class="container">
         <div class=" text-center marginTB20"><h2 class="marginTB10"> Featured Profiles</h2></div>
         <div class="row">
+            <!--<div class="col-md-3 col-xs-6 col-sm-6 paddingB20 noborder pointer" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 8" ng-click="showProfile(profile._id)">-->
             <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 8"
                  ng-click="$state.go('categories.profile', {id: profile._id})">
+                <div class="like-field"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
                 <div class="profile">
-                    <div class="profile-img">
-                        <img class="profile-poster" ng-src="{{profile.poster.url.replace('/public','')}}">
+                    <div class="front">
+                        <div class="profile-img">
+                            <img class="profile-poster" ng-src="{{profile.poster.url.replace('/public','')}}">
+                        </div>
+                        <div class="profile-info">
+                            <div class="text-center profile-info-name">{{profile.name}}</div>
+                            <div class="profile-info-type">
+                                <div class="fa fa-cogs text-center paddingR10"></div>
+                                {{profile.freelancer_type[0]}}
+                            </div>
+                        </div>
                     </div>
-                    <div class="profile-info">
-                        <div class="text-center profile-info-name">{{profile.name}}</div>
-                        <div class="profile-info-type">
-                            <div class="fa fa-cogs text-center paddingR10"></div>
-                            {{profile.freelancer_type[0]}}
+                    <div class="back">
+                        <div class="profile-back">
+                            <div class="profile-back-name">{{profile.name}}</div>
+                            <div class="profile-back-introduction">{{profile.introduction}}</div>
+                            <div class="profile-back-description">{{profile.description}}</div>
+                            <div class="profile-back-rating-block">
+                                <div class="inline-block text-left" style="width: 20%">by test</div>
+                                <div class="inline-block text-center" style="width: 50%">
+                                    <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon glyphicon-star" ng-class="{'glyphicon-star-red': star,'glyphicon-star-white':!star}"></span>
+                                </div>
+                                <div class="inline-block text-right" style="width: 10%">({{profile.view}})</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center"><h2 class="marginTB10">Trending Jobs</h2></div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10 marginTB20 border-bottom" ng-repeat="job in jobs" ng-if="$index < 4">
+            <div class="row">
+                <div class="col-sm-2 hide-xs">
+                    <div class="job-logo hide-xs">12TH CROSS <br> JOB</div>
+                </div>
+                <div class="col-sm-10 col-xs-12">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="text-bold marginB10 job-types">
+                                <div class="inline-block" ng-repeat="item in job.content_types">{{item}}<span ng-if="!$last">, </span></div>
+                            </div>
+                            <div class="job-title">{{job.description}}</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="job-info">
+                                <div class="job-info-location">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <span style="padding-left: 15px">{{job.local_preference[0] || 'N/A'}}</span>
+                                </div>
+                                <div class="job-info-price">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    <span style="padding-left: 5px">{{job.budget}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 job-button-block">
+                            <button class="btn job-button">View Job</button>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        <!--<div class="col-md-3 col-xs-6 col-sm-6 paddingB20 noborder pointer" ng-repeat="profile in profiles| orderBy:'-view'" ng-if="$index < 8" ng-click="showProfile(profile._id)">-->
     </div>
 </div>
-<div class="container">
-<div class="row button-work">
-    <button class="btn btn-default  button-home-register " ng-click="go('/post-job')">POST JOB(test)</button>
-    <button class="btn-default btn  button-home-register " ng-click="go('/agencies')">Agencies page</button>
-    <button class="btn btn-default button-home-register " ng-click="go('/user')">User page(test)</button>
-</div>
-<div class="row trendingJobs">
-    <div class="col-sm-12 text-center text-padding">Trending Jobs</div>
-    <div class="block-job-item">
-        <div class="text-bold inlineBlock width20 text-center grey-text job-item" ng-repeat="(key, value) in jobs[0]">
-            {{key}}
-        </div>
-        <div ng-repeat="job in jobs">
-            <div class="inlineBlock width20 text-center grey-text job-item" ng-repeat="(key, value) in job">
-                {{value}}
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-offset-4 col-sm-4 text-center">
-        <button class="btn btn-default">View All Jobs</button>
+
+<div class="register-with-us-img" ng-hide="isLogged()" >
+    <h2 class="text-center text-white register-with-us-text">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
+    <div class="text-center">
+        <button class="btn btn-red text-white" ng-click="go('/freelancer-registration')">REGISTER WITH US</button>
     </div>
 </div>
+<<<<<<< HEAD
 <footer>
     <div class="row communitySP ">
         <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
         <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register" ng-hide="currentFreelancer()" ng-click="$state.go('freelancer_registration')">
             Register with us
         </button>
-    </div>
+=======
 
-    <div class="row background-white padding20">
-        <div class="col-sm-4 text-left"> 12 Cross</div>
-        <div class="col-sm-4 text-center"> 4,000 Members</div>
-        <div class="col-sm-4 text-right"> 150 Jobs Posted</div>
+<div class="full-width text-center">
+    <img class="face-text" src="/img/face.jpg">
+    <div class="text-center quote-text">
+        " Instead of hiring more engineers, we've used Upwork as a more scalable solution that lets us ramp-up and down as needed."
     </div>
+    <div class="text-center quote-author inline-block">
+        <div class="text-red">Nick Greenfield</div>
+        <div style="padding-top: 10px; padding-bottom: 40px;">Vice President of Marketing & Growth</div>
+        <div class="width45" style="margin: 0 auto; height: 5px;">
+            <div class="quote-page"></div>
+            <div class="quote-page-red"></div>
+            <div class="quote-page"></div>
+        </div>
+>>>>>>> 50e96968887867bd27c0d9fd9f6a363cad834605
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+    </div>
+<<<<<<< HEAD
 </footer>
+=======
+</div>
+<div class="container">
+    <div class="row button-work">
+        <button class="btn btn-default button-home-register " ng-click="go('/post-job')">POST JOB(test)</button>
+        <button class="btn-default btn button-home-register " ng-click="go('/agencies')">Agencies page</button>
+        <button class="btn btn-default button-home-register " ng-click="go('/user')">User page(test)</button>
+        <div class="col-sm-offset-4 col-sm-4 text-center">
+            <button class="btn btn-default">View All Jobs</button>
+        </div>
+    </div>
+    <footer>
+        <div class="row communitySP ">
+            <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
+            <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register" ng-hide="isLogged()" ng-click="go('/freelancer-registration')">
+                Register with us
+            </button>
+        </div>
+
+        <div class="row background-white padding20">
+            <div class="col-sm-4 text-left"> 12 Cross</div>
+            <div class="col-sm-4 text-center"> 4,000 Members</div>
+            <div class="col-sm-4 text-right"> 150 Jobs Posted</div>
+        </div>
+    </footer>
+</div>
+>>>>>>> 50e96968887867bd27c0d9fd9f6a363cad834605

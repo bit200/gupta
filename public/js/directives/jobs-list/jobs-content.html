@@ -1,0 +1,39 @@
+<div class="container job">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="job-nav">
+                <div>
+                    <input class="job-search" placeholder="Search type"/>
+                    <div class="sub-title">
+                        By status
+                    </div>
+                    <div class="sub-select">
+                        <selector items="['Open', 'Ongoing', 'Canceled']" class-name="'nav'"></selector>
+                    </div>
+                    <div class="sub-title">
+                        View jobs as
+                    </div>
+                    <div class="sub-select">
+                        <selector items="['Buyer', 'Seller']" value="Seller" class-name="'nav'"></selector>
+                    </div>
+                    <a ui-sref="jobs_list.all">all</a>
+                    <div></div>
+                    <b>Buyer</b>
+                    <a ui-sref="jobs_list.buyer_my">My</a>
+                    <a ui-sref="jobs_list.buyer_open">Open</a>
+                    <a ui-sref="jobs_list.buyer_ongoing">Ongoing</a>
+                    <a ui-sref="jobs_list.buyer_closed">Closed</a>
+                    <div></div>
+                    <b>Seller</b>
+
+                    <a ui-sref="jobs_list.seller_open">Open</a>
+                    <a ui-sref="jobs_list.seller_ongoing">Ongoing</a>
+                    <a ui-sref="jobs_list.seller_closed">Closed</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <ui-view></ui-view>
+        </div>
+    </div>
+</div>

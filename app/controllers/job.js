@@ -26,7 +26,7 @@ function pubParams(params, query) {
     }
 
     var _params = {
-        limit: params.limit || 20,
+        limit: params.limit || 12,
         skip: params.skip || 0
     }
     return {
@@ -43,10 +43,11 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
 
     if (auth) {
         app.get(url, auth, routing('find'))
-        app.get(url + 'count', auth, routing('count'))
+        app.get(url + '/count', auth, routing('count'))
     } else {
+        console.log("@!@@@@@@", url)
         app.get(url, routing('find'))
-        app.get(url + 'count', routing('count'))
+        app.get(url + '/count', routing('count'))
     }
 
     function routing (type) {
@@ -190,7 +191,9 @@ exports.applyJobRemove = function (req, res) {
     var params = m.getBody(req);
     m.findRemove(models.JobApply, {_id: params._id}, res, res)
 }
-
+exports.apply_detailed_pub = function(req, res) {
+    m.findOne(models.JobApply, {_id: req.params._id}, res, res, {populate: 'buyer job seller freelancer'})
+}
 exports.getApplyInfo = function (req, res) {
     var params = m.getBody(req);
     console.log("paramsmsmsmsmsm", params)

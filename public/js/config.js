@@ -12,7 +12,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             });
             return deferred.promise;
         }];
-        
+        var getResolveQ = function($q, params) {
+            var deferred = $q.defer();
+            deferred.resolve(params);
+            return deferred.promise;
+        }
+
         var getResolve = function (params) {
             return ["$q", function ($q) {
                 var deferred = $q.defer();
@@ -43,7 +48,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                     query: {type: 'FreelancerType'},
                                     distinctName: 'name'
                                 }
-                            })
+                            }),
+                            jobs: $http.get('/api/jobs/popular')
                         })
                     }
                 }
@@ -115,6 +121,19 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             apply: $http.get('/api/job-apply/' + $stateParams.id),
                             contentType: {data: {data: ''}},
                             locations: {data: {data: ''}}
+                        })
+                    }]
+                }
+            })
+            .state('job_apply_detailed', {
+                url: '/application/:id',
+                templateUrl: 'template/applicationDetails.html',
+                controller: 'commonCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            apply: $http.get('/api/job-apply/' + $stateParams.id + '/pub'),
                         })
                     }]
                 }
@@ -217,8 +236,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 }
             })
-            .state('jobs', {
+
+            .state('jobs_list', {
                 url: '/jobs',
+                templateUrl: 'js/directives/jobs-list/jobs-content.html',
+                abstract: true
+            })
+            .state('jobs_list.all', {
+                url: '',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: getStatic({
@@ -227,62 +252,89 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     url: '/api/jobs/all'
                 })
             })
-            .state('jobs_buyer_my', {
-                url: '/jobs/buyer/my',
+            .state('jobs_list.buyer_my', {
+                url: '/buyer/my',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'buyer-my',
-                        header: 'My Posted jobs',
-                        url: '/api/jobs/buyer/my',
-                        acts: ['Communicate', 'Accept', 'Reject']
+                        user_type: 'buyer',
+                        job_type: 'my'
                     })
                 }
             })
-            .state('jobs_buyer_open', {
-                url: '/jobs/buyer/open',
+            .state('jobs_list.buyer_open', {
+                url: '/buyer/open',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'buyer-open',
-                        header: 'Open jobs',
-                        url: '/api/jobs/buyer/open',
-                        acts: ['Communicate', 'Accept', 'Reject']
+                        user_type: 'buyer',
+                        job_type: 'open'
                     })
                 }
             })
 
-            .state('jobs_buyer_ongoing', {
-                url: '/jobs/buyer/ongoing',
+            .state('jobs_list.buyer_ongoing', {
+                url: '/buyer/ongoing',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'buyer-ongoing',
-                        header: 'Ongoing jobs',
-                        url: '/api/jobs/buyer/ongoing',
-                        acts: ['Communicate', 'View Contract', 'Edit Contract', 'Pause Contract', 'Close Contract', 'Initiate Payment']
+                        user_type: 'buyer',
+                        job_type: 'ongoing'
+                    })
+                }
+            })
+            .state('jobs_list.buyer_closed', {
+                url: '/buyer/closed',
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        user_type: 'buyer',
+                        job_type: 'closed'
                     })
                 }
             })
 
-            .state('jobs_seller_open', {
-                url: '/jobs/seller/open',
+            .state('jobs_list.seller_open', {
+                url: '/seller/open',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'seller-open',
-                        header: 'Open jobs',
-                        url: '/api/jobs/seller/open',
-                        acts: ['View Application', 'Communicate', 'View Job']
-
+                        user_type: 'seller',
+                        job_type: 'open'
+                    })
+                }
+            })
+            .state('jobs_list.seller_ongoing', {
+                url: '/seller/ongoing',
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        user_type: 'seller',
+                        job_type: 'ongoing'
+                    })
+                }
+            })
+            .state('jobs_list.seller_closed', {
+                url: '/seller/closed',
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        user_type: 'seller',
+                        job_type: 'closed'
                     })
                 }
             })
@@ -420,13 +472,32 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
             .state('contract_detailed', {
                 url: '/contract/:id',
-                templateUrl: 'template/contractCreate.html',
+                templateUrl: 'template/contractDetails.html',
                 controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_details_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('contract_suggest_info', {
+                url: '/suggestion/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_suggest_view_page: true
+                            })
                         })
                     }]
                 }
@@ -448,45 +519,108 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('contract_approve', {
                 url: '/contract/approve/:id',
-                templateUrl: 'template/contractApprove.html',
-                controller: 'contractApproveCtrl',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            freelancer: $http.get('/contract/', {params: {_id: $stateParams.id}})
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_approve_page: true,
+                                from_seller: true,
+                                from_buyer: true
+                            })
                         })
                     }]
                 }
             })
-
-            .state('contract_suggest', {
-                url: '/contract/suggest/:id',
-                templateUrl: 'template/contractSuggest.html',
-                controller: 'contractSuggestCtrl',
+            .state('contract_reject', {
+                url: '/contract/reject/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            suggest: $http.get('/suggest', {params: {_id: $stateParams.id}})
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_reject_page: true
+                            })
                         })
                     }]
                 }
             })
-
+            .state('contract_pause', {
+                url: '/contract/pause/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_pause_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('contract_resume', {
+                url: '/contract/resume/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_resume_page: true
+                            })
+                        })
+                    }]
+                }
+            })
             .state('contract_close', {
                 url: '/contract/close/:id',
-                templateUrl: 'template/contractClose.html',
-                controller: 'contractCloseCtrl',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            job: $http.post('/get-job', {_id: $stateParams.id})
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_close_page: true
+                            })
                         })
                     }]
                 }
             })
+           
+            .state('contract_suggest', {
+                url: '/contract/suggest-edits/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/suggest-from-seller/detailed/'+ $stateParams.id, {params: {
+                                to_seller: true
+                            }}),
+                            info: getResolveQ($q, {
+                                is_suggest_page: true,
+                                from_seller: true
+                            })
+                        })
+                    }]
+                }
+            })
+
+
 
             .state('user', {
                 url: '/user',

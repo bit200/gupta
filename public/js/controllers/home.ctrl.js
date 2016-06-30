@@ -13,9 +13,10 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     };
 
     scope.arrayProviders = getContent.freelancerType.data.data;
+    scope.jobs = getContent.jobs.data.data;
     scope.profiles = parseRating.rating(getContent.sellers.data.data);
     scope.profiles = parseRating.popularity(scope.profiles);
-
+    console.log('d',scope.jobs)
     scope.viewServiceProvider = function(item){
         ModalService.showModal({
             templateUrl: "template/modal/postJobOrViewService.html",

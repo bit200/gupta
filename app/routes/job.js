@@ -21,10 +21,13 @@ module.exports = function (app) {
     app.put('/api/job-apply', auth.freelancer_token, job.applyJobUpdate)
     app.delete('/api/job-apply', job.applyJobRemove)
     app.get('/api/job-apply/:job_id', auth.freelancer_token, job.getApplyInfo)
+    app.get('/api/job-apply/:_id/pub', auth.freelancer_token, job.apply_detailed_pub)
 
-   
     
-    job.fn('/api/jobs/all', auth.token, 'Job', '{}'
+    job.fn('/api/jobs/all', null, 'Job', '{}'
+        , {populate: 'user', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/popular', null, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{ buyer: this.userId }'
@@ -36,8 +39,8 @@ module.exports = function (app) {
     job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId }'
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId }'
-        , {populate: 'user', sort: '-created_at'}, app)
+    job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId, status: "closed" }'
+        , {populate: 'freelancer job', sort: '-created_at'}, app)
 
 
     job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId }'
@@ -46,6 +49,6 @@ module.exports = function (app) {
     job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId }'
         , {populate: 'job buyer', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId }'
-        , {populate: 'user', sort: '-created_at'}, app)
+    job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId, status: "closed" }'
+        , {populate: 'job buyer', sort: '-created_at'}, app)
 };
