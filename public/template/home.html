@@ -85,32 +85,66 @@
     <div class="row">
         <div class="col-md-offset-1 col-md-10 marginTB20 border-bottom" ng-repeat="job in jobs" ng-if="$index < 4">
             <div class="row">
-                <div class="col-sm-2 hidden-xs-down">
-                    <div class="job-logo ">12TH CROSS <br> JOB</div>
+                <div class="col-sm-2 hide-xs">
+                    <div class="job-logo hide-xs">12TH CROSS <br> JOB</div>
                 </div>
-                <div class="col-sm-7 col-xs-8">
-                    <div class="text-bold marginB10 job-types">
-                        <div class="inline-block" ng-repeat="item in job.content_types">{{item}}<span ng-if="!$last">, </span></div>
-                    </div>
-                    <div class="job-title">{{job.description}}</div>
-                    <button class="btn job-button">View Job</button>
-                </div>
-                <div class="col-xs-3">
-                    <div class="job-info">
-                        <div class="inline-block job-info-location">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <div class="inline-block ">
-                                <span>{{job.local_preference[0] || 'N/A'}}</span>
+                <div class="col-sm-10 col-xs-12">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="text-bold marginB10 job-types">
+                                <div class="inline-block" ng-repeat="item in job.content_types">{{item}}<span ng-if="!$last">, </span></div>
+                            </div>
+                            <div class="job-title">{{job.description}}</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="job-info">
+                                <div class="job-info-location">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <span style="padding-left: 15px">{{job.local_preference[0] || 'N/A'}}</span>
+                                </div>
+                                <div class="job-info-price">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    <span style="padding-left: 5px">{{job.budget}}</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="job-info-price">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                            <span>{{job.budget}}</span>
+                        <div class="col-sm-9 job-button-block">
+                            <button class="btn job-button">View Job</button>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+    </div>
+</div>
+
+<div class="register-with-us-img">
+    <h2 class="text-center text-white register-with-us-text">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
+    <div class="text-center">
+        <button class="btn btn-red text-white">REGISTER WITH US</button>
+    </div>
+</div>
+
+<div class="full-width text-center">
+    <img class="face-text" src="/img/face.jpg">
+    <div class="text-center quote-text">
+        " Instead of hiring more engineers, we've used Upwork as a more scalable solution that lets us ramp-up and down as needed."
+    </div>
+    <div class="text-center quote-author inline-block">
+        <div class="text-red">Nick Greenfield</div>
+        <div style="padding-top: 10px; padding-bottom: 40px;">Vice President of Marketing & Growth</div>
+        <div class="width45" style="margin: 0 auto; height: 5px;">
+            <div class="quote-page"></div>
+            <div class="quote-page-red"></div>
+            <div class="quote-page"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
     </div>
 </div>
 <div class="container">
