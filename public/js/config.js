@@ -327,7 +327,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     })
                 }
             })
-            .state('jobs_seller_closed', {
+            .state('jobs_list.seller_closed', {
                 url: '/seller/closed',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',

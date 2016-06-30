@@ -4,6 +4,7 @@ XYZCtrls.directive('jobsList', function () {
         scope: {
             url: '@',
             showLoading: '@',
+            TotalItems: '@',
             template: '@',
             header: '@',
             info: '@'

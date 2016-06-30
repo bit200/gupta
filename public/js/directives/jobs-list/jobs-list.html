@@ -17,11 +17,16 @@
                 <div class="row" ng-repeat="item in items">
                     <div ng-include="templateItem" class="row nomarginxs fitems"></div>
                 </div>
+                <div ng-if="!items.length" class="row">
+                    <div class="row nomarginxs fitems emptyjobs">
+                        There is no jobs with that params
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-xs-12">
-        <div class="pull-right">
+        <div ng-if="TotalItems> 12" class="pull-right">
             <uib-pagination items-per-page="limit" total-items="TotalItems" ng-change="changePage(currentPage)" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPage"></uib-pagination>
         </div>
     </div>

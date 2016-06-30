@@ -26,7 +26,7 @@ function pubParams(params, query) {
     }
 
     var _params = {
-        limit: params.limit || 20,
+        limit: params.limit || 12,
         skip: params.skip || 0
     }
     return {
@@ -43,10 +43,11 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
 
     if (auth) {
         app.get(url, auth, routing('find'))
-        app.get(url + 'count', auth, routing('count'))
+        app.get(url + '/count', auth, routing('count'))
     } else {
+        console.log("@!@@@@@@", url)
         app.get(url, routing('find'))
-        app.get(url + 'count', routing('count'))
+        app.get(url + '/count', routing('count'))
     }
 
     function routing (type) {

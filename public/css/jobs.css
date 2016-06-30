@@ -42,10 +42,6 @@ jobs-list>div {
     margin-top: 35px;
 }
 
-jobs-list .items {
-    min-height: 400px;
-}
-
 .title3 {
     text-transform: uppercase;
     color: #333945;
@@ -57,7 +53,7 @@ jobs-list .items {
     padding-bottom: 15px;
 }
 .job-items {
-    box-shadow: 2px 4px 13px rgba(0,0,0,0.3);
+    box-shadow: 2px 4px 13px rgba(0,0,0,0.18);
 }
 .job-nav {
     padding: 20px;
@@ -187,11 +183,11 @@ jobs-list .fitems {
     background-color: white;
     position: absolute;
     z-index: 999;
-    animation: fadeIn .4s ease forwards;
+    animation: fadeIn .5s ease forwards;
 
 }
 .lloading.hid-loading {
-    animation: fadeOut .4s ease forwards;
+    animation: fadeOut .5s ease forwards;
 }
 
 .action {
@@ -277,7 +273,7 @@ freelancer img {
 }
 .title2:after {
     content: ' ';
-    width: 40px;
+    width: 70px;
     border-bottom: 2px solid #e53d32;
     display: block;
     margin: 0 auto;
@@ -386,4 +382,8 @@ md-input-container {
 .tp:hover .ftp{
     display: block;
     opacity: 1;
+}
+.emptyjobs {
+    padding: 100px 0!important;
+    text-align: center;
 }
