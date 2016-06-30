@@ -23,7 +23,6 @@ module.exports = function (app) {
     app.get('/api/job-apply/:job_id', auth.freelancer_token, job.getApplyInfo)
     app.get('/api/job-apply/:_id/pub', auth.freelancer_token, job.apply_detailed_pub)
 
-   
     
     job.fn('/api/jobs/all', auth.token, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
@@ -38,7 +37,7 @@ module.exports = function (app) {
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId }'
-        , {populate: 'user', sort: '-created_at'}, app)
+        , {populate: 'freelancer job', sort: '-created_at'}, app)
 
 
     job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId }'
@@ -48,5 +47,5 @@ module.exports = function (app) {
         , {populate: 'job buyer', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId }'
-        , {populate: 'user', sort: '-created_at'}, app)
+        , {populate: 'job buyer', sort: '-created_at'}, app)
 };

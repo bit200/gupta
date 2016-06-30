@@ -253,10 +253,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'buyer-my',
-                        header: 'My Posted jobs',
-                        url: '/api/jobs/buyer/my',
-                        acts: ['Communicate', 'Accept', 'Reject']
+                        user_type: 'buyer',
+                        job_type: 'my'
                     })
                 }
             })
@@ -267,10 +265,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'buyer-open',
-                        header: 'Open jobs',
-                        url: '/api/jobs/buyer/open',
-                        acts: ['Communicate', 'Accept', 'Reject']
+                        user_type: 'buyer',
+                        job_type: 'open'
                     })
                 }
             })
@@ -282,10 +278,20 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'buyer-ongoing',
-                        header: 'Ongoing jobs',
-                        url: '/api/jobs/buyer/ongoing',
-                        acts: ['Communicate', 'View Contract', 'Edit Contract', 'Pause Contract', 'Close Contract', 'Initiate Payment']
+                        user_type: 'buyer',
+                        job_type: 'ongoing'
+                    })
+                }
+            })
+            .state('jobs_buyer_closed', {
+                url: '/jobs/buyer/closed',
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        user_type: 'buyer',
+                        job_type: 'closed'
                     })
                 }
             })
@@ -297,11 +303,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'seller-open',
-                        header: 'Open jobs',
-                        url: '/api/jobs/seller/open',
-                        acts: ['View Application', 'Communicate', 'View Job']
-
+                        user_type: 'seller',
+                        job_type: 'open'
                     })
                 }
             })
@@ -312,11 +315,20 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     auth: authResolve,
                     info: getResolve({
-                        template: 'seller-ongoing',
-                        header: 'Ongoing jobs',
-                        url: '/api/jobs/seller/ongoing',
-                        acts: ['View Contract', 'Communicate', 'Mark Complete']
-
+                        user_type: 'seller',
+                        job_type: 'ongoing'
+                    })
+                }
+            })
+            .state('jobs_seller_closed', {
+                url: '/jobs/seller/closed',
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        user_type: 'seller',
+                        job_type: 'closed'
                     })
                 }
             })
