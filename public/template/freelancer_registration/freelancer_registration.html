@@ -14,7 +14,7 @@
     <ul class="nav nav-tabs" ng-init="activeTab='about'">
         <li ng-class="{active: activeTab == 'about'}"><a href="">ABOUT</a></li>
         <li ng-class="{active: activeTab == 'expertise'}"><a href="">EXPERTISE</a></li>
-        <li ng-class="{active: activeTab == 'work'}"><a href="">WORK</a></li>
+        <li ng-click="activeTab = 'work'" ng-class="{active: activeTab == 'work'}"><a href="">WORK</a></li>
         <li ng-class="{active: activeTab == 'contact'}"><a href="">CONTACT</a></li>
     </ul>
 
@@ -198,21 +198,32 @@
             <div>Please specify pricing for your services</div>
             <div class="row">
                 <div class="col-xs-3 paddingT20">
-                    <md-checkbox ng-model="priceWord" class="md-warn">Rs. Per word</md-checkbox>
+                    <md-checkbox ng-click="priceHour=false;service=false;freelancer.price.hour=''"
+                                 ng-model="priceWord"
+                                 class="md-warn">Rs. Per word
+                    </md-checkbox>
                 </div>
                 <div class="col-xs-9">
                     <md-input-container class="md-block">
-                        <input class='form-control' numbers-only ng-disabled="!priceWord" ng-model="freelancer.price.word" aria-label="Price Word">
+                        <input class='form-control' numbers-only ng-disabled="!priceWord"
+                               ng-model="freelancer.price.word" aria-label="Price Word">
+
                     </md-input-container>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-3 paddingT20">
-                    <md-checkbox ng-model="priceHour" class="md-warn">Rs. Per word</md-checkbox>
+                    <md-checkbox ng-click="freelancer.price.word = '';"
+                                 ng-model="priceHour"
+                                 class="md-warn">Rs. Per word
+                    </md-checkbox>
                 </div>
                 <div class="col-xs-9">
+
                     <md-input-container class="md-block">
-                        <input class='form-control' numbers-only ng-disabled="!priceHour" ng-model="freelancer.price.hour" aria-label="Price Hour">
+                        <input class='form-control' numbers-only ng-disabled="!priceHour"
+                               ng-model="freelancer.price.hour" aria-label="Price Hour">
+
                     </md-input-container>
                 </div>
             </div>
@@ -228,27 +239,21 @@
                     </a>
                 </div>
             </div>
-            <div class="row" ng-if="freelancer.newPackages.length || freelancer.service_packages.length">
+            <div class="row" ng-if="freelancer.service_packages.length">
                 <table class="table table-bordered table-striped">
                     <tr>
+                        <td style="width: 30%">Preview</td>
                         <td style="width: 30%">Price</td>
                         <td style="width: 50%">Title</td>
                         <td style="width: 20%">Action</td>
                     </tr>
-                    <tr ng-repeat="elem in freelancer.newPackages">
-                        <td style="width: 30%">{{elem.title}}</td>
-                        <td style="width: 50%">{{elem.pricing}}</td>
-                        <td style="width: 20%">
-                            <ng-md-icon icon="cancel" ng-click="freelancer.newPackages.splice($index,1)" style="fill: red;cursor: pointer"></ng-md-icon>
-                            <ng-md-icon icon="mode_edit" ng-click="editPackage($index,elem);show.pkgModal=true" style="fill: #63acff;cursor: pointer"></ng-md-icon>
-                        </td>
-                    </tr>
                     <tr ng-repeat="elem in freelancer.service_packages">
+                        <td style="width: 30%"><img style="max-height: 70px;" ng-if="elem.preview_url" ng-src="{{elem.preview_url}}"></td>
                         <td style="width: 30%">{{elem.title}}</td>
                         <td style="width: 50%">{{elem.pricing}}</td>
                         <td style="width: 20%">
                             <ng-md-icon icon="cancel" ng-click="delete_package(elem)" style="fill: red;cursor: pointer"></ng-md-icon>
-                            <ng-md-icon icon="mode_edit" ng-click="editPackage(elem);show.pkgModal=true" style="fill: #63acff;cursor: pointer"></ng-md-icon>
+                            <ng-md-icon icon="mode_edit" ng-click="editPackage(elem, $index);show.pkgModal=true" style="fill: #63acff;cursor: pointer"></ng-md-icon>
                         </td>
                     </tr>
 
@@ -268,7 +273,7 @@
 
 
     </form>
-    <form name="workForm" ng-show="activeTab == 'work'">
+    <form name="workForm" ng-show="activeTab == 'work'" novalidate>
         <h3 class="text-bold">Work</h3>
 
         <p>Enter information about your past work</p>
@@ -304,23 +309,22 @@
 
         </div>
         <div class="form-group">
-            <div>Upload samples of work <a class="pointer floatR" ng-click="attachFile()">Attach Files</a>
+            <div class="text-right pointer" ngf-select="addWorkFiles($files)"  ngf-pattern="'image/*'" ngf-multiple="true">
+                <span style="font-size: 20px">Attach samples</span> <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
             </div>
             <div class="text-right">
-                <div class="row Files" ng-repeat="attach in freelancer.Attachments track by $index">
-                    <div class="col-xs-4 text-left">{{attach.title}}</div>
+                <div class="row Files" ng-repeat="attach in freelancer.work.attachments">
+                    <div class="col-xs-4 text-left">{{attach.url}}</div>
                     <div class="col-xs-8 floatR">
-                        <img ngf-src="attach.url.replace('/public','')" ngf-thumbnail="attach.url.replace('/public','')" class="thumb">
-                        <a href="" class="boxclose" ng-click="deleteNewFile(attach._id,$index);freelancer.Attachments.splice($index,1);"></a>
+                        <img ngf-src="attach.url" ngf-thumbnail="attach.url" class="thumb">
+                        <a href="" class="boxclose" ng-click="deleteWorkFile(attach._id);freelancer.work.attachments.splice($index,1);"></a>
                     </div>
                 </div>
-                <div class="row Files" ng-repeat="globalFile in globalFiles track by $index">
-                    <div class="col-xs-4 text-left">{{globalFile.name}}
-                    </div>
+                <div class="row Files" ng-repeat="file in work_previews">
+                    <div class="col-xs-4 text-left">{{file.name}}</div>
                     <div class="col-xs-8 floatR">
-                        <img ngf-src="globalFile" ng-show="globalFile" ngf-thumbnail="globalFile" class="thumb">
-                        <a href="" class="boxclose" ng-click="deleteNewFile(globalFile.result.data._id,$index)"
-                           ng-show="globalFile"></a>
+                        <img ngf-src="file" ngf-thumbnail="file" class="thumb">
+                        <a href="" class="boxclose" ng-click="work_previews.splice($index,1)"></a>
                     </div>
                 </div>
             </div>
@@ -331,7 +335,7 @@
                 <md-button class="md-raised" ng-click="activeTab='expertise'"> PREVIOUS </md-button>
             </div>
             <div class="col-md-6 text-right">
-                <md-button class="md-raised" ng-click="submittedWork=true;workForm.$invalid ? scrollToErr() : activeTab = 'contact'"> NEXT </md-button>
+                <md-button class="md-raised" ng-click="submittedWork=true;submitWork()"> NEXT </md-button>
             </div>
         </div>
 
@@ -405,8 +409,8 @@
     </form>
 
 </div>
-<div ng-show="show.pkgModal" class="delete-modal-block">
-    <div class="createPackage" ng-include="'template/createPackage.html'"></div>
+<div ng-if="show.pkgModal" class="delete-modal-block">
+    <div class="createPackage" ng-include="'template/freelancer_registration/create_package.html'"></div>
 </div>
 
 <script type="text/ng-template" id="attachFile">

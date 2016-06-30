@@ -290,7 +290,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('freelancer_registration', {
                 url: '/freelancer-registration',
-                templateUrl: 'template/freelanceRegistration.html',
+                templateUrl: 'template/freelancer_registration/freelancer_registration.html',
                 controller: 'freelancerCtrl',
                 resolve: {
                     getContent: function ($q, $http) {
@@ -401,6 +401,32 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             job: $http.get('/api/info/Job/'+ $stateParams.job),
                             freelancer: $http.get('/api/info/Freelancer/'+ $stateParams.freelancer),
                             user: $http.get('/api/user/me')
+                        })
+                    }]
+                }
+            })
+            .state('contract_edit', {
+                url: '/contract/edit/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
+                        })
+                    }]
+                }
+            })
+            .state('contract_detailed', {
+                url: '/contract/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
                         })
                     }]
                 }

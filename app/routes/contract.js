@@ -16,5 +16,6 @@ module.exports = function (app) {
     app.get('/contract', auth.token, contract.get_contract);
     app.get('/suggest', auth.token, contract.get_suggest);
     app.post('/api/contract', auth.token, contract.create_contract);
+    app.get('/api/contract/detailed/:_id', auth.freelancer_token, contract.detailed);
 
 };

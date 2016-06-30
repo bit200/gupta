@@ -46,6 +46,10 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         ref: 'Work'
     },
+    portfolio: [{
+        type: Number,
+        ref: 'Portfolio'
+    }],
     contact_detail: {
         type: Number,
         ref: 'ContactDetail'

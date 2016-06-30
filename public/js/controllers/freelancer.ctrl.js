@@ -1,8 +1,11 @@
 /* Controllers */
 
-angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', '$timeout', 'getContent',
-    '$stateParams', 'ngDialog', 'notify', function (scope, rootScope, location, http, parseType, $q, $timeout, getContent, stateParams, ngDialog, notify) {
-        scope.freelancer = {isagency: true};
+angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope', '$location', '$http', '$q', '$timeout', 'getContent', '$stateParams', 'ngDialog', 'notify', 'Upload', '$filter',
+    function (scope, rootScope, location, http, $q, $timeout, getContent, stateParams, ngDialog, notify, Upload, $filter) {
+        scope.freelancer = {
+            isagency: true,
+            work: {}
+        };
         rootScope.globalFiles = [];
         scope.industry = getContent.industry.data.data;
         scope.content = getContent.content.data.data;
@@ -12,7 +15,9 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.experience = _.range(51);
         scope.showLink = false;
         rootScope.globalImg = [];
-        scope.newPackage = {};
+        scope.newPackage = {
+            package: {}
+        };
         scope.show = {};
         scope.arrayProviders = getContent.service.data.data;
 
@@ -29,7 +34,8 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
             scope.searchTerm = '';
         };
 
-        scope.contentModel = parseType.getModel(scope.content);
+        scope.contentModel = scope.content;
+
 
         scope.sendRequest = function (freelancer,files,img) {
             var arrayIdFiles = [];
@@ -66,83 +72,86 @@ angular.module('XYZCtrls').controller('freelancerCtrl', ['$scope', '$rootScope',
         scope.createPackage = function(){
             scope.newPackage={};
             scope.show.pkgModal=true;
-        }
+        };
+
+        scope.addPkgFile = function(file){
+            Upload.dataUrl(file, true).then(function(url){
+                scope.newPackage.file = file;
+                scope.newPackage.tempPreview = url;
+            });
+        };
         
         scope.submitPackage = function (invalid) {
             if (invalid) return;
-            scope.freelancer.newPackages = scope.freelancer.newPackages || [];
-            if (scope.newPackage.index || scope.newPackage.index == 0){
-                scope.freelancer.newPackages[scope.newPackage.index] = angular.copy(scope.newPackage.package);
-            }
-            else
-                scope.freelancer.newPackages.push(angular.copy(scope.newPackage.package));
+            var index = angular.copy(scope.newPackage).index;
+            Upload.upload({
+                url: '/api/package',
+                data: JSON.parse(angular.toJson(scope.newPackage.package)),
+                file: scope.newPackage.file
+            }).then(function (resp) {
+                scope.freelancer.service_packages = scope.freelancer.service_packages || [];
+                if ($filter('filter')(scope.freelancer.service_packages, {_id: resp.data._id}).length){
+                    scope.freelancer.service_packages[index] = resp.data;
+                }else{
+                    scope.freelancer.service_packages.push(resp.data)
+                };
+            }, function (resp) {
+            }, function (evt) {
+            });
+            scope.newPackage = {
+                package: {},
+                tempPreview: ''
+            };
             scope.show.pkgModal = false;
-            scope.newPackage = {};
         };
 
-        scope.editPackage = function($index, pkg){
+        scope.editPackage = function(pkg,num){
             scope.newPackage ={
                 package: angular.copy(pkg),
-                index: $index
-            }
-            console.log(scope.newPackage.index)
+                index: num
+            };
         };
 
         scope.delete_package = function (item) {
-            var index = scope.new_services.indexOf(item);
-            scope.new_services.splice(index, 1);
+            var index = scope.freelancer.service_packages.indexOf(item);
             scope.freelancer.service_packages.splice(index, 1);
+            http.delete('/api/package/'+item._id).success(function(){})
         };
 
-
-        scope.deleteNewFile = function (file_id, index) {
-            http({
-                url: '/deleteFile',
-                method: 'DELETE',
-                data: {_id: file_id},
-                headers: {"Content-Type": "application/json;charset=utf-8"}
-            }).success(function (res) {
+        scope.addPkgFile = function(file){
+            Upload.dataUrl(file, true).then(function(url){
+                scope.newPackage.file = file;
+                scope.newPackage.tempPreview = url;
             });
-            rootScope.globalFiles.splice(index, 1);
         };
 
-        scope.deleteNewImg = function (file_id) {
-            http({
-                url: '/deleteFile',
-                method: 'DELETE',
-                data: {_id: file_id},
-                headers: {"Content-Type": "application/json;charset=utf-8"}
-            }).success(function (res) {
-            });
-            scope.showLink = false;
-            rootScope.globalImg = [];
-
+        scope.work_previews = [];
+        scope.addWorkFiles = function(files){
+            scope.work_previews = scope.work_previews.concat(files);
         };
-
-        scope.downloadPicProfile = function () {
-            ngDialog.open({
-                template: 'attachImgProfile',
-                className: 'ngdialog-theme-default',
-                controller: 'uploadFile'
-            })
+        
+        scope.deleteWorkFile = function(id){
+            http.delete('/api/work/attachment/'+id)
         };
-
-
-        scope.$watchCollection('globalFiles', function () {
-            ngDialog.closeAll();
-        });
-        scope.$watchCollection('globalImg', function () {
-            if (rootScope.globalImg) {
-                scope.showLink = true;
-                ngDialog.closeAll();
+        
+        scope.submitWork = function(){
+            if (Object.keys(scope.freelancer.work).length === 0) {
+                scope.activeTab = 'contact';
+                return;
             }
-        });
 
-        scope.attachFile = function () {
-            ngDialog.open({
-                template: 'attachFile',
-                className: 'ngdialog-theme-default',
-                controller: 'uploadFile'
-            })
-        }
+            Upload.upload({
+                url: '/api/work',
+                data: JSON.parse(angular.toJson(scope.freelancer.work)),
+                file: scope.work_previews
+            }).then(function (resp) {
+                scope.work_previews = [];
+                scope.freelancer.work = resp.data;
+                scope.activeTab = 'contact';
+            }, function (resp) {
+            }, function (evt) {
+            });
+
+        };
+
     }]);

@@ -7,7 +7,8 @@ XYZCtrls.directive('freelancer', function () {
         },
         template: '<a href="#/profile/user/{{seller.user}}">{{seller.name}}</a>',
         controller: ['$scope', function (scope) {
-            scope.seller = scope.item.freelancer || scope.item
+            scope.seller = scope.item ? scope.item.freelancer || scope.item : null
+            console.log("freelancer", scope.seller)
         }]
     };
 });

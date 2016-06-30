@@ -258,7 +258,32 @@ function findUpdateWithToken(model, _token, query, new_params, _ecb, _scb, param
         }, params)
     })
 }
-
+function getId (item) {
+    return item ? item._id || item : item
+}
+function isOwner (item, user1, user2) {
+    user1 = getId(user1)
+    user2 = getId(user2)
+    var users_arr = []
+    if (user1) {
+        users_arr.push(user1)
+    }
+    if (user2) {
+        users_arr.push(user2)
+    }
+    var flag
+    _.each(['freelancer', 'buyer', 'seller', 'user'], function(field){
+        var _item = item[field]
+        var _item_id = getId(_item)
+        
+        _.each(users_arr, function(id){
+            if (id == _item_id) {
+                flag = true
+            }
+        })
+    })
+    return flag
+}
 
 function findCreateUpdate(model, query, new_params, _ecb, _scb, params) {
     new_params = _.extend({}, query, new_params);
@@ -668,6 +693,7 @@ module.exports = {
     banIP: banIP,
     getUserIDByToken: getUserIDByToken,
 
+    isOwner: isOwner,
 
     findUpdate: findUpdate,
     findUpdateWithToken: findUpdateWithToken,
