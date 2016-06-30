@@ -37,6 +37,7 @@ XYZCtrls.directive('acts', function () {
 
                 return name
             }
+
             function is_role (str1, str2) { //is_role
                 var arr1 = str1.split('_')
                 var arr2 = str2.split('_')
@@ -57,7 +58,6 @@ XYZCtrls.directive('acts', function () {
                 return flag_job && flag_user
             }
 
-            console.log('------------ ', is_role('seller', 'open'), user_type, job_type)
 
 
             scope.list = {
@@ -130,10 +130,19 @@ XYZCtrls.directive('acts', function () {
                 'Pause Contract': function () {
                     return {
                         is_visible: function() {
-                            if (is_role('buyer', 'ongoing'))
+                            if (is_role('buyer', 'ongoing') && item.status != 'paused')
                                 return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("contract_pause", {id: getInfoId(item, 'contract')})
+                    }
+                },
+                'Resume Contract': function () {
+                    return {
+                        is_visible: function() {
+                            if (is_role('buyer', 'ongoing') && item.status == 'paused')
+                                return true
+                        },
+                        ui_sref: sref("contract_resume", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Close Contract': function () {
@@ -142,7 +151,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'ongoing'))
                                 return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("contract_close", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Initiate Payment': function () {
@@ -186,7 +195,6 @@ XYZCtrls.directive('acts', function () {
             };
 
             scope.actions = [];
-
             _.each(scope.list, function (obj_fn, field) {
                 var obj = obj_fn(item);
                 var approve = obj.is_visible && obj.is_visible()

@@ -10,20 +10,20 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
 
     scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
-        title: scope.job.title,
-        freelancer: scope.freelancer,
-        job: scope.job,
-        seller: scope.freelancer.user,
-        buyer: scope.buyer,
-        budget: scope.job.budget,
-        buyer_name: rootScope.getBuyerName(scope.buyer),
-        buyer_company_name: scope.buyer.company_name,
-        seller_contact: scope.freelancer.contact_detail,
-        seller_name: scope.freelancer.name,
-        final_amount: scope.job.budget,
-        expected_completion: new Date().getTime() + 24 * 3600 * 1000 * 30,
-        expected_start: new Date().getTime()
-    }
+            title: scope.job.title,
+            freelancer: scope.freelancer,
+            job: scope.job,
+            seller: scope.freelancer.user,
+            buyer: scope.buyer,
+            budget: scope.job.budget,
+            buyer_name: rootScope.getBuyerName(scope.buyer),
+            buyer_company_name: scope.buyer.company_name,
+            seller_contact: scope.freelancer.contact_detail,
+            seller_name: scope.freelancer.name,
+            final_amount: scope.job.budget,
+            expected_completion: new Date().getTime() + 24 * 3600 * 1000 * 30,
+            expected_start: new Date().getTime()
+        }
 
     scope.contract = angular.extend({}, scope.contract_orig, scope.suggest, {_id: scope.contract_orig._id})
 
@@ -34,6 +34,48 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
     var getId = function(item) {
         return item ? item._id || item : null
+    }
+
+    scope.rating = 5;
+    scope.rateFunction = function(rating) {
+        alert('Rating selected - ' + rating);
+    };
+
+    scope.reject = function(message) {
+        http.post('/api/contract/reject/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })
+    }
+
+    scope.pause = function(message) {
+        http.post('/api/contract/pause/' + scope.contract._id, {pause_reason: scope.contract.pause_reason}).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })
+    }
+
+    scope.resume = function() {
+        http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })
+    }
+
+    scope.close = function(data){
+        console.log('close info', data)
+        http.post('/api/contract/close/' + data._id, {
+            review_comment: data.review_comment,
+            closure_comment: data.closure_comment,
+            rating: data.rating
+        }).then(function(resp){
+            console.log('resp',resp)
+        }, function(err){
+            console.log('err',err)
+        })
     }
 
     scope.suggestEdits = function(invalid, type, _data) {
@@ -48,9 +90,9 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             data.job = getId(data.job)
             data.contract = getId(scope.contract_orig)
 
-            console.log('suggest edit', data)
+            console.log('suggest edit', data, scope.info)
+            data.info = scope.info
             http.post('/api/contract/suggest', data).then(function (resp) {
-                // type == 'delete' ? location.path('/home') : location.path('/home');
                 console.log('resp', resp)
             }, function (err) {
                 console.log('err', err)

@@ -88,26 +88,48 @@ exports.delete_contract = function (req, res) {
 };
 
 exports.reject_contract = function (req, res) {
-    var params = m.getBody(req);
+    var params = req.params;
+
     m.findUpdate(models.Contract, {_id: params._id, seller: req.userId}, {
-        status: 'reject',
+        status: 'rejected',
         reject_reason: params.reject_reason
     }, res, function (contract) {
         mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
     }, {populate: 'seller'})
 };
 
+exports.pause_contract = function (req, res) {
+    var params = req.params;
+
+    m.findUpdate(models.Contract, {_id: params._id, buyer: req.userId}, {
+        status: 'paused',
+        pause_reason: params.pause_reason
+    }, res, function (contract) {
+        res.send('ok')
+        // mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
+    }, {populate: 'seller'})
+};
+
+exports.resume_contract = function (req, res) {
+    var params = req.params;
+
+    m.findUpdate(models.Contract, {_id: params._id, buyer: req.userId}, {
+        status: 'ongoing',
+        resume_reason: params.resume_reason
+    }, res, function (contract) {
+        res.send('ok')
+        // mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
+    }, {populate: 'seller'})
+};
+
 exports.suggest_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
-    console.log('adsafasdfasfasdf', params)
     m.findOne(models.Contract, {_id: params.contract}, res, function(contract){
-        console.log('contract', contract)
         m.findCreateUpdate(models.SuggestContract, {contract: contract._id}, params, res, function(suggest){
-            console.log('suggest', suggest)
-            res.send('ok')
+            contract.suggest = suggest._id
+            m.save(contract, res, res)
         })
-
     })
     return;
     m.create(models.SuggestContract, params, res, function (suggest) {
@@ -120,7 +142,8 @@ exports.suggest_contract = function (req, res) {
 exports.close_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
-    m.findUpdate(models.Contract, {_id: params.id, buyer: req.userId}, {status: 'close'}, res, function (contract) {
+    params.status = 'closed'
+    m.findUpdate(models.Contract, {_id: req.params._id, buyer: req.userId}, params, res, function (contract) {
         m.findUpdate(models.Job, {contract: contract._id}, {status: 'closed'}, res, function (job) {
             params.job = job._id;
             m.create(models.Comments, params, res, function () {
