@@ -100,6 +100,16 @@ exports.reject_contract = function (req, res) {
 exports.suggest_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
+    console.log('adsafasdfasfasdf', params)
+    m.findOne(models.Contract, {_id: params.contract}, res, function(contract){
+        console.log('contract', contract)
+        m.findCreateUpdate(models.SuggestContract, {contract: contract._id}, params, res, function(suggest){
+            console.log('suggest', suggest)
+            res.send('ok')
+        })
+
+    })
+    return;
     m.create(models.SuggestContract, params, res, function (suggest) {
         m.findOne(models.User, {_id: req.userId}, res, function (user) {
             mail.contractSuggest(user, suggest.contract, suggest._id, res, m.scb(suggest, res))

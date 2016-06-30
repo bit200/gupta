@@ -36,7 +36,27 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         return item ? item._id || item : null
     }
 
+    scope.suggestEdits = function(invalid, type, _data) {
+        if (invalid) {
+            rootScope.scrollToErr()
+        } else {
+            var data = angular.copy(_data)
 
+            data.seller = getId(data.seller)
+            data.freelancer = getId(data.freelancer)
+            data.buyer = getId(data.buyer)
+            data.job = getId(data.job)
+            data.contract = getId(scope.contract_orig)
+
+            console.log('suggest edit', data)
+            http.post('/api/contract/suggest', data).then(function (resp) {
+                // type == 'delete' ? location.path('/home') : location.path('/home');
+                console.log('resp', resp)
+            }, function (err) {
+                console.log('err', err)
+            })
+        }
+    }
     scope.createContract = function (invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()
