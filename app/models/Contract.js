@@ -21,8 +21,15 @@ var ContractSchema = mongoose.Schema({
     suggest: {
         type: Number,
         ref: 'SuggestContract'
+    }
+    ,suggest_buyer: {
+        type: Number,
+        ref: 'SuggestContract'
     },
-    
+    suggest_seller: {
+        type: Number,
+        ref: 'SuggestContract'
+    },
     title: String,
     information: String,
     buyer_name: String,
@@ -34,8 +41,6 @@ var ContractSchema = mongoose.Schema({
     expected_completion: Date,
     amount: Number,
     final_amount: Number,
-
-    
     wait_seller: Boolean,
     wait_buyer: Boolean,
     status_priority: {
@@ -46,6 +51,7 @@ var ContractSchema = mongoose.Schema({
         type: String
     },
     reject_reason: String,
+    pause_reason: String,
     rating: Number,
     created_at: {
         type: Date,

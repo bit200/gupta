@@ -1,6 +1,19 @@
 <div class="container">
     <div class="cont">
-        <h1 class="title2">Contract Details #{{contract._id}}</h1>
+        <h1 class="title2" ng-if="!info.is_reject_page">Contract Details #{{contract._id}}</h1>
+        <h1 class="title2" ng-if="info.is_reject_page">Reject Contract #{{contract._id}}</h1>
+        <div ng-if="info.is_reject_page">
+            <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Reject Reason</div>
+                <textarea style="height: 100px!important;" class="form-control" name="title" ng-enter="createContract(contract); submitted=true"
+                       ng-model="contract.reject_reason" required >\n\n\n</textarea>
+                <p class="error" ng-if="formContract.title.$error.required">Reason can't be empty</p>
+
+            </md-input-container>
+            <button class="btn btn-grey w100" ng-click="reject(contract)">Send Reject Request</button>
+            <div class="separator"></div>
+
+        </div>
         <div>
             <div class="iblock">
 
@@ -92,17 +105,15 @@
                     <button class="btn btn-grey w100">Approve</button>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-grey w100">Reject</button>
+                    <a class="btn btn-grey w100" ui-sref="contract_reject({id: contract._id})">Reject</a>
                 </div>
                 <div class="col-md-4">
-                    <a href="#/contract/suggest/{{contract._id}}" class="btn btn-grey w100">Suggest Edits</a>
+                    <a ui-sref="contract_suggest_from_seller({id: contract._id})" class="btn btn-grey w100">Suggest Edits</a>
                 </div>
             </div>
 
 
         </div>
-
-        <div>{{info}}</div>
 
     </div>
 </div>

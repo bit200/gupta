@@ -36,6 +36,20 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         return item ? item._id || item : null
     }
 
+    scope.reject = function() {
+        http.delete('/api/contract/reject/' + scope.contract._id).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        }) 
+    }
+    scope.pause = function() {
+        http.post('/api/contract/pause/' + scope.contract._id).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
+        })
+    }
     scope.suggestEdits = function(invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()
@@ -48,9 +62,9 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             data.job = getId(data.job)
             data.contract = getId(scope.contract_orig)
 
-            console.log('suggest edit', data)
+            console.log('suggest edit', data, scope.info)
+            data.info = scope.info
             http.post('/api/contract/suggest', data).then(function (resp) {
-                // type == 'delete' ? location.path('/home') : location.path('/home');
                 console.log('resp', resp)
             }, function (err) {
                 console.log('err', err)
