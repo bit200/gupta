@@ -9,6 +9,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     scope.contract = rootScope.getContent(getContent, 'contract') || {
         title: scope.job.title,
         freelancer: scope.freelancer,
+        job: scope.job,
         seller: scope.freelancer.user,
         buyer: scope.buyer,
         budget: scope.job.budget,
@@ -20,12 +21,12 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         expected_completion: new Date().getTime() + 24 * 3600 * 1000 * 30,
         expected_start: new Date().getTime()
     }
-
+    console.log('shshshshshshshhshs', scope.contract)
     scope.contract.expected_completion = new Date(scope.contract.expected_completion)
     scope.contract.expected_start = new Date(scope.contract.expected_start)
 
     var getId = function(item) {
-        return item._id || item
+        return item ? item._id || item : null
     }
 
 
@@ -55,27 +56,9 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     scope.preview = function () {
         ModalService.showModal({
             templateUrl: "template/modal/previewContract.html",
+            scope: scope,
             controller: function ($scope) {
                 $scope.contract = scope.contract;
-                $scope.contract.expected_start = parseDate($scope.contract.expected_start);
-                $scope.contract.expected_completion = parseDate($scope.contract.expected_completion);
-                function parseDate(date) {
-                    var today = new Date(date);
-                    var dd = today.getDate();
-                    var mm = today.getMonth() + 1; //January is 0!
-                    var yyyy = today.getFullYear();
-
-                    if (dd < 10) {
-                        dd = '0' + dd
-                    }
-
-                    if (mm < 10) {
-                        mm = '0' + mm
-                    }
-
-                    return (mm + '-' + dd + '-' + yyyy);
-                }
-
             }
         }).then(function (modal) {
             modal.element.modal();

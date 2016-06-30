@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="cont">
+        <h1 class="title2">Contract Details #{{contract._id}}</h1>
+        <div>
+            <div class="title3">Contract for</div>
+
+            <freelancer item="contract.freelancer"></freelancer>
+        </div>
+        <div class="separator2"></div>
+        <div class="separator2"></div>
+        <div class="form-group">
+            <div class="title3">Job title</div>
+            <div>{{contract.title}}</div>
+            <div class="separator2"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="title3">Job information</div>
+            <div>{{contract.information}}</div>
+            <div class="separator2"></div>
+        </div>
+        <div class="separator"></div>
+        <div class="text-bold title3">Contracting Parties</div>
+        <div class="separator2"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="title3">Buyer Name*</div>
+                <div>
+                    {{contract.buyer_name || '-'}}
+                </div>
+                <div class="separator2"></div>
+                <div class="title3">Buyer Company name*</div>
+                <div>
+                    {{contract.buyer_company_name || '-'}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="title3">Seller Contact Person Name</div>
+                <div>{{contract.seller_contact|| '-'}}</div>
+                <div class="separator2"></div>
+                <div class="title3">Seller Name</div>
+                <div>{{contract.seller_name || '-'}}</div>
+            </div>
+        </div>
+        <div class="separator"></div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="title3">Terms</div>
+                <div class="separator2"></div>
+
+            </div>
+
+            <div class="col-md-12">
+                <div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>
+                <div>{{contract.payment_basis|| '-'}}</div>
+                <div class="separator2"></div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="title3">Final Amount to be paid (Rs.)*</div>
+                <div>{{contract.final_amount}}</div>
+                <div class="separator2"></div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="title3">Start date</div>
+                <date value="contract.expected_start"></date>
+                3
+                <div class="separator2"></div>
+
+                <div class="title3">End date</div>
+                <date value="contract.expected_completion"></date>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+</div>

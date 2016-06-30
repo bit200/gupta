@@ -30,6 +30,7 @@ var JobSchema = mongoose.Schema({
     },
     job_status: String,
     communication_status: String,
+    time_estimation: String,
     job: {
         type: Number,
         ref: 'Job'

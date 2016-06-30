@@ -21,6 +21,7 @@ module.exports = function (app) {
     app.put('/api/job-apply', auth.freelancer_token, job.applyJobUpdate)
     app.delete('/api/job-apply', job.applyJobRemove)
     app.get('/api/job-apply/:job_id', auth.freelancer_token, job.getApplyInfo)
+    app.get('/api/job-apply/:_id/pub', auth.freelancer_token, job.apply_detailed_pub)
 
    
     

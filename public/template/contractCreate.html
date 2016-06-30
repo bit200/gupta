@@ -1,6 +1,6 @@
 <div class="container new">
     <div class="cont">
-        <h1 class="title2">Create a contract</h1>
+        <h1 class="title2"><span ng-if="!contract._id">Create a contract</span><span ng-if="contract._id">Edit contract #{{contract._id}}</span></h1>
         <div class="separator2"></div>
         <div ng-if="isCreated">
             <h2 class="text-center">Congratulations! Your jobs is successfully created.</h2>
@@ -13,7 +13,8 @@
 
 
         <form name="formContract" novalidate>
-            <div>Concract for
+            <div>
+                <div class="title3">Contract for</div>
                 <freelancer item="contract.freelancer"></freelancer>
             </div>
             <div class="separator2"></div>
@@ -128,7 +129,8 @@
                 </div>
                 <div class="col-md-6">
                     <button class="btn btn-grey w100"
-                            ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">Create
+                            ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">
+                        <span ng-if="!contract._id">Create</span><span ng-if="contract._id">Update</span>
                         Contract
                     </button>
                 </div>

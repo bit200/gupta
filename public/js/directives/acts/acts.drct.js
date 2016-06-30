@@ -5,6 +5,8 @@ XYZCtrls.directive('acts', function () {
         // transclude: true
         template: '<a class="action" href="{{fn[action](item)}}" ng-repeat="action in acts track by $index">{{action}}</a>',
         controller: ['$scope', '$location', function (scope, $location) {
+            var item = scope.item
+            console.log('@@@@@@@@@@@@@@@@ act dir', item, item.status)
             function getInfo (item, field) {
                 return item[field] || item
             }
@@ -23,6 +25,12 @@ XYZCtrls.directive('acts', function () {
                 },
                 'Edit Contract': function(item) {
                     return '#/contract/edit/' + getId(item)
+                },
+                'View Job': function(item) {
+                    return '#/job/' + getId(item.job)
+                },
+                'View Application': function(item) {
+                    return '#/application/' + item._id
                 }
             }
 

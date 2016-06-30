@@ -120,6 +120,19 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
+            .state('job_apply_detailed', {
+                url: '/application/:id',
+                templateUrl: 'template/applicationDetails.html',
+                controller: 'commonCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            apply: $http.get('/api/job-apply/' + $stateParams.id + '/pub'),
+                        })
+                    }]
+                }
+            })
             
             .state('job_post', {
                 url: '/post-job/:category?',
@@ -287,6 +300,21 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     })
                 }
             })
+            .state('jobs_seller_ongoing', {
+                url: '/jobs/seller/ongoing',
+                templateUrl: 'template/viewMyJob.html',
+                controller: 'ViewMyJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    info: getResolve({
+                        template: 'seller-ongoing',
+                        header: 'Ongoing jobs',
+                        url: '/api/jobs/seller/ongoing',
+                        acts: ['View Contract', 'Communicate', 'Mark Complete']
+
+                    })
+                }
+            })
 
 
             .state('freelancer_registration', {
@@ -421,7 +449,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
             .state('contract_detailed', {
                 url: '/contract/:id',
-                templateUrl: 'template/contractCreate.html',
+                templateUrl: 'template/contractDetails.html',
                 controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
@@ -449,13 +477,13 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('contract_approve', {
                 url: '/contract/approve/:id',
-                templateUrl: 'template/contractApprove.html',
-                controller: 'contractApproveCtrl',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            freelancer: $http.get('/contract/', {params: {_id: $stateParams.id}})
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
                         })
                     }]
                 }
