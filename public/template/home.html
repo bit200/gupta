@@ -122,17 +122,9 @@
 <div class="register-with-us-img" ng-hide="isLogged()" >
     <h2 class="text-center text-white register-with-us-text">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
     <div class="text-center">
-        <button class="btn btn-red text-white" ng-click="go('/freelancer-registration')">REGISTER WITH US</button>
+        <button class="btn btn-red text-white" ng-hide="currentFreelancer()" ng-click="$state.go('freelancer_registration')">REGISTER WITH US</button>
     </div>
 </div>
-<<<<<<< HEAD
-<footer>
-    <div class="row communitySP ">
-        <div class="text-center  "><h4>Join our Community of Service Providers</h4></div>
-        <button class="col-xs-4 col-xs-offset-4  btn btn-default  button-home-register" ng-hide="currentFreelancer()" ng-click="$state.go('freelancer_registration')">
-            Register with us
-        </button>
-=======
 
 <div class="full-width text-center">
     <img class="face-text" src="/img/face.jpg">
@@ -147,7 +139,6 @@
             <div class="quote-page-red"></div>
             <div class="quote-page"></div>
         </div>
->>>>>>> 50e96968887867bd27c0d9fd9f6a363cad834605
     </div>
 </div>
 
@@ -155,9 +146,6 @@
     <div class="row">
 
     </div>
-<<<<<<< HEAD
-</footer>
-=======
 </div>
 <div class="container">
     <div class="row button-work">
@@ -183,4 +171,3 @@
         </div>
     </footer>
 </div>
->>>>>>> 50e96968887867bd27c0d9fd9f6a363cad834605
