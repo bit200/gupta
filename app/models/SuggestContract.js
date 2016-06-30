@@ -10,6 +10,7 @@ var SuggestContractSchema = mongoose.Schema({
         type: Number,
         ref: 'Contract'
     },
+    from: String,
     created_at: {
         type: Date,
         default: Date.now

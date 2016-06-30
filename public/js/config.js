@@ -12,7 +12,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             });
             return deferred.promise;
         }];
-        
+        var getResolveQ = function($q, params) {
+            var deferred = $q.defer();
+            deferred.resolve(params);
+            return deferred.promise;
+        }
+
         var getResolve = function (params) {
             return ["$q", function ($q) {
                 var deferred = $q.defer();
@@ -483,7 +488,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                isApprovePage: true,
+                                from_seller: true,
+                                from_buyer: true
+                            })
                         })
                     }]
                 }
@@ -491,13 +501,16 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('contract_suggest', {
                 url: '/contract/suggest/:id',
-                templateUrl: 'template/contractSuggest.html',
-                controller: 'contractSuggestCtrl',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
                 resolve: {
                     auth: authResolve,
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                         return $q.all({
-                            suggest: $http.get('/suggest', {params: {_id: $stateParams.id}})
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                isSuggestPage: true
+                            })
                         })
                     }]
                 }

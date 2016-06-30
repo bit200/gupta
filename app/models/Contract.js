@@ -2,12 +2,6 @@ var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
 var ContractSchema = mongoose.Schema({
-    title: String,
-    information: String,
-    buyer_name: String,
-    buyer_company_name: String,
-    seller_contact: String,
-    seller_name: String,
     freelancer: {
         type: Number,
         ref: 'Freelancer'
@@ -24,17 +18,32 @@ var ContractSchema = mongoose.Schema({
         type: Number,
         ref: 'Job'
     },
+    suggest: {
+        type: Number,
+        ref: 'SuggestContract'
+    },
+    
+    title: String,
+    information: String,
+    buyer_name: String,
+    buyer_company_name: String,
+    seller_contact: String,
+    seller_name: String,
     payment_basis: String,
     expected_start: Date,
     expected_completion: Date,
     amount: Number,
     final_amount: Number,
-    status: {
-        type: String
-    },
+
+    
+    wait_seller: Boolean,
+    wait_buyer: Boolean,
     status_priority: {
         type: Number,
         default: 0
+    },
+    status: {
+        type: String
     },
     reject_reason: String,
     rating: Number,
@@ -42,6 +51,7 @@ var ContractSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
+    
 });
 
 var sort_obj = {

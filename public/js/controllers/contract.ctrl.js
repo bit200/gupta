@@ -4,9 +4,12 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     scope.job = rootScope.getContent(getContent, 'job') || {}
     scope.freelancer = rootScope.getContent(getContent, 'freelancer') || {}
     scope.buyer = rootScope.getContent(getContent, 'user') || {}
+    scope.suggest = rootScope.getContent(getContent, 'suggest')
+
+    scope.info = getContent.info
 
 
-    scope.contract = rootScope.getContent(getContent, 'contract') || {
+    scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
         title: scope.job.title,
         freelancer: scope.freelancer,
         job: scope.job,
@@ -21,6 +24,10 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         expected_completion: new Date().getTime() + 24 * 3600 * 1000 * 30,
         expected_start: new Date().getTime()
     }
+
+    scope.contract = angular.extend({}, scope.contract_orig, scope.suggest, {_id: scope.contract_orig._id})
+
+    console.log('getContent', getContent, scope.info)
     console.log('shshshshshshshhshs', scope.contract)
     scope.contract.expected_completion = new Date(scope.contract.expected_completion)
     scope.contract.expected_start = new Date(scope.contract.expected_start)

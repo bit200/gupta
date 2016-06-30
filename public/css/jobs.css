@@ -80,6 +80,15 @@ selector .sel-items > div {
 .job-nav .sel-items, .job-nav, .bcg {
     background: #f6f6f6;
 }
+.iblock {
+    /*background: #f6f6f6;*/
+    padding: 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.iblock.suggested {
+    background: #f6f6f6
+}
 .job-nav .sel-items {
     width: 105%;
     margin-left: -2.5%;
@@ -280,7 +289,7 @@ form .form-control {
     box-shadow: none!important;
 }
 .md-block {
-    margin: 18px 0;
+    margin: 0;
 }
 
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
@@ -299,7 +308,12 @@ md-radio-group.md-default-theme.md-focused:not(:empty) .md-checked .md-container
 md-input-container textarea.md-input {
     min-height: 87px;
 }
+md-input-container {
+    margin: 0;
+}
 
 #postjob .form-group {
     margin-bottom: 0;
 }
+
+

@@ -59,7 +59,7 @@ exports.detailed = function (req, res) {
                 data: 'Another owner'
             })
         }
-    }, {populate: 'buyer seller freelancer job'})
+    }, {populate: 'buyer seller freelancer job suggest'})
 
 };
 
