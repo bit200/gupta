@@ -57,7 +57,6 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
         scope.scrollToErr = function () {
             $timeout(function () {
                 angular.element("body").animate({scrollTop: angular.element('.has-error').eq(0).offset().top - 100}, "slow");
-
             }, 500)
         };
         scope.applyJob = function (id) {

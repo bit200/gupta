@@ -4,6 +4,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     scope.job = rootScope.getContent(getContent, 'job') || {}
     scope.freelancer = rootScope.getContent(getContent, 'freelancer') || {}
     scope.buyer = rootScope.getContent(getContent, 'user') || {}
+<<<<<<< Updated upstream
     scope.suggest = rootScope.getContent(getContent, 'suggest')
 
     scope.info = getContent.info
@@ -65,10 +66,31 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             console.log('suggest edit', data, scope.info)
             data.info = scope.info
             http.post('/api/contract/suggest', data).then(function (resp) {
+=======
+    scope.contract = rootScope.getContent(getContent, 'contract')
+    console.log("buyyyerr", scope.buyer, scope.job, scope.freelancer)
+    scope.contract = scope.contract || {
+        // title: scope.job.title,
+        // seller: scope.freelancer,
+        // buyer: scope.buyer,
+        // buyer_name: rootScope.getBuyerName(scope.buyer),
+        // buyer_company_name: scope.buyer.company_name,
+        // seller_contact: String,
+        // seller_name: scope.freelancer.name,
+        // final_amount: scope.job.budget
+    }
+
+    scope.createContract = function (invalid, type, data) {
+        console.log('create contract',invalid, type, data)
+        if (!invalid) {
+            http.post('/contract/' + type, data).then(function (resp) {
+                type == 'delete' ? location.path('/home') : location.path('/home');
+>>>>>>> Stashed changes
                 console.log('resp', resp)
             }, function (err) {
                 console.log('err', err)
             })
+<<<<<<< Updated upstream
         }
     }
     scope.createContract = function (invalid, type, _data) {
@@ -93,7 +115,13 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         }
 
     }
+=======
+        } else {
+            rootScope.scrollToErr()
+        }
+>>>>>>> Stashed changes
 
+    }
     scope.preview = function () {
         ModalService.showModal({
             templateUrl: "template/modal/previewContract.html",

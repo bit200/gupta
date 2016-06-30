@@ -18,6 +18,7 @@ var ContractSchema = mongoose.Schema({
         type: Number,
         ref: 'Job'
     },
+<<<<<<< Updated upstream
     suggest: {
         type: Number,
         ref: 'SuggestContract'
@@ -43,6 +44,16 @@ var ContractSchema = mongoose.Schema({
     final_amount: Number,
     wait_seller: Boolean,
     wait_buyer: Boolean,
+=======
+    final_amount: Number,
+    payment_basis: String,
+    expected_start: Date,
+    expected_completion: Date,
+    budget: Number,
+    status: {
+        type: String
+    },
+>>>>>>> Stashed changes
     status_priority: {
         type: Number,
         default: 0
