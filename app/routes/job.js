@@ -24,10 +24,10 @@ module.exports = function (app) {
     app.get('/api/job-apply/:_id/pub', auth.freelancer_token, job.apply_detailed_pub)
 
     
-    job.fn('/api/jobs/all', 'Job', '{}'
+    job.fn('/api/jobs/all', null, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/popular', 'Job', '{}'
+    job.fn('/api/jobs/popular', null, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{ buyer: this.userId }'
