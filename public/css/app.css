@@ -1492,7 +1492,7 @@ div.containerCrop {
 
 .like-field-heart {
     color: white;
-    font-size: 15pt;
+    font-size: 15pt !important;
     padding-top: 4px;
 }
 
@@ -1803,5 +1803,13 @@ html {
 
     .profile-img {
         height: 110px;
+    }
+
+    .like-field {
+        padding: 4px 8px;
+    }
+
+    .like-field-heart {
+        font-size: 11px !important;
     }
 }

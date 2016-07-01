@@ -34,31 +34,31 @@ module.exports = function (done) {
 
         arrFunc.push(function (cb) {
             var arr = ['Blogs and Articles', 'Copywriting / Web Content', 'Technical Writing', 'Press Release Writing', 'Proof Reading', 'Books and Magazines', 'Translation'];
-            findCreateFilter('ContentWriting', 'Content Type', arr, cb)
+            findCreateFilter('Content Writing', 'Content Type', arr, cb)
         });
 
         arrFunc.push(function (cb) {
             var arr = ['Health and Fitness', 'Business and Finance', 'Kids and Parenting', 'Sports', 'Travel & Tourism', 'Education', 'Technology', 'Science', 'Real Estate',
                 'Automotive', 'Food and Beverages', 'Media and Entertainment', 'Lifestyle'];
-            findCreateFilter('ContentWriting', 'Industry Expertise', arr, cb)
+            findCreateFilter('Content Writing', 'Industry Expertise', arr, cb)
         });
 
         arrFunc.push(function (cb) {
             var arr = ['English', 'Hindi', 'Tamil', 'Telugu', 'Kannada', 'Malayalam', 'Marathi',
                 'Urdu', 'Punjabi', 'French', 'German', 'Spanish', 'Japanese', 'Chinese'];
-            findCreateFilter('ContentWriting', 'Languages', arr, cb)
+            findCreateFilter('Content Writing', 'Languages', arr, cb)
         });
 
         arrFunc.push(function (cb) {
             var arr = ['Health and Fitness', 'Business and Finance', 'Kids and Parenting', 'Sports', 'Travel and Tourism', 'Education',
                 'Technology', 'Science', 'Real Estate', 'Automotive', 'Food and Beverages', 'Lifestyle', 'Mobile and Gadgets',
                 'Fashion and Beauty', 'Cooking', 'Vernacular Language', 'Books and Reading'];
-            findCreateFilter('BloggersAndInfluencers', 'Industry Expertise', arr, cb)
+            findCreateFilter('Bloggers and Influencers', 'Industry Expertise', arr, cb)
         });
 
         arrFunc.push(function (cb) {
             var arr = ['Web Blog', 'Video Blog', 'Social Influencer'];
-            findCreateFilter('BloggersAndInfluencers', 'Blog Type', arr, cb)
+            findCreateFilter('Bloggers and Influencers', 'Blog Type', arr, cb)
         });
 
         arrFunc.push(function (cb) {
@@ -143,11 +143,11 @@ module.exports = function (done) {
                 })
             });
         });
-            arrFunc.push(function (cb) {
-                var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
-                    'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
-                findCreateFilter('FreelancerType', '', arr, cb)
-            });
+            // arrFunc.push(function (cb) {
+            //     var arr = ['Content Marketing', 'Public Relations', 'Celebrity Management', 'Bloggers and Influencers',
+            //         'Digital Marketing', 'Creative Design', 'Media Planning', 'Media Buying', 'Ad Making', 'Exhibition Management'];
+            //     findCreateFilter('FreelancerType', '', arr, cb)
+            // });
 
             async.parallel(arrFunc, function () {
                 console.log('Filters created');

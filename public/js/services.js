@@ -155,7 +155,29 @@ XYZCtrls.service('parseTime', function () {
             return (mm + '-' + dd + '-' + yyyy);
         }
     }
-})
+});
+
+// XYZCtrls.service('parseServiceProvider', function () {
+//     return {
+//         addIcon: function(Arr){
+//             var arr = [];
+//             _.each(Arr, function(item){
+//                 switch (item) {
+//                     case 'Content Writing': arr.push({icon:'', text:item});break;
+//                     case 'Creative and Ad Making': arr.push({icon:'', text:item});break;
+//                     case 'Public Relations': arr.push({icon:'', text:item});break;
+//                     case 'Bloggers and Influencers': arr.push({icon:'', text:item});break;
+//                     case 'Digital Marketing': arr.push({icon:'', text:item});break;
+//                     case 'Branding Services': arr.push({icon:'', text:item});break;
+//                     case 'Event Management': arr.push({icon:'', text:item});break;
+//                     case 'Direct Marketing': arr.push({icon:'', text:item});break;
+//                     case 'Media Planning': arr.push({icon:'', text:item});break;
+//                     case 'Media Buying': arr.push({icon:'shopping_cart', text:item});break;
+//                 }
+//             })
+//         }
+//     }
+// });
 
 XYZCtrls.service('parseRating', function () {
     return {
@@ -187,110 +209,111 @@ XYZCtrls.service('parseRating', function () {
     }
 });
 
-XYZCtrls.service('AuthService', [ '$q', '$rootScope', 'ModalService', '$http', '$location',
-        function($q, $rootScope, ModalService, $http, $location){
-            var authTokens = {};
-            var loggedIn = false, currentUser, currentFreelancer;
 
-            var resObj = {
-                setTokens: function(tokens){
-                    authTokens = tokens;
-                    localStorage.setItem('accessToken', tokens.accessToken);
-                    localStorage.setItem('refreshToken', tokens.refreshToken);
-                    resObj.setCurrentUser()
-                    loggedIn = true;
-                },
-                isLogged: function(){
-                    return loggedIn
-                },
-                currentUser: function(){
-                    return currentUser
-                },
-                currentFreelancer: function(){
-                    return currentFreelancer
-                },
-                logout: function(){
-                    currentUser = '';
-                    currentFreelancer = '';
-                    localStorage.clear();
-                    loggedIn = false;
-                    $rootScope.go('/')
-                },
-                checkAuthCtrl: function () {
-                    var deferred = $q.defer();
-                    if (loggedIn) deferred.resolve();
-                    else {
-                        deferred.reject()
-                    }
-                    return deferred.promise;
-                },
-                setCurrentUser: function(){
-                    $http.get('/api/freelancer/me').success(function(resp){
-                        currentFreelancer = resp.data
-                    });
-                    $http.get('/api/user/me').success(function(resp){
-                        currentUser = resp.data
-                    });
-                },
-                showLogin: function(redirectTo){
-                    ModalService.showModal({
-                        templateUrl: "template/modal/auth.html",
-                        controller: function ($scope, close, $element) {
-                            var q = {};
-                            if (redirectTo) q = {redirectTo: redirectTo}
-                            $scope.signin = function (invalid, data) {
-                                $scope.loginError = '';
-                                if (invalid) return;
-                                $http.get('/sign-in', {params: {email: data.email, password: data.password}}).success(function (resp) {
-                                    resObj.setTokens({
-                                        accessToken: resp.data.accessToken.value,
-                                        refreshToken: resp.data.refreshToken.value
-                                    });
-                                    $scope.close(q)
-                                }).error(function (err) {
-                                    if (err.error == 'Item not found')
-                                        $scope.loginError = 'User with this login not found';
-                                    else
-                                        $scope.loginError = 'Password not correct'
-                                });
-                            };
-                            $scope.signup = function (invalid, data) {
-                                $scope.emailError = '';
-                                if (invalid) return;
-                                $http.post('/sign-up', data).success(function (resp) {
-                                    resObj.setTokens({
-                                        accessToken: resp.data.accessToken.value,
-                                        refreshToken: resp.data.refreshToken.value
-                                    });
-                                    $scope.close(q)
-                                }).error(function (err) {
-                                    if (err.errors && err.errors.email)
-                                        $scope.emailError = 'The email already in use'
-                                })
-                            };
-                            $scope.close = function(res){
-                                $element.modal('hide');
-                                close(res, 500);
-                            }
-                        }
-                    }).then(function (modal) {
-                        modal.element.modal();
-                        modal.close.then(function (result) {
-                            if (result.redirectTo)
-                                $location.path(result.redirectTo)
+XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$location',
+    function ($q, $rootScope, ModalService, $http, $location) {
+        var authTokens = {};
+        var loggedIn = false, currentUser, currentFreelancer;
 
-                        });
-                    });
+        var resObj = {
+            setTokens: function (tokens) {
+                authTokens = tokens;
+                localStorage.setItem('accessToken', tokens.accessToken);
+                localStorage.setItem('refreshToken', tokens.refreshToken);
+                resObj.setCurrentUser()
+                loggedIn = true;
+            },
+            isLogged: function () {
+                return loggedIn
+            },
+            currentUser: function () {
+                return currentUser
+            },
+            currentFreelancer: function () {
+                return currentFreelancer
+            },
+            logout: function () {
+                currentUser = '';
+                currentFreelancer = '';
+                localStorage.clear();
+                loggedIn = false;
+                $rootScope.go('/')
+            },
+            checkAuthCtrl: function () {
+                var deferred = $q.defer();
+                if (loggedIn) deferred.resolve();
+                else {
+                    deferred.reject()
                 }
-
-            };
-            if (localStorage.getItem('accessToken')){
-                resObj.setTokens({
-                    accessToken: localStorage.getItem('accessToken'),
-                    refreshToken: localStorage.getItem('refreshToken')
+                return deferred.promise;
+            },
+            setCurrentUser: function () {
+                $http.get('/api/freelancer/me').success(function (resp) {
+                    currentFreelancer = resp.data
                 });
-                loggedIn = true
+                $http.get('/api/user/me').success(function (resp) {
+                    currentUser = resp.data
+                });
+            },
+            showLogin: function (redirectTo) {
+                ModalService.showModal({
+                    templateUrl: "template/modal/auth.html",
+                    controller: function ($scope, close, $element) {
+                        var q = {};
+                        if (redirectTo) q = {redirectTo: redirectTo}
+                        $scope.signin = function (invalid, data) {
+                            $scope.loginError = '';
+                            if (invalid) return;
+                            $http.get('/sign-in', {params: {email: data.email, password: data.password}}).success(function (resp) {
+                                resObj.setTokens({
+                                    accessToken: resp.data.accessToken.value,
+                                    refreshToken: resp.data.refreshToken.value
+                                });
+                                $scope.close(q)
+                            }).error(function (err) {
+                                if (err.error == 'Item not found')
+                                    $scope.loginError = 'User with this login not found';
+                                else
+                                    $scope.loginError = 'Password not correct'
+                            });
+                        };
+                        $scope.signup = function (invalid, data) {
+                            $scope.emailError = '';
+                            if (invalid) return;
+                            $http.post('/sign-up', data).success(function (resp) {
+                                resObj.setTokens({
+                                    accessToken: resp.data.accessToken.value,
+                                    refreshToken: resp.data.refreshToken.value
+                                });
+                                $scope.close(q)
+                            }).error(function (err) {
+                                if (err.errors && err.errors.email)
+                                    $scope.emailError = 'The email already in use'
+                            })
+                        };
+                        $scope.close = function (res) {
+                            $element.modal('hide');
+                            close(res, 500);
+                        }
+                    }
+                }).then(function (modal) {
+                    modal.element.modal();
+                    modal.close.then(function (result) {
+                        if (result.redirectTo)
+                            $location.path(result.redirectTo)
+
+                    });
+                });
             }
 
-            return resObj
-        }]);
+        };
+        if (localStorage.getItem('accessToken')) {
+            resObj.setTokens({
+                accessToken: localStorage.getItem('accessToken'),
+                refreshToken: localStorage.getItem('refreshToken')
+            });
+            loggedIn = true
+        }
+
+        return resObj
+    }]);

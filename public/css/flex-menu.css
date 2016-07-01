@@ -21,8 +21,9 @@
 }
 
 .flex.menu > li.active {
-    /*color: red;*/
-    border-bottom: 3px solid red;
+    color: #EA2B29;
+    border-bottom: 3px solid #EA2B29;
+
 }
 
 .flex.menu > li:first-child {

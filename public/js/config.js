@@ -44,8 +44,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             sellers: $http.get('/api/freelancers', {}),
                             freelancerType: $http.get('/get-content', {
                                 params: {
-                                    name: 'Filters',
-                                    query: {type: 'FreelancerType'},
+                                    name: 'ServiceProvider',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             }),
@@ -377,8 +377,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             freelancerType: $http.get('/get-content', {
                                 params: {
-                                    name: 'Filters',
-                                    query: {type: 'FreelancerType'},
+                                    name: 'ServiceProvider',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             }),
@@ -426,8 +426,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             freelancerType: $http.get('/get-content', {
                                 params: {
-                                    name: 'Filters',
-                                    query: {type: 'FreelancerType'},
+                                    name: 'ServiceProvider',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             }),
@@ -703,8 +703,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             arrayProviders: $http.get('/get-content', {
                                 params: {
-                                    name: 'Filters',
-                                    query: {type: 'FreelancerType'},
+                                    name: 'ServiceProvider',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             })
