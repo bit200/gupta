@@ -7,7 +7,8 @@ XYZCtrls.directive('error', function () {
             scope.$watch('err_resp', function(v){
                 console.log('err_resp', v)
                 if (v) {
-                    scope.err_message = v.message
+
+                    scope.err_message = v.message == 'String' ? v.message : 'An error. Please try again later'
                     scope.start_ok = true
                     scope.finish_ok = false
 

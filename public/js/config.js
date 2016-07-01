@@ -64,6 +64,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
                 var t = {
                     job: $http.get('/api/job/' + $stateParams.id),
+                    apply: $http.get('/api/job-apply/' + $stateParams.id),
+                    stats: $http.get('/api/job-stats/' + $stateParams.id),
                     contentType: $http.get('/get-content', {
                         params: {
                             name: 'Filters',
@@ -77,7 +79,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             query: {},
                             distinctName: 'name'
                         }
-                    })
+                    }),
+                    i: getResolveQ($q, info_obj)
                 }
                 if (!$stateParams.id) delete t.job
                 return $q.all(t)
@@ -114,9 +117,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 template: '<ui-view></ui-view>'
             })
             .state('root.contract_create', c_fn('/contract/create/:job/:freelancer', 'contract_create'))
-            .state('root.contract_detailed', c_fn('/contract/:id', 'contract_view'))
+            .state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
+
             .state('root.job_create', job_fn('/post-job', 'job_create'))
             .state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
+            .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
+            .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
 
             .state('job_edit', {
                 url: '/job/edit/:id',
@@ -143,33 +149,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             })
                         })
                     }]
-                }
-            })
-
-            .state('job_recreate', {
-                url: '/post-job/recreate/:id',
-                templateUrl: 'template/postJob.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }
                 }
             })
 
@@ -400,23 +379,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'chatCtrl'
             })
 
-            .state('job', {
-                url: '/job/:id',
-                templateUrl: 'template/job.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            job: $http.get('/api/job/' + $stateParams.id),
-                            apply: $http.get('/api/job-apply/' + $stateParams.id),
-                            stats: $http.get('/api/job-stats/' + $stateParams.id),
-                            contentType: {data: {data: ''}},
-                            locations: {data: {data: ''}}
-                        })
-                    }]
-                }
-            })
+
 
             .state('job_apply', {
                 url: '/job/apply/:id',

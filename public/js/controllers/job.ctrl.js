@@ -11,9 +11,13 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
             'More than 6 months'
         ]
 
-        console.log('getContent', getContent)
+        scope.types = [
+            'Agency',
+            'Freelancer'
+        ]
 
-
+        scope.i = getContent.i
+        console.log("ahdfhashdfhasdhfahsdfhashdfhasdhfasfd get content", scope.i, getContent)
         scope.contentTypes = getContent.contentType.data.data;
         scope.locations = getContent.locations.data.data;
 
@@ -26,6 +30,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
                 scope.new_apply = scope.isApply || {budget: job.budget}
                 console.log("new", scope.new_apply)
             }
+
+            scope.job.type_checkbox = parseEdit(scope.job.types);
             scope.job.content = parseEdit(scope.job.content_types);
             scope.job.location = parseEdit(scope.job.local_preference);
             if (getContent.stats) {
@@ -82,14 +88,17 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
             return obj
         }
 
-        scope.craete_job = function (invalid, job) {
+        scope.create_job = function (invalid, job) {
             if (invalid) {
                 scope.scrollToErr()
                 return;
             }
+            console.log("job before", job)
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
-            
+            job.types = parseType.get(job.type_checkbox, scope.types);
+            console.log("job after", job.types, job.type)
+
             http.post('/job', job).success(rootScope.onSucc).error(rootScope.onError)
         };
 

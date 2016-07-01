@@ -498,6 +498,7 @@ mess, desc {
     100% {
         display: none;
         opacity: 0;
+        visibility: hidden;
     }
 }
 
@@ -508,7 +509,7 @@ mess, desc {
     width: 100%;
     text-align: center;
     min-height: 30px;
-    margin-top: 30px;
+    margin-top: 15px;
     margin-bottom: -15px;
 }
 
@@ -520,6 +521,7 @@ mess, desc {
     position: absolute;
     width: 100%;
     top: 0px;
+    padding-bottom: 30px;
 }
 
 .error_direct>div.anim-start {

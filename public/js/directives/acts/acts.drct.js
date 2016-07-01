@@ -195,8 +195,10 @@ XYZCtrls.directive('acts', function () {
                         is_visible: function() {
                             if (is_role('buyer', 'closed'))
                                 return true
+                            else 
+                                true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.job_recreate", {id: getInfoId(item, 'job')})
                     }
                 },
                 // 'Communicate': function () {

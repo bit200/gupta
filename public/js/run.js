@@ -32,7 +32,9 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     }
 
     $rootScope.onSucc = function(data) {
-        console.log("on succccccccc", data)
+        console.log("on succccccccc", data, data.data)
+        $rootScope.resp = data.data
+        $rootScope.succ_resp = true
     }
 
     $rootScope.default_empty = 'Please fill this field'

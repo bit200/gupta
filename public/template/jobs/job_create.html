@@ -1,11 +1,15 @@
 <div class="cont" ng-class="{response: succ_resp}">
-    <h1 class="title2">Post a job</h1>
-    <div class="visr">
-        <h2 class="text-center">Congratulations! Your jobs is successfully created.</h2>
-        <div class="text-center">
-            <a class="text-orange-link" href="/#/job/{{job_id}}">See this job</a>
-            <br>
-            <a class="text-orange-link" href="/#/jobs/buyer/open">See all your active job</a>
+    <h1 class="title2 hidr">
+        Post a job {{i.job_recreate}} {{i}}
+    </h1>
+    <div class="visr text-center">
+        <div ng-if="i.job_recreate || i.job_create">
+            <mess type="job" status="created and sent for admin approval"></mess>
+            <desc text="We will update you as soon as our admin has finished checking"></desc>
+            <links>
+                <a ui-sref="root.job_detailed({id: resp._id})">View this job</a>
+                <a ui-sref="jobs_list.buyer_open">View all your active jobs</a>
+            </links>
         </div>
     </div>
 
@@ -51,12 +55,10 @@
 
         <div class="row" ng-init="job.type = 'Agency'">
             <div class="title3">Do you have a preference for a type of professional</div>
-            <md-radio-group ng-model="job.type">
-                <md-checkbox value="Agency" class="checkdark">Agency</md-checkbox>
-                <div>
-                    <md-checkbox value="Freelancer" class="checkdark">Freelancer</md-checkbox>
-                </div>
-            </md-radio-group>
+            <div ng-repeat="type in types">
+                <md-checkbox ng-model="job.type_checkbox[type]" class="checkdark">{{type}}
+                </md-checkbox>
+            </div>
         </div>
         <div class="md-block">
 
@@ -157,13 +159,14 @@
             </div>
         </div>
 
-        <div error></div>
 
-        <div class="row paddingT20 paddingB20">
+        <div class="row mtop30 ">
             <button type="submit" class="btn btn-grey w100"
-                    ng-click="craete_job(postjob.$invalid, job); submitted=true">Submit
+                    ng-click="create_job(postjob.$invalid, job); submitted=true">Submit
             </button>
         </div>
+        <div error></div>
+
     </form>
 
 </div>
