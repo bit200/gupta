@@ -4,6 +4,13 @@ XYZCtrls.directive('date', function () {
         scope: {
             value: '='
         },
-        template: "<span>{{value | date:'dd MMM yyyy'}}</span>"
+        template: "<span ng-if='value'>{{value | date:'dd MMM yyyy'}}</span><span ng-if='!value'>-</span>",
+        controller: ['$scope', function(scope){
+            if (scope.value == 'Invalid Date') {
+                scope.value = null
+            }
+            console.log('date directive', scope)
+
+        }]
     };
 });

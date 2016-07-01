@@ -1,14 +1,18 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', function (scope, rootScope, location, http, getContent, ModalService) {
+XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', '$timeout', function (scope, rootScope, location, http, getContent, ModalService, $timeout) {
+    console.log("get contntntntntntntnt", getContent)
     scope.job = rootScope.getContent(getContent, 'job') || {}
     scope.freelancer = rootScope.getContent(getContent, 'freelancer') || {}
     scope.buyer = rootScope.getContent(getContent, 'user') || {}
     scope.suggest = rootScope.getContent(getContent, 'suggest')
 
-    scope.info = getContent.info
+    scope.i = getContent.i
 
-
+    // $timeout(function(){
+    //     scope.succ_resp = true
+    // }, 1000);
+    //
     scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
             title: scope.job.title,
             freelancer: scope.freelancer,
@@ -25,23 +29,21 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             expected_start: new Date().getTime()
         }
 
-    scope.contract = angular.extend({}, scope.contract_orig, scope.suggest, {_id: scope.contract_orig._id})
+    scope.contract = angular.extend({}, scope.contract_orig, scope.suggest, scope.contract_orig.suggest, {_id: scope.contract_orig._id})
 
-    console.log('getContent', getContent, scope.info)
-    console.log('shshshshshshshhshs', scope.contract)
     scope.contract.expected_completion = new Date(scope.contract.expected_completion)
     scope.contract.expected_start = new Date(scope.contract.expected_start)
 
-    var getId = function(item) {
+    var getId = function (item) {
         return item ? item._id || item : null
     }
 
     scope.rating = 5;
-    scope.rateFunction = function(rating) {
+    scope.rateFunction = function (rating) {
         alert('Rating selected - ' + rating);
     };
 
-    scope.reject = function(message) {
+    scope.reject = function (message) {
         http.post('/api/contract/reject/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
             console.log('resp', resp)
         }, function (err) {
@@ -49,7 +51,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         })
     }
 
-    scope.pause = function(message) {
+    scope.pause = function (message) {
         console.log('pause reasone', scope.contract.puase_reason)
         http.post('/api/contract/pause/' + scope.contract._id, {pause_reason: scope.contract.pause_reason}).then(function (resp) {
             console.log('resp', resp)
@@ -57,7 +59,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             console.log('err', err)
         })
     }
-    scope.approve_suggestion = function() {
+    scope.approve_suggestion = function () {
 
     }
     scope.approve = function () {
@@ -65,10 +67,10 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             console.log('resp', resp)
         }, function (err) {
             console.log('err', err)
-        })   
+        })
     }
-    
-    scope.resume = function() {
+
+    scope.resume = function () {
         http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
             console.log('resp', resp)
         }, function (err) {
@@ -76,20 +78,20 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         })
     }
 
-    scope.close = function(data){
+    scope.close = function (data) {
         console.log('close info', data)
         http.post('/api/contract/close/' + data._id, {
             review_comment: data.review_comment,
             closure_comment: data.closure_comment,
             rating: data.rating
-        }).then(function(resp){
-            console.log('resp',resp)
-        }, function(err){
-            console.log('err',err)
+        }).then(function (resp) {
+            console.log('resp', resp)
+        }, function (err) {
+            console.log('err', err)
         })
     }
 
-    scope.suggestEdits = function(invalid, type, _data) {
+    scope.suggestEdits = function (invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()
         } else {
@@ -110,7 +112,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             })
         }
     }
-    scope.createContract = function (invalid, type, _data) {
+    scope.contract_create = function (invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()
         } else {
@@ -123,14 +125,16 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             data.job = getId(data.job)
 
 
-            http.post('/api/contract', data).then(function (resp) {
+            http.post('/api/contract', data).success(function (data) {
                 // type == 'delete' ? location.path('/home') : location.path('/home');
-                console.log('resp', resp)
+                scope.succ_resp = true
+                scope.resp = data.data
+                console.log('resp', scope.resp)
             }, function (err) {
+                scope.error = err
                 console.log('err', err)
             })
         }
-
     }
 
     scope.preview = function () {

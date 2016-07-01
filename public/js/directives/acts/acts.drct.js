@@ -28,7 +28,6 @@ XYZCtrls.directive('acts', function () {
                 name += '({';
                 _.each(params, function(value, key){
                     name += [key, ':', value, ','].join('');
-                    console.log('nameeeeeee', key, value)
                 });
                 if (name.slice(-1) == ',') {
                     name = name.slice(0, -1);
@@ -101,7 +100,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'open') && !item.contract)
                                 return true;
                         },
-                        ui_sref: sref("contract_create_job_freelancer", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
+                        ui_sref: sref("contract.create", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
                     }
                 },
 

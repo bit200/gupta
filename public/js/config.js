@@ -12,7 +12,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             });
             return deferred.promise;
         }];
-        var getResolveQ = function($q, params) {
+        var getResolveQ = function ($q, params) {
             var deferred = $q.defer();
             deferred.resolve(params);
             return deferred.promise;
@@ -25,15 +25,230 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 return deferred.promise;
             }]
         };
-        
+
         var getStatic = function (params) {
             return {
                 info: getResolve(params)
             }
         };
 
+        function cnt(param_name) {
+            return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                console.log("$stateParasm", $stateParams, this)
+                var info_obj = {}
+                param_name = this.self.name.replace('.', '_')
+                info_obj[param_name] = true
+
+                var t = {
+                    job: $http.get('/api/info/Job/' + $stateParams.job),
+                    freelancer: $http.get('/api/info/Freelancer/' + $stateParams.freelancer),
+                    user: $http.get('/api/user/me'),
+                    contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                    i: getResolveQ($q, info_obj)
+                }
+
+                if (!$stateParams.job) delete t.job
+                if (!$stateParams.id) delete t.contract
+                if (!$stateParams.freelancer) {
+                    delete t.freelancer
+                    delete t.user
+                }
+                return $q.all(t)
+            }]
+        }
+
+        function c_fn(url, template, param_name, free_auth) {
+            return {
+                url: url,
+                templateUrl: 'template/jobs/' + template + '.html',
+                controller: 'contractCtrl',
+                resolve: free_auth ? {
+                    getContent: cnt(param_name)
+                } : {
+                    auth: authResolve,
+                    getContent: cnt(param_name)
+                }
+            }
+        }
+
 
         $stateProvider
+            .state('root', {
+                url: '',
+                abstract: true,
+                template: '<ui-view></ui-view>'
+            })
+            .state('root.contract_create', c_fn('/contract/create/:job/:freelancer', 'contract_create'))
+            .state('root.contract_detailed', c_fn('/contract/:id', 'contract_view'))
+            .state('contract_edit', {
+                url: '/contract/edit/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_edit_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+
+            .state('contract_suggest_another', {
+                url: '/contract/suggest-another/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_another_terms_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('contract_suggest_info', {
+                url: '/suggestion/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_suggest_view_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+
+            .state('contract_create', {
+                url: '/contract/create/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/contract/create/', {params: {id: $stateParams.id}})
+                        })
+                    }]
+                }
+            })
+
+            .state('contract_approve', {
+                url: '/contract/approve/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_approve_page: true,
+                                from_seller: true,
+                                from_buyer: true
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('contract_reject', {
+                url: '/contract/reject/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_reject_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('contract_pause', {
+                url: '/contract/pause/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_pause_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('contract_resume', {
+                url: '/contract/resume/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_resume_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('contract_close', {
+                url: '/contract/close/:id',
+                templateUrl: 'template/contractDetails.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_close_page: true
+                            })
+                        })
+                    }]
+                }
+            })
+
+            .state('contract_suggest', {
+                url: '/contract/suggest-edits/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/suggest-from-seller/detailed/' + $stateParams.id, {
+                                params: {
+                                    to_seller: true
+                                }
+                            }),
+                            info: getResolveQ($q, {
+                                is_suggest_page: true,
+                                from_seller: true
+                            })
+                        })
+                    }]
+                }
+            })
+
             .state('home', {
                 url: '/',
                 templateUrl: 'template/home.html',
@@ -138,7 +353,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
-            
+
             .state('job_post', {
                 url: '/post-job/:category?',
                 templateUrl: 'template/postJob.html',
@@ -221,11 +436,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
 
-
             .state('me', {
                 url: '/me',
                 templateUrl: 'template/me.html',
-                controller: ['info', '$scope', function(info, scope) {
+                controller: ['info', '$scope', function (info, scope) {
                     scope.info = info
                 }],
                 resolve: {
@@ -442,199 +656,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 }
             })
-            .state('contract_create_job_freelancer', {
-                url: '/contract/create/:job/:freelancer',
-                templateUrl: 'template/contractCreate.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            job: $http.get('/api/info/Job/'+ $stateParams.job),
-                            freelancer: $http.get('/api/info/Freelancer/'+ $stateParams.freelancer),
-                            user: $http.get('/api/user/me')
-                        })
-                    }]
-                }
-            })
-            .state('contract_edit', {
-                url: '/contract/edit/:id',
-                templateUrl: 'template/contractCreate.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id)
-                        })
-                    }]
-                }
-            })
-            .state('contract_detailed', {
-                url: '/contract/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_details_page: true
-                            })
-                        })
-                    }]
-                }
-            })
-            .state('contract_suggest_another', {
-                url: '/contract/suggest-another/:id',
-                templateUrl: 'template/contractCreate.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_another_terms_page: true
-                            })
-                        })
-                    }]
-                }
-            })
-            .state('contract_suggest_info', {
-                url: '/suggestion/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_suggest_view_page: true
-                            })
-                        })
-                    }]
-                }
-            })
-
-            .state('contract_create', {
-                url: '/contract/create/:id',
-                templateUrl: 'template/contractCreate.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/contract/create/', {params: {id: $stateParams.id}})
-                        })
-                    }]
-                }
-            })
-
-            .state('contract_approve', {
-                url: '/contract/approve/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_approve_page: true,
-                                from_seller: true,
-                                from_buyer: true
-                            })
-                        })
-                    }]
-                }
-            })
-            .state('contract_reject', {
-                url: '/contract/reject/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_reject_page: true
-                            })
-                        })
-                    }]
-                }
-            })
-            .state('contract_pause', {
-                url: '/contract/pause/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_pause_page: true
-                            })
-                        })
-                    }]
-                }
-            })
-            .state('contract_resume', {
-                url: '/contract/resume/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_resume_page: true
-                            })
-                        })
-                    }]
-                }
-            })
-            .state('contract_close', {
-                url: '/contract/close/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_close_page: true
-                            })
-                        })
-                    }]
-                }
-            })
-           
-            .state('contract_suggest', {
-                url: '/contract/suggest-edits/:id',
-                templateUrl: 'template/contractCreate.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/suggest-from-seller/detailed/'+ $stateParams.id, {params: {
-                                to_seller: true
-                            }}),
-                            info: getResolveQ($q, {
-                                is_suggest_page: true,
-                                from_seller: true
-                            })
-                        })
-                    }]
-                }
-            })
 
 
 
@@ -715,25 +736,25 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('categories.profile', {
                 url: '/profile/:id',
                 views: {
-                  "@": {
-                      controller: 'ViewProfileCtrl',
-                      templateUrl: 'template/profile.html'
-                  }
+                    "@": {
+                        controller: 'ViewProfileCtrl',
+                        templateUrl: 'template/profile.html'
+                    }
                 },
                 resolve: {
                     getContent: function ($q, $http, $stateParams) {
                         return $q.all({
-                            viewsCount: $http.get('/api/freelancer/'+$stateParams.id+'/views?days=90'),
-                            profile: $http.get('/api/freelancer/'+$stateParams.id)
+                            viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
+                            profile: $http.get('/api/freelancer/' + $stateParams.id)
                         })
                     }
                 }
             })
 
-            .state('profile_user', {
-                url: '/profile/user/:id',
-                templateUrl: 'template/profile.html',
-                controller: 'profileCtrl',
+            .state('my_profile', {
+                url: '/my_profile',
+                templateUrl: 'template/myProfile.html',
+                controller: 'MyProfileCtrl',
                 resolve: {
                     auth: authResolve
                 }

@@ -1,22 +1,23 @@
-<div class="cont">
-    <h1 class="title2"><span ng-if="!contract._id">Create a contract</span>
-            <span ng-if="contract._id">
-                <span ng-if="!info.is_suggest_page && !info.is_another_terms_page">Edit contract #{{contract._id}}</span>
-                <span ng-if="info.is_suggest_page">Suggest edits for contract #{{contract._id}}</span>
-                <span ng-if="info.is_another_terms_page">Suggest edits for contract #{{contract._id}}</span>
-            </span>
+<div class="cont" ng-class="{response: succ_resp}">
+    <h1 class="title2 hidr" ng-if="!response_come">
+        <span ng-if="i.contract_create">Create a contract</span>
+        <span ng-if="i.contract_edit">Edit contract #{{contract._id}}</span>
+        <span ng-if="i.contract_suggest">Suggest edits for contract #{{contract._id}}</span>
+        <span ng-if="i.contract_suggest_buyer">Suggest edits for contract #{{contract._id}}</span>
     </h1>
-    <div class="separator2"></div>
-    <div ng-if="isCreated">
-        <h2 class="text-center">Congratulations! Your jobs is successfully created.</h2>
-        <div class="text-center">
-            <a class="text-orange-link" href="/#/job/{{job_id}}">See this job</a>
-            <br>
-            <a class="text-orange-link" href="/#/jobs/buyer/open">See all your active job</a>
+    <div class="visr text-center">
+        <div ng-if="i.contract_create">
+            <mess type="contract" status="sent for admin approval"></mess>
+            <desc text="We will update you as soon as our admin has finished validation"></desc>
+            <links>
+                <a ui-sref="root.contract_detailed({id: resp._id})">View this contract</a>
+                <a ui-sref="jobs_list.buyer_open">View all your active jobs</a>
+            </links>
         </div>
     </div>
 
-
+    <div class="hidr">
+    <div class="separator2"></div>
     <form name="formContract" novalidate>
         <div ng-if="!info.is_suggest_page">
             <div>
@@ -26,7 +27,7 @@
             <div class="iblock tset2" is-edited="title">
                 <md-input-container class="md-block" ng-class="{'has-error': submitted && formContract.title.$invalid}">
                     <div class="title3">Job title*</div>
-                    <input class="form-control" name="title" ng-enter="createContract(contract); submitted=true"
+                    <input class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
                            ng-model="contract.title" required>
                     <p class="error" ng-if="formContract.title.$error.required">Buyer Name is required</p>
 
@@ -36,7 +37,7 @@
             <div class="iblock" is-edited="information">
                 <md-input-container class="md-block">
                     <div class="title3">Job information</div>
-                    <input class="form-control" ng-enter="createContract(contract); submitted=true"
+                    <input class="form-control" ng-enter="contract_create(contract); submitted=true"
                            ng-model="contract.information">
                 </md-input-container>
             </div>
@@ -51,7 +52,7 @@
                     <md-input-container class="md-block">
                         <div class="title3">Buyer Name*</div>
                         <input class="form-control" name="buyer_name"
-                               ng-enter="createContract(contract); submitted=true" ng-model="contract.buyer_name"
+                               ng-enter="contract_create(contract); submitted=true" ng-model="contract.buyer_name"
                                required>
                         <p class="error" ng-if="formContract.buyer_name.$error.required">Buyer Name is required</p>
                     </md-input-container>
@@ -61,7 +62,7 @@
                     <md-input-container class="md-block">
                         <div class="title3">Buyer Company name*</div>
                         <input class="form-control" name="buyer_company_name"
-                               ng-enter="createContract(contract); submitted=true"
+                               ng-enter="contract_create(contract); submitted=true"
                                ng-model="contract.buyer_company_name" required>
                         <p class="error" ng-if="formContract.company_name.$error.required">Buyer Company name is
                             required</p>
@@ -72,14 +73,14 @@
                 <div class="iblock" is-edited="seller_contact">
                     <md-input-container class="md-block">
                         <div class="title3">Seller Contact Person Name</div>
-                        <input class="form-control" ng-enter="createContract(contract); submitted=true"
+                        <input class="form-control" ng-enter="contract_create(contract); submitted=true"
                                ng-model="contract.seller_contact">
                     </md-input-container>
                 </div>
                 <div class="iblock" is-edited="seller_name">
                     <md-input-container class="md-block">
                         <div class="title3">Seller Name</div>
-                        <input class="form-control" ng-enter="createContract(contract); submitted=true"
+                        <input class="form-control" ng-enter="contract_create(contract); submitted=true"
                                ng-model="contract.seller_name">
                     </md-input-container>
                 </div>
@@ -96,7 +97,7 @@
                     <md-input-container class="md-block">
                         <div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>
                         <input class="form-control" name="payment_basis"
-                               ng-enter="createContract(contract); submitted=true" ng-model="contract.payment_basis"
+                               ng-enter="contract_create(contract); submitted=true" ng-model="contract.payment_basis"
                         >
                         <!--required>-->
                         <p class="error" ng-if="formContract.payment_basis.$error.required">Payment Basis is
@@ -126,7 +127,7 @@
                     <md-input-container class="md-block">
                         <div class="title3">Final Amount to be paid (Rs.)*</div>
                         <input class="form-control" numbers-only="" name="final_amount"
-                               ng-enter="createContract(contract); submitted=true"
+                               ng-enter="contract_create(contract); submitted=true"
                                ng-model="contract.final_amount" required>
                         <p class="error" ng-if="formContract.final_amount.$error.required">Final Amount is
                             required</p>
@@ -137,7 +138,7 @@
             <div ng-if="!info.is_suggest_page">
                 <div class="col-md-6">
                     <button class="btn btn-grey w100"
-                            ng-click="createContract(formContract.$invalid, 'update', contract); submitted = true">
+                            ng-click="contract_create(formContract.$invalid, 'update', contract); submitted = true">
                         <span ng-if="!contract._id">Create Contract</span>
                         <span ng-if="info.is_suggest_page">Suggest Terms</span>
                         <span ng-if="info.is_another_terms_page">Suggest Terms</span>
@@ -166,6 +167,6 @@
         <div>
         </div>
     </form>
-
+    </div>
 </div>
 
