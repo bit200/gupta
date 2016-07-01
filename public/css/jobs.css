@@ -27,6 +27,17 @@
         display: none;
     }
 }
+@keyframes fadeInTop {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px)
+
+    }
+}
 
 
 @keyframes fadeIn {
@@ -93,6 +104,10 @@ selector .sel-items > div {
 }
 .job-nav .sel-items, .job-nav, .bcg {
     background: #f6f6f6;
+}
+links a {
+    /*display: block;*/
+    padding: 5px;
 }
 .iblock {
     /*background: #f6f6f6;*/
@@ -361,6 +376,7 @@ md-input-container {
     margin-bottom: 0;
 }
 
+
 .ftp {
     position: absolute;
     background: white;
@@ -385,4 +401,18 @@ md-input-container {
 .emptyjobs {
     padding: 50px 0!important;
     text-align: center;
+}
+
+
+
+.hidr {
+    display: block;
+}
+.visr, .response .hidr {
+    display: none;
+
+}
+.response .visr {
+    display: block;
+    animation: fadeInTop .6s ease;
 }

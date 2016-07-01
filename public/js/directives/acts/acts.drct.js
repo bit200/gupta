@@ -28,7 +28,6 @@ XYZCtrls.directive('acts', function () {
                 name += '({';
                 _.each(params, function(value, key){
                     name += [key, ':', value, ','].join('');
-                    console.log('nameeeeeee', key, value)
                 });
                 if (name.slice(-1) == ',') {
                     name = name.slice(0, -1);
