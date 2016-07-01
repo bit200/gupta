@@ -213,6 +213,8 @@ exports.add_job = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;
     params.status = 'open'
+    res.status(400).send("An error")
+    return;
     m.create(models.Job, params, res, res)
 };
 

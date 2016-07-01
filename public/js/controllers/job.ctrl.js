@@ -1,8 +1,8 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
-    function (scope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
-      
+XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
+    function (scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
+
         scope.estimations = [
             'Less then 1 week',
             'Less then 1 month',
@@ -82,25 +82,15 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             return obj
         }
 
-        scope.addJob = function (invalid, job) {
+        scope.craete_job = function (invalid, job) {
             if (invalid) {
                 scope.scrollToErr()
                 return;
             }
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
-            http.post('/job', job).then(function (resp) {
-                    scope.isCreated = true;
-                    scope.job_id = resp.data.data._id;
-                    $("html, body").animate({scrollTop: 0}, "fast");
-                }, function (err) {
-                    if (err.status = 404) {
-                        scope.error = 'Job can\'t created. Try again';
-                    } else {
-                        scope.error = err.error
-                    }
-                }
-            )
+            
+            http.post('/job', job).success(rootScope.onSucc).error(rootScope.onError)
         };
 
         scope.editJob = function (invalid, job) {
