@@ -215,7 +215,10 @@ exports.add_job = function (req, res) {
     params.buyer = req.userId;
     params.status = 'open'
     delete params._id
-    console.log('hahahahahahahahahhahahahahaha', params)
+    delete params.created_at
+    delete params.suggest
+    delete params.contract
+
     m.create(models.Job, params, res, res)
 };
 
