@@ -1,11 +1,20 @@
 <div class="cont" ng-class="{response: succ_resp}">
     <h1 class="title2 hidr">
-        Post a job {{i.job_recreate}} {{i}}
+        <span ng-if="i.job_create">Post a job</span>
+        <span ng-if="i.job_recreate">Post a job</span>
+        <span ng-if="i.job_edit">Edit job information</span>
     </h1>
     <div class="visr text-center">
         <div ng-if="i.job_recreate || i.job_create">
             <mess type="job" status="created and sent for admin approval"></mess>
             <desc text="We will update you as soon as our admin has finished checking"></desc>
+            <links>
+                <a ui-sref="root.job_detailed({id: resp._id})">View this job</a>
+                <a ui-sref="jobs_list.buyer_open">View all your active jobs</a>
+            </links>
+        </div>
+        <div ng-if="i.job_edit">
+            <mess type="job" status="updated"></mess>
             <links>
                 <a ui-sref="root.job_detailed({id: resp._id})">View this job</a>
                 <a ui-sref="jobs_list.buyer_open">View all your active jobs</a>
@@ -81,7 +90,7 @@
                 <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.name.$invalid}">
                     <md-input-container class="md-block">
                         <div class="title3">Client Name</div>
-                        <input class="form-control" name="name" ng-model="job.name" required>
+                        <input class="form-control" name="name" ng-model="job.client_name" required>
 
                         <div ng-messages="submitted && postjob.name.$error.$invalid">
                             <div ng-show="submitted && postjob.name.$error.required" ng-message="required">{{default_empty}}
@@ -161,8 +170,11 @@
 
 
         <div class="row mtop30 ">
-            <button type="submit" class="btn btn-grey w100"
-                    ng-click="create_job(postjob.$invalid, job); submitted=true">Submit
+            <button ng-if="i.job_create || i.job_recreate" type="submit" class="btn btn-grey w100"
+                    ng-click="create_job(postjob.$invalid, job); submitted=true">Post Job
+            </button>
+            <button ng-if="i.job_edit" type="submit" class="btn btn-grey w100"
+                    ng-click="update_job(postjob.$invalid, job); submitted=true">Update Job
             </button>
         </div>
         <div error></div>

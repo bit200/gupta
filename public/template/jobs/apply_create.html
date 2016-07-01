@@ -7,7 +7,8 @@
     <short-preview limit=100 value="job.description"></short-preview>
     <a href="#/job/{{job._id}}" class="mtop5">View job posting</a>
     <div class="separator"></div>
-    <small ng-if="isApply"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> You have already applied for the job</small>
+    <small ng-if="isApply"><i class="fa fa-check-circle-o" aria-hidden="true"></i> You have already applied for the job</small>
+
     <small>Cover Letter</small>
     <textarea class="form-control" ng-model="new_apply.message" rows=12 placeholder="Provide a short introduction of you or your skills"></textarea>
     <small>Your estimated budget</small>

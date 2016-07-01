@@ -10,6 +10,7 @@ var JobSchema = mongoose.Schema({
     budget: Number,
     mobile: String,
     email: String,
+    client_name: String,
     company_name: String,
     website: String,
     job_visibility: Boolean,

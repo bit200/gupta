@@ -124,34 +124,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
             .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
 
-            .state('job_edit', {
-                url: '/job/edit/:id',
-                templateUrl: 'template/editJob.html',
-                controller: 'postJobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            job: $http.get('/api/job/' + $stateParams.id),
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }]
-                }
-            })
-
 
             .state('contract_edit', {
                 url: '/contract/edit/:id',
