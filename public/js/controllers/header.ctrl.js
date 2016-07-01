@@ -1,7 +1,7 @@
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService', '$rootScope', 'AuthService', 
-    function (scope, $location, http, ModalService, $rootScope, AuthService) {
+XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService', '$rootScope', 'AuthService', '$mdMenu',
+    function (scope, $location, http, ModalService, $rootScope, AuthService, $mdMenu) {
         scope.logout = AuthService.logout;
         scope.showAuth = AuthService.showLogin;
         scope.arrayProviders = [];
@@ -22,19 +22,8 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
             console.log('error',err)
         });
 
-        this.settings = {
-            printLayout: true,
-            showRuler: true,
-            showSpellingSuggestions: true,
-            presentationMode: 'edit'
-        };
+        scope.closeOthers = function() {
+            $mdMenu.hide(null, { closeAll: true });
+        }
 
-        this.sampleAction = function(name, ev) {
-            $mdDialog.show($mdDialog.alert()
-                .title(name)
-                .textContent('You triggered the "' + name + '" action')
-                .ok('Great')
-                .targetEvent(ev)
-            );
-        };
     }]);

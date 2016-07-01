@@ -1,0 +1,30 @@
+.md-open-menu-container {
+    top:85px !important;
+    overflow: hidden;
+}
+
+md-menu-content {
+    width: 110%;
+}
+
+md-menu-bar md-menu.md-open > button {
+    background-color: white !important;
+    border-bottom: 1px solid #E52D27;
+}
+
+md-menu-bar md-menu > button:focus {
+    background-color: white !important;
+}
+
+.md-open {
+    color: #E52D27;
+}
+
+.md-button:not([disabled]):hover, .md-button:hover {
+    color: #E52D27;
+    background-color: white !important;
+}
+
+.md-button {
+    text-transform: initial;
+}
