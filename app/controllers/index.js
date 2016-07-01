@@ -45,8 +45,6 @@ exports.get_filters = function (req, res) {
                 }
             }
         });
-        //TODO: del freelancer type
-        // arr.pop()
         m.scb(arr, res)
     })
 };
