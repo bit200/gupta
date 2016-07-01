@@ -852,8 +852,14 @@ div.communitySP div.text-center {
     margin-bottom: 170px;
 }
 
+.quote-author-text {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    color: #9A9A9A;
+}
+
 .quote-page {
-    height: 2px;
+    height: 3px;
     display: inline-block;
     width: 15%;
     margin: 0px 10px;
@@ -861,11 +867,35 @@ div.communitySP div.text-center {
 }
 
 .quote-page-red {
-    height: 2px;
+    height: 3px;
     display: inline-block;
     width: 15%;
     margin: 0px 10px;
     background-color: #E72A29;
+}
+
+.home-footer {
+    background-color: #DDDDDD;
+    padding: 10px;
+    border-top: 1px solid #252525;
+}
+
+.home-footer-social-link {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    padding: 5px 6px;
+    background-color: #7B7B7D;
+    color: #DDDDDD;
+    border-radius: 25px;
+    font-size: 13px;
+}
+
+.home-footer-text {
+    text-transform: uppercase;
+    padding-left: 10px;
+    font-size: 12px;
+    color: #252525;
 }
 
 .btn-red {
@@ -1271,27 +1301,6 @@ div.containerCrop {
     width: 800px;
 }
 
-@media (max-width: 500px) {
-    .auth-dialog .col-md-6:first-child {
-        border-right: 0px
-    }
-
-    .loginForm {
-        margin-top: 0px;
-    }
-
-    .loginForm button.md-raised {
-        margin-top: 0px
-    }
-
-    .modal-block-button > button {
-        font-size: 9pt;
-    }
-
-    .quote-text {
-        font-size: 22pt;
-    }
-}
 
 .has-error .md-select-value {
     border-bottom-color: red;
@@ -1487,13 +1496,134 @@ div.containerCrop {
     padding-top: 4px;
 }
 
+.hide-xs {
+    display: none;
+}
+
+.header-my-job, .header-my-job:focus {
+    display: inline-block;
+    font-weight: bold;
+    color: #c1c1c1;
+    margin-top: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-my-job:hover {
+    text-decoration: none;
+    color: #f7961d;
+}
+
 
 .has-error .form-control{
     border-color: red !important;
 }
 
-.hide-xs {
-    display: none;
+[role="button"]:focus {outline:0;}
+
+.profile-menu{
+    padding-left: 0px;
+    list-style: none;
+    border-bottom: 1px solid lightgray;
+
+}
+
+.profile-menu li {
+    display: inline-block;
+    margin-right: 15%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.profile-menu li.active{
+    font-weight: bold;
+    border-bottom: 3px solid gray;
+}
+
+.profile-exp-block{
+    border: 2px solid lightgray;
+    height: 200px;
+    padding: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.profile-exp-block h5{
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-exp-block p{
+}
+
+ul.inline-list { list-style-type: none; padding-left: 0px;}
+ul.inline-list li { display:inline-block; padding-right: 5px }
+
+html {
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-left: 1px solid #ccc;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+
+@media (min-width: 992px) {
+    .profile-detail {
+        width: 10vw;
+        height: 10vw;
+    }
+
+    .auth-dialog {
+        width: 800px !important;
+    }
+
+    .agency-text {
+        text-align: left;
+    }
+
+    .btn-search {
+        margin-top: 20px;
+    }
+
+    .service-provider {
+        font-size: 10pt;
+        width: calc(100% / 5 - 20px);
+        height: 214px;
+    }
+
+    .user-search {
+        margin: 0;
+        margin-bottom: 5%;
+    }
+
+    .user-logo {
+        margin: 0 43%;
+    }
+
+
+    .job-types {
+        padding-left: 0;
+    }
+
+    .job-info {
+        padding-left: 0;
+    }
+
+    .job-button {
+        margin-left: 0;
+    }
 }
 
 @media (min-width: 768px) {
@@ -1638,136 +1768,40 @@ div.containerCrop {
         margin-left: 0;
         margin-bottom: 20px;
     }
+    .text-center-xs {
+        text-align: center;
+    }
+    .paddingT10-xs {
+        padding-top: 10px;
+    }
+    .paddingTB15-xs {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
 }
-@media (min-width: 992px) {
-    .profile-detail {
-        width: 10vw;
-        height: 10vw;
+
+@media (max-width: 500px) {
+    .auth-dialog .col-md-6:first-child {
+        border-right: 0px
     }
 
-    .auth-dialog {
-        width: 800px !important;
+    .loginForm {
+        margin-top: 0px;
     }
 
-    .agency-text {
-        text-align: left;
+    .loginForm button.md-raised {
+        margin-top: 0px
     }
 
-    .btn-search {
-        margin-top: 20px;
+    .modal-block-button > button {
+        font-size: 9pt;
     }
 
-    .service-provider {
-        font-size: 10pt;
-        width: calc(100% / 5 - 20px);
-        height: 214px;
+    .quote-text {
+        font-size: 22pt;
     }
 
-    .user-search {
-        margin: 0;
-        margin-bottom: 5%;
+    .profile-img {
+        height: 110px;
     }
-
-    .user-logo {
-        margin: 0 43%;
-    }
-
-
-    .job-types {
-        padding-left: 0;
-    }
-
-    .job-info {
-        padding-left: 0;
-    }
-
-    .job-button {
-        margin-left: 0;
-    }
-
-
-}
-
-.dashed, .dashed:hover {
-    text-decoration: none;
-    border-bottom: 1px dashed;
-}
-
-.header-my-job, .header-my-job:focus {
-    display: inline-block;
-    font-weight: bold;
-    color: #c1c1c1;
-    margin-top: 15px;
-    text-transform: uppercase;
-    text-decoration: none;
-}
-
-.header-my-job:hover {
-    text-decoration: none;
-    color: #f7961d;
-}
-
-
-.has-error .form-control{
-    border-color: red !important;
-}
-
-[role="button"]:focus {outline:0;}
-
-.profile-menu{
-    padding-left: 0px;
-    list-style: none;
-    border-bottom: 1px solid lightgray;
-
-}
-
-.profile-menu li {
-    display: inline-block;
-    margin-right: 15%;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 13px;
-}
-
-.profile-menu li.active{
-    font-weight: bold;
-    border-bottom: 3px solid gray;
-}
-
-.profile-exp-block{
-    border: 2px solid lightgray;
-    height: 200px;
-    padding: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-}
-
-.profile-exp-block h5{
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.profile-exp-block p{
-}
-
-ul.inline-list { list-style-type: none; padding-left: 0px;}
-ul.inline-list li { display:inline-block; padding-right: 5px }
-
-html {
-    overflow-y: scroll;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-::-webkit-scrollbar-track {
-    background-color: #eaeaea;
-    border-left: 1px solid #ccc;
-}
-::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-}
-::-webkit-scrollbar-thumb:hover {
-    background-color: #aaa;
 }
