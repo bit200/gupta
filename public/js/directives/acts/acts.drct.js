@@ -100,7 +100,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'open') && !item.contract)
                                 return true;
                         },
-                        ui_sref: sref("contract.create", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
+                        ui_sref: sref("root.contract_create", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
                     }
                 },
 
@@ -114,7 +114,7 @@ XYZCtrls.directive('acts', function () {
                             else if (is_role('*', 'closed'))
                                 return true
                         },
-                        ui_sref: sref("contract_detailed", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_detailed", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'View Suggestion': function () {
