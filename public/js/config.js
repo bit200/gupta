@@ -557,56 +557,56 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('freelancer_registration', {
                 url: '/freelancer-registration',
                 templateUrl: 'template/freelancer_registration/freelancer_registration.html',
-                controller: 'freelancerCtrl',
-                resolve: {
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            industry: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'BloggersAndInfluencers', filter: 'Industry Expertise'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            service: $http.get('/get-content', {
-                                params: {
-                                    name: 'ServiceProvider',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            content: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            languages: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Languages'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            freelancerType: $http.get('/get-content', {
-                                params: {
-                                    name: 'ServiceProvider',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                            // clients: $http.get('/get-client')
-                        })
-                    }
-                }
+                // controller: 'FreelancerRegistrationCtrl',
+                // resolve: {
+                //     getContent: function ($q, $http) {
+                //         return $q.all({
+                //             industry: $http.get('/get-content', {
+                //                 params: {
+                //                     name: 'Filters',
+                //                     query: {type: 'BloggersAndInfluencers', filter: 'Industry Expertise'},
+                //                     distinctName: 'name'
+                //                 }
+                //             }),
+                //             service: $http.get('/get-content', {
+                //                 params: {
+                //                     name: 'ServiceProvider',
+                //                     query: {},
+                //                     distinctName: 'name'
+                //                 }
+                //             }),
+                //             content: $http.get('/get-content', {
+                //                 params: {
+                //                     name: 'Filters',
+                //                     query: {type: 'ContentWriting', filter: 'Content Type'},
+                //                     distinctName: 'name'
+                //                 }
+                //             }),
+                //             languages: $http.get('/get-content', {
+                //                 params: {
+                //                     name: 'Filters',
+                //                     query: {type: 'ContentWriting', filter: 'Languages'},
+                //                     distinctName: 'name'
+                //                 }
+                //             }),
+                //             freelancerType: $http.get('/get-content', {
+                //                 params: {
+                //                     name: 'ServiceProvider',
+                //                     query: {},
+                //                     distinctName: 'name'
+                //                 }
+                //             }),
+                //             locations: $http.get('/get-content', {
+                //                 params: {
+                //                     name: 'Location',
+                //                     query: {},
+                //                     distinctName: 'name'
+                //                 }
+                //             })
+                //             // clients: $http.get('/get-client')
+                //         })
+                //     }
+                // }
             })
 
             .state('freelancer_id', {
@@ -753,8 +753,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('my_profile', {
                 url: '/my_profile',
-                templateUrl: 'template/myProfile.html',
-                controller: 'MyProfileCtrl',
+                templateUrl: 'template/my_profile.html',
                 resolve: {
                     auth: authResolve
                 }

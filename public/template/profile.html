@@ -60,16 +60,24 @@
                 </div>
                 <div ng-show="viewProfile.service_packages">
                     <h4>PACKAGES</h4>
-                    <div ng-repeat="pkg in viewProfile.service_packages">
-                        <h5>Title: {{pkg.title}}</h5>
-                        <p>Description: {{pkg.description}}</p>
-                        <p>Prices: {{pkg.pricing}}</p>
-                        <h5>Extras</h5>
-                        <ul style="padding-left: 0px;list-style: none;">
-                            <li ng-repeat="extra in pkg.extras">
-                                {{extra.price}} {{extra.description}}
-                            </li>
-                        </ul>
+                    <div class="row" ng-repeat="pkg in viewProfile.service_packages" style="position:relative;border: 1px solid lightgray;height: 128px;">
+                        <div class="col-md-4" style="height: 100%;position: relative;padding: 0px">
+                            <div style="text-align: center;">
+                                <ng-md-icon ng-hide="pkg.preview.url" icon="insert_photo" style="fill: lightgray;" size="128"></ng-md-icon>
+                            </div>
+                            <img style="height: 100%;position: relative" ng-show="pkg.preview.url" ng-src="{{pkg.preview.url}}" />
+                        </div>
+                        <div class="col-md-8" style="padding: 0px;">
+                            <h3 style="margin-top: 2px;">{{pkg.title}}</h3>
+                            <p>{{pkg.description}}</p>
+                            <p>{{pkg.pricing}} / Monthly</p>
+                            <ul style="padding-left: 0px;list-style: none;">
+                                <li style="float: left" ng-repeat-start="extra in pkg.extras">
+                                    {{extra.price}} {{extra.description}}
+                                </li>
+                                <li style="float: left" ng-repeat-end ng-if="!$last">, </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>

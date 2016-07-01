@@ -1,0 +1,172 @@
+<section ng-controller="BuyerProfileCtrl">
+    <div class="row" style="margin-top: 1%">
+        <div class="col-md-3">
+            <div style="width: 100%;background: rgb(240, 240, 240);padding: 10px 12px 100px 10px;">
+                <h3>{{currentUser().first_name}} {{currentUser().last_name}}</h3>
+                <div ng-if="profile.preview && !profile_area.changeImage" class="text-center" style="position: relative;width: 100%;margin: 0 auto;background: white;">
+                    <img ng-src="{{profile.preview}}" style="width: 100%;"/>
+                    <div style="position: absolute;bottom: 0px;height: 50px;width: 100%;background: rgba(0, 0, 0, 0.6);" class="pointer" ng-click="showUpdatePic()">
+                        <div style="text-align: left;color: white;font-weight: bold;margin-top: 14px;margin-left: 10px;font-size: 16px;">EDIT PROFILE PICTURE</div>
+                        <ng-md-icon icon="add_a_photo" style="fill: white;float: right;top: 8px;position: absolute;right: 8px;" size="32"></ng-md-icon>
+                    </div>
+                </div>
+                <div ng-if="profile_area.changeImage || !profile.preview" class="containerDrop" style="text-align: center;">
+                    <div ngf-drop ng-hide="image.originalImage" ngf-select="dropImage($file)" class="drop-box">Drop</div>
+                    <section ng-show="image.originalImage">
+                        <img-crop area-type="square" style="height: 250px;width: 100%;" image="image.originalImage" result-image="image.croppedImage"></img-crop>
+                        <button class="btn btn-default" ng-click="updateProfile(image.croppedImage)">Save</button>
+                        <button class="btn btn-default" ng-click="profile_area.changeImage=false;image.originalImage=''">Cancel</button>
+                        <button ngf-select="dropImage($file)" ngf-pattern="image/*" class="btn btn-default">Select</button>
+                    </section>
+                    <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                </div>
+                <div style="margin-top: 20px">
+                    <a class="pointer" ng-click="showModal(true)" style="text-decoration: underline;color: rgb(250, 60, 60);font-size: 16px;">Change Password</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div ng-hide="profile_area.editProfile">
+                <table class="table">
+                    <tr>
+                        <td class="text-left no-border">First Name</td>
+                        <td class="text-left no-border"> : </td>
+                        <td class="text-left no-border">{{profile.first_name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left no-border">Last Name</td>
+                        <td class="text-left no-border"> : </td>
+                        <td class="text-left no-border">{{profile.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left no-border">Email</td>
+                        <td class="text-left no-border"> : </td>
+                        <td class="text-left no-border">{{profile.email}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left no-border">Phone Number</td>
+                        <td class="text-left no-border"> : </td>
+                        <td class="text-left no-border">{{profile.phone}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left no-border">Company Name</td>
+                        <td class="text-left no-border"> : </td>
+                        <td class="text-left no-border">{{profile.company_name}}</td>
+                    </tr>
+                </table>
+                <button class="btn btn-default" ng-click="profile_area.editProfile=true">EDIT PROFILE</button>
+            </div>
+            <form name="_edit" style="margin-top: 20px" novalidate ng-if="profile_area.editProfile" ng-init="setEditedProfile()">
+                <div class="form-group" ng-class="{'has-error': submitted && _edit.first_name.$invalid}">
+                    <md-input-container class="md-block">
+                        <label>First Name</label>
+                        <input class="form-control" name="first_name" ng-model="profile_area.editedProfile.first_name" required>
+                        <div ng-messages="submitted && _edit.first_name.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && _edit.first_name.$error.required" ng-message="required">First Name is required</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': submitted && _edit.last_name.$invalid}">
+                    <md-input-container class="md-block">
+                        <label>Last Name</label>
+                        <input class="form-control" name="last_name" ng-model="profile_area.editedProfile.last_name" required>
+                        <div ng-messages="submitted && _edit.last_name.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && _edit.last_name.$error.required" ng-message="required">Last Name is required</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': submitted && _edit.email.$invalid}">
+                    <md-input-container class="md-block">
+                        <label>Email Id</label>
+                        <input class="form-control" name="email" type="email" ng-model="profile_area.editedProfile.email"
+                               ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+                               required>
+
+                        <div ng-messages="submitted && _edit.email.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && _edit.email.$error.required" ng-message="required">Email is required</div>
+                            <div ng-show="submitted && !_edit.email.$error.required && _edit.email.$error.pattern" ng-message="required">Email is invalid</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+
+                <div class="form-group" ng-class="{'has-error': submitted && _edit.phone.$invalid}">
+                    <md-input-container class="md-block">
+                        <label>Number mobile phone</label>
+                        <input phone-number class="form-control" name="phone" ng-model="profile_area.editedProfile.phone" required>
+                        <div ng-messages="submitted && _edit.phone.$invalid" ng-class="{'md-auto-hide': !submitted}">
+                            <div ng-show="submitted && _edit.phone.$error.required" ng-message="required">Phone is required</div>
+                        </div>
+
+                    </md-input-container>
+                </div>
+
+                <div class="form-group">
+                    <md-input-container class="md-block">
+                        <label>Company Name</label>
+                        <input class="form-control" ng-model="profile_area.editedProfile.company_name">
+                    </md-input-container>
+                </div>
+
+                <div>
+                    <button class="btn btn-default" ng-click="updateProfile(null, _edit.$invalid, profile_area.editedProfile);submitted=true;">UPDATE</button>
+                    <button class="btn btn-default" ng-click="profile_area.editProfile=false;submitted=false;profile_area.editedProfile = ''">CANCEL</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div ng-if="changePassword" class="delete-modal-block">
+        <div class="row  modal-block-change-password background-white border-blue">
+            <div class="col-xs-offset-1 col-xs-10">
+                <div class="text-bold text-center padding7">Change password</div>
+                <form name="_password" novalidate>
+                    <div class="form-group" ng-class="{'has-error': submittedPwd && (_password.old.$invalid || wrongPassword)}">
+                        <md-input-container class="md-block">
+                            <label>Old password</label>
+                            <input type="password" class="form-control" name="old" ng-model="password.oldPassword" required>
+
+
+                            <div ng-messages="submittedPwd && _password.old.$invalid" ng-class="{'md-auto-hide': !submittedPwd}">
+                                <div ng-show="submittedPwd && _password.old.$error.required" ng-message="required">Old password is required</div>
+                                <div ng-if="wrongPassword">Wrong password</div>
+                            </div>
+
+                            <!--<p class="error" ng-if="_password.old.$error.required">Old password is required</p>-->
+                            <!--<p class="error" ng-if="wrongPassword">Wrong password</p>-->
+                        </md-input-container>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': submittedPwd && (_password.new.$invalid || failPassword)}">
+                        <md-input-container class="md-block">
+                            <label>New password</label>
+                            <input type="password" class="form-control" name="new" ng-model="password.newPassword" required>
+
+                            <div ng-messages="submittedPwd && _password.new.$invalid" ng-class="{'md-auto-hide': !submittedPwd}">
+                                <div ng-show="submittedPwd && _password.new.$error.required" ng-message="required">New password is required</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': submittedPwd && (_password.confirm.$invalid || failPassword) }">
+                        <md-input-container class="md-block">
+                            <label>Confirm new password</label>
+                            <input type="password" class="form-control" name="confirm" ng-model="password.confirm_password" required equals="{{password.newPassword}}">
+
+                            <div ng-messages="submittedPwd && _password.confirm.$invalid" ng-class="{'md-auto-hide': !submittedPwd}">
+                                <div ng-show="submittedPwd && _password.confirm.$error.required" ng-message="required">Confirm new password is required</div>
+                                <div ng-show="submittedPwd && _password.confirm.$error.equals" ng-message="equals">Passwords do not match</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div>
+                        <button class="btn background-orange text-white" ng-click="change(_password.$invalid, password);submittedPwd=true">Submit</button>
+                        <button class="btn background-orange text-white" ng-click="showModal(false)">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

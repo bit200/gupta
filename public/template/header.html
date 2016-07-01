@@ -21,15 +21,21 @@
             </li>
             <li class="dropdown" ng-if="isLogged()" style="color: white">
                 <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <ng-md-icon icon="account_circle" style="fill: red;top: 4px;position: relative;margin-left: 10px;" size="42"></ng-md-icon>
-                    <div style="display: inline-block;position: relative;top: -13px;">{{currentUser().first_name}} {{currentUser().last_name}}</div>
-                    <ng-md-icon icon="keyboard_arrow_down" style="fill: white;" size="32"></ng-md-icon>
+                    <div style="display: inline-block;margin-left: 10px;">
+                        <img style="width: 32px;border-radius: 23px;top: 8px;position: relative;" ng-show="currentUser().preview" ng-src="{{currentUser().preview}}">
+                        <ng-md-icon ng-hide="currentUser().preview" icon="account_circle" style="fill: red;top: 4px;position: relative;" size="42"></ng-md-icon>
+                    </div>
+                    <div style="float: right;margin-left: 10px">
+                        <div style="display: inline-block;">{{currentUser().first_name}} {{currentUser().last_name}}</div>
+                        <ng-md-icon icon="keyboard_arrow_down" style="position: relative;top: 10px;fill: white;" size="32"></ng-md-icon>
+                    </div>
                 </div>
                 <ul class="dropdown-menu">
-                    <li><a href="">As Buyer</a></li>
-                    <li><a href="">As Seller</a></li>
-                    <li><a href="" ng-click="$state.go('my_profile')">Profile</a></li>
-                    <li><a href="">My Activities</a></li>
+                    <li ng-click="asView.buyer=true;asView.seller=false;" ng-class="{active: asView.buyer}"><a href="">As Buyer</a></li>
+                    <li ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a href="">As Seller</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ng-click="$state.go('my_profile');">Profile</a></li>
+                    <!--<li><a href="">My Activities</a></li>-->
                     <li><a ng-click="logout()" href="">Logout</a></li>
                 </ul>
             </li>

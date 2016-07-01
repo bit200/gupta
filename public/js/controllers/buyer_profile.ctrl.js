@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('MyProfileCtrl', ['$scope', '$location', '$http', '$q', 'notify', '$rootScope', 'AuthService', 'Upload',
+XYZCtrls.controller('BuyerProfileCtrl', ['$scope', '$location', '$http', '$q', 'notify', '$rootScope', 'AuthService', 'Upload',
     function (scope, location, http, $q, notify, $rootScope, AuthService, Upload) {
     $rootScope.globalImg = [];
     scope.profile = AuthService.currentUser();
@@ -10,7 +10,7 @@ XYZCtrls.controller('MyProfileCtrl', ['$scope', '$location', '$http', '$q', 'not
         originalImage: '',
         croppedImage: ''
     };
-    $rootScope.profile_area = {};
+    scope.profile_area = {};
 
     scope.dropImage = function(file){
         Upload.dataUrl(file, true).then(function(url){
@@ -24,12 +24,17 @@ XYZCtrls.controller('MyProfileCtrl', ['$scope', '$location', '$http', '$q', 'not
             scope.image.originalImage = angular.copy(scope.profile.preview)
     };
 
-    scope.updateProfile = function(img, invalid){
+    scope.setEditedProfile = function(){
+        scope.profile_area.editedProfile=angular.copy(scope.profile)
+    }
+    scope.updateProfile = function(img, invalid, editedProfile){
          if (invalid) return
          if (img)
              scope.profile.preview = img;
-
-        http.put('/api/user/profile', JSON.parse(angular.toJson(scope.profile))).success(function(resp){
+        var data = angular.copy(JSON.parse(angular.toJson(scope.profile)))
+        if (editedProfile)
+            data = editedProfile
+        http.put('/api/user/profile', data).success(function(resp){
             scope.profile = resp.data;
             AuthService.setCurrentUser(resp);
             scope.profile_area.changeImage=false;
@@ -38,6 +43,9 @@ XYZCtrls.controller('MyProfileCtrl', ['$scope', '$location', '$http', '$q', 'not
                 croppedImage: ''
             };
             notify({message: 'Profile has been updated!', duration: 3000, position: 'right', classes: "alert-success"});
+            scope.submitted=false;
+            scope.profile_area.editProfile = false;
+            scope.profile_area.editedProfile = '';
         });
     };
 

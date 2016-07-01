@@ -22,4 +22,13 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         return buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
     }
 
+    var asView = localStorage.getItem('asView');
+    $rootScope.asView = asView ? JSON.parse(asView) : {buyer: true};
+
+    $rootScope.$watch('asView', function(val){
+        if (val){
+            localStorage.setItem('asView', JSON.stringify(val))
+        }
+    },true)
+
 });

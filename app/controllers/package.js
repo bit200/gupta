@@ -13,7 +13,7 @@ exports.delete_package = function (req, res) {
     models.Package.find({_id: req.params.id}).remove(function(){
         models.Freelancer.findOne({service_packages: {$in: [req.params.id]}}).exec(function(err, freelancer){
             if (freelancer){
-                freelancer.splice(freelancer.service_packages.indexOf(req.params.id),1)
+                freelancer.service_packages.splice(freelancer.service_packages.indexOf(req.params.id),1)
                 freelancer.save()
             }
         });
@@ -54,20 +54,29 @@ exports.add_update_package = function (req, res) {
 
     upload(req, res, function (err) {
         getPackage(req, function(){
-            new models.Attachment({
-                originalName: req.file.originalname,
-                name: req.file.filename,
-                path: 'packages/'+ packg._id
-            }).save(function(err, attach){
-                delete req.body.id
-                req.body.preview = attach;
+            if (req.file){
+                new models.Attachment({
+                    originalName: req.file.originalname,
+                    name: req.file.filename,
+                    path: 'packages/'+ packg._id
+                }).save(function(err, attach){
+                    delete req.body.id
+                    req.body.preview = attach;
+                    packg = _.extend(packg,req.body);
+                    packg.save(function(err,pkg){
+                        pkg.populate('preview', function(){
+                            res.jsonp(pkg)
+                        })
+                    });
+                })
+            }else{
                 packg = _.extend(packg,req.body);
                 packg.save(function(err,pkg){
                     pkg.populate('preview', function(){
                         res.jsonp(pkg)
                     })
                 });
-            })
+            }
         });
     });
 };

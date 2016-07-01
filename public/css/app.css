@@ -589,6 +589,10 @@ html, body {
     outline: none;
 }
 
+.no-border {
+    border: none !important;
+}
+
 .btn-registration {
     padding: 5px 20px;
 }
@@ -1576,6 +1580,18 @@ html {
     background-color: #aaa;
 }
 
+.dropdown-menu li a:hover{
+    background: black !important;
+    color: white;
+    font-weight: bolder;
+}
+.dropdown-menu li.active a:hover{
+    color: red;
+}
+.dropdown-menu li.active a{
+    color: red;
+    background: white;
+}
 @media (min-width: 992px) {
     .profile-detail {
         width: 10vw;

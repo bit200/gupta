@@ -18,8 +18,4 @@ module.exports = function (app) {
     app.get('/api/freelancer/:id/favorite/add', auth.token, freelancer.add_favorite);
     app.get('/api/freelancer/:id/favorite/remove', auth.token, freelancer.remove_favorite);
     app.get('/api/freelancer/:id/check_favorite', auth.token, freelancer.check_favorite);
-
-    app.post('/add-package', auth.checkIfUser, freelancer.add_package);
-    app.post('/uploadFile', auth.checkIfUser, freelancer.uploadFile);
-    app.delete('/deleteFile', auth.checkIfUser, freelancer.deleteFile);
 };
