@@ -105,6 +105,10 @@ selector .sel-items > div {
 .job-nav .sel-items, .job-nav, .bcg {
     background: #f6f6f6;
 }
+links {
+    display: block;
+    margin-top: 50px;
+}
 links a {
     /*display: block;*/
     padding: 5px;
@@ -404,6 +408,29 @@ md-input-container {
 }
 
 
+mess {
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+desc {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.1;
+    color: inherit;
+}
+
+mess, desc {
+    display: block;
+}
 
 .hidr {
     display: block;

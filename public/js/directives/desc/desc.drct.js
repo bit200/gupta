@@ -1,4 +1,4 @@
-XYZCtrls.directive('mess', function () {
+XYZCtrls.directive('desc', function () {
     return {
         restrict: 'E',
         scope: {
@@ -6,11 +6,12 @@ XYZCtrls.directive('mess', function () {
             status: '@',
             text: '@'
         },
-        template: '<div>{{text}}</div>',
+        template: '{{text}}',
         controller: ['$scope', function (scope) {
             if (!scope.text) {
                 scope.text = ['Your', scope.type, 'has successfully', scope.status || 'sent'].join(' ')
             }
+
         }]
     };
 });

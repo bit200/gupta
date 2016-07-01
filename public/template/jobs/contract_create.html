@@ -1,13 +1,14 @@
 <div class="cont" ng-class="{response: succ_resp}">
     <h1 class="title2 hidr" ng-if="!response_come">
-        <span ng-if="i.contr_create">Create a contract</span>
-        <span ng-if="i.contr_edit">Edit contract #{{contract._id}}</span>
-        <span ng-if="i.contr_suggest">Suggest edits for contract #{{contract._id}}</span>
-        <span ng-if="i.contr_suggest_buyer">Suggest edits for contract #{{contract._id}}</span>
+        <span ng-if="i.contract_create">Create a contract</span>
+        <span ng-if="i.contract_edit">Edit contract #{{contract._id}}</span>
+        <span ng-if="i.contract_suggest">Suggest edits for contract #{{contract._id}}</span>
+        <span ng-if="i.contract_suggest_buyer">Suggest edits for contract #{{contract._id}}</span>
     </h1>
-    <div ng-if="succ_resp" class="visr text-center">
-        <div ng-if="i.contr_create">
-            <mess type="job" status="created"></mess>
+    <div class="visr text-center">
+        <div ng-if="i.contract_create">
+            <mess type="contract" status="sent for admin approval"></mess>
+            <desc text="We will update you as soon as our admin has finished validation"></desc>
             <links>
                 <a ui-sref="job({id: resp._id})">View this job</a>
                 <a ui-sref="jobs_list.buyer_open">View all your active jobs</a>

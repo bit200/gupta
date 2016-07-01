@@ -11,7 +11,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
     $timeout(function(){
         scope.succ_resp = true
-    }, 1000)
+    }, 1000);
+    
     scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
             title: scope.job.title,
             freelancer: scope.freelancer,
