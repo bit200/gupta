@@ -32,6 +32,21 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             }
         };
 
+        function apply_q_all(param_name) {
+            return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                var info_obj = {}
+                param_name = this.self.name.split('.')[1]
+                info_obj[param_name] = true
+
+                var t = {
+                    apply: $http.get('/api/job-apply/' + $stateParams.id + '/pub'),
+                    i: getResolveQ($q, info_obj)
+                }
+
+                return $q.all(t)
+            }]
+        }
+
         function contract_q_all(param_name) {
             return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                 console.log("$stateParasm", $stateParams, this)
@@ -104,18 +119,20 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         function c_fn(url, template, param_name, is_free_auth) {
              return fn(url, template, param_name, is_free_auth, 'contractCtrl', contract_q_all)
         }
+        function apply_fn(url, template, param_name, is_free_auth) {
+            return fn(url, template, param_name, is_free_auth, 'applyCtrl', apply_q_all)
+        }
 
         function job_fn(url, template, param_name, is_free_auth) {
             return fn(url, template, param_name, is_free_auth, 'jobCtrl', job_q_all)
         }
-
-
         $stateProvider
             .state('root', {
                 url: '',
                 abstract: true,
                 template: '<ui-view></ui-view>'
             })
+
             .state('root.contract_create', c_fn('/contract/create/:job/:freelancer', 'contract_create'))
             .state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
 
@@ -123,6 +140,41 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
             .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
             .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
+
+            .state('root.apply_create', job_fn('/job/apply/:id', 'apply_create'))
+            .state('root.apply_edit', job_fn('/job/apply/edit/:id', 'apply_create'))
+            .state('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
+
+
+            // .state('job_apply', {
+            //     url: '/job/apply/:id',
+            //     templateUrl: 'template/applyForJob.html',
+            //     controller: 'jobCtrl',
+            //     resolve: {
+            //         auth: authResolve,
+            //         getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+            //             return $q.all({
+            //                 job: $http.get('/api/job/' + $stateParams.id),
+            //                 apply: $http.get('/api/job-apply/' + $stateParams.id),
+            //                 contentType: {data: {data: ''}},
+            //                 locations: {data: {data: ''}}
+            //             })
+            //         }]
+            //     }
+            // })
+            // .state('job_apply_detailed', {
+            //     url: '/application/:id',
+            //     templateUrl: 'template/applicationDetails.html',
+            //     controller: 'commonCtrl',
+            //     resolve: {
+            //         auth: authResolve,
+            //         getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+            //             return $q.all({
+            //                 apply: $http.get('/api/job-apply/' + $stateParams.id + '/pub'),
+            //             })
+            //         }]
+            //     }
+            // })
 
 
             .state('contract_edit', {
@@ -352,36 +404,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
 
-
-            .state('job_apply', {
-                url: '/job/apply/:id',
-                templateUrl: 'template/applyForJob.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            job: $http.get('/api/job/' + $stateParams.id),
-                            apply: $http.get('/api/job-apply/' + $stateParams.id),
-                            contentType: {data: {data: ''}},
-                            locations: {data: {data: ''}}
-                        })
-                    }]
-                }
-            })
-            .state('job_apply_detailed', {
-                url: '/application/:id',
-                templateUrl: 'template/applicationDetails.html',
-                controller: 'commonCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            apply: $http.get('/api/job-apply/' + $stateParams.id + '/pub'),
-                        })
-                    }]
-                }
-            })
 
 
 
@@ -707,6 +729,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve
                 }
             });
+
+
 
         $urlRouterProvider.otherwise('/');
 

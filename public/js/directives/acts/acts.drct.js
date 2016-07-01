@@ -80,7 +80,7 @@ XYZCtrls.directive('acts', function () {
                             else if (is_role('buyer', 'closed'))
                                 return true
                         },
-                        ui_sref: sref("job", {id: getInfoId(item, 'job')})
+                        ui_sref: sref("root.job_detailed", {id: getInfoId(item, 'job')})
 
                     }
                 },

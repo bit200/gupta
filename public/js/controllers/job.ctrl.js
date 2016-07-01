@@ -2,7 +2,7 @@
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
     function (scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
-
+        console.log('GET CONTENT', getContent)
         scope.onSucc = function(data) {
             console.log("on succccccccc", data, data.data)
             scope.resp = data.data
@@ -23,14 +23,14 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
         ]
 
         scope.i = getContent.i
-        console.log("ahdfhashdfhasdhfahsdfhashdfhasdhfasfd get content", scope.i, getContent)
         scope.contentTypes = getContent.contentType.data.data;
         scope.locations = getContent.locations.data.data;
-
         if (stateParams.id) {
             var job = getContent.job.data.data[0];
             job.date_of_completion = new Date(job.date_of_completion);
             scope.job = job;
+            scope.new_job = job;
+
             if (getContent.apply) {
                 scope.isApply = getContent.apply.data.data[0];
                 scope.new_apply = scope.isApply || {budget: job.budget}
@@ -58,6 +58,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
                 } : {count: scope.stats.hired, name: 'Hired'});
             }
             scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
+            console.log("GET CONTETNT STEP2", scope.job, scope.new_apply, getContent)
         } else {
             scope.job = {
                 job_visibility: 'true',
@@ -151,7 +152,6 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
 
         scope.sendApplyNew = function (params) {
             params.job = scope.job._id
-            console.log('params', params)
             http
                 .post('/api/job-apply', params)
                 .success(function (data) {
