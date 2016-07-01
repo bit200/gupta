@@ -1,44 +1,44 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'notify', '$rootScope',
-    function (scope, location, http, $q, getContent, notify, $rootScope) {
+XYZCtrls.controller('MyProfileCtrl', ['$scope', '$location', '$http', '$q', 'notify', '$rootScope', 'AuthService', 'Upload',
+    function (scope, location, http, $q, notify, $rootScope, AuthService, Upload) {
     $rootScope.globalImg = [];
-    scope.profile = getContent.user.data.data;
+    scope.profile = AuthService.currentUser();
 
-    $rootScope.profile_area = {}
-    $rootScope.$watchCollection('globalImg', function(imgs){
-        if (imgs && imgs.length){
-            http.put('/api/user/profile', {poster: imgs[0].data._id}).then(function (resp) {
-                notify({message: 'Profile Image has been updated', duration: 1000, position: 'right', classes: "alert-success"});
-                $rootScope.profile_area.changeImage = false;
-                scope.profile.poster = imgs[0].data
-                $rootScope.globalImg = [];
-            }, function (err) {
-                console.log('err', err)
-            })
-        }
-    });
 
-    var handleFileSelect=function(evt) {
-        var file=evt.currentTarget.files[0];
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-            scope.$apply(function(scope){
-                scope.myImage=evt.target.result;
-            });
-        };
-        reader.readAsDataURL(file);
+    scope.image = {
+        originalImage: '',
+        croppedImage: ''
     };
-    angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+    $rootScope.profile_area = {};
 
-    scope.save = function (invalid, profile) {
-        if (invalid) return;
-        http.put('/api/user/profile', profile).then(function (resp) {
-            notify({message: 'Profile has been updated', duration: 1000, position: 'right', classes: "alert-success"});
-            console.log('resp', resp)
-        }, function (err) {
-            console.log('err', err)
-        })
+    scope.dropImage = function(file){
+        Upload.dataUrl(file, true).then(function(url){
+            scope.image.originalImage = url
+        });
+    }
+
+    scope.showUpdatePic = function(){
+        scope.profile_area.changeImage=true;
+        if (scope.profile.preview)
+            scope.image.originalImage = angular.copy(scope.profile.preview)
+    };
+
+    scope.updateProfile = function(img, invalid){
+         if (invalid) return
+         if (img)
+             scope.profile.preview = img;
+
+        http.put('/api/user/profile', JSON.parse(angular.toJson(scope.profile))).success(function(resp){
+            scope.profile = resp.data;
+            AuthService.setCurrentUser(resp);
+            scope.profile_area.changeImage=false;
+            scope.image = {
+                originalImage: '',
+                croppedImage: ''
+            };
+            notify({message: 'Profile has been updated!', duration: 3000, position: 'right', classes: "alert-success"});
+        });
     };
 
     scope.showModal = function (bol) {
@@ -54,7 +54,7 @@ XYZCtrls.controller('myProfileCtrl', ['$scope', '$location', '$http', '$q', 'get
             scope.failPassword = false;
             http.post('/api/user/update-password', password).then(function (resp) {
                 scope.changePassword = false;
-                notify({message: 'Password was changed!', duration: 1000, position: 'right', classes: "alert-success"});
+                notify({message: 'Password was changed!', duration: 3000, position: 'right', classes: "alert-success"});
             }, function (err) {
                 if (err.data.error == "Wrong password")
                     scope.wrongPassword = true;

@@ -1,28 +1,36 @@
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-top: 1%">
         <div class="col-md-3">
-            <div ng-if="profile.poster && !profile_area.changeImage" class="text-center">
-                <img ng-src="{{profile.poster.url}}" style="max-height: 200px"/>
-                <button class="btn btn-default" ng-click="profile_area.changeImage=true" style="margin-top: 10px">Update</button>
-            </div>
-            <div ng-if="profile_area.changeImage || !profile.poster" class="containerDrop" ng-class="{'containerCrop':showCrop}" style="text-align: center;" ng-controller="uploadFile">
-                <div ng-show="showDrop" ngf-drop ngf-select ng-model="picProfile" class="drop-box">Drop</div>
-                <div ng-show="showCrop" ngf-drop ng-model="picProfile" ngf-pattern="image/*" style="height: 200px" class="cropArea">
-                    <img-crop area-type="square" image="picProfile  | ngfDataUrl"
-                              result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
-                    </img-crop>
+            <div style="width: 100%;background: rgb(240, 240, 240);padding: 10px 12px 100px 10px;">
+                <h3>{{currentUser().first_name}} {{currentUser().last_name}}</h3>
+                <div ng-if="profile.preview && !profile_area.changeImage" class="text-center" style="position: relative;width: 100%;margin: 0 auto;background: white;">
+                    <img ng-src="{{profile.preview}}" style="width: 100%;"/>
+                    <div style="position: absolute;bottom: 0px;height: 50px;width: 100%;background: rgba(0, 0, 0, 0.6);" class="pointer" ng-click="showUpdatePic()">
+                        <div style="text-align: left;color: white;font-weight: bold;margin-top: 14px;margin-left: 10px;font-size: 16px;">EDIT PROFILE PICTURE</div>
+                        <ng-md-icon icon="add_a_photo" style="fill: white;float: right;top: 8px;position: absolute;right: 8px;" size="32"></ng-md-icon>
+                    </div>
                 </div>
-                <button ng-show="showCrop" class="btn btn-default" style="width: 100px;" ng-click="upload(croppedDataUrl, picProfile.name)">Save</button>
-                <button class="btn btn-default" ng-click="profile_area.changeImage=false" style="width: 100px;">Cancel</button>
-                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                <div ng-if="profile_area.changeImage || !profile.preview" class="containerDrop" style="text-align: center;">
+                    <div ngf-drop ng-hide="image.originalImage" ngf-select="dropImage($file)" class="drop-box">Drop</div>
+                    <section ng-show="image.originalImage">
+                        <img-crop area-type="square" style="height: 250px;width: 100%;" image="image.originalImage" result-image="image.croppedImage"></img-crop>
+                        <button class="btn btn-default" ng-click="updateProfile(image.croppedImage)">Save</button>
+                        <button class="btn btn-default" ng-click="profile_area.changeImage=false;image.originalImage=''">Cancel</button>
+                        <button ngf-select="dropImage($file)" ngf-pattern="image/*" class="btn btn-default">Select</button>
+                    </section>
+                    <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                </div>
+                <div style="margin-top: 20px">
+                    <a class="pointer" ng-click="showModal(true)" style="text-decoration: underline;color: rgb(250, 60, 60);font-size: 16px;">Change Password</a>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
-            <form name="_edit" novalidate>
+            <form name="_edit" style="margin-top: 20px" novalidate>
                 <div class="form-group" ng-class="{'has-error': submitted && _edit.first_name.$invalid}">
                     <md-input-container class="md-block">
                         <label>First Name</label>
-                        <input class="form-control"  ng-model="profile.first_name" required>
+                        <input class="form-control" name="first_name" ng-model="profile.first_name" required>
                         <div ng-messages="submitted && _edit.first_name.$invalid" ng-class="{'md-auto-hide': !submitted}">
                             <div ng-show="submitted && _edit.first_name.$error.required" ng-message="required">First Name is required</div>
                         </div>
@@ -32,7 +40,7 @@
                 <div class="form-group" ng-class="{'has-error': submitted && _edit.last_name.$invalid}">
                     <md-input-container class="md-block">
                         <label>Last Name</label>
-                        <input class="form-control" ng-model="profile.last_name" required>
+                        <input class="form-control" name="last_name" ng-model="profile.last_name" required>
                         <div ng-messages="submitted && _edit.last_name.$invalid" ng-class="{'md-auto-hide': !submitted}">
                             <div ng-show="submitted && _edit.last_name.$error.required" ng-message="required">Last Name is required</div>
                         </div>
@@ -73,10 +81,7 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-default" ng-click="save(_edit.$invalid, profile);submitted=true;">Update</button>
-                </div>
-                <div>
-                    <a class="pointer" ng-click="showModal(true)">Change Password</a>
+                    <button class="btn btn-default" ng-click="updateProfile(null, _edit.$invalid);submitted=true;">Update</button>
                 </div>
             </form>
         </div>

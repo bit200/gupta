@@ -10,17 +10,30 @@
             <div class="text-white pointer header-logo" ng-click="go('/')">12TH CROSS</div>
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <section ng-if="isLogged()">
-                <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="logout()" style="{font-size: 10pt;}">Logout</div>
-            </section>
-            <section ng-if="!isLogged()">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <button href="/#/jobs" class="btn btn-header">VIEW JOBS</button>
+                <ng-md-icon icon="favorite" style="fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
+            </li>
+            <li ng-if="!isLogged()">
                 <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Signup</div>
                 <div class="pull-right text-white marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Login</div>
-            </section>
-            <span class="glyphicon glyphicon-heart header-heart text-white pull-right paddingLR10 pointer"></span>
-            <a href="/#/jobs" class="btn pull-right btn-header">VIEW JOBS</a>
-        </div>
+            </li>
+            <li class="dropdown" ng-if="isLogged()" style="color: white">
+                <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <ng-md-icon icon="account_circle" style="fill: red;top: 4px;position: relative;margin-left: 10px;" size="42"></ng-md-icon>
+                    <div style="display: inline-block;position: relative;top: -13px;">{{currentUser().first_name}} {{currentUser().last_name}}</div>
+                    <ng-md-icon icon="keyboard_arrow_down" style="fill: white;" size="32"></ng-md-icon>
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a href="">As Buyer</a></li>
+                    <li><a href="">As Seller</a></li>
+                    <li><a href="" ng-click="$state.go('my_profile')">Profile</a></li>
+                    <li><a href="">My Activities</a></li>
+                    <li><a ng-click="logout()" href="">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
 
     </div>
     <div class="header-navigation">

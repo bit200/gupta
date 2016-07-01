@@ -730,10 +730,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-            .state('profile_user', {
-                url: '/profile/user/:id',
-                templateUrl: 'template/profile.html',
-                controller: 'profileCtrl',
+            .state('my_profile', {
+                url: '/my_profile',
+                templateUrl: 'template/myProfile.html',
+                controller: 'MyProfileCtrl',
                 resolve: {
                     auth: authResolve
                 }

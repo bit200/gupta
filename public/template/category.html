@@ -102,7 +102,7 @@
 
                     <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
                         <div class="profile-detail">
-                            <img class="profile-poster-detail" ng-src="{{profile.poster.url}}">
+                            <img class="profile-poster-detail" ng-src="{{profile.contact_detail.preview}}">
                             <ul style="list-style-type: none;">
                                 <li>{{profile.name}}</li>
                                 <li>{{profile.location}}</li>

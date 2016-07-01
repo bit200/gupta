@@ -25,10 +25,9 @@ exports.me_ids = function(req, res) {
 exports.me = function (req, res) {
     m.findOne(models.User, {_id: req.userId}, res, res, {publish: true, populate: {path: 'poster'}})
 };
-
+console.log(md5('Test1234'))
 exports.update_password = function (req, res) {
     var params = m.getBody(req);
-    log('params', params, req.userId)
     m.findOne(models.User, {_id: req.userId}, res, function (user) {
         user.comparePassword(params.oldPassword, function (err, isMatch) {
             if (err || !isMatch) {
@@ -84,7 +83,7 @@ exports.restore = function (req, res) {
 
 exports.update_profile = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {_id: req.userId}, params, res, res, {publish: "true"})
+    m.findUpdate(models.User, {_id: req.userId}, params, res, res, {publish: true})
 };
 
 exports.linkedinSignin = function (req, res) {

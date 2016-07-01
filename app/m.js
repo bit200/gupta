@@ -203,9 +203,7 @@ function insertMany(model, new_params, _ecb, _scb, params) {
 }
 
 function findUpdate2(model, query, new_params, _ecb, _scb, params) {
-    console.log('hahdfahsdfhashdfahsdfhashdfashdfhasdhfashdfhasdhfashdfhasdfh', query, new_params)
     findOne(model, query, _ecb, function (item) {
-        console.log('ahahhahahahahahahahah', item)
         item = _.extend(item, new_params);
         save(item, _ecb, _scb, params)
     })
@@ -214,13 +212,18 @@ function findUpdate2(model, query, new_params, _ecb, _scb, params) {
 
 function findUpdate(model, query, new_params, _ecb, _scb, params) {
     params = params || {};
-    if (params.publish)
+    var publish
+    if (params.publish){
+        publish = true
         delete params.publish
+    }
     findOne(model, query, _ecb, function (item) {
         item = _.extend(item, new_params);
         save(item, _ecb, function(item){
             if (params.populate) {
                 item.populate(params.populate, function(err, b) {
+                    if (publish)
+                        delete item.password
                     if (err) {
                         ecb(398, item, _ecb)
                     } else {

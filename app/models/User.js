@@ -12,17 +12,14 @@ var UserSchema = mongoose.Schema({
         trim: true,
         unique: true,
         validate: [validateEmail, 'Please fill a valid email address']
-    }, //it's an email field
+    }, 
     password: String,
     restore_code: String,
     first_name: String,
     last_name: String,
     phone: String,
     company_name: String,
-    poster: {
-        type: Number,
-        ref: 'UploadFile'
-    },
+    preview: String,
     created_at: {
         type: Date,
         default: Date.now
@@ -39,7 +36,7 @@ UserSchema.methods.send_restore = function (ecb, scb) {
 
 
 UserSchema.pre('save', function (next) {
-    if (this.password) 
+    if (!this._id && this.password)
         this.password = md5(this.password);
     next()
 });
