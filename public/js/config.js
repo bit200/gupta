@@ -36,7 +36,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                 console.log("$stateParasm", $stateParams, this)
                 var info_obj = {}
-                param_name = this.self.name.replace('.', '_')
+                param_name = this.self.name.split('.')[1]
                 info_obj[param_name] = true
 
                 var t = {
