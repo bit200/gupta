@@ -73,12 +73,13 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
 
         $stateProvider
-            .state('contract', {
-                url: '/contact',
+            .state('root', {
+                url: '',
                 abstract: true,
-                template: '<ui-view></ui-view>',
+                template: '<ui-view></ui-view>'
             })
-            .state('contract.create', c_fn('/create/:job/:freelancer', 'contract_create'))
+            .state('root.contract_create', c_fn('/contract/create/:job/:freelancer', 'contract_create'))
+            .state('root.contract_detailed', c_fn('/contract/:id', 'contract_view'))
             .state('contract_edit', {
                 url: '/contract/edit/:id',
                 templateUrl: 'template/contractCreate.html',
@@ -95,22 +96,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
-            .state('contract_detailed', {
-                url: '/contract/:id',
-                templateUrl: 'template/contractDetails.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
-                            info: getResolveQ($q, {
-                                is_details_page: true
-                            })
-                        })
-                    }]
-                }
-            })
+
             .state('contract_suggest_another', {
                 url: '/contract/suggest-another/:id',
                 templateUrl: 'template/contractCreate.html',

@@ -9,10 +9,10 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
     scope.i = getContent.i
 
-    $timeout(function(){
-        scope.succ_resp = true
-    }, 1000);
-    
+    // $timeout(function(){
+    //     scope.succ_resp = true
+    // }, 1000);
+    //
     scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
             title: scope.job.title,
             freelancer: scope.freelancer,
@@ -31,8 +31,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
     scope.contract = angular.extend({}, scope.contract_orig, scope.suggest, scope.contract_orig.suggest, {_id: scope.contract_orig._id})
 
-    console.log('getContent', getContent, scope.info)
-    console.log('shshshshshshshhshs contractttt', scope.contract, scope.contract_orig)
     scope.contract.expected_completion = new Date(scope.contract.expected_completion)
     scope.contract.expected_start = new Date(scope.contract.expected_start)
 
@@ -114,7 +112,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             })
         }
     }
-    scope.createContract = function (invalid, type, _data) {
+    scope.contract_create = function (invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()
         } else {
@@ -127,14 +125,16 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             data.job = getId(data.job)
 
 
-            http.post('/api/contract', data).then(function (resp) {
+            http.post('/api/contract', data).success(function (data) {
                 // type == 'delete' ? location.path('/home') : location.path('/home');
-                console.log('resp', resp)
+                scope.succ_resp = true
+                scope.resp = data.data
+                console.log('resp', scope.resp)
             }, function (err) {
+                scope.error = err
                 console.log('err', err)
             })
         }
-
     }
 
     scope.preview = function () {
