@@ -1,78 +1,77 @@
-<div class="container new">
-    <div class="cont">
-        <h1 class="title2">Post a job</h1>
-        <div class="separator2"></div>
-        <div ng-if="isCreated">
-            <h2 class="text-center">Congratulations! Your jobs is successfully created.</h2>
-            <div class="text-center">
-                <a class="text-orange-link" href="/#/job/{{job_id}}">See this job</a>
-                <br>
-                <a class="text-orange-link" href="/#/jobs/buyer/open">See all your active job</a>
+<div class="cont" ng-class="{response: succ_resp}">
+    <h1 class="title2 hidr">
+        Post a job {{i.job_recreate}} {{i}}
+    </h1>
+    <div class="visr text-center">
+        <div ng-if="i.job_recreate || i.job_create">
+            <mess type="job" status="created and sent for admin approval"></mess>
+            <desc text="We will update you as soon as our admin has finished checking"></desc>
+            <links>
+                <a ui-sref="root.job_detailed({id: resp._id})">View this job</a>
+                <a ui-sref="jobs_list.buyer_open">View all your active jobs</a>
+            </links>
+        </div>
+    </div>
+
+    <form name="postjob" novalidate id="postjob" class="hidr">
+        <div class="row form-group" ng-class="{'has-error': submitted && postjob.title.$invalid}">
+            <md-input-container class="md-block">
+                <div class="title3">Job Title</div>
+                <input class="form-control" name="title" ng-model="job.title" required>
+                <div ng-messages="submitted && postjob.title.$error.$invalid">
+                    <div ng-show="submitted && postjob.title.$error.required" ng-message="required">{{default_empty}}
+                    </div>
+                </div>
+            </md-input-container>
+        </div>
+        <div class="row form-group" ng-class="{'has-error': submitted && postjob.description.$invalid}">
+            <md-input-container class="md-block">
+                <div class="title3">Provide a description of your requirements</div>
+                    <textarea style="min-height: 87px!important" class="form-control" name="description"
+                              ng-model="job.description" required
+                              rows="12s"></textarea>
+                <div ng-messages="submitted && postjob.description.$error.$invalid">
+                    <div ng-show="submitted && postjob.description.$error.required" ng-message="required">{{default_empty}}
+                    </div>
+                </div>
+            </md-input-container>
+        </div>
+        <div class="row">
+            <div class="title3">Which of the following Content Types are you looking for?</div>
+            <div ng-repeat="item in contentTypes">
+                <md-checkbox class="checkdark" ng-model="job.content[item]">{{item}}</md-checkbox>
             </div>
         </div>
 
-        <form ng-if="!isCreated" name="postjob" novalidate id="postjob">
-            <div class="row form-group" ng-class="{'has-error': submitted && postjob.title.$invalid}">
-                <md-input-container class="md-block">
-                    <div class="title3">Job Title</div>
-                    <input class="form-control" name="title" ng-model="job.title" required>
-                    <div ng-messages="submitted && postjob.title.$error.$invalid">
-                        <div ng-show="submitted && postjob.title.$error.required" ng-message="required">Required field
-                        </div>
-                    </div>
-                </md-input-container>
-            </div>
-            <div class="row form-group" ng-class="{'has-error': submitted && postjob.description.$invalid}">
-                <md-input-container class="md-block">
-                    <div class="title3">Provide a description of your requirements</div>
-                    <textarea style="min-height: 87px!important" class="form-control" name="description" ng-model="job.description" required
-                              rows="12s"></textarea>
-                    <div ng-messages="submitted && postjob.description.$error.$invalid">
-                        <div ng-show="submitted && postjob.description.$error.required" ng-message="required">Required
-                            field
-                        </div>
-                    </div>
-                </md-input-container>
-            </div>
-            <div class="row">
-                <div class="title3">Which of the following Content Types are you looking for?</div>
-                <div ng-repeat="item in contentTypes">
-                    <md-checkbox class="checkdark" ng-model="job.content[item]">{{item}}</md-checkbox>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="md-block">
-                    <div class="title3">Do you have a location preference?</div>
-                    <div ng-repeat="location in locations">
-                        <md-checkbox ng-model="job.location[location]" class="checkdark">{{location}}
-                        </md-checkbox>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" ng-init="job.type = 'Agency'">
-                <div class="title3">Do you have a preference for a type of professional</div>
-                <md-radio-group ng-model="job.type">
-                    <md-checkbox value="Agency" class="checkdark">Agency</md-checkbox>
-                    <div>
-                    <md-checkbox value="Freelancer" class="checkdark">Freelancer</md-checkbox>
-                    </div>
-                </md-radio-group>
-            </div>
+        <div class="row">
             <div class="md-block">
+                <div class="title3">Do you have a location preference?</div>
+                <div ng-repeat="location in locations">
+                    <md-checkbox ng-model="job.location[location]" class="checkdark">{{location}}
+                    </md-checkbox>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-init="job.type = 'Agency'">
+            <div class="title3">Do you have a preference for a type of professional</div>
+            <div ng-repeat="type in types">
+                <md-checkbox ng-model="job.type_checkbox[type]" class="checkdark">{{type}}
+                </md-checkbox>
+            </div>
+        </div>
+        <div class="md-block">
 
             <div class="row form-group" ng-class="{'has-error': submitted && postjob.budget.$invalid}">
                 <div class="title3">Provide some additional information</div>
 
                 <md-input-container class="md-block">
 
-                    <label>What is your budget for this marketing campaign</label>
+                    <div class="title3">What is your budget for this marketing campaign</div>
                     <input class="form-control" name="budget" numbers-only ng-model="job.budget" required>
 
                     <div ng-messages="submitted && postjob.budget.$error.$invalid">
-                        <div ng-show="submitted && postjob.budget.$error.required" ng-message="required">Required
-                            field
+                        <div ng-show="submitted && postjob.budget.$error.required" ng-message="required">{{default_empty}}
                         </div>
                     </div>
                 </md-input-container>
@@ -81,12 +80,11 @@
             <div class="row form-group">
                 <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.name.$invalid}">
                     <md-input-container class="md-block">
-                        <label>Client Name</label>
+                        <div class="title3">Client Name</div>
                         <input class="form-control" name="name" ng-model="job.name" required>
 
                         <div ng-messages="submitted && postjob.name.$error.$invalid">
-                            <div ng-show="submitted && postjob.name.$error.required" ng-message="required">Required
-                                field
+                            <div ng-show="submitted && postjob.name.$error.required" ng-message="required">{{default_empty}}
                             </div>
                         </div>
                     </md-input-container>
@@ -95,12 +93,11 @@
                 <div class="form-group col-md-5 col-md-offset-1 col-sm-12 nopadding"
                      ng-class="{'has-error': submitted && postjob.mobile.$invalid}">
                     <md-input-container class="md-block">
-                        <label>Mobile phone number</label>
+                        <div class="title3">Mobile phone number</div>
                         <input phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
 
                         <div ng-messages="submitted && postjob.mobile.$error.$invalid">
-                            <div ng-show="submitted && postjob.mobile.$error.required" ng-message="required">Required
-                                field
+                            <div ng-show="submitted && postjob.mobile.$error.required" ng-message="required">{{default_empty}}
                             </div>
                         </div>
                     </md-input-container>
@@ -110,12 +107,11 @@
             <div class="row form-group ">
                 <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.email.$invalid}">
                     <md-input-container class="md-block">
-                        <label>Email</label>
+                        <div class="title3">Email</div>
                         <input type="email" class="form-control" name="email" ng-model="job.email" required>
 
                         <div ng-messages="submitted && postjob.email.$error.$invalid">
-                            <div ng-show="submitted && postjob.email.$error.required" ng-message="required">Required
-                                field
+                            <div ng-show="submitted && postjob.email.$error.required" ng-message="required">{{default_empty}}
                             </div>
                             <div ng-show="!submitted && postjob.email.$error.required && submitted && postjob.email.$error.email"
                                  ng-message="email">Required field
@@ -126,12 +122,11 @@
                 <div class="col-md-5 col-md-offset-1 col-sm-12 nopadding"
                      ng-class="{'has-error': submitted && postjob.company.$invalid}">
                     <md-input-container class="md-block">
-                        <label>Company name</label>
+                        <div class="title3">Company name</div>
                         <input class="form-control" name="company" ng-model="job.company_name" required>
 
                         <div ng-messages="submitted && postjob.company.$error.$invalid">
-                            <div ng-show="submitted && postjob.company.$error.required" ng-message="required">Required
-                                field
+                            <div ng-show="submitted && postjob.company.$error.required" ng-message="required">{{default_empty}}
                             </div>
                         </div>
                     </md-input-container>
@@ -140,38 +135,39 @@
 
             <div class="row">
                 <md-input-container class="md-block">
-                    <label>Website URL</label>
+                    <div class="title3">Website URL</div>
                     <input class="form-control" ng-model="job.website">
                 </md-input-container>
             </div>
 
+        </div>
+
+
+        <div class="row" ng-init="job.job_visibility = 'Public'">
+            <div class="title3">Job Visibility</div>
+            <md-radio-group ng-model="job.job_visibility">
+                <md-radio-button value="Public" class="checkdark">Public</md-radio-button>
+                <md-radio-button value="Private" class="checkdark">Private</md-radio-button>
+            </md-radio-group>
+        </div>
+
+        <div class="row">
+            <div class="md-block">
+                <div class="title3">Expected Date of Completion</div>
+                <md-datepicker ng-model="job.date_of_completion" md-placeholder="Enter date"
+                               md-open-on-focus=""></md-datepicker>
             </div>
+        </div>
 
 
-            <div class="row" ng-init="job.job_visibility = 'Public'">
-                <div class="title3">Job Visibility</div>
-                <md-radio-group ng-model="job.job_visibility">
-                    <md-radio-button value="Public" class="checkdark">Public</md-radio-button>
-                    <md-radio-button value="Private" class="checkdark">Private</md-radio-button>
-                </md-radio-group>
-            </div>
+        <div class="row mtop30 ">
+            <button type="submit" class="btn btn-grey w100"
+                    ng-click="create_job(postjob.$invalid, job); submitted=true">Submit
+            </button>
+        </div>
+        <div error></div>
 
-            <div class="row">
-                <div class="md-block">
-                    <div class="title3">Expected Date of Completion</div>
-                    <md-datepicker ng-model="job.date_of_completion" md-placeholder="Enter date"
-                                   md-open-on-focus=""></md-datepicker>
-                </div>
-            </div>
-
-            <div class="text-error" ng-if="error">{{error}}</div>
-            <div class="row paddingT20 paddingB20">
-                <button type="submit" class="btn btn-grey w100"
-                        ng-click="addJob(postjob.$invalid, job); submitted=true">Submit
-                </button>
-            </div>
-        </form>
-
-    </div>
+    </form>
 
 </div>
+

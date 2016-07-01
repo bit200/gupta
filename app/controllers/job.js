@@ -212,7 +212,10 @@ exports.update = function (req, res) {
 exports.add_job = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;
+    params.buyer = req.userId;
     params.status = 'open'
+    delete params._id
+    console.log('hahahahahahahahahhahahahahaha', params)
     m.create(models.Job, params, res, res)
 };
 

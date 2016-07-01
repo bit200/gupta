@@ -32,7 +32,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             }
         };
 
-        function cnt(param_name) {
+        function contract_q_all(param_name) {
             return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                 console.log("$stateParasm", $stateParams, this)
                 var info_obj = {}
@@ -56,19 +56,57 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 return $q.all(t)
             }]
         }
+        function job_q_all(param_name) {
+            return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                var info_obj = {}
+                param_name = this.self.name.split('.')[1]
+                info_obj[param_name] = true
 
-        function c_fn(url, template, param_name, free_auth) {
+                var t = {
+                    job: $http.get('/api/job/' + $stateParams.id),
+                    apply: $http.get('/api/job-apply/' + $stateParams.id),
+                    stats: $http.get('/api/job-stats/' + $stateParams.id),
+                    contentType: $http.get('/get-content', {
+                        params: {
+                            name: 'Filters',
+                            query: {type: 'ContentWriting', filter: 'Content Type'},
+                            distinctName: 'name'
+                        }
+                    }),
+                    locations: $http.get('/get-content', {
+                        params: {
+                            name: 'Location',
+                            query: {},
+                            distinctName: 'name'
+                        }
+                    }),
+                    i: getResolveQ($q, info_obj)
+                }
+                if (!$stateParams.id) delete t.job
+                return $q.all(t)
+            }]
+        }
+
+        function fn (url, template, param_name, free_auth, ctrl, contract_fn) {
             return {
                 url: url,
                 templateUrl: 'template/jobs/' + template + '.html',
-                controller: 'contractCtrl',
+                controller: ctrl,
                 resolve: free_auth ? {
-                    getContent: cnt(param_name)
+                    getContent: contract_fn(param_name)
                 } : {
                     auth: authResolve,
-                    getContent: cnt(param_name)
+                    getContent: contract_fn(param_name)
                 }
             }
+        }
+
+        function c_fn(url, template, param_name, is_free_auth) {
+             return fn(url, template, param_name, is_free_auth, 'contractCtrl', contract_q_all)
+        }
+
+        function job_fn(url, template, param_name, is_free_auth) {
+            return fn(url, template, param_name, is_free_auth, 'jobCtrl', job_q_all)
         }
 
 
@@ -79,7 +117,42 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 template: '<ui-view></ui-view>'
             })
             .state('root.contract_create', c_fn('/contract/create/:job/:freelancer', 'contract_create'))
-            .state('root.contract_detailed', c_fn('/contract/:id', 'contract_view'))
+            .state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
+
+            .state('root.job_create', job_fn('/post-job', 'job_create'))
+            .state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
+            .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
+            .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
+
+            .state('job_edit', {
+                url: '/job/edit/:id',
+                templateUrl: 'template/editJob.html',
+                controller: 'postJobCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            job: $http.get('/api/job/' + $stateParams.id),
+                            contentType: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }]
+                }
+            })
+
+
             .state('contract_edit', {
                 url: '/contract/edit/:id',
                 templateUrl: 'template/contractCreate.html',
@@ -306,23 +379,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'chatCtrl'
             })
 
-            .state('job', {
-                url: '/job/:id',
-                templateUrl: 'template/job.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            job: $http.get('/api/job/' + $stateParams.id),
-                            apply: $http.get('/api/job-apply/' + $stateParams.id),
-                            stats: $http.get('/api/job-stats/' + $stateParams.id),
-                            contentType: {data: {data: ''}},
-                            locations: {data: {data: ''}}
-                        })
-                    }]
-                }
-            })
+
 
             .state('job_apply', {
                 url: '/job/apply/:id',
@@ -354,86 +411,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-            .state('job_post', {
-                url: '/post-job/:category?',
-                templateUrl: 'template/postJob.html',
-                controller: 'postJobCtrl',
-                resolve: {
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }
-                }
-            })
-
-            .state('job_edit', {
-                url: '/job/edit/:id',
-                templateUrl: 'template/editJob.html',
-                controller: 'postJobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            job: $http.get('/api/job/' + $stateParams.id),
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }]
-                }
-            })
-
-            .state('job_recreate', {
-                url: '/post-job/recreate/:id',
-                templateUrl: 'template/postJob.html',
-                controller: 'jobCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: function ($q, $http) {
-                        return $q.all({
-                            contentType: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            locations: $http.get('/get-content', {
-                                params: {
-                                    name: 'Location',
-                                    query: {},
-                                    distinctName: 'name'
-                                }
-                            })
-                        })
-                    }
-                }
-            })
 
 
             .state('me', {

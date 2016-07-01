@@ -20,6 +20,22 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
 
     $rootScope.getBuyerName = function(buyer) {
         return buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
+    }    
+    
+    $rootScope.onError = function(err) {
+        console.log('on error', err)
+        $rootScope.err_resp = {
+            message: err,
+            cd: new Date().getTime()
+        }
+
     }
 
+    $rootScope.onSucc = function(data) {
+        console.log("on succccccccc", data, data.data)
+        $rootScope.resp = data.data
+        $rootScope.succ_resp = true
+    }
+
+    $rootScope.default_empty = 'Please fill this field'
 });

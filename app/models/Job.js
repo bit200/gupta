@@ -3,12 +3,11 @@ var mongoose = require('mongoose')
 
 var JobSchema = mongoose.Schema({
     title: String,
-    type: String,
+    types: [String],
     description: String,
     local_preference: Array,
     content_types: Array,
     budget: Number,
-    name: String,
     mobile: String,
     email: String,
     company_name: String,
@@ -23,6 +22,10 @@ var JobSchema = mongoose.Schema({
     },
     reject_reason: String,
     user: {
+        type: Number,
+        ref: 'User'
+    },
+    buyer: {
         type: Number,
         ref: 'User'
     },
