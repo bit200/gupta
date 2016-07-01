@@ -486,6 +486,22 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 }
             })
+            .state('contract_suggest_another', {
+                url: '/contract/suggest-another/:id',
+                templateUrl: 'template/contractCreate.html',
+                controller: 'contractCtrl',
+                resolve: {
+                    auth: authResolve,
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                        return $q.all({
+                            contract: $http.get('/api/contract/detailed/'+ $stateParams.id),
+                            info: getResolveQ($q, {
+                                is_another_terms_page: true
+                            })
+                        })
+                    }]
+                }
+            })
             .state('contract_suggest_info', {
                 url: '/suggestion/:id',
                 templateUrl: 'template/contractDetails.html',

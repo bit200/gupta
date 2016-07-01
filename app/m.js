@@ -86,7 +86,6 @@ function find(model, query, _ecb, _scb, params) {
         ecb(399, 'Model not found', _ecb)
         return;
     }
-    console.log("paramssssss", params)
     model
         .find(query)
         .sort(params.sort)

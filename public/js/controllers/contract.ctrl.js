@@ -57,7 +57,9 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             console.log('err', err)
         })
     }
+    scope.approve_suggestion = function() {
 
+    }
     scope.approve = function () {
         http.post('/api/contract/approve/' + scope.contract._id).then(function (resp) {
             console.log('resp', resp)
