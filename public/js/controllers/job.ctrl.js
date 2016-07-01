@@ -1,8 +1,14 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
-    function (scope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
-      
+XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
+    function (scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
+
+        scope.onSucc = function(data) {
+            console.log("on succccccccc", data, data.data)
+            scope.resp = data.data
+            scope.succ_resp = true
+        }
+
         scope.estimations = [
             'Less then 1 week',
             'Less then 1 month',
@@ -11,9 +17,13 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             'More than 6 months'
         ]
 
-        console.log('getContent', getContent)
+        scope.types = [
+            'Agency',
+            'Freelancer'
+        ]
 
-
+        scope.i = getContent.i
+        console.log("ahdfhashdfhasdhfahsdfhashdfhasdhfasfd get content", scope.i, getContent)
         scope.contentTypes = getContent.contentType.data.data;
         scope.locations = getContent.locations.data.data;
 
@@ -26,6 +36,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
                 scope.new_apply = scope.isApply || {budget: job.budget}
                 console.log("new", scope.new_apply)
             }
+
+            scope.job.type_checkbox = parseEdit(scope.job.types);
             scope.job.content = parseEdit(scope.job.content_types);
             scope.job.location = parseEdit(scope.job.local_preference);
             if (getContent.stats) {
@@ -82,35 +94,32 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$location', '$http', 'parseType', '$q
             return obj
         }
 
-        scope.addJob = function (invalid, job) {
+        scope.create_job = function (invalid, job) {
             if (invalid) {
-                scope.scrollToErr()
+                rootScope.scrollToErr()
                 return;
             }
+            console.log("job before", job)
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
-            http.post('/job', job).then(function (resp) {
-                    scope.isCreated = true;
-                    scope.job_id = resp.data.data._id;
-                    $("html, body").animate({scrollTop: 0}, "fast");
-                }, function (err) {
-                    if (err.status = 404) {
-                        scope.error = 'Job can\'t created. Try again';
-                    } else {
-                        scope.error = err.error
-                    }
-                }
-            )
+            job.types = parseType.get(job.type_checkbox, scope.types);
+            console.log("job after", job.types, job.type)
+
+            http.post('/job', job).success(scope.onSucc).error(rootScope.onError)
         };
 
-        scope.editJob = function (invalid, job) {
-            if (invalid) return;
+        scope.update_job = function (invalid, job) {
+            if (invalid) {
+                rootScope.scrollToErr()
+                return;
+            }
+            console.log('hahahahahahah', job)
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
-            http.put('/api/job', job).then(function (resp) {
-                }, function (err, r) {
-                }
-            )
+            job.types = parseType.get(job.type_checkbox, scope.types);
+            console.log('hahahahahahah after', job)
+
+            http.put('/api/job', job).success(scope.onSucc).error(rootScope.onError)
         };
         function sendApply(text, type, $element) {
             console.log('hahahahahahahahahah', text)

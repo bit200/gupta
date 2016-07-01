@@ -14,12 +14,26 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
 
     $rootScope.scrollToErr = function () {
         $timeout(function () {
-            angular.element("body").animate({scrollTop: angular.element('.has-error').eq(0).offset().top - 100}, "slow");
+            var el1 = angular.element('.has-error').eq(0)
+            var el2 = angular.element('.ng-invalid-required').eq(0)
+            var el = el1.offset() ? el1 : el2.offset() ? el2 : null
+            if (el.offset()) {
+                angular.element("body").animate({scrollTop: el.offset().top - 100}, "slow");
+            }
         }, 500)
     };
 
     $rootScope.getBuyerName = function(buyer) {
         return buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
+    }    
+    
+    $rootScope.onError = function(err) {
+        console.log('on error', err)
+        $rootScope.err_resp = {
+            message: err,
+            cd: new Date().getTime()
+        }
+
     }
 
     var asView = localStorage.getItem('asView');
@@ -31,4 +45,5 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         }
     },true)
 
+    $rootScope.default_empty = 'Please fill this field'
 });

@@ -193,10 +193,13 @@ XYZCtrls.directive('acts', function () {
                 'Recreate Job': function () {
                     return {
                         is_visible: function() {
+                            console.log("getInfoId(item, 'job')", item, getInfoId(item, 'job'), getInfo(item, 'job'))
                             if (is_role('buyer', 'closed'))
                                 return true
+                            else if (item.job)
+                                return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.job_recreate", {id: getInfoId(item, 'job')})
                     }
                 },
                 // 'Communicate': function () {
