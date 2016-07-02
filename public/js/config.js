@@ -97,7 +97,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('agencies', {
                 url: '/agencies',
                 templateUrl: 'template/agencies.html',
-                controller: 'agencyCtrl',
+                controller: 'AgencyCtrl',
                 resolve: {
                     getContent: function ($q, $http) {
                         return $q.all({

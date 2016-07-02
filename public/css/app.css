@@ -1288,8 +1288,8 @@ div.containerCrop {
 }
 
 .profile-detail {
-    width: 38vw;
-    height: 40vw;
+    /*width: 38vw;*/
+    /*height: 40vw;*/
     font-size: 8pt;
 
     border: 1px solid #CECECE;
@@ -1593,10 +1593,10 @@ html {
     background: white;
 }
 @media (min-width: 992px) {
-    .profile-detail {
-        width: 10vw;
-        height: 10vw;
-    }
+    /*.profile-detail {*/
+        /*width: 10vw;*/
+        /*height: 10vw;*/
+    /*}*/
 
     .auth-dialog {
         width: 800px !important;
@@ -1648,11 +1648,11 @@ html {
         font-size: 9pt;
     }
 
-    .profile-detail {
-        width: 33vw;
-        height: 33vw;
-        font-size: 8pt;
-    }
+    /*.profile-detail {*/
+        /*width: 33vw;*/
+        /*height: 33vw;*/
+        /*font-size: 8pt;*/
+    /*}*/
 
 
     .block-popularity {
