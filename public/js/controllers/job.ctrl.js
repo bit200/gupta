@@ -177,12 +177,14 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.new_apply.job = scope.job._id
             http
                 .post('/api/job-apply', scope.new_apply)
-                .success(function(){
-                    $state.go('root.apply_detailed', {apply: scope.new_apply._id})
-                }).error(rootScope.onError)
+                // .success(function(){
+                //     $state.go('root.apply_detailed', {apply: scope.new_apply._id})
+                // })
+                .success(scope.onSucc)
+                .error(rootScope.onError)
         }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
-        scope.links_list_for_dir = rootScope.generate_links_list(scope, ModalService)
+        
         
     }]);

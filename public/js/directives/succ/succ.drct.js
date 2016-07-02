@@ -13,9 +13,9 @@ XYZCtrls.directive('succ', function () {
             scope.mess_links = []
 
             _.each(scope.links_plain, function(name){
-                var _link = scope.links_list_for_dir[name]
+                var _link = scope.btns_list_for_dir[name]
                 if (_link) {
-                    scope.mess_links.push(scope.links_list_for_dir[name])
+                    scope.mess_links.push(_link)
                 } else {
                     console.log("@@@ NOT FOUND LNKS FOR DIRECTIVE", name, scope.links_list_for_dir)
                 }

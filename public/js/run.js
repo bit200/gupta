@@ -82,7 +82,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 fn: scope.apply_edit
             },
             'apply_detailed': {
-                name: 'View your apply (pub)',
+                name: 'View your apply',
                 ui_sref: sref('root.apply_detailed', {apply: gid('apply')}),
             },
             'job_create_fn': {
@@ -96,18 +96,10 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'job_edit': {
                 name: 'Job Edit Link',
                 ui_sref: sref('root.job_edit', {job: gid('job')}),
-            }
-        }
-    }
-
-
-    rootScope.generate_links_list = function (scope, ModalService) {
-        return {
-            'jobs_buyer_open': {
+            },
+            'buyer_open': {
                 name: 'View my active jobs',
-                ui_sref: sref('jobs_list.buyer_open'),
-                default: true
-
+                ui_sref: sref('jobs_list.buyer_open')
             },
             'job_detailed': {
                 name: 'View job posting',
@@ -119,6 +111,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             }
         }
     }
+
     var ARR_RESOLVES = ['apply_by_id', 'job', 'freelancer', 'buyer', 'suggest', 'contract', 'apply', 'i']
 
     $rootScope.each_scope = function (scope, cb) {

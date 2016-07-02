@@ -485,7 +485,9 @@ mess, desc {
     animation: fadeInTop .6s ease;
 }
 
-
+[ui-view] {
+    animation: fade .4s ease;
+}
 
 @keyframes fade2 {
     0% {
