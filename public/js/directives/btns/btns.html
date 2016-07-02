@@ -1,6 +1,6 @@
 <div class="row">
     <div class="{{btns_class_name}}" ng-repeat="btn in btns_list">
-        <button ng-click="btn.fn(formContract.$invalid, 'update', btn.model)"
+        <button ng-click="btn.fn(formContract.$invalid)"
                 ng-if="btn.fn" class="btn btn-grey w100" >
             {{btn.name}}
         </button>

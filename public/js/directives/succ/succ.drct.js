@@ -13,33 +13,34 @@ XYZCtrls.directive('succ', function () {
             scope.mess_links = []
 
             _.each(scope.links_plain, function(name){
-                var _link = scope.links_list_for_dir[name]
+                var _link = scope.btns_list_for_dir[name]
                 if (_link) {
-                    scope.mess_links.push(scope.links_list_for_dir[name])
+                    scope.mess_links.push(_link)
                 } else {
                     console.log("@@@ NOT FOUND LNKS FOR DIRECTIVE", name, scope.links_list_for_dir)
                 }
             })
+            var handle_closed
 
-            scope.click = function(){
+            scope.hide_modal = function(){
                 console.log('click on the element')
+                handle_closed = true
                 $el.modal('hide')
                 $('.modal-backdrop').remove()
+                $('body').removeClass('modal-open')
+
             }
-            
             scope.$watch('succ_data', function(data){
                 console.log('data', data)
-                if (data && data.cd) {
+                if (data && data.cd ) {
                     $el.modal('show')
                     $el.on('hidden.bs.modal', function () {
-                        console.log('close modal close modal', scope.mess_links)
-                        scope.active_link = scope.mess_links[0]
-                        _.each(scope.mess_links, function(data){
-                            if (data.default) {
-                                scope.active_link = data
-                            }
-                        })
-                        scope.goTo(scope.active_link)
+                        if (!handle_closed) {
+                            console.log('close modal close modal', scope.mess_links)
+                            scope.active_link = scope.mess_links[scope.mess_links.length - 1]
+                            scope.goTo(scope.active_link)
+                        }
+
                     })
                 }
             })
@@ -48,6 +49,7 @@ XYZCtrls.directive('succ', function () {
             console.log('@@@ Scope Post directive', scope.attrs)
             scope.goTo = function(link) {
                 var params = link.ui_params ? link.ui_params() : null
+                console.log('got ot', params, link.ui_sref)
                 $state.go(link.ui_sref, params)
             }
         }]

@@ -137,6 +137,5 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
-        scope.links_list_for_dir = rootScope.generate_links_list(scope, ModalService)
 
     }]);

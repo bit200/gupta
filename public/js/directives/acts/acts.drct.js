@@ -44,12 +44,12 @@ XYZCtrls.directive('acts', function () {
                 'Approve Contract': function () {
                     return {
                         name: 'View Contract',
-                        ui_sref: sref("root.contract_approve", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_approve", {contract: getId(item, 'contract')})
                     }
                 },
                 'View Job': function () {
                     return {
-                        ui_sref: sref("root.job_detailed", {id: getId(item, 'job')})
+                        ui_sref: sref("root.job_detailed", {job: getId(item, 'job')})
                     }
                 },
                 'Reject': function () {
@@ -67,7 +67,7 @@ XYZCtrls.directive('acts', function () {
                 },
                 'View Application': function () {
                     return {
-                        ui_sref: sref("root.apply_detailed", {id: getId(item, 'apply')})
+                        ui_sref: sref("root.apply_detailed", {apply: getId(item, 'apply')})
                     }
                 },
                 'Create Contract': function () {
@@ -81,60 +81,60 @@ XYZCtrls.directive('acts', function () {
                 },
                 'View Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_detailed", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_detailed", {contract: getId(item, 'contract')})
                     }
                 },
                 'View Suggestion': function () {
                     return {
-                        ui_sref: sref("contract_suggest_detailed", {id: getId(item, 'suggest')})
+                        ui_sref: sref("contract_suggest_detailed", {suggestion: getId(item, 'suggest')})
                     }
                 },
                 'Edit Suggestion': function () {
                     return {
-                        ui_sref: sref("root.contract_suggest", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_suggest", {contract: getId(item, 'contract')})
                     }
                 },
                 'Edit Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_edit", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_edit", {contract: getId(item, 'contract')})
                     }
                 },
                 'Pause Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_pause", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_pause", {contract: getId(item, 'contract')})
                     }
                 },
                 'Resume Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_resume", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_resume", {contract: getId(item, 'contract')})
                     }
                 },
                 'Close Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_close", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_close", {contract: getId(item, 'contract')})
                     }
                 },
                 'Initiate Payment': function () {
                     return {
-                        ui_sref: sref("root.contract_inital_payment", {id: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_inital_payment", {contract: getId(item, 'contract')})
                     }
                 },
                 'Mark Complete': function () {
                     return {
-                        ui_sref: sref("contract.mark_complete", {id: getId(item, 'contract')})
+                        ui_sref: sref("contract.mark_complete", {contract: getId(item, 'contract')})
                     }
                 },
 
                 'Recreate Job': function () {
                     return {
-                        ui_sref: sref("root.job_recreate", {id: getId(item, 'job')})
+                        ui_sref: sref("root.job_recreate", {job: getId(item, 'job')})
                     }
                 },
                 'Communicate': function () {
                     return {
-                        ui_sref: sref("messages", {id: getId(item, 'apply')})
+                        ui_sref: sref("messages", {apply: getId(item, 'apply')})
                     }
-                },
+                }
 
             };
 
