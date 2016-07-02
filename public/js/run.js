@@ -79,7 +79,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             },
             'apply_edit_fn': {
                 name: 'Edit your apply',
-                ui_sref: sref('root.apply_edit', {job: gid('job')}),
+                fn: scope.apply_create
             },
             'apply_detailed': {
                 name: 'View your apply (pub)',
