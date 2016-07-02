@@ -1,10 +1,22 @@
 <div class="cont {{status_class}}">
+    <div class="vis_r">
+        <succ
+            title="The contract has created and sent to client"
+            desc="You'll get notifications about seller's response"
+            links="['jobs_buyer_open', 'job_detailed']"
+        >
+        </succ>
+        <div class="title2"></div>
+        <contract-detailed
+                title="Create Contract {{job._id}}"
+                btns="['contract_create', 'contract_preview']"
+        ></contract-detailed>
+    </div>
+    <div class="hid_r">
+        <contract-post
+                title="Create Contract {{job._id}}"
+                btns="['contract_create', 'contract_preview']"
+        ></contract-post>
 
-<contract-post
-        title="Create Contract {{job._id}}"
-        btns="['create', 'preview']"
-></contract-post>
-
-
-
+    </div>
 </div>

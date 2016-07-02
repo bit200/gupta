@@ -1,0 +1,14 @@
+<div class="text-center">
+    <mess text="{{mess_title}}"></mess>
+    <desc text="{{mess_desc}}"></desc>
+
+
+    <div class="links_a ib" ng-repeat="link in mess_links">
+        <a ng-if="link.ui_sref" ui-sref="{{link.ui_sref}}">
+            {{link.name}}
+        </a>
+        <a ng-if="link.ui_sref_fn" ui-sref="{{link.ui_sref_fn()}}" >
+            {{link.name}}
+        </a>
+    </div>
+</div>

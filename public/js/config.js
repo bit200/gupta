@@ -443,25 +443,25 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
 
-        // .state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
+        // _state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
         //
-        // .state('root.contract_create', common_fn('/contract/create/:job/:freelancer'), 'contractCtrl')
-        // .state('root.contract_edit', c_fn('/contract/edit/:id', 'contract_create'))
-        // .state('root.contract_suggest', c_fn('/contract/suggest/:id', 'contract_create'))
-        // .state('root.contract_pause', c_fn('/contract/pause/:id', 'contract_create'))
-        // .state('root.contract_resume', c_fn('/contract/resume/:id', 'contract_create'))
-        // .state('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
-        // .state('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
+        // _state('root.contract_create', common_fn('/contract/create/:job/:freelancer'), 'contractCtrl')
+        // _state('root.contract_edit', c_fn('/contract/edit/:id', 'contract_create'))
+        // _state('root.contract_suggest', c_fn('/contract/suggest/:id', 'contract_create'))
+        // _state('root.contract_pause', c_fn('/contract/pause/:id', 'contract_create'))
+        // _state('root.contract_resume', c_fn('/contract/resume/:id', 'contract_create'))
+        // _state('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
+        // _state('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
         //
-        // .state('root.job_create', job_fn('/post-job', 'job_create'))
-        // .state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
-        // .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
-        // .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
+        // _state('root.job_create', job_fn('/post-job', 'job_create'))
+        // _state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
+        _states('root.job_detailed', '/job/:job', 'contractCtrl', ['job'])
+        // _state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
         //
-        // .state('root.apply_create', job_fn('/job/apply/:id', 'apply_create'))
-        // .state('root.apply_edit', job_fn('/job/apply/edit/:id', 'apply_create'))
+        // _state('root.apply_create', job_fn('/job/apply/:id', 'apply_create'))
+        // _state('root.apply_edit', job_fn('/job/apply/edit/:id', 'apply_create'))
         //
-        // .state('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
+        // _state('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
 
 
         function common_q_all(state_child_name, resolves_arr) {
@@ -545,10 +545,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         $urlRouterProvider.otherwise('/');
 
-        // $locationProvider.html5Mode({
-        //     enabled: true,
-        //     requireBase: false
-        // });
 
         $httpProvider.interceptors.push(function ($q, $injector) {
             return {

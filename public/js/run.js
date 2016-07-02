@@ -36,6 +36,47 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         }
 
     }
+
+    rootScope.generate_btns_list = function (scope, ModalService) {
+        return {
+            'contract_create': {
+                name: 'Create Contract',
+                fn: scope.contract_create,
+                model: scope.contract,
+                validate: true
+            },
+            'contract_preview': {
+                name: 'Preview',
+                fn: function () {
+                    ModalService.showModal({
+                        templateUrl: "template/modal/previewContract.html",
+                        scope: scope,
+                        controller: function ($scope) {
+                            $scope.contract = scope.contract;
+                        }
+                    }).then(function (modal) {
+                        modal.element.modal();
+                        modal.close.then(function (result) {
+                        });
+                    });
+                }
+            }
+        }
+    }
+    rootScope.generate_links_list = function (scope, ModalService) {
+        return {
+            'jobs_buyer_open': {
+                name: 'View my active jobs',
+                ui_sref: sref('jobs_list.buyer_open')
+            },
+            'job_detailed': {
+                name: 'View job posting',
+                ui_sref_fn: function () {
+                    return sref('root.job_detailed', {job: getId(scope.job)})
+                }
+            }
+        }
+    }
     $rootScope.extend_scope = function (scope, getContent) {
         scope.onErr = rootScope.onError
         scope.onSucc = function (data) {
@@ -48,9 +89,12 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             scope[item] = rootScope.getContent(getContent, item)
             console.log('@@ COMMON CTRL CTRL CTRL ', item, ':', scope[item])
         })
+
+
         scope.i = getContent.i
 
     }
+
 
     var asView = localStorage.getItem('asView');
     $rootScope.asView = asView ? JSON.parse(asView) : {buyer: true};
@@ -62,4 +106,22 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     }, true)
 
     $rootScope.default_empty = 'Please fill this field'
+
+    var getId = function (item) {
+        return item ? item._id || item : null
+    }
+
+    function sref(name, params) {
+        name += '({';
+        _.each(params, function (value, key) {
+            name += [key, ':', value, ','].join('');
+        });
+        if (name.slice(-1) == ',') {
+            name = name.slice(0, -1);
+        }
+        name += '})';
+
+        return name
+    }
+
 });
