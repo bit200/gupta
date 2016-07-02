@@ -135,7 +135,7 @@ function findOneEmpty(model, query, _ecb, _scb, params) {
 function findOneOwner(model, query, _ecb, _scb, params) {
     findOne(model, query, _ecb, function(item){
         if (isOwner(item, params.userId)) {
-
+            scb(item, _scb)
         } else {
             scb({
                 data: {
