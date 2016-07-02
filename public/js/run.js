@@ -83,7 +83,11 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             },
             'apply_detailed': {
                 name: 'View your apply',
-                ui_sref: sref('root.apply_detailed', {apply: gid('apply')}),
+                ui_sref: sref('root.apply_detailed'),
+                ui_params: function(){
+
+                    return {apply: getId(scope.new_apply || scope.apply)}
+                },
             },
             'job_create_fn': {
                 name: 'Job Create',
@@ -106,7 +110,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 ui_sref: 'root.job_detailed',
                 ui_params: function(){
                     return {job: getId(scope.job)}
-                },
+                }
 
             }
         }

@@ -34,11 +34,6 @@ XYZCtrls.directive('succ', function () {
                     $el.on('hidden.bs.modal', function () {
                         console.log('close modal close modal', scope.mess_links)
                         scope.active_link = scope.mess_links[scope.mess_links.length - 1]
-                        // _.each(scope.mess_links, function(data){
-                        //     if (data.default) {
-                        //         scope.active_link = data
-                        //     }
-                        // })
                         scope.goTo(scope.active_link)
                     })
                 }
@@ -48,6 +43,7 @@ XYZCtrls.directive('succ', function () {
             console.log('@@@ Scope Post directive', scope.attrs)
             scope.goTo = function(link) {
                 var params = link.ui_params ? link.ui_params() : null
+                console.log('got ot', params, link.ui_sref)
                 $state.go(link.ui_sref, params)
             }
         }]
