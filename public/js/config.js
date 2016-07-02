@@ -446,15 +446,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         // _states('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
         // _states('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
 
-        _states('root.job_create', '/post-job', 'jobCtrl', ['user', 'contentType', 'locations'])
-        // _states('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
-        _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats'], '*')
-        // _states('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
-        //
-        _states('root.apply_create', '/job/apply/:id', ['job', 'apply'])
-        // _states('root.apply_edit', job_fn('/job/apply/edit/:id', 'apply_create'))
-        //
-        // _states('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
+        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'])
+        _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'])
+        _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*')
+        _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'])
+
+
+        _states('root.apply_create', '/job/apply/:job', ['job', 'apply'])
+        _states('root.apply_edit', '/job/apply/edit/:job', ['job', 'apply'])
+        _states('root.apply_detailed', '/application/:apply', ['apply'])
 
 
         function common_q_all(state_child_name, resolves_arr) {

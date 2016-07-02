@@ -102,11 +102,12 @@ XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$locatio
             return obj
         }
 
-        scope.create_job = function (invalid, job) {
+        scope.job_create = function (invalid, type, job) {
             if (invalid) {
                 rootScope.scrollToErr()
                 return;
             }
+            job = scope.job
             console.log("job before", job)
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
@@ -120,12 +121,13 @@ XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$locatio
             }).error(rootScope.onError)
         };
 
-        scope.update_job = function (invalid, job) {
+        scope.job_edit = function (invalid, job) {
             if (invalid) {
                 rootScope.scrollToErr()
                 return;
             }
             console.log('hahahahahahah', job)
+            job = scope.job
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
