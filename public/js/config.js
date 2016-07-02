@@ -464,45 +464,57 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         // .state('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
 
 
-
-
         function common_q_all(state_child_name, resolves_arr) {
             return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                var default_states = {
-                    job: $http.get('/api/info/Job/' + $stateParams.job),
-                    apply: $http.get('/api/job-apply/' + $stateParams.id),
-                    stats: $http.get('/api/job-stats/' + $stateParams.id),
-                    freelancer: $http.get('/api/info/Freelancer/' + $stateParams.freelancer),
-                    user: $http.get('/api/user/me'),
-                    contract: $http.get('/api/contract/detailed/' + $stateParams.id),
-                    contentType: $http.get('/get-content', {
-                        params: {
-                            name: 'Filters',
-                            query: {type: 'ContentWriting', filter: 'Content Type'},
-                            distinctName: 'name'
-                        }
-                    }),
-                    locations: $http.get('/get-content', {
-                        params: {
-                            name: 'Location',
-                            query: {},
-                            distinctName: 'name'
-                        }
-                    }),
-                    i: getResolveQ($q, info_obj)
-                }
-
                 var info_obj = {}
                     , t = {}
-
                 info_obj[state_child_name] = true
+
+                var get_fn = function (name) {
+                    switch (name) {
+                        case 'job':
+                            return $http.get('/api/job/detailed/' + $stateParams.job)
+                        case 'apply':
+                            return $http.get('/api/job-apply/' + $stateParams.job)
+                        case 'freelancer':
+                            return $http.get('/api/info/Freelancer/' + $stateParams.freelancer)
+                        case 'stats':
+                            return $http.get('/api/job-stats/' + $stateParams.job)
+                        case 'user':
+                            return $http.get('/api/user/me')
+                        case 'contract':
+                            return $http.get('/api/contract/detailed/' + $stateParams.contract)
+                        case 'contentType':
+                            return $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            })
+                        case 'locations':
+                            return $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        default:
+                            return null
+                    }
+                }
+
                 _.each(resolves_arr, function(name){
-                    if (default_states[name]) {
-                        t[name] = default_states[name]
+                    var fn = get_fn(name)
+                    if (fn) {
+                        t[name] = fn
                     } else {
-                        console.log("STATE NOT FOUNDDDDDD", name)
+                        console.log("@@ STATE NOT FOUNDDDDDD !!!!! ERRROR !!!! ERRROR", name)
                     }
                 })
+                t.i = getResolveQ($q, info_obj)
+                console.log('@@@ tttttttt', resolves_arr, t)
 
                 return $q.all(t)
             }]
@@ -511,10 +523,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
 
         function _states (state_name, url, ctrl, resolves_arr, is_free_auth) {
-            var info_obj = {}
-                , state_arr = state_name.split('.')
+            var state_arr = state_name.split('.')
                 , state_child_name = state_arr[1] || state_arr[0]
-
 
             var state_obj = {
                 url: url,
