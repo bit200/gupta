@@ -1,4 +1,5 @@
 angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthService, $state) {
+    var rootScope = $rootScope
     $rootScope.currentUser = AuthService.currentUser;
     $rootScope.isLogged = AuthService.isLogged;
 
@@ -8,7 +9,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         $location.path(path)
     }
 
-    $rootScope.getContent = function(getContent, field) {
+    $rootScope.getContent = function (getContent, field) {
         return getContent[field] && getContent[field].data ? getContent[field].data.data : null
     }
 
@@ -23,11 +24,11 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         }, 500)
     };
 
-    $rootScope.getBuyerName = function(buyer) {
+    $rootScope.getBuyerName = function (buyer) {
         return buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
-    }    
-    
-    $rootScope.onError = function(err) {
+    }
+
+    $rootScope.onError = function (err) {
         console.log('on error', err)
         $rootScope.err_resp = {
             message: err,
@@ -35,15 +36,30 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         }
 
     }
+    $rootScope.extend_scope = function (scope, getContent) {
+        scope.onErr = rootScope.onError
+        scope.onSucc = function (data) {
+            console.log("on succccccccc data", data, data.data)
+            scope.resp = data.data
+            scope.succ_resp = true
+        }
+
+        _.each(['job', 'freelancer', 'buyer', 'suggest', 'contract', 'apply', 'i'], function (item) {
+            scope[item] = rootScope.getContent(getContent, item)
+            console.log('@@ COMMON CTRL CTRL CTRL ', item, ':', scope[item])
+        })
+        scope.i = getContent.i
+
+    }
 
     var asView = localStorage.getItem('asView');
     $rootScope.asView = asView ? JSON.parse(asView) : {buyer: true};
 
-    $rootScope.$watch('asView', function(val){
-        if (val){
+    $rootScope.$watch('asView', function (val) {
+        if (val) {
             localStorage.setItem('asView', JSON.stringify(val))
         }
-    },true)
+    }, true)
 
     $rootScope.default_empty = 'Please fill this field'
 });
