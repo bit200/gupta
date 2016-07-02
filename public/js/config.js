@@ -94,13 +94,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
             .state('agencies', {
-                url: '/agencies',
-                templateUrl: 'template/agencies.html',
+                url: '/agencies?page',
+                templateUrl: 'template/claim_agencies.html',
                 controller: 'AgencyCtrl',
+                reloadOnSearch: false,
                 resolve: {
-                    getContent: function ($q, $http) {
+                    getContent: function ($q, $http, $location) {
                         return $q.all({
-                            agencies: $http.get('/api/freelancers'),
+                            totalCount: $http.get('/api/freelancers?count=true'),
                             businessAccounts: $http.get('/api/my/business_accounts')
                         })
                     }

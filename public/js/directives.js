@@ -428,7 +428,7 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
 
 console.log('customPagination')
 
-XYZCtrls.directive("customPagination", function() {
+XYZCtrls.directive("customPagination", function($location) {
     return {
         restrict: "A",
         scope: {
@@ -436,26 +436,29 @@ XYZCtrls.directive("customPagination", function() {
             cb: "&"
         },
         template: '' +
-                '<ul class="pagination-control pagination">' +
+                '<ul class="pagination-control pagination" ng-show="customPagination.totalCount && numberOfPages()>1">' +
                     '<li>' +
-                        '<button type="button" class="btn btn-primary"  ng-disabled="customPagination.currentPage == 0" ' +
+                        '<button type="button" class="btn btn-primary"  ng-disabled="customPagination.currentPage == 1" ' +
                             'ng-click="customPagination.currentPage=customPagination.currentPage-1">PREV</button>' +
                     '</li>' +
                     '<li>' +
-                        '<span>Page {{customPagination.currentPage + 1}} of {{ numberOfPages() }}</span>' +
+                        '<span>Page {{customPagination.currentPage}} of {{ numberOfPages() }}</span>' +
                     '</li>' +
                     '<li>' +
-                        '<button type="button"  class="btn btn-primary" ng-disabled="customPagination.currentPage >= customPagination.totalCount/customPagination.countByPage - 1" ' +
+                        '<button type="button"  class="btn btn-primary" ng-disabled="customPagination.currentPage >= customPagination.totalCount/customPagination.countByPage" ' +
                             'ng-click="customPagination.currentPage=customPagination.currentPage+1">NEXT </button>' +
                     '</li>' +
                 '</ul>',
         link: function(scope, element, attrs) {
             if (!scope.customPagination) scope.customPagination = {};
-            scope.customPagination.currentPage = scope.customPagination.currentPage || 0;
-            scope.customPagination.countByPage = scope.customPagination.countByPage || 10;
+            scope.customPagination.currentPage = parseInt(scope.customPagination.currentPage || 1);
+            scope.customPagination.countByPage = parseInt(scope.customPagination.countByPage || 10);
+            scope.customPagination.totalCount = parseInt(scope.customPagination.totalCount || 0);
             scope.$watch('customPagination.currentPage', function(val){
-                if (val && parseInt(val))
+                if (val && parseInt(val)){
+                    $location.search('page', val>1 ? val : null);
                     scope.cb({currentPage: val});
+                }
             })
             scope.numberOfPages = function(){
                 return Math.ceil(scope.customPagination.totalCount/scope.customPagination.countByPage);
