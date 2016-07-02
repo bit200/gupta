@@ -36,6 +36,8 @@ function pubParams(params, query) {
     }
 }
 exports.job_detailed = function(req, res) {
+    res.send("ok")
+    return;
     m.findOne(models.Job, {_id: req.params._id}, res, res, {populate: 'buyer job seller freelancer'})
 }
 

@@ -117,6 +117,9 @@ selector .sel-items > div {
     /*display: block;*/
     padding: 5px;
 }
+.my_links a {
+    margin-left: 5px;
+}
 
 .iblock {
     /*background: #f6f6f6;*/
@@ -444,13 +447,14 @@ md-input-container {
 }
 
 mess {
-    font-size: 30px;
+    font-size: 22px;
     margin-top: 20px;
     margin-bottom: 10px;
     font-family: inherit;
     font-weight: 500;
     line-height: 1.1;
     color: inherit;
+    padding-bottom: 20px;
 }
 
 desc {

@@ -22,6 +22,7 @@ function findCreateFilter(name, filter, arr, cb) {
 
 module.exports = function (done) {
     Location.count().exec(function (err, count) {
+        
         if (count) return done();
         console.log('.....Creating filters.....');
         var arrFunc = [];
