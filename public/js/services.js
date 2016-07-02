@@ -249,7 +249,8 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
             },
             setCurrentUser: function () {
                 $http.get('/api/freelancer/me').success(function (resp) {
-                    currentFreelancer = resp.data
+                    if (resp)
+                        currentFreelancer = resp.data
                 });
                 $http.get('/api/user/me').success(function (resp) {
                     currentUser = resp.data

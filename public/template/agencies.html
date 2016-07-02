@@ -40,22 +40,30 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="item in agencies | filter:search">
+                <tr ng-repeat="item in agencies">
                     <td class="text-center"><img ng-src="{{item.contact_detail.preview}}" style="max-width: 50px"/></td>
                     <td class="text-center">{{item.name}}</td>
                     <td class="text-center"><span ng-repeat="type in item.freelancer_type">{{type}}<span ng-if="!$last">, </span> </span></td>
                     <td class="text-center">{{item.location}}</td>
                     <td class="text-center">
-                        <div ng-if="!item.business_account">
-                            <span ng-if="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 0}).length" >Pending</span>
-                            <span ng-if="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 1}).length" >Claimed</span>
-                            <button ng-if="!(businessAccounts | filter:{agency: item._id,  user: current_user._id}).length" ng-click="claim(item)" class="btn btn-default">Claim</button>
+                        <div ng-show="!item.business_account">
+                            <span ng-show="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 0}).length" >Pending</span>
+                            <span ng-show="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 1}).length" >Claimed</span>
+                            <button ng-hide="(businessAccounts | filter:{agency: item._id,  user: current_user._id}).length" ng-click="claim(item)" class="btn btn-default">Claim</button>
                         </div>
-                        <span ng-if="item.business_account">Claimed</span>
+                        <span ng-show="item.business_account">Claimed</span>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="text-center">
+            <div custom-pagination="{
+                totalCount: 100,
+                currentPage: 0,
+                countByPage: 10
+            }" cb="cb(currentPage)"></div>
+        </div>
+
     </div>
 
     <div class="claimAgencyPage">
