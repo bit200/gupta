@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
-    function (AuthService, scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
+XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
+    function ($state, AuthService, scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
 
         console.log('GET CONTENT', getContent, AuthService.currentUser())
         rootScope.extend_scope(scope, getContent)
@@ -167,9 +167,10 @@ XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$locatio
 
 
         scope.apply_create = function (params) {
-            params.job = scope.job._id
+            scope.apply.job = scope.job._id
+            console.log('scope.apply', scope.apply)
             http
-                .post('/api/job-apply', params)
+                .post('/api/job-apply', scope.apply)
                 .success(function(){
                     $state.go('jobs_list.seller_open')
                 }).error(rootScope.onError)

@@ -200,7 +200,7 @@ exports.apply_detailed_pub = function(req, res) {
 }
 exports.getApplyInfo = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.JobApply, {job: req.params.job_id, freelancer: req.freelancerId}, res, res)
+    m.findOneEmpty(models.JobApply, {job: req.params.job_id, freelancer: req.freelancerId}, res, res)
 }
 
 exports.getInfo = function (req, res) {

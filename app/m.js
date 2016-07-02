@@ -127,6 +127,11 @@ function save(model, _ecb, _scb, params) {
     })
 }
 
+function findOneEmpty(model, query, _ecb, _scb, params) {
+    findOne(model, query, function(){
+        scb(null, _scb)
+    }, _scb, params)
+}
 function findOne(model, query, _ecb, _scb, params) {
     params = params || {};
     if (!model) {
@@ -277,7 +282,7 @@ function isOwner (item, user1, user2) {
     _.each(['freelancer', 'buyer', 'seller', 'user'], function(field){
         var _item = item[field]
         var _item_id = getId(_item)
-        
+
         _.each(users_arr, function(id){
             if (id == _item_id) {
                 flag = true
@@ -289,7 +294,7 @@ function isOwner (item, user1, user2) {
 
 function findCreateUpdate(model, query, new_params, _ecb, _scb, params) {
     new_params = _.extend({}, query, new_params);
-    
+
     findOne(model, query, function (code, err) {
         if (code == 397) {
             create(model, new_params, _ecb, _scb, params)
@@ -675,6 +680,7 @@ module.exports = {
     find: find,
     distinct: distinct,
     findLean: findLean,
+    findOneEmpty: findOneEmpty,
     findUpdate2: findUpdate2,
     findOne: findOne,
     save: save,
