@@ -461,7 +461,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         _states('root.apply_create', '/job/apply/:job', 'jobCtrl', ['job', 'apply'])
         _states('root.apply_edit', '/job/apply/edit/:job', 'jobCtrl', ['job', 'apply'])
-        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'])
+        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'], '*')
 
 
         function common_q_all(state_child_name, resolves_arr) {
