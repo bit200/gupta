@@ -114,6 +114,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     $rootScope.extend_scope = function (scope, getContent) {
         scope.onErr = rootScope.onError
         scope.onSucc = function (data) {
+            console.log("on succccccc")
             scope.succ_data = {
                 data: data,
                 cd: new Date().getTime()

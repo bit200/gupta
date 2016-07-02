@@ -18,13 +18,13 @@
             <div class="modal-footer">
                 <div class="ib my_links" ng-repeat="link in mess_links">
                     <a class="btn btn-my2"
-                       ng-click="click()"
+                       ng-click="hide_modal()"
                        ng-if="!link.ui_params" ui-sref="{{link.ui_sref}}">
                         {{link.name}}
                     </a>
                     <a class="btn btn-my2"
                         ng-if="link.ui_params"
-                        ng-click="click()"
+                        ng-click="hide_modal()"
                         ng-href="{{$state.href(link.ui_sref, link.ui_params())}}"
                     >
                         {{link.name}}

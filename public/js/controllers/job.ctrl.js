@@ -7,6 +7,7 @@ XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$locatio
         rootScope.extend_scope(scope, getContent)
         scope.user = AuthService.currentUser();
 
+
         scope.estimations = [
             'Less then 1 week',
             'Less then 1 month',
@@ -132,8 +133,11 @@ XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$locatio
             job.types = parseType.get(job.type_checkbox, scope.types);
             console.log('hahahahahahah after', job)
 
-            http.put('/api/job', job).success(scope.onSucc).error(rootScope.onError)
+            http.put('/api/job', job).success(function(){
+                scope.onSucc()
+            }).error(rootScope.onError)
         };
+
         function sendApply(text, type, $element) {
             console.log('hahahahahahahahahah', text)
             http[type]('/api/job-apply', {job: scope.job._id, message: text}).then(function (resp) {
