@@ -29,7 +29,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.new_job = job;
 
             if (getContent.apply) {
-                scope.isApply = getContent.apply.data.data[0];
+                scope.isApply = getContent.apply.data.data;
                 scope.new_apply = scope.isApply || {budget: job.budget}
                 console.log("new", scope.new_apply)
             }
@@ -166,11 +166,11 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         }
 
 
-        scope.apply_create = function (params) {
-            scope.apply.job = scope.job._id
-            console.log('scope.apply', scope.apply)
+        scope.apply_create = function (invalid) {
+            console.log('scope.apply', invalid, scope.new_apply, scope.job, scope.apply)
+            scope.new_apply.job = scope.job._id
             http
-                .post('/api/job-apply', scope.apply)
+                .post('/api/job-apply', scope.new_apply)
                 .success(function(){
                     $state.go('jobs_list.seller_open')
                 }).error(rootScope.onError)

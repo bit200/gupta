@@ -15,7 +15,7 @@
             <div class="title3">Cover Letter</div>
 
                     <textarea class="form-control" name="description"
-                              ng-model="apply.message" required
+                              ng-model="new_apply.message" required
                               rows="12s"></textarea>
             <div ng-messages="submitted && postjob.description.$error.$invalid">
                 <div ng-show="submitted && postjob.description.$error.required" ng-message="required">{{default_empty}}
@@ -26,7 +26,7 @@
     <div class="" ng-class="{'has-error': submitted && postjob.title.$invalid}">
         <md-input-container class="md-block">
             <div class="title3">Your estimated budget</div>
-            <input class="form-control" name="title" ng-model="apply.budget" required>
+            <input class="form-control" name="title" ng-model="new_apply.budget" required>
             <div ng-messages="submitted && postjob.title.$error.$invalid">
                 <div ng-show="submitted && postjob.title.$error.required" ng-message="required">{{default_empty}}
                 </div>
@@ -37,8 +37,8 @@
     <div class="title3">Estimation duration</div>
     <div class="form-group">
         <select class="form-control"
-                ng-init="apply.time_estimation = apply.time_estimation || estimations[0]"
-                ng-model="apply.time_estimation"
+                ng-init="new_apply.time_estimation = new_apply.time_estimation || estimations[0]"
+                ng-model="new_apply.time_estimation"
                 ng-options="item for item in estimations">
         </select>
     </div>
