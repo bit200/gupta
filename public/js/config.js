@@ -369,7 +369,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories', {
-                url: '/categories',
+                url: '/categories?industry_expertises',
                 templateUrl: 'template/category.html',
                 controller: 'CategoriesCtrl',
                 reloadOnSearch: false,
@@ -406,7 +406,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             arrayProviders: $http.get('/get-content', {
                                 params: {
-                                    name: 'ServiceProvider',
+                                    name: 'Filters',
                                     query: {},
                                     distinctName: 'name'
                                 }
@@ -416,6 +416,23 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories.profile', {
+                url: '/profile/:id',
+                views: {
+                    "@": {
+                        controller: 'ViewProfileCtrl',
+                        templateUrl: 'template/profile.html'
+                    }
+                },
+                resolve: {
+                    getContent: function ($q, $http, $stateParams) {
+                        return $q.all({
+                            viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
+                            profile: $http.get('/api/freelancer/' + $stateParams.id)
+                        })
+                    }
+                }
+            })
+            .state('profile', {
                 url: '/profile/:id',
                 views: {
                     "@": {

@@ -10,6 +10,13 @@ var models = require('../db')
 exports.index = function (req, res) {
     res.render('src')
 };
+
+exports.common_filters = function (req, res) {
+    models.Filters.find().lean().exec(function(err, filters){
+        res.jsonp(_.groupBy(filters, 'type'))
+    });
+};
+
 exports.admin = function (req, res) {
     res.render('admin/index')
 };
@@ -66,6 +73,59 @@ exports.get_client = function (req, res) {
     m.find(models.Client, {}, res, res)
 };
 
+exports.search = function (req, res) {
+    var result = {};
+    async.parallel([
+        function(cb){
+            models.Filters.find({type: 'ContentWriting', filter: 'Industry Expertise', name: new RegExp(req.query.query, "i")}).distinct('name', function(err, filters){
+                result.filters = _.map(filters,function(item){
+                    return {
+                      displayTitle: item,
+                      type: 'filters'
+                    }
+                });
+                cb();
+            })
+        },
+        function(cb){
+            models.ServiceProvider.find({name: new RegExp(req.query.query, "i")}).distinct('name', function(err, services){
+                result.services = _.map(services,function(item){
+                    return {
+                      displayTitle: item,
+                      type: 'services'
+                    }
+                });
+                cb();
+            })
+        },
+        function(cb){
+            models.Freelancer.find({name: new RegExp(req.query.query, "i")}).select('name').limit(5).exec(function(err, freelancers){
+                result.freelancers = _.map(freelancers,function(item){
+                  return {
+                      _id: item._id,
+                      displayTitle: item.name,
+                      type: 'freelancers'
+                  }
+                });
+                cb();
+            })
+        },
+        function(cb){
+            models.Job.find({title: new RegExp(req.query.query, "i")}).select('title').limit(5).exec(function(err, jobs){
+                result.jobs = _.map(jobs,function(item){
+                    return {
+                        _id: item._id,
+                        displayTitle: item.title,
+                        type: 'jobs'
+                    }
+                });
+                cb();
+            })
+        }
+    ], function(){
+        res.jsonp(result)
+    })
+};
 
 exports.get_agency = function (req, res) {
     async.waterfall([

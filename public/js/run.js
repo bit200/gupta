@@ -1,4 +1,4 @@
-angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthService, $state) {
+angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthService, $state, $http) {
     var rootScope = $rootScope
     $rootScope.currentUser = AuthService.currentUser;
     $rootScope.isLogged = AuthService.isLogged;
@@ -163,5 +163,11 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
 
         return name
     }
+
+    $rootScope.commonFilters = [];
+    $http.get('/api/common_filters').success(function(resp){
+        $rootScope.commonFilters = resp;
+    });
+
 
 });

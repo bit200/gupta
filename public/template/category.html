@@ -15,7 +15,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="full-width user-topic border-grey" ng-class="{'topic-close':close.topic}">
                     <div class="full-width user-topic-top">
                         <i class="fa fa-sitemap" aria-hidden="true"></i>
@@ -30,24 +29,13 @@
                             </md-input-container>
                         </div>
                         <div class="full-width">
-                            <div ng-repeat="item in arrayTopics| filter:search">
-                                <md-checkbox ng-model="ownFilter.industry_expertise[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
+                            <div ng-repeat="filter in commonFilters | objectKeys | filter:search">
+                                <md-checkbox ng-model="ownFilter.industry_expertise[filter]" ng-change="submitFilter(ownFilter)" class="md-warn">{{filter}}</md-checkbox>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="full-width user-block border-grey">
-                    <div class="user-block-top">
-                        <span>Content Type</span>
-                        <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.content,'fa-chevron-up':close.content}" aria-hidden="true" ng-click="close.content = !close.content"></i>
-                    </div>
-                    <div class="user-block-bottom" toggle="close.content">
-                        <div ng-repeat="item in arrayContent">
-                            <md-checkbox ng-model="ownFilter.content_type[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="full-width user-block border-grey">
                     <div class="user-block-top">
@@ -67,18 +55,6 @@
                     <div class="user-block-bottom" toggle="close.location">
                         <div ng-repeat="item in arrayLocations">
                             <md-checkbox ng-model="ownFilter.location[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="full-width user-block border-grey">
-                    <div class="user-block-top">
-                        <span>Languages</span>
-                        <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.languages,'fa-chevron-up': close.languages}" aria-hidden="true" ng-click="close.languages = !close.languages"></i>
-                    </div>
-                    <div class="user-block-bottom" toggle="close.languages">
-                        <div ng-repeat="item in arrayLanguages">
-                            <md-checkbox ng-model="ownFilter.languages[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
                         </div>
                     </div>
                 </div>

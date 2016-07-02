@@ -1613,6 +1613,19 @@ md-autocomplete-wrap{
     font-weight: bolder;
 }
 
+.main-search md-autocomplete{
+    height: 100%;
+}
+
+.main-search md-autocomplete md-autocomplete-wrap{
+    height: 100%;
+}
+
+.main-search md-autocomplete md-autocomplete-wrap input{
+    height: 100%;
+    box-shadow: inset 0px 0px 9px -2px;
+}
+
 @media (min-width: 992px) {
     /*.profile-detail {*/
         /*width: 10vw;*/
