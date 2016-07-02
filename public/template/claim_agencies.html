@@ -7,59 +7,26 @@
     <div class="row">
         <div class="text-center  padding20"><h3>Find and Claim your Agency Page</h3></div>
     </div>
-
     <div class="row">
-        <div class="col-md-6 col-xs-12">
-            <md-input-container class="md-block">
-                <label></label>
-                <md-content>
-                    <md-autocomplete
-                            ng-disabled="false"
-                            md-no-cache="true"
-                            md-search-text="ctrl.searchText"
-                            md-selected-item-change="ctrl.selectedItemChange(item)"
-                            md-items="item in ctrl.agencyNameSearch(ctrl.searchText)"
-                            md-item-text="item.name"
-                            md-min-length="2"
-                            placeholder="Start enter agency name">
-                        <md-item-template>
-                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}</span>
-                        </md-item-template>
-                        <md-not-found>
-                            No states matching "{{ctrl.searchText}}" were found.
-                        </md-not-found>
-                    </md-autocomplete>
-                </md-content>
-            </md-input-container>
+        <div class="col-md-10 col-xs-12">
+            <div class="col-md-6 col-xs-12">
+                <md-input-container class="md-block">
+                    <label>Agency Name</label>
+                    <input class="form-control" name="description" ng-model="search.name" required>
+                </md-input-container>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <md-input-container class="md-block">
+                    <label>City</label>
+                    <input class="form-control" name="description" ng-model="search.location" required>
+                </md-input-container>
+            </div>
         </div>
-        <div class="col-md-6 col-xs-12">
-            <md-input-container class="md-block">
-                <label></label>
-                <md-content>
-                    <md-autocomplete
-                            ng-disabled="false"
-                            md-no-cache="true"
-                            md-search-text="ctrl.searchTextCity"
-                            md-selected-item-change="ctrl.selectedCityChange(item)"
-                            md-items="item in ctrl.searchCity(ctrl.searchTextCity)"
-                            md-item-text="item"
-                            md-min-length="2"
-                            placeholder="Start enter city">
-                        <md-item-template>
-                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
-                        </md-item-template>
-                        <md-not-found>
-                            No states matching "{{ctrl.searchTextCity}}" were found.
-                        </md-not-found>
-                    </md-autocomplete>
-                </md-content>
-            </md-input-container>
+        <div class="btnSearch">
+            <button class="col-md-offset-0 col-md-2 col-xs-offset-1 col-xs-10 btn btn-back btn-search">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
         </div>
-        <!--<div class="btnSearch">-->
-            <!--<button class="col-md-offset-0 col-md-2 col-xs-offset-1 col-xs-10 btn btn-back btn-search">-->
-                <!--<span class="glyphicon glyphicon-search"></span>-->
-            <!--</button>-->
-        <!--</div>-->
     </div>
     <div class="row paddingB40">
         <table class="table col-xs-12 table-striped marginT20">
@@ -73,21 +40,7 @@
             </thead>
 
             <tbody>
-                <tr ng-if="ctrl.selectedAgency && !(agencies | filter: {_id: ctrl.selectedAgency._id}).length" class="found-agency-row">
-                    <td class="text-center"><img ng-src="{{ctrl.selectedAgency.contact_detail.preview}}" style="max-width: 50px"/></td>
-                    <td class="text-center">{{ctrl.selectedAgency.name}}</td>
-                    <td class="text-center"><span ng-repeat="type in ctrl.selectedAgency.freelancer_type">{{type}}<span ng-if="!$last">, </span> </span></td>
-                    <td class="text-center">{{ctrl.selectedAgency.location}}</td>
-                    <td class="text-center">
-                        <div ng-show="!ctrl.selectedAgency.business_account">
-                            <span ng-show="(businessAccounts | filter:{agency: ctrl.selectedAgency._id,  user: current_user._id, status: 0}).length" >Pending</span>
-                            <span ng-show="(businessAccounts | filter:{agency: ctrl.selectedAgency._id,  user: current_user._id, status: 1}).length" >Claimed</span>
-                            <button ng-hide="(businessAccounts | filter:{agency: ctrl.selectedAgency._id,  user: current_user._id}).length" ng-click="claim(ctrl.selectedAgency)" class="btn btn-default">Claim</button>
-                        </div>
-                        <span ng-show="ctrl.selectedAgency.business_account">Claimed</span>
-                    </td>
-                </tr>
-                <tr ng-repeat="item in agencies" ng-class="{'found-agency-row': item._id == ctrl.selectedAgency._id }">
+                <tr ng-repeat="item in agencies">
                     <td class="text-center"><img ng-src="{{item.contact_detail.preview}}" style="max-width: 50px"/></td>
                     <td class="text-center">{{item.name}}</td>
                     <td class="text-center"><span ng-repeat="type in item.freelancer_type">{{type}}<span ng-if="!$last">, </span> </span></td>
