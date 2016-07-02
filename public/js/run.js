@@ -96,7 +96,6 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             console.log('@@ COMMON CTRL CTRL CTRL ', item, ':', scope[item])
         })
 
-
         scope.i = getContent.i
 
     }
