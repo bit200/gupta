@@ -10,11 +10,22 @@
             <div class="col-md-offset-1 col-md-10">
                 <div class="row background-grey main-search">
                     <div class="col-sm-4">
-                        <div class="full-width input-border-home-woman">
-                            <span class="fa fa-map-marker input-home-maker"></span>
-                            <input class="form-control input-home-woman paddingL40 relative" placeholder="Choice City">
-                            <span class="fa fa-angle-down input-home-chevron"></span>
-                        </div>
+                        <md-menu>
+                            <div class="full-width input-border-home-woman" ng-click="$mdOpenMenu($event)">
+                                <span class="fa fa-map-marker input-home-maker"></span>
+                                <input class="form-control input-home-woman paddingL40 relative"  ng-model="ctrl.city" placeholder="Enter City">
+                                <span class="fa fa-angle-down input-home-chevron pointer" ></span>
+                            </div>
+                            <md-menu-content width="6">
+                                <md-menu-item ng-repeat="location in locations">
+                                    <md-button ng-click="ctrl.city=location">
+                                        {{location}}
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+
+                        </md-menu>
+
                     </div>
                     <div class="col-sm-8">
                         <div class="full-width input-border-home-woman">

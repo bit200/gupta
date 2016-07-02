@@ -44,6 +44,10 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         }
     };
 
+    if (location.search().city){
+        scope.ownFilter.location = scope.ownFilter.location || {}
+        scope.ownFilter.location[location.search().city] = true;
+    }
     if (location.search().industry_expertises){
         scope.ownFilter.industry_expertise = scope.ownFilter.industry_expertise || {};
         if (location.search().industry_expertises === Array)
