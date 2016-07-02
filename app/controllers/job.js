@@ -36,8 +36,6 @@ function pubParams(params, query) {
     }
 }
 exports.job_detailed = function(req, res) {
-    res.send("ok")
-    return;
     m.findOne(models.Job, {_id: req.params._id}, res, res, {populate: 'buyer job seller freelancer'})
 }
 
@@ -202,7 +200,6 @@ exports.apply_detailed_pub = function(req, res) {
 }
 exports.getApplyInfo = function (req, res) {
     var params = m.getBody(req);
-    console.log("paramsmsmsmsmsm", params)
     m.find(models.JobApply, {job: req.params.job_id, freelancer: req.freelancerId}, res, res)
 }
 

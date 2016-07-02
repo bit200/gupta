@@ -38,12 +38,16 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     }
 
     rootScope.generate_btns_list = function (scope, ModalService) {
+
+        function gid (name) {
+            return scope[name] ? scope[name]._id : -1
+        }
+
         return {
             'contract_create': {
                 name: 'Create Contract',
                 fn: scope.contract_create,
-                model: scope.contract,
-                validate: true
+                validation: true
             },
             'contract_preview': {
                 name: 'Preview',
@@ -60,9 +64,37 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                         });
                     });
                 }
+            },
+
+            'apply_create': {
+                name: 'Apply for the job',
+                ui_sref: sref('root.apply_create', {job: gid('job')}),
+            },
+            'apply_edit': {
+                name: 'View your apply',
+                ui_sref: sref('root.apply_edit', {job: gid('job')}),
+            },
+            'apply_detailed': {
+                name: 'View your apply (pub)',
+                ui_sref: sref('root.apply_detailed', {apply: gid('apply')}),
+            },
+            'job_create': {
+                name: 'Job Create',
+                fn: scope.job_create,
+                validation: true
+            },
+            'job_edit': {
+                name: 'Job Edit',
+                fn: scope.job_update,
+                validation: true
+            }, 'job_edit_link': {
+                name: 'Job edit link',
+                ui_sref: sref('root.job_edit', {job: gid('apply')}),
             }
         }
     }
+
+
     rootScope.generate_links_list = function (scope, ModalService) {
         return {
             'jobs_buyer_open': {
@@ -84,7 +116,6 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     $rootScope.extend_scope = function (scope, getContent) {
         scope.onErr = rootScope.onError
         scope.onSucc = function (data) {
-            console.log("on succccccccc data", data)
             scope.succ_data = {
                 data: data,
                 cd: new Date().getTime()
@@ -95,7 +126,6 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             scope[item] = rootScope.getContent(getContent, item)
             console.log('@@ COMMON CTRL CTRL CTRL ', item, ':', scope[item])
         })
-
 
         scope.i = getContent.i
 

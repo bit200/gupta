@@ -1,10 +1,12 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
-    function (scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
-        console.log('GET CONTENT', getContent)
-        rootScope.extend_scope(scope, getContent)
+XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
+    function (AuthService, scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
 
+        console.log('GET CONTENT', getContent, AuthService.currentUser())
+        rootScope.extend_scope(scope, getContent)
+        
+        scope.user = AuthService.currentUser();
 
         scope.estimations = [
             'Less then 1 week',
@@ -21,7 +23,7 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
 
 
         if (stateParams.job) {
-            var job = getContent.job.data.data[0];
+            var job = scope.job
             job.date_of_completion = new Date(job.date_of_completion);
             scope.job = job;
             scope.new_job = job;
@@ -100,11 +102,12 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
             return obj
         }
 
-        scope.create_job = function (invalid, job) {
+        scope.job_create = function (invalid, type, job) {
             if (invalid) {
                 rootScope.scrollToErr()
                 return;
             }
+            job = scope.job
             console.log("job before", job)
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
@@ -118,12 +121,13 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
             }).error(rootScope.onError)
         };
 
-        scope.update_job = function (invalid, job) {
+        scope.job_edit = function (invalid, job) {
             if (invalid) {
                 rootScope.scrollToErr()
                 return;
             }
             console.log('hahahahahahah', job)
+            job = scope.job
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
