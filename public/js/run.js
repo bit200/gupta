@@ -40,14 +40,13 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     rootScope.generate_btns_list = function (scope, ModalService) {
 
         function gid (name) {
-            return scope[name] ? scope[name]._id : -1
+            return scope[name] ? scope[name]._id || -1 : -1
         }
 
         return {
             'contract_create': {
                 name: 'Create Contract',
                 fn: scope.contract_create,
-                validation: true
             },
             'contract_preview': {
                 name: 'Preview',
@@ -81,15 +80,14 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'job_create': {
                 name: 'Job Create',
                 fn: scope.job_create,
-                validation: true
             },
             'job_edit': {
-                name: 'Job Edit',
-                fn: scope.job_update,
-                validation: true
-            }, 'job_edit_link': {
-                name: 'Job edit link',
-                ui_sref: sref('root.job_edit', {job: gid('apply')}),
+                name: 'Edit Job',
+                fn: scope.job_edit
+            },
+            'job_edit_link': {
+                name: 'Job Edit Link',
+                ui_sref: sref('root.job_edit', {job: gid('job')}),
             }
         }
     }

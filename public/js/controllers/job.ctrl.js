@@ -5,7 +5,6 @@ XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$locatio
 
         console.log('GET CONTENT', getContent, AuthService.currentUser())
         rootScope.extend_scope(scope, getContent)
-        
         scope.user = AuthService.currentUser();
 
         scope.estimations = [
