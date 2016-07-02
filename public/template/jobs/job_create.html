@@ -4,6 +4,22 @@
         <span ng-if="i.job_recreate">Post a job</span>
         <span ng-if="i.job_edit">Edit job information</span>
     </h1>
+
+    <succ
+        title="Thanks, your job is created and sent for our admin approval"
+        desc="We'll update you as soon the job will be available"
+        links="['jobs_buyer_open', 'job_detailed']"
+    /></succ>
+
+    <div class="row mtop30 ">
+        <button ng-if="i.job_create || i.job_recreate" type="submit" class="btn btn-grey w100"
+                ng-click="create_job(postjob.$invalid, job); submitted=true">Post Job
+        </button>
+        <button ng-if="i.job_edit" type="submit" class="btn btn-grey w100"
+                ng-click="update_job(postjob.$invalid, job); submitted=true">Update Job
+        </button>
+    </div>
+    <div error></div>
     <div class="visr text-center">
         <div ng-if="i.job_recreate || i.job_create">
             <mess type="job" status="created and sent for admin approval"></mess>
@@ -169,15 +185,6 @@
         </div>
 
 
-        <div class="row mtop30 ">
-            <button ng-if="i.job_create || i.job_recreate" type="submit" class="btn btn-grey w100"
-                    ng-click="create_job(postjob.$invalid, job); submitted=true">Post Job
-            </button>
-            <button ng-if="i.job_edit" type="submit" class="btn btn-grey w100"
-                    ng-click="update_job(postjob.$invalid, job); submitted=true">Update Job
-            </button>
-        </div>
-        <div error></div>
 
     </form>
 

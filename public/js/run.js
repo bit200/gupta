@@ -18,7 +18,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             var el1 = angular.element('.has-error').eq(0)
             var el2 = angular.element('.ng-invalid-required').eq(0)
             var el = el1.offset() ? el1 : el2.offset() ? el2 : null
-            if (el.offset()) {
+            if (el && el.offest && el.offset()) {
                 angular.element("body").animate({scrollTop: el.offset().top - 100}, "slow");
             }
         }, 500)
@@ -67,22 +67,28 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         return {
             'jobs_buyer_open': {
                 name: 'View my active jobs',
-                ui_sref: sref('jobs_list.buyer_open')
+                ui_sref: sref('jobs_list.buyer_open'),
+                default: true
+
             },
             'job_detailed': {
                 name: 'View job posting',
-                ui_sref_fn: function () {
-                    return sref('root.job_detailed', {job: getId(scope.job)})
-                }
+                ui_sref: 'root.job_detailed',
+                ui_params: function(){
+                    return {job: getId(scope.job)}
+                },
+
             }
         }
     }
     $rootScope.extend_scope = function (scope, getContent) {
         scope.onErr = rootScope.onError
         scope.onSucc = function (data) {
-            console.log("on succccccccc data", data, data.data)
-            scope.resp = data.data
-            scope.succ_resp = true
+            console.log("on succccccccc data", data)
+            scope.succ_data = {
+                data: data,
+                cd: new Date().getTime()
+            }
         }
 
         _.each(['job', 'freelancer', 'buyer', 'suggest', 'contract', 'apply', 'i'], function (item) {
@@ -108,7 +114,8 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     $rootScope.default_empty = 'Please fill this field'
 
     var getId = function (item) {
-        return item ? item._id || item : null
+        var def = null
+        return item ? item._id || def : def
     }
 
     function sref(name, params) {
@@ -118,8 +125,11 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         });
         if (name.slice(-1) == ',') {
             name = name.slice(0, -1);
+            name += '})';
+        } else {
+            name = name.slice(0, -2);
+
         }
-        name += '})';
 
         return name
     }

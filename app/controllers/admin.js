@@ -49,7 +49,7 @@ exports.approve_registration = function (req, res) {
     models.Freelancer.findOne({_id: req.params.id}).populate('contact_detail').exec(function(err, freelancer){
         if (freelancer.user) {
             mail.approveAgencyRegistration({
-                freelancer: freelancer
+                freelancer: freelancer,
             }, freelancer.contact_detail.email);
             return res.send(200)
         }

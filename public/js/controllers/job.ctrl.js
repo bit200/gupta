@@ -3,11 +3,8 @@ var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
     function (scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
         console.log('GET CONTENT', getContent)
-        scope.onSucc = function(data) {
-            console.log("on succccccccc", data, data.data)
-            scope.resp = data.data
-            scope.succ_resp = true
-        }
+        rootScope.extend_scope(scope, getContent)
+
 
         scope.estimations = [
             'Less then 1 week',
@@ -22,10 +19,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
             'Freelancer'
         ]
 
-        scope.i = getContent.i
-        scope.contentTypes = getContent.contentType.data.data;
-        scope.locations = getContent.locations.data.data;
-        if (stateParams.id) {
+
+        if (stateParams.job) {
             var job = getContent.job.data.data[0];
             job.date_of_completion = new Date(job.date_of_completion);
             scope.job = job;
@@ -62,10 +57,20 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
         } else {
             scope.job = {
                 job_visibility: 'true',
-                type: 'Agency',
-                title: 'hi'
+                // types: ['Agency'],
+                title: 'hi',
+                description: 'test',
+                budget: 1000,
+                mobile: 123123123,
+                email: '123123@123123.ru',
+                client_name: '123123',
+                company_name: '_string',
+                website: '_string',
+                date_of_completion: new Date()
             }
         }
+
+
 
         scope.scrollToErr = function () {
             $timeout(function () {
@@ -106,7 +111,11 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
             job.types = parseType.get(job.type_checkbox, scope.types);
             console.log("job after", job.types, job.type)
 
-            http.post('/job', job).success(scope.onSucc).error(rootScope.onError)
+            http.post('/job', job).success(function(data){
+                console.log('ahahahhaahhhhhhhhhhhhhhhhhhh', data)
+                scope.job = data.data
+                scope.onSucc(data)
+            }).error(rootScope.onError)
         };
 
         scope.update_job = function (invalid, job) {
@@ -156,4 +165,8 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
                 .post('/api/job-apply', params)
                 .success(scope.onSucc).error(rootScope.onError)
         }
+
+        scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
+        scope.links_list_for_dir = rootScope.generate_links_list(scope, ModalService)
+        
     }]);
