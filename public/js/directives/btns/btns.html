@@ -1,11 +1,10 @@
 <div class="row">
-    <div class="{{btns_class_name}}" ng-repeat="btn in btns_list track by $index">
-        <button
-                ng-click="btn.fn(formContract.$invalid, 'update', btn.model)"
-                class="btn btn-grey w100" ng-if="btn.fn">
+    <div class="{{btns_class_name}}" ng-repeat="btn in btns_list">
+        <button ng-click="btn.fn(formContract.$invalid, 'update', btn.model)"
+                ng-if="btn.fn" class="btn btn-grey w100" >
             {{btn.name}}
         </button>
-        <a class="btn btn-grey w100" ng-if="btn.ui_sref" ui-sref="btn.ui_sref">
+        <a class="btn btn-grey w100" ng-if="btn.ui_sref" ui-sref="{{btn.ui_sref}}">
             {{btn.name}}
         </a>
     </div>
