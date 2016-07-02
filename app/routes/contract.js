@@ -12,6 +12,7 @@ module.exports = function (app) {
 
     app.post('/api/contract/approve/:_id', auth.token, contract.approve_contract);
     app.post('/api/contract/reject/:_id', auth.token, contract.reject_contract);
+    app.post('/api/job-apply/reject/:_id', auth.token, contract.reject_apply);
     app.post('/api/contract/pause/:_id', auth.token, contract.pause_contract);
     app.post('/api/contract/resume/:_id', auth.token, contract.resume_contract);
     app.post('/api/contract/suggest', auth.token, contract.suggest_contract);

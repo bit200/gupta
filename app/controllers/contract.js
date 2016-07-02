@@ -46,6 +46,21 @@ exports.approve_contract = function (req, res) {
     }, { populate: 'buyer' })
 };
 
+exports.reject_apply = function (req, res) {
+    var params = m.getBody(req);
+    console.log("parmassssss", params)
+    m.findUpdate(models.JobApply, {_id: req.params._id}, {
+        status: 'rejected',
+        reject_reason: params.reject_reason
+    }, res, function (jobApply) {
+        res.send({
+            data: jobApply
+        })
+        // mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
+    }, {populate: 'seller'})
+};
+
+
 exports.reject_contract = function (req, res) {
     var params = m.getBody(req);
 

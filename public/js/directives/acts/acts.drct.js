@@ -3,9 +3,12 @@ XYZCtrls.directive('acts', function () {
         restrict: 'E',
         scope: true,
         // transclude: true
-        template: '<a ng-if="action.ui_sref" ui-sref="{{action.ui_sref}}" class="action {{action.class_name}}" ng-repeat="action in actions track by $index">{{action.name}}</a>' +
-        '<a ng-if="action.href" href="{{action.href}}" class="action {{action.class_name}}" ng-repeat="action in actions track by $index">{{action.name}}</a>',
-        controller: ['$scope', '$location', function (scope, $location) {
+        template: '<div class="action {{action.class_name}}" ng-repeat="action in actions track by $index">' +
+        '<a ng-if="action.ui_sref" ui-sref="{{action.ui_sref}}">{{action.name}}</a>' +
+        '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
+        '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
+        '</div>',
+        controller: ['$scope', '$location', '$http', function (scope, $location, $http) {
             var item = scope.item
                 , info = JSON.parse(scope.info)
                 , user_type = info.user_type
@@ -16,17 +19,17 @@ XYZCtrls.directive('acts', function () {
                 return item[field] || item
             }
 
-            function getId(item) {
+            function _get_id_by_item(item) {
                 return item._id || item
             }
 
-            function getInfoId(item, field) {
-                return getId(getInfo(item, field))
+            function getId(item, field) {
+                return _get_id_by_item(getInfo(item, field))
             }
 
-            function sref (name, params) {
+            function sref(name, params) {
                 name += '({';
-                _.each(params, function(value, key){
+                _.each(params, function (value, key) {
                     name += [key, ':', value, ','].join('');
                 });
                 if (name.slice(-1) == ',') {
@@ -37,126 +40,108 @@ XYZCtrls.directive('acts', function () {
                 return name
             }
 
-            function is_role (str1, str2) { //is_role
-                var arr1 = str1.split('_')
-                var arr2 = str2.split('_')
-
-                var flag_user, flag_job
-                _.each(arr1, function(item){
-                    if ((item == user_type) || (item == '*')) {
-                        flag_user = true
-                    }
-                })
-
-                _.each(arr2, function(item){
-                    if ((item == job_type) || (item == '*')) {
-                        flag_job = true
-                    }
-                })
-
-                return flag_job && flag_user
-            }
-
-
-
             scope.list = {
                 'Approve Contract': function () {
                     return {
                         name: 'View Contract',
-                        ui_sref: sref("root.contract_approve", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_approve", {id: getId(item, 'contract')})
                     }
                 },
                 'View Job': function () {
                     return {
-                        ui_sref: sref("root.job_detailed", {id: getInfoId(item, 'job')})
+                        ui_sref: sref("root.job_detailed", {id: getId(item, 'job')})
                     }
                 },
                 'Reject': function () {
                     return {
-                        fn: function(){
-                            item.status = 'hello'
+                        fn: function () {
                             console.log("reject", item)
+                            $http.post('/api/job-apply/reject/' + getId(item, 'apply')).success(function(data){
+                                item.status = data.data.status
+                                console.log("rejected")
+                            }).error(function(){
+                                console.log("an error with reject")
+                            })
                         }
-
                     }
                 },
                 'View Application': function () {
                     return {
-                        ui_sref: sref("root.apply_detailed", {id: getInfoId(item, 'apply')})
+                        ui_sref: sref("root.apply_detailed", {id: getId(item, 'apply')})
                     }
                 },
-                'Accept': function () {
+                'Create Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_approve", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
+                        name: 'Accept',
+                        ui_sref: sref("root.contract_create", {
+                            job: getId(item, 'job'),
+                            freelancer: getId(item, 'freelancer')
+                        })
                     }
                 },
                 'View Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_detailed", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_detailed", {id: getId(item, 'contract')})
                     }
                 },
                 'View Suggestion': function () {
                     return {
-                        ui_sref: sref("contract_suggest_detailed", {id: getInfoId(item, 'suggest')})
+                        ui_sref: sref("contract_suggest_detailed", {id: getId(item, 'suggest')})
                     }
                 },
                 'Edit Suggestion': function () {
                     return {
-                        ui_sref: sref("root.contract_suggest", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_suggest", {id: getId(item, 'contract')})
                     }
                 },
                 'Edit Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_edit", {id: getId(item, 'contract')})
                     }
                 },
                 'Pause Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_pause", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_pause", {id: getId(item, 'contract')})
                     }
                 },
                 'Resume Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_resume", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_resume", {id: getId(item, 'contract')})
                     }
                 },
                 'Close Contract': function () {
                     return {
-                        ui_sref: sref("root.contract_close", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_close", {id: getId(item, 'contract')})
                     }
                 },
                 'Initiate Payment': function () {
                     return {
-                        ui_sref: sref("root.contract_inital_payment", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_inital_payment", {id: getId(item, 'contract')})
                     }
                 },
                 'Mark Complete': function () {
                     return {
-                        ui_sref: sref("contract.mark_complete", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("contract.mark_complete", {id: getId(item, 'contract')})
                     }
                 },
 
                 'Recreate Job': function () {
                     return {
-                        ui_sref: sref("root.job_recreate", {id: getInfoId(item, 'job')})
+                        ui_sref: sref("root.job_recreate", {id: getId(item, 'job')})
                     }
                 },
-                // 'Communicate': function () {
-                //     return {
-                //         is_visible: function() {
-                //             return true
-                //         },
-                //         ui_sref: sref("messages", {id: getInfoId(item, 'apply')})
-                //
-                //     }
-                // },
+                'Communicate': function () {
+                    return {
+                        ui_sref: sref("messages", {id: getId(item, 'apply')})
+                    }
+                },
 
             };
 
             scope.actions = [];
 
-            function fn () {
-                _.each(arguments, function(name){
+            function fn() {
+                _.each(arguments, function (name) {
                     var _fn = scope.list[name]
                     if (_fn) {
                         var obj = _fn()
@@ -175,18 +160,21 @@ XYZCtrls.directive('acts', function () {
                     fn('Approve Contract')
                 }
             } else if (user_type == 'seller' && job_type == 'ongoing') {
-                
+
             } else if (user_type == 'seller' && job_type == 'closed') {
-                
+
             } else if (user_type == 'buyer' && job_type == 'open') {
-                fn('Accept', 'Reject')
-                
+                fn('Create Contract')
+                if (item.status !== 'rejected') {
+                    fn('Reject')
+                }
+
             } else if (user_type == 'buyer' && job_type == 'ongoing') {
-                
+
             } else if (user_type == 'buyer' && job_type == 'closed') {
-                
+
             }
-           
+
         }]
     };
 });
