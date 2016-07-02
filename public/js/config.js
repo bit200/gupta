@@ -102,6 +102,13 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     getContent: function ($q, $http, $location) {
                         return $q.all({
+                             locations: $http.get('/get-content', {
+                                 params: {
+                                     name: 'Location',
+                                     query: {},
+                                     distinctName: 'name'
+                                 }
+                             }),
                             totalCount: $http.get('/api/freelancers?count=true'),
                             businessAccounts: $http.get('/api/my/business_accounts')
                         })

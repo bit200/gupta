@@ -1602,6 +1602,17 @@ html {
     margin:5px 12px !important;
 }
 
+md-autocomplete > md-autocomplete-wrap > md-progress-linear { display: none; }
+md-autocomplete-wrap{
+    background: white !important;
+}
+
+.found-agency-row td{
+    background: rgba(221, 21, 21, 0.5) !important;
+    color: white;
+    font-weight: bolder;
+}
+
 @media (min-width: 992px) {
     /*.profile-detail {*/
         /*width: 10vw;*/

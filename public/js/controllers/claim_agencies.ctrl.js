@@ -1,13 +1,15 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', 'ModalService', 'AuthService',
-    function (scope, location, http, parseType, $q, getContent, ModalService, AuthService) {
+XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', '$q', 'getContent', 'ModalService', 'AuthService', '$filter',
+    function (scope, location, http, parseType, $q, getContent, ModalService, AuthService, $filter) {
     scope.current_user = AuthService.currentUser();
     scope.agencies_area = {};
     scope.agencies = [];
     scope.businessAccounts = getContent.businessAccounts.data || [];
     scope.searchObj = {};
+
+    var locations = getContent.locations.data.data;
 
     scope.configPagination = {
         totalCount: getContent.totalCount.data,
@@ -18,6 +20,34 @@ XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', 
         http.get('/api/freelancers?page='+currentPage).success(function(resp){
             scope.agencies = resp.data;
         })
+    };
+
+    scope.ctrl = {};
+
+    scope.ctrl.selectedItemChange = function(item){
+        if (!item) return scope.ctrl.selectedAgency = '';
+        http.get('/api/freelancer/'+item._id).success(function(resp){
+            scope.ctrl.selectedAgency = resp
+        });
+    };
+    scope.ctrl.agencyNameSearch = function(text){
+        var deferred = $q.defer();
+        var query = '/api/freelancers/search?name='+text;
+        if (scope.ctrl.city)
+            query += '&city='+scope.ctrl.city;
+        http.get(query).success(function(resp){
+            scope.ctrl.selectedAgency = '';
+            deferred.resolve(resp);
+        });
+        return deferred.promise;
+    };
+
+    scope.ctrl.selectedCityChange = function(city){
+        scope.ctrl.city = city;
+    };
+
+    scope.ctrl.searchCity = function(text){
+        return $filter('filter')(locations,text)
     };
 
     scope.claim = function (agency) {

@@ -86,6 +86,17 @@ exports.get_current_freelancer = function (req, res) {
     });
 };
 
+exports.search_freelancers = function (req, res) {
+    var query = {};
+    if (req.query.name)
+        query.name = new RegExp(req.query.name, "i")
+    if (req.query.city)
+        query.location = req.query.city;
+    models.Freelancer.find(query).select('name').limit(10).exec(function(err, freelancers){
+        res.json(freelancers)
+    });
+};
+
 exports.freelancer_views_count = function (req, res) {
     var q = {freelancer: req.params.id}
     if (req.query.days) {
