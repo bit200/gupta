@@ -196,7 +196,7 @@ exports.applyJobRemove = function (req, res) {
 }
 
 exports.apply_detailed_pub = function(req, res) {
-    m.findOne(models.JobApply, {_id: req.params.apply_id}, res, res, {populate: 'buyer job seller freelancer'})
+    m.findOneOwner(models.JobApply, {_id: req.params.apply_id}, res, res, {userId: req.userId, populate: 'buyer job seller freelancer'})
 }
 exports.getApplyInfo = function (req, res) {
     var params = m.getBody(req);

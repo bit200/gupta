@@ -132,6 +132,20 @@ function findOneEmpty(model, query, _ecb, _scb, params) {
         scb(null, _scb)
     }, _scb, params)
 }
+function findOneOwner(model, query, _ecb, _scb, params) {
+    findOne(model, query, _ecb, function(item){
+        if (isOwner(item, params.userId)) {
+
+        } else {
+            scb({
+                data: {
+                    permission_error: true
+                },
+                permission_error: true
+            }, _scb)
+        }
+    }, params)
+}
 function findOne(model, query, _ecb, _scb, params) {
     params = params || {};
     if (!model) {
@@ -669,6 +683,8 @@ function createToken(models, user, _ecb, _scb) {
     })
 }
 
+
+
 module.exports = {
     res_send: res_send,
     ecb: ecb,
@@ -681,6 +697,7 @@ module.exports = {
     distinct: distinct,
     findLean: findLean,
     findOneEmpty: findOneEmpty,
+    findOneOwner: findOneOwner,
     findUpdate2: findUpdate2,
     findOne: findOne,
     save: save,
