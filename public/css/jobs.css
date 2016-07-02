@@ -384,9 +384,7 @@ form .form-control {
     margin: 0;
 }
 
-.body > div {
-    animation: fade .4s ease;
-}
+
 
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
     background-color: rgba(50, 57, 67, 0.82);
@@ -484,11 +482,9 @@ mess, desc {
     display: block;
     animation: fadeInTop .6s ease;
 }
-
-[ui-view] {
+.cont {
     animation: fade .4s ease;
 }
-
 @keyframes fade2 {
     0% {
         opacity: 1;
@@ -507,6 +503,7 @@ mess, desc {
         visibility: hidden;
     }
 }
+
 
 
 .error_direct {
