@@ -5,11 +5,19 @@ XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     function (scope, location, http, parseType, $q, getContent, ModalService, AuthService) {
     scope.current_user = AuthService.currentUser();
     scope.agencies_area = {};
-    scope.agencies = getContent.agencies.data.data;
+    scope.agencies = [];
     scope.businessAccounts = getContent.businessAccounts.data || [];
     scope.searchObj = {};
 
+    scope.configPagination = {
+        totalCount: getContent.totalCount.data,
+        currentPage: location.search().page,
+        countByPage: 10
+    };
     scope.cb = function(currentPage){
+        http.get('/api/freelancers?page='+currentPage).success(function(resp){
+            scope.agencies = resp.data;
+        })
     };
 
     scope.claim = function (agency) {
