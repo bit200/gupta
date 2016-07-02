@@ -2,7 +2,7 @@
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('applyCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', '$timeout', function (scope, rootScope, location, http, getContent, ModalService, $timeout) {
     console.log("get contntntntntntntnt", getContent)
-
+   
     scope.estimations = [
         'Less then 1 week',
         'Less then 1 month',
@@ -22,7 +22,4 @@ XYZCtrls.controller('applyCtrl', ['$scope', '$rootScope', '$location', '$http', 
 
     scope.i = getContent.i
     
-    console.log("scope APPLY CTRL", scope.apply, scope.job)
-
-
 }]);

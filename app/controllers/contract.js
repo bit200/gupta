@@ -91,6 +91,7 @@ exports.suggest_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
     var STATUS = 'suggest approving'
+    console.log('Suggest ', params)
     m.findCreateUpdate(models.SuggestContract, {contract: m.getId(params.contract)}, params, res, function (suggest) {
         m.findUpdate(models.Contract, {_id: params.contract}, {
             suggest: suggest._id,
@@ -98,7 +99,7 @@ exports.suggest_contract = function (req, res) {
         }, res, function (contract) {
             updateJobApply(contract, {status: STATUS}, res, function(){
                 res.send({
-                    data: contract
+                    data: suggest
                 })
             })
         })

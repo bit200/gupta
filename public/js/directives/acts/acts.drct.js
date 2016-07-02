@@ -7,9 +7,9 @@ XYZCtrls.directive('acts', function () {
         '<a ng-if="action.href" href="{{action.href}}" class="action {{action.class_name}}" ng-repeat="action in actions track by $index">{{action.name}}</a>',
         controller: ['$scope', '$location', function (scope, $location) {
             var item = scope.item
-                , info = JSON.parse(scope.info);
-            var user_type = info.user_type,
-                job_type = info.job_type
+                , info = JSON.parse(scope.info)
+                , user_type = info.user_type
+                , job_type = info.job_type
 
 
             function getInfo(item, field) {
@@ -60,7 +60,7 @@ XYZCtrls.directive('acts', function () {
 
 
             scope.list = {
-                'Approve Ctrct': function () {
+                'Approve Contract': function () {
                     return {
                         is_visible: function() {
                             if (is_role('seller', 'open') && item.contract)
@@ -69,7 +69,8 @@ XYZCtrls.directive('acts', function () {
                                 }
 
                         },
-                        ui_sref: sref("contract_approve", {id: getInfoId(item, 'contract')})
+                        name: 'View Contract',
+                        ui_sref: sref("root.contract_approve", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'View Job': function () {
@@ -90,7 +91,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('seller', 'open'))
                                 return true
                         },
-                        ui_sref: sref("job_apply_detailed", {id: getInfoId(item, 'apply')})
+                        ui_sref: sref("root.apply_detailed", {id: getInfoId(item, 'apply')})
 
                     }
                 },
@@ -100,7 +101,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'open') && !item.contract)
                                 return true;
                         },
-                        ui_sref: sref("root.contract_create", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
+                        ui_sref: sref("root.contract_approve", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
                     }
                 },
 
@@ -123,7 +124,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('*', 'open') && (item.status == 'suggest approving'))
                                 return true
                         },
-                        ui_sref: sref("contract_suggest_info", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("contract_suggest_detailed", {id: getInfoId(item, 'suggest')})
                     }
                 },
                 'Edit Suggestion': function () {
@@ -132,7 +133,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('seller', 'open') && (item.status == 'suggest approving'))
                                 return true
                         },
-                        ui_sref: sref("contract_suggest", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_suggest", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Edit Contract': function () {
@@ -141,7 +142,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'ongoing'))
                                 return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_edit", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Pause Contract': function () {
@@ -150,7 +151,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'ongoing') && item.status != 'paused')
                                 return true
                         },
-                        ui_sref: sref("contract_pause", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_pause", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Resume Contract': function () {
@@ -159,7 +160,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'ongoing') && item.status == 'paused')
                                 return true
                         },
-                        ui_sref: sref("contract_resume", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_resume", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Close Contract': function () {
@@ -168,7 +169,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'ongoing'))
                                 return true
                         },
-                        ui_sref: sref("contract_close", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_close", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Initiate Payment': function () {
@@ -177,7 +178,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('buyer', 'ongoing'))
                                 return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("root.contract_inital_payment", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Mark Complete': function () {
@@ -186,7 +187,7 @@ XYZCtrls.directive('acts', function () {
                             if (is_role('seller', 'ongoing'))
                                 return true
                         },
-                        ui_sref: sref("contract_edit", {id: getInfoId(item, 'contract')})
+                        ui_sref: sref("contract.mark_complete", {id: getInfoId(item, 'contract')})
                     }
                 },
 
@@ -195,8 +196,6 @@ XYZCtrls.directive('acts', function () {
                         is_visible: function() {
                             console.log("getInfoId(item, 'job')", item, getInfoId(item, 'job'), getInfo(item, 'job'))
                             if (is_role('buyer', 'closed'))
-                                return true
-                            else if (item.job)
                                 return true
                         },
                         ui_sref: sref("root.job_recreate", {id: getInfoId(item, 'job')})
@@ -215,16 +214,38 @@ XYZCtrls.directive('acts', function () {
             };
 
             scope.actions = [];
-            _.each(scope.list, function (obj_fn, field) {
-                var obj = obj_fn(item);
-                var approve = obj.is_visible && obj.is_visible()
-                if (approve) {
-                    obj.class_name = approve
-                    obj.name = field
-                    scope.actions.push(obj)
-                }
 
-            });
+            function fn () {
+                _.each(arguments, function(name){
+                    var _fn = scope.list[name]
+                    if (_fn) {
+                        var obj = _fn()
+                        obj.name = obj.name || name
+                        scope.actions.push(obj)
+                    } else {
+                        console.log('NAME NOT FOUNDDDDDDDD', name)
+                    }
+                })
+            }
+
+            if (user_type == 'seller' && job_type == 'open') {
+                fn('View Application', 'View Job')
+                if (item.status == 'seller approving') {
+                    console.log('approve contract', item)
+                    fn('Approve Contract')
+                }
+            } else if (user_type == 'seller' && job_type == 'ongoing') {
+                
+            } else if (user_type == 'seller' && job_type == 'closed') {
+                
+            } else if (user_type == 'buyer' && job_type == 'open') {
+                
+            } else if (user_type == 'buyer' && job_type == 'ongoing') {
+                
+            } else if (user_type == 'buyer' && job_type == 'closed') {
+                
+            }
+           
         }]
     };
 });

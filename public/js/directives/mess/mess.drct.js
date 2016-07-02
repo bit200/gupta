@@ -9,7 +9,7 @@ XYZCtrls.directive('mess', function () {
         template: '<div>{{text}}</div>',
         controller: ['$scope', function (scope) {
             if (!scope.text) {
-                scope.text = ['Your', scope.type, 'has successfully', scope.status || 'sent'].join(' ')
+                scope.text = ['The', scope.type, 'has successfully', scope.status || 'sent'].join(' ')
             }
         }]
     };

@@ -6,6 +6,10 @@ var SuggestContractSchema = mongoose.Schema({
     expected_start: Date,
     expected_completion: Date,
     final_amount: Number,
+    buyer_name: String,
+    buyer_company_name: String,
+    seller_contact: String,
+    seller_name: String,
     contract: {
         type: Number,
         ref: 'Contract'

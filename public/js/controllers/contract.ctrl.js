@@ -2,10 +2,19 @@
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', '$timeout', function (scope, rootScope, location, http, getContent, ModalService, $timeout) {
     console.log("get contntntntntntntnt", getContent)
+    scope.onSucc = function(data) {
+        console.log("on succccccccc", data, data.data)
+        scope.resp = data.data
+        scope.succ_resp = true
+    }
+
     scope.job = rootScope.getContent(getContent, 'job') || {}
     scope.freelancer = rootScope.getContent(getContent, 'freelancer') || {}
     scope.buyer = rootScope.getContent(getContent, 'user') || {}
     scope.suggest = rootScope.getContent(getContent, 'suggest')
+    
+    
+    console.log('GET content', scope.suggest)
 
     scope.i = getContent.i
 
@@ -91,7 +100,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         })
     }
 
-    scope.suggestEdits = function (invalid, type, _data) {
+    scope.contract_suggest = function (invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()
         } else {
@@ -105,13 +114,10 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
             console.log('suggest edit', data, scope.info)
             data.info = scope.info
-            http.post('/api/contract/suggest', data).then(function (resp) {
-                console.log('resp', resp)
-            }, function (err) {
-                console.log('err', err)
-            })
+            http.post('/api/contract/suggest', data).success(scope.onSucc).error($rootScope.onError)
         }
     }
+
     scope.contract_create = function (invalid, type, _data) {
         if (invalid) {
             rootScope.scrollToErr()

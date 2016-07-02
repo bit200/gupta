@@ -2,6 +2,7 @@
 
     <h1 class="title2" ng-if="info.is_suggest_view_page">View Suggestion for #{{contract._id}}</h1>
     <h1 class="title2" ng-if="i.contract_detailed">Contract Information #{{contract._id}}</h1>
+    <h1 class="title2" ng-if="i.contract_suggest_detailed">Suggestion Terms for Contract#{{contract._id}}</h1>
     <h1 class="title2" ng-if="info.is_approve_page">Approve Contract #{{contract._id}}</h1>
     <h1 class="title2" ng-if="info.is_close_page">Close Contract #{{contract._id}}</h1>
     <h1 class="title2" ng-if="info.is_reject_page">Reject Contract #{{contract._id}}</h1>
@@ -75,7 +76,7 @@
 
         <h1 class="title2">Contract details</h1>
     </div>
-
+    <div ng-if="!i.contract_suggest_detailed">
     <div>
         <div class="iblock">
             <freelancer with-photo="true" item="contract.freelancer"></freelancer>
@@ -91,6 +92,7 @@
         <div>{{contract.information}}</div>
     </div>
     <div class="separator"></div>
+    </div>
     <div class="text-bold title3">Contracting Parties</div>
     <div class="row">
         <div class="col-md-6">

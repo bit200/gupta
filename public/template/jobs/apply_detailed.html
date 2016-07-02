@@ -1,8 +1,10 @@
-<div class="cont" ng-init="apply = getContent.apply.data.data; job = apply.job;" ng-class="{response: succ_resp}">
+<div class="cont" ng-init="apply = getContent.apply.data.data; job = apply.job;">
+
     <h1 class="title2">Application for job #{{new_job._id}}</h1>
     <h2 class="title3">
         {{new_job.title}}
     </h2>
+
     <short-preview limit=100 value="new_job.description"></short-preview>
     <a ui-sref="root.job_detailed({id: new_job._id})" class="mtop5">View job posting</a>
     <div class="separator"></div>
@@ -22,6 +24,7 @@
     <div>
         <a ui-sref="root.apply_edit({id: new_job._id})" class="btn btn-grey w100">Edit your application</a>
     </div>
+
 
 </div>
 

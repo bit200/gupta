@@ -154,11 +154,6 @@ XYZCtrls.controller('jobCtrl', ['$scope', '$rootScope', '$location', '$http', 'p
             params.job = scope.job._id
             http
                 .post('/api/job-apply', params)
-                .success(function (data) {
-                    console.log("fhfhfhfhfhfhhf", data)
-                    scope.isApply = data.data;
-                }).error(function (err) {
-
-            })
+                .success(scope.onSucc).error(rootScope.onError)
         }
     }]);
