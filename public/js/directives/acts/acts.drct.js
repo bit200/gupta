@@ -62,142 +62,82 @@ XYZCtrls.directive('acts', function () {
             scope.list = {
                 'Approve Contract': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('seller', 'open') && item.contract)
-                                return {
-                                    class: 'selected'
-                                }
-
-                        },
                         name: 'View Contract',
                         ui_sref: sref("root.contract_approve", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'View Job': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('seller', 'open'))
-                                return true
-                            else if (is_role('buyer', 'closed'))
-                                return true
-                        },
                         ui_sref: sref("root.job_detailed", {id: getInfoId(item, 'job')})
+                    }
+                },
+                'Reject': function () {
+                    return {
+                        fn: function(){
+                            item.status = 'hello'
+                            console.log("reject", item)
+                        }
 
                     }
                 },
                 'View Application': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('seller', 'open'))
-                                return true
-                        },
                         ui_sref: sref("root.apply_detailed", {id: getInfoId(item, 'apply')})
-
                     }
                 },
                 'Accept': function () {
                     return {
-                        is_visible: function(){
-                            if (is_role('buyer', 'open') && !item.contract)
-                                return true;
-                        },
                         ui_sref: sref("root.contract_approve", {job: getInfoId(item, 'job'), freelancer: getInfoId(item, 'freelancer')})
                     }
                 },
-
                 'View Contract': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('*', 'ongoing'))
-                                return true
-                            else if (item.contract && !is_role('seller', 'open'))
-                                return true
-                            else if (is_role('*', 'closed'))
-                                return true
-                        },
                         ui_sref: sref("root.contract_detailed", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'View Suggestion': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('*', 'open') && (item.status == 'suggest approving'))
-                                return true
-                        },
                         ui_sref: sref("contract_suggest_detailed", {id: getInfoId(item, 'suggest')})
                     }
                 },
                 'Edit Suggestion': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('seller', 'open') && (item.status == 'suggest approving'))
-                                return true
-                        },
                         ui_sref: sref("root.contract_suggest", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Edit Contract': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('buyer', 'ongoing'))
-                                return true
-                        },
                         ui_sref: sref("root.contract_edit", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Pause Contract': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('buyer', 'ongoing') && item.status != 'paused')
-                                return true
-                        },
                         ui_sref: sref("root.contract_pause", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Resume Contract': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('buyer', 'ongoing') && item.status == 'paused')
-                                return true
-                        },
                         ui_sref: sref("root.contract_resume", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Close Contract': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('buyer', 'ongoing'))
-                                return true
-                        },
                         ui_sref: sref("root.contract_close", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Initiate Payment': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('buyer', 'ongoing'))
-                                return true
-                        },
                         ui_sref: sref("root.contract_inital_payment", {id: getInfoId(item, 'contract')})
                     }
                 },
                 'Mark Complete': function () {
                     return {
-                        is_visible: function() {
-                            if (is_role('seller', 'ongoing'))
-                                return true
-                        },
                         ui_sref: sref("contract.mark_complete", {id: getInfoId(item, 'contract')})
                     }
                 },
 
                 'Recreate Job': function () {
                     return {
-                        is_visible: function() {
-                            console.log("getInfoId(item, 'job')", item, getInfoId(item, 'job'), getInfo(item, 'job'))
-                            if (is_role('buyer', 'closed'))
-                                return true
-                        },
                         ui_sref: sref("root.job_recreate", {id: getInfoId(item, 'job')})
                     }
                 },
@@ -239,6 +179,7 @@ XYZCtrls.directive('acts', function () {
             } else if (user_type == 'seller' && job_type == 'closed') {
                 
             } else if (user_type == 'buyer' && job_type == 'open') {
+                fn('Accept', 'Reject')
                 
             } else if (user_type == 'buyer' && job_type == 'ongoing') {
                 

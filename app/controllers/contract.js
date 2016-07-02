@@ -5,10 +5,12 @@ var models = require('../db')
     , _ = require('underscore');
 
 function updateJobApply(contract, params, ecb, scb) {
-    m.findUpdate(models.JobApply, {
+    params = _.extend({
         job: m.getId(contract.job),
+        contract: contract._id,
         seller: m.getId(contract.seller)
-    }, params, ecb, scb)
+    }, params)
+    m.findUpdate(models.JobApply, params, params, ecb, scb)
 }
 
 exports.create_contract = function (req, res) {
@@ -21,10 +23,7 @@ exports.create_contract = function (req, res) {
     }
 
     m.findCreateUpdate(models.Contract, query, params, res, function (contract) {
-        updateJobApply(contract, {
-            contract: contract._id,
-            status: 'seller approving'
-        }, res, function(){
+        updateJobApply(contract, {}, res, function(){
             res.send({
                 data: contract
             })
