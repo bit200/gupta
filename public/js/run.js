@@ -119,6 +119,13 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             }
         }
     }
+    var ARR_RESOLVES = ['apply_by_id', 'job', 'freelancer', 'buyer', 'suggest', 'contract', 'apply', 'i']
+
+    $rootScope.each_scope = function (scope, cb) {
+        _.each(ARR_RESOLVES, function (item) {
+            cb && cb(item, scope[item])
+        })
+    }
     $rootScope.extend_scope = function (scope, getContent) {
         scope.onErr = rootScope.onError
         scope.onSucc = function (data) {
@@ -127,8 +134,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 cd: new Date().getTime()
             }
         }
-
-        _.each(['apply_by_id', 'job', 'freelancer', 'buyer', 'suggest', 'contract', 'apply', 'i'], function (item) {
+        _.each(ARR_RESOLVES, function (item) {
             scope[item] = rootScope.getContent(getContent, item)
             console.log('@@ COMMON CTRL CTRL CTRL ', item, ':', scope[item])
         })
