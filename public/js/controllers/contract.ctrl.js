@@ -1,11 +1,15 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', '$timeout', function (scope, rootScope, location, http, getContent, ModalService, $timeout) {
-    console.log("get contntntntntntntnt", getContent)
+    console.log("@@ GET CONTENT CONTRACT CONTROLLER", getContent)
     scope.onSucc = function(data) {
         console.log("on succccccccc", data, data.data)
         scope.resp = data.data
         scope.succ_resp = true
+    }
+
+    scope.test2 = function() {
+        alert("aaa")
     }
 
     scope.job = rootScope.getContent(getContent, 'job') || {}

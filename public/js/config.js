@@ -32,127 +32,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             }
         };
 
-        function apply_q_all(param_name) {
-            return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                var info_obj = {}
-                param_name = this.self.name.split('.')[1]
-                info_obj[param_name] = true
-
-                var t = {
-                    apply: $http.get('/api/job-apply/' + $stateParams.id + '/pub'),
-                    i: getResolveQ($q, info_obj)
-                }
-
-                return $q.all(t)
-            }]
-        }
-
-        function contract_q_all(param_name) {
-            return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                console.log("$stateParasm", $stateParams, this)
-                var info_obj = {}
-                param_name = this.self.name.split('.')[1]
-                info_obj[param_name] = true
-
-                var t = {
-                    job: $http.get('/api/info/Job/' + $stateParams.job),
-                    freelancer: $http.get('/api/info/Freelancer/' + $stateParams.freelancer),
-                    user: $http.get('/api/user/me'),
-                    contract: $http.get('/api/contract/detailed/' + $stateParams.id),
-                    i: getResolveQ($q, info_obj)
-                }
-
-                if (!$stateParams.job) delete t.job
-                if (!$stateParams.id) delete t.contract
-                if (!$stateParams.freelancer) {
-                    delete t.freelancer
-                    delete t.user
-                }
-                return $q.all(t)
-            }]
-        }
-        function job_q_all(param_name) {
-            return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                var info_obj = {}
-                param_name = this.self.name.split('.')[1]
-                info_obj[param_name] = true
-
-                var t = {
-                    job: $http.get('/api/job/' + $stateParams.id),
-                    apply: $http.get('/api/job-apply/' + $stateParams.id),
-                    stats: $http.get('/api/job-stats/' + $stateParams.id),
-                    contentType: $http.get('/get-content', {
-                        params: {
-                            name: 'Filters',
-                            query: {type: 'ContentWriting', filter: 'Content Type'},
-                            distinctName: 'name'
-                        }
-                    }),
-                    locations: $http.get('/get-content', {
-                        params: {
-                            name: 'Location',
-                            query: {},
-                            distinctName: 'name'
-                        }
-                    }),
-                    i: getResolveQ($q, info_obj)
-                }
-                if (!$stateParams.id) delete t.job
-                return $q.all(t)
-            }]
-        }
-
-        function fn (url, template, param_name, free_auth, ctrl, contract_fn) {
-            return {
-                url: url,
-                templateUrl: 'template/jobs/' + template + '.html',
-                controller: ctrl,
-                resolve: free_auth ? {
-                    getContent: contract_fn(param_name)
-                } : {
-                    auth: authResolve,
-                    getContent: contract_fn(param_name)
-                }
-            }
-        }
-
-        function c_fn(url, template, param_name, is_free_auth) {
-             return fn(url, template, param_name, is_free_auth, 'contractCtrl', contract_q_all)
-        }
-        function apply_fn(url, template, param_name, is_free_auth) {
-            return fn(url, template, param_name, is_free_auth, 'applyCtrl', apply_q_all)
-        }
-
-        function job_fn(url, template, param_name, is_free_auth) {
-            return fn(url, template, param_name, is_free_auth, 'jobCtrl', job_q_all)
-        }
         $stateProvider
             .state('root', {
                 url: '',
                 abstract: true,
                 template: '<ui-view></ui-view>'
             })
-
-
-            .state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
-
-            .state('root.contract_create', c_fn('/contract/create/:job/:freelancer', 'contract_create'))
-            .state('root.contract_edit', c_fn('/contract/edit/:id', 'contract_create'))
-            .state('root.contract_suggest', c_fn('/contract/suggest/:id', 'contract_create'))
-            .state('root.contract_pause', c_fn('/contract/pause/:id', 'contract_create'))
-            .state('root.contract_resume', c_fn('/contract/resume/:id', 'contract_create'))
-            .state('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
-            .state('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
-
-            .state('root.job_create', job_fn('/post-job', 'job_create'))
-            .state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
-            .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
-            .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
-
-            .state('root.apply_create', job_fn('/job/apply/:id', 'apply_create'))
-            .state('root.apply_edit', job_fn('/job/apply/edit/:id', 'apply_create'))
-
-            .state('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
 
 
             .state('contract_suggest_detailed', {
@@ -555,6 +440,96 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve
                 }
             });
+
+        _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
+
+        // .state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
+        //
+        // .state('root.contract_create', common_fn('/contract/create/:job/:freelancer'), 'contractCtrl')
+        // .state('root.contract_edit', c_fn('/contract/edit/:id', 'contract_create'))
+        // .state('root.contract_suggest', c_fn('/contract/suggest/:id', 'contract_create'))
+        // .state('root.contract_pause', c_fn('/contract/pause/:id', 'contract_create'))
+        // .state('root.contract_resume', c_fn('/contract/resume/:id', 'contract_create'))
+        // .state('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
+        // .state('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
+        //
+        // .state('root.job_create', job_fn('/post-job', 'job_create'))
+        // .state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
+        // .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
+        // .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
+        //
+        // .state('root.apply_create', job_fn('/job/apply/:id', 'apply_create'))
+        // .state('root.apply_edit', job_fn('/job/apply/edit/:id', 'apply_create'))
+        //
+        // .state('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
+
+
+
+
+        function common_q_all(state_child_name, resolves_arr) {
+            return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
+                var default_states = {
+                    job: $http.get('/api/info/Job/' + $stateParams.job),
+                    apply: $http.get('/api/job-apply/' + $stateParams.id),
+                    stats: $http.get('/api/job-stats/' + $stateParams.id),
+                    freelancer: $http.get('/api/info/Freelancer/' + $stateParams.freelancer),
+                    user: $http.get('/api/user/me'),
+                    contract: $http.get('/api/contract/detailed/' + $stateParams.id),
+                    contentType: $http.get('/get-content', {
+                        params: {
+                            name: 'Filters',
+                            query: {type: 'ContentWriting', filter: 'Content Type'},
+                            distinctName: 'name'
+                        }
+                    }),
+                    locations: $http.get('/get-content', {
+                        params: {
+                            name: 'Location',
+                            query: {},
+                            distinctName: 'name'
+                        }
+                    }),
+                    i: getResolveQ($q, info_obj)
+                }
+
+                var info_obj = {}
+                    , t = {}
+
+                info_obj[state_child_name] = true
+                _.each(resolves_arr, function(name){
+                    if (default_states[name]) {
+                        t[name] = default_states[name]
+                    } else {
+                        console.log("STATE NOT FOUNDDDDDD", name)
+                    }
+                })
+
+                return $q.all(t)
+            }]
+        }
+
+
+
+        function _states (state_name, url, ctrl, resolves_arr, is_free_auth) {
+            var info_obj = {}
+                , state_arr = state_name.split('.')
+                , state_child_name = state_arr[1] || state_arr[0]
+
+
+            var state_obj = {
+                url: url,
+                templateUrl: 'template/jobs/' + state_child_name + '.html',
+                controller: ctrl,
+                resolve: is_free_auth ? {
+                    getContent: common_q_all(state_child_name, resolves_arr)
+                } : {
+                    auth: authResolve,
+                    getContent: common_q_all(state_child_name, resolves_arr)
+                }
+            }
+
+            $stateProvider.state(state_name, state_obj);
+        }
 
 
 
