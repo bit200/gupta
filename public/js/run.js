@@ -122,20 +122,17 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     $rootScope.extend_scope = function (scope, getContent) {
         scope.onErr = rootScope.onError
         scope.onSucc = function (data) {
-            console.log("on succccccc")
             scope.succ_data = {
                 data: data,
                 cd: new Date().getTime()
             }
         }
 
-        _.each(['job', 'freelancer', 'buyer', 'suggest', 'contract', 'apply', 'i'], function (item) {
+        _.each(['apply_by_id', 'job', 'freelancer', 'buyer', 'suggest', 'contract', 'apply', 'i'], function (item) {
             scope[item] = rootScope.getContent(getContent, item)
             console.log('@@ COMMON CTRL CTRL CTRL ', item, ':', scope[item])
         })
-
         scope.i = getContent.i
-
     }
 
 

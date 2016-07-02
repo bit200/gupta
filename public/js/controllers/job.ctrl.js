@@ -7,7 +7,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         rootScope.extend_scope(scope, getContent)
         scope.user = AuthService.currentUser();
 
-
+        
         scope.estimations = [
             'Less then 1 week',
             'Less then 1 month',
@@ -21,19 +21,15 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             'Freelancer'
         ]
 
-
-        if (stateParams.job) {
+        scope.isApply = scope.apply || scope.apply_by_id;
+        scope.job = scope.job || scope.isApply.job
+        scope.new_apply = scope.isApply || {budget: scope.job.budget}
+        console.log('ahahahahhhhhhhhhhhh', scope.job)
+        if (scope.job) {
             var job = scope.job
             job.date_of_completion = new Date(job.date_of_completion);
             scope.job = job;
             scope.new_job = job;
-
-            if (getContent.apply) {
-                scope.isApply = getContent.apply.data.data;
-                scope.new_apply = scope.isApply || {budget: job.budget}
-                console.log("new", scope.new_apply)
-            }
-
             scope.job.type_checkbox = parseEdit(scope.job.types);
             scope.job.content = parseEdit(scope.job.content_types);
             scope.job.location = parseEdit(scope.job.local_preference);
@@ -57,7 +53,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
             console.log("GET CONTETNT STEP2", scope.job, scope.new_apply, getContent)
         } else {
-            scope.job = {
+            scope.job = scope.job || {
                 job_visibility: 'true',
                 // types: ['Agency'],
                 title: 'hi',
@@ -73,7 +69,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         }
 
 
-
+        console.log('ahahahahhhhhhhhhhhh @@@@@@@@@@', scope.job)
         scope.scrollToErr = function () {
             $timeout(function () {
                 angular.element("body").animate({scrollTop: angular.element('.has-error').eq(0).offset().top - 100}, "slow");

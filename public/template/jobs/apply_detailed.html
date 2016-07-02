@@ -1,30 +1,7 @@
-<div class="cont" ng-init="apply = getContent.apply.data.data; job = apply.job;">
-
-    <h1 class="title2">Application for job #{{new_job._id}}</h1>
-    <h2 class="title3">
-        {{new_job.title}}
-    </h2>
-
-    <short-preview limit=100 value="new_job.description"></short-preview>
-    <a ui-sref="root.job_detailed({id: new_job._id})" class="mtop5">View job posting</a>
-    <div class="separator"></div>
-    <small ng-if="isApply"><i class="fa fa-check-circle-o" aria-hidden="true"></i> You have already applied for the job</small>
-    <div class="title3">Cover Letter</div>
-    <div>{{new_apply.message}}</div>
-    <div class="separator2"></div>
-    <div class="title3">Your estimated budget</div>
-    <div>{{new_apply.budget}}</div>
-    <div class="separator2"></div>
-
-    <div class="title3">Estimation duration</div>
-    <div class="form-group">
-        {{new_apply.time_estimation}}
-    </div>
-    <div class="separator2"></div>
-    <div>
-        <a ui-sref="root.apply_edit({id: new_job._id})" class="btn btn-grey w100">Edit your application</a>
-    </div>
-
-
+<div class="cont">
+    <apply-detailed
+            title="Application for job #{{job._id}}"
+    ></apply-detailed>
+    <btns list="['apply_edit']"></btns>
 </div>
 
