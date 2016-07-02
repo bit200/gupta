@@ -541,3 +541,8 @@ mess, desc {
 .ib {
     display: inline-block;
 }
+
+btns {
+    display: block;
+    margin-top: 25px;
+}

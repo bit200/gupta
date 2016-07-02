@@ -166,11 +166,13 @@ XYZCtrls.controller('jobCtrl', ['AuthService', '$scope', '$rootScope', '$locatio
         }
 
 
-        scope.sendApplyNew = function (params) {
+        scope.apply_create = function (params) {
             params.job = scope.job._id
             http
                 .post('/api/job-apply', params)
-                .success(scope.onSucc).error(rootScope.onError)
+                .success(function(){
+                    $state.go('jobs_list.seller_open')
+                }).error(rootScope.onError)
         }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)

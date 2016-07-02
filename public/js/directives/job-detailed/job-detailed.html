@@ -8,9 +8,6 @@
         {{job.description}}</div>
 </div>
 
-{{job._id}}
-<a ui_sref="root.job_edit({job: job._id})">123123</a>
-
 <div class="row marginT20">
     <div class="col-md-4 text-bold">Location</div>
     <div class="col-md-8">
@@ -76,3 +73,8 @@
     </div>
 </div>
 <div class="separator2"></div>
+<div class="row">
+<div class="col-md-12 bcg paddv15">
+    <div ng-repeat="item in job.stats" class="stat-item"><b>{{item.count}}</b>&nbsp;<span>{{item.name}}</span></div>
+</div>
+</div>

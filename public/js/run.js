@@ -44,11 +44,11 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         }
 
         return {
-            'contract_create': {
+            'contract_create_fn': {
                 name: 'Create Contract',
                 fn: scope.contract_create,
             },
-            'contract_preview': {
+            'contract_preview_fn': {
                 name: 'Preview',
                 fn: function () {
                     ModalService.showModal({
@@ -69,23 +69,31 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Apply for the job',
                 ui_sref: sref('root.apply_create', {job: gid('job')}),
             },
+            'apply_create_fn': {
+                name: 'Send apply',
+                fn: scope.apply_create
+            },
             'apply_edit': {
                 name: 'View your apply',
+                ui_sref: sref('root.apply_edit', {job: gid('job')}),
+            },
+            'apply_edit_fn': {
+                name: 'Edit your apply',
                 ui_sref: sref('root.apply_edit', {job: gid('job')}),
             },
             'apply_detailed': {
                 name: 'View your apply (pub)',
                 ui_sref: sref('root.apply_detailed', {apply: gid('apply')}),
             },
-            'job_create': {
+            'job_create_fn': {
                 name: 'Job Create',
                 fn: scope.job_create,
             },
-            'job_edit': {
+            'job_edit_fn': {
                 name: 'Edit Job',
                 fn: scope.job_edit
             },
-            'job_edit_link': {
+            'job_edit': {
                 name: 'Job Edit Link',
                 ui_sref: sref('root.job_edit', {job: gid('job')}),
             }

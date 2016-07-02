@@ -459,9 +459,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'])
 
 
-        _states('root.apply_create', '/job/apply/:job', ['job', 'apply'])
-        _states('root.apply_edit', '/job/apply/edit/:job', ['job', 'apply'])
-        _states('root.apply_detailed', '/application/:apply', ['apply'])
+        _states('root.apply_create', '/job/apply/:job', 'jobCtrl', ['job', 'apply'])
+        _states('root.apply_edit', '/job/apply/edit/:job', 'jobCtrl', ['job', 'apply'])
+        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'])
 
 
         function common_q_all(state_child_name, resolves_arr) {
@@ -475,7 +475,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         case 'job':
                             return $http.get('/api/job/detailed/' + $stateParams.job)
                         case 'apply':
-                            return $http.get('/api/job-apply/' + $stateParams.job)
+                            return $http.get('/api/job-apply/' + $stateParams.job) 
+                        case 'apply_by_id':
+                            return $http.get('/api/job-apply/' + $stateParams.apply + '/pub')
                         case 'freelancer':
                             return $http.get('/api/info/Freelancer/' + $stateParams.freelancer)
                         case 'stats':
