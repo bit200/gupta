@@ -85,9 +85,8 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'View your apply',
                 ui_sref: sref('root.apply_detailed'),
                 ui_params: function(){
-
                     return {apply: getId(scope.new_apply || scope.apply)}
-                },
+                }
             },
             'job_create_fn': {
                 name: 'Job Create',
@@ -104,6 +103,10 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'buyer_open': {
                 name: 'View my active jobs',
                 ui_sref: sref('jobs_list.buyer_open')
+            },
+            'seller_open': {
+                name: 'View my active jobs',
+                ui_sref: sref('jobs_list.seller_open')
             },
             'job_detailed': {
                 name: 'View job posting',

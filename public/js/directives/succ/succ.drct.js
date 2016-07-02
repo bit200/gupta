@@ -20,21 +20,27 @@ XYZCtrls.directive('succ', function () {
                     console.log("@@@ NOT FOUND LNKS FOR DIRECTIVE", name, scope.links_list_for_dir)
                 }
             })
+            var handle_closed
 
             scope.hide_modal = function(){
                 console.log('click on the element')
+                handle_closed = true
                 $el.modal('hide')
                 $('.modal-backdrop').remove()
                 $('body').removeClass('modal-open')
+
             }
             scope.$watch('succ_data', function(data){
                 console.log('data', data)
-                if (data && data.cd) {
+                if (data && data.cd ) {
                     $el.modal('show')
                     $el.on('hidden.bs.modal', function () {
-                        console.log('close modal close modal', scope.mess_links)
-                        scope.active_link = scope.mess_links[scope.mess_links.length - 1]
-                        scope.goTo(scope.active_link)
+                        if (!handle_closed) {
+                            console.log('close modal close modal', scope.mess_links)
+                            scope.active_link = scope.mess_links[scope.mess_links.length - 1]
+                            scope.goTo(scope.active_link)
+                        }
+
                     })
                 }
             })
