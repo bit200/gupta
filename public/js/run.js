@@ -228,6 +228,9 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         scope.i = getContent.i
     }
 
+    $rootScope.gid = function(item) {
+        return item ? item._id || item || -3 : -3
+    }
 
     var asView = localStorage.getItem('asView');
     $rootScope.asView = asView ? JSON.parse(asView) : {buyer: true};

@@ -1,4 +1,17 @@
 <div class="cont {{status_class}}">
+    <a ui-sref="root.contract_edit({contract: contract._id})"
+       owner="{{gid(contract.buyer)}}">
+    </a>
+
+    <succ
+            title="Thanks, your contract sent to seller"
+            desc="We'll update you as soon as seller answer"
+            btns="['contract_detailed']"
+    ></succ>
+
+    <contract-detailed
+            title="Contract Information #{{contract._id}}"
+    ></contract-detailed>
 
     <btns list="['contract_create', 'job_recreate', 'contract_pause']" class="mtop5"></btns>
     <btns list="['contract_resume', 'contract_approve', 'contract_accept']" class="mtop5"></btns>
@@ -11,16 +24,5 @@
     <btns list="['contract_approve_suggestion_fn', 'contract_close_fn', 'create_suggestion_fn']" class="mtop5"></btns>
     <btns list="['udpate_suggestion_fn', 'contract_preview_fn']" class="mtop5"></btns>
 
-
-
-    <succ
-            title="Thanks, your contract sent to seller"
-            desc="We'll update you as soon as seller answer"
-            btns="['contract_detailed']"
-    ></succ>
-
-    <contract-detailed
-            title="Contract Information #{{contract._id}}"
-    ></contract-detailed>
 
 </div>
