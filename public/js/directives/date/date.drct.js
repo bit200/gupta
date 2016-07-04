@@ -9,7 +9,7 @@ XYZCtrls.directive('date', function () {
             if (scope.value == 'Invalid Date') {
                 scope.value = null
             }
-            console.log('date directive', scope)
+            //console.log('date directive', scope)
 
         }]
     };

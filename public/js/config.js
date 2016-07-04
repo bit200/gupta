@@ -472,6 +472,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_resume', '/contract/resume/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_reject', '/contract/reject/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'])
 

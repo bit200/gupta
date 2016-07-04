@@ -9,7 +9,7 @@ XYZCtrls.directive('contractPost', function () {
             scope.btns = attrs.btns
         },
         controller: ['$scope', function (scope) {
-            console.log('@@@ Scope Post directive', scope.attrs)
+            //console.log('@@@ Scope Post directive', scope.attrs)
         }]
     };
 });

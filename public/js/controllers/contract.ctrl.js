@@ -71,25 +71,20 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             })
         }
         scope.contract_resume = function () {
-            http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
+            http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).success(function (resp) {
                 console.log('resp', resp)
-            }, function (err) {
-                console.log('err', err)
-            })
+            }).error(scope.onErr)
         }
         scope.contract_approve_suggestion = function () {
-            http.post('/api/contract/approve-suggestion/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
+            http.post('/api/contract/approve-suggestion/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).success(function (resp) {
                 console.log('resp', resp)
-            }, function (err) {
-                console.log('err', err)
-            })
+            }).error(scope.onErr)
         }
         scope.contract_approve = function () {
-            http.post('/api/contract/approve/' + scope.contract._id).then(function (resp) {
+            http.post('/api/contract/approve/' + scope.contract._id).success(function (resp) {
+                scope.onSucc()
                 console.log('resp', resp)
-            }, function (err) {
-                console.log('err', err)
-            })
+            }).error(scope.onErr)
         }
         scope.contract_close = function (data) {
             console.log('close info', data)
@@ -97,18 +92,18 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 review_comment: data.review_comment,
                 closure_comment: data.closure_comment,
                 rating: data.rating
-            }).then(function (resp) {
+            }).success(function (resp) {
                 console.log('resp', resp)
-            }, function (err) {
-                console.log('err', err)
-            })
+            }).error(scope.onErr)
         }
 
         scope.contract_suggest = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                http.post('/api/contract/suggest', pub_contr()).success(scope.onSucc).error($rootScope.onError)
+                http.post('/api/contract/suggest', pub_contr())
+                    .success(scope.onSucc)
+                    .error(scope.onErr)
             }
         }
 
@@ -116,10 +111,12 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                http.post('/api/contract/suggest', pub_contr()).success(function (data) {
-                    scope.contract = data.data
-                    scope.onSucc()
-                }).error($rootScope.onError)
+                http.post('/api/contract/suggest', pub_contr())
+                    .success(function (data) {
+                        scope.contract = data.data
+                        scope.onSucc()
+                    })
+                    .error(scope.onErr)
             }
         }
 
@@ -127,22 +124,26 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                http.post('/api/contract', pub_contr()).success(function (data) {
-                    scope.contract = data.data
-                    scope.onSucc()
-                }).error(scope.onErr)
+                http.post('/api/contract', pub_contr())
+                    .success(function (data) {
+                        scope.contract = data.data
+                        scope.onSucc()
+                    })
+                    .error(scope.onErr)
             }
         }
-        
+
         scope.contract_update = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
 
-                http.post('/api/contract', pub_contr()).success(function (data) {
-                    scope.contract = data.data
-                    scope.onSucc()
-                }).error(scope.onErr)
+                http.post('/api/contract', pub_contr())
+                    .success(function (data) {
+                        scope.contract = data.data
+                        scope.onSucc()
+                    })
+                    .error(scope.onErr)
             }
         }
 
@@ -156,7 +157,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             data.contract = getId(scope.contract_orig)
             data.info = scope.info
 
-            return data()
+            return data
         }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)

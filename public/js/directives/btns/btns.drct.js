@@ -11,14 +11,14 @@ XYZCtrls.directive('btns', function () {
                 if (scope.btns_list_for_dir[name]) {
                     scope.btns_list.push(scope.btns_list_for_dir[name])
                 } else {
-                    console.log('@@@@ BTN DIRECTIVE not found', name)
+                    //console.log('@@@@ BTN DIRECTIVE not found', name)
                 }
             })
-            console.log('@aaaaaaa', scope.btns_list)
+            //console.log('@aaaaaaa', scope.btns_list)
             scope.btns_class_name = 'col-xs-' + (12 / scope.btns_list.length)
         },
         controller: ['$scope', function (scope) {
-            console.log('@@@ Scope Post directive', scope.attrs)
+            //console.log('@@@ Scope Post directive', scope.attrs)
         }]
     };
 });

@@ -55,12 +55,12 @@ XYZCtrls.directive('acts', function () {
                 'Reject': function () {
                     return {
                         fn: function () {
-                            console.log("reject", item)
+                            //console.log("reject", item)
                             $http.post('/api/job-apply/reject/' + getId(item, 'apply')).success(function(data){
                                 item.status = data.data.status
-                                console.log("rejected")
+                                //console.log("rejected")
                             }).error(function(){
-                                console.log("an error with reject")
+                                //console.log("an error with reject")
                             })
                         }
                     }
@@ -148,7 +148,7 @@ XYZCtrls.directive('acts', function () {
                         obj.name = obj.name || name
                         scope.actions.push(obj)
                     } else {
-                        console.log('NAME NOT FOUNDDDDDDDD', name)
+                        //console.log('NAME NOT FOUNDDDDDDDD', name)
                     }
                 })
             }
@@ -156,7 +156,7 @@ XYZCtrls.directive('acts', function () {
             if (user_type == 'seller' && job_type == 'open') {
                 fn('View Application', 'View Job')
                 if (item.status == 'seller approving') {
-                    console.log('approve contract', item)
+                    //console.log('approve contract', item)
                     fn('Approve Contract')
                 }
             } else if (user_type == 'seller' && job_type == 'ongoing') {
