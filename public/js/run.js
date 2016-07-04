@@ -88,6 +88,11 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Update Terms',
                 fn: scope.update_suggest,
             },
+            'contract_edit_terms_fn': {
+                name: 'Update Contract Terms',
+                fn: scope.update_contract_terms,
+            },
+
 
             'contract_pause': {
                 name: 'Pause Contract',
@@ -117,9 +122,9 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                     return {contract: gid('contract')}
                 }
             },
-            'contract_edit_suggest': {
-                name: 'Edit Contract Trems',
-                ui_sref: sref('root.contract_edit'),
+            'contract_edit_terms': {
+                name: 'Edit Trems',
+                ui_sref: sref('root.contract_edit_terms'),
                 ui_params: function () {
                     return {contract: gid('contract')}
                 }
