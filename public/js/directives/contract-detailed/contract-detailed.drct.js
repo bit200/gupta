@@ -1,4 +1,4 @@
-XYZCtrls.directive('contractPost', function () {
+XYZCtrls.directive('contractDetailed', function () {
     return {
         restrict: 'E',
         scope: true,

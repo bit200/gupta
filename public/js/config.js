@@ -466,16 +466,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             });
 
         _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
+        _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_pause', '/contract/pause/:id', 'contractCtrl', ['contract'])
+        _states('root.contract_resume', '/contract/resume/:id', 'contractCtrl', ['contract'])
+        _states('root.contract_approve', '/contract/approve/:id', 'contractCtrl', ['contract'])
+        _states('root.contract_accept', '/contract/accept/:id', 'contractCtrl', ['contract'])
 
-        // _states('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
-        //
-        // _states('root.contract_create', common_fn('/contract/create/:job/:freelancer'), 'contractCtrl')
-        // _states('root.contract_edit', c_fn('/contract/edit/:id', 'contract_create'))
-        // _states('root.contract_suggest', c_fn('/contract/suggest/:id', 'contract_create'))
-        // _states('root.contract_pause', c_fn('/contract/pause/:id', 'contract_create'))
-        // _states('root.contract_resume', c_fn('/contract/resume/:id', 'contract_create'))
-        // _states('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
-        // _states('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
 
         _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'])
         _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'])

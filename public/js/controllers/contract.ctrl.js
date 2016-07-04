@@ -24,7 +24,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 expected_start: new Date().getTime()
             }
 
-        console.log('scope.contract_orig', scope.contract_orig, scope.freelancer)
         scope.contract = angular.extend({}, scope.contract_orig, scope.suggest, scope.contract_orig.suggest, {_id: scope.contract_orig._id})
 
         scope.contract.expected_completion = new Date(scope.contract.expected_completion)
@@ -39,15 +38,21 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             alert('Rating selected - ' + rating);
         };
 
-        scope.reject = function (message) {
+        scope.contract_reject_by_seller = function (message) {
             http.post('/api/contract/reject/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
                 console.log('resp', resp)
             }, function (err) {
                 console.log('err', err)
             })
         }
-
-        scope.pause = function (message) {
+        scope.contract_reject_by_buyer = function (message) {
+            http.post('/api/contract/reject_by_buyer/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
+                console.log('resp', resp)
+            }, function (err) {
+                console.log('err', err)
+            })
+        }
+        scope.contract_pause = function (message) {
             console.log('pause reasone', scope.contract.puase_reason)
             http.post('/api/contract/pause/' + scope.contract._id, {pause_reason: scope.contract.pause_reason}).then(function (resp) {
                 console.log('resp', resp)
@@ -55,26 +60,28 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 console.log('err', err)
             })
         }
-        scope.approve_suggestion = function () {
-
-        }
-        scope.approve = function () {
-            http.post('/api/contract/approve/' + scope.contract._id).then(function (resp) {
-                console.log('resp', resp)
-            }, function (err) {
-                console.log('err', err)
-            })
-        }
-
-        scope.resume = function () {
+        scope.contract_resume = function () {
             http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
                 console.log('resp', resp)
             }, function (err) {
                 console.log('err', err)
             })
         }
-
-        scope.close = function (data) {
+        scope.contract_approve_suggestion = function () {
+            http.post('/api/contract/approve-suggestion/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).then(function (resp) {
+                console.log('resp', resp)
+            }, function (err) {
+                console.log('err', err)
+            })
+        }
+        scope.contract_approve = function () {
+            http.post('/api/contract/approve/' + scope.contract._id).then(function (resp) {
+                console.log('resp', resp)
+            }, function (err) {
+                console.log('err', err)
+            })
+        }
+        scope.contract_close = function (data) {
             console.log('close info', data)
             http.post('/api/contract/close/' + data._id, {
                 review_comment: data.review_comment,
@@ -86,7 +93,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 console.log('err', err)
             })
         }
-
         scope.contract_suggest = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
@@ -104,7 +110,23 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 http.post('/api/contract/suggest', data).success(scope.onSucc).error($rootScope.onError)
             }
         }
+        scope.update_suggest = function (invalid, type, _data) {
+            if (invalid) {
+                rootScope.scrollToErr()
+            } else {
+                var data = angular.copy(_data)
 
+                data.seller = getId(data.seller)
+                data.freelancer = getId(data.freelancer)
+                data.buyer = getId(data.buyer)
+                data.job = getId(data.job)
+                data.contract = getId(scope.contract_orig)
+
+                console.log('Update suggest edit', data, scope.info)
+                data.info = scope.info
+                http.post('/api/contract/suggest', data).success(scope.onSucc).error($rootScope.onError)
+            }
+        }
         scope.contract_create = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
@@ -121,20 +143,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             }
         }
 
-        scope.preview = function () {
-            ModalService.showModal({
-                templateUrl: "template/modal/previewContract.html",
-                scope: scope,
-                controller: function ($scope) {
-                    $scope.contract = scope.contract;
-                }
-            }).then(function (modal) {
-                modal.element.modal();
-                modal.close.then(function (result) {
-                });
-
-            });
-        }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
 

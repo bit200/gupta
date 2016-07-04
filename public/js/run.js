@@ -48,6 +48,52 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Create Contract',
                 fn: scope.contract_create,
             },
+            'contract_reject_by_seller_fn': {
+                name: 'Reject',
+                fn: scope.contract_reject_by_seller,
+            },
+            'contract_reject_by_buyer_fn': {
+                name: 'Reject (inactivate)',
+                fn: scope.contract_reject_by_buyer,
+            },
+            'contract_pause_fn': {
+                name: 'Pause Contract',
+                fn: scope.contract_pause,
+            },
+            'contract_resume_fn': {
+                name: 'Resume Contract',
+                fn: scope.contract_resume,
+            },
+            'contract_approve_fn': {
+                name: 'Approve',
+                fn: scope.contract_approve,
+            },
+            'contract_approve_suggestion_fn': {
+                name: 'Approve',
+                fn: scope.contract_approve_suggestion,
+            },
+            'contract_close_fn': {
+                name: 'Close',
+                fn: scope.contract_close,
+            }, 
+            'create_suggestion_fn': {
+                name: 'Send Terms',
+                fn: scope.contract_suggest,
+            },
+            'udpate_suggestion_fn': {
+                name: 'Update Terms',
+                fn: scope.update_suggest,
+            },
+
+            'contract_create': {
+                name: 'Create Contract',
+                ui_sref: sref('root.apply_create', {job: gid('job')}),
+            },
+            'contract_recreate': {
+                name: 'Recreate Contract',
+                ui_sref: sref('root.apply_create', {job: gid('job')}),
+            },
+            
             'contract_preview_fn': {
                 name: 'Preview',
                 fn: function () {
