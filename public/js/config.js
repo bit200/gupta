@@ -2,7 +2,7 @@
 //     function ($stateParamsProvider, $httpProvider, $locationProvider) {
 angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider) {
-        var authResolve = ["$q", "AuthService", '$rootScope', function ($q, AuthService, $rootScope) {
+        var authResolve = ["$q", "AuthService", function ($q, AuthService) {
             var deferred = $q.defer();
             AuthService.checkAuthCtrl().then(function () {
                 deferred.resolve();
@@ -38,24 +38,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 abstract: true,
                 template: '<ui-view></ui-view>'
             })
-
-            .state('contract_suggest_detailed', {
-                url: '/suggestion/:id',
-                templateUrl: 'template/jobs/contract_detailed.html',
-                controller: 'contractCtrl',
-                resolve: {
-                    auth: authResolve,
-                    getContent: ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
-                        return $q.all({
-                            contract: $http.get('/api/contract/detailed/' + $stateParams.id),
-                            i: getResolveQ($q, {
-                                contract_suggest_detailed: true
-                            })
-                        })
-                    }]
-                }
-            })
-
             .state('home', {
                 url: '/',
                 templateUrl: 'template/home.html',
@@ -108,13 +90,13 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     getContent: function ($q, $http, $location) {
                         return $q.all({
-                             locations: $http.get('/get-content', {
-                                 params: {
-                                     name: 'Location',
-                                     query: {},
-                                     distinctName: 'name'
-                                 }
-                             }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
                             totalCount: $http.get('/api/freelancers?count=true'),
                             businessAccounts: $http.get('/api/my/business_accounts')
                         })
@@ -376,7 +358,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories', {
-                url: '/categories?industry_expertises&city',
+                url: '/categories?service_providers&cities&filters',
                 templateUrl: 'template/category.html',
                 controller: 'CategoriesCtrl',
                 reloadOnSearch: false,
@@ -465,12 +447,17 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             });
 
+
         _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
         _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_edit_terms', '/contract/edit-terms/:contract', 'contractCtrl', ['contract'])
+
+        _states('root.contract_suggest_detailed', '/suggestion/:suggest', 'contractCtrl', ['suggest'])
         _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_resume', '/contract/resume/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_reject', '/contract/reject/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'])
 
@@ -497,7 +484,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         case 'job':
                             return $http.get('/api/job/detailed/' + $stateParams.job)
                         case 'apply':
-                            return $http.get('/api/job-apply/' + $stateParams.job) 
+                            return $http.get('/api/job-apply/' + $stateParams.job)
+                        case 'suggest':
+                            return $http.get('/api/suggest/', {params: {suggest: $stateParams.suggest}})
                         case 'apply_by_id':
                             return $http.get('/api/job-apply/' + $stateParams.apply + '/pub')
                         case 'freelancer':
@@ -529,7 +518,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 }
 
-                _.each(resolves_arr, function(name){
+                _.each(resolves_arr, function (name) {
                     var fn = get_fn(name)
                     if (fn) {
                         t[name] = fn
@@ -545,10 +534,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         }
 
 
-
-        function _states (state_name, url, ctrl, resolves_arr, is_free_auth) {
+        function _states(state_name, url, ctrl, resolves_arr, is_free_auth) {
             var state_arr = state_name.split('.')
                 , state_child_name = state_arr[1] || state_arr[0]
+
+            _state_obj[state_name] = {
+                url: url,
+                name: state_name
+            }
 
             var state_obj = {
                 url: url,
@@ -564,7 +557,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             $stateProvider.state(state_name, state_obj);
         }
-
 
 
         $urlRouterProvider.otherwise('/');

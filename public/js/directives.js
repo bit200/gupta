@@ -426,47 +426,13 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
                     }, 100)
                 }
             })
-
-        },
-
+        }
     }
 })
 ;
 
-// XYZCtrls.directive('myFlexMenu', function ($timeout) {
-//     return {
-//         scope: {
-//             filters: "="
-//         },
-//         restrict: "E",
-//         templateUrl: 'template/directive/templateHeaderMenu.html',
-//         link: function (scope, element, attrs, $mdMenu) {
-//             scope.$watch('filters', function () {
-//                 if (element[0].children[0].children.length) {
-//                     $timeout(function () {
-//                         var query = element[0].children[0].children;
-//                         var k = element[0].children[0].children.length;
-//                         for (var i = 0; i < k; i++) {
-//                             scope.width += query[i]
-//                         }
-//                         scope.width = scope.width / element[0].children[0].children.length;
-//
-//                     }, 0);
-//                 }
-//             });
-//
-//         },
-//         controller: ['$scope', '$http', '$mdMenu', function (scope, http, $mdMenu) {
-//             scope.closeOthers = function () {
-//                 $mdMenu.hide(null, {closeAll: true});
-//             };
-//         }]
-//
-//     }
-// });
 
-
-XYZCtrls.directive("customPagination", function ($location) {
+XYZCtrls.directive("customPagination", function($location) {
     return {
         restrict: "A",
         scope: {

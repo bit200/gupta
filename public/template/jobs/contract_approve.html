@@ -1,0 +1,17 @@
+<div class="cont {{status_class}}" permission>
+    <a owner="{{gid(contract.buyer)}}"
+       ui-sref="root.contract_edit({contract: contract._id})"
+    >
+    </a>
+
+    <succ
+            title="Thanks, your contract is started"
+            btns="['jobs_list.seller_ongoing']"
+    ></succ>
+
+    <contract-detailed
+            title="Contract Information #{{contract._id}}"
+    ></contract-detailed>
+
+    <btns list="['contract_approve_fn', 'contract_reject', 'contract_suggest']" class="mtop5"></btns>
+</div>

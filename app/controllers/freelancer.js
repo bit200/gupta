@@ -44,8 +44,8 @@ exports.get_freelancers = function (req, res) {
     var params = req.query;
     params.registrationStatus = 1;
 
-    if (params.freelancer_type){
-        params.freelancer_type = {$in: [params.freelancer_type]}
+    if (params.service_providers){
+        params.service_providers = {$in: [params.service_providers]}
     };
     if (params.content_type){
         params.content_type = {$in: params.content_type}

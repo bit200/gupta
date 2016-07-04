@@ -1,6 +1,7 @@
 'use strict';
 /* App Module */
 var XYZCtrls = angular.module('XYZCtrls', []);
+var _state_obj = {}
 
 var XYZApp = angular.module('XYZApp', [
     'angularModalService',

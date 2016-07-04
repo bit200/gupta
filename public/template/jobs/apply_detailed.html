@@ -1,4 +1,8 @@
 <div class="cont" permission>
+    <a owner="{{gid(new_apply.seller)}}"
+       ui-sref="root.apply_edit({job: job._id})"
+    >
+    </a>
     <apply-detailed
             title="Application for job #{{job._id}}"
     ></apply-detailed>

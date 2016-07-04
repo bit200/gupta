@@ -109,10 +109,10 @@
                 </md-input-container>
             </div>
             <div class="form-group">
-                <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.freelancer_type.$invalid}">
+                <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.service_providers.$invalid}">
                     <label>I want to register as a freelancer in</label>
-                    <md-select ng-model="freelancer.freelancer_type" md-on-close="clearSearchTerm()"
-                               data-md-container-class="selectdemoSelectHeader" name="freelancer_type" multiple required>
+                    <md-select ng-model="freelancer.service_providers" md-on-close="clearSearchTerm()"
+                               data-md-container-class="selectdemoSelectHeader" name="service_providers" multiple required>
                         <md-select-header class="demo-select-header">
                             <input ng-model="searchTerm" type="search" placeholder="Search.."
                                    class="demo-header-searchbox _md-text">
@@ -123,8 +123,8 @@
                             </md-option>
                         </md-optgroup>
                     </md-select>
-                    <div ng-messages="submittedAbout && aboutForm.freelancer_type.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                        <div ng-show="submittedAbout && aboutForm.freelancer_type.$error.required" ng-message="required">Required field</div>
+                    <div ng-messages="submittedAbout && aboutForm.service_providers.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
+                        <div ng-show="submittedAbout && aboutForm.service_providers.$error.required" ng-message="required">Required field</div>
                     </div>
                 </md-input-container>
             </div>
@@ -162,10 +162,10 @@
                     <md-select ng-model="freelancer.content_type" md-on-close="clearSearchTerm()"
                                data-md-container-class="selectdemoSelectHeader" multiple="">
                         <md-select-header class="demo-select-header">
-                            <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
+                            <input ng-model="searchTerm" type="search" placeholder="Search for a content type.."
                                    class="demo-header-searchbox _md-text">
                         </md-select-header>
-                        <md-optgroup label="locations">
+                        <md-optgroup label="content_type">
                             <md-option ng-value="item" ng-repeat="item in content | filter:$select.search ">
                                 {{item}}
                             </md-option>

@@ -9,7 +9,7 @@ var FreelancerSchema = mongoose.Schema({
     location: String,
     cities: Array,
     experience: Number,
-    freelancer_type: Array,
+    service_providers: Array,
     industry_expertise: Array,
     content_type: Array,
     languages: Array,

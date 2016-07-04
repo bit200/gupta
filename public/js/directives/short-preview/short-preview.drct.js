@@ -21,7 +21,7 @@ XYZCtrls.directive('shortPreview', function () {
 
             scope.short_view = scope.value.slice(0, scope.limit)
             scope.isVisible = scope.short_view.length == scope.limit
-            console.log("@@@@", scope.short_view, '##', scope.short_view.length > scope.limit, scope.isVisible)
+            //console.log("@@@@", scope.short_view, '##', scope.short_view.length > scope.limit, scope.isVisible)
         }]
     };
 });

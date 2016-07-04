@@ -10,7 +10,7 @@ XYZCtrls.directive('freelancer', function () {
         controller: ['$scope', function (scope) {
             scope.default_img = '/img/avatar.jpeg'
             scope.seller = scope.item ? scope.item.freelancer || scope.item : null
-            console.log('hahahahhaha freelancer', scope.seller)
+            //console.log('hahahahhaha freelancer', scope.seller)
         }]
     };
 });

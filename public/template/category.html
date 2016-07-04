@@ -1,7 +1,6 @@
 <div class="container">
     <div class="row">
             <div class="col-md-3 nopadding">
-
                 <div class="full-width work-type border-grey" ng-class="{'topic-close':close.workType}">
                     <div class="full-width user-topic-top">
                         <i class="fa fa-sitemap" aria-hidden="true"></i>
@@ -18,23 +17,41 @@
                 <div class="full-width user-topic border-grey" ng-class="{'topic-close':close.topic}">
                     <div class="full-width user-topic-top">
                         <i class="fa fa-sitemap" aria-hidden="true"></i>
-                        <span>Industry Expertise</span>
+                        <span>Service providers</span>
                         <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}" aria-hidden="true" ng-click="close.topic = !close.topic"></i>
                     </div>
                     <div class="user-topic-bottom" toggle="close.topic">
                         <div class="full-width">
                             <md-input-container md-no-float class="md-block" style="margin-bottom: 0px">
-                                <input ng-model="search" type="text" placeholder="Search by Service Provided" >
+                                <input ng-model="search" type="text" placeholder="Search by Service Providers" >
                                 <md-icon md-svg-src="/img/search.svg" style="display:inline-block;"></md-icon>
                             </md-input-container>
                         </div>
                         <div class="full-width">
-                            <div ng-repeat="filter in commonFilters | objectKeys | filter:search">
-                                <md-checkbox ng-model="ownFilter.industry_expertise[filter]" ng-change="submitFilter(ownFilter)" class="md-warn">{{filter}}</md-checkbox>
+                            <div ng-repeat="filter in cFilters | objectKeys | filter:search">
+                                <md-checkbox ng-model="cFilters[filter].status" ng-change="submitFilter(ownFilter)" class="md-warn">{{filter}}</md-checkbox>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--<div class="full-width user-topic border-grey" ng-class="{'topic-close':close.topic_filter[$index]}"-->
+                     <!--ng-repeat="service_provider in cFilters | objectKeys" ng-if="cFilters[service_provider].status">-->
+                    <!--<div class="full-width user-topic-top">-->
+                        <!--<i class="fa fa-sitemap" aria-hidden="true"></i>-->
+                        <!--<span>{{service_provider}}</span>-->
+                        <!--<i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic_filter[$index],'fa-chevron-up':close.topic_filter[$index]}"-->
+                           <!--aria-hidden="true" ng-click="close.topic_filter[$index] = !close.topic_filter[$index]"></i>-->
+                    <!--</div>-->
+                    <!--<div class="user-topic-bottom" toggle="close.topic">-->
+                        <!--<div class="full-width">-->
+                            <!--<div ng-repeat="filter in cFilters[service_provider].arr">-->
+                                <!--<md-checkbox ng-model="filter.status" ng-change="submitFilter(ownFilter)" class="md-warn">-->
+                                    <!--{{filter.name}}-->
+                                <!--</md-checkbox>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
 
                 <div class="full-width user-block border-grey">
