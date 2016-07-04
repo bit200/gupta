@@ -86,7 +86,7 @@ XYZCtrls.directive('acts', function () {
                 },
                 'View Suggestion': function () {
                     return {
-                        ui_sref: sref("contract_suggest_detailed", {suggestion: getId(item, 'suggest')})
+                        ui_sref: sref("root.contract_suggest_detailed", {suggestion: getId(item, 'suggest')})
                     }
                 },
                 'Edit Suggestion': function () {
@@ -156,15 +156,22 @@ XYZCtrls.directive('acts', function () {
             if (user_type == 'seller' && job_type == 'open') {
                 fn('View Application', 'View Job')
                 if (item.status == 'seller approving') {
-                    //console.log('approve contract', item)
                     fn('Approve Contract')
+                }
+                if (item.status == 'suggest approving') {
+                    fn('Edit Suggestion')
                 }
             } else if (user_type == 'seller' && job_type == 'ongoing') {
 
             } else if (user_type == 'seller' && job_type == 'closed') {
 
             } else if (user_type == 'buyer' && job_type == 'open') {
-                fn('Create Contract')
+                if (['suggest approving'].indexOf(item.status) < 0) {
+                    fn('Create Contract')
+                }
+                if (item.status == 'suggest approving') {
+                    fn('View Suggestion')
+                }
                 if (item.status !== 'rejected') {
                     fn('Reject')
                 }
