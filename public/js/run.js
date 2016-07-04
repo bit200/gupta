@@ -191,12 +191,12 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Job Edit Link',
                 ui_sref: sref('root.job_edit', {job: gid('job')}),
             },
-            'buyer_open': {
+            'jobs_list.buyer_open': {
                 name: 'View my active jobs',
                 ui_sref: sref('jobs_list.buyer_open')
             },
-            'seller_open': {
-                name: 'View my active jobs',
+            'jobs_list.seller_open': {
+                name: 'View my open jobs',
                 ui_sref: sref('jobs_list.seller_open')
             },
             'job_detailed': {
