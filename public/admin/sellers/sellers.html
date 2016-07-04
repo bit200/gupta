@@ -20,7 +20,7 @@
         <tbody>
         <tr ng-repeat="seller in sellersCopy" ng-class="{'rejecting-row': seller_area.rejectedItemIndex == $index}">
             <td><a href="" ng-click="profileDetails(seller._id)">{{seller.name}}</a></td>
-            <td><span ng-repeat="category in seller.freelancer_type">{{category }}<span ng-show="!$last">,</span> </span></td>
+            <td><span ng-repeat="category in seller.service_providers">{{category }}<span ng-show="!$last">,</span> </span></td>
             <td></td>
             <td>{{seller.business_account.first_name}} {{seller.business_account.last_name}}</td>
             <td>

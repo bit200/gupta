@@ -56,7 +56,7 @@
 <div class="container">
     <div class="row back-service-provider">
         <div class="col-sm-12 text-center "><h2 class="marginTB10">Find Service Providers</h2></div>
-        <div class="marginLR20" ng-repeat="item in arrayProviders" ng-click="$state.go('categories');activeProvider=item;">
+        <div class="marginLR20" ng-repeat="item in arrayProviders" ui-sref="categories({service_providers: item})" ng-click="activeProvider=item;">
             <div class="service-provider relative">
                 <div class="fa fa-cogs text-center service-provider-icon"></div>
                 <div>{{item}}</div>
@@ -80,7 +80,7 @@
                             <div class="text-center profile-info-name">{{profile.name}}</div>
                             <div class="profile-info-type">
                                 <div class="fa fa-cogs text-center paddingR10"></div>
-                                {{profile.freelancer_type[0]}}
+                                {{profile.service_providers[0]}}
                             </div>
                         </div>
                     </div>

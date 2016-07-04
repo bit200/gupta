@@ -426,8 +426,6 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
     }
 });
 
-console.log('customPagination')
-
 XYZCtrls.directive("customPagination", function($location) {
     return {
         restrict: "A",

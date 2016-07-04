@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent',
-    function (scope, location, http, parseRating, $q, getContent) {
+XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams',
+    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams) {
     scope.ownFilter = {}
     scope.arrayTopics = getContent.topic.data.data;
     scope.arrayContent = getContent.content.data.data;
@@ -44,25 +44,36 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         }
     };
 
-    if (location.search().city){
-        scope.ownFilter.location = scope.ownFilter.location || {}
-        scope.ownFilter.location[location.search().city] = true;
-    }
-    if (location.search().industry_expertises){
-        scope.ownFilter.industry_expertise = scope.ownFilter.industry_expertise || {};
-        if (location.search().industry_expertises === Array)
-            _.each(location.search().industry_expertises, function(i_e){
-                scope.ownFilter.industry_expertise[i_e] = true;
+    var checkValue = function(locSearch){
+        if (!locSearch) return
+        var res = {};
+        if (locSearch === Array)
+            _.each(locSearch, function(i_e){
+                res[i_e] = true;
             });
         else
-            scope.ownFilter.industry_expertise[location.search().industry_expertises] = true;
+            res[locSearch] = true;
+        return res
+    };
+
+    if (stateParams.cities){
+        scope.ownFilter.location = scope.ownFilter.location || {};
+        scope.ownFilter.location = checkValue(stateParams.cities);
     }
+
+    scope.cFilters = {};
+    _.each(angular.copy(rootScope.commonFilters), function(value, key){
+        scope.cFilters[key] = {
+            status: !!(stateParams.service_providers && stateParams.service_providers == key),
+            arr: _.map(value, function(val){
+                val.status = !!(stateParams.filters == val.name && stateParams.service_providers == val.type);
+                return val
+            })
+        }
+    });
 
     scope.submitFilter = function (data) {
         var filter = angular.copy(data);
-        if (filter.industry_expertise)
-            filter.industry_expertise = objInArr(filter.industry_expertise);
-
         if (filter.freelancer && filter.agency) {
             delete filter.agency;
             delete filter.freelancer;
@@ -73,13 +84,17 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         if (filter.freelancer)
             filter.type = 'freelancer';
         delete filter.freelancer;
-//        if (filter.content_type)
-//            filter.content_type = objInArr(filter.content_type);
         if (filter.languages)
             filter.languages = objInArr(filter.languages);
         if (filter.location)
             filter.location = objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
+
+        filter.service_providers = [];
+        _.each(scope.cFilters, function(value, key){
+            if (value.status)
+                filter.service_providers.push(key)
+        });
         http.get('/api/freelancers?'+ $.param(filter)).then(function (resp) {
             filter = {};
             scope.freelancers = resp.data.data;
@@ -89,7 +104,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
     scope.$watch('activeProvider', function(val){
         if (val)
-            scope.ownFilter.freelancer_type = val;
+            scope.ownFilter.service_providers = val;
         scope.submitFilter(scope.ownFilter);
     });
 

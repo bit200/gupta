@@ -43,7 +43,7 @@
                 <tr ng-repeat="item in agencies">
                     <td class="text-center"><img ng-src="{{item.contact_detail.preview}}" style="max-width: 50px"/></td>
                     <td class="text-center">{{item.name}}</td>
-                    <td class="text-center"><span ng-repeat="type in item.freelancer_type">{{type}}<span ng-if="!$last">, </span> </span></td>
+                    <td class="text-center"><span ng-repeat="type in item.service_providers">{{type}}<span ng-if="!$last">, </span> </span></td>
                     <td class="text-center">{{item.location}}</td>
                     <td class="text-center">
                         <div ng-show="!item.business_account">

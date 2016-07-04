@@ -40,6 +40,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     scope.ctrl = {};
 
     scope.ctrl.selectedItemChange = function(item){
+        if (!item) return;
         switch (item.type) {
             case 'freelancers':
                 $rootScope.$state.go('profile', {id: item._id});
@@ -47,15 +48,22 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
             case 'jobs':
                 $rootScope.$state.go('root.job_detailed', {id: item._id});
                 break;
-            case 'services':
+            case 'service_providers':
                 var q = {
-                    industry_expertises: [item.displayTitle]
-                }
+                    service_providers: [item.displayTitle]
+                };
                 if (scope.ctrl.city)
-                    q.city = scope.ctrl.city
+                    q.cities = scope.ctrl.city
                 $rootScope.$state.go('categories', q);
                 break;
             case 'filters':
+                var q = {
+                    service_providers: [item.service_provider],
+                    filters: [item.filter_name]
+                };
+                if (scope.ctrl.city)
+                    q.cities = [scope.ctrl.city]
+                $rootScope.$state.go('categories', q);
                 break;
         }
     };

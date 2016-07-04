@@ -77,10 +77,13 @@ exports.search = function (req, res) {
     var result = {};
     async.parallel([
         function(cb){
-            models.Filters.find({type: 'ContentWriting', filter: 'Industry Expertise', name: new RegExp(req.query.query, "i")}).distinct('name', function(err, filters){
+            models.Filters.find({name: new RegExp(req.query.query, "i")}).exec(function(err, filters){
                 result.filters = _.map(filters,function(item){
                     return {
-                      displayTitle: item,
+                      displayTitle: item.type + ' - ' + item.name,
+                      filter_name: item.name,
+                      service_provider: item.type,
+                      filter_type: item.filter,
                       type: 'filters'
                     }
                 });
@@ -92,7 +95,7 @@ exports.search = function (req, res) {
                 result.services = _.map(services,function(item){
                     return {
                       displayTitle: item,
-                      type: 'services'
+                      type: 'service_providers'
                     }
                 });
                 cb();

@@ -17,7 +17,6 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         });
         http.get('/get-filters').then(function(resp){
             scope.filters = resp.data.data;
-            console.log(scope.filters)
         }, function(err){
             console.log('error',err)
         });

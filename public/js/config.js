@@ -376,7 +376,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories', {
-                url: '/categories?industry_expertises&city',
+                url: '/categories?service_providers&cities&filters',
                 templateUrl: 'template/category.html',
                 controller: 'CategoriesCtrl',
                 reloadOnSearch: false,

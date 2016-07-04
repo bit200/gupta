@@ -8,7 +8,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             industry: http.get('/get-content', {
                 params: {
                     name: 'Filters',
-                    query: {type: 'BloggersAndInfluencers', filter: 'Industry Expertise'},
+                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
                     distinctName: 'name'
                 }
             }),
@@ -22,14 +22,14 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             content: http.get('/get-content', {
                 params: {
                     name: 'Filters',
-                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                    query: {type: 'Content Writing', filter: 'Content Type'},
                     distinctName: 'name'
                 }
             }),
             languages: http.get('/get-content', {
                 params: {
                     name: 'Filters',
-                    query: {type: 'ContentWriting', filter: 'Languages'},
+                    query: {type: 'Content Writing', filter: 'Languages'},
                     distinctName: 'name'
                 }
             }),
@@ -53,6 +53,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
         }
 
         $q.all(q).then(function(getContent){
+            console.log(getContent)
             scope.freelancer_area = {
                 croppedProfile: '',
                 profilePreview: ''
