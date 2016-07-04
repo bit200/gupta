@@ -237,7 +237,7 @@ div.Files {
 }
 
 .top-header {
-    padding-bottom: 50px;
+    height: 93px;
 }
 
 .btn-default:focus {
@@ -537,9 +537,6 @@ html, body {
     padding: 0 !important;
 }
 
-.inline-block {
-    display: inline-block;
-}
 
 .relative {
     position: relative;
@@ -939,9 +936,7 @@ div.block-popularity {
 }
 
 
-.body {
-    margin-top: 40px;
-}
+
 
 .form-group p.error {
     position: absolute;
@@ -1368,7 +1363,7 @@ div.containerCrop {
 .header-navigation {
     background-color: #FFFFFF;
     height: 41px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .background-woman {
@@ -1859,3 +1854,6 @@ md-autocomplete-wrap{
     }
 }
 
+.inline-block {
+    display: inline-block; !important;
+}

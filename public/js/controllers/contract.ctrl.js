@@ -56,6 +56,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         scope.contract_reject_by_seller = function (message) {
             http.post('/api/contract/reject/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
                 console.log('resp', resp)
+                scope.onSucc()
             }, function (err) {
                 console.log('err', err)
             })
@@ -63,6 +64,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         scope.contract_reject_by_buyer = function (message) {
             http.post('/api/contract/reject_by_buyer/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
                 console.log('resp', resp)
+                scope.onSucc()
+
             }, function (err) {
                 console.log('err', err)
             })
@@ -71,6 +74,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             console.log('pause reasone', scope.contract.puase_reason)
             http.post('/api/contract/pause/' + scope.contract._id, {pause_reason: scope.contract.pause_reason}).then(function (resp) {
                 console.log('resp', resp)
+                scope.onSucc()
+
             }, function (err) {
                 console.log('err', err)
             })
@@ -78,6 +83,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         scope.contract_resume = function () {
             http.post('/api/contract/resume/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).success(function (resp) {
                 console.log('resp', resp)
+                scope.onSucc()
+
             }).error(scope.onErr)
         }
         scope.contract_approve_suggestion = function () {
