@@ -115,9 +115,9 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             },
             'contract_edit': {
                 name: 'Edit Contract',
-                ui_sref: sref('root.contract_edit'),
+                ui_sref: sref('root.contract_detailed_info'),
                 ui_params: function () {
-                    return {contract: gid('contract')}
+                    return {contract: 1000000}
                 }
             },
             'contract_detailed': {
