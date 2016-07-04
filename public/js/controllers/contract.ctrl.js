@@ -17,7 +17,9 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 : null
 
         console.log("CONTRACTTTTTTT", scope.contract)
-
+        scope.job = scope.job || {}
+        scope.freelancer = scope.freelancer || {}
+        scope.buyer = scope.buyer || {}
         scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
                 title: scope.job.title,
                 freelancer: scope.freelancer,

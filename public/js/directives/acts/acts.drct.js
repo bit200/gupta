@@ -24,7 +24,9 @@ XYZCtrls.directive('acts', function () {
             }
 
             function getId(item, field) {
-                return _get_id_by_item(getInfo(item, field))
+
+                var _item = getInfo(item, field) || getInfo((item || {}).contract, field)
+                return _get_id_by_item(_item)
             }
 
             function sref(name, params) {
@@ -86,7 +88,7 @@ XYZCtrls.directive('acts', function () {
                 },
                 'View Suggestion': function () {
                     return {
-                        ui_sref: sref("root.contract_suggest_detailed", {suggestion: getId(item, 'suggest')})
+                        ui_sref: sref("root.contract_suggest_detailed", {suggest: getId(item, 'suggest')})
                     }
                 },
                 'Edit Suggestion': function () {
@@ -159,7 +161,7 @@ XYZCtrls.directive('acts', function () {
                     fn('Approve Contract')
                 }
                 if (item.status == 'suggest approving') {
-                    fn('Edit Suggestion')
+                    fn('View Suggestion')
                 }
             } else if (user_type == 'seller' && job_type == 'ongoing') {
 

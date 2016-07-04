@@ -25,7 +25,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     };
 
     $rootScope.getBuyerName = function (buyer) {
-        return buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
+        return buyer && buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
     }
 
     $rootScope.onError = function (err) {

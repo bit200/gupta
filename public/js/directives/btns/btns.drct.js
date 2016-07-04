@@ -24,9 +24,10 @@ XYZCtrls.directive('btns', function () {
             }
 
             scope.attrs = attrs
+            console.log('state objbjbjbjbjbjbjjb', attrs.list)
+
             scope.btns_list_plain = eval(attrs.list)
             scope.btns_list = []
-            console.log('state objbjbjbjbjbjbjjb', _state_obj)
             _.each(scope.btns_list_plain, function(name){
                 // var obj = _state_obj[name] || _state_obj['root.' + name]
                 // if (obj) {
