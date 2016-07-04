@@ -88,14 +88,14 @@ exports.approve_job = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function (job) {
         mail.job_approve(job.user, res, m.scb(job, res))
-    }, {populate: user});
+    }, {populate: 'user'});
 };
 
-exports.reject_registration = function (req, res) {
+exports.reject_job = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2, reject_reason: req.body.reject_reason}, res, function (job) {
         mail.job_approve(job.user, res, m.scb(job, res))
-    }, {populate: user});
+    }, {populate: 'user'});
 };
 
 exports.business_accounts = function (req, res) {
