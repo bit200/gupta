@@ -50,7 +50,7 @@ exports.approve_registration = function (req, res) {
         if (freelancer.user) {
             mail.approveAgencyRegistration({
                 freelancer: freelancer,
-            }, freelancer.freelancer.contact_detail.email);
+            }, freelancer.contact_detail.email);
             return res.send(200)
         }
         m.create(models.User, {email: freelancer.contact_detail.email, password: password},res,function( user){

@@ -926,14 +926,6 @@ div.block-popularity {
     display: inline-block;
 }
 
-.btn-search {
-    margin-top: 0;
-}
-
-div.btnSearch {
-    padding-top: 15px;
-}
-
 .agency-text {
     text-align: right;
 }
@@ -1291,11 +1283,13 @@ div.containerCrop {
     /*width: 38vw;*/
     /*height: 40vw;*/
     font-size: 8pt;
-
+    width: 100%;
+    height: 150px;
+    /*font-size: 8pt;*/
     border: 1px solid #CECECE;
     border-radius: 5px;
     margin: auto;
-    margin-bottom: 70px;
+    margin-bottom: 100px;
 }
 
 .freelancer-info-profile .modal-dialog {
@@ -1592,6 +1586,48 @@ html {
     color: red;
     background: white;
 }
+
+
+.pagination-control li{
+    display: inline-block;
+}
+.pagination-control li span{
+    border: none !important;
+}
+.pagination-control button{
+    font-size: 12px;
+    margin-top: -26px;
+    cursor:pointer;
+
+}
+.pagination{
+    margin:5px 12px !important;
+}
+
+md-autocomplete > md-autocomplete-wrap > md-progress-linear { display: none; }
+md-autocomplete-wrap{
+    background: white !important;
+}
+
+.found-agency-row td{
+    background: rgba(221, 21, 21, 0.5) !important;
+    color: white;
+    font-weight: bolder;
+}
+
+.main-search md-autocomplete{
+    height: 100%;
+}
+
+.main-search md-autocomplete md-autocomplete-wrap{
+    height: 100%;
+}
+
+.main-search md-autocomplete md-autocomplete-wrap input{
+    height: 100%;
+    box-shadow: inset 0px 0px 9px -2px;
+}
+
 @media (min-width: 992px) {
     /*.profile-detail {*/
         /*width: 10vw;*/
@@ -1604,10 +1640,6 @@ html {
 
     .agency-text {
         text-align: left;
-    }
-
-    .btn-search {
-        margin-top: 20px;
     }
 
     .service-provider {

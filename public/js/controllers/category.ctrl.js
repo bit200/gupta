@@ -44,6 +44,20 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         }
     };
 
+    if (location.search().city){
+        scope.ownFilter.location = scope.ownFilter.location || {}
+        scope.ownFilter.location[location.search().city] = true;
+    }
+    if (location.search().industry_expertises){
+        scope.ownFilter.industry_expertise = scope.ownFilter.industry_expertise || {};
+        if (location.search().industry_expertises === Array)
+            _.each(location.search().industry_expertises, function(i_e){
+                scope.ownFilter.industry_expertise[i_e] = true;
+            });
+        else
+            scope.ownFilter.industry_expertise[location.search().industry_expertises] = true;
+    }
+
     scope.submitFilter = function (data) {
         var filter = angular.copy(data);
         if (filter.industry_expertise)
@@ -59,8 +73,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         if (filter.freelancer)
             filter.type = 'freelancer';
         delete filter.freelancer;
-        if (filter.content_type)
-            filter.content_type = objInArr(filter.content_type);
+//        if (filter.content_type)
+//            filter.content_type = objInArr(filter.content_type);
         if (filter.languages)
             filter.languages = objInArr(filter.languages);
         if (filter.location)

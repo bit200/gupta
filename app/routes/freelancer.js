@@ -11,6 +11,7 @@ module.exports = function (app) {
     app.post('/api/claim_request', auth.checkIfUser, freelancer.claim_request);
     app.post('/api/freelancer/request', auth.checkIfUser, freelancer.freelancer_request);
     app.post('/api/freelancer/contact_detail', freelancer.add_update_contact_detail);
+    app.get('/api/freelancers/search', freelancer.search_freelancers);
 
     app.get('/api/freelancer/:id/views', freelancer.freelancer_views_count);
     app.post('/api/freelancer/:id/views', freelancer.add_freelancer_view);

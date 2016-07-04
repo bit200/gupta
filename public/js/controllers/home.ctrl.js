@@ -1,8 +1,8 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location',
-    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$filter',
+    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $filter) {
 
     scope.cancelRegistration = function () {
         location.path('/')
@@ -34,6 +34,41 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
             });
 
         });
+    };
+
+    scope.locations = getContent.locations.data.data;
+    scope.ctrl = {};
+
+    scope.ctrl.selectedItemChange = function(item){
+        switch (item.type) {
+            case 'freelancers':
+                $rootScope.$state.go('profile', {id: item._id});
+                break;
+            case 'jobs':
+                $rootScope.$state.go('root.job_detailed', {id: item._id});
+                break;
+            case 'services':
+                var q = {
+                    industry_expertises: [item.displayTitle]
+                }
+                if (scope.ctrl.city)
+                    q.city = scope.ctrl.city
+                $rootScope.$state.go('categories', q);
+                break;
+            case 'filters':
+                break;
+        }
+    };
+
+    scope.ctrl.search = function(text){
+        var deferred = $q.defer();
+        var query = '/api/search?query='+text;
+        if (scope.ctrl.city)
+            query += '&city='+scope.ctrl.city;
+        http.get(query).success(function(resp){
+            deferred.resolve((resp.freelancers || []).concat(resp.jobs || []).concat(resp.services || []).concat(resp.filters || []));
+        });
+        return deferred.promise;
     };
         
     scope.showProfile = function (id) {

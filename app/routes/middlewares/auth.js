@@ -2,9 +2,9 @@ var redis = require('../../redis');
 var config = require('../../../app/config');
 var models = require('../../db');
 var m = require('../../m');
-function check_auth (req, res, next, role) {
+function check_auth (req, res, next, role, skip_token) {
     var _token = req.headers['authorization']
-    if (!_token) {
+    if (!_token && !skip_token) {
         return res.status(401).send({
             success: false,
             message: 'No token provided.'
@@ -13,12 +13,13 @@ function check_auth (req, res, next, role) {
     res._token_start_time = new Date().getTime();
 
     redis.get('token_' + _token, function(err, r){
-        if (err || !r) {
+        if ((err || !r) && !skip_token) {
             return res.status(402).send({
                 success: false,
                 message: "Failed to authenticate the token."
             });
         }
+        r = r || ''
         var arr = r.split('_')
 
         req.token = _token;
@@ -55,10 +56,24 @@ module.exports = {
             }, function(freelancer){
                 req.freelancerId = freelancer._id
                 req.freelancer = freelancer
-                next()    
+                next()
             })
-            
+
         })
+    },
+    freelancer_free: function(req, res, next) {
+        check_auth(req, function(){
+            next()
+        }, function(){
+            m.findOne(models.Freelancer, {user: req.userId}, function() {
+                next()
+            }, function(freelancer){
+                req.freelancerId = freelancer._id
+                req.freelancer = freelancer
+                next()
+            })
+
+        }, 'user', 'skip_token')
     },
     admin_only: function (req, res, next) {
         check_auth(req, res, next, 'admin')

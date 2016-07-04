@@ -108,14 +108,17 @@ selector .sel-items > div {
     background: #f6f6f6;
 }
 
-links {
+.links_a {
     display: block;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
-links a {
+.links_a a {
     /*display: block;*/
     padding: 5px;
+}
+.my_links a {
+    margin-left: 5px;
 }
 
 .iblock {
@@ -381,9 +384,7 @@ form .form-control {
     margin: 0;
 }
 
-.body > div {
-    animation: fade .4s ease;
-}
+
 
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
     background-color: rgba(50, 57, 67, 0.82);
@@ -444,13 +445,14 @@ md-input-container {
 }
 
 mess {
-    font-size: 30px;
+    font-size: 22px;
     margin-top: 20px;
     margin-bottom: 10px;
     font-family: inherit;
     font-weight: 500;
     line-height: 1.1;
     color: inherit;
+    padding-bottom: 20px;
 }
 
 desc {
@@ -471,18 +473,18 @@ mess, desc {
     display: block;
 }
 
-.visr, .response .hidr {
+.visr, .vis_r, .response .hidr, .response .hid_r {
     display: none;
 
 }
 
-.response .visr {
+.response .visr, .response .vis_r {
     display: block;
     animation: fadeInTop .6s ease;
 }
-
-
-
+.cont {
+    animation: fade .4s ease;
+}
 @keyframes fade2 {
     0% {
         opacity: 1;
@@ -501,6 +503,7 @@ mess, desc {
         visibility: hidden;
     }
 }
+
 
 
 .error_direct {
@@ -532,4 +535,13 @@ mess, desc {
 .error_direct>div.anim-finish {
     display: block;
     animation: fade2 .8s ease-out forwards;
+}
+
+.ib {
+    display: inline-block;
+}
+
+btns {
+    display: block;
+    margin-top: 25px;
 }

@@ -1,0 +1,36 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="succ_modal" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body text-center">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <mess text="{{mess_title}}"></mess>
+                        <desc text="{{mess_desc}}"></desc>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="ib my_links" ng-repeat="link in mess_links">
+                    <a class="btn btn-my2"
+                       ng-click="hide_modal()"
+                       ng-if="!link.ui_params" ui-sref="{{link.ui_sref}}">
+                        {{link.name}}
+                    </a>
+                    <a class="btn btn-my2"
+                        ng-if="link.ui_params"
+                        ng-click="hide_modal()"
+                        ng-href="{{$state.href(link.ui_sref, link.ui_params())}}"
+                    >
+                        {{link.name}}
+                    </a>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

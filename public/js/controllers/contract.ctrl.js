@@ -6,6 +6,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         console.log("@@ GET CONTENT CONTRACT CONTROLLER", getContent)
         rootScope.extend_scope(scope, getContent)
         scope.buyer = scope.job.buyer
+        console.log("freelancer", scope.freelancer)
 
         scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
                 title: scope.job.title,
@@ -23,6 +24,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 expected_start: new Date().getTime()
             }
 
+        console.log('scope.contract_orig', scope.contract_orig, scope.freelancer)
         scope.contract = angular.extend({}, scope.contract_orig, scope.suggest, scope.contract_orig.suggest, {_id: scope.contract_orig._id})
 
         scope.contract.expected_completion = new Date(scope.contract.expected_completion)
@@ -108,23 +110,14 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 rootScope.scrollToErr()
             } else {
                 var data = angular.copy(_data)
-                console.log("data", data)
 
-                data.seller = getId(data.seller)
-                data.freelancer = getId(data.freelancer)
-                data.buyer = getId(data.buyer)
-                data.job = getId(data.job)
+                data.seller = getId(scope.contract_orig.seller)
+                data.freelancer = getId(scope.contract_orig.freelancer)
+                data.buyer = getId(scope.contract_orig.buyer)
+                data.job = getId(scope.contract_orig.job)
 
 
-                http.post('/api/contract', data).success(function (data) {
-                    // type == 'delete' ? location.path('/home') : location.path('/home');
-                    scope.succ_resp = true
-                    scope.resp = data.data
-                    console.log('resp', scope.resp)
-                }, function (err) {
-                    scope.error = err
-                    console.log('err', err)
-                })
+                http.post('/api/contract222', data).success(scope.onSucc).error(scope.onErr)
             }
         }
 
@@ -142,4 +135,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
             });
         }
+
+        scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
+
     }]);

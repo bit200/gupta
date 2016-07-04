@@ -43,6 +43,7 @@ exports.my_business_accounts = function (req, res) {
 exports.get_freelancers = function (req, res) {
     var params = req.query;
     params.registrationStatus = 1;
+
     if (params.freelancer_type){
         params.freelancer_type = {$in: [params.freelancer_type]}
     };
@@ -55,8 +56,18 @@ exports.get_freelancers = function (req, res) {
     })
     if (params.experience)
         params.experience = {$gte: parseInt(params.experience)}
-    console.log(params)
-    m.find(models.Freelancer, params, res, res, {populate: 'contact_detail'})
+    if (params.count){
+        delete params.count
+        models.Freelancer.count(params).exec(function(err, count){
+            res.json(count)
+        });
+    }else{
+        var skip = (parseInt(params.page || 1)-1)*10;
+        var limit = parseInt(params.limit) || 10;
+        delete params.page;
+        delete params.limit;
+        m.find(models.Freelancer, params, res, res, {populate: 'contact_detail', skip: skip, limit: limit})
+    }
 };
 
 exports.get_freelancer = function (req, res) {
@@ -72,6 +83,17 @@ exports.get_current_freelancer = function (req, res) {
         {path:'service_packages', populate: {path: 'preview'}}];
     models.Freelancer.findOne({user: req.userId}).populate(populate).exec(function(err, freelancer){
         res.json(freelancer)
+    });
+};
+
+exports.search_freelancers = function (req, res) {
+    var query = {};
+    if (req.query.name)
+        query.name = new RegExp(req.query.name, "i")
+    if (req.query.city)
+        query.location = req.query.city;
+    models.Freelancer.find(query).select('name').limit(10).exec(function(err, freelancers){
+        res.json(freelancers)
     });
 };
 

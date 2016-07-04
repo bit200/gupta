@@ -39,3 +39,9 @@ XYZCtrls.filter('propsFilter', function() {
         return out;
     };
 });
+
+XYZCtrls.filter('objectKeys', function() {
+    return function(obj) {
+        return Object.keys(obj || {});
+    };
+});

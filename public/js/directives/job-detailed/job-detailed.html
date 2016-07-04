@@ -1,0 +1,80 @@
+<h1 class="title2">{{title}}</h1>
+
+<div class="row marginT20">
+    <div class="col-md-12">
+        <div class="title3">
+            {{job.title}}
+        </div>
+        {{job.description}}</div>
+</div>
+
+<div class="row marginT20">
+    <div class="col-md-4 text-bold">Location</div>
+    <div class="col-md-8">
+        <div ng-repeat="location in job.local_preference">
+            {{location}}<span ng-if="!$last">,</span>
+        </div>
+    </div>
+</div>
+
+<div class="row marginT20" ng-if="job.type">
+    <div class="col-md-4 text-bold">Type</div>
+    <div class="col-md-8">{{job.type}}</div>
+</div>
+
+<div class="row marginT20" ng-if="job.budget">
+    <div class="col-md-4 text-bold">Budget</div>
+    <div class="col-md-8"><budget value="job.budget"></budget></div>
+</div>
+
+<div class="row marginT20" ng-if="job.name">
+    <div class="col-md-4 text-bold">Client Name</div>
+    <div class="col-md-8">{{job.name}}</div>
+</div>
+
+<div class="row marginT20" ng-if="job.mobile">
+    <div class="col-md-4 text-bold">Mobile phone number</div>
+    <div class="col-md-8">{{job.mobile}}</div>
+</div>
+
+<div class="row marginT20" ng-if="job.email">
+    <div class="col-md-4 text-bold">Email</div>
+    <div class="col-md-8">{{job.email}}</div>
+</div>
+
+<div class="row marginT20" ng-if="job.company_name">
+    <div class="col-md-4 text-bold">Company name</div>
+    <div class="col-md-8">{{job.company_name}}</div>
+</div>
+
+<div class="row marginT20" ng-if="job.website">
+    <div class="col-md-4 text-bold">Website URL</div>
+    <div class="col-md-8">{{job.website}}</div>
+</div>
+
+<div class="row marginT20" ng-if="job.job_visivility">
+    <div class="col-md-4 text-bold">Job Visibility</div>
+    <div class="col-md-8">{{job.job_visibility ? 'Public' : 'Private'}}</div>
+</div>
+
+<div class="row marginT20" ng-if="job.content_types.length">
+    <div class="text-bold col-md-4">Categories</div>
+    <div class="col-md-8">
+        <div ng-repeat="item in job.content_types">
+            {{item}}<span ng-if="!$last">,</span>
+        </div>
+    </div>
+</div>
+
+<div class="row marginT20">
+    <div class="col-md-4 text-bold">Expected Date of Completion</div>
+    <div class="col-md-8">
+        <date value="job.date_of_completion"></date>
+    </div>
+</div>
+<div class="separator2"></div>
+<div class="row">
+<div class="col-md-12 bcg paddv15">
+    <div ng-repeat="item in job.stats" class="stat-item"><b>{{item.count}}</b>&nbsp;<span>{{item.name}}</span></div>
+</div>
+</div>

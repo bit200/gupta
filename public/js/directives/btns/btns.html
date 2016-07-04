@@ -1,11 +1,12 @@
 <div class="row">
     <div class="{{btns_class_name}}" ng-repeat="btn in btns_list">
-        <button class="btn btn-grey w100"
-            ng-click="test2()"
-        >
-            Approve Contract
-            {{btn}}
+        <button ng-click="btn.fn(formContract.$invalid)"
+                ng-if="btn.fn" class="btn btn-grey w100" >
+            {{btn.name}}
         </button>
+        <a class="btn btn-grey w100" ng-if="btn.ui_sref" ui-sref="{{btn.ui_sref}}">
+            {{btn.name}}
+        </a>
     </div>
 </div>
 <!--ng-click="contract_approve(formContract.$invalid, 'update', contract); submitted = true"-->

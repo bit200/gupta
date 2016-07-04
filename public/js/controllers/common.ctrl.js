@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('commonCtrl', ['$scope', 'getContent', '$rootScope',
-    function (scope, getContent, rootScope) {
+XYZCtrls.controller('commonCtrl', ['$scope', 'getContent', '$rootScope', '$http',
+    function (scope, getContent, rootScope, $http) {
         scope.getContent = getContent;
 
         scope.onSucc = function (data) {
@@ -23,6 +23,4 @@ XYZCtrls.controller('commonCtrl', ['$scope', 'getContent', '$rootScope',
             console.log('COMMON CTRL CTRL CTRL ', item, ':', scope[item])
         })
         scope.i = getContent.i
-
-
     }]);

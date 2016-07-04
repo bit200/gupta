@@ -39,7 +39,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 template: '<ui-view></ui-view>'
             })
 
-
             .state('contract_suggest_detailed', {
                 url: '/suggestion/:id',
                 templateUrl: 'template/jobs/contract_detailed.html',
@@ -72,6 +71,13 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                     distinctName: 'name'
                                 }
                             }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
                             jobs: $http.get('/api/jobs/popular')
                         })
                     }
@@ -95,13 +101,21 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
             .state('agencies', {
-                url: '/agencies',
-                templateUrl: 'template/agencies.html',
+                url: '/agencies?page',
+                templateUrl: 'template/claim_agencies.html',
                 controller: 'AgencyCtrl',
+                reloadOnSearch: false,
                 resolve: {
-                    getContent: function ($q, $http) {
+                    getContent: function ($q, $http, $location) {
                         return $q.all({
-                            agencies: $http.get('/api/freelancers'),
+                             locations: $http.get('/get-content', {
+                                 params: {
+                                     name: 'Location',
+                                     query: {},
+                                     distinctName: 'name'
+                                 }
+                             }),
+                            totalCount: $http.get('/api/freelancers?count=true'),
                             businessAccounts: $http.get('/api/my/business_accounts')
                         })
                     }
@@ -113,10 +127,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 templateUrl: 'template/chat.html',
                 controller: 'chatCtrl'
             })
-
-
-
-
 
             .state('me', {
                 url: '/me',
@@ -235,7 +245,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-
             .state('freelancer_registration', {
                 url: '/freelancer-registration',
                 templateUrl: 'template/freelancer_registration/freelancer_registration.html',
@@ -339,8 +348,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
 
-
-
             .state('user', {
                 url: '/user',
                 templateUrl: 'template/user.html',
@@ -369,7 +376,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories', {
-                url: '/categories',
+                url: '/categories?industry_expertises&city',
                 templateUrl: 'template/category.html',
                 controller: 'CategoriesCtrl',
                 reloadOnSearch: false,
@@ -406,7 +413,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             arrayProviders: $http.get('/get-content', {
                                 params: {
-                                    name: 'ServiceProvider',
+                                    name: 'Filters',
                                     query: {},
                                     distinctName: 'name'
                                 }
@@ -416,6 +423,23 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories.profile', {
+                url: '/profile/:id',
+                views: {
+                    "@": {
+                        controller: 'ViewProfileCtrl',
+                        templateUrl: 'template/profile.html'
+                    }
+                },
+                resolve: {
+                    getContent: function ($q, $http, $stateParams) {
+                        return $q.all({
+                            viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
+                            profile: $http.get('/api/freelancer/' + $stateParams.id)
+                        })
+                    }
+                }
+            })
+            .state('profile', {
                 url: '/profile/:id',
                 views: {
                     "@": {
@@ -443,25 +467,25 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
 
-        // .state('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
+        // _states('root.contract_detailed', c_fn('/contract/:id', 'contract_detailed'))
         //
-        // .state('root.contract_create', common_fn('/contract/create/:job/:freelancer'), 'contractCtrl')
-        // .state('root.contract_edit', c_fn('/contract/edit/:id', 'contract_create'))
-        // .state('root.contract_suggest', c_fn('/contract/suggest/:id', 'contract_create'))
-        // .state('root.contract_pause', c_fn('/contract/pause/:id', 'contract_create'))
-        // .state('root.contract_resume', c_fn('/contract/resume/:id', 'contract_create'))
-        // .state('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
-        // .state('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
-        //
-        // .state('root.job_create', job_fn('/post-job', 'job_create'))
-        // .state('root.job_recreate', job_fn('/post-job/recreate/:id', 'job_create'))
-        // .state('root.job_detailed', job_fn('/job/:id', 'job_detailed'))
-        // .state('root.job_edit', job_fn('/job/edit/:id', 'job_create'))
-        //
-        // .state('root.apply_create', job_fn('/job/apply/:id', 'apply_create'))
-        // .state('root.apply_edit', job_fn('/job/apply/edit/:id', 'apply_create'))
-        //
-        // .state('root.apply_detailed', apply_fn('/application/:id', 'apply_detailed'))
+        // _states('root.contract_create', common_fn('/contract/create/:job/:freelancer'), 'contractCtrl')
+        // _states('root.contract_edit', c_fn('/contract/edit/:id', 'contract_create'))
+        // _states('root.contract_suggest', c_fn('/contract/suggest/:id', 'contract_create'))
+        // _states('root.contract_pause', c_fn('/contract/pause/:id', 'contract_create'))
+        // _states('root.contract_resume', c_fn('/contract/resume/:id', 'contract_create'))
+        // _states('root.contract_approve', c_fn('/contract/approve/:id', 'contract_create'))
+        // _states('root.contract_accept', c_fn('/contract/accept/:id', 'contract_create'))
+
+        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'])
+        _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'])
+        _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*')
+        _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'])
+
+
+        _states('root.apply_create', '/job/apply/:job', 'jobCtrl', ['job', 'apply'])
+        _states('root.apply_edit', '/job/apply/edit/:job', 'jobCtrl', ['job', 'apply'])
+        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'], '*')
 
 
         function common_q_all(state_child_name, resolves_arr) {
@@ -475,7 +499,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         case 'job':
                             return $http.get('/api/job/detailed/' + $stateParams.job)
                         case 'apply':
-                            return $http.get('/api/job-apply/' + $stateParams.job)
+                            return $http.get('/api/job-apply/' + $stateParams.job) 
+                        case 'apply_by_id':
+                            return $http.get('/api/job-apply/' + $stateParams.apply + '/pub')
                         case 'freelancer':
                             return $http.get('/api/info/Freelancer/' + $stateParams.freelancer)
                         case 'stats':
@@ -545,10 +571,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         $urlRouterProvider.otherwise('/');
 
-        // $locationProvider.html5Mode({
-        //     enabled: true,
-        //     requireBase: false
-        // });
 
         $httpProvider.interceptors.push(function ($q, $injector) {
             return {
