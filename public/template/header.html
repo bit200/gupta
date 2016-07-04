@@ -1,7 +1,7 @@
-<nav class="navbar navbar-default top-home" ng-controller="HeaderCtrl">
+<nav class="navbar navbar-default top-home" ng-controller="HeaderCtrl" style="position: fixed; top:0px">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -9,17 +9,18 @@
             </button>
             <div class="text-white pointer header-logo" ng-click="go('/')">12TH CROSS</div>
         </div>
+        <div class="collapse navbar-collapse">
 
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <li class="floatL">
                 <button ng-click="$state.go('jobs_list.all')" class="btn btn-header">VIEW JOBS</button>
                 <ng-md-icon icon="favorite" style="fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
             </li>
-            <li ng-if="!isLogged()">
+            <li class="floatR" ng-if="!isLogged()">
                 <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Signup</div>
                 <div class="pull-right text-white marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Login</div>
             </li>
-            <li class="dropdown" ng-if="isLogged()" style="color: white">
+            <li class="floatR dropdown" ng-if="isLogged()" style="color: white">
                 <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <div style="display: inline-block;margin-left: 10px;">
                         <img style="width: 32px;border-radius: 23px;top: 8px;position: relative;" ng-show="currentUser().preview" ng-src="{{currentUser().preview}}">
@@ -40,54 +41,27 @@
                 </ul>
             </li>
         </ul>
+            </div>
 
     </div>
     <div class="header-navigation">
         <div class="container">
-            <md-menu-bar>
-                <span ng-repeat="filter in filters">
-                <md-menu ng-repeat="(key, value) in filter">
-                    <button ng-click="closeOthers();$mdOpenMenu()">{{key}}
-                    </button>
-                    <md-menu-content>
-                        <span ng-repeat="(okey, ovalue) in value">
-                            <md-menu-item ng-if="okey == 'arr'" ng-repeat="item in ovalue">
-                                <md-button>
-                                    {{item}}
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item ng-if="okey != 'arr'" ng-repeat="(tkey,tvalue) in ovalue">
-                                <md-menu>
-                                    <md-button ng-click="closeOthers();$mdOpenMenu()">
-                                        <div>
-                                            <span class="floatL">{{okey}}</span>
-                                            <span class="floatR fa fa-angle-right" style="font-size: 23px;   padding: 6px 20px;"></span>
-                                        </div>
-                                    </md-button>
-                                        <md-menu-content>
-                                            <span ng-repeat="(thkeym, thvalue) in tvalue">
-                                                <md-menu-item>
-                                                    <md-button>
-                                                        {{thvalue}}
-                                                    </md-button>
-                                                </md-menu-item>
-                                            </span>
-                                        </md-menu-content>
-                                </md-menu>
-                            </md-menu-item>
-                        </span>
-                    </md-menu-content>
-                </md-menu>
-                    </span>
-            </md-menu-bar>
-
-
-            <!--<ul class="flex menu" flex-menu="filters">-->
-            <!--<li ng-click="setActiveProvider(provider)"-->
-            <!--ng-class="{active: activeProvider == provider}"-->
-            <!--ng-repeat="provider in filters">{{provider}}<span></span></li>-->
-            <!--</ul>-->
+            <nav id="primary_nav_wrap">
+                <ul class="flex menu"  flex-menu="filters">
+                    <li ng-repeat="filter in filters">
+                        <a href="">{{getKey(filter)}}</a>
+                        <ul  ng-repeat="(okey, ovalue) in filter[getKey(filter)]">
+                            <li ng-if="okey == 'arr'" ng-repeat="item in ovalue"><a href="#">{{item}}</a></li>
+                            <li ng-if="okey != 'arr'" class="dir" ng-repeat="(tkey,tvalue) in ovalue">
+                                <a href="#">{{okey}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
+                                <ul>
+                                    <li ng-repeat="subV in tvalue"><a href="#">{{subV}}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </nav>
-<link rel="stylesheet" href="css/angular-material-menu.css">

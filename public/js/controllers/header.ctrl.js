@@ -19,11 +19,12 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
             scope.filters = resp.data.data;
             console.log(scope.filters)
         }, function(err){
-            console.log('error',err)
         });
-
-        scope.closeOthers = function() {
-            $mdMenu.hide(null, { closeAll: true });
+        
+        scope.getKey = function(obj){
+            return Object.keys(obj)[0]
         }
+        
+       
 
     }]);

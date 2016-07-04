@@ -97,14 +97,14 @@ XYZCtrls.directive('phoneNumber', function () {
     };
 });
 
-XYZCtrls.directive('equals', function() {
+XYZCtrls.directive('equals', function () {
     return {
         restrict: 'A',
         require: '?ngModel',
-        link: function(scope, elem, attrs, ngModel) {
-            if(!ngModel) return; // do nothing if no ng-model
+        link: function (scope, elem, attrs, ngModel) {
+            if (!ngModel) return; // do nothing if no ng-model
 
-            scope.$watch(attrs.ngModel, function() {
+            scope.$watch(attrs.ngModel, function () {
                 validate();
             });
 
@@ -112,11 +112,11 @@ XYZCtrls.directive('equals', function() {
                 validate();
             });
 
-            var validate = function() {
+            var validate = function () {
                 var val1 = ngModel.$viewValue;
                 var val2 = attrs.equals;
 
-                ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
+                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
             };
         }
     }
@@ -206,8 +206,6 @@ XYZCtrls.directive('toggle', function () {
         }
     }
 });
-
-
 
 
 XYZCtrls.directive('openJobSeller', function () {
@@ -414,21 +412,61 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
         scope: {
             flexMenu: '='
         },
-        link: function (scope, element, attrs) {
-            scope.$watchCollection('flexMenu', function(arr){
-                if (arr && arr.length){
-                    $timeout(function(){
+        replace: false,
+        link: function ($scope, element, attrs) {
+            $scope.$watchCollection('flexMenu', function (arr) {
+                if (arr && arr.length) {
+                    $timeout(function () {
                         $(element).flexMenu();
-                    },100)
+                        $('.flexMenu-popup').on('mouseover', function (event) {
+                            if (($(window).width() - angular.element(event.currentTarget).offset().left) < 400) {
+                                angular.element(event.currentTarget).find('ul').css('left', '-100%')
+                            }
+                        })
+                    }, 100)
                 }
             })
-        }
+
+        },
+
     }
-});
+})
+;
 
-console.log('customPagination')
+// XYZCtrls.directive('myFlexMenu', function ($timeout) {
+//     return {
+//         scope: {
+//             filters: "="
+//         },
+//         restrict: "E",
+//         templateUrl: 'template/directive/templateHeaderMenu.html',
+//         link: function (scope, element, attrs, $mdMenu) {
+//             scope.$watch('filters', function () {
+//                 if (element[0].children[0].children.length) {
+//                     $timeout(function () {
+//                         var query = element[0].children[0].children;
+//                         var k = element[0].children[0].children.length;
+//                         for (var i = 0; i < k; i++) {
+//                             scope.width += query[i]
+//                         }
+//                         scope.width = scope.width / element[0].children[0].children.length;
+//
+//                     }, 0);
+//                 }
+//             });
+//
+//         },
+//         controller: ['$scope', '$http', '$mdMenu', function (scope, http, $mdMenu) {
+//             scope.closeOthers = function () {
+//                 $mdMenu.hide(null, {closeAll: true});
+//             };
+//         }]
+//
+//     }
+// });
 
-XYZCtrls.directive("customPagination", function($location) {
+
+XYZCtrls.directive("customPagination", function ($location) {
     return {
         restrict: "A",
         scope: {
@@ -436,32 +474,32 @@ XYZCtrls.directive("customPagination", function($location) {
             cb: "&"
         },
         template: '' +
-                '<ul class="pagination-control pagination" ng-show="customPagination.totalCount && numberOfPages()>1">' +
-                    '<li>' +
-                        '<button type="button" class="btn btn-primary"  ng-disabled="customPagination.currentPage == 1" ' +
-                            'ng-click="customPagination.currentPage=customPagination.currentPage-1">PREV</button>' +
-                    '</li>' +
-                    '<li>' +
-                        '<span>Page {{customPagination.currentPage}} of {{ numberOfPages() }}</span>' +
-                    '</li>' +
-                    '<li>' +
-                        '<button type="button"  class="btn btn-primary" ng-disabled="customPagination.currentPage >= customPagination.totalCount/customPagination.countByPage" ' +
-                            'ng-click="customPagination.currentPage=customPagination.currentPage+1">NEXT </button>' +
-                    '</li>' +
-                '</ul>',
-        link: function(scope, element, attrs) {
+        '<ul class="pagination-control pagination" ng-show="customPagination.totalCount && numberOfPages()>1">' +
+        '<li>' +
+        '<button type="button" class="btn btn-primary"  ng-disabled="customPagination.currentPage == 1" ' +
+        'ng-click="customPagination.currentPage=customPagination.currentPage-1">PREV</button>' +
+        '</li>' +
+        '<li>' +
+        '<span>Page {{customPagination.currentPage}} of {{ numberOfPages() }}</span>' +
+        '</li>' +
+        '<li>' +
+        '<button type="button"  class="btn btn-primary" ng-disabled="customPagination.currentPage >= customPagination.totalCount/customPagination.countByPage" ' +
+        'ng-click="customPagination.currentPage=customPagination.currentPage+1">NEXT </button>' +
+        '</li>' +
+        '</ul>',
+        link: function (scope, element, attrs) {
             if (!scope.customPagination) scope.customPagination = {};
             scope.customPagination.currentPage = parseInt(scope.customPagination.currentPage || 1);
             scope.customPagination.countByPage = parseInt(scope.customPagination.countByPage || 10);
             scope.customPagination.totalCount = parseInt(scope.customPagination.totalCount || 0);
-            scope.$watch('customPagination.currentPage', function(val){
-                if (val && parseInt(val)){
-                    $location.search('page', val>1 ? val : null);
+            scope.$watch('customPagination.currentPage', function (val) {
+                if (val && parseInt(val)) {
+                    $location.search('page', val > 1 ? val : null);
                     scope.cb({currentPage: val});
                 }
             })
-            scope.numberOfPages = function(){
-                return Math.ceil(scope.customPagination.totalCount/scope.customPagination.countByPage);
+            scope.numberOfPages = function () {
+                return Math.ceil(scope.customPagination.totalCount / scope.customPagination.countByPage);
             }
         }
 //        replace: true
