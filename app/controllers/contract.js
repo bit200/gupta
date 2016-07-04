@@ -227,6 +227,7 @@ exports.get_contract = function (req, res) {
 
 
 exports.get_suggest = function (req, res) {
-    var params = m.getBody(req);
-    m.findOne(models.SuggestContract, {_id: params._id}, res, res, {populate: 'contract'})
+    var params = m.getBody(req)
+    console.log('@@@@@@@@@@@@@@@@', params)
+    m.findOne(models.SuggestContract, {_id: params.suggest}, res, res, {populate: 'contract'})
 };

@@ -117,6 +117,13 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                     return {contract: gid('contract')}
                 }
             },
+            'contract_edit_suggest': {
+                name: 'Edit Contract Trems',
+                ui_sref: sref('root.contract_edit'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
+            },
             'contract_approve': {
                 name: 'Approve Contract',
                 ui_sref: sref('root.contract_approve'),

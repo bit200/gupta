@@ -15,12 +15,15 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 : scope.job
                 ? scope.job.buyer
                 : null
-
-        console.log("CONTRACTTTTTTT", scope.contract)
-        scope.job = scope.job || {}
-        scope.freelancer = scope.freelancer || {}
-        scope.buyer = scope.buyer || {}
-        scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
+        
+        if (scope.suggest) {
+            scope.contract = scope.contract || scope.suggest.contract
+        }
+        
+        // scope.job = scope.job || {}
+        // scope.freelancer = scope.freelancer || {}
+        // scope.buyer = scope.buyer || {}
+        scope.contract_orig = scope.contract || {
                 title: scope.job.title,
                 freelancer: scope.freelancer,
                 job: scope.job,

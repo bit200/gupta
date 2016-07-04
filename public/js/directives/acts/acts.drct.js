@@ -88,7 +88,9 @@ XYZCtrls.directive('acts', function () {
                 },
                 'View Suggestion': function () {
                     return {
-                        ui_sref: sref("root.contract_suggest_detailed", {suggest: getId(item, 'suggest')})
+                        ui_sref: sref("root.contract_suggest_detailed", {
+                            suggest: getId(item.contract, 'suggest')
+                        })
                     }
                 },
                 'Edit Suggestion': function () {

@@ -484,6 +484,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             return $http.get('/api/job/detailed/' + $stateParams.job)
                         case 'apply':
                             return $http.get('/api/job-apply/' + $stateParams.job)
+                        case 'suggest':
+                            return $http.get('/api/suggest/', {params: {suggest: $stateParams.suggest}})
                         case 'apply_by_id':
                             return $http.get('/api/job-apply/' + $stateParams.apply + '/pub')
                         case 'freelancer':

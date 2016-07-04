@@ -1,6 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('contractSuggestCtrl', ['$scope', '$location', '$http', 'getContent', '$stateParams', 'parseType', 'ModalService', function (scope, location, http, getContent, stateParams, parseType, ModalService) {
+XYZCtrls.controller('suggestCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', '$stateParams', 'parseType', 'ModalService', function (scope, location, http, getContent, stateParams, parseType, ModalService) {
+    rootScope.extend_scope(scope, getContent)
     scope.suggest = parseType.contract(getContent.suggest.data.data);
     scope.contract = scope.suggest.contract;
     scope.contract.expected_start = parseDate(scope.contract.expected_start);
