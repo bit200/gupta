@@ -85,12 +85,6 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 fn: scope.update_suggest,
             },
 
-            //
-            // 'contract_create': {
-            //     name: 'Create Contract',
-            //     ui_sref: sref('root.contract_create', {job: gid('job')}),
-            // },
-
             'contract_pause': {
                 name: 'Pause Contract',
                 ui_sref: sref('root.contract_pause'),

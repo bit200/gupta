@@ -5,8 +5,18 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
         console.log("@@ GET CONTENT CONTRACT CONTROLLER", getContent)
         rootScope.extend_scope(scope, getContent)
-        scope.buyer = scope.job.buyer
-        console.log("freelancer", scope.freelancer)
+        scope.job = scope.job || scope.contract ? scope.contract.job : null
+        scope.freelancer = scope.freelancer || scope.contract ? scope.contract.freelancer : null
+        scope.seller = scope.seller || scope.contract ? scope.contract.seller : null
+
+        scope.buyer =
+            scope.contract
+                ? scope.contract.buyer
+                :  scope.job
+                    ? scope.job.buyer
+                    : null
+
+        console.log("CONTRACTTTTTTT", scope.contract)
 
         scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
                 title: scope.job.title,
