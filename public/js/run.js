@@ -25,7 +25,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     };
 
     $rootScope.getBuyerName = function (buyer) {
-        return buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
+        return buyer && buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
     }
 
     $rootScope.onError = function (err) {
@@ -76,9 +76,13 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Close',
                 fn: scope.contract_close,
             },
-            'create_suggestion_fn': {
-                name: 'Send Terms',
+            'contract_suggest_fn': {
+                name: 'Submit Terms',
                 fn: scope.contract_suggest,
+            },
+            'contract_edit_fn': {
+                name: 'Update Contract',
+                fn: scope.contract_update,
             },
             'udpate_suggestion_fn': {
                 name: 'Update Terms',
@@ -92,9 +96,30 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                     return {contract: gid('contract')}
                 }
             },
+            'contract_create': {
+                name: 'Create Contract',
+                ui_sref: sref('root.contract_create'),
+                ui_params: function (){
+                    return {job: gid('job'), freelancer: gid('freelancer')}
+                }
+            },
+            'contract_reject': {
+                name: 'Reject',
+                ui_sref: sref('root.contract_reject'),
+                ui_params: function (){
+                    return {contract: gid('contract')}
+                }
+            },
             'contract_resume': {
                 name: 'Resume Contract',
                 ui_sref: sref('root.contract_resume'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
+            },
+            'contract_edit_suggest': {
+                name: 'Edit Contract Trems',
+                ui_sref: sref('root.contract_edit'),
                 ui_params: function () {
                     return {contract: gid('contract')}
                 }
@@ -114,10 +139,17 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 }
             },
             'contract_edit': {
-                name: 'Edit Contract',
+                name: 'Update Contract',
                 ui_sref: sref('root.contract_edit'),
                 ui_params: function () {
-                    return {contract: 1000000}
+                    return {contract: gid('contract')}
+                }
+            },
+            'contract_suggest': {
+                name: 'Suggest Terms',
+                ui_sref: sref('root.contract_suggest'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
                 }
             },
             'contract_detailed': {
@@ -187,13 +219,17 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Job Edit Link',
                 ui_sref: sref('root.job_edit', {job: gid('job')}),
             },
-            'buyer_open': {
+            'jobs_list.buyer_open': {
                 name: 'View my active jobs',
                 ui_sref: sref('jobs_list.buyer_open')
             },
-            'seller_open': {
-                name: 'View my active jobs',
+            'jobs_list.seller_open': {
+                name: 'View my open jobs',
                 ui_sref: sref('jobs_list.seller_open')
+            },
+            'jobs_list.seller_ongoing': {
+                name: 'View my ongoing jobs',
+                ui_sref: sref('jobs_list.seller_ongoing')
             },
             'job_detailed': {
                 name: 'View job posting',
@@ -228,6 +264,9 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
         scope.i = getContent.i
     }
 
+    $rootScope.gid = function(item) {
+        return item ? item._id || item || -3 : -3
+    }
 
     var asView = localStorage.getItem('asView');
     $rootScope.asView = asView ? JSON.parse(asView) : {buyer: true};

@@ -9,7 +9,7 @@ XYZCtrls.directive('applyDetailed', function () {
             scope.btns = attrs.btns
         },
         controller: ['$scope', function (scope) {
-            console.log('@@@ Scope detailed directive', scope.attrs)
+            //console.log('@@@ Scope detailed directive', scope.attrs)
         }]
     };
 });

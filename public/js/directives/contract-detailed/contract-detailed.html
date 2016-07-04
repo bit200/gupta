@@ -4,7 +4,7 @@
 
 <form name="formContract" novalidate>
 
-    <div ng-if="!i.contract_suggest">
+    <div ng-if="!is_suggest">
         <div>
             <div class="title3">Contract for</div>
             <freelancer with-photo="true" item="contract.freelancer"></freelancer>
@@ -83,11 +83,4 @@
             </div>
         </div>
     </div>
-    <div class="row">
-    </div>
-    <btns list="{{btns}}"></btns>
-    <div error></div>
-
-
-
 </form>

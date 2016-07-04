@@ -5,7 +5,7 @@ XYZCtrls.directive('error', function () {
         templateUrl: 'js/directives/error/error.html',
         controller: ['$scope', '$timeout', '$rootScope', function(scope, $timeout, $rootScope){
             scope.$watch('err_resp', function(v){
-                console.log('err_resp', v)
+                //console.log('err_resp', v)
                 if (v) {
 
                     scope.err_message = v.message == 'String' ? v.message : 'An error. Please try again later'

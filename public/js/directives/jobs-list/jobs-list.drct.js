@@ -36,7 +36,7 @@ XYZCtrls.directive('jobsList', function () {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
                     controller: function ($scope, $http, $element, close) {
-                        console.log("jobjobjobjobjob", job)
+                        //console.log("jobjobjobjobjob", job)
                         $scope.contract = {};
                         $scope.contract.title = job.title;
                         $scope.contract.information = job.description;
@@ -115,7 +115,7 @@ XYZCtrls.directive('jobsList', function () {
 
 
             scope.accept = function() {
-                console.log('accept')
+                //console.log('accept')
             }
         }]
     };

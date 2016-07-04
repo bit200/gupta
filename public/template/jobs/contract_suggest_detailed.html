@@ -1,0 +1,14 @@
+<div class="cont {{status_class}}" permission>
+    <a owner="{{gid(suggest.contract.seller)}}"
+       ui-sref="root.contract_suggest({contract: contract._id})"
+    >
+    </a>
+
+    <contract-detailed
+            title="Suggest terms for Contract #{{contract._id}}"
+            suggest="true"
+    ></contract-detailed>
+
+    <btns list="['contract_edit_suggest']"></btns>
+
+</div>

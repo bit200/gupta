@@ -8,9 +8,9 @@ XYZCtrls.directive('permission', function () {
 
                     $('[permission]').html("<div class='text-center'><h3 class='mtop30 text-center'>You don't have permissions to see that page</h3><a class='mtop30' href='#/'>Go to Home Page</a></div>")
                 }
-                console.log("elelelelellee", name, item)
+                //console.log("elelelelellee", name, item)
             })
-            console.log("scopeeee")
+            //console.log("scopeeee")
         }]
     };
 });

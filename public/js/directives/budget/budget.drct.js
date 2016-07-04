@@ -6,7 +6,7 @@ XYZCtrls.directive('budget', function () {
         },
         template: '<span ng-if="value">${{value}}</span><span ng-if="!value">-</span>',
         controller: ['$scope', function (scope) {
-            console.log('scope job directive', scope.value)
+            //console.log('scope job directive', scope.value)
 
         }]
     };

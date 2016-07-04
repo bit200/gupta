@@ -5,12 +5,12 @@ var models = require('../db')
     , _ = require('underscore');
 
 function updateJobApply(contract, params, ecb, scb) {
-    params = _.extend({
+    var query = {
         job: m.getId(contract.job),
-        contract: contract._id,
+        // contract: contract._id,
         seller: m.getId(contract.seller)
-    }, params)
-    m.findCreateUpdate(models.JobApply, params, params, ecb, scb)
+    }
+    m.findCreateUpdate(models.JobApply, query, params, ecb, scb)
 }
 
 exports.create_contract = function (req, res) {
@@ -30,7 +30,8 @@ exports.create_contract = function (req, res) {
     console.log("craete contractttttttt", query)
     m.findCreateUpdate(models.Contract, query, params, res, function (contract) {
         console.log('contractttttttttt', contract)
-        updateJobApply(contract, {status: 'seller approving'}, res, function(){
+        updateJobApply(contract, {status: 'seller approving', contract: contract._id}, res, function(jobApply){
+            console.log("seller approving", jobApply)
             res.send({
                 data: contract
             })
@@ -118,7 +119,7 @@ exports.suggest_contract = function (req, res) {
             suggest: suggest._id,
             status: STATUS
         }, res, function (contract) {
-            updateJobApply(contract, {status: STATUS}, res, function(){
+            updateJobApply({_id: contract._id}, {status: STATUS}, res, function(){
                 res.send({
                     data: suggest
                 })
@@ -226,6 +227,7 @@ exports.get_contract = function (req, res) {
 
 
 exports.get_suggest = function (req, res) {
-    var params = m.getBody(req);
-    m.findOne(models.SuggestContract, {_id: params._id}, res, res, {populate: 'contract'})
+    var params = m.getBody(req)
+    console.log('@@@@@@@@@@@@@@@@', params)
+    m.findOne(models.SuggestContract, {_id: params.suggest}, res, res, {populate: 'contract'})
 };

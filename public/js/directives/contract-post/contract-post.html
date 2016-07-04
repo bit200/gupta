@@ -4,7 +4,7 @@
 
 <form name="formContract" novalidate>
 
-    <div ng-if="!i.contract_suggest">
+    <div ng-if="!is_suggest">
         <div>
             <div class="title3">Contract for</div>
             <freelancer with-photo="true" item="contract.freelancer"></freelancer>
@@ -91,6 +91,19 @@
                 </md-input-container>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="iblock" is-edited="final_amount"
+                 ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
+                <md-input-container class="md-block">
+                    <div class="title3">Final Amount to be paid (Rs.)*</div>
+                    <input class="form-control" numbers-only="" name="final_amount"
+                           ng-enter="contract_create(contract); submitted=true"
+                           ng-model="contract.final_amount" required>
+                    <p class="error" ng-if="formContract.final_amount.$error.required">Final Amount is
+                        required</p>
+                </md-input-container>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="iblock" is-edited="expected_start"
                  ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
@@ -107,25 +120,6 @@
                     required</p>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="iblock" is-edited="final_amount"
-                 ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
-                <md-input-container class="md-block">
-                    <div class="title3">Final Amount to be paid (Rs.)*</div>
-                    <input class="form-control" numbers-only="" name="final_amount"
-                           ng-enter="contract_create(contract); submitted=true"
-                           ng-model="contract.final_amount" required>
-                    <p class="error" ng-if="formContract.final_amount.$error.required">Final Amount is
-                        required</p>
-                </md-input-container>
-            </div>
-        </div>
+
     </div>
-    <div class="row">
-    </div>
-    <btns list="{{btns}}"></btns>
-    <div error></div>
-
-
-
 </form>

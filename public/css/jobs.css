@@ -484,6 +484,7 @@ mess, desc {
 }
 .cont {
     animation: fade .4s ease;
+    position: relative;
 }
 @keyframes fade2 {
     0% {
@@ -544,4 +545,21 @@ mess, desc {
 btns {
     display: block;
     margin-top: 25px;
+}
+
+[owner] {
+    display: none;
+}
+[owner].visible {
+    display: block;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    color: grey;
+    position: absolute;
+    right: 5px;
+    top: 45px;
+}
+[owner].visible:hover {
+    color: #428bca;
 }
