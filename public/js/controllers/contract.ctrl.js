@@ -110,6 +110,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 http.post('/api/contract/suggest', data).success(scope.onSucc).error($rootScope.onError)
             }
         }
+        
         scope.update_suggest = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
@@ -124,22 +125,31 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
                 console.log('Update suggest edit', data, scope.info)
                 data.info = scope.info
-                http.post('/api/contract/suggest', data).success(scope.onSucc).error($rootScope.onError)
+                http.post('/api/contract/suggest', data).success(function(data){
+                    scope.contract = data.data
+                    scope.onSucc()
+                }).error($rootScope.onError)
             }
         }
+        
         scope.contract_create = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                var data = angular.copy(_data)
+                var data = angular.copy(scope.contract)
 
                 data.seller = getId(scope.contract_orig.seller)
                 data.freelancer = getId(scope.contract_orig.freelancer)
                 data.buyer = getId(scope.contract_orig.buyer)
                 data.job = getId(scope.contract_orig.job)
 
+                console.log('!!!!!!!!!!!!!!!!', data)
 
-                http.post('/api/contract222', data).success(scope.onSucc).error(scope.onErr)
+                http.post('/api/contract', data).success(function(data){
+                    console.log("datatataqtatatta", data)
+                    scope.contract = data.data
+                    scope.onSucc()
+                }).error(scope.onErr)
             }
         }
 

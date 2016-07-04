@@ -10,7 +10,7 @@ function updateJobApply(contract, params, ecb, scb) {
         contract: contract._id,
         seller: m.getId(contract.seller)
     }, params)
-    m.findUpdate(models.JobApply, params, params, ecb, scb)
+    m.findCreateUpdate(models.JobApply, params, params, ecb, scb)
 }
 
 exports.create_contract = function (req, res) {
@@ -22,8 +22,15 @@ exports.create_contract = function (req, res) {
         job: params.job
     }
 
+    if (query.buyer != req.userId) {
+        m.permission_err(res, 'Another buyer')
+        return;
+    }
+
+    console.log("craete contractttttttt", query)
     m.findCreateUpdate(models.Contract, query, params, res, function (contract) {
-        updateJobApply(contract, {}, res, function(){
+        console.log('contractttttttttt', contract)
+        updateJobApply(contract, {status: 'seller approving'}, res, function(){
             res.send({
                 data: contract
             })

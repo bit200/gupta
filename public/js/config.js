@@ -469,10 +469,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_pause', '/contract/pause/:id', 'contractCtrl', ['contract'])
-        _states('root.contract_resume', '/contract/resume/:id', 'contractCtrl', ['contract'])
-        _states('root.contract_approve', '/contract/approve/:id', 'contractCtrl', ['contract'])
-        _states('root.contract_accept', '/contract/accept/:id', 'contractCtrl', ['contract'])
+        _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_resume', '/contract/resume/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'])
 
 
         _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'])

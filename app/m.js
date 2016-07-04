@@ -118,7 +118,15 @@ function findLean(model, query, _ecb, _scb, params) {
             _mongoose_cb_handler(err, items, _ecb, _scb, params)
         })
 }
-
+function permission_err (res, mess) {
+    res.status(350).send({
+        data: {
+            permission_error: true,
+            mess: mess
+        },
+        permission_error: true
+    })
+}
 function save(model, _ecb, _scb, params) {
     params = params || {};
     model.save(function (err, data) {
@@ -720,6 +728,8 @@ module.exports = {
     getUserIDByToken: getUserIDByToken,
 
     isOwner: isOwner,
+    permission_err: permission_err,
+    permission_error: permission_err,
 
     findUpdate: findUpdate,
     findUpdateWithToken: findUpdateWithToken,

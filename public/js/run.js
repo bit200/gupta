@@ -39,7 +39,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
 
     rootScope.generate_btns_list = function (scope, ModalService) {
 
-        function gid (name) {
+        function gid(name) {
             return scope[name] ? scope[name]._id || -1 : -1
         }
 
@@ -75,7 +75,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'contract_close_fn': {
                 name: 'Close',
                 fn: scope.contract_close,
-            }, 
+            },
             'create_suggestion_fn': {
                 name: 'Send Terms',
                 fn: scope.contract_suggest,
@@ -85,15 +85,56 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 fn: scope.update_suggest,
             },
 
-            'contract_create': {
-                name: 'Create Contract',
-                ui_sref: sref('root.apply_create', {job: gid('job')}),
+            //
+            // 'contract_create': {
+            //     name: 'Create Contract',
+            //     ui_sref: sref('root.contract_create', {job: gid('job')}),
+            // },
+
+            'contract_pause': {
+                name: 'Pause Contract',
+                ui_sref: sref('root.contract_pause'),
+                ui_params: function (){
+                    return {contract: gid('contract')}
+                }
             },
-            'contract_recreate': {
-                name: 'Recreate Contract',
-                ui_sref: sref('root.apply_create', {job: gid('job')}),
+            'contract_resume': {
+                name: 'Resume Contract',
+                ui_sref: sref('root.contract_resume'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
             },
-            
+            'contract_approve': {
+                name: 'Approve Contract',
+                ui_sref: sref('root.contract_approve'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
+            },
+            'contract_accept': {
+                name: 'Accept Contract',
+                ui_sref: sref('root.contract_accept'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
+            },
+            'contract_edit': {
+                name: 'Edit Contract',
+                ui_sref: sref('root.contract_edit'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
+            },
+            'contract_detailed': {
+                name: 'Contract Detailed',
+                ui_sref: sref('root.contract_detailed'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
+            },
+
+
             'contract_preview_fn': {
                 name: 'Preview',
                 fn: function () {
@@ -130,10 +171,12 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'apply_detailed': {
                 name: 'View your apply',
                 ui_sref: sref('root.apply_detailed'),
-                ui_params: function(){
+                ui_params: function () {
                     return {apply: getId(scope.new_apply || scope.apply)}
                 }
             },
+
+
             'job_create_fn': {
                 name: 'Job Create',
                 fn: scope.job_create,
@@ -141,6 +184,10 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'job_edit_fn': {
                 name: 'Edit Job',
                 fn: scope.job_edit
+            },
+            'job_recreate': {
+                name: 'Recreate Job',
+                ui_sref: sref('root.job_recreate', {job: gid('job')}),
             },
             'job_edit': {
                 name: 'Job Edit Link',
@@ -157,7 +204,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'job_detailed': {
                 name: 'View job posting',
                 ui_sref: 'root.job_detailed',
-                ui_params: function(){
+                ui_params: function () {
                     return {job: getId(scope.job)}
                 }
 
@@ -221,7 +268,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
     }
 
     $rootScope.commonFilters = [];
-    $http.get('/api/common_filters').success(function(resp){
+    $http.get('/api/common_filters').success(function (resp) {
         $rootScope.commonFilters = resp;
     });
 

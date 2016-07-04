@@ -9,7 +9,7 @@ XYZCtrls.directive('succ', function () {
             console.log('@@@@ LNKS DIR', scope.attrs)
             scope.mess_title = attrs.title
             scope.mess_desc = attrs.desc
-            scope.links_plain = eval(attrs.links)
+            scope.links_plain = eval(attrs.links) || eval(attrs.btns)
             scope.mess_links = []
 
             _.each(scope.links_plain, function(name){
@@ -48,6 +48,9 @@ XYZCtrls.directive('succ', function () {
         controller: ['$scope', '$state', function (scope, $state) {
             console.log('@@@ Scope Post directive', scope.attrs)
             scope.goTo = function(link) {
+                if (!link) {
+                    return;
+                }
                 var params = link.ui_params ? link.ui_params() : null
                 console.log('got ot', params, link.ui_sref)
                 $state.go(link.ui_sref, params)
