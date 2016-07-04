@@ -7,6 +7,7 @@ XYZCtrls.directive('contractPost', function () {
             scope.attrs = attrs
             scope.title = attrs.title
             scope.btns = attrs.btns
+            scope.is_suggest = attrs.suggest
         },
         controller: ['$scope', function (scope) {
             //console.log('@@@ Scope Post directive', scope.attrs)

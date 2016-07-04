@@ -76,8 +76,8 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Close',
                 fn: scope.contract_close,
             },
-            'create_suggestion_fn': {
-                name: 'Send Terms',
+            'contract_suggest_fn': {
+                name: 'Submit Terms',
                 fn: scope.contract_suggest,
             },
             'contract_edit_fn': {

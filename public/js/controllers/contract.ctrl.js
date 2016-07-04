@@ -102,7 +102,10 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 rootScope.scrollToErr()
             } else {
                 http.post('/api/contract/suggest', pub_contr())
-                    .success(scope.onSucc)
+                    .success(function(data){
+                        scope.suggest = data.data
+                        scope.onSucc()
+                    })
                     .error(scope.onErr)
             }
         }

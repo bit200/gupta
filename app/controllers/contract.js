@@ -119,7 +119,7 @@ exports.suggest_contract = function (req, res) {
             suggest: suggest._id,
             status: STATUS
         }, res, function (contract) {
-            updateJobApply(contract, {status: STATUS}, res, function(){
+            updateJobApply({_id: contract._id}, {status: STATUS}, res, function(){
                 res.send({
                     data: suggest
                 })
