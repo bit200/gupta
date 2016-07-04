@@ -115,7 +115,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             },
             'contract_edit': {
                 name: 'Edit Contract',
-                ui_sref: sref('root.contract_detailed_info'),
+                ui_sref: sref('root.contract_edit'),
                 ui_params: function () {
                     return {contract: 1000000}
                 }
@@ -172,7 +172,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
 
 
             'job_create_fn': {
-                name: 'Job Create',
+                name: 'Post Job',
                 fn: scope.job_create,
             },
             'job_edit_fn': {

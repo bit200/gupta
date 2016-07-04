@@ -467,7 +467,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
         _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_detailed_info', '/contract2/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'])
 
         _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'])

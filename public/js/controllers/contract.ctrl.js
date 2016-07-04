@@ -156,7 +156,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 console.log('!!!!!!!!!!!!!!!!', data)
 
                 http.post('/api/contract', data).success(function(data){
-                    console.log("datatataqtatatta", data)
                     scope.contract = data.data
                     scope.onSucc()
                 }).error(scope.onErr)
