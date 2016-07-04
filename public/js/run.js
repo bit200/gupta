@@ -80,6 +80,10 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Send Terms',
                 fn: scope.contract_suggest,
             },
+            'contract_edit_fn': {
+                name: 'Update Contract',
+                fn: scope.contract_update,
+            },
             'udpate_suggestion_fn': {
                 name: 'Update Terms',
                 fn: scope.update_suggest,
@@ -114,7 +118,7 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 }
             },
             'contract_edit': {
-                name: 'Edit Contract',
+                name: 'Update Contract',
                 ui_sref: sref('root.contract_edit'),
                 ui_params: function () {
                     return {contract: 1000000}

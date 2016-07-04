@@ -161,6 +161,25 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 }).error(scope.onErr)
             }
         }
+        scope.contract_update = function (invalid, type, _data) {
+            if (invalid) {
+                rootScope.scrollToErr()
+            } else {
+                var data = angular.copy(scope.contract)
+
+                data.seller = getId(scope.contract_orig.seller)
+                data.freelancer = getId(scope.contract_orig.freelancer)
+                data.buyer = getId(scope.contract_orig.buyer)
+                data.job = getId(scope.contract_orig.job)
+
+                console.log('!!!!!!!!!!!!!!!!', data)
+
+                http.post('/api/contract', data).success(function(data){
+                    scope.contract = data.data
+                    scope.onSucc()
+                }).error(scope.onErr)
+            }
+        }
 
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
