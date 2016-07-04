@@ -5,7 +5,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
 
         console.log("@@ GET CONTENT CONTRACT CONTROLLER", getContent)
         rootScope.extend_scope(scope, getContent)
-        console.log('scope.contracttrtttttt', scope.contract)
         scope.job = scope.job || (scope.contract ? scope.contract.job : null)
         scope.freelancer = scope.freelancer || (scope.contract ? scope.contract.freelancer : null)
         scope.seller = scope.seller || (scope.contract ? scope.contract.seller : null)
@@ -13,15 +12,14 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         scope.buyer =
             scope.contract
                 ? scope.contract.buyer
-                :  scope.job
-                    ? scope.job.buyer
-                    : null
+                : scope.job
+                ? scope.job.buyer
+                : null
 
         console.log("CONTRACTTTTTTT", scope.contract)
 
         scope.contract_orig = rootScope.getContent(getContent, 'contract') || {
                 title: scope.job.title,
-                // information: scope.job.description,
                 freelancer: scope.freelancer,
                 job: scope.job,
                 seller: scope.freelancer.user,
@@ -105,84 +103,61 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 console.log('err', err)
             })
         }
+
         scope.contract_suggest = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                var data = angular.copy(_data)
-
-                data.seller = getId(data.seller)
-                data.freelancer = getId(data.freelancer)
-                data.buyer = getId(data.buyer)
-                data.job = getId(data.job)
-                data.contract = getId(scope.contract_orig)
-
-                console.log('suggest edit', data, scope.info)
-                data.info = scope.info
-                http.post('/api/contract/suggest', data).success(scope.onSucc).error($rootScope.onError)
+                http.post('/api/contract/suggest', pub_contr()).success(scope.onSucc).error($rootScope.onError)
             }
         }
-        
+
         scope.update_suggest = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                var data = angular.copy(_data)
-
-                data.seller = getId(data.seller)
-                data.freelancer = getId(data.freelancer)
-                data.buyer = getId(data.buyer)
-                data.job = getId(data.job)
-                data.contract = getId(scope.contract_orig)
-
-                console.log('Update suggest edit', data, scope.info)
-                data.info = scope.info
-                http.post('/api/contract/suggest', data).success(function(data){
+                http.post('/api/contract/suggest', pub_contr()).success(function (data) {
                     scope.contract = data.data
                     scope.onSucc()
                 }).error($rootScope.onError)
             }
         }
-        
+
         scope.contract_create = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                var data = angular.copy(scope.contract)
-
-                data.seller = getId(scope.contract_orig.seller)
-                data.freelancer = getId(scope.contract_orig.freelancer)
-                data.buyer = getId(scope.contract_orig.buyer)
-                data.job = getId(scope.contract_orig.job)
-
-                console.log('!!!!!!!!!!!!!!!!', data)
-
-                http.post('/api/contract', data).success(function(data){
+                http.post('/api/contract', pub_contr()).success(function (data) {
                     scope.contract = data.data
                     scope.onSucc()
                 }).error(scope.onErr)
             }
         }
+        
         scope.contract_update = function (invalid, type, _data) {
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                var data = angular.copy(scope.contract)
 
-                data.seller = getId(scope.contract_orig.seller)
-                data.freelancer = getId(scope.contract_orig.freelancer)
-                data.buyer = getId(scope.contract_orig.buyer)
-                data.job = getId(scope.contract_orig.job)
-
-                console.log('!!!!!!!!!!!!!!!!', data)
-
-                http.post('/api/contract', data).success(function(data){
+                http.post('/api/contract', pub_contr()).success(function (data) {
                     scope.contract = data.data
                     scope.onSucc()
                 }).error(scope.onErr)
             }
         }
 
+        function pub_contr() {
+            var data = angular.copy(scope.contract)
+
+            data.seller = getId(scope.contract_orig.seller)
+            data.freelancer = getId(scope.contract_orig.freelancer)
+            data.buyer = getId(scope.contract_orig.buyer)
+            data.job = getId(scope.contract_orig.job)
+            data.contract = getId(scope.contract_orig)
+            data.info = scope.info
+
+            return data()
+        }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
 
