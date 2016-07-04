@@ -144,10 +144,10 @@
     </div>
 </div>
 
-<div class="register-with-us-img" ng-hide="isLogged()">
+<div class="register-with-us-img" ng-hide="currentFreelancer()">
     <h2 class="text-center text-white register-with-us-text">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
     <div class="text-center">
-        <button class="btn btn-red text-white" ng-hide="currentFreelancer()" ng-click="$state.go('freelancer_registration')">REGISTER WITH US</button>
+        <button class="btn btn-red text-white" ng-click="$state.go('freelancer_registration')">REGISTER WITH US</button>
     </div>
 </div>
 

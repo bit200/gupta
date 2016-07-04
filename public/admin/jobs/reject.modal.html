@@ -1,0 +1,18 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="rejectForm" novalidate>
+                <div class="modal-body">
+                    <h2 class="text-center">Reject {{job.title}}</h2>
+                    <div class="form-group" ng-class="{'hasError': rejectForm.rejectReason.$invalid && submitted}">
+                        <textarea class="form-control full-width" style="height: 200px" name="rejectReason" ng-model="rejectReason" placeholder="Enter reject reason please" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" ng-click="submit(rejectForm.$invalid, rejectReason);submitted=true;">Reject</button>
+                    <button class="btn btn-primary" ng-click="close()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

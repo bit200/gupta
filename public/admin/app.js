@@ -8,7 +8,8 @@ angular.module( 'admin', [
   'ngDialog',
   'cgNotify',
   'angular-loading-bar',
-  'smart-table'
+  'smart-table',
+  'admin.jobs'
 ])
 .config( function myAppConfig ($urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/sellers');

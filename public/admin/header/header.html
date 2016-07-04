@@ -24,6 +24,13 @@
                     <span class="clearfix"></span>
                 </div>
 
+                <div class="pull-left">
+                    <button ng-click="$state.go('jobs');" class="button-menu-mobile open-left waves-effect"
+                            ng-class="{active_tab: $state.current.name=='jobs'}">Jobs
+                    </button>
+                    <span class="clearfix"></span>
+                </div>
+
                 <ul class="nav navbar-nav navbar-right pull-right">
                     <li class="dropdown">
                         <a href="#" data-target="#" class="waves-effect waves-light" aria-expanded="false">

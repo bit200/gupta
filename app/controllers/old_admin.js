@@ -38,16 +38,6 @@ exports.reject_registration = function (req, res) {
     m.findUpdate(models.Freelancer, {_id: params.id}, {registrationStatus: 2}, res, res)
 };
 
-
-
-
-
-
-
-
-
-
-
 exports.approve_agency = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.BusinessUser, {email: params.email}, {isActive: true}, res, res)
