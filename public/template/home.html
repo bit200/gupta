@@ -56,7 +56,7 @@
 <div class="container">
     <div class="row back-service-provider">
         <div class="col-sm-12 text-center "><h2 class="marginTB10">Find Service Providers</h2></div>
-        <div class="marginLR20" ng-repeat="item in arrayProviders" ui-sref="categories({service_providers: item})" ng-click="activeProvider=item;">
+        <div class="marginLR20" ng-repeat="item in commonFilters | objectKeys" ng-click="viewServiceProvider(item);activeProvider=item;">
             <div class="service-provider relative">
                 <div class="fa fa-cogs text-center service-provider-icon"></div>
                 <div>{{item}}</div>

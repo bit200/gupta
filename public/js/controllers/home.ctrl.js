@@ -1,8 +1,8 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$filter',
-    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $filter) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$state',
+    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state) {
 
     scope.cancelRegistration = function () {
         location.path('/')
@@ -12,7 +12,6 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         location.path(url)
     };
 
-    scope.arrayProviders = getContent.freelancerType.data.data;
     scope.jobs = getContent.jobs.data.data;
     scope.profiles = parseRating.rating(getContent.sellers.data.data);
     scope.profiles = parseRating.popularity(scope.profiles);
@@ -21,16 +20,16 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
             templateUrl: "template/modal/postJobOrViewService.html",
             controller: ['$scope', '$element', 'close', function($scope, $element, close){
                 $scope.item = item;
-                $scope.close = function(path){
+                $scope.close = function(state){
                     $element.modal('hide');
-                    close(path,500);
+                    close(state,500);
                 }
             }]
         }).then(function (modal) {
             modal.element.modal();
-            modal.close.then(function (result) {console.log(result)
-                if (result)
-                    $location.url(result)
+            modal.close.then(function (state) {
+                if (state)
+                    $state.go(state.name, state.params)
             });
 
         });
