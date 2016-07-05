@@ -1,0 +1,45 @@
+<div class="text-left" style="margin-top: 110px;">
+    <a>{{user.name}}</a>
+    <div>{{user.description}}</div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="row background-msg" style="">
+            <div class="col-md-12">
+                <div class="row chat-block">
+                    <div id="chat">
+                        <div class="block-msg" ng-repeat="msg in messages track by $index">
+                            <div  class="row" style="padding: 20px;">
+                                <div class="message  col-md-10">
+                                    <div>
+                                        <div class="avatar-msg inline-block">
+                                            <img class="avatar-img-msg" ng-src="{{msg.avatar}}">
+                                            <span class="isOnline"></span>
+                                        </div>
+                                        <div class="text-bold inline-block name-msg">{{msg.name}}</div>
+                                    </div>
+                                    <div class="theme-msg">{{msg.theme}}</div>
+                                    <div class="body-msg">{{msg.message}}</div>
+                                </div>
+                                <div class="col-md-2 text-left">{{msg.time}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row enter-block">
+                    <div class="col-md-10">
+                        <input class="form-control" ng-enter="send(msg)" ng-model="msg">
+                        <form>
+                        <div class="text-right pointer" ngf-select="addWorkFiles($files)"  ngf-pattern="'image/*'" ngf-multiple="true">
+                           <ng-md-icon class="upload-button" icon="attach_file" size="24"></ng-md-icon>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn full-width send-button" ng-click="send(msg)">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

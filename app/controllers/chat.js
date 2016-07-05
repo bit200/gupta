@@ -10,9 +10,57 @@ var models = require('../db')
 
 exports.createMsg = function (req, res) {
     var params = m.getBody(req);
-    m.create(models.ChatMessage, params, res, res,{})
+    m.create(models.ChatMessage, params, res, res, {})
 };
 
 exports.getMsg = function (req, res) {
     m.find(models.ChatMessage, {user: req.userId}, res, res, {populate: 'user contract'})
 };
+
+exports.allMsgs = function (req, res) {
+    m.find(models.ChatRoom, {_id: req.params.id}, res, res)
+};
+
+exports.attachFiles = function (req, res) {
+    var attachments = [];
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            var path = config.root + '/public/uploads/chat/100000/';
+            mkdirp.sync(path);
+            cb(null, path)
+        },
+        filename: function (req, file, cb) {
+            var name = new Date().getTime() + '_' + file.originalname;
+            cb(null, name)
+        }
+    });
+
+    var upload = multer({
+        storage: storage
+    }).any();
+
+    upload(req, res, function (err) {
+        async.forEach(req.files, function (file, cb) {
+            new models.Attachment({
+                originalName: file.originalname,
+                name: file.filename,
+                path: 'chat/1000000'
+            }).save(function (err, attach) {
+                attachments.push(attach);
+                cb();
+            })
+        }, function () {
+            console.log('done', req.body);
+            // delete req.body.id;
+            // work = _.extend(work, req.body);
+            // work.attachments = (work.attachments || []).concat(attachments);
+            // work.save(function (err, work) {
+            //     work.populate('attachments', function (err, work) {
+            //         res.jsonp(work)
+            //     })
+            // });
+        });
+
+    });
+};
+

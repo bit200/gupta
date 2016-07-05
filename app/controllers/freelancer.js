@@ -55,7 +55,7 @@ exports.get_freelancers = function (req, res) {
             params[key] = {$in: params[key]}
     })
     if (params.experience)
-        params.experience = {$gte: parseInt(params.experience)}
+        params.experience = {$gte: parseInt(params.experience)};
     if (params.count){
         delete params.count
         models.Freelancer.count(params).exec(function(err, count){

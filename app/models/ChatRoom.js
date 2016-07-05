@@ -21,7 +21,7 @@ var ChatRoomSchema = mongoose.Schema({
         date: Date //date last unread message
     },
     created_at: {
-        type: Date,
+        type: Date, 
         default: Date.now
     }
 });

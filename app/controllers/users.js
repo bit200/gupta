@@ -25,7 +25,7 @@ exports.me_ids = function(req, res) {
 exports.me = function (req, res) {
     m.findOne(models.User, {_id: req.userId}, res, res, {publish: true, populate: {path: 'poster'}})
 };
-console.log(md5('Test1234'))
+
 exports.update_password = function (req, res) {
     var params = m.getBody(req);
     m.findOne(models.User, {_id: req.userId}, res, function (user) {

@@ -31,7 +31,7 @@ exports.add_update_work = function(req, res) {
                 cb()
             });
         else new models.Work().save(function(err, workT){
-            work = workT
+            work = workT;
             cb()
         });
     };
@@ -63,9 +63,9 @@ exports.add_update_work = function(req, res) {
                 }).save(function(err, attach){
                     attachments.push(attach);
                     cb();
-                })
+                })  
             }, function(){
-                delete req.body.id
+                delete req.body.id;
                 work = _.extend(work,req.body);
                 work.attachments = (work.attachments || []).concat(attachments);
                 work.save(function(err,work){

@@ -105,7 +105,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
             .state('messages', {
-                url: '/messages',
+                url: '/messages/:_id',
                 templateUrl: 'template/chat.html',
                 controller: 'chatCtrl'
             })

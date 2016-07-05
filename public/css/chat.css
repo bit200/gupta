@@ -1,0 +1,69 @@
+.upload-button {
+    fill: gray;
+    display: inline-block;
+    float: right;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    height: 10px;
+}
+
+.send-button {
+    background-color: #008228;
+    color: white;
+}
+
+.enter-block {
+    margin: 5px;
+    padding: 10px;
+    background: white;
+}
+
+.body-msg {
+    padding-top: 15px;
+    padding-left: 10px;
+    word-wrap: break-word;
+}
+
+.name-msg {
+    position: absolute;
+    top: 16px;
+    left: 78px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 20px;
+}
+
+.avatar-img-msg {
+    width: 102%;
+    height: 102%;
+    background-color: #edb100
+}
+
+.avatar-msg {
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 25px;
+}
+
+.block-msg {
+    border-bottom: 1px solid #cec4c4;
+}
+
+#chat {
+    max-height: 400px;
+    width: 102%;
+    overflow: auto;
+}
+
+.chat-block {
+    border: 10px solid white;
+    overflow: hidden;
+    max-height: 400px;
+}
+
+.background-msg {
+    border: 5px solid white;
+    background: white;
+}

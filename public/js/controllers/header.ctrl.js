@@ -1,7 +1,7 @@
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService', '$rootScope', 'AuthService', '$mdMenu',
-    function (scope, $location, http, ModalService, $rootScope, AuthService, $mdMenu) {
+XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService', '$rootScope', 'AuthService',
+    function (scope, $location, http, ModalService, $rootScope, AuthService) {
         scope.logout = AuthService.logout;
         scope.showAuth = AuthService.showLogin;
         scope.arrayProviders = [];
@@ -22,8 +22,5 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         
         scope.getKey = function(obj){
             return Object.keys(obj)[0]
-        }
-        
-       
-
+        };
     }]);

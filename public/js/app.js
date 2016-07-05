@@ -15,5 +15,6 @@ var XYZApp = angular.module('XYZApp', [
     'ngImgCrop',
     'ngMdIcons',
     'ui.bootstrap',
-    'ui.router'
+    'ui.router',
+    'btford.socket-io'
 ]);

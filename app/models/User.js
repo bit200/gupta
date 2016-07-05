@@ -34,7 +34,6 @@ UserSchema.methods.send_restore = function (ecb, scb) {
     })
 };
 
-
 UserSchema.pre('save', function (next) {
     if (!this._id && this.password)
         this.password = md5(this.password);

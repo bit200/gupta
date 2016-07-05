@@ -153,6 +153,32 @@ XYZCtrls.service('parseTime', function () {
             }
 
             return (mm + '-' + dd + '-' + yyyy);
+        },
+        dateTime: function (date) {
+            var today = new Date(date);
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear()
+                ,h = today.getHours()
+                ,m = today.getMinutes()
+                ,s = today.getSeconds();
+
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            if (m < 10) {
+                m = '0' + m
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            if((new Date().getTime() - today.getTime()) < 1000*3600*24) {
+                var time =  h + ':' + m + ':' + s;
+            } else {
+                var time =  mm + '-' + dd + '-' + yyyy;
+            }
+            
+            return time;
         }
     }
 });
@@ -229,8 +255,8 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
             currentUser: function () {
                 return currentUser
             },
-            userId: function() {
-                return currentUser ? currentUser._id : null  
+            userId: function () {
+                return currentUser ? currentUser._id : null
             },
             currentFreelancer: function () {
                 return currentFreelancer
@@ -321,3 +347,13 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
 
         return resObj
     }]);
+
+XYZCtrls.factory('socket', function (socketFactory) {
+    var myIoSocket = io.connect('http://localhost:8080/');
+
+    var socket = socketFactory({
+        ioSocket: myIoSocket
+    });
+
+    return socket;
+});

@@ -428,11 +428,9 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
             })
         }
     }
-})
-;
+});
 
-
-XYZCtrls.directive("customPagination", function($location) {
+XYZCtrls.directive("customPagination", function ($location) {
     return {
         restrict: "A",
         scope: {
@@ -470,4 +468,78 @@ XYZCtrls.directive("customPagination", function($location) {
         }
 //        replace: true
     };
+});
+
+XYZCtrls.directive("chatForm", function () {
+    return {
+        restrict: 'E',
+        scope: {
+            message: '=',
+            join: '='
+        },
+        templateUrl: 'template/directive/templateChat.html',
+        controller: ['$scope', '$http', 'socket', 'AuthService', 'parseTime', 'Upload', function (scope, http, socket, AuthService, parseTime, Upload) {
+            scope.messages = [];
+            scope.files = [];
+            socket.emit('join room', scope.join);
+            socket.on('join room', function (msg) {
+                scope.chatRoom = msg.id;
+                http.get('/chat/' + msg.id).then(function (resp) {
+                    scope.messages = resp.data.data[0].messages;
+                    _.map(scope.messages, function (item) {
+                        item.time = parseTime.dateTime(item.time);
+                        return item
+                    })
+                    setTimeout(function(){scrollDown()},0)
+                })
+            });
+
+            scope.send = function (msg) {
+                if (msg) {
+                    scrollDown();
+                    msg = scope.parseMessage(msg);
+                    socket.emit('post msg', {msg: msg, room: scope.chatRoom});
+                    http.post('/api/chat/attach', scope.files).then();
+                    msg.time = parseTime.dateTime(msg.time);
+                    scope.messages.push(msg);
+                    scope.msg = ''
+                }
+            };
+
+            socket.on('w8 msg', function (msg) {
+                msg.time = parseTime.dateTime(msg.time);
+                scope.messages.push(msg)
+                scrollDown();
+            });
+
+            scope.parseMessage = function (msg) {
+                var user = AuthService.currentUser();
+                var obj = {
+                    name: user.first_name + ' ' + user.last_name,
+                    avatar: user.preview,
+                    message: msg,
+                    isActive: user.online,
+                    time: new Date().getTime()
+                };
+                return obj
+            };
+
+
+            scope.addWorkFiles = function(files){
+                scope.files.push(files);
+                // scope.work_previews = scope.work_previews.concat(files);
+            };
+
+            function scrollDown() {
+                var height = 0;
+                var query = $('#chat .message');
+                query.each(function (i, value) {
+                    height += parseInt($(this).height()) + 1000;
+                });
+                height += '';
+                console.log(height);
+                $('#chat').animate({scrollTop: height});
+            }
+        }]
+    }
 });
