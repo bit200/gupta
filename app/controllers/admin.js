@@ -39,6 +39,11 @@ exports.get_sellers = function (req, res) {
         res.json(freelancers)
     })
 };
+exports.get_jobs = function (req, res) {
+    models.Freelancer.find({admin_approved: 0}).exec(function(err, jobs){
+        res.json(jobs)
+    })
+};
 exports.get_seller = function (req, res) {
     models.Freelancer.findOne({_id: req.params.id}).populate('poster Attachments work contact_detail service_packages user').exec(function(err, freelancer){
         res.json(freelancer)
@@ -76,6 +81,21 @@ exports.reject_registration = function (req, res) {
         res.send(200)
     }, {populate: 'contact_detail'});
 
+};
+
+
+exports.approve_job = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function (job) {
+        mail.job_approve(job.user, res, m.scb(job, res))
+    }, {populate: 'user'});
+};
+
+exports.reject_job = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2, reject_reason: req.body.reject_reason}, res, function (job) {
+        mail.job_approve(job.user, res, m.scb(job, res))
+    }, {populate: 'user'});
 };
 
 exports.business_accounts = function (req, res) {
