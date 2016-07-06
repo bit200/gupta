@@ -181,9 +181,22 @@ XYZCtrls.directive('acts', function () {
                 }
 
             } else if (user_type == 'buyer' && job_type == 'ongoing') {
+                if (item.status != 'paused') {
+                    fn('Pause Contract')
+                }
+                if (item.status == 'paused') {
+                    fn('Resume Contract')
+
+                }
+
+                fn('Edit Contract')
+                fn('Close Contract')
+                fn('Initiate Payment')
 
             } else if (user_type == 'buyer' && job_type == 'closed') {
-
+                fn('Recreate Job')
+                fn('View Contract')
+                fn('View Job')
             }
 
         }]

@@ -442,6 +442,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
 
         _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
+        _states('root.contract_close', '/contract/close/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'])
         _states('root.contract_edit_terms', '/contract/edit-terms/:contract', 'contractCtrl', ['contract'])

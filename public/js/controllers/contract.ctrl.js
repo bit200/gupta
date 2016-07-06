@@ -99,6 +99,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             }).error(scope.onErr)
         }
         scope.contract_close = function (data) {
+            data = scope.contract
+
             console.log('close info', data)
             http.post('/api/contract/close/' + data._id, {
                 review_comment: data.review_comment,
@@ -106,6 +108,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 rating: data.rating
             }).success(function (resp) {
                 console.log('resp', resp)
+                scope.onSucc()
             }).error(scope.onErr)
         }
 
@@ -156,6 +159,37 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 http.post('/api/contract', pub_contr())
                     .success(function (data) {
                         scope.contract = data.data
+                        scope.onSucc()
+                    })
+                    .error(scope.onErr)
+            }
+        }
+        scope.contract_suggest_approve = function (invalid, type, _data) {
+
+            if (invalid) {
+                rootScope.scrollToErr()
+            } else {
+
+                http.post('/api/contract/suggest-approve', pub_contr())
+
+                    .success(function (data) {
+                        // scope.contract = data.data
+                        scope.onSucc()
+                    })
+                    .error(scope.onErr)
+            }
+        }
+
+        scope.update_contract_terms = function (invalid, type, _data) {
+
+            if (invalid) {
+                rootScope.scrollToErr()
+            } else {
+
+                http.post('/api/contract/edit-terms', pub_contr())
+
+                    .success(function (data) {
+                        // scope.contract = data.data
                         scope.onSucc()
                     })
                     .error(scope.onErr)

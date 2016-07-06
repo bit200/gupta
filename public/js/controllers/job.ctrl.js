@@ -22,9 +22,11 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         ]
 
         scope.isApply = scope.apply || scope.apply_by_id;
-        scope.job = scope.job || scope.isApply.job
+        scope.job = scope.job || (scope.isApply ? scope.isApply.job : {})
+        scope.job = scope.job || {}
+        
         scope.new_apply = scope.isApply || {budget: scope.job.budget}
-        console.log('ahahahahhhhhhhhhhhh', scope.job)
+
         if (scope.job) {
             var job = scope.job
             job.date_of_completion = new Date(job.date_of_completion);

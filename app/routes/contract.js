@@ -16,6 +16,8 @@ module.exports = function (app) {
     app.post('/api/contract/pause/:_id', auth.token, contract.pause_contract);
     app.post('/api/contract/resume/:_id', auth.token, contract.resume_contract);
     app.post('/api/contract/suggest', auth.token, contract.suggest_contract);
+    app.post('/api/contract/suggest-approve', auth.token, contract.contract_suggest_approve);
+    app.post('/api/contract/edit-terms', auth.token, contract.contract_edit_terms);
 
     app.post('/api/contract/close/:_id', auth.token, contract.close_contract);
     app.post('/contract/suggest', auth.token, contract.suggest_contract);

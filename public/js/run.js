@@ -76,9 +76,9 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'Close',
                 fn: scope.contract_close,
             },
-            'contract_suggest_fn': {
-                name: 'Submit Terms',
-                fn: scope.contract_suggest,
+            'contract_suggest_approve_fn': {
+                name: 'Accept Suggestion',
+                fn: scope.contract_suggest_approve,
             },
             'contract_edit_fn': {
                 name: 'Update Contract',
@@ -165,7 +165,13 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 }
             },
 
-
+            'contract_suggest_fn': {
+                name: 'Suggest Terms',
+                fn: function(){}('root.contract_suggest'),
+                ui_params: function () {
+                    return {contract: gid('contract')}
+                }
+            },
             'contract_preview_fn': {
                 name: 'Preview',
                 fn: function () {
@@ -228,6 +234,15 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
                 name: 'View my active jobs',
                 ui_sref: sref('jobs_list.buyer_open')
             },
+
+            'jobs_list.buyer_ongoing': {
+                name: 'View ongoing jobs',
+                ui_sref: sref('jobs_list.buyer_ongoing')
+            },
+            'jobs_list.buyer_closed': {
+                name: 'View closed jobs',
+                ui_sref: sref('jobs_list.buyer_closed')
+            },
             'jobs_list.seller_open': {
                 name: 'View my open jobs',
                 ui_sref: sref('jobs_list.seller_open')
@@ -235,6 +250,10 @@ angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthServ
             'jobs_list.seller_ongoing': {
                 name: 'View my ongoing jobs',
                 ui_sref: sref('jobs_list.seller_ongoing')
+            },
+            'jobs_list.seller_closed': {
+                name: 'View closed jobs',
+                ui_sref: sref('jobs_list.seller_closed')
             },
             'job_detailed': {
                 name: 'View job posting',
