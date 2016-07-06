@@ -98,6 +98,18 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 console.log('resp', resp)
             }).error(scope.onErr)
         }
+        scope.contract_mark_complete = function(invalid) {
+            if (invalid) {
+                rootScope.scrollToErr()
+            } else {
+                http.post('/api/contract/mark-complete/' + scope.contract._id)
+                    .success(function(data){
+                        scope.suggest = data.data
+                        scope.onSucc()
+                    })
+                    .error(scope.onErr)
+            }
+        }
         scope.contract_close = function (data) {
             data = scope.contract
 

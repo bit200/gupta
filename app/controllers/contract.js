@@ -121,6 +121,19 @@ exports.contract_suggest_approve = function (req, res) {
     })
 };
 
+exports.contract_mark_complete = function (req, res) {
+    var STATUS = 'marked completed'
+    var params = {
+        status: STATUS
+    }
+
+    m.findCreateUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
+       res.send({
+           data: contract
+       })
+    })
+};
+
 exports.contract_edit_terms = function (req, res) {
     var params = m.getBody(req);
     var STATUS = 'terms seller approving'

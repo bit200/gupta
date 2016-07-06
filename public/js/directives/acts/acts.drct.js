@@ -125,7 +125,7 @@ XYZCtrls.directive('acts', function () {
                 },
                 'Mark Complete': function () {
                     return {
-                        ui_sref: sref("contract.mark_complete", {contract: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_mark_complete", {contract: getId(item, 'contract')})
                     }
                 },
 
@@ -166,9 +166,10 @@ XYZCtrls.directive('acts', function () {
                     fn('View Suggestion')
                 }
             } else if (user_type == 'seller' && job_type == 'ongoing') {
-
+                fn('View Contract', 'View Job', 'Mark Complete')
             } else if (user_type == 'seller' && job_type == 'closed') {
-
+                fn('View Contract')
+                fn('View Job')
             } else if (user_type == 'buyer' && job_type == 'open') {
                 if (['suggest approving'].indexOf(item.status) < 0) {
                     fn('Create Contract')
