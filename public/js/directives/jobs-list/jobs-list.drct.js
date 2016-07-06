@@ -14,22 +14,9 @@ XYZCtrls.directive('jobsList', function () {
             scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('')
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('')
 
-
-            function create_obj(params) {
-                params = params || {};
-                scope.Page = params.page || scope.currentPage;
-                scope.search = params.search || scope.search;
-                var obj = {};
-
-                if (scope.currentPage) {
-                    obj.skip = (scope.Page - 1) * scope.limit;
-                    obj.limit = scope.limit;
-                }
-
-                if (scope.search && scope.search != ' ') {
-                    obj.search = scope.search
-                }
-                return obj;
+            scope.configPagination = {
+                currentPage: 1,
+                countByPage: 12
             }
 
             scope.acceptJob = function (job, freelancer, user) {
@@ -79,9 +66,18 @@ XYZCtrls.directive('jobsList', function () {
                 });
             }
 
+            scope.cb = function(a){
+                console.log('custom paginatinonnn', a)
+                scope.configPagination.currentPage = a
+                scope.render()
+            }
+            
             scope.render = function (params) {
                 scope.showLoading = true;
-                var obj = {};
+                var obj = {
+                    skip: (scope.configPagination.currentPage - 1) * scope.configPagination.countByPage,
+                    limit: scope.configPagination.countByPage
+                };
 
                 var index = 0;
 
@@ -90,12 +86,12 @@ XYZCtrls.directive('jobsList', function () {
                         scope.showLoading = false;
                     }
                 }
+                console.log("objbjbjbjbjbjbjbjb", obj, scope.configPagination)
+
 
                 http.get(scope.url, {params: obj}).success(function (data) {
                         cb();
                         scope.items = data.data;
-                        console.log("itemsmsmsmsmmsms", scope.items)
-                        console.log("itemsmsmsmsmmsms", scope.items[0])
                     }, function (err) {
                         scope.error = 'An error. Please try again later';
                         cb();
@@ -103,6 +99,9 @@ XYZCtrls.directive('jobsList', function () {
                 
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         cb();
+                        scope.configPagination.totalCount = resp.data.data
+
+
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {

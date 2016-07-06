@@ -159,7 +159,7 @@ XYZCtrls.directive('acts', function () {
 
             if (user_type == 'seller' && job_type == 'open') {
                 fn('View Application', 'View Job')
-                if (item.status == 'seller approving') {
+                if (item.status == 'terms seller approving' || item.status == 'seller approving') {
                     fn('Approve Contract')
                 }
                 if (item.status == 'suggest approving') {

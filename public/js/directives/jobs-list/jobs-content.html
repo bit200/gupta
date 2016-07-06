@@ -8,13 +8,13 @@
                         By status
                     </div>
                     <div class="sub-select">
-                        <selector items="['Open', 'Ongoing', 'Canceled']" class-name="'nav'"></selector>
+                        <selector type="'job_type'" items="['Open', 'Ongoing', 'Closed']" class-name="'nav'" value="{{info.job_type}}"></selector>
                     </div>
                     <div class="sub-title">
                         View jobs as
                     </div>
                     <div class="sub-select">
-                        <selector items="['Buyer', 'Seller']" value="Seller" class-name="'nav'"></selector>
+                        <selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>
                     </div>
                     <a ui-sref="jobs_list.all">all</a>
                     <div></div>

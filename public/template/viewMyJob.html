@@ -1,3 +1,7 @@
 <div>
-<jobs-list url="{{info.url}}" info="{{info}}" header="{{info.header}}" template="{{info.template}}"></jobs-list>
+    <jobs-list url="{{info.url}}" info="{{info}}" header="{{info.header}}" template="{{info.template}}"></jobs-list>
+
+    <div ng-if="info.user_type=='buyer' && info.job_type=='open'">
+        <jobs-list url="/api/jobs/buyer/my" info="{{info}}" header="My Posted jobs" template="buyer-my"></jobs-list>
+    </div>
 </div>
