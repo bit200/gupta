@@ -39,17 +39,29 @@ module.exports = function (app) {
     job.fn('/api/jobs/buyer/my', auth.token, 'Job', '{ user: this.userId }'
         , {populate: 'job freelancer', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId }'
+    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["ongoing", "marked completed", "paused"]} }'
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId, status: "closed" }'
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
 
-    job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId }'
+
+    job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["rejected"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId }'
+    job.fn('/api/jobs/seller/open/new', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["New Applicant"]} }'
+        , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["Comunicating", "seller approving"]} }'
+        , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/seller/open/rejected', auth.token, 'JobApply', '{ seller: this.userId, status: "rejected" }'
+        , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
+
+
+
+    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId, status: {$in: ["ongoing", "marked completed", "paused"]} }'
         , {populate: 'job buyer', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId, status: "closed" }'
