@@ -22,10 +22,13 @@ XYZCtrls.directive('selector', function () {
             
             scope.onSelect = function (item) {
                 // alert('selected')
+                $rootScope.info[scope.type] = item
+                console.log('rorororrororoor', $rootScope.info)
                 scope.selected = item
                 scope.open = false
                 console.log('ahahahahahahhahahahahah', 'jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type)
-                $state.go('jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type )
+                var state = 'jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type
+                $state.go(state.toLowerCase())
 
             }
 
