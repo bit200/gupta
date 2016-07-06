@@ -1,8 +1,21 @@
-angular.module('XYZApp').run(function ($timeout, $rootScope, $location, AuthService, $state, $http) {
+angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $location, AuthService, $state, $http) {
     var rootScope = $rootScope
     $rootScope.currentUser = AuthService.currentUser;
     $rootScope.isLogged = AuthService.isLogged;
 
+
+    $rootScope.closePopupFn = function(is_digest) {
+        console.log('click close')
+        $rootScope.closePopup = {
+            cd: new Date().getTime()
+        }
+        if (is_digest) {
+            $rootScope.$digest()
+        }
+    }
+    angular.element('body').on('click', $rootScope.closePopupFn)
+
+    
     $rootScope.$state = $state
 
     $rootScope.go = function (path) {

@@ -1,8 +1,8 @@
-<div class="selected" ng-click="open=!open">
+<div class="selected" ng-click="onOpen($event)">
     {{selected}}
 </div>
 <div ng-if="open" class="sel-items {{className || ''}}">
-    <div ng-repeat="item in items" ng-click="onSelect(item)">
+    <div ng-repeat="item in items" ng-click="onSelect(item, $event)">
         {{item}}
     </div>
 </div>
