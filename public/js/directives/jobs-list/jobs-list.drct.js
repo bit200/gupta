@@ -14,7 +14,10 @@ XYZCtrls.directive('jobsList', function () {
             scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('')
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('')
 
-
+            scope.configPagination = {
+                currentPage: 1,
+                countByPage: 12
+            }
             function create_obj(params) {
                 params = params || {};
                 scope.Page = params.page || scope.currentPage;
@@ -79,9 +82,18 @@ XYZCtrls.directive('jobsList', function () {
                 });
             }
 
+            scope.cb = function(a){
+                console.log('custom paginatinonnn', a)
+                scope.configPagination.currentPage = a
+                scope.render()
+            }
+            
             scope.render = function (params) {
                 scope.showLoading = true;
-                var obj = {};
+                var obj = {
+                    skip: (scope.configPagination.currentPage - 1) * scope.configPagination.itemsPerPage,
+                    limit: scope.configPagination.itemsPerPage
+                };
 
                 var index = 0;
 
@@ -91,11 +103,10 @@ XYZCtrls.directive('jobsList', function () {
                     }
                 }
 
+
                 http.get(scope.url, {params: obj}).success(function (data) {
                         cb();
                         scope.items = data.data;
-                        console.log("itemsmsmsmsmmsms", scope.items)
-                        console.log("itemsmsmsmsmmsms", scope.items[0])
                     }, function (err) {
                         scope.error = 'An error. Please try again later';
                         cb();
@@ -103,6 +114,9 @@ XYZCtrls.directive('jobsList', function () {
                 
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         cb();
+                        scope.configPagination.totalCount = resp.data.data
+
+
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {
