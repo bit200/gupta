@@ -33,13 +33,16 @@ module.exports = function (app) {
     job.fn('/api/jobs/popular', null, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{ buyer: this.userId }'
+    job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{ buyer: this.userId, status: "New Applicant" }'
+        , {populate: 'job freelancer contract', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/buyer/open/active', auth.token, 'JobApply', '{ buyer: this.userId, status: {$nin: ["New Applicant", "rejected"]} }'
         , {populate: 'job freelancer contract', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/my', auth.token, 'Job', '{ user: this.userId }'
         , {populate: 'job freelancer', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["ongoing", "marked completed", "paused"]} }'
+    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["ongoing", "marked completed", "paused"]}}'
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId, status: "closed" }'

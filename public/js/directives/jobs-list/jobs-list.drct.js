@@ -5,6 +5,7 @@ XYZCtrls.directive('jobsList', function () {
             url: '@',
             showLoading: '@',
             TotalItems: '@',
+            nf: '@',
             template: '@',
             header: '@',
             info: '@'

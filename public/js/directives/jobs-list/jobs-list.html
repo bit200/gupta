@@ -21,7 +21,7 @@
                 </div>
                 <div ng-if="!items.length && !showLoading" class="row">
                     <div class="row nomarginxs fitems emptyjobs">
-                        There is no jobs with that params
+                        {{nf || 'There is no jobs with that params'}}
                     </div>
                 </div>
             </div>
