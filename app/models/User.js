@@ -20,6 +20,7 @@ var UserSchema = mongoose.Schema({
     phone: String,
     company_name: String,
     preview: String,
+    online: Boolean,
     created_at: {
         type: Date,
         default: Date.now

@@ -1,16 +1,12 @@
 var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
-var ChatAttachSchema = mongoose.Schema({
-    room: {
-        type: Number,
-        ref: 'ChatRoom'
-    },
-    users: {
+var UserRoomsSchema = mongoose.Schema({
+    rooms: Array,
+    user: {
         type: Number,
         ref: 'User'
     },
-    attach: String,
     created_at: {
         type: Date,
         default: Date.now
@@ -18,10 +14,10 @@ var ChatAttachSchema = mongoose.Schema({
 });
 
 
-ChatAttachSchema.plugin(autoIncrement.plugin, {
-    model: 'ChatAttach',
+UserRoomsSchema.plugin(autoIncrement.plugin, {
+    model: 'UserRooms',
     field: '_id',
     startAt: 100000
 });
 
-mongoose.model('ChatAttach', ChatAttachSchema);
+mongoose.model('UserRooms', UserRoomsSchema);

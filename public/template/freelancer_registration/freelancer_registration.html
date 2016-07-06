@@ -215,7 +215,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-3 paddingT20">
-                        <md-checkbox ng-click="freelancer.price.word = '';" ng-model="priceHour" class="md-warn">Rs. Per word
+                        <md-checkbox ng-click="freelancer.price.word = '';" ng-model="priceHour" class="md-warn">Rs. Per hour
                         </md-checkbox>
                     </div>
                     <div class="col-xs-9">
@@ -314,7 +314,7 @@
                     <span style="font-size: 20px">Attach samples</span> <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
                 </div>
                 <div class="text-right">
-                    <div class="row Files" ng-repeat="attach in freelancer.work.attachments">
+                    <div class="row Files" ng-repeat="attach in files.attachments">
                         <div class="col-xs-4 text-left">{{attach.url}}</div>
                         <div class="col-xs-8 floatR">
                             <img ngf-src="attach.url" ngf-thumbnail="attach.url" class="thumb">

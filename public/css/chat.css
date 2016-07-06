@@ -8,7 +8,7 @@
     height: 10px;
 }
 
-.send-button {
+.send-button,.send-button:hover, .send-button:focus {
     background-color: #008228;
     color: white;
 }
@@ -37,7 +37,7 @@
 .avatar-img-msg {
     width: 102%;
     height: 102%;
-    background-color: #edb100
+    background-color: #ede2b8
 }
 
 .avatar-msg {
@@ -64,6 +64,44 @@
 }
 
 .background-msg {
-    border: 5px solid white;
     background: white;
 }
+
+
+.close {
+    position: absolute;
+    z-index: 99;
+    top: 7px;
+    right: 3px;
+    opacity:0.4;
+    animation: animate 0.5s ease forwards;
+    font-size: 14px;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+.preview {
+    margin: 5px 10px;
+}
+
+.isOnline {
+    position: absolute;
+    height: 13px;
+    width: 13px;
+    border-radius: 30px;
+    border: 2px solid white;
+    left: 36px;
+    bottom: 5px;
+}
+
+.online {
+    background: #008027;
+}
+
+.offline {
+    background: #B1B1B1;
+}
+
+@keyframes animate {}

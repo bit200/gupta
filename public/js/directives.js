@@ -474,46 +474,99 @@ XYZCtrls.directive("chatForm", function () {
     return {
         restrict: 'E',
         scope: {
-            message: '=',
+            name: '=',
             join: '='
         },
         templateUrl: 'template/directive/templateChat.html',
         controller: ['$scope', '$http', 'socket', 'AuthService', 'parseTime', 'Upload', function (scope, http, socket, AuthService, parseTime, Upload) {
             scope.messages = [];
-            scope.files = [];
-            socket.emit('join room', scope.join);
-            socket.on('join room', function (msg) {
+            var user = AuthService.currentUser();
+            scope.currentUserName = user.first_name + ' ' + user.last_name;
+            socket.emit('join room', {join:scope.join, userID:user._id});
+            socket.on('joined', function (msg) {
                 scope.chatRoom = msg.id;
                 http.get('/chat/' + msg.id).then(function (resp) {
                     scope.messages = resp.data.data[0].messages;
                     _.map(scope.messages, function (item) {
                         item.time = parseTime.dateTime(item.time);
                         return item
-                    })
-                    setTimeout(function(){scrollDown()},0)
+                    });
+                    setTimeout(function () {
+                        scrollDown()
+                    }, 0)
                 })
+                socket.emit('watch-online', {id:msg.user});
             });
+
+            scope.chat_area = {
+                files: [],
+                previewFiles: []
+            };
+            scope.addFiles = function (files) {
+                _.each(files, function (file) {
+                    Upload.dataUrl(file, true).then(function (url) {
+                        scope.chat_area.previewFiles.push(url)
+                    });
+                    scope.chat_area.files = scope.chat_area.files.concat(file)
+
+                });
+            };
 
             scope.send = function (msg) {
                 if (msg) {
                     scrollDown();
-                    msg = scope.parseMessage(msg);
-                    socket.emit('post msg', {msg: msg, room: scope.chatRoom});
-                    http.post('/api/chat/attach', scope.files).then();
-                    msg.time = parseTime.dateTime(msg.time);
-                    scope.messages.push(msg);
-                    scope.msg = ''
+                    if (scope.chat_area.files) {
+                        Upload.upload({
+                            url: '/api/chat/attach',
+                            data: {room: scope.chatRoom},
+                            file: scope.chat_area.files
+                        }).then(function (resp) {
+                            afterSend(msg, true, resp.data.data);
+                        }, function (resp) {
+                        }, function (evt) {
+
+                        });
+                    } else {
+                        afterSend(msg, false)
+                    }
+
                 }
             };
-
             socket.on('w8 msg', function (msg) {
                 msg.time = parseTime.dateTime(msg.time);
-                scope.messages.push(msg)
+                scope.messages.push(msg);
                 scrollDown();
             });
 
+            socket.on('user online', function (online) {
+                scope.online = online
+            });
+
+            scope.deleteImg = function (index) {
+                scope.chat_area.files.splice(index, 1);
+                scope.chat_area.previewFiles.splice(index, 1);
+            };
+
+            scope.parseMessageWithFile = function (msg, files) {
+                var obj = {
+                    name: user.first_name + ' ' + user.last_name,
+                    avatar: user.preview,
+                    message: msg,
+                    isActive: user.online,
+                    time: new Date().getTime(),
+                    files: []
+                };
+                _.each(files, function (item) {
+                    var file = {
+                        name: item.originalname,
+                        url: '/uploads/chat/' + scope.chatRoom + '/' + item.filename
+                    };
+                    obj.files.push(file)
+                });
+                return obj
+            };
+
             scope.parseMessage = function (msg) {
-                var user = AuthService.currentUser();
                 var obj = {
                     name: user.first_name + ' ' + user.last_name,
                     avatar: user.preview,
@@ -524,11 +577,17 @@ XYZCtrls.directive("chatForm", function () {
                 return obj
             };
 
-
-            scope.addWorkFiles = function(files){
-                scope.files.push(files);
-                // scope.work_previews = scope.work_previews.concat(files);
-            };
+            function afterSend(msg, isFile, files) {
+                msg = isFile ? scope.parseMessageWithFile(msg, files) : scope.parseMessage(msg);
+                socket.emit('post msg', {msg: msg, room: scope.chatRoom});
+                msg.time = parseTime.dateTime(msg.time);
+                scope.messages.push(msg);
+                scope.msg = '';
+                scope.chat_area = {
+                    files: [],
+                    previewFiles: []
+                };
+            }
 
             function scrollDown() {
                 var height = 0;
@@ -537,7 +596,6 @@ XYZCtrls.directive("chatForm", function () {
                     height += parseInt($(this).height()) + 1000;
                 });
                 height += '';
-                console.log(height);
                 $('#chat').animate({scrollTop: height});
             }
         }]

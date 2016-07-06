@@ -166,18 +166,19 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             scope.work_previews = [];
             scope.addWorkFiles = function(files){
                 scope.work_previews = scope.work_previews.concat(files);
+                console.log(scope.work_previews)
             };
 
             scope.deleteWorkFile = function(id){
                 http.delete('/api/work/attachment/'+id)
             };
+            
             scope.croppedProfilePreview = '';
             scope.submitWork = function(){
                 if (Object.keys(scope.freelancer.work).length === 0) {
                     scope.freelancer_area.activeTab = 'contact';
                     return;
                 }
-
                 Upload.upload({
                     url: '/api/work',
                     data: JSON.parse(angular.toJson(scope.freelancer.work)),

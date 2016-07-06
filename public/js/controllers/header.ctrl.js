@@ -1,7 +1,7 @@
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService', '$rootScope', 'AuthService',
-    function (scope, $location, http, ModalService, $rootScope, AuthService) {
+XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService', '$rootScope', 'AuthService', 'socket',
+    function (scope, $location, http, ModalService, $rootScope, AuthService, socket) {
         scope.logout = AuthService.logout;
         scope.showAuth = AuthService.showLogin;
         scope.arrayProviders = [];
@@ -23,4 +23,11 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         scope.getKey = function(obj){
             return Object.keys(obj)[0]
         };
+        var id = AuthService.userId();
+        socket.emit('i online', id);
+        setInterval(function(){
+            socket.emit('ping online', id)
+        }, 5000)
+
+
     }]);

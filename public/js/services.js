@@ -155,29 +155,38 @@ XYZCtrls.service('parseTime', function () {
             return (mm + '-' + dd + '-' + yyyy);
         },
         dateTime: function (date) {
-            var today = new Date(date);
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1; //January is 0!
-            var yyyy = today.getFullYear()
-                ,h = today.getHours()
-                ,m = today.getMinutes()
-                ,s = today.getSeconds();
+            var getTime = new Date(date);
+            var dd = getTime.getDate();
+            var mm = getTime.getMonth() + 1;
+            var yyyy = getTime.getFullYear()
+                , h = getTime.getHours()
+                , m = getTime.getMinutes()
+                , s = getTime.getSeconds();
 
             if (mm < 10) {
                 mm = '0' + mm
             }
+
             if (m < 10) {
                 m = '0' + m
             }
+
             if (s < 10) {
                 s = '0' + s
             }
-            if((new Date().getTime() - today.getTime()) < 1000*3600*24) {
-                var time =  h + ':' + m + ':' + s;
+
+            var today = new Date();
+
+            if ((today.getTime() - getTime.getTime()) < 1000 * today.getHours() * today.getMinutes() * today.getSeconds()) {
+                var time = {
+                    time: h + ':' + m + ':' + s
+                }
             } else {
-                var time =  mm + '-' + dd + '-' + yyyy;
+                var time = {
+                    date: dd + '-' + mm + '-' + yyyy
+                };
             }
-            
+
             return time;
         }
     }

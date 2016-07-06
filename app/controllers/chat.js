@@ -25,7 +25,7 @@ exports.attachFiles = function (req, res) {
     var attachments = [];
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            var path = config.root + '/public/uploads/chat/100000/';
+            var path = config.root + '/public/uploads/chat/'+req.body.room+'/';
             mkdirp.sync(path);
             cb(null, path)
         },
@@ -44,21 +44,13 @@ exports.attachFiles = function (req, res) {
             new models.Attachment({
                 originalName: file.originalname,
                 name: file.filename,
-                path: 'chat/1000000'
+                path: 'chat/'+req.body.room
             }).save(function (err, attach) {
                 attachments.push(attach);
                 cb();
             })
         }, function () {
-            console.log('done', req.body);
-            // delete req.body.id;
-            // work = _.extend(work, req.body);
-            // work.attachments = (work.attachments || []).concat(attachments);
-            // work.save(function (err, work) {
-            //     work.populate('attachments', function (err, work) {
-            //         res.jsonp(work)
-            //     })
-            // });
+            m.scb(req.files, res);
         });
 
     });
