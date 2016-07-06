@@ -18,22 +18,6 @@ XYZCtrls.directive('jobsList', function () {
                 currentPage: 1,
                 countByPage: 12
             }
-            function create_obj(params) {
-                params = params || {};
-                scope.Page = params.page || scope.currentPage;
-                scope.search = params.search || scope.search;
-                var obj = {};
-
-                if (scope.currentPage) {
-                    obj.skip = (scope.Page - 1) * scope.limit;
-                    obj.limit = scope.limit;
-                }
-
-                if (scope.search && scope.search != ' ') {
-                    obj.search = scope.search
-                }
-                return obj;
-            }
 
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
@@ -91,8 +75,8 @@ XYZCtrls.directive('jobsList', function () {
             scope.render = function (params) {
                 scope.showLoading = true;
                 var obj = {
-                    skip: (scope.configPagination.currentPage - 1) * scope.configPagination.itemsPerPage,
-                    limit: scope.configPagination.itemsPerPage
+                    skip: (scope.configPagination.currentPage - 1) * scope.configPagination.countByPage,
+                    limit: scope.configPagination.countByPage
                 };
 
                 var index = 0;
@@ -102,6 +86,7 @@ XYZCtrls.directive('jobsList', function () {
                         scope.showLoading = false;
                     }
                 }
+                console.log("objbjbjbjbjbjbjbjb", obj, scope.configPagination)
 
 
                 http.get(scope.url, {params: obj}).success(function (data) {
