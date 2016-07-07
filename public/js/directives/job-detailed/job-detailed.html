@@ -78,34 +78,39 @@
     </div>
 </div>
 <div class="jheader" open>
-    Main Information
+    Contact Information
 </div>
 <div class="jbody">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row " ng-if="job.name">
+                <div class="title3">Client Name</div>
+                <div class="colrow8">{{job.name}}</div>
+            </div>
 
-    <div class="row " ng-if="job.name">
-        <div class="title3">Client Name</div>
-        <div class="colrow8">{{job.name}}</div>
+            <div class="row " ng-if="job.mobile">
+                <div class="title3">Mobile phone number</div>
+                <div class="colrow8">{{job.mobile}}</div>
+            </div>
+
+            <div class="row " ng-if="job.email">
+                <div class="title3">Email</div>
+                <div class="colrow8">{{job.email}}</div>
+            </div>
+
+            <div class="row " ng-if="job.company_name">
+                <div class="title3">Company name</div>
+                <div class="colrow8">{{job.company_name}}</div>
+            </div>
+
+            <div class="row " ng-if="job.website">
+                <div class="title3">Website URL</div>
+                <div class="colrow8">{{job.website}}</div>
+            </div>
+        </div>
     </div>
 
-    <div class="row " ng-if="job.mobile">
-        <div class="title3">Mobile phone number</div>
-        <div class="colrow8">{{job.mobile}}</div>
-    </div>
 
-    <div class="row " ng-if="job.email">
-        <div class="title3">Email</div>
-        <div class="colrow8">{{job.email}}</div>
-    </div>
-
-    <div class="row " ng-if="job.company_name">
-        <div class="title3">Company name</div>
-        <div class="colrow8">{{job.company_name}}</div>
-    </div>
-
-    <div class="row " ng-if="job.website">
-        <div class="title3">Website URL</div>
-        <div class="colrow8">{{job.website}}</div>
-    </div>
 </div>
 <div class="jheader" open>
     Applications
