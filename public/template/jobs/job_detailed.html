@@ -2,9 +2,13 @@
     <a owner="{{gid(job.buyer)}}"
        ui-sref="root.job_edit({job: job._id})"
     ></a>
-    <job-detailed
-            title="Job details #{{job._id}}"
-    ></job-detailed>
-    <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
-    <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
+    <h1 class="title2">
+        Job #{{job._id}}
+    </h1>
+    <div class="jshadow">
+        <job-detailed
+                btns="[{name: 'Submit', fn: 'job_create'}]"
+        ></job-detailed>
+
+    </div>
 </div>

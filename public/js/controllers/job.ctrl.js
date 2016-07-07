@@ -59,10 +59,6 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 title: 'hi',
                 description: 'test',
                 budget: 1000,
-                mobile: 123123123,
-                email: '123123@123123.ru',
-                client_name: '123123',
-                company_name: '_string',
                 date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)
             }, {
                 mobile: user.phone,
