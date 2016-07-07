@@ -1,0 +1,46 @@
+.img-budget {
+    content: url("/img/budget.png");
+    height: 17px;
+}
+
+.img-content-writing {
+    content: url("/img/content-writing.png");
+
+}
+
+.img-creative-and-ad-making {
+    content: url("/img/creative-and-ad-making.png");
+
+}
+.img-public-relations {
+    content: url("/img/public-relations.png");
+
+}
+.img-bloggers-and-influencers {
+    content: url("/img/bloggers-and-influencers.png");
+
+}
+.img-digital-marketing {
+    content: url("/img/digital-marketing.png");
+
+}
+.img-branding-services {
+    content: url("/img/branding-services.png");
+
+}
+.img-event-management {
+    content: url("/img/event-management.png");
+
+}
+.img-direct-marketing {
+    content: url("/img/direct-marketing.png");
+
+}
+.img-marketing-planning {
+    content: url("/img/marketing-planning.png");
+
+}
+.img-media-buying {
+    content: url("/img/media-buying.png");
+
+}

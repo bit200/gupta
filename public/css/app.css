@@ -480,10 +480,9 @@ div.text-padding {
 
 
 .service-provider-icon {
-    margin-top: 10%;
-    height: 50%;
+    margin-top: 25%;
+    height: 35%;
     margin-bottom: 5%;
-    font-size: 40pt !important;
 }
 
 .service-provider {
@@ -785,7 +784,7 @@ div.communitySP div.text-center {
     border-color: #D5D5D5;
     background-color: #D5D5D5;
     border-bottom: 4px solid #BBBBBB;
-    width: 120px;
+    width: 130px;
     text-transform: uppercase;
     margin-left: 10px;
 }
@@ -823,7 +822,7 @@ div.communitySP div.text-center {
 }
 
 .register-with-us-img {
-    background-image: url('/img/presentation.jpg');
+    background-image: url('/img/presentation.png');
     height: 400px;
     background-position: center;
     background-size: cover;
@@ -833,10 +832,20 @@ div.communitySP div.text-center {
     padding: 8% 10% 40px;
 }
 
-.face-text {
+.face-block {
+    display: inline-block;
     margin: 5%;
-    height: 110px;
-    border-radius: 25px;
+    height: 120px;
+    width: 120px;
+    border-radius: 80px;
+    overflow: hidden;
+    position: relative;
+}
+
+.face-text {
+    position: absolute;
+    left: -14px;
+    top: -7px;
 }
 
 .quote-text {
@@ -1369,20 +1378,17 @@ div.containerCrop {
 .background-woman {
     background-image: url('/img/WomanRelax.png');
     height: 460px;
+    background-color: #EEF4F8;
     background-repeat: no-repeat;
     background-size: cover;
-    /*-moz-transform: scale(-1, 1);*/
-    /*-webkit-transform: scale(-1, 1);*/
-    /*-o-transform: scale(-1, 1);*/
-    /*transform: scale(-1, 1);*/
-    /*filter: FlipH;*/
-    /*-ms-filter: "FlipH";*/
+    background-position-x: 400px;
 }
 
 .text-woman-image {
-    font-size: 26pt;
+    font-size: 24pt;
     margin-top: 90px;
     margin-bottom: 70px;
+    font-family: OpenSans-Light, MyriadPro-Regular;
 }
 
 .navigation-active {
@@ -1708,7 +1714,7 @@ md-autocomplete-wrap{
     }
 
     .text-woman-image {
-        font-size: 34pt;
+        font-size: 30pt;
         margin-top: 90px;
         margin-bottom: 70px;
     }
@@ -1818,6 +1824,7 @@ md-autocomplete-wrap{
         padding-top: 15px;
         padding-bottom: 15px;
     }
+
 }
 
 @media (max-width: 500px) {
@@ -1856,4 +1863,11 @@ md-autocomplete-wrap{
 
 .inline-block {
     display: inline-block; !important;
+}
+
+@media (max-width: 1450px) {
+    .background-woman {
+        background-size: inherit;
+        background-position-x: 300px;
+    }
 }

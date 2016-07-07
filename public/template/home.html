@@ -58,7 +58,7 @@
         <div class="col-sm-12 text-center "><h2 class="marginTB10">Find Service Providers</h2></div>
         <div class="marginLR20" ng-repeat="item in commonFilters | objectKeys" ng-click="viewServiceProvider(item);activeProvider=item;">
             <div class="service-provider relative">
-                <div class="fa fa-cogs text-center service-provider-icon"></div>
+                <span class="img-{{item.split(' ').join('-').toLowerCase()}} text-center service-provider-icon"></span>
                 <div>{{item}}</div>
             </div>
         </div>
@@ -128,13 +128,13 @@
                                     <span style="padding-left: 15px">{{job.local_preference[0] || 'N/A'}}</span>
                                 </div>
                                 <div class="job-info-price">
-                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    <span class="img-budget" aria-hidden="true"></span>
                                     <span style="padding-left: 5px">{{job.budget}}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-9 job-button-block">
-                            <button class="btn job-button">View Job</button>
+                            <button class="btn job-button">View Project</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,9 @@
 </div>
 
 <div class="full-width text-center">
-    <img class="face-text" src="/img/face.jpg">
+    <div class="face-block">
+        <img class="face-text" src="/img/face.png">
+    </div>
     <div class="text-center quote-text">
         " Instead of hiring more engineers, we've used Upwork as a more scalable solution that lets us ramp-up and down as needed."
     </div>

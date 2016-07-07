@@ -1,0 +1,14 @@
+@font-face {
+	font-family: 'MyriadPro-Regular';
+	src: url('./MyriadPro-Regular.otf');
+}
+@font-face {
+	font-family: 'OpenSans-Light';
+	src: url('./OpenSans-Light.ttf');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_4410">Text with this font applied</p> */
+/*.fontsforweb_fontid_4410 {*/
+	/*font-family: 'MyriadPro-Regular' !important;*/
+/*}*/
+
+/* Font downloaded from FontsForWeb.com */
