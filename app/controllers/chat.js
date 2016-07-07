@@ -8,6 +8,13 @@ var models = require('../db')
     async = require('async');
 
 
+
+
+exports.createRoom = function (req, res) {
+    var params = m.getBody(req);
+    m.findCreate(models.ChatRoom, params, res, res)
+};
+
 exports.createMsg = function (req, res) {
     var params = m.getBody(req);
     m.create(models.ChatMessage, params, res, res, {})
