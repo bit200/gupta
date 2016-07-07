@@ -38,12 +38,13 @@ AccessToken.methods.publish = function(){
 AccessToken.pre('save', function (next) {
     if (this.isNew) {
         this.value = randomstring.generate(48);
-        this.expire_date = new Date(this.createdAt) + this.expire_in;
-        
+
+        this.expire_date= new Date(this.created_at);
+        this.expire_date.setTime(this.created_at.getTime() + this.expire_in);
         var key = 'token_' + this.value;
         var userId = this.user ? this.user._id || this.user : this.user;
 
-        client.set(key, userId + '_' + this.role);
+        client.set(key, userId + '_' + this.role+"_"+this.expire_date);
         client.expire(key, publish_expire(this));
     }
     next()
