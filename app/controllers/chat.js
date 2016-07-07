@@ -25,7 +25,7 @@ exports.getMsg = function (req, res) {
 };
 
 exports.allMsgs = function (req, res) {
-    m.find(models.ChatRoom, {_id: req.params.id}, res, res)
+    m.find(models.ChatRoom, {_id: req.params.id, $or:[{buyer: req.userId},{seller:req.userId}]}, res, res)
 };
 
 exports.attachFiles = function (req, res) {

@@ -243,7 +243,7 @@ XYZCtrls.directive('openJobBuyer', function () {
             };
             scope.rejectJob = function (id) {
                 http.get('/api/job-apply/reject/' + id).then(function (resp) {
-                    console.log('resp', resp)
+                    console.log('resp', resp);
                     scope.jobs = resp.data.data
                 }, function (err) {
                     console.log('err', err)
@@ -478,14 +478,17 @@ XYZCtrls.directive("chatForm", function () {
             join: '='
         },
         templateUrl: 'template/directive/templateChat.html',
-        controller: ['$scope', '$http', 'socket', 'AuthService', 'parseTime', 'Upload', function (scope, http, socket, AuthService, parseTime, Upload) {
+        controller: ['$scope', '$http', 'socket', 'AuthService', 'parseTime', 'Upload', '$rootScope', function (scope, http, socket, AuthService, parseTime, Upload,$rootScope) {
             scope.messages = [];
             var user = AuthService.currentUser();
             scope.currentUserName = user.first_name + ' ' + user.last_name;
-            socket.emit('join room', {join:scope.join, userID:user._id});
+            socket.emit('join room', {join: scope.join, userID: user._id});
             socket.on('joined', function (msg) {
                 scope.chatRoom = msg.id;
                 http.get('/chat/' + msg.id).then(function (resp) {
+                    if (!resp.data.data.length) {
+                        $rootScope.go('/')
+                    }
                     scope.messages = resp.data.data[0].messages;
                     _.map(scope.messages, function (item) {
                         item.time = parseTime.dateTime(item.time);
@@ -495,7 +498,7 @@ XYZCtrls.directive("chatForm", function () {
                         scrollDown()
                     }, 0)
                 })
-                socket.emit('watch-online', {id:msg.user});
+                socket.emit('watch-online', {id: msg.user});
             });
 
             scope.chat_area = {
