@@ -22,6 +22,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         ]
 
         scope.isApply = scope.apply || scope.apply_by_id;
+        console.log('is Apply', scope.apply_by_id)
 
 
         if (scope.job) {
@@ -51,6 +52,8 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             }
             scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
             console.log("GET CONTETNT STEP2", scope.job, scope.new_apply, getContent)
+        } else if (scope.apply_by_id) {
+            scope.job = scope.apply_by_id.job
         } else {
             user = AuthService.currentUser() || {};
 
