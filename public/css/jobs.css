@@ -64,8 +64,9 @@ jobs-list > div {
     padding-bottom: 15px;
 }
 
-.job-items {
+.job-items, .cont form {
     box-shadow: 2px 4px 13px rgba(0, 0, 0, 0.18);
+    padding: 0 0;
 }
 
 .job-nav {
@@ -261,6 +262,9 @@ jobs-list .pagination {
     color: #6e6e76;
     border: 1px solid #94949c;
     outline: none;
+}
+.pagination-control.pagination li:first-child {
+    margin-right: 1px;
 }
 .pagination-control.pagination span {
     color: #94949c;
