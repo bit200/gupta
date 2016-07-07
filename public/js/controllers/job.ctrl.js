@@ -72,11 +72,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
 
 
         console.log('ahahahahhhhhhhhhhhh @@@@@@@@@@', scope.job)
-        scope.scrollToErr = function () {
-            $timeout(function () {
-                angular.element("body").animate({scrollTop: angular.element('.has-error').eq(0).offset().top - 100}, "slow");
-            }, 500)
-        };
+
         scope.applyJob = function (id) {
             ModalService.showModal({
                 templateUrl: "template/modal/applyJob.html",
@@ -101,8 +97,11 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         }
 
         scope.job_create = function (invalid, type, job) {
+            console.log('invalid', invalid)
             if (invalid) {
-                rootScope.scrollToErr()
+                console.log('ahahahaha')
+                
+                // rootScope.scrollToErr()
                 return;
             }
             job = scope.job
@@ -116,7 +115,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 console.log('ahahahhaahhhhhhhhhhhhhhhhhhh', data)
                 scope.job = data.data
                 scope.onSucc(data)
-            }).error(rootScope.onError)
+            }).error(scope.onErr)
         };
 
         scope.job_edit = function (invalid, job) {
@@ -133,7 +132,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
 
             http.put('/api/job', job).success(function(){
                 scope.onSucc()
-            }).error(rootScope.onError)
+            }).error(scope.onErr)
         };
 
         function sendApply(text, type, $element) {
@@ -171,7 +170,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 .post('/api/job-apply', scope.new_apply)
                 .success(function(){
                     $state.go('jobs_list.seller_open')
-                }).error(rootScope.onError)
+                }).error(scope.onErr)
         }
         
         scope.apply_edit = function (invalid) {
@@ -183,7 +182,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 //     $state.go('root.apply_detailed', {apply: scope.new_apply._id})
                 // })
                 .success(scope.onSucc)
-                .error(rootScope.onError)
+                .error(scope.onErr)
         }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)

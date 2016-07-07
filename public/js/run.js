@@ -25,17 +25,18 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
     $rootScope.getContent = function (getContent, field) {
         return getContent[field] && getContent[field].data ? getContent[field].data.data : null
     }
-
     $rootScope.scrollToErr = function () {
         $timeout(function () {
-            var el1 = angular.element('.has-error').eq(0)
-            var el2 = angular.element('.ng-invalid-required').eq(0)
+            var el1 = angular.element('.md-input-invalid').eq(0).parent()
+            var el2 = angular.element('.md-datepicker-invalid').eq(0).parent().parent()
             var el = el1.offset() ? el1 : el2.offset() ? el2 : null
-            if (el && el.offest && el.offset()) {
+            console.log('erl', el, el)
+            if (el && el.offset && el.offset()) {
                 angular.element("body").animate({scrollTop: el.offset().top - 100}, "slow");
             }
         }, 500)
     };
+    window.ee = $rootScope.scrollToErr
 
     $rootScope.getBuyerName = function (buyer) {
         return buyer && buyer.first_name && buyer.last_name ? [buyer.first_name, buyer.last_name].join(' ') : ''
@@ -43,8 +44,9 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
 
     $rootScope.onError = function (err) {
         console.log('on error', err)
+
         $rootScope.err_resp = {
-            message: err,
+            message: err ? err.message : null,
             cd: new Date().getTime()
         }
 
@@ -287,6 +289,7 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
         })
     }
     $rootScope.extend_scope = function (scope, getContent) {
+
         scope.onErr = rootScope.onError
         scope.onSucc = function (data) {
             scope.succ_data = {
