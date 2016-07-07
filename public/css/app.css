@@ -480,7 +480,7 @@ div.text-padding {
 
 
 .service-provider-icon {
-    margin-top: 25%;
+    margin-top: 5%;
     height: 35%;
     margin-bottom: 5%;
 }
@@ -489,7 +489,6 @@ div.text-padding {
     border: 1px solid #d8e6f3;
     width: calc(100% / 2 - 20px);
     display: inline-block;
-    float: left;
     float: left;
     margin: 15px 10px;
     text-align: center;
@@ -502,7 +501,7 @@ div.text-padding {
     font-weight: bold;
     background-color: #F6F6F6;
     transition: all 500ms;
-    min-height: 140px;
+    min-height: 175px;
 }
 
 @keyframes block-up  {
@@ -649,6 +648,7 @@ div.communitySP div.text-center {
 
 .profile-poster {
     background: rgba(255, 255, 255, 0.41);
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -1673,9 +1673,16 @@ md-autocomplete-wrap{
     .job-button {
         margin-left: 0;
     }
+
+    .service-provider-icon {
+        margin-top: 25%;
+    }
 }
 
 @media (min-width: 768px) {
+
+
+
     .seller-modal .modal-dialog {
         width: 800px;
     }
@@ -1832,7 +1839,7 @@ md-autocomplete-wrap{
     }
 
     .service-provider-icon {
-        margin-top: 0%;
+        margin-top: 5%;
     }
 
 }

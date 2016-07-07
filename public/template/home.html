@@ -13,8 +13,8 @@
                         <md-menu>
                             <div class="full-width input-border-home-woman" ng-click="$mdOpenMenu($event)">
                                 <span class="fa fa-map-marker input-home-maker"></span>
-                                <input class="form-control input-home-woman paddingL40 relative"  ng-model="ctrl.city" placeholder="Enter City">
-                                <span class="fa fa-angle-down input-home-chevron pointer" ></span>
+                                <input class="form-control input-home-woman paddingL40 relative" ng-model="ctrl.city" placeholder="Enter City">
+                                <span class="fa fa-angle-down input-home-chevron pointer"></span>
                             </div>
                             <md-menu-content width="6">
                                 <md-menu-item ng-repeat="location in locations">
@@ -56,8 +56,8 @@
 <div class="container">
     <div class="row back-service-provider">
         <div class="col-sm-12 text-center "><h2 class="marginTB10">Find Service Providers</h2></div>
-        <div class="marginLR20" ng-repeat="item in commonFilters | objectKeys" ng-click="viewServiceProvider(item);activeProvider=item;">
-            <div class="service-provider relative">
+        <div class="row">
+            <div class="marginLR20 service-provider relative" ng-repeat="item in commonFilters | objectKeys" ng-click="viewServiceProvider(item);activeProvider=item;">
                 <span class="img-{{item.split(' ').join('-').toLowerCase()}} text-center service-provider-icon"></span>
                 <div class="">{{item}}</div>
             </div>
