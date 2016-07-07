@@ -1,14 +1,81 @@
-<h1 class="title2" ng-if="title" ng-click="action()">
-    {{title}}
-</h1>
 <form name="postjob" novalidate id="postjob">
-    <div class="jheader">
+    <div class="jheader jborder" open>
+        Contact Details
+    </div>
+    <div class="jbody">
+        <div class="row form-group">
+            <div ng-class="{'has-error': submitted && postjob.name.$invalid}">
+                <md-input-container class="md-block">
+                    <div class="title3">Name</div>
+                    <input class="form-control" name="name" ng-model="job.client_name" required>
 
+                    <div ng-messages="submitted && postjob.name.$error.$invalid">
+                        <div ng-show="submitted && postjob.name.$error.required" ng-message="required">
+                            {{default_empty}}
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div
+                 ng-class="{'has-error': submitted && postjob.mobile.$invalid}">
+                <md-input-container class="md-block">
+                    <div class="title3">Mobile phone number</div>
+                    <input phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
+
+                    <div ng-messages="submitted && postjob.mobile.$error.$invalid">
+                        <div ng-show="submitted && postjob.mobile.$error.required" ng-message="required">
+                            {{default_empty}}
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div ng-class="{'has-error': submitted && postjob.email.$invalid}">
+                <md-input-container class="md-block">
+                    <div class="title3">Email</div>
+                    <input type="email" class="form-control" name="email" ng-model="job.email" required>
+
+                    <div ng-messages="submitted && postjob.email.$error.$invalid">
+                        <div ng-show="submitted && postjob.email.$error.required" ng-message="required">
+                            {{default_empty}}
+                        </div>
+                        <div ng-show="!submitted && postjob.email.$error.required && submitted && postjob.email.$error.email"
+                             ng-message="email">Required field
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div
+                 ng-class="{'has-error': submitted && postjob.company.$invalid}">
+                <md-input-container class="md-block">
+                    <div class="title3">Company name</div>
+                    <input class="form-control" name="company" ng-model="job.company_name" required>
+
+                    <div ng-messages="submitted && postjob.company.$error.$invalid">
+                        <div ng-show="submitted && postjob.company.$error.required" ng-message="required">
+                            {{default_empty}}
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+        </div>
+
+        <div class="row">
+            <md-input-container class="md-block">
+                <div class="title3">Website URL</div>
+                <input class="form-control" ng-model="job.website">
+            </md-input-container>
+        </div>
+
+
+    </div>
+    <div class="jheader" open>
+        Project Details
     </div>
     <div class="jbody">
         <div class="row form-group" ng-class="{'has-error': submitted && postjob.title.$invalid}">
             <md-input-container class="md-block">
-                <div class="title3">Job Title</div>
+                <div class="title3">Project Title</div>
                 <input class="form-control" name="title" ng-model="job.title" required>
                 <div ng-messages="submitted && postjob.title.$error.$invalid">
                     <div ng-show="submitted && postjob.title.$error.required" ng-message="required">{{default_empty}}
@@ -53,92 +120,28 @@
                 </md-checkbox>
             </div>
         </div>
-        <div class="md-block">
+        <!--<div class="md-block">-->
 
-            <div class="row form-group" ng-class="{'has-error': submitted && postjob.budget.$invalid}">
-                <div class="title3">Provide some additional information</div>
+            <!--<div class="row form-group" ng-class="{'has-error': submitted && postjob.budget.$invalid}">-->
+                <!--<div class="title3">Provide some additional information</div>-->
 
-                <md-input-container class="md-block">
+                <!--<md-input-container class="md-block">-->
 
-                    <div class="title3">What is your budget for this marketing campaign</div>
-                    <input class="form-control" name="budget" numbers-only ng-model="job.budget" required>
+                    <!--<div class="title3">What is your maximal budget for this marketing campaign</div>-->
+                    <!--<input class="form-control" name="budget" numbers-only ng-model="job.budget" required>-->
 
-                    <div ng-messages="submitted && postjob.budget.$error.$invalid">
-                        <div ng-show="submitted && postjob.budget.$error.required" ng-message="required">
-                            {{default_empty}}
-                        </div>
-                    </div>
-                </md-input-container>
-            </div>
+                    <!--<div ng-messages="submitted && postjob.budget.$error.$invalid">-->
+                        <!--<div ng-show="submitted && postjob.budget.$error.required" ng-message="required">-->
+                            <!--{{default_empty}}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
 
-            <div class="row form-group">
-                <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.name.$invalid}">
-                    <md-input-container class="md-block">
-                        <div class="title3">Client Name</div>
-                        <input class="form-control" name="name" ng-model="job.client_name" required>
 
-                        <div ng-messages="submitted && postjob.name.$error.$invalid">
-                            <div ng-show="submitted && postjob.name.$error.required" ng-message="required">
-                                {{default_empty}}
-                            </div>
-                        </div>
-                    </md-input-container>
-                </div>
 
-                <div class="form-group col-md-5 col-md-offset-1 col-sm-12 nopadding"
-                     ng-class="{'has-error': submitted && postjob.mobile.$invalid}">
-                    <md-input-container class="md-block">
-                        <div class="title3">Mobile phone number</div>
-                        <input phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
 
-                        <div ng-messages="submitted && postjob.mobile.$error.$invalid">
-                            <div ng-show="submitted && postjob.mobile.$error.required" ng-message="required">
-                                {{default_empty}}
-                            </div>
-                        </div>
-                    </md-input-container>
-                </div>
-            </div>
-
-            <div class="row form-group ">
-                <div class="col-md-6 col-sm-12 nopadding" ng-class="{'has-error': submitted && postjob.email.$invalid}">
-                    <md-input-container class="md-block">
-                        <div class="title3">Email</div>
-                        <input type="email" class="form-control" name="email" ng-model="job.email" required>
-
-                        <div ng-messages="submitted && postjob.email.$error.$invalid">
-                            <div ng-show="submitted && postjob.email.$error.required" ng-message="required">
-                                {{default_empty}}
-                            </div>
-                            <div ng-show="!submitted && postjob.email.$error.required && submitted && postjob.email.$error.email"
-                                 ng-message="email">Required field
-                            </div>
-                        </div>
-                    </md-input-container>
-                </div>
-                <div class="col-md-5 col-md-offset-1 col-sm-12 nopadding"
-                     ng-class="{'has-error': submitted && postjob.company.$invalid}">
-                    <md-input-container class="md-block">
-                        <div class="title3">Company name</div>
-                        <input class="form-control" name="company" ng-model="job.company_name" required>
-
-                        <div ng-messages="submitted && postjob.company.$error.$invalid">
-                            <div ng-show="submitted && postjob.company.$error.required" ng-message="required">
-                                {{default_empty}}
-                            </div>
-                        </div>
-                    </md-input-container>
-                </div>
-            </div>
-
-            <div class="row">
-                <md-input-container class="md-block">
-                    <div class="title3">Website URL</div>
-                    <input class="form-control" ng-model="job.website">
-                </md-input-container>
-            </div>
-
-        </div>
+        <!--</div>-->
 
 
         <div class="row" ng-init="job.job_visibility = 'Public'">

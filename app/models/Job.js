@@ -17,6 +17,13 @@ var JobSchema = mongoose.Schema({
     date_of_completion: Date,
     status: String,
     closed_date: Date,
+    // info: {
+    //     name: String,
+    //     mobile: String,
+    //     email: String,
+    //     company_name: String,
+    //     website: String
+    // },
     admin_approved: {
         type: Number,
         default:0
