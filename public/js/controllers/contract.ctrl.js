@@ -4,7 +4,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     , function (scope, rootScope, location, http, getContent, ModalService, $timeout) {
 
         console.log("@@ GET CONTENT CONTRACT CONTROLLER", getContent)
-        rootScope.extend_scope(scope, getContent)
         scope.job = scope.job || (scope.contract ? scope.contract.job : null)
         scope.freelancer = scope.freelancer || (scope.contract ? scope.contract.freelancer : null)
         scope.seller = scope.seller || (scope.contract ? scope.contract.seller : null)
@@ -25,6 +24,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         // scope.buyer = scope.buyer || {}
         scope.contract_orig = scope.contract || {
                 title: scope.job.title,
+                // information: scope.job.description,
                 freelancer: scope.freelancer,
                 job: scope.job,
                 seller: scope.freelancer.user,

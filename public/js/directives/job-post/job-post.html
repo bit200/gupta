@@ -1,7 +1,7 @@
 
 <form name="postjob" novalidate id="postjob">
     <div class="jheader jborder" open>
-        Contact Details {{aaa}}
+        Contact Details
     </div>
     <div class="jbody">
 
@@ -122,6 +122,25 @@
                 </md-checkbox>
             </div>
         </div>
+        <div class="md-block">
+
+            <div class="row form-group" ng-class="{'has-error': submitted && postjob.budget.$invalid}">
+                <div class="title3">What is your maximal budget for this marketing campaign</div>
+                <md-input-container class="md-block">
+                    <input class="form-control" name="budget" numbers-only ng-model="job.budget" required>
+                    <div ng-messages="submitted && postjob.budget.$error.$invalid">
+                        <div ng-show="submitted && postjob.budget.$error.required" ng-message="required">
+                            {{default_empty}}
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+
+
+
+
+        </div>
+
 
         <div class="row" ng-init="job.job_visibility = 'Public'">
             <div class="title3">Job Visibility</div>
