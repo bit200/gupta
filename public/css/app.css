@@ -1241,6 +1241,15 @@ div.containerCrop {
 
 .loginForm {
     margin-top: 60px;
+    border: 1px solid #CCCBCB;
+    box-shadow: 5px 5px 6px 0 #CCCBCB;
+    padding: 45px 20px 20px 20px;
+    border-radius: 10px;
+}
+
+.loginInput {
+    border: none;
+    border-bottom: 1px solid #CCCBCB;
 }
 
 .login-btn {

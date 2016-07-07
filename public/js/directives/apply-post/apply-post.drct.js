@@ -6,7 +6,7 @@ XYZCtrls.directive('applyPost', function () {
         link: function(scope, el, attrs) {
             scope.attrs = attrs
             scope.title = attrs.title
-            scope.btns = attrs.btns
+            scope.btns = attrs.btns || attrs.list
         },
         controller: ['$scope', function (scope) {
             //console.log('@@@ Scope Post directive', scope.attrs)

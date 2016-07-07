@@ -20,10 +20,9 @@ function res_send(status, obj, res) {
         delete params.data;
     }
 
-    if (res._token_end_time) {
-        params.server_token_checking_time = res._token_end_time - res._token_start_time
-    }
-
+    //if (res._token_end_time) {
+    //    params.server_token_checking_time = res._token_end_time - res._token_start_time
+    //}
     res.status(status).send(params)
 }
 
@@ -349,7 +348,7 @@ function findCreate(model, query, new_query, _ecb, _scb, params) {
         if (code == 397) {
             create(model, new_query, _ecb, _scb, params)
         } else {
-            ecb(code, err, _ecb)
+               ecb(code, err, _ecb)
         }
     }, _scb)
 }

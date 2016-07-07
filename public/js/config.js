@@ -63,7 +63,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 templateUrl: 'template/forgotEmail.html',
                 controller: 'forgotCtrl'
             })
-
+            .state('login', {
+                url: '/login',
+                templateUrl: 'template/login.html',
+                controller: 'loginCtrl'
+            })
             .state('forgot_restore', {
                 url: '/forgot/restore/:restoreCode',
                 templateUrl: 'template/forgotRestore.html',
@@ -557,42 +561,45 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         $urlRouterProvider.otherwise('/');
 
 
+        var modalService, openedModal;
         $httpProvider.interceptors.push(function ($q, $injector) {
             return {
                 'responseError': function (rejection) {
                     if (rejection.status === 402) {
+
                         var getModalService = function () {
-                            if (!modalService)  var modalService = $injector.get('ModalService');
+                            if (!modalService)  modalService = $injector.get('ModalService');
                             return modalService;
                         };
-                        var http = $injector.get('$http');
-                        getModalService().showModal({
-                            templateUrl: "template/modal/modalWindow.html",
-                            controller: function ($scope) {
-                                $scope.close = function (data) {
-                                    var http = $injector.get('$http');
-
-                                    function getToken() {
-                                        console.log('qqq');
-                                        http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
-                                            function (resp) {
-                                                localStorage.setItem('accessToken', resp.data.data.value)
-                                            }, function (err) {
-                                                localStorage.clear();
-                                                location.reload();
-                                            }
-                                        )
+                        if (!openedModal) {
+                            openedModal = true;
+                            getModalService().showModal({
+                                templateUrl: "template/modal/sessionExpireWindow.html",
+                                controller: function ($scope) {
+                                    $scope.close = function (data) {
+                                        var http = $injector.get('$http');
+                                        function getToken() {
+                                            console.log('qqqqqqqqqqqqq');
+                                            http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
+                                                function (resp) {
+                                                    localStorage.setItem('accessToken', resp.data.data.value)
+                                                }, function (err) {
+                                                    localStorage.clear();
+                                                    location.reload();
+                                                }
+                                            )
+                                        }
+                                        data ? getToken() : (localStorage.clear(), location.reload());
                                     }
-
-                                    data ? getToken() : (localStorage.clear(), location.reload());
                                 }
-                            }
-                        }).then(function (modal) {
-                            modal.element.modal();
-                            modal.close.then(function (result) {
-                            });
+                            }).then(function (modal) {
+                                modal.element.modal();
+                                modal.close.then(function (result) {
+                                    openedModal = false;
+                                });
 
-                        });
+                            });
+                        }
                     }
                     return $q.reject(rejection);
                 },
