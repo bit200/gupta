@@ -1,0 +1,10 @@
+<div class="cont {{status_class}}">
+    <a owner="{{gid(job.buyer)}}"
+       ui-sref="root.job_edit({job: job._id})"
+    ></a>
+    <job-detailed
+            title="Job details #{{job._id}}"
+    ></job-detailed>
+    <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
+    <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
+</div>
