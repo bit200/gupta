@@ -28,14 +28,13 @@ XYZCtrls.directive('btns', function () {
                 return v ? v.$invalid : null
             }
             scope.on_fn = function(btn) {
-                if (isinvalid(scope.postjob) || isinvalid(scope.postjob)) {
+                if (isinvalid(scope.postjob) || isinvalid(scope.formContract)) {
                     scope.onErr && scope.onErr({message: 'Please fill all fields'})
                     rootScope.scrollToErr()
                 } else {
+                    // alert('ok')
                     btn.fn && btn.fn(isinvalid(scope.postjob) || isinvalid(scope.postjob))
-
                 }
-
             }
 
             scope.init_btns = function(){

@@ -105,12 +105,8 @@
                         <md-input-container class="md-block">
                             <div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>
                             <input class="form-control" name="payment_basis"
-                                   ng-enter="contract_create(contract); submitted=true"
-                                   ng-model="contract.payment_basis"
+                                   ng-model="contract.payment_basis" required
                             >
-                            <!--required>-->
-                            <p class="error" ng-if="formContract.payment_basis.$error.required">Payment Basis is
-                                required</p>
                         </md-input-container>
                     </div>
                 </div>
@@ -120,7 +116,6 @@
                         <md-input-container class="md-block">
                             <div class="title3">Final Amount to be paid (Rs.)*</div>
                             <input class="form-control" numbers-only="" name="final_amount"
-                                   ng-enter="contract_create(contract); submitted=true"
                                    ng-model="contract.final_amount" required>
                         </md-input-container>
                     </div>
@@ -131,8 +126,6 @@
                          ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
                         <md-datepicker ng-model="contract.expected_completion" md-placeholder="Completion Date*"
                                        md-open-on-focus=""></md-datepicker>
-                        <p class="error" ng-if="formContract.expected_completion.$error.required">Completion Date is
-                            required</p>
                     </div>
                 </div>
                 <div class="col-xs-12">
