@@ -5,7 +5,6 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
 
         console.log('GET CONTENT', getContent, AuthService.currentUser())
         rootScope.extend_scope(scope, getContent)
-        scope.user = AuthService.currentUser();
 
         
         scope.estimations = [
@@ -16,16 +15,14 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             'More than 6 months'
         ]
 
+        var user = AuthService.currentUser() || {}
         scope.types = [
             'Agency',
             'Freelancer'
         ]
 
         scope.isApply = scope.apply || scope.apply_by_id;
-        scope.job = scope.job || (scope.isApply ? scope.isApply.job : {})
-        scope.job = scope.job || {}
-        
-        scope.new_apply = scope.isApply || {budget: scope.job.budget}
+
 
         if (scope.job) {
             var job = scope.job
@@ -55,9 +52,10 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
             console.log("GET CONTETNT STEP2", scope.job, scope.new_apply, getContent)
         } else {
-            scope.job = scope.job || {
+            user = AuthService.currentUser() || {};
+
+            scope.job = scope.job || _.extend({
                 job_visibility: 'true',
-                // types: ['Agency'],
                 title: 'hi',
                 description: 'test',
                 budget: 1000,
@@ -65,13 +63,18 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 email: '123123@123123.ru',
                 client_name: '123123',
                 company_name: '_string',
-                website: '_string',
-                date_of_completion: new Date()
-            }
+                date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)
+            }, {
+                mobile: user.phone,
+                client_name: AuthService.userName(),
+                company_name: user.company_name,
+                website: user.website
+            })
         }
+        scope.job = scope.job || {}
+        scope.new_apply = scope.isApply || {budget: scope.job.budget}
 
 
-        console.log('ahahahahhhhhhhhhhhh @@@@@@@@@@', scope.job)
 
         scope.applyJob = function (id) {
             ModalService.showModal({

@@ -267,6 +267,9 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
             userId: function () {
                 return currentUser ? currentUser._id : null
             },
+            userName: function(){
+                return currentUser.first_name && currentUser.last_name ? [currentUser.first_name, currentUser.last_name].join(' ') : null
+            },
             currentFreelancer: function () {
                 return currentFreelancer
             },
