@@ -246,18 +246,24 @@ jobs-list .fitems {
     padding-right: 25px;
     padding-left: 25px;
 }
+jobs-list .pagination {
+    margin: 7px 0!important;
+}
 
-.btn.btn-my, .btn.btn-my2:hover {
+.btn.btn-my, .btn.btn-primary:hover, .btn.btn-my2:hover {
     background: #6e6e76;
     color: white;
     outline: none;
 }
 
-.btn.btn-my:hover, .btn.btn-my2 {
+.btn.btn-my:hover, .btn.btn-my2, .btn.btn-primary {
     background: white;
     color: #6e6e76;
     border: 1px solid #94949c;
     outline: none;
+}
+.pagination-control.pagination span {
+    color: #94949c;
 }
 
 .btn.btn-grey {
