@@ -11,56 +11,59 @@
         </div>
         <div class="collapse navbar-collapse">
 
-        <ul class="nav navbar-nav navbar-right">
-            <li class="floatL">
-                <button ng-click="$state.go('jobs_list.all')" class="btn btn-header">VIEW PROJECTS</button>
-                <ng-md-icon icon="favorite" style="fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
-            </li>
-            <li class="floatR" ng-if="!isLogged()">
-                <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Signup</div>
-                <div class="pull-right text-white marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Login</div>
-            </li>
-            <li class="floatR dropdown" ng-if="isLogged()" style="color: white">
-                <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <div style="display: inline-block;margin-left: 10px;">
-                        <img style="width: 32px;border-radius: 23px;top: 8px;position: relative;" ng-show="currentUser().preview" ng-src="{{currentUser().preview}}">
-                        <ng-md-icon ng-hide="currentUser().preview" icon="account_circle" style="fill: red;top: 4px;position: relative;" size="42"></ng-md-icon>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="floatL">
+                    <button ng-click="$state.go('jobs_list.all')" class="btn btn-header">VIEW PROJECTS</button>
+                    <ng-md-icon icon="favorite" style="fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
+                </li>
+                <li class="floatR" ng-if="!isLogged()">
+                    <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Signup</div>
+                    <div class="pull-right text-white marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Login</div>
+                </li>
+                <li class="floatR dropdown" ng-if="isLogged()" style="color: white">
+                    <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <div style="display: inline-block;margin-left: 10px;">
+                            <img style="width: 32px;border-radius: 23px;top: 8px;position: relative;" ng-show="currentUser().preview" ng-src="{{currentUser().preview}}">
+                            <ng-md-icon ng-hide="currentUser().preview" icon="account_circle" style="fill: red;top: 4px;position: relative;" size="42"></ng-md-icon>
+                        </div>
+                        <div style="float: right;margin-left: 10px">
+                            <div style="display: inline-block;">{{currentUser().first_name}} {{currentUser().last_name}}</div>
+                            <ng-md-icon icon="keyboard_arrow_down" style="position: relative;top: 10px;fill: white;" size="32"></ng-md-icon>
+                        </div>
                     </div>
-                    <div style="float: right;margin-left: 10px">
-                        <div style="display: inline-block;">{{currentUser().first_name}} {{currentUser().last_name}}</div>
-                        <ng-md-icon icon="keyboard_arrow_down" style="position: relative;top: 10px;fill: white;" size="32"></ng-md-icon>
-                    </div>
-                </div>
-                <ul class="dropdown-menu">
-                    <li ng-click="asView.buyer=true;asView.seller=false;" ng-class="{active: asView.buyer}"><a href="">As Buyer</a></li>
-                    <li ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a href="">As Seller</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ng-click="$state.go('my_profile');">Profile</a></li>
-                    <!--<li><a href="">My Activities</a></li>-->
-                    <li><a ng-click="logout()" href="">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-            </div>
+                    <ul class="dropdown-menu">
+                        <li ng-click="asView.buyer=true;asView.seller=false;" ng-class="{active: asView.buyer}"><a href="">As Buyer</a></li>
+                        <li ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a href="">As Seller</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ng-click="$state.go('my_profile');">Profile</a></li>
+                        <!--<li><a href="">My Activities</a></li>-->
+                        <li><a ng-click="logout()" href="">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
     </div>
     <div class="header-navigation">
         <div class="container">
             <nav id="primary_nav_wrap">
-                <ul class="flex menu"  flex-menu="filters">
-                    <li ng-repeat="filter in filters">
-                        <a href="">{{getKey(filter)}}</a>
-                        <ul  ng-repeat="(okey, ovalue) in filter[getKey(filter)]">
-                            <li ng-if="okey == 'arr'" ng-repeat="item in ovalue"><a href="#">{{item}}</a></li>
-                            <li ng-if="okey != 'arr'" class="dir" ng-repeat="(tkey,tvalue) in ovalue">
-                                <a href="#">{{okey}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
-                                <ul>
-                                    <li ng-repeat="subV in tvalue"><a href="#">{{subV}}</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                <ul class="flex menu" flex-menu="filters">
+                    <li class="top-menu" ng-repeat="filter in filters">
+                        <a class="text-black top-menu-text">{{getKey(filter)}}</a>
+                        <div style="position: absolute">
+                            <ul class="top-sub-ul" ng-repeat="(item,value) in filter[getKey(filter)] track by $index">
+                                    <li ng-if="item == 'arr'" ng-repeat="elem in value"><a class="text-black top-sub-menu-text">{{elem}}</a></li>
+                                    <li ng-if="item != 'arr'" class="dir top-sub-menu" ng-repeat="(tkey,tvalue) in value">
+                                        <a class="text-black top-sub-menu-text">{{item}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
+                                        <ul class="top-sub-sub-menu">
+                                            <li ng-repeat="subV in tvalue"><a class="text-black top-sub-menu-text">{{subV}}</a></li>
+                                        </ul>
+                                    </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
+
             </nav>
         </div>
     </div>

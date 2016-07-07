@@ -59,7 +59,7 @@
         <div class="marginLR20" ng-repeat="item in commonFilters | objectKeys" ng-click="viewServiceProvider(item);activeProvider=item;">
             <div class="service-provider relative">
                 <span class="img-{{item.split(' ').join('-').toLowerCase()}} text-center service-provider-icon"></span>
-                <div>{{item}}</div>
+                <div class="">{{item}}</div>
             </div>
         </div>
     </div>
@@ -145,9 +145,9 @@
 </div>
 
 <div class="register-with-us-img" ng-hide="currentFreelancer()">
-    <h2 class="text-center text-white register-with-us-text">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
+    <h2 class="text-center text-white register-with-us-text font-family">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
     <div class="text-center">
-        <button class="btn btn-red text-white" ng-click="$state.go('freelancer_registration')">REGISTER WITH US</button>
+        <button class="btn btn-red text-white font-family" ng-click="$state.go('freelancer_registration')">REGISTER WITH US</button>
     </div>
 </div>
 
@@ -159,8 +159,8 @@
         " Instead of hiring more engineers, we've used Upwork as a more scalable solution that lets us ramp-up and down as needed."
     </div>
     <div class="text-center quote-author inline-block">
-        <div class="text-red text-bold">Nick Greenfield</div>
-        <div class="quote-author-text">Vice President of Marketing & Growth</div>
+        <div class="text-red text-bold font-family">Nick Greenfield</div>
+        <div class="quote-author-text font-family">Vice President of Marketing & Growth</div>
         <div class="width45" style="margin: 0 auto; height: 5px;">
             <div class="quote-page"></div>
             <div class="quote-page-red"></div>
@@ -171,7 +171,7 @@
 <footer class="home-footer" style="">
     <div class="container">
         <div class="row">
-            <div class="col-sm-9 col-xs-12 text-center-xs pull-left" style="padding-top: 3px;">
+            <div class="col-sm-9 col-xs-12 text-center-xs pull-left font-family" style="padding-top: 3px;">
                 <span class="home-footer-text">About</span>
                 <span class="home-footer-text">Testimonial</span>
                 <span class="home-footer-text">Show to list</span>
