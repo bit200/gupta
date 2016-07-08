@@ -1,0 +1,233 @@
+.div-background {
+    min-height: 410px;
+}
+
+.background-img-top {
+    background-image: url('/img/bg20.png');
+    top: 50px;
+    position: absolute;
+    width: 100%;
+    height: 435px;
+    left: 0;
+    background-size: cover;
+}
+
+.background-img-top-text {
+    margin: 100px 0 0 10px;
+    height: 100%;
+    position: relative;
+}
+
+.background-img-top-text h3 {
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+    color: #333945;
+    font-family: OpenSans-Light, MyriadPro-Regular;
+    font-size: 40px;
+}
+
+.h3 {
+    color: #333945;
+    font-family: OpenSans-Light, MyriadPro-Regular;
+    font-size: 40px;
+    padding: 50px 0;
+}
+
+.search-div {
+}
+
+.search-div div {
+    padding: 5px;
+    height: 80px;
+    background-color: #333945;
+    padding-top: 15px;
+}
+
+md-input-container input.search-input {
+    background-color: white;
+    height: 45px;
+    border: 4px solid #ECECEE;
+    border-radius: 5px;
+    box-shadow: inset 0 0 1px 1px #888;
+    padding-left: 20px;
+}
+
+.search-div .md-errors-spacer {
+    display: none;
+}
+
+.search-link {
+    position: absolute;
+    top: 29px;
+    right: 4%;
+}
+
+.search-link span {
+    color: #B0B4B6;
+    font-size: 20px;
+}
+
+.claim-table {
+    box-shadow: 3px 4px 3px 0 #cccbcb;
+}
+
+table.claim-table thead th {
+    font-family: OpenSans-Light, MyriadPro-Regular;
+    color: #ffffff;
+    background-color: rgb(138, 139, 144);
+    border: none;
+    text-align: left;
+    padding-left: 24px;
+}
+
+.claim-table th:first-child {
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+    border-radius: 5px 0 0 0;
+}
+
+.claim-table th:last-child {
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+    border-radius: 0 5px 0 0;
+}
+
+table.claim-table tbody tr {
+    height: 50px;
+    border: 1px solid gainsboro;
+}
+
+table.claim-table tbody td {
+    color: #707173;
+    font-weight: 900;
+    font-family: OpenSans-Light, MyriadPro-Regular;
+    text-align: left;
+    padding: 24px !important;
+}
+
+table.claim-table tbody tr td:first-child {
+    padding: 11px 0 10px 10px !important;
+    text-align: center;
+}
+
+table.claim-table tbody tr:last-child {
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+
+}
+
+table.claim-table tbody tr td:first-child img {
+    max-width: 110px;
+    height: 35px;
+}
+
+.btn-claim {
+    margin-top: -10px;
+    background-color: #df1000;
+    color: #ffffff;
+    transition: .4s ease;
+}
+
+.btn-claim:hover {
+    background-color: #fff;
+    color: #df1000;
+    border-color: #df1000;
+}
+
+.claimAgencyPage {
+    margin-top: 7%;
+    background: none;
+}
+
+.claim-question-block {
+    min-height: 272px;
+    color: #333945;
+    padding: 30px;
+    border: 1px solid gainsboro;
+}
+
+.claim-question-block-rede {
+    text-align: justify;
+}
+
+.claim-question-block-answer {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.claim-question-block-answer div {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 15px;
+    font-family: OpenSans-Light, MyriadPro-Regular;
+
+}
+
+.background-img-bottom {
+    background-image: url('/img/VectorSmartObject.png');
+    position: absolute;
+    width: 71%;
+    height: 261px;
+    left: 29%;
+    bottom: 0;
+    background-repeat: no-repeat;
+}
+
+.background-img-bottom-full {
+    background-image: url('/img/backgrounds.png');
+    position: relative;
+    width: 100%;
+    /* height: 127%; */
+    left: 0;
+    height: 332px;
+    /* height: auto; */
+    /* top: 0; */
+    background-size: cover;
+}
+
+.div-background-bot {
+    margin-top: 8%;
+    min-height: 247px;
+}
+
+.footer .list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.footer .list ul li {
+    float: left;
+}
+
+.footer .list ul li a {
+    font-size: 16px;
+    display: block;
+    color: #474747;
+    text-align: center;
+    padding: 10px;
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+.footer-color {
+    background-color: #DEDEDE;
+}
+
+.footer-social {
+    padding: 7px;
+}
+
+.home-footer-social-link {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    padding: 5px 6px;
+    background-color: #7B7B7D;
+    color: #DDDDDD;
+    border-radius: 25px;
+    font-size: 13px;
+}
