@@ -110,8 +110,11 @@ exports.job_stats = function (req, res) {
         interviews: function (cb) {
             models.ChatRoom.count({job: _id}).exec(cb)
         },
+        contracts: function (cb) {
+            models.Contract.count({status: {$nin: ["Rejected by seller", "Rejected by buyer"]}, job: _id}).exec(cb)
+        },
         hired: function (cb) {
-            models.Contract.count({job: _id}).exec(cb)
+            models.Contract.count({status: {$in: ["Ongoing", "Closed"]}, job: _id}).exec(cb)
         }
     }, function (err, data) {
         res.send({

@@ -33,40 +33,46 @@ module.exports = function (app) {
     job.fn('/api/jobs/popular', null, 'Job', '{}'
         , {populate: 'user', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{ buyer: this.userId, status: "New Applicant" }'
+
+    job.fn('/api/jobs/buyer/open/new', auth.token, 'JobApply', '{ buyer: this.userId, status: "New Applicant" }'
         , {populate: 'job freelancer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/open/active', auth.token, 'JobApply', '{ buyer: this.userId, status: {$nin: ["New Applicant", "rejected"]} }'
+    job.fn('/api/jobs/buyer/open/active', auth.token, 'JobApply', '{ buyer: this.userId, status: {$nin: ["New Applicant", "Rejected by seller", "Rejected by buyer", "Contract started"]} }'
+        , {populate: 'job freelancer contract', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/buyer/open/rejected', auth.token, 'JobApply', '{ buyer: this.userId, status: {$in: ["Rejected by seller", "Rejected by buyer"]} }'
         , {populate: 'job freelancer contract', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/my', auth.token, 'Job', '{ user: this.userId }'
         , {populate: 'job freelancer', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["ongoing", "marked completed", "paused"]}}'
+    
+
+    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]}}'
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId, status: "closed" }'
+    job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId, status: "Closed" }'
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
 
 
-    job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["rejected"]} }'
+    // job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["Rejected by seller", "Rejected by buyer"]} }'
+    //     , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
+
+    job.fn('/api/jobs/seller/open/new', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["New Applicant"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/open/new', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["New Applicant"]} }'
+    job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["New Applicant", "Rejected by seller", "Rejected by buyer", "Contract started"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["Comunicating", "seller approving"]} }'
-        , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
-
-    job.fn('/api/jobs/seller/open/rejected', auth.token, 'JobApply', '{ seller: this.userId, status: "rejected" }'
+    job.fn('/api/jobs/seller/open/rejected', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["Rejected by seller", "Rejected by buyer"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
 
 
-    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId, status: {$in: ["ongoing", "marked completed", "paused"]} }'
+    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]} }'
         , {populate: 'job buyer', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId, status: "closed" }'
+    job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId, status: "Closed" }'
         , {populate: 'job buyer', sort: '-created_at'}, app)
 };

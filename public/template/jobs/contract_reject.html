@@ -1,18 +1,28 @@
 <div class="cont {{status_class}}" permission>
     <h1 class="title2">Reject Contract #{{contract._id}}</h1>
 
-    <md-input-container class="md-block"
-                        ng-class="{'has-error': submitted && formContract.title.$invalid}">
-        <div class="title3">Reject Reason</div>
+    <div class="jshadow jshadow_padd">
+
+        <div class="jheader">
+            Reject details
+        </div>
+        <div class="jbody">
+
+
+            <md-input-container class="md-block"
+                                ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Reject Reason</div>
         <textarea class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
                   ng-model="contract.reject_reason" required></textarea>
-        <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
-    </md-input-container>
-    <btns list="['contract_reject_by_seller_fn']"></btns>
+            </md-input-container>
+            <btns list="['contract_reject_by_seller_fn']"></btns>
 
+        </div>
 
-    <div class="separator"></div>
+    </div>
+
 
     <succ
             title="The contract is rejected"

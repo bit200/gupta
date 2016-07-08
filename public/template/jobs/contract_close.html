@@ -1,32 +1,39 @@
 <div class="cont {{status_class}}" permission>
-    <h1 class="title2">Pause Contract #{{contract._id}}</h1>
+    <h1 class="title2">Close Contract #{{contract._id}}</h1>
 
-    <md-input-container class="md-block"
-                        ng-class="{'has-error': submitted && formContract.title.$invalid}">
-        <div class="title3">Review Comment</div>
+    <div class="jshadow jshadow_padd">
+        <div class="jheader">
+            Details
+        </div>
+        <div class="jbody">
+
+            <md-input-container class="md-block"
+                                ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Review Comment</div>
         <textarea class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
                   ng-model="contract.review_comment" required></textarea>
-        <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
-    </md-input-container>
-    <md-input-container class="md-block"
-                        ng-class="{'has-error': submitted && formContract.title.$invalid}">
-        <div class="title3">Rating</div>
-        <input class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
-                  ng-model="contract.rating" type="number" />
-        <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+            </md-input-container>
+            <md-input-container class="md-block"
+                                ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Rating</div>
+                <input class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
+                       ng-model="contract.rating" type="number"/>
+                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
-    </md-input-container>
-    <md-input-container class="md-block"
-                        ng-class="{'has-error': submitted && formContract.title.$invalid}">
-        <div class="title3">Closure Comment</div>
+            </md-input-container>
+            <md-input-container class="md-block"
+                                ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Closure Comment</div>
         <textarea class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
                   ng-model="contract.closure_comment" required></textarea>
-        <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
-    </md-input-container>
-    <btns list="['contract_close_fn']"></btns>
-    <div class="separator"></div>
+            </md-input-container>
+            <btns list="['contract_close_fn']"></btns>
+        </div>
+    </div>
 
 
     <succ
