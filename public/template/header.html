@@ -17,8 +17,8 @@
                     <ng-md-icon icon="favorite" style="fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
                 </li>
                 <li class="floatR" ng-if="!isLogged()">
-                    <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Signup</div>
-                    <div class="pull-right text-white marginT12 paddingLR10 pointer" ng-click="showAuth()" style="{font-size: 10pt;}">Login</div>
+                    <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="showAuth('signup')" style="{font-size: 10pt;}">Signup</div>
+                    <div class="pull-right text-white marginT12 paddingLR10 pointer" ng-click="showAuth('login')" style="{font-size: 10pt;}">Login</div>
                 </li>
                 <li class="floatR dropdown" ng-if="isLogged()" style="color: white">
                     <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

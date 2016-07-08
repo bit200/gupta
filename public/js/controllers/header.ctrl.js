@@ -4,8 +4,8 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
     function (scope, $location, http, ModalService, $rootScope, AuthService, socket) {
         scope.logout = AuthService.logout;
         //scope.showAuth = AuthService.showLogin;
-        scope.showAuth = function(){
-            $location.path('/login')
+        scope.showAuth = function(text){
+            $location.path('/'+text)
         };
         scope.arrayProviders = [];
         http.get('/get-content', {
