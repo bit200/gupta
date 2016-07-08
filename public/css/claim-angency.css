@@ -157,6 +157,10 @@ table.claim-table tbody tr td:first-child img {
     margin-bottom: 20px;
 }
 
+.question{
+    margin-bottom: 8%;
+}
+
 .claim-question-block-answer div {
     text-align: center;
     margin-top: 10px;
@@ -209,7 +213,7 @@ table.claim-table tbody tr td:first-child img {
     color: #474747;
     text-align: center;
     padding: 10px;
-    padding-left: 10px;
+    padding-left: 9px;
     text-decoration: none;
 }
 
