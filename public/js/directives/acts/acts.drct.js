@@ -8,7 +8,7 @@ XYZCtrls.directive('acts', function () {
         '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
         '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
         '</div>',
-        controller: ['$scope', '$location', '$http', function (scope, $location, $http) {
+        controller: ['$scope', '$location', '$http', 'AuthService', function (scope, $location, $http, AuthService) {
             var item = scope.item
                 , info = JSON.parse(scope.info)
                 , user_type = info.user_type
@@ -23,11 +23,14 @@ XYZCtrls.directive('acts', function () {
                 return item._id || item
             }
 
+            
             function getId(item, field) {
 
                 var _item = getInfo(item, field) || getInfo((item || {}).contract, field)
                 return _get_id_by_item(_item)
             }
+            
+            scope.getId = getId;
 
             function sref(name, params) {
                 name += '({';
@@ -125,7 +128,7 @@ XYZCtrls.directive('acts', function () {
                         ui_sref: sref("root.contract_inital_payment", {contract: getId(item, 'contract')})
                     }
                 },
-                'Mark complete': function () {
+                'Mark completed': function () {
                     return {
                         ui_sref: sref("root.contract_mark_complete", {contract: getId(item, 'contract')})
                     }
@@ -138,7 +141,21 @@ XYZCtrls.directive('acts', function () {
                 },
                 'Communicate': function () {
                     return {
-                        ui_sref: sref("messages", {apply: getId(item, 'apply')})
+                        fn: function () {
+                            var jobId = getId(item, 'job')
+                            var buyerId = getId(item, 'buyer')
+                            var sellerId = getId(item, 'seller')
+                            var freelancerId = getId(item, 'freelancer')
+                            var currentUser = AuthService.currentUser()
+                            // var sellerId = getId(item, 'job')
+                            console.log("comunicate Current item :: ", item)
+                            console.log("comunicate jobId :: ", jobId)
+                            console.log("comunicate freelancerId :: ", freelancerId)
+                            console.log("comunicate sellerId :: ", sellerId)
+                            console.log("comunicate buyerId :: ", buyerId)
+                            console.log("comunicate currentUser :: ", currentUser)
+
+                        }
                     }
                 }
 
@@ -161,6 +178,7 @@ XYZCtrls.directive('acts', function () {
 
             function init_btns () {
                 scope.actions = []
+                fn('Communicate')
 
                 console.log('ahahahahhahahahahahah', user_type, job_type, item.status)
                 if (user_type == 'seller' && job_type == 'open') {
@@ -174,7 +192,7 @@ XYZCtrls.directive('acts', function () {
                 } else if (user_type == 'seller' && job_type == 'ongoing') {
                     fn('View Contract', 'View Job')
                     if (item.status != 'Marked as completed') {
-                        fn('Mark complete')
+                        fn('Mark completed')
                     }
                 } else if (user_type == 'seller' && job_type == 'closed') {
                     fn('View Contract')

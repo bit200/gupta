@@ -48,7 +48,6 @@ XYZCtrls.directive('selector', function () {
             }
 
             $rootScope.$watch('closePopup', function(){
-                console.log('on close popup')
                 scope.open = false;
             })
             $rootScope.$on('$stateChangeSuccess', function(event, current) {
