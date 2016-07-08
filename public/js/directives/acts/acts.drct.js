@@ -159,10 +159,10 @@ XYZCtrls.directive('acts', function () {
 
             if (user_type == 'seller' && job_type == 'open') {
                 fn('View Application', 'View Job')
-                if (item.status == 'terms seller approving' || item.status == 'seller approving') {
+                if (item.status == 'Seller terms approving' || item.status == 'Seller approving') {
                     fn('Approve Contract')
                 }
-                if (item.status == 'suggest approving') {
+                if (item.status == 'Buyer suggest approving') {
                     fn('View Suggestion')
                 }
             } else if (user_type == 'seller' && job_type == 'ongoing') {
@@ -170,14 +170,16 @@ XYZCtrls.directive('acts', function () {
             } else if (user_type == 'seller' && job_type == 'closed') {
                 fn('View Contract')
                 fn('View Job')
+
+
             } else if (user_type == 'buyer' && job_type == 'open') {
-                if (['suggest approving', 'terms seller approving'].indexOf(item.status) < 0) {
+                if (['Seller approving', 'Buyer suggest approving', 'Seller terms approving', 'Rejected by seller'].indexOf(item.status) < 0) {
                     fn('Create Contract')
                 }
-                if (item.status == 'suggest approving') {
+                if (item.status == 'Buyer suggest approving') {
                     fn('View Suggestion')
                 }
-                if (item.status !== 'rejected') {
+                if (['Rejected by buyer', 'Rejected by seller'].indexOf(item.status) < 0 ) {
                     fn('Reject')
                 }
 

@@ -56,7 +56,7 @@ jobs-list > div {
 .title3 {
     text-transform: uppercase;
     color: #333945;
-    font-weight: 500;
+    /*font-weight: 500;*/
     font-size: 15px;
     padding-top: 0;
     margin-top: 0;
@@ -76,6 +76,9 @@ jobs-list > div {
     border-radius: 10px;
     margin-top: 55px;
 }
+.jshadow_padd {
+    margin-bottom: 90px;
+}
 .jheader.jborder {
     border-radius: 10px 10px 0 0;
 }
@@ -83,6 +86,9 @@ jobs-list > div {
     font-weight: 500;
 }
 
+.jheader, .title2, .title3 {
+    font-weight: bold;
+}
 .cont btns {
     display: block;
     padding: 45px 0 0 0;
