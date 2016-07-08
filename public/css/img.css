@@ -1,46 +1,36 @@
-.img-budget {
+.img-budget::after {
     content: url("/img/budget.png");
     height: 17px;
 }
 
-.img-content-writing {
+.img-content-writing::after {
     content: url("/img/content-writing.png");
-
 }
 
-.img-creative-and-ad-making {
+.img-creative-and-ad-making::after {
     content: url("/img/creative-and-ad-making.png");
-
 }
-.img-public-relations {
+.img-public-relations::after {
     content: url("/img/public-relations.png");
-
 }
-.img-bloggers-and-influencers {
+.img-bloggers-and-influencers::after {
     content: url("/img/bloggers-and-influencers.png");
-
 }
-.img-digital-marketing {
+.img-digital-marketing::after {
     content: url("/img/digital-marketing.png");
-
 }
-.img-branding-services {
+.img-branding-services::after {
     content: url("/img/branding-services.png");
-
 }
-.img-event-management {
+.img-event-management::after {
     content: url("/img/event-management.png");
-
 }
-.img-direct-marketing {
+.img-direct-marketing::after {
     content: url("/img/direct-marketing.png");
-
 }
-.img-marketing-planning {
+.img-marketing-planning::after {
     content: url("/img/marketing-planning.png");
-
 }
-.img-media-buying {
+.img-media-buying::after {
     content: url("/img/media-buying.png");
-
 }
