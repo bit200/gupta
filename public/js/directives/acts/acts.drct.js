@@ -125,7 +125,7 @@ XYZCtrls.directive('acts', function () {
                         ui_sref: sref("root.contract_inital_payment", {contract: getId(item, 'contract')})
                     }
                 },
-                'Mark Complete': function () {
+                'Mark complete': function () {
                     return {
                         ui_sref: sref("root.contract_mark_complete", {contract: getId(item, 'contract')})
                     }
@@ -147,7 +147,6 @@ XYZCtrls.directive('acts', function () {
             scope.actions = [];
 
             function fn() {
-                scope.actions = []
                 _.each(arguments, function (name) {
                     var _fn = scope.list[name]
                     if (_fn) {
@@ -161,6 +160,8 @@ XYZCtrls.directive('acts', function () {
             }
 
             function init_btns () {
+                scope.actions = []
+
                 console.log('ahahahahhahahahahahah', user_type, job_type, item.status)
                 if (user_type == 'seller' && job_type == 'open') {
                     fn('View Application', 'View Job')
@@ -171,7 +172,10 @@ XYZCtrls.directive('acts', function () {
                         fn('View Suggestion')
                     }
                 } else if (user_type == 'seller' && job_type == 'ongoing') {
-                    fn('View Contract', 'View Job', 'Mark Complete')
+                    fn('View Contract', 'View Job')
+                    if (item.status != 'Marked as completed') {
+                        fn('Mark complete')
+                    }
                 } else if (user_type == 'seller' && job_type == 'closed') {
                     fn('View Contract')
                     fn('View Job')

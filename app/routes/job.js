@@ -48,7 +48,7 @@ module.exports = function (app) {
 
     
 
-    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["Ongoing", "Marked completed", "Paused"]}}'
+    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]}}'
         , {populate: 'freelancer job', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId, status: "Closed" }'
@@ -70,7 +70,7 @@ module.exports = function (app) {
 
 
 
-    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId, status: {$in: ["Ongoing", "Marked completed", "Paused"]} }'
+    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]} }'
         , {populate: 'job buyer', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId, status: "Closed" }'

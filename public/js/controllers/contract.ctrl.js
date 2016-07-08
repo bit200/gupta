@@ -105,7 +105,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                http.post('/api/contract/mark-complete/' + scope.contract._id)
+                http.post('/api/contract/mark-complete/' + scope.contract._id, {complete_comment: scope.contract.complete_comment})
                     .success(function(data){
                         scope.suggest = data.data
                         scope.onSucc()

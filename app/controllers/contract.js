@@ -133,12 +133,13 @@ exports.contract_suggest_approve = function (req, res) {
 };
 
 exports.contract_mark_complete = function (req, res) {
-    var STATUS = 'Marked completed'
-    var params = {
-        status: STATUS
-    }
+    var STATUS = 'Marked as completed'
+    var params = m.getBody(req)
+    params.status = STATUS
 
     m.findCreateUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
+        console.log('contract @@@', contract)
+        console.log('contract @@@', params)
        res.send({
            data: contract
        })
