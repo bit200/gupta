@@ -70,7 +70,12 @@ jobs-list > div {
 .job-items, .jshadow {
     box-shadow: 2px 4px 13px rgba(0, 0, 0, 0.18);
     padding: 0;
+
 }
+.job-items {
+    position: relative;
+}
+
 .jshadow {
     border: 1px solid #d5dae0;
     border-radius: 10px;
@@ -278,7 +283,7 @@ jobs-list .fitems {
     opacity: 0.8;
     background-color: white;
     position: absolute;
-    z-index: 999;
+    z-index: 99;
     /*animation: fadeIn .1s ease forwards;*/
 
 }

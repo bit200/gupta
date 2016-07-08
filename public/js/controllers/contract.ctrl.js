@@ -32,6 +32,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 seller: scope.freelancer.user,
                 buyer: scope.buyer,
                 budget: scope.job.budget,
+                budget: scope.job.budget,
                 buyer_name: rootScope.getBuyerName(scope.buyer),
                 buyer_company_name: scope.buyer.company_name,
                 seller_contact: scope.freelancer.contact_detail,

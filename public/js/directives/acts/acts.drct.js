@@ -57,10 +57,12 @@ XYZCtrls.directive('acts', function () {
                 'Reject': function () {
                     return {
                         fn: function () {
-                            //console.log("reject", item)
+                            console.log("reject", item)
+                            // alert('reject')
+                            item.status = 'Rejected by buyer'
                             $http.post('/api/job-apply/reject/' + getId(item, 'apply')).success(function(data){
                                 item.status = data.data.status
-                                //console.log("rejected")
+                                init_btns()
                             }).error(function(){
                                 //console.log("an error with reject")
                             })
@@ -145,6 +147,7 @@ XYZCtrls.directive('acts', function () {
             scope.actions = [];
 
             function fn() {
+                scope.actions = []
                 _.each(arguments, function (name) {
                     var _fn = scope.list[name]
                     if (_fn) {
@@ -157,50 +160,55 @@ XYZCtrls.directive('acts', function () {
                 })
             }
 
-            if (user_type == 'seller' && job_type == 'open') {
-                fn('View Application', 'View Job')
-                if (item.status == 'Seller terms approving' || item.status == 'Seller approving') {
-                    fn('Approve Contract')
-                }
-                if (item.status == 'Buyer suggest approving') {
-                    fn('View Suggestion')
-                }
-            } else if (user_type == 'seller' && job_type == 'ongoing') {
-                fn('View Contract', 'View Job', 'Mark Complete')
-            } else if (user_type == 'seller' && job_type == 'closed') {
-                fn('View Contract')
-                fn('View Job')
+            function init_btns () {
+                console.log('ahahahahhahahahahahah', user_type, job_type, item.status)
+                if (user_type == 'seller' && job_type == 'open') {
+                    fn('View Application', 'View Job')
+                    if (item.status == 'Seller terms approving' || item.status == 'Seller approving') {
+                        fn('Approve Contract')
+                    }
+                    if (item.status == 'Buyer suggest approving') {
+                        fn('View Suggestion')
+                    }
+                } else if (user_type == 'seller' && job_type == 'ongoing') {
+                    fn('View Contract', 'View Job', 'Mark Complete')
+                } else if (user_type == 'seller' && job_type == 'closed') {
+                    fn('View Contract')
+                    fn('View Job')
 
 
-            } else if (user_type == 'buyer' && job_type == 'open') {
-                if (['Seller approving', 'Buyer suggest approving', 'Seller terms approving', 'Rejected by seller'].indexOf(item.status) < 0) {
-                    fn('Create Contract')
-                }
-                if (item.status == 'Buyer suggest approving') {
-                    fn('View Suggestion')
-                }
-                if (['Rejected by buyer', 'Rejected by seller'].indexOf(item.status) < 0 ) {
-                    fn('Reject')
-                }
+                } else if (user_type == 'buyer' && job_type == 'open') {
+                    if (['Seller approving', 'Buyer suggest approving', 'Seller terms approving', 'Rejected by seller'].indexOf(item.status) < 0) {
+                        fn('Create Contract')
+                    }
+                    if (item.status == 'Buyer suggest approving') {
+                        fn('View Suggestion')
+                    }
+                    if (['Rejected by buyer', 'Rejected by seller'].indexOf(item.status) < 0 ) {
+                        fn('Reject')
+                    }
 
-            } else if (user_type == 'buyer' && job_type == 'ongoing') {
-                if (item.status != 'Paused') {
-                    fn('Pause Contract')
+                } else if (user_type == 'buyer' && job_type == 'ongoing') {
+                    if (item.status != 'Paused') {
+                        fn('Pause Contract')
+                    }
+                    if (item.status == 'Paused') {
+                        fn('Resume Contract')
+
+                    }
+
+                    fn('Edit Contract')
+                    fn('Close Contract')
+                    fn('Initiate Payment')
+
+                } else if (user_type == 'buyer' && job_type == 'closed') {
+                    fn('Recreate Job')
+                    fn('View Contract')
+                    fn('View Job')
                 }
-                if (item.status == 'Paused') {
-                    fn('Resume Contract')
-
-                }
-
-                fn('Edit Contract')
-                fn('Close Contract')
-                fn('Initiate Payment')
-
-            } else if (user_type == 'buyer' && job_type == 'closed') {
-                fn('Recreate Job')
-                fn('View Contract')
-                fn('View Job')
             }
+
+            init_btns()
 
         }]
     };

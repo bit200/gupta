@@ -62,9 +62,12 @@ exports.reject_apply = function (req, res) {
         status: STATUS,
         reject_reason: params.reject_reason
     }, res, function (jobApply) {
-        res.send({
-            data: jobApply
+        m.findRemove(models.Contract, {job: jobApply.job, freelancer: jobApply.freelancer}, res, function(){
+            res.send({
+                data: jobApply
+            })
         })
+
         // mail.contractReject(contract.seller, contract._id, params.text, res, m.scb(contract, res))
     }, {populate: 'seller'})
 };

@@ -37,18 +37,24 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 scope.stats = getContent.stats.data.data;
                 console.log('rere', scope.stats)
                 scope.job.stats = []
-                scope.job.stats.push(scope.stats.interviews == 1 ? {
+                scope.job.stats.push(scope.stats.interviews !== 1 ? {
                     count: scope.stats.interviews,
                     name: 'Interviews'
                 } : {count: scope.stats.interviews, name: 'Interview'});
-                scope.job.stats.push(scope.stats.applicants == 1 ? {
+                scope.job.stats.push(scope.stats.applicants !== 1 ? {
                     count: scope.stats.applicants,
                     name: 'Applicants'
                 } : {count: scope.stats.applicants, name: 'Applicant'});
-                scope.job.stats.push(scope.stats.hired == 1 ? {
+                scope.job.stats.push(scope.stats.contracts !== 1 ? {
+                    count: scope.stats.contracts,
+                    name: 'Contracts'
+                } : {count: scope.stats.contracts, name: 'Contract'});
+
+                scope.job.stats.push(scope.stats.hired !== 1 ? {
                     count: scope.stats.hired,
                     name: 'Hired'
                 } : {count: scope.stats.hired, name: 'Hired'});
+
             }
             scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
             console.log("GET CONTETNT STEP2", scope.job, scope.new_apply, getContent)
