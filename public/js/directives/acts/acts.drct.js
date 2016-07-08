@@ -171,7 +171,7 @@ XYZCtrls.directive('acts', function () {
                 fn('View Contract')
                 fn('View Job')
             } else if (user_type == 'buyer' && job_type == 'open') {
-                if (['suggest approving'].indexOf(item.status) < 0) {
+                if (['suggest approving', 'terms seller approving'].indexOf(item.status) < 0) {
                     fn('Create Contract')
                 }
                 if (item.status == 'suggest approving') {

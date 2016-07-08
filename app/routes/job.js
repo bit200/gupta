@@ -53,10 +53,10 @@ module.exports = function (app) {
     job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["rejected"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/open/new', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["New Applicant"]} }'
+    job.fn('/api/jobs/seller/open/new', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["New Applicant"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["Comunicating", "seller approving"]} }'
+    job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["Comunicating", "seller approving", "terms seller approving"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/seller/open/rejected', auth.token, 'JobApply', '{ seller: this.userId, status: "rejected" }'
