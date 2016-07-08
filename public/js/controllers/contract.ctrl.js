@@ -4,6 +4,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
     , function (scope, rootScope, location, http, getContent, ModalService, $timeout) {
 
         console.log("@@ GET CONTENT CONTRACT CONTROLLER", getContent)
+        rootScope.extend_scope(scope, getContent)
+
         scope.job = scope.job || (scope.contract ? scope.contract.job : null)
         scope.freelancer = scope.freelancer || (scope.contract ? scope.contract.freelancer : null)
         scope.seller = scope.seller || (scope.contract ? scope.contract.seller : null)
@@ -29,6 +31,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 job: scope.job,
                 seller: scope.freelancer.user,
                 buyer: scope.buyer,
+                budget: scope.job.budget,
                 budget: scope.job.budget,
                 buyer_name: rootScope.getBuyerName(scope.buyer),
                 buyer_company_name: scope.buyer.company_name,
@@ -102,7 +105,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                http.post('/api/contract/mark-complete/' + scope.contract._id)
+                http.post('/api/contract/mark-complete/' + scope.contract._id, {complete_comment: scope.contract.complete_comment})
                     .success(function(data){
                         scope.suggest = data.data
                         scope.onSucc()

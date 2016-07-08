@@ -1,3 +1,7 @@
+html{
+    font-family: OpenSans-Semibold, MyriadPro-Regular;
+}
+
 .block-center {
     display: inline-block;
     position: absolute;
@@ -480,7 +484,7 @@ div.text-padding {
 
 
 .service-provider-icon {
-    margin-top: 25%;
+    margin-top: 5%;
     height: 35%;
     margin-bottom: 5%;
 }
@@ -489,7 +493,6 @@ div.text-padding {
     border: 1px solid #d8e6f3;
     width: calc(100% / 2 - 20px);
     display: inline-block;
-    float: left;
     float: left;
     margin: 15px 10px;
     text-align: center;
@@ -502,13 +505,18 @@ div.text-padding {
     font-weight: bold;
     background-color: #F6F6F6;
     transition: all 500ms;
-    min-height: 140px;
+    min-height: 175px;
 }
 
 @keyframes block-up  {
 
 }
 
+.alert-danger {
+    background-color: #f2dede !important;
+    border-color: #ebccd1 !important;
+    color: #a94442 !important;
+}
 
 .service-provider:hover {
     background-color: #EA2B29;
@@ -551,6 +559,11 @@ html, body {
 
 .text-bolder {
     font-weight: bolder;
+}
+
+.text-black, .text-black:hover, .text-black:focus {
+    color:#141414;
+    text-decoration: none;
 }
 
 .text-grey {
@@ -644,13 +657,20 @@ div.communitySP div.text-center {
 
 .profile-poster {
     background: rgba(255, 255, 255, 0.41);
-    width: 97%;
-    height: 96%;
-    margin: 1.5%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .profile-img {
-    height: 190px
+    height: 190px;
+    overflow: hidden;
+    position: relative;
+    margin: 1.5%;
 }
 
 .profile-poster-detail {
@@ -852,6 +872,7 @@ div.communitySP div.text-center {
     padding: 0px 20% 40px;
     font-size: 28pt;
     color: #9A9A9A;
+    font-family: OpenSans-Light, MyriadPro-Regular;
 }
 
 .quote-author {
@@ -885,24 +906,6 @@ div.communitySP div.text-center {
     background-color: #DDDDDD;
     padding: 10px;
     border-top: 1px solid #252525;
-}
-
-.home-footer-social-link {
-    display: inline-block;
-    width: 26px;
-    height: 26px;
-    padding: 5px 6px;
-    background-color: #7B7B7D;
-    color: #DDDDDD;
-    border-radius: 25px;
-    font-size: 13px;
-}
-
-.home-footer-text {
-    text-transform: uppercase;
-    padding-left: 10px;
-    font-size: 12px;
-    color: #252525;
 }
 
 .btn-red {
@@ -1247,6 +1250,15 @@ div.containerCrop {
 
 .loginForm {
     margin-top: 60px;
+    border: 1px solid #CCCBCB;
+    box-shadow: 5px 5px 6px 0 #CCCBCB;
+    padding: 45px 20px 20px 20px;
+    border-radius: 10px;
+}
+
+.loginInput {
+    border: none;
+    border-bottom: 1px solid #CCCBCB;
 }
 
 .login-btn {
@@ -1644,7 +1656,7 @@ md-autocomplete-wrap{
     }
 
     .service-provider {
-        font-size: 10pt;
+        font-size: 11pt;
         width: calc(100% / 5 - 20px);
         height: 214px;
     }
@@ -1670,15 +1682,22 @@ md-autocomplete-wrap{
     .job-button {
         margin-left: 0;
     }
+
+    .service-provider-icon {
+        margin-top: 25%;
+    }
 }
 
 @media (min-width: 768px) {
+
+
+
     .seller-modal .modal-dialog {
         width: 800px;
     }
 
     .service-provider {
-        font-size: 9pt;
+        font-size: 13pt;
     }
 
     /*.profile-detail {*/
@@ -1778,9 +1797,11 @@ md-autocomplete-wrap{
         bottom: 30px;
     }
 
+
+
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .profile-img {
         height: 150px;
     }
@@ -1813,6 +1834,7 @@ md-autocomplete-wrap{
         width: 100%;
         margin-left: 0;
         margin-bottom: 20px;
+        margin-top: 10px;
     }
     .text-center-xs {
         text-align: center;
@@ -1823,6 +1845,10 @@ md-autocomplete-wrap{
     .paddingTB15-xs {
         padding-top: 15px;
         padding-bottom: 15px;
+    }
+
+    .service-provider-icon {
+        margin-top: 5%;
     }
 
 }

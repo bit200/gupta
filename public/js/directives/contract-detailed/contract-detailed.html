@@ -1,86 +1,122 @@
 <h1 class="title2" ng-if="title" ng-click="action()">
     {{title}}
 </h1>
-
-<form name="formContract" novalidate>
-
+<div class="jshadow">
     <div ng-if="!is_suggest">
-        <div>
-            <div class="title3">Contract for</div>
-            <freelancer with-photo="true" item="contract.freelancer"></freelancer>
+        <div class="jheader" open>Contract with</div>
+        <div class="jbody">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="title3">Contract for</div>
+                    <freelancer with-photo="true" item="contract.freelancer"></freelancer>
+                </div>
+            </div>
         </div>
-        <div class="separator"></div>
+        <div class="jheader" open>Job information</div>
+        <div class="jbody">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="title3">Job Title</div>
+                    <div class="iblock tset2">
+                        {{contract.title}}
+                    </div>
 
-        <div class="iblock tset2" is-edited="title">
-            <div class="title3">Job title*</div>
-            <div>{{contract.title}}</div>
-        </div>
+                    <div is-edited="information">
+                        <div class="title3">Job information</div>
+                        <div>{{contract.information || '-'}}</div>
+                    </div>
 
-        <div class="iblock" is-edited="information">
-            <div class="title3">Job information</div>
-            <div>{{contract.information}}</div>
+                </div>
+
+            </div>
+
+
         </div>
     </div>
-    <div class="separator"></div>
-
-    <div class="text-bold title3">Contracting Parties</div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="iblock" is-edited="buyer_name"
-                 ng-class="{'has-error': submitted && formContract.buyer_name.$invalid}">
+    <div class="jheader" open>
+        Contracting Parties
+    </div>
+    <div class="jbody">
+        <div class="row">
+            <div class="col-xs-12">
                 <div class="title3">Buyer Name*</div>
                 <div>{{contract.buyer_name}}</div>
-            </div>
-            <div class="iblock" is-edited="buyer_company_name"
-                 ng-class="{'has-error': submitted && formContract.company_name.$invalid}">
                 <div class="title3">Buyer Company name*</div>
                 <div>{{contract.buyer_company_name}}</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="iblock" is-edited="seller_contact">
                 <div class="title3">Seller Contact Person Name</div>
                 <div>{{contract.seller_contact}}</div>
-            </div>
-            <div class="iblock" is-edited="seller_name">
                 <div class="title3">Seller Name</div>
                 <div>{{contract.seller_name}}</div>
             </div>
         </div>
     </div>
+    <div class="jheader" open>
+        Terms
+    </div>
+    <div class="jbody">
+        <!--<div class="row">-->
+            <!--<div class="col-xs-12">-->
+                <!--<div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>-->
+                <!--<div>{{contract.payment_basis}}</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="separator"></div>
-
-            <div class="title3">Terms</div>
-        </div>
-        <div class="col-md-6">
-            <div class="iblock" is-edited="payment_basis">
-
-                <div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>
-                <div>{{contract.payment_basis}}</div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="iblock" is-edited="expected_start"
-                 ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">
-                <div class="title3">Expected start date</div>
-                <date value="contract.expected_start"></date>
-
-            </div>
-            <div class="iblock" is-edited="expected_completion"
-                 ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">
-                <div class="title3">Expected completion date</div>
-                <date value="contract.expected_completion"></date>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="iblock" is-edited="final_amount"
-                 ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">
+        <div class="row">
+            <div class="col-xs-12">
                 <div class="title3">Final Amount to be paid (Rs.)*</div>
                 <div>{{contract.final_amount}}</div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="title3">Expected completion date</div>
+                <date value="contract.expected_completion"></date>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <btns list_scope="{{btns}}"></btns>
+            </div>
+
+        </div>
     </div>
-</form>
+</div>
+<!--<div class="row">-->
+<!--<div class="col-xs-12">-->
+
+<!--<div class="title3">Terms</div>-->
+<!--</div>-->
+<!--<div class="col-md-6">-->
+<!--<div class="iblock" is-edited="payment_basis">-->
+
+<!--<div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>-->
+<!--<div>{{contract.payment_basis}}</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-md-12">-->
+<!--<div class="iblock" is-edited="expected_start"-->
+<!--ng-class="{'has-error': submitted && formContract.expected_start.$invalid}">-->
+<!--<div class="title3">Expected start date</div>-->
+<!--<date value="contract.expected_start"></date>-->
+
+<!--</div>-->
+<!--<div class="iblock" is-edited="expected_completion"-->
+<!--ng-class="{'has-error': submitted && formContract.expected_completion.$invalid}">-->
+<!--<div class="title3">Expected completion date</div>-->
+<!--<date value="contract.expected_completion"></date>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-md-12">-->
+<!--<div class="iblock" is-edited="final_amount"-->
+<!--ng-class="{'has-error': submitted && formContract.final_amount.$invalid}">-->
+<!--<div class="title3">Final Amount to be paid (Rs.)*</div>-->
+<!--<div>{{contract.final_amount}}</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-xs-12">-->
+
+<!--</div>-->
+<!--</div>-->
+</div>

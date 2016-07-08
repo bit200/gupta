@@ -5,7 +5,6 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
 
 
     $rootScope.closePopupFn = function(is_digest) {
-        console.log('click close')
         $rootScope.closePopup = {
             cd: new Date().getTime()
         }

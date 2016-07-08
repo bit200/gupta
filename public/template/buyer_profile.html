@@ -54,7 +54,8 @@
                         <td class="text-left no-border">{{profile.company_name}}</td>
                     </tr>
                 </table>
-                <button class="btn btn-default" ng-click="profile_area.editProfile=true">EDIT PROFILE</button>
+                <button class="btn job-button" ng-click="profile_area.editProfile=true" style="width: 200px;">EDIT PROFILE</button>
+                <button class="btn job-button" ng-click="viewSeller(asView.buyer)" style="width: 200px; margin-left: 50px">{{asView.buyer ? 'UPDATE' : 'VIEW SELLER PROFILE'}}</button>
             </div>
             <form name="_edit" style="margin-top: 20px" novalidate ng-if="profile_area.editProfile" ng-init="setEditedProfile()">
                 <div class="form-group" ng-class="{'has-error': submitted && _edit.first_name.$invalid}">
@@ -111,8 +112,8 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-default" ng-click="updateProfile(null, _edit.$invalid, profile_area.editedProfile);submitted=true;">UPDATE</button>
-                    <button class="btn btn-default" ng-click="profile_area.editProfile=false;submitted=false;profile_area.editedProfile = ''">CANCEL</button>
+                    <button class="btn job-button" ng-click="updateProfile(null, _edit.$invalid, profile_area.editedProfile);submitted=true;">UPDATE</button>
+                    <button class="btn job-button marginL20" ng-click="profile_area.editProfile=false;submitted=false;profile_area.editedProfile = ''">CANCEL</button>
                 </div>
             </form>
         </div>

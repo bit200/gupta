@@ -3,7 +3,10 @@ var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService', '$rootScope', 'AuthService', 'socket',
     function (scope, $location, http, ModalService, $rootScope, AuthService, socket) {
         scope.logout = AuthService.logout;
-        scope.showAuth = AuthService.showLogin;
+        //scope.showAuth = AuthService.showLogin;
+        scope.showAuth = function(text){
+            $location.path('/'+text)
+        };
         scope.arrayProviders = [];
         http.get('/get-content', {
             params: {

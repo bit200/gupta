@@ -18,13 +18,12 @@ XYZCtrls.directive('jobsList', function () {
             scope.configPagination = {
                 currentPage: 1,
                 countByPage: 12
-            }
+            };
 
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
                     controller: function ($scope, $http, $element, close) {
-                        //console.log("jobjobjobjobjob", job)
                         $scope.contract = {};
                         $scope.contract.title = job.title;
                         $scope.contract.information = job.description;
@@ -65,13 +64,13 @@ XYZCtrls.directive('jobsList', function () {
                 }).then(function (modal) {
                     modal.element.modal();
                 });
-            }
+            };
 
             scope.cb = function(a){
-                console.log('custom paginatinonnn', a)
-                scope.configPagination.currentPage = a
+                // console.log('custom paginatinonnn', a)
+                scope.configPagination.currentPage = a;
                 scope.render()
-            }
+            };
             
             scope.render = function (params) {
                 scope.showLoading = true;
@@ -87,7 +86,7 @@ XYZCtrls.directive('jobsList', function () {
                         scope.showLoading = false;
                     }
                 }
-                console.log("objbjbjbjbjbjbjbjb", obj, scope.configPagination)
+                // console.log("objbjbjbjbjbjbjbjb", obj, scope.configPagination)
 
 
                 http.get(scope.url, {params: obj}).success(function (data) {

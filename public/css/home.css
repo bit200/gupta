@@ -1,0 +1,22 @@
+.font-family {
+    font-family: OpenSans-Light, MyriadPro-Regular;
+}
+
+.home-footer-text {
+    text-transform: uppercase;
+    padding-left: 10px;
+    font-size: 12px;
+    color: #252525;
+    font-weight: 700;
+}
+
+.home-footer-social-link {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    padding: 4px 6px;
+    background-color: #7B7B7D;
+    color: #DDDDDD;
+    border-radius: 25px;
+    font-size: 13px;
+}

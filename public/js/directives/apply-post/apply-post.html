@@ -1,44 +1,72 @@
 <h1 class="title2" ng-if="title">
     {{title}}
 </h1>
-<h2 class="title3">
-    {{job.title}}
-</h2>
-<short-preview limit=100 value="job.description"></short-preview>
-<a ui-sref="root.job_detailed({job: job._id})" class="mtop5">View job posting</a>
-<div class="separator"></div>
-<form name="postjob" novalidate id="postjob" class="hidr">
+<div class="jshadow">
+    <div class="jheader" open>
+        Job information
+    </div>
+    <div class="jbody">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="title3">Job title</div>
+                <div>
+                    {{job.title}}
+                </div>
+                <div class="title3">
+                    Job description
+                </div>
+                <div>
+                    <short-preview limit=100 value="job.description"></short-preview>
+                    <a ui-sref="root.job_detailed({job: job._id})" class="mtop5">View job posting</a>
+                </div>
+            </div>
+        </div>
 
-    <div class="" ng-class="{'has-error': submitted && postjob.description.$invalid}">
-        <md-input-container class="md-block">
-            <div class="title3">Cover Letter</div>
+    </div>
+    <div class="jheader" open>
+        Application
+    </div>
+    <div class="jbody">
+
+
+        <form name="postjob" novalidate id="postjob" class="hidr">
+
+            <div class="" ng-class="{'has-error': submitted && postjob.description.$invalid}">
+                <md-input-container class="md-block">
+                    <div class="title3">Cover Letter</div>
 
                     <textarea class="form-control" name="description"
                               ng-model="new_apply.message" required
                               rows="12s"></textarea>
-            <div ng-messages="submitted && postjob.description.$error.$invalid">
-                <div ng-show="submitted && postjob.description.$error.required" ng-message="required">{{default_empty}}
-                </div>
+                    <div ng-messages="submitted && postjob.description.$error.$invalid">
+                        <div ng-show="submitted && postjob.description.$error.required" ng-message="required">
+                            {{default_empty}}
+                        </div>
+                    </div>
+                </md-input-container>
             </div>
-        </md-input-container>
-    </div>
-    <div class="" ng-class="{'has-error': submitted && postjob.title.$invalid}">
-        <md-input-container class="md-block">
-            <div class="title3">Your estimated budget</div>
-            <input class="form-control" name="title" ng-model="new_apply.budget" required>
-            <div ng-messages="submitted && postjob.title.$error.$invalid">
-                <div ng-show="submitted && postjob.title.$error.required" ng-message="required">{{default_empty}}
-                </div>
+            <div class="" ng-class="{'has-error': submitted && postjob.title.$invalid}">
+                <md-input-container class="md-block">
+                    <div class="title3">Your estimated budget</div>
+                    <input class="form-control" name="title" ng-model="new_apply.budget" required>
+                    <div ng-messages="submitted && postjob.title.$error.$invalid">
+                        <div ng-show="submitted && postjob.title.$error.required" ng-message="required">
+                            {{default_empty}}
+                        </div>
+                    </div>
+                </md-input-container>
             </div>
-        </md-input-container>
+
+            <div class="title3">Estimation duration</div>
+            <div class="form-group">
+                <select class="form-control"
+                        ng-init="new_apply.time_estimation = new_apply.time_estimation || estimations[0]"
+                        ng-model="new_apply.time_estimation"
+                        ng-options="item for item in estimations">
+                </select>
+            </div>
+            <btns list_scope="{{btns}}"></btns>
+        </form>
     </div>
 
-    <div class="title3">Estimation duration</div>
-    <div class="form-group">
-        <select class="form-control"
-                ng-init="new_apply.time_estimation = new_apply.time_estimation || estimations[0]"
-                ng-model="new_apply.time_estimation"
-                ng-options="item for item in estimations">
-        </select>
-    </div>
-</form>
+</div>

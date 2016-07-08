@@ -1,6 +1,3 @@
-
-
-
 .flex.menu {
     height: 33px;
 }
@@ -26,15 +23,20 @@
     text-decoration:none;
     font-weight:700;
     font-size:12px;
-    line-height:32px;
+    line-height:35px;
     padding:0 15px;
     font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
 }
-#primary_nav_wrap ul a:hover
+.top-menu-text:hover
 {
-    color:#E52D27;
+    color:#E52D27 !important;
     background-color: white !important;
     border-bottom: 1px solid #E52D27;
+}
+.top-sub-menu-text:hover
+{
+    color:#E52D27 !important;
+    background-color: white !important;
 }
 
 #primary_nav_wrap ul li
@@ -43,19 +45,6 @@
     float:left;
     margin:0;
     padding:0
-}
-
-#primary_nav_wrap ul li.current-menu-item
-{
-    color:#E52D27;
-    background-color: white !important;
-    border-bottom: 1px solid #E52D27;}
-
-#primary_nav_wrap ul li:hover
-{
-    color:#E52D27;
-    background-color: white !important;
-    border-bottom: 1px solid #E52D27;
 }
 
 #primary_nav_wrap ul ul
@@ -68,6 +57,27 @@
     padding:0
 }
 
+.top-menu
+{
+    position:relative;
+    float:left;
+    margin:0;
+    padding:0;
+    max-width: 200px;
+}
+
+.top-sub-menu {
+    display: inline-block;
+    position: relative;
+}
+
+.top-sub-sub-menu {
+    position: absolute;
+}
+
+.top-sub-ul {
+    position: relative !important;
+}
 
 
 #primary_nav_wrap ul ul li
@@ -88,11 +98,21 @@
     left:100%
 }
 
-#primary_nav_wrap ul li:hover > ul
+#primary_nav_wrap ul li:hover  div > ul
 {
-    display:block
+    display: block
+}
+
+#primary_nav_wrap ul li:hover  > ul
+{
+    display: block
 }
 
 .paddingL20 {
     padding-left: 20px;
+}
+
+.md-button{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
 }

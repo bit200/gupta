@@ -6,7 +6,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         console.log('GET CONTENT', getContent, AuthService.currentUser())
         rootScope.extend_scope(scope, getContent)
 
-        
+
         scope.estimations = [
             'Less then 1 week',
             'Less then 1 month',
@@ -22,6 +22,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         ]
 
         scope.isApply = scope.apply || scope.apply_by_id;
+        console.log('is Apply', scope.apply_by_id)
 
 
         if (scope.job) {
@@ -36,40 +37,49 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 scope.stats = getContent.stats.data.data;
                 console.log('rere', scope.stats)
                 scope.job.stats = []
-                scope.job.stats.push(scope.stats.interviews == 1 ? {
+                scope.job.stats.push(scope.stats.interviews !== 1 ? {
                     count: scope.stats.interviews,
                     name: 'Interviews'
                 } : {count: scope.stats.interviews, name: 'Interview'});
-                scope.job.stats.push(scope.stats.applicants == 1 ? {
+                scope.job.stats.push(scope.stats.applicants !== 1 ? {
                     count: scope.stats.applicants,
                     name: 'Applicants'
                 } : {count: scope.stats.applicants, name: 'Applicant'});
-                scope.job.stats.push(scope.stats.hired == 1 ? {
+                scope.job.stats.push(scope.stats.contracts !== 1 ? {
+                    count: scope.stats.contracts,
+                    name: 'Contracts'
+                } : {count: scope.stats.contracts, name: 'Contract'});
+
+                scope.job.stats.push(scope.stats.hired !== 1 ? {
                     count: scope.stats.hired,
                     name: 'Hired'
                 } : {count: scope.stats.hired, name: 'Hired'});
+
             }
             scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
             console.log("GET CONTETNT STEP2", scope.job, scope.new_apply, getContent)
+        } else if (scope.apply_by_id) {
+            scope.job = scope.apply_by_id.job
         } else {
             user = AuthService.currentUser() || {};
 
             scope.job = scope.job || _.extend({
-                job_visibility: 'true',
-                title: 'hi',
-                description: 'test',
-                budget: 1000,
-                date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)
-            }, {
-                mobile: user.phone,
-                client_name: AuthService.userName(),
-                company_name: user.company_name,
-                website: user.website
-            })
+                    job_visibility: 'true',
+                    title: 'hi',
+                    description: 'test',
+                    budget: 1000,
+                    date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)
+                }, {
+                    mobile: user.phone,
+                    client_name: AuthService.userName(),
+                    company_name: user.company_name,
+                    website: user.website
+                })
         }
         scope.job = scope.job || {}
-        scope.new_apply = scope.isApply || {budget: scope.job.budget}
-
+        scope.new_apply = scope.isApply || {
+                budget: scope.job.budget
+            }
 
 
         scope.applyJob = function (id) {
@@ -99,7 +109,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             console.log('invalid', invalid)
             if (invalid) {
                 console.log('ahahahaha')
-                
+
                 // rootScope.scrollToErr()
                 return;
             }
@@ -108,10 +118,8 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
-            console.log("job after", job.types, job.type)
 
-            http.post('/job', job).success(function(data){
-                console.log('ahahahhaahhhhhhhhhhhhhhhhhhh', data)
+            http.post('/job', job).success(function (data) {
                 scope.job = data.data
                 scope.onSucc(data)
             }).error(scope.onErr)
@@ -129,7 +137,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             job.types = parseType.get(job.type_checkbox, scope.types);
             console.log('hahahahahahah after', job)
 
-            http.put('/api/job', job).success(function(){
+            http.put('/api/job', job).success(function () {
                 scope.onSucc()
             }).error(scope.onErr)
         };
@@ -167,11 +175,11 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.new_apply.job = scope.job._id
             http
                 .post('/api/job-apply', scope.new_apply)
-                .success(function(){
+                .success(function () {
                     $state.go('jobs_list.seller_open')
                 }).error(scope.onErr)
         }
-        
+
         scope.apply_edit = function (invalid) {
             console.log('scope.apply', invalid, scope.new_apply, scope.job, scope.apply)
             scope.new_apply.job = scope.job._id
@@ -185,6 +193,6 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         }
 
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
-        
-        
+
+
     }]);

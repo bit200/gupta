@@ -12,7 +12,14 @@ var models = require('../db')
 
 exports.createRoom = function (req, res) {
     var params = m.getBody(req);
-    m.findCreate(models.ChatRoom, params, res, res)
+    if(params.params.buyer == params.params.seller) {
+        m.ecb(400,'Buyer and seller must not have the same ID',res)
+    } else {
+        m.findCreate(models.ChatRoom, params.params,params.params, res, function(chat){
+            m.scb(chat, res)
+
+        })
+    }
 };
 
 exports.createMsg = function (req, res) {

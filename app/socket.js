@@ -8,7 +8,7 @@
         var models = require('../app/db');
         io.on('connection', function (socket) {
             socket.on('join room', function (obj) {
-                m.findCreate(models.ChatRoom, obj.join, {}, function () {
+                m.findOne(models.ChatRoom, {_id:obj.join}, function () {
                     io.emit('error', "can't create")
                 }, function (resp) {
                     socket.join(resp._id);
@@ -21,13 +21,13 @@
                 })
             });
 
-            socket.on('watch-online', function(userID){
-               socket.join('user:'+userID.id)
+            socket.on('watch-online', function (userID) {
+                socket.join('user:' + userID.id)
             });
 
             socket.on('i online', function (id) {
                 m.findUpdate(models.User, {_id: id}, {online: true}, {}, function () {
-                    socket.broadcast.to('user:'+id).emit('user online', true);
+                    socket.broadcast.to('user:' + id).emit('user online', true);
                 });
             });
             var time = new Date().getTime();
@@ -39,7 +39,7 @@
                     if ((new Date().getTime() - time) > 7000) {
                         online(false, id)
                     } else {
-                        socket.broadcast.to('user:'+id).emit('user online', true);
+                        socket.broadcast.to('user:' + id).emit('user online', true);
                     }
                 }, 10000)
             });
@@ -54,7 +54,7 @@
 
             function online(online, id) {
                 m.findUpdate(models.User, {_id: id}, {online: online});
-                socket.broadcast.to('user:'+id).emit('user online', online);
+                socket.broadcast.to('user:' + id).emit('user online', online);
             }
         });
 

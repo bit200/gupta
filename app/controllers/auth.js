@@ -59,10 +59,14 @@ exports.sign_up = function (req, res) {
 exports.refresh_token = function (req, res) {
     var token = m.getBody(req).refresh_token;
     m.findOne(RefreshToken, {value: token}, res, function (refreshToken) {
-        m.findCreate(AccessToken, {
-            user: refreshToken.user,
-            role: refreshToken.role
-        }, {}, res, res, {publish: true})
+        var query={
+                user: refreshToken.user,
+                role: refreshToken.role
+            };
+        AccessToken.remove(query,function(err,oldToken){
+            if(err) return res.send(404,err);
+            m.create(AccessToken,query,res,res);
+        });
     })
 };
 
