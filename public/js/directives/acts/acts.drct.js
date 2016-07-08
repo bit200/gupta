@@ -184,10 +184,10 @@ XYZCtrls.directive('acts', function () {
                 }
 
             } else if (user_type == 'buyer' && job_type == 'ongoing') {
-                if (item.status != 'paused') {
+                if (item.status != 'Paused') {
                     fn('Pause Contract')
                 }
-                if (item.status == 'paused') {
+                if (item.status == 'Paused') {
                     fn('Resume Contract')
 
                 }

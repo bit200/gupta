@@ -1,16 +1,23 @@
 <div class="cont {{status_class}}" permission>
     <h1 class="title2">Pause Contract #{{contract._id}}</h1>
 
-    <md-input-container class="md-block"
-                        ng-class="{'has-error': submitted && formContract.title.$invalid}">
-        <div class="title3">Pause Reason</div>
+    <div class="jshadow jshadow_padd">
+        <div class="jheader">
+           Details
+        </div>
+        <div class="jbody">
+            <md-input-container class="md-block"
+                                ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Pause Reason</div>
         <textarea class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
                   ng-model="contract.pause_reason" required></textarea>
-        <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
-    </md-input-container>
-    <btns list="['contract_pause_fn']"></btns>
-    <div class="separator"></div>
+            </md-input-container>
+            <btns list="['contract_pause_fn']"></btns>
+        </div>
+    </div>
+
 
 
     <succ

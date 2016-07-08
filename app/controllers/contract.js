@@ -45,8 +45,8 @@ exports.approve_contract = function (req, res) {
         seller: req.userId
     }
 
-    m.findUpdate(models.Contract, query, {status: 'ongoing'}, res, function (contract) {
-        updateJobApply(contract, {status: 'contract started'}, res, function () {
+    m.findUpdate(models.Contract, query, {status: 'Ongoing'}, res, function (contract) {
+        updateJobApply(contract, {status: 'Contract started'}, res, function () {
             res.send({
                 data: contract
             })
@@ -118,9 +118,14 @@ exports.contract_suggest_approve = function (req, res) {
     params = _.extend(params, params.suggest, {status: STATUS})
     console.log('Suggest ', params)
     m.findCreateUpdate(models.Contract, {_id: params._id}, params, res, function (contract) {
-       res.send({
-           data: contract
-       })
+        updateJobApply({job: contract.job, seller: contract.seller}, {status: 'Contract started'}, res, function () {
+            res.send({
+                data: contract
+            })
+        })
+       // res.send({
+       //     data: contract
+       // })
     })
 };
 
