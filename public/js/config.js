@@ -142,6 +142,16 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     url: '/api/jobs/all'
                 })
             })
+            .state('how_it_work', {
+                url: '/how_it_work',
+                templateUrl: 'template/how_it_work.html',
+                controller: 'howItWorkCtrl'
+                //resolve: getStatic({
+                //    template: 'jobs-all',
+                //    header: 'All jobs',
+                //    url: '/api/jobs/all'
+                //})
+            })
             .state('jobs_list.buyer_my', {
                 url: '/buyer/my',
                 templateUrl: 'template/viewMyJob.html',

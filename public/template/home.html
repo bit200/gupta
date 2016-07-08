@@ -1,74 +1,165 @@
-<div class="background-woman">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-offset-3 col-md-6">
-                <h1 class="text-center text-woman-image">Lorem ipsum dolor sit amet consectetur adipiscing</h1>
+<div ng-if="mainPage">
+    <div  class="background-woman">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <h1 class="text-center text-woman-image">Lorem ipsum dolor sit amet consectetur adipiscing</h1>
 
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-offset-1 col-md-10">
-                <div class="row background-grey main-search">
-                    <div class="col-sm-4">
-                        <md-menu>
-                            <div class="full-width input-border-home-woman" ng-click="$mdOpenMenu($event)">
-                                <span class="fa fa-map-marker input-home-maker"></span>
-                                <input class="form-control input-home-woman paddingL40 relative" ng-model="ctrl.city" placeholder="Enter City">
-                                <span class="fa fa-angle-down input-home-chevron pointer"></span>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="row background-grey main-search">
+                        <div class="col-sm-4">
+                            <md-menu>
+                                <div class="full-width input-border-home-woman" ng-click="$mdOpenMenu($event)">
+                                    <span class="fa fa-map-marker input-home-maker"></span>
+                                    <input class="form-control input-home-woman paddingL40 relative"
+                                           ng-model="ctrl.city" placeholder="Enter City">
+                                    <span class="fa fa-angle-down input-home-chevron pointer"></span>
+                                </div>
+                                <md-menu-content width="6">
+                                    <md-menu-item ng-repeat="location in locations">
+                                        <md-button ng-click="ctrl.city=location">
+                                            {{location}}
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+
+                            </md-menu>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="full-width input-border-home-woman">
+                                <md-autocomplete
+                                        ng-disabled="false"
+                                        md-no-cache="true"
+                                        md-search-text="ctrl.searchText"
+                                        md-selected-item-change="ctrl.selectedItemChange(item)"
+                                        md-items="item in ctrl.search(ctrl.searchText)"
+                                        md-item-text="item.displayTitle"
+                                        md-min-length="2"
+                                        placeholder="What are you looking for">
+                                    <md-item-template>
+                                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayTitle}}</span>
+                                    </md-item-template>
+                                    <md-not-found>
+                                        No states matching "{{ctrl.searchText}}" were found.
+                                    </md-not-found>
+                                </md-autocomplete>
+                                <span class="fa fa-search input-home-search" ng-hide="ctrl.searchText"></span>
                             </div>
-                            <md-menu-content width="6">
-                                <md-menu-item ng-repeat="location in locations">
-                                    <md-button ng-click="ctrl.city=location">
-                                        {{location}}
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-
-                        </md-menu>
-
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="full-width input-border-home-woman">
-                            <md-autocomplete
-                                    ng-disabled="false"
-                                    md-no-cache="true"
-                                    md-search-text="ctrl.searchText"
-                                    md-selected-item-change="ctrl.selectedItemChange(item)"
-                                    md-items="item in ctrl.search(ctrl.searchText)"
-                                    md-item-text="item.displayTitle"
-                                    md-min-length="2"
-                                    placeholder="What are you looking for">
-                                <md-item-template>
-                                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayTitle}}</span>
-                                </md-item-template>
-                                <md-not-found>
-                                    No states matching "{{ctrl.searchText}}" were found.
-                                </md-not-found>
-                            </md-autocomplete>
-                            <span class="fa fa-search input-home-search" ng-hide="ctrl.searchText"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="row back-service-provider">
-        <div class="col-sm-12 text-center "><h2 class="marginTB10">Find Service Providers</h2></div>
-        <div class="row">
-            <div class="marginLR20 service-provider relative" ng-repeat="item in commonFilters | objectKeys" ng-click="viewServiceProvider(item);activeProvider=item;">
-                <div class="img-{{item.split(' ').join('-').toLowerCase()}} text-center service-provider-icon"></div>
-                <div class="">{{item}}</div>
+    <div class="container">
+        <div class="row back-service-provider">
+            <div class="col-sm-12 text-center "><h2 class="marginTB10">Find Service Providers</h2></div>
+            <div class="row">
+                <div class="marginLR20 service-provider relative" ng-repeat="item in commonFilters | objectKeys"
+                     ng-click="viewServiceProvider(item);activeProvider=item;">
+                    <div class="img-{{item.split(' ').join('-').toLowerCase()}} text-center service-provider-icon"></div>
+                    <div class="">{{item}}</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div ng-if="howItWorks" class="how_it_work">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="div-background">
+                <div class="background-img-top"></div>
+                <div class="background-img-top-text"><h1>Freelance Content Writing</h1>
+                    <p>find talented writers and editors</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h3 class="h3">How its work</h3>
+                <p class="how-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam, consectetur
+                    consequatur delectus,
+                    eligendi enim error est exercitationem fugit iste officia optio possimus provident quibusdam rem,
+                    repellat sapiente soluta tenetur.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-xs-12">
+                <div class="how-it-work-block">
+                    <div class="header-block">
+                        <div class="header-block-img">
+                            <img src="/img/Forma1copy5.png" alt="mail">
+                        </div>
+                        <div class="header-block-headline">Post a job let people find you</div>
+                    </div>
+                    <div class="body-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+                        corporis, doloribus error ex fugit, illum ipsa ipsam magni minima odit, repellendus similique
+                        sit soluta sunt veniam! Cum doloribus fugit quasi.
+                    </div>
+                    <button class="btn btn-deafult">POST A JOB</button>
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-5 col-xs-12">
+                <div class="how-it-work-block">
+                    <div class="header-block">
+                        <div class="header-block-img">
+                            <img src="/img/Forma1copy6.png" alt="mail">
+                        </div>
+                        <div class="header-block-headline">Search profiles & freelancers and angecy</div>
+                    </div>
+                    <div class="body-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+                        corporis, doloribus error ex fugit, illum ipsa ipsam magni minima odit, repellendus similique
+                        sit soluta sunt veniam! Cum doloribus fugit quasi.
+                    </div>
+                    <button class="btn btn-deafult">POST A JOB</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-xs-12">
+                <div class="how-it-work-block">
+                    <div class="header-block">
+                        <div class="header-block-img">
+                            <img src="/img/Forma1_17.png" alt="mail">
+                        </div>
+                        <div class="header-block-headline">Manage Jobs From Anywhere</div>
+                    </div>
+                    <div class="body-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+                        corporis, doloribus error ex fugit, illum ipsa ipsam magni minima odit, repellendus similique
+                        sit soluta sunt veniam! Cum doloribus fugit quasi.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-5 col-xs-12">
+                <div class="how-it-work-block">
+                    <div class="header-block">
+                        <div class="header-block-img">
+                            <img src="/img/Forma1_18.png" alt="mail">
+                        </div>
+                        <div class="header-block-headline">Pay Only For A Job Well Done</div>
+                    </div>
+                    <div class="body-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+                        corporis, doloribus error ex fugit, illum ipsa ipsam magni minima odit, repellendus similique
+                        sit soluta sunt veniam! Cum doloribus fugit quasi.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="background-lightgrey paddingB50">
     <div class="container">
         <div class=" text-center marginTB20"><h2 class="marginTB10"> Featured Profiles</h2></div>
         <div class="row">
-            <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;" ng-repeat="profile in profiles | orderBy:'-view'" ng-if="$index < 8"
+            <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;"
+                 ng-repeat="profile in profiles | orderBy:'-view'" ng-if="$index < 8"
                  ng-click="$state.go('categories.profile', {id: profile._id})">
                 <div class="like-field"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
                 <div class="profile">
@@ -92,7 +183,9 @@
                             <div class="profile-back-rating-block">
                                 <div class="inline-block text-left" style="width: 20%">by test</div>
                                 <div class="inline-block text-center" style="width: 50%">
-                                    <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon glyphicon-star" ng-class="{'glyphicon-star-red': star,'glyphicon-star-white':!star}"></span>
+                                    <span ng-repeat="star in profile.ratingArr track by $index "
+                                          class="rating-star glyphicon glyphicon-star"
+                                          ng-class="{'glyphicon-star-red': star,'glyphicon-star-white':!star}"></span>
                                 </div>
                                 <div class="inline-block text-right" style="width: 10%">({{profile.view}})</div>
                             </div>
@@ -117,7 +210,8 @@
                     <div class="row">
                         <div class="col-sm-9">
                             <div class="text-bold marginB10 job-types">
-                                <div class="inline-block" ng-repeat="item in job.content_types">{{item}}<span ng-if="!$last">, </span></div>
+                                <div class="inline-block" ng-repeat="item in job.content_types">{{item}}<span
+                                        ng-if="!$last">, </span></div>
                             </div>
                             <div class="job-title">{{job.description}}</div>
                         </div>
@@ -147,7 +241,9 @@
 <div class="register-with-us-img" ng-hide="currentFreelancer()">
     <h2 class="text-center text-white register-with-us-text font-family">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
     <div class="text-center">
-        <button class="btn btn-red text-white font-family" ng-click="$state.go('freelancer_registration')">REGISTER WITH US</button>
+        <button class="btn btn-red text-white font-family" ng-click="$state.go('freelancer_registration')">REGISTER WITH
+            US
+        </button>
     </div>
 </div>
 
@@ -156,7 +252,8 @@
         <img class="face-text" src="/img/face.png">
     </div>
     <div class="text-center quote-text">
-        " Instead of hiring more engineers, we've used Upwork as a more scalable solution that lets us ramp-up and down as needed."
+        " Instead of hiring more engineers, we've used Upwork as a more scalable solution that lets us ramp-up and down
+        as needed."
     </div>
     <div class="text-center quote-author inline-block">
         <div class="text-red text-bold font-family">Nick Greenfield</div>

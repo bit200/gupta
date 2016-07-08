@@ -4,6 +4,9 @@ var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$state',
     function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state) {
 
+
+    scope.howItWorks= false;
+    scope.mainPage= true;
     scope.cancelRegistration = function () {
         location.path('/')
     };
