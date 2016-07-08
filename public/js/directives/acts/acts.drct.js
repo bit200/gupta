@@ -8,7 +8,7 @@ XYZCtrls.directive('acts', function () {
         '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
         '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
         '</div>',
-        controller: ['$scope', '$location', '$http', 'AuthService', function (scope, $location, $http, AuthService) {
+        controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify',function (scope, $location, $http, AuthService, $state, notify) {
             var item = scope.item
                 , info = JSON.parse(scope.info)
                 , user_type = info.user_type
@@ -23,17 +23,22 @@ XYZCtrls.directive('acts', function () {
                 return item._id || item
             }
 
-            
+
             function getId(item, field) {
 
-                var _item = getInfo(item, field) || getInfo((item || {}).contract, field)
+                var _item = getInfo(item, field) || getInfo((item || {}).contract, field);
                 return _get_id_by_item(_item)
             }
 
-            function createChatRoom(byerID, sellerID, jobID) {
-                $http.post('/api/create/chat')
+            function createChatRoom(buyerID, sellerID, jobID) {
+                var obj = {
+                    buyer: buyerID,
+                    seller: sellerID,
+                    job: jobID
+                };
+                return $http.post('/api/create/chat',{params:obj})
             }
-            
+
             scope.getId = getId;
 
             function sref(name, params) {
@@ -152,13 +157,18 @@ XYZCtrls.directive('acts', function () {
                             var freelancerId = getId(item, 'freelancer')
                             var currentUser = AuthService.currentUser()
                             // var sellerId = getId(item, 'job')
-                            console.log("comunicate Current item :: ", item)
-                            console.log("comunicate jobId :: ", jobId)
-                            console.log("comunicate freelancerId :: ", freelancerId)
-                            console.log("comunicate sellerId :: ", sellerId)
-                            console.log("comunicate buyerId :: ", buyerId)
-                            console.log("comunicate currentUser :: ", currentUser)
-
+                            // console.log("comunicate Current item :: ", item)
+                            // console.log("comunicate jobId :: ", jobId)
+                            // console.log("comunicate freelancerId :: ", freelancerId)
+                            // console.log("comunicate sellerId :: ", sellerId)
+                            // console.log("comunicate buyerId :: ", buyerId)
+                            // console.log("comunicate currentUser :: ", currentUser)
+                            createChatRoom(buyerId,sellerId,jobId).then(function(resp){
+                                $state.go('messages', {_id: resp.data.data._id});
+                            }, function(err){
+                                console.log(err);
+                                notify({message: err.data.error, duration: 3000, position: 'right', classes: 'alert-danger'});
+                            })
                         }
                     }
                 }

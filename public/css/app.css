@@ -512,6 +512,11 @@ div.text-padding {
 
 }
 
+.alert-danger {
+    background-color: #f2dede !important;
+    border-color: #ebccd1 !important;
+    color: #a94442 !important;
+}
 
 .service-provider:hover {
     background-color: #EA2B29;
