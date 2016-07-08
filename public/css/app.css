@@ -1,3 +1,7 @@
+html{
+    font-family: OpenSans-Semibold, MyriadPro-Regular;
+}
+
 .block-center {
     display: inline-block;
     position: absolute;
