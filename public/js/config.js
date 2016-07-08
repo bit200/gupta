@@ -71,7 +71,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('signup', {
                 url: '/signup',
                 templateUrl: 'template/signup.html',
-                controller: 'loginCtrl'
+                controller: 'signupCtrl'
             })
             .state('forgot_restore', {
                 url: '/forgot/restore/:restoreCode',

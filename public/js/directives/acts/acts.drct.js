@@ -29,6 +29,10 @@ XYZCtrls.directive('acts', function () {
                 var _item = getInfo(item, field) || getInfo((item || {}).contract, field)
                 return _get_id_by_item(_item)
             }
+
+            function createChatRoom(byerID, sellerID, jobID) {
+                $http.post('/api/create/chat')
+            }
             
             scope.getId = getId;
 

@@ -7,7 +7,7 @@ module.exports = function (app) {
     app.post('/chatMessage', chat.createMsg);
     app.get('/chatMessage/:id', chat.getMsg);
     app.get('/chat/:id', auth.token, chat.allMsgs);
-    app.get('/api/create/chat', chat.createRoom);
-    app.post('/api/chat/attach', chat.attachFiles);
+    app.post('/api/create/chat', auth.token, chat.createRoom);
+    app.post('/api/chat/attach', auth.token, chat.attachFiles);
 
 };
