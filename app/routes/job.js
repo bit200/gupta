@@ -59,7 +59,7 @@ module.exports = function (app) {
     job.fn('/api/jobs/seller/open/new', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["New Applicant"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["Comunicating", "Seller approving", "Seller terms approving"]} }'
+    job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["New Applicant", "Rejected by seller", "Rejected by buyer"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
     job.fn('/api/jobs/seller/open/rejected', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["Rejected by seller", "Rejected by buyer"]} }'
