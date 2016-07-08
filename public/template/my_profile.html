@@ -1,5 +1,4 @@
 <div class="container" >
-
-    <section ng-if="asView.buyer" ng-include="'template/buyer_profile.html'"></section>
-    <section ng-if="asView.seller" ng-include="'template/freelancer_registration/freelancer_registration.html'"></section>
+    <section ng-if="!viewSellerProfile" ng-include="'template/buyer_profile.html'"></section>
+    <section ng-if="viewSellerProfile" ng-include="'template/freelancer_registration/freelancer_registration.html'"></section>
 </div>

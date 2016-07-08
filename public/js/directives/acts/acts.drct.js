@@ -8,7 +8,7 @@ XYZCtrls.directive('acts', function () {
         '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
         '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
         '</div>',
-        controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify', function (scope, $location, $http, AuthService, $state, notify) {
+        controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify', '$rootScope', function (scope, $location, $http, AuthService, $state, notify, $rootScope) {
             var item = scope.item
                 , info = JSON.parse(scope.info)
                 , user_type = info.user_type
@@ -156,25 +156,25 @@ XYZCtrls.directive('acts', function () {
                             var sellerId = getId(item, 'seller');
                             var freelancerId = getId(item, 'freelancer');
                             var currentUser = AuthService.currentUser();
-                            // var sellerId = getId(item, 'job')
-                            console.log("comunicate Current item :: ", item);
+                                console.log("comunicate Current item :: ", item);
                             console.log("comunicate jobId :: ", jobId);
                             console.log("comunicate freelancerId :: ", freelancerId);
                             console.log("comunicate sellerId :: ", sellerId);
                             console.log("comunicate buyerId :: ", buyerId);
                             console.log("comunicate currentUser :: ", currentUser);
-                            // if (currentUser == buyerId) {
+                            if ($rootScope.asView.buyer) {
                                 createChatRoom(buyerId, sellerId, jobId).then(function (resp) {
                                     $state.go('messages', {_id: resp.data.data._id});
                                 }, function (err) {
                                     console.log(err);
                                     notify({message: err.data.error, duration: 3000, position: 'right', classes: 'alert-danger'});
                                 });
-                            // }
+                            } else {
+                                notify({message: 'Seller can\'t start or create chat', duration: 3000, position: 'right', classes: 'alert-danger'});
+                            }
                         }
                     }
                 }
-
             };
 
             scope.actions = [];

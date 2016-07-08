@@ -444,6 +444,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('my_profile', {
                 url: '/my_profile',
                 templateUrl: 'template/my_profile.html',
+                controller: 'myProfileCtrl',
                 resolve: {
                     auth: authResolve
                 }

@@ -69,4 +69,6 @@ XYZCtrls.controller('BuyerProfileCtrl', ['$scope', '$location', '$http', '$q', '
             })
         }
     }
+
+      
 }]);

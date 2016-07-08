@@ -4,9 +4,6 @@ XYZCtrls.controller('userCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     scope.arrayProviders = getContent.service.data.data;
     scope.arrayTopics = getContent.topic.data.data;
     scope.user = getContent.user.data.data;
-
-
-
     ngDialog.open({
         template: 'templateId',
         className: 'ngdialog-theme-default',
