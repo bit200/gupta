@@ -484,6 +484,7 @@ XYZCtrls.directive("chatForm", function () {
             scope.currentUserName = user.first_name + ' ' + user.last_name;
             socket.emit('join room', {join: scope.join, userID: user._id});
             socket.on('joined', function (msg) {
+                console.log('joined!', msg)
                 scope.chatRoom = msg.id;
                 http.get('/chat/' + msg.id).then(function (resp) {
                     if (!resp.data.data.length) {

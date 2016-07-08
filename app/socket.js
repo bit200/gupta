@@ -8,13 +8,17 @@
         var models = require('../app/db');
         io.on('connection', function (socket) {
             socket.on('join room', function (obj) {
-                socket.join(obj.join);
-                var user;
-                if (resp.seller != obj.userID)
-                    user = resp.seller;
-                if (resp.buyer != obj.userID)
-                    user = resp.buyer;
-                socket.emit('joined', {status: 'success', id: obj.join, user: user})
+                m.findOne(models.ChatRoom, {_id:obj.join}, function () {
+                    io.emit('error', "can't create")
+                }, function (resp) {
+                    socket.join(resp._id);
+                    var user;
+                    if (resp.seller != obj.userID)
+                        user=resp.seller;
+                    if (resp.buyer != obj.userID)
+                        user = resp.buyer;
+                    socket.emit('joined', {status: 'success', id: resp._id, user:user})
+                })
             });
 
             socket.on('watch-online', function (userID) {

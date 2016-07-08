@@ -8,7 +8,7 @@ XYZCtrls.directive('acts', function () {
         '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
         '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
         '</div>',
-        controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify',function (scope, $location, $http, AuthService, $state, notify) {
+        controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify', function (scope, $location, $http, AuthService, $state, notify) {
             var item = scope.item
                 , info = JSON.parse(scope.info)
                 , user_type = info.user_type
@@ -36,7 +36,7 @@ XYZCtrls.directive('acts', function () {
                     seller: sellerID,
                     job: jobID
                 };
-                return $http.post('/api/create/chat',{params:obj})
+                return $http.post('/api/create/chat', {params: obj})
             }
 
             scope.getId = getId;
@@ -72,10 +72,10 @@ XYZCtrls.directive('acts', function () {
                             console.log("reject", item)
                             // alert('reject')
                             item.status = 'Rejected by buyer'
-                            $http.post('/api/job-apply/reject/' + getId(item, 'apply')).success(function(data){
+                            $http.post('/api/job-apply/reject/' + getId(item, 'apply')).success(function (data) {
                                 item.status = data.data.status
                                 init_btns()
-                            }).error(function(){
+                            }).error(function () {
                                 //console.log("an error with reject")
                             })
                         }
@@ -151,24 +151,26 @@ XYZCtrls.directive('acts', function () {
                 'Communicate': function () {
                     return {
                         fn: function () {
-                            var jobId = getId(item, 'job')
-                            var buyerId = getId(item, 'buyer')
-                            var sellerId = getId(item, 'seller')
-                            var freelancerId = getId(item, 'freelancer')
-                            var currentUser = AuthService.currentUser()
+                            var jobId = getId(item, 'job');
+                            var buyerId = getId(item, 'buyer');
+                            var sellerId = getId(item, 'seller');
+                            var freelancerId = getId(item, 'freelancer');
+                            var currentUser = AuthService.currentUser();
                             // var sellerId = getId(item, 'job')
-                            // console.log("comunicate Current item :: ", item)
-                            // console.log("comunicate jobId :: ", jobId)
-                            // console.log("comunicate freelancerId :: ", freelancerId)
-                            // console.log("comunicate sellerId :: ", sellerId)
-                            // console.log("comunicate buyerId :: ", buyerId)
-                            // console.log("comunicate currentUser :: ", currentUser)
-                            createChatRoom(buyerId,sellerId,jobId).then(function(resp){
-                                $state.go('messages', {_id: resp.data.data._id});
-                            }, function(err){
-                                console.log(err);
-                                notify({message: err.data.error, duration: 3000, position: 'right', classes: 'alert-danger'});
-                            })
+                            console.log("comunicate Current item :: ", item);
+                            console.log("comunicate jobId :: ", jobId);
+                            console.log("comunicate freelancerId :: ", freelancerId);
+                            console.log("comunicate sellerId :: ", sellerId);
+                            console.log("comunicate buyerId :: ", buyerId);
+                            console.log("comunicate currentUser :: ", currentUser);
+                            // if (currentUser == buyerId) {
+                                createChatRoom(buyerId, sellerId, jobId).then(function (resp) {
+                                    $state.go('messages', {_id: resp.data.data._id});
+                                }, function (err) {
+                                    console.log(err);
+                                    notify({message: err.data.error, duration: 3000, position: 'right', classes: 'alert-danger'});
+                                });
+                            // }
                         }
                     }
                 }
@@ -185,12 +187,11 @@ XYZCtrls.directive('acts', function () {
                         obj.name = obj.name || name
                         scope.actions.push(obj)
                     } else {
-                        //console.log('NAME NOT FOUNDDDDDDDD', name)
                     }
                 })
             }
 
-            function init_btns () {
+            function init_btns() {
                 scope.actions = []
                 fn('Communicate')
 
@@ -220,7 +221,7 @@ XYZCtrls.directive('acts', function () {
                     if (item.status == 'Buyer suggest approving') {
                         fn('View Suggestion')
                     }
-                    if (['Rejected by buyer', 'Rejected by seller'].indexOf(item.status) < 0 ) {
+                    if (['Rejected by buyer', 'Rejected by seller'].indexOf(item.status) < 0) {
                         fn('Reject')
                     }
 

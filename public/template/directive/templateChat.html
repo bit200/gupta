@@ -8,6 +8,7 @@
             <div class="col-md-12">
                 <div class="row chat-block">
                     <div id="chat">
+                        <h3 class="text-center" ng-if="!messages.length">Enter you first message</h3>
                         <div class="block-msg" ng-repeat="msg in messages track by $index">
                             <div class="row" style="padding: 20px;">
                                 <div class="message  col-md-10">

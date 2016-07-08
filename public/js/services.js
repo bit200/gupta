@@ -362,7 +362,7 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
 
 XYZCtrls.factory('socket', function (socketFactory) {
     var myIoSocket = io.connect('http://localhost:8080/');
-
+    
     var socket = socketFactory({
         ioSocket: myIoSocket
     });
