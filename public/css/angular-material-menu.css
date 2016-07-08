@@ -1,6 +1,3 @@
-
-
-
 .flex.menu {
     height: 33px;
 }
@@ -113,4 +110,9 @@
 
 .paddingL20 {
     padding-left: 20px;
+}
+
+.md-button{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
 }
