@@ -1,8 +1,8 @@
-.div-background {
+.claim .div-background {
     min-height: 410px;
 }
 
-.background-img-top {
+.claim .background-img-top {
     background-image: url('/img/bg20.png');
     top: 50px;
     position: absolute;
@@ -12,13 +12,13 @@
     background-size: cover;
 }
 
-.background-img-top-text {
+.claim .background-img-top-text {
     margin: 100px 0 0 10px;
     height: 100%;
     position: relative;
 }
 
-.background-img-top-text h3 {
+.claim .background-img-top-text h3 {
     position: absolute;
     top: 50px;
     z-index: 1;
@@ -169,7 +169,7 @@ table.claim-table tbody tr td:first-child img {
 
 }
 
-.background-img-bottom {
+.claim .background-img-bottom {
     background-image: url('/img/VectorSmartObject.png');
     position: absolute;
     width: 71%;
@@ -179,19 +179,16 @@ table.claim-table tbody tr td:first-child img {
     background-repeat: no-repeat;
 }
 
-.background-img-bottom-full {
+.claim .background-img-bottom-full {
     background-image: url('/img/backgrounds.png');
     position: relative;
     width: 100%;
-    /* height: 127%; */
     left: 0;
     height: 332px;
-    /* height: auto; */
-    /* top: 0; */
     background-size: cover;
 }
 
-.div-background-bot {
+.claim .div-background-bot {
     margin-top: 8%;
     min-height: 247px;
 }
@@ -218,6 +215,7 @@ table.claim-table tbody tr td:first-child img {
 }
 
 .footer-color {
+    border-top:1px solid #000;
     background-color: #DEDEDE;
 }
 
