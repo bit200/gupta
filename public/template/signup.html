@@ -2,32 +2,52 @@
 <div style="margin: 0 auto;height: 2px;background: red;width: 60px;"></div>
 <div class="row" style="margin-top: 2%">
     <div class="col-md-offset-4 col-md-4 col-sm-6" style="padding: 0px">
-        <form name="signupForm" class="signupForm" shake-that submitted="submittedSignup" submit="submitSignup()" novalidate>
+        <form name="signupForm" class="auth-form" shake-that submitted="submittedSignup" submit="submitSignup()" novalidate>
             <div class="form-group" ng-class="{'has-error': submittedSignup && signupForm.first_name.$invalid}">
-                <input class="form-control" name="first_name" ng-model="signupObj.first_name" placeholder="First Name" required>
-                <p class="error" ng-if="signupForm.first_name.$error.required">First Name is required</p>
+                <md-input-container class="md-block">
+                    <input class="form-control" name="first_name" placeholder="First Name" ng-model="signupObj.first_name" required>
+
+                    <div ng-messages="submittedSignup && signupForm.first_name.$invalid" ng-class="{'md-auto-hide': !submittedSignup}">
+                        <div ng-show="submittedSignup && signupForm.first_name.$error.required" ng-message="required">First Name is required</div>
+                    </div>
+                </md-input-container>
             </div>
             <div class="form-group" ng-class="{'has-error': submittedSignup && signupForm.last_name.$invalid}">
-                <input class="form-control" name="last_name" ng-model="signupObj.last_name" placeholder="Last Name" required>
-                <p class="error" ng-if="signupForm.last_name.$error.required">Last Name is required</p>
+                <md-input-container class="md-block">
+                    <input class="form-control" name="last_name" placeholder="Last Name" ng-model="signupObj.last_name" required>
+
+                    <div ng-messages="submittedSignup && signupForm.last_name.$invalid" ng-class="{'md-auto-hide': !submittedSignup}">
+                        <div ng-show="submittedSignup && signupForm.last_name.$error.required" ng-message="required">Last Name is required</div>
+                    </div>
+                </md-input-container>
+
             </div>
             <div class="form-group" ng-class="{'has-error': submittedSignup && signupForm.email.$invalid}">
-                <input class="form-control" name="email" type="email" ng-model="signupObj.email"
-                       ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
-                       placeholder="email"
-                       unique-email required>
-                <p class="error" ng-if="signupForm.email.$error.unique">Email already is taken</p>
-                <p class="error" style="display: {{emailError}}" >{{loginError}}</p>
-                <p class="error" ng-if="signupForm.email.$error.required">Email is required</p>
-                <p class="error" ng-if="!signupForm.email.$error.unique && signupForm.email.$error.pattern">Email is invalid</p>
+                <md-input-container class="md-block">
+                    <input class="form-control" name="email" placeholder="Email" ng-model="signupObj.email"
+                           ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+                           unique-email required>
+
+                    <div ng-messages="submittedSignup && signupForm.email.$invalid" ng-class="{'md-auto-hide': !submittedSignup}">
+                        <div ng-show="submittedSignup && signupForm.email.$error.required" ng-message="required">Email is required</div>
+                        <div ng-show="submittedSignup && signupForm.email.$error.unique" ng-message="required">Email already is taken</div>
+                        <div ng-show="submittedSignup && signupForm.email.$error.pattern && !signupForm.email.$error.required" ng-message="pattern">Email is invalid</div>
+                    </div>
+                </md-input-container>
             </div>
             <div class="form-group" ng-class="{'has-error': submittedSignup && signupForm.password.$invalid}">
-                <input class="form-control" name="password" type="password" ng-model="signupObj.password" placeholder="password" required>
-                <p class="error" ng-if="signupForm.password.$error.required">Password is required</p>
+                <md-input-container class="md-block">
+                    <input class="form-control" name="password" placeholder="Password" ng-model="signupObj.password" required>
+
+                    <div ng-messages="submittedSignup && signupForm.password.$invalid" ng-class="{'md-auto-hide': !submittedSignup}">
+                        <div ng-show="submittedSignup && signupForm.password.$error.required" ng-message="required">Password is required</div>
+                    </div>
+                </md-input-container>
             </div>
-            <div class="form-group ">
+            <div class="form-group">
                 <div class="text-center">
-                    <md-button class="md-raised signup-btn" ng-click="submittedSignup=true;signup(signupForm.$invalid, signupObj)">
+                    <p class="error" ng-if="emailError">{{emailError}}</p>
+                    <md-button class="md-raised auth-button" ng-click="submittedSignup=true;signup(signupForm.$invalid, signupObj)">
                         Sign Up
                     </md-button>
                 </div>

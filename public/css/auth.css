@@ -1,0 +1,50 @@
+.auth-button{
+    width: 100%;
+    height: 56px !important;
+    background-image: linear-gradient(to top, #bcbcbc 0%, #bcbcbc 9%, #d6d6d6 10%, #d6d6d6 100%) !important;
+    border-radius: 4px !important;
+    color: #948F8F !important;
+    font-size: 17px !important;
+}
+
+.error-login {
+    font-size: 12px;
+    color: #a94442;;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.auth-form{
+    width: 600px;
+    margin: 0 auto;
+    padding: 25px;
+    padding-top: 60px;
+    -moz-box-shadow: 3px 3px 5px 6px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 0px 2px 8px 1px lightgray;
+    border-radius: 7px;
+}
+
+.social-button{
+    width: 100%;
+    border-radius: 4px !important;
+    text-transform: inherit!important;
+    color: white !important;
+    font-weight: bold!important;
+    box-shadow: none!important;
+    height: 48px !important;
+}
+.auth-facebook{
+    background-image: linear-gradient(to top, #2E4779 0%, #2E4779 9%, #3B5999 10%, #3B5999 100%) !important;
+}
+
+.auth-google{
+    background-image: linear-gradient(to top, #B03C2D 0%, #B03C2D 9%, #DE4B39 10%, #DE4B39 100%) !important;
+}
+
+.auth-linkedin{
+    background-image: linear-gradient(to top, #006291 0%, #006291 9%, #007BB6 10%, #007BB6 100%) !important;
+}

@@ -116,3 +116,7 @@
     margin-right: 0px !important;
     margin-left: 0px !important;
 }
+
+md-input-container.md-input-focused .md-input, md-input-container .md-input.ng-invalid.ng-dirty{
+    border-width: 0 0 1px 0;
+}
