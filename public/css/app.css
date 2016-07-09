@@ -1590,6 +1590,14 @@ md-autocomplete-wrap{
     box-shadow: inset 0px 0px 9px -2px;
 }
 
+.uppercase{
+    text-transform: uppercase;
+}
+
+.margin-top-8{
+    margin-top: 8px
+}
+
 @media (min-width: 992px) {
     /*.profile-detail {*/
         /*width: 10vw;*/

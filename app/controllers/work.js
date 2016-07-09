@@ -21,25 +21,33 @@ exports.delete_work_attachment = function(req, res) {
     })
 };
 
-exports.add_update_work = function(req, res) {
-    var work;
-    var getWork = function(req, cb){
-        if (work) return cb();
+exports.delete_sample_work = function(req, res) {
+    models.SampleWork.findOne({_id: req.params.id}).exec(function(err, sample_work){
+        sample_work.remove(function(){
+            res.send(200)
+        });
+    });
+};
+
+exports.add_sample_work = function(req, res) {
+    var sampleWork;
+    var getSampleWork = function(req, cb){
+        if (sampleWork) return cb();
         if (req.body.id)
-            models.Work.findOne({_id: parseInt(req.body.id)}).exec(function(err, workT){
-                work = workT;
+            models.SampleWork.findOne({_id: parseInt(req.body.id)}).exec(function(err, workT){
+                sampleWork = workT;
                 cb()
             });
-        else new models.Work().save(function(err, workT){
-            work = workT;
+        else new models.SampleWork().save(function(err, workT){
+            sampleWork = workT;
             cb()
         });
     };
     var attachments = [];
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            getWork(req,function() {
-                var path = config.root + '/public/uploads/works/' + work._id;
+            getSampleWork(req,function() {
+                var path = config.root + '/public/uploads/sample_works/' + sampleWork._id;
                 mkdirp.sync(path);
                 cb(null, path)
             })
@@ -54,26 +62,56 @@ exports.add_update_work = function(req, res) {
         storage: storage
     }).any();
     upload(req, res, function (err) {
-        getWork(req, function(){
+        getSampleWork(req, function(){
             async.forEach(req.files, function(file, cb){
                 new models.Attachment({
                     originalName: file.originalname,
                     name: file.filename,
-                    path: 'works/'+ work._id
+                    path: 'sample_works/'+ sampleWork._id
                 }).save(function(err, attach){
                     attachments.push(attach);
                     cb();
-                })  
+                })
             }, function(){
                 delete req.body.id;
-                work = _.extend(work,req.body);
-                work.attachments = (work.attachments || []).concat(attachments);
-                work.save(function(err,work){
-                    work.populate('attachments',function(err,work){
-                        res.jsonp(work)
+                sampleWork = _.extend(sampleWork,req.body);
+                sampleWork.attachments = (sampleWork.attachments || []).concat(attachments);
+                sampleWork.save(function(err,sampleWork){
+                    sampleWork.populate('attachments',function(err, sampleWork){
+                        res.jsonp(sampleWork)
                     })
                 });
             });
+        });
+        
+    });
+};
+exports.add_update_work = function(req, res) {
+    var work;
+    var getWork = function(req, cb){
+        if (work) return cb();
+        if (req.body.id)
+            models.Work.findOne({_id: parseInt(req.body.id)}).exec(function(err, workT){
+                work = workT;
+                cb()
+            });
+        else new models.Work().save(function(err, workT){
+            work = workT;
+            cb()
+        });
+    };
+    getWork(req, function(){
+        delete req.body.id;
+        work = _.extend(work,req.body);
+        work.save(function(err,work){
+            work.populate({
+                path: 'work_samples',
+                populate: {
+                    path: 'attachments'
+                }
+            },function(err,work){
+                res.jsonp(work)
+            })
         });
     });
 };

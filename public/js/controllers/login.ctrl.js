@@ -16,4 +16,4 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', fu
                     $scope.loginError = 'Password not correct'
         });
     };
-}])
+}]);

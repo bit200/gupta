@@ -163,36 +163,49 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 });
             };
 
-            scope.work_previews = [];
-            scope.addWorkFiles = function(files){
-                scope.work_previews = scope.work_previews.concat(files);
-                console.log(scope.work_previews)
+            //work
+
+            scope.new_sample = {
+                preview_attachments: []
             };
 
-            scope.deleteWorkFile = function(id){
-                http.delete('/api/work/attachment/'+id)
+            scope.freelancer_area.submittedSample = false;
+            scope.addSampleWorkFiles = function($files){
+                scope.new_sample.preview_attachments = scope.new_sample.preview_attachments.concat($files)
             };
-            
-            scope.croppedProfilePreview = '';
+
+            scope.submitSample = function(invalid){
+                if (invalid) return;
+                scope.freelancer_area.submittedSample = false;
+                Upload.upload({
+                    url: '/api/work/sample_work',
+                    data: JSON.parse(angular.toJson(scope.new_sample)),
+                    file: scope.new_sample.preview_attachments
+                }).then(function (resp) {
+                    scope.new_sample = {
+                        preview_attachments: []
+                    };
+                    scope.freelancer.work.work_samples = scope.freelancer.work.work_samples || [];
+                    scope.freelancer.work.work_samples.push(resp.data);
+                }, function (resp) {
+                }, function (evt) {
+                });
+            };
+
             scope.submitWork = function(){
                 if (Object.keys(scope.freelancer.work).length === 0) {
                     scope.freelancer_area.activeTab = 'contact';
                     return;
                 }
-                Upload.upload({
-                    url: '/api/work',
-                    data: JSON.parse(angular.toJson(scope.freelancer.work)),
-                    file: scope.work_previews
-                }).then(function (resp) {
-                    scope.work_previews = [];
-                    scope.freelancer.work = resp.data;
+                http.post('/api/work',JSON.parse(angular.toJson(scope.freelancer.work))).success(function(resp){
+                    scope.freelancer.work = resp;
                     scope.freelancer_area.activeTab = 'contact';
-                }, function (resp) {
-                }, function (evt) {
                 });
-
             };
 
+            scope.deleteSampleWork = function(id){
+              http.delete('/api/work/sample_work/'+id)
+            };
             scope.addContactDetailPreview = function(file){
                 scope.contactDetailPreview = file;
             };

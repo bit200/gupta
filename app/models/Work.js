@@ -6,11 +6,10 @@ var _ = require('underscore');
 var WorkSchema = mongoose.Schema({
     customers: Number,
     past_client: String,
-    testimonials: String,
     awards: String,
-    attachments: [{
+    work_samples: [{
         type: Number,
-        ref: 'Attachment'
+        ref: 'SampleWork'
     }],
     created_at: {
         type: Date,

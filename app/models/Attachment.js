@@ -1,5 +1,6 @@
-var mongoose = require('mongoose')
-    , autoIncrement = require('mongoose-auto-increment');
+var mongoose = require('mongoose'),
+    fs = require('fs'),
+    autoIncrement = require('mongoose-auto-increment');
 
 var AttachmentSchema = mongoose.Schema({
     originalName: String,
