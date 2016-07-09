@@ -71,16 +71,70 @@ exports.get_freelancers = function (req, res) {
 };
 
 exports.get_freelancer = function (req, res) {
-    var populate = [{path:'poster'}, {path:'contact_detail'}, {path:'business_account'}, {path:'business_account'}, {path:'work', populate: {path: 'attachments'}},
-        {path:'service_packages', populate: {path: 'preview'}}];
+    var populate = [
+        {
+            path:'poster'
+        },
+        {
+            path:'contact_detail'
+        },
+        {
+            path:'business_account'
+        },
+        {
+            path:'business_account'
+        },
+        {
+            path:'work',
+            populate: {
+                path: 'work_samples',
+                populate: {
+                    path: 'attachments'
+                }
+            }
+        },
+        {
+            path:'service_packages',
+            populate: {
+                path: 'preview'
+            }
+        }
+    ];
     models.Freelancer.findOne({_id: req.params.id}).populate(populate).exec(function(err, freelancer){
         res.json(freelancer)
     });
 };
 
 exports.get_current_freelancer = function (req, res) {
-    var populate = [{path:'poster'}, {path:'contact_detail'},{path:'work', populate: {path: 'attachments'}}, {path:'business_account'}, {path:'business_account'},
-        {path:'service_packages', populate: {path: 'preview'}}];
+    var populate = [
+        {
+            path:'poster'
+        },
+        {
+            path:'contact_detail'
+        },
+        {
+            path:'business_account'
+        },
+        {
+            path:'business_account'
+        },
+        {
+            path:'work',
+            populate: {
+                path: 'work_samples',
+                populate: {
+                    path: 'attachments'
+                }
+            }
+        },
+        {
+            path:'service_packages',
+            populate: {
+                path: 'preview'
+            }
+        }
+    ];
     models.Freelancer.findOne({user: req.userId}).populate(populate).exec(function(err, freelancer){
         res.json(freelancer)
     });

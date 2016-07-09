@@ -310,8 +310,8 @@
             <h4 class="info-title">UPLOAD SAMPLES OF WORK</h4>
             <div class="form-group">
                 <div class="samples-border" ng-if="freelancer.work.work_samples.length">
-                    <div ng-repeat="sample_work in freelancer.work.work_samples">
-                        <p>{{sample_work.title}}</p>
+                    <div ng-repeat="sample_work in freelancer.work.work_samples" style="border-bottom: 1px solid lightgray">
+                        <p class="text-bold">{{sample_work.title}}</p>
                         <div>{{sample_work.description}}</div>
                         <span ng-repeat="sa in freelancer.work.work_samples">{{sa.originalName}}</span>
                         <div class="icon-button red">
