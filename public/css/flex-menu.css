@@ -20,10 +20,14 @@
     padding-bottom: 15px;
 }
 
-.flex.menu > li.active {
-    color: #EA2B29;
-    border-bottom: 3px solid #EA2B29;
+.flex.menu > li.active a{
+    color: #EA2B29 !important;
+    border-bottom: 2px solid #EA2B29;
+}
 
+.flex.menu > li a:hover{
+    color: #EA2B29 !important;
+    border-bottom: 2px solid #EA2B29;
 }
 
 .flex.menu > li:first-child {
@@ -33,7 +37,6 @@
 .flex.menu a {
     cursor: pointer;
 }
-
 
 .flexMenu-popup {
     z-index: 9999;

@@ -4,17 +4,14 @@ XYZCtrls.directive('btns', function () {
         scope: true,
         templateUrl: 'js/directives/btns/btns.html',
         link: function(scope, el, attrs) {
-            console.log('scope2', scope.list2)
             var str = attrs.listScope
             if (str && str != '') {
-                console.log("pre init brns", str)
                 scope.btns_list_plain = eval(str)
                 scope.init_btns(str)
             }
             scope.init_btns()
         },
         controller: ['$scope', '$attrs', '$rootScope', function (scope, attrs, rootScope) {
-            console.log("$attrs", attrs.listScope)
             function gid(name) {
                 return scope[name] ? scope[name]._id || -1 : -1
             }
@@ -22,12 +19,12 @@ XYZCtrls.directive('btns', function () {
             scope.attrs = attrs
             var str = attrs.list || ''
             str = str.replace(/'/gi, '"')
-            console.log('state objbjbjbjbjbjbjjb', str)
 
             function isinvalid (v) {
                 return v ? v.$invalid : null
             }
             scope.on_fn = function(btn) {
+                console.log(scope.postjob)
                 if (isinvalid(scope.postjob) || isinvalid(scope.formContract)) {
                     scope.onErr && scope.onErr({message: 'Please fill all fields'})
                     rootScope.scrollToErr()
@@ -38,17 +35,11 @@ XYZCtrls.directive('btns', function () {
             }
 
             scope.init_btns = function(){
-                console.log('ahahahahahhahahahhaha', scope.btns_list_plain)
-                console.log('init @@@@@@@@@@@@@@@')
-                console.log('init @@@@@@@@@@@@@@@')
-                console.log('init @@@@@@@@@@@@@@@')
-                console.log('init @@@@@@@@@@@@@@@')
                 scope.btns_list = []
                 _.each(scope.btns_list_plain, function(item){
                     var name = item
                     // var obj = _state_obj[name] || _state_obj['root.' + name]
                     if (item.fn) {
-                        console.log("bobjbjbjbjjbjbjb", item)
                         scope.btns_list.push({
                             fn: scope[item.fn],
                             name: item.name
@@ -70,14 +61,11 @@ XYZCtrls.directive('btns', function () {
                         //console.log('@@@@ BTN DIRECTIVE not found', name)
                     }
                 })
-                //console.log('@aaaaaaa', scope.btns_list)
                 scope.btns_class_name = 'col-xs-' + (12 / scope.btns_list.length)
-                //console.log('@@@ Scope Post directive', scope.attrs)
             }
 
 
             if (str && str != '') {
-                console.log("pre init brns", str)
                 scope.btns_list_plain = eval(str)
                 scope.init_btns(str)
             }

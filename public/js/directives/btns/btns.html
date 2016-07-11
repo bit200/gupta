@@ -9,8 +9,7 @@
         </a>
         <a class="btn btn-grey w100"
            ng-if="btn.ui_sref && btn.ui_params"
-           ng-href="{{$state.href(btn.ui_sref, btn.ui_params())}}"
-        >
+           ng-href="{{$state.href(btn.ui_sref, btn.ui_params())}}">
             {{btn.name}}
         </a>
     </div>

@@ -245,10 +245,19 @@ XYZCtrls.service('parseRating', function () {
 });
 
 
-XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$location',
-    function ($q, $rootScope, ModalService, $http, $location) {
+XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$state',
+    function ($q, $rootScope, ModalService, $http, $state) {
         var authTokens = {};
         var loggedIn = false, currentUser, currentFreelancer;
+
+        $rootScope.$watch('asView', function (val) {
+            if (val) {
+                if (val.buyer) {
+                    $state.go('dashboard')
+                }
+                localStorage.setItem('asView', JSON.stringify(val))
+            }
+        }, true)
 
         var resObj = {
             setTokens: function (tokens) {
@@ -278,7 +287,7 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
                 currentFreelancer = '';
                 localStorage.clear();
                 loggedIn = false;
-                $rootScope.go('/')
+                $state.go('home')
             },
             checkAuthCtrl: function () {
                 var deferred = $q.defer();
@@ -289,6 +298,9 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
                 return deferred.promise;
             },
             setCurrentUser: function () {
+                var asView = localStorage.getItem('asView');
+                $rootScope.asView = asView ? JSON.parse(asView) : {buyer: true};
+
                 $http.get('/api/freelancer/me').success(function (resp) {
                     currentFreelancer = resp
                 });

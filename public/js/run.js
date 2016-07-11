@@ -298,7 +298,6 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
         }
         _.each(ARR_RESOLVES, function (item) {
             scope[item] = rootScope.getContent(getContent, item)
-            console.log('@@ COMMON CTRL CTRL CTRL ', item, ':', scope[item])
         })
         scope.i = getContent.i
     }
@@ -306,15 +305,6 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
     $rootScope.gid = function(item) {
         return item ? item._id || item || -3 : -3
     }
-
-    var asView = localStorage.getItem('asView');
-    $rootScope.asView = asView ? JSON.parse(asView) : {buyer: true};
-
-    $rootScope.$watch('asView', function (val) {
-        if (val) {
-            localStorage.setItem('asView', JSON.stringify(val))
-        }
-    }, true)
 
     $rootScope.default_empty = 'Please fill this field'
 
