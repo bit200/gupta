@@ -1,3 +1,16 @@
 <div class="container" style="position: relative;">
-    <chat-form join="join"></chat-form>
+    <div class="row">
+        <div class="col-sm-3 block-chat-button">
+            <div class="row" ng-repeat="room in rooms">
+                <div class="col-sm-12">
+                    <button class="btn chat-button marginTB20" ng-click="click(room._id);">
+                        {{room.job.title}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <chat-form ng-if="chat" join="chat"></chat-form>
+        </div>
+    </div>
 </div>

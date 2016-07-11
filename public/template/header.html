@@ -50,7 +50,7 @@
                 <ul class="flex menu" flex-menu="filters">
                     <li class="top-menu" ng-repeat="filter in filters">
                         <a class="text-black top-menu-text">{{getKey(filter)}}</a>
-                        <div style="position: absolute">
+                        <div class="sub-nav" style="position: absolute">
                             <ul class="top-sub-ul" ng-repeat="(item,value) in filter[getKey(filter)] track by $index">
                                     <li ng-if="item == 'arr'" ng-repeat="elem in value"><a class="text-black top-sub-menu-text">{{elem}}</a></li>
                                     <li ng-if="item != 'arr'" class="dir top-sub-menu" ng-repeat="(tkey,tvalue) in value">

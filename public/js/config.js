@@ -107,9 +107,16 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
             .state('messages', {
-                url: '/messages/:_id',
+                url: '/messages',
                 templateUrl: 'template/chat.html',
-                controller: 'chatCtrl'
+                controller: 'chatCtrl',
+                resolve: {
+                    getContent: function($q, $http){
+                        return $q.all({
+                            rooms: $http.get('/api/chat/rooms')
+                        })
+                    }
+                }
             })
 
             .state('me', {

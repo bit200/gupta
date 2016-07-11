@@ -35,6 +35,10 @@ exports.allMsgs = function (req, res) {
     m.find(models.ChatRoom, {_id: req.params.id, $or:[{buyer: req.userId},{seller:req.userId}]}, res, res)
 };
 
+exports.allRooms = function (req, res) {
+    m.find(models.ChatRoom, {$or:[{buyer: req.userId},{seller:req.userId}]}, res, res, {populate: 'job'})
+};
+
 exports.attachFiles = function (req, res) {
     var attachments = [];
     var storage = multer.diskStorage({

@@ -479,14 +479,13 @@ XYZCtrls.directive("chatForm", function () {
         },
         templateUrl: 'template/directive/templateChat.html',
         controller: ['$scope', '$http', 'socket', 'AuthService', 'parseTime', 'Upload', '$rootScope', function (scope, http, socket, AuthService, parseTime, Upload,$rootScope) {
-            scope.messages = [];
             var user = AuthService.currentUser();
             scope.currentUserName = user.first_name + ' ' + user.last_name;
             socket.emit('join room', {join: scope.join, userID: user._id});
             socket.on('joined', function (msg) {
-                console.log('joined!', msg)
                 scope.chatRoom = msg.id;
                 http.get('/chat/' + msg.id).then(function (resp) {
+                    scope.messages = [];
                     if (!resp.data.data.length) {
                         $rootScope.go('/')
                     }
@@ -517,7 +516,7 @@ XYZCtrls.directive("chatForm", function () {
             };
 
             scope.send = function (msg) {
-                if (msg) {
+                if (msg || scope.chat_area.files) {
                     scrollDown();
                     if (scope.chat_area.files) {
                         Upload.upload({
