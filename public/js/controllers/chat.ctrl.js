@@ -6,8 +6,8 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$timeout', 'so
     scope.click = function (item) {
         scope.chat = false;
         $timeout(function(){
+            scope.active = item;
             scope.chat = item;
-
         },0)
     };
 }]);

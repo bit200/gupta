@@ -1,15 +1,16 @@
 <div class="container" style="position: relative;">
-    <div class="row">
+    <div class="row" style="height: 85vh;overflow: hidden;">
         <div class="col-sm-3 block-chat-button">
-            <div class="row" ng-repeat="room in rooms">
-                <div class="col-sm-12">
-                    <button class="btn chat-button marginTB20" ng-click="click(room._id);">
+            <div class="row">
+                <div class="col-sm-12" ng-repeat="room in rooms track by $index">
+                    <div class="chat-button" ng-class="{active:active == room._id, 'last-button':$last}"  ng-click="click(room._id);">
                         {{room.job.title}}
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-9">
+            <h3 class="text-center text-bold" ng-if="!chat">Enter in chat</h3>
             <chat-form ng-if="chat" join="chat"></chat-form>
         </div>
     </div>

@@ -510,6 +510,7 @@ div.text-padding {
     background-color: #F6F6F6;
     transition: all 500ms;
     min-height: 175px;
+
 }
 
 @keyframes block-up  {
