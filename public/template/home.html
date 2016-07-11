@@ -61,7 +61,9 @@
             <div class="row">
                 <div class="marginLR20 service-provider relative" ng-repeat="item in commonFilters | objectKeys"
                      ng-click="viewServiceProvider(item);activeProvider=item;">
-                    <div class="img-{{item.split(' ').join('-').toLowerCase()}} text-center service-provider-icon"></div>
+                    <div class="text-center service-provider-icon">
+                        <md-icon md-svg-icon="/img/{{item.split(' ').join('-').toLowerCase()}}.svg"> </md-icon>
+                    </div>
                     <div class="">{{item}}</div>
                 </div>
             </div>
@@ -154,7 +156,7 @@
     </div>
 </div>
 
-<div class="background-lightgrey paddingB50">
+<div class="background-lightgrey paddingB50" ng-show="profiles.length">
     <div class="container">
         <div class=" text-center marginTB20"><h2 class="marginTB10"> Featured Profiles</h2></div>
         <div class="row">
@@ -196,7 +198,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" ng-show="jobs.length">
     <div class="row">
         <div class="col-sm-12 text-center"><h2 class="marginTB10">Trending Jobs</h2></div>
     </div>
@@ -278,7 +280,7 @@
                 <span class="home-footer-text">Press</span>
                 <span class="home-footer-text">Contact</span>
             </div>
-            <div class="col-sm-3 col-xs-12 text-center-xs paddingTB15-xs pull-right ">
+            <div class="col-sm-3 col-xs-12 text-center-xs paddingTB15-xs pull-right text-right">
                 <div class="home-footer-social-link">
                     <i class="fa fa-google-plus" aria-hidden="true"></i>
                 </div>

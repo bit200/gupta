@@ -1,10 +1,10 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$state',
-    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state) {
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$state', 'AuthService',
+    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state, AuthService) {
 
-
+    scope.currentFreelancer = AuthService.currentFreelancer
     scope.howItWorks= false;
     scope.mainPage= true;
     scope.cancelRegistration = function () {
@@ -19,15 +19,16 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     scope.profiles = parseRating.rating(getContent.sellers.data.data);
     scope.profiles = parseRating.popularity(scope.profiles);
     scope.viewServiceProvider = function(item){
+        console.log(item)
         ModalService.showModal({
             templateUrl: "template/modal/postJobOrViewService.html",
-            controller: ['$scope', '$element', 'close', function($scope, $element, close){
+            controller: function($scope, $element, close){
                 $scope.item = item;
                 $scope.close = function(state){
                     $element.modal('hide');
                     close(state,500);
                 }
-            }]
+            }
         }).then(function (modal) {
             modal.element.modal();
             modal.close.then(function (state) {

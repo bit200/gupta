@@ -58,6 +58,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 }
             })
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: 'template/dashboard.html',
+                controller: 'DashboardCtrl'
+            })
             .state('forgot_email', {
                 url: '/forgot/email',
                 templateUrl: 'template/forgotEmail.html',

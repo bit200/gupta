@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row back-service-provider">
+        <div class="col-md-12">
+            <h3 style="margin-top: 4%;margin-bottom: 4%;">Welcome to 12th Cross, {{currentUser().first_name}}</h3>
+            <div class="service-provider relative" ng-click="$state.go('jobs_list.buyer_open')">
+                <div class="text-center service-provider-icon">
+                    <md-icon md-svg-icon="/img/open_projects.svg"> </md-icon>
+                </div>
+                <div>OPEN PROJECTS</div>
+            </div>
+            <div class="service-provider relative" ng-click="$state.go('jobs_list.buyer_ongoing')">
+                <div class="text-center service-provider-icon">
+                    <md-icon md-svg-icon="/img/ongoing_projects.svg"> </md-icon>
+                </div>
+                <div>ONGOING PROJECTS</div>
+            </div>
+            <div class="service-provider relative" ng-click="$state.go('jobs_list.buyer_closed')">
+                <div class="text-center service-provider-icon">
+                    <md-icon md-svg-icon="/img/closed_projects.svg"> </md-icon>
+                </div>
+                <div>CLOSED PROJECTS</div>
+            </div>
+        </div>
+    </div>
+</div>

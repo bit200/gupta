@@ -485,7 +485,10 @@ div.text-padding {
     border-bottom: 1px solid black;
 }
 
-
+.service-provider-icon md-icon{
+    height: 50px;
+    width: 50px;
+}
 
 .service-provider-icon {
     margin-top: 5%;
@@ -494,11 +497,10 @@ div.text-padding {
 }
 
 .service-provider {
-    border: 1px solid #d8e6f3;
     width: calc(100% / 2 - 20px);
     display: inline-block;
     float: left;
-    margin: 15px 10px;
+    margin: 15px 15px 15px 0px;
     text-align: center;
     padding: 20px;
     cursor: pointer;
@@ -510,10 +512,6 @@ div.text-padding {
     background-color: #F6F6F6;
     transition: all 500ms;
     min-height: 175px;
-
-}
-
-@keyframes block-up  {
 
 }
 
@@ -529,6 +527,11 @@ div.text-padding {
     bottom: 5px;
     box-shadow: 5px 5px 6px 0 #cccbcb;
     animation: block-up 500ms ease forwards;
+}
+
+.service-provider:hover md-icon svg path{
+    fill: white !important;
+    transition: fill 500ms !important;
 }
 
 .paddingB40 {

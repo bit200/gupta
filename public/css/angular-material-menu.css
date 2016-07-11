@@ -21,22 +21,10 @@
     display:block;
     color:#333;
     text-decoration:none;
-    font-weight:700;
-    font-size:12px;
+    font-size:16px;
+    font-weight: 100;
     line-height:35px;
     padding:0 15px;
-    font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
-}
-.top-menu-text:hover
-{
-    color:#E52D27 !important;
-    background-color: white !important;
-    border-bottom: 1px solid #E52D27;
-}
-.top-sub-menu-text:hover
-{
-    color:#E52D27 !important;
-    background-color: white !important;
 }
 
 #primary_nav_wrap ul li
