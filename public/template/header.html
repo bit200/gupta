@@ -46,23 +46,23 @@
     <div class="header-navigation">
         <div class="container">
             <nav id="primary_nav_wrap">
-                <ul class="flex menu" flex-menu="filters" ng-if="asView.buyer">
+                <ul class="flex menu" flex-menu="filters" ng-if="isLogged()">
                     <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ng-click="$state.go('dashboard')" class="text-black top-menu-text">DASHBOARD</a></li>
                     <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a ng-click="$state.go('root.job_create')" class="text-black top-menu-text">POST A PROJECT</a></li>
                     <li class="top-menu" ng-class="{active: ['jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed'].indexOf($state.current.name)>-1}"><a ng-click="$state.go('jobs_list.all')" class="text-black top-menu-text">VIEW PROJECTS</a></li>
                 </ul>
-                <ul class="flex menu" flex-menu="filters" ng-if="asView.seller || !isLogged()">
+                <ul class="flex menu" flex-menu="filters" ng-if="!isLogged()">
                     <li class="top-menu" ng-repeat="filter in filters">
                         <a class="text-black top-menu-text">{{getKey(filter)}}</a>
                         <div class="sub-nav" style="position: absolute">
                             <ul class="top-sub-ul" ng-repeat="(item,value) in filter[getKey(filter)] track by $index">
-                                    <li ng-if="item == 'arr'" ng-repeat="elem in value"><a class="text-black top-sub-menu-text">{{elem}}</a></li>
-                                    <li ng-if="item != 'arr'" class="dir top-sub-menu" ng-repeat="(tkey,tvalue) in value">
-                                        <a class="text-black top-sub-menu-text">{{item}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
-                                        <ul class="top-sub-sub-menu">
-                                            <li ng-repeat="subV in tvalue"><a class="text-black top-sub-menu-text">{{subV}}</a></li>
-                                        </ul>
-                                    </li>
+                                <li ng-if="item == 'arr'" ng-repeat="elem in value"><a class="text-black top-sub-menu-text">{{elem}}</a></li>
+                                <li ng-if="item != 'arr'" class="dir top-sub-menu" ng-repeat="(tkey,tvalue) in value">
+                                    <a class="text-black top-sub-menu-text">{{item}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
+                                    <ul class="top-sub-sub-menu">
+                                        <li ng-repeat="subV in tvalue"><a class="text-black top-sub-menu-text">{{subV}}</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </li>

@@ -1,7 +1,7 @@
 <div class="container">
+    <h3 style="margin-top: 4%;margin-bottom: 4%;">Welcome to 12th Cross, {{currentUser().first_name}}</h3>
     <div class="row back-service-provider">
-        <div class="col-md-12">
-            <h3 style="margin-top: 4%;margin-bottom: 4%;">Welcome to 12th Cross, {{currentUser().first_name}}</h3>
+        <div class="col-md-9">
             <div class="service-provider relative" ng-click="$state.go('jobs_list.buyer_open')">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/open_projects.svg"> </md-icon>
@@ -19,6 +19,35 @@
                     <md-icon md-svg-icon="/img/closed_projects.svg"> </md-icon>
                 </div>
                 <div>CLOSED PROJECTS</div>
+            </div>
+            <section ng-show="asView.seller">
+                <md-button class="md-raised regular-button" ng-hide="currentFreelancer()" ng-click="$state.go('freelancer_registration')">CREATE MY PROFILE</md-button>
+                <md-button class="md-raised regular-button" ng-show="currentFreelancer()" ng-click="$state.go('freelancer_registration')">UPDATE MY PROFILE</md-button>
+            </section>
+        </div>
+        <div class="col-md-3">
+            <div class="useful-links-section">
+                <div class="useful-links-title">USEFUL LINKS</div>
+                <div class="useful-links-body">
+                    <table class="table useful-links-table">
+                        <tr>
+                            <td>Profile Views</td>
+                            <td class="text-right">{{currentFreelancer().views || 0}}</td>
+                        </tr>
+                        <tr>
+                            <td>Connect Requests</td>
+                            <td class="text-right">0</td>
+                        </tr>
+                        <tr>
+                            <td>Jobs Done</td>
+                            <td class="text-right">0</td>
+                        </tr>
+                        <tr>
+                            <td>Total Earnings</td>
+                            <td class="text-right">0</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

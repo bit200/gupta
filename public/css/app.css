@@ -497,10 +497,11 @@ div.text-padding {
 }
 
 .service-provider {
-    width: calc(100% / 2 - 20px);
+    /*width: calc(100% / 2 - 20px);*/
+    width: 223px;
     display: inline-block;
     float: left;
-    margin: 15px 15px 15px 0px;
+    margin: 0px 15px 15px 0px;
     text-align: center;
     padding: 20px;
     cursor: pointer;
@@ -1602,6 +1603,45 @@ md-autocomplete-wrap{
     margin-top: 8px
 }
 
+.regular-button {
+    border-radius: 4px;
+    background-image: -moz-linear-gradient( 90deg, rgb(188,188,188) 0%, rgb(188,188,188) 9%, rgb(214,214,214) 10%, rgb(214,214,214) 100%) !important;
+    background-image: -webkit-linear-gradient( 90deg, rgb(188,188,188) 0%, rgb(188,188,188) 9%, rgb(214,214,214) 10%, rgb(214,214,214) 100%) !important;
+    background-image: -ms-linear-gradient( 90deg, rgb(188,188,188) 0%, rgb(188,188,188) 9%, rgb(214,214,214) 10%, rgb(214,214,214) 100%) !important;
+    height: 56px;
+    font-size: 16px;
+    color: rgb(116, 116, 116) !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}
+
+.useful-links-table td {
+    border-top: none !important;
+}
+
+.useful-links-table tr {
+    border-bottom: 1px solid lightgrey;
+}
+
+.useful-links-section{
+    border: 1px solid lightgray;
+    height: 300px;
+}
+
+.useful-links-title{
+    background: #F6F6F6;
+    text-align: left;
+    padding: 16px;
+    font-size: 18px;
+}
+
+.useful-links-body{
+    padding-left: 10px;
+    padding-right: 10px
+}
+
 @media (min-width: 992px) {
     /*.profile-detail {*/
         /*width: 10vw;*/
@@ -1618,7 +1658,7 @@ md-autocomplete-wrap{
 
     .service-provider {
         font-size: 11pt;
-        width: calc(100% / 5 - 20px);
+        /*width: calc(100% / 5 - 20px);*/
         height: 214px;
     }
 

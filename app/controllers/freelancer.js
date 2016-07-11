@@ -158,6 +158,7 @@ exports.freelancer_views_count = function (req, res) {
         d.setDate(d.getDate()-parseInt(req.query.days));
         q.created_at = {$gte: d};
     }
+    models.Freelancer.update({_id: req.params.id},{$inc: 1}).exec(function(){})
     models.ViewsProfile.count(q).exec(function(err, count){
         res.json(count);
     });
