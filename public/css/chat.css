@@ -8,7 +8,7 @@
     height: 10px;
 }
 
-.send-button,.send-button:hover, .send-button:focus {
+.send-button, .send-button:hover, .send-button:focus {
     background-color: #008228;
     color: white;
 }
@@ -67,13 +67,12 @@
     background: white;
 }
 
-
 .close {
     position: absolute;
     z-index: 99;
     top: 7px;
     right: 3px;
-    opacity:0.4;
+    opacity: 0.4;
     animation: animate 0.5s ease forwards;
     font-size: 14px;
 }
@@ -104,4 +103,45 @@
     background: #B1B1B1;
 }
 
-@keyframes animate {}
+.chat-button {
+    color: #676767;
+    border: 1px solid #BBBBBB;
+    border-bottom: 0px;
+    width: 100%;
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    padding: 20px 0;
+    cursor: pointer;
+}
+
+.last-button{
+    border-bottom: 1px solid #BBBBBB;
+}
+
+.chat-button.active {
+    color: #ffffff;
+    border-color: #3E3E3E;
+    background-color: #3E3E3E;
+}
+
+.chat-button:hover {
+    border-right: 2px solid #000000;
+    padding-left: 1px;
+    animation: animate 0.5s ease forwards;
+}
+
+.block-chat-button {
+    overflow: auto;
+    height: 100%;
+}
+
+@keyframes animate {
+}
+
+@media (max-width: 768px) {
+    .block-chat-button {
+        height: 150px;
+        overflow: auto;
+    }
+}

@@ -86,14 +86,23 @@
     left:100%
 }
 
-#primary_nav_wrap ul li:hover  div > ul
+#primary_nav_wrap > ul > li:hover > div > ul
 {
     display: block
 }
 
-#primary_nav_wrap ul li:hover  > ul
+.top-sub-menu:hover > .top-sub-sub-menu {
+    display: block !important;
+}
+
+/*#primary_nav_wrap ul li:hover  > ul*/
+/*{*/
+    /*display: block*/
+/*}*/
+
+.flexMenu-popup > .top-menu:hover > div > ul
 {
-    display: block
+    display: block !important;
 }
 
 .paddingL20 {

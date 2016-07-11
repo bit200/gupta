@@ -1,7 +1,13 @@
-
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', 'socket','$state', 'AuthService', function (scope, location, http, socket, state, AuthService) {
-        console.log(AuthService.currentUser());
-        scope.join = {_id:state.params._id};
+XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$timeout', 'socket', '$state', 'AuthService', 'getContent', function (scope, location, http, $timeout, socket, state, AuthService, getContent) {
+    scope.rooms = getContent.rooms.data.data;
+    scope.chat = '';
+    scope.click = function (item) {
+        scope.chat = false;
+        $timeout(function(){
+            scope.active = item;
+            scope.chat = item;
+        },0)
+    };
 }]);
