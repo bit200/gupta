@@ -156,14 +156,15 @@ XYZCtrls.directive('acts', function () {
                             var sellerId = getId(item, 'seller');
                             var freelancerId = getId(item, 'freelancer');
                             var currentUser = AuthService.currentUser();
-                                console.log("comunicate Current item :: ", item);
-                            console.log("comunicate jobId :: ", jobId);
-                            console.log("comunicate freelancerId :: ", freelancerId);
-                            console.log("comunicate sellerId :: ", sellerId);
-                            console.log("comunicate buyerId :: ", buyerId);
-                            console.log("comunicate currentUser :: ", currentUser);
+                                // console.log("comunicate Current item :: ", item);
+                            // console.log("comunicate jobId :: ", jobId);
+                            // console.log("comunicate freelancerId :: ", freelancerId);
+                            // console.log("comunicate sellerId :: ", sellerId);
+                            // console.log("comunicate buyerId :: ", buyerId);
+                            // console.log("comunicate currentUser :: ", currentUser);
                             if ($rootScope.asView.buyer) {
                                 createChatRoom(buyerId, sellerId, jobId).then(function (resp) {
+                                    localStorage.setItem('currentChat', resp.data.data._id);
                                     $state.go('messages', {_id: resp.data.data._id});
                                 }, function (err) {
                                     console.log(err);

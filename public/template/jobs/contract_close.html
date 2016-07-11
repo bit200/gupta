@@ -18,8 +18,7 @@
             <md-input-container class="md-block"
                                 ng-class="{'has-error': submitted && formContract.title.$invalid}">
                 <div class="title3">Rating</div>
-                <input class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
-                       ng-model="contract.rating" type="number"/>
+
                 <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
             </md-input-container>

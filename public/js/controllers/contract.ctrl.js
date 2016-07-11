@@ -97,7 +97,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         }
         scope.contract_approve = function () {
             http.post('/api/contract/approve/' + scope.contract._id).success(function (resp) {
-                scope.onSucc()
+                scope.onSucc();
                 console.log('resp', resp)
             }).error(scope.onErr)
         }
@@ -107,16 +107,16 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             } else {
                 http.post('/api/contract/mark-complete/' + scope.contract._id, {complete_comment: scope.contract.complete_comment})
                     .success(function(data){
-                        scope.suggest = data.data
+                        scope.suggest = data.data;
                         scope.onSucc()
                     })
                     .error(scope.onErr)
             }
         }
+        //TODO: close contract
         scope.contract_close = function (data) {
             data = scope.contract
-
-            console.log('close info', data)
+            console.log('close info', data);
             http.post('/api/contract/close/' + data._id, {
                 review_comment: data.review_comment,
                 closure_comment: data.closure_comment,
@@ -133,7 +133,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             } else {
                 http.post('/api/contract/suggest', pub_contr())
                     .success(function(data){
-                        scope.suggest = data.data
+                        scope.suggest = data.data;
                         scope.onSucc()
                     })
                     .error(scope.onErr)

@@ -470,6 +470,31 @@ XYZCtrls.directive("customPagination", function ($location) {
     };
 });
 
+// XYZCtrls.directive("rating", function ($location) {
+//     return {
+//         restrict: "A",
+//         scope: {
+//             rating: "=ngModel"
+//         },
+//         link: function (scope, element, attrs) {
+//             if (!scope.customPagination) scope.customPagination = {};
+//             scope.customPagination.currentPage = parseInt(scope.customPagination.currentPage || 1);
+//             scope.customPagination.countByPage = parseInt(scope.customPagination.countByPage || 10);
+//             scope.customPagination.totalCount = parseInt(scope.customPagination.totalCount || 0);
+//             scope.$watch('customPagination.currentPage', function (val) {
+//                 if (val && parseInt(val)) {
+//                     $location.search('page', val > 1 ? val : null);
+//                     scope.cb({currentPage: val});
+//                 }
+//             })
+//             scope.numberOfPages = function () {
+//                 return Math.ceil(scope.customPagination.totalCount / scope.customPagination.countByPage);
+//             }
+//         }
+// //        replace: true
+//     };
+// });
+
 XYZCtrls.directive("chatForm", function () {
     return {
         restrict: 'E',
