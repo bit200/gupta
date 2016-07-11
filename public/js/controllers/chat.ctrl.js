@@ -13,6 +13,7 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$timeout', 'so
         $timeout(function () {
             scope.active = item;
             scope.chat = item;
+            localStorage.setItem('currentChat', item);
         }, 0)
     };
 }]);
