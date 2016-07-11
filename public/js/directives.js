@@ -516,7 +516,7 @@ XYZCtrls.directive("chatForm", function () {
             };
 
             scope.send = function (msg) {
-                if (msg.length || scope.chat_area.files.length) {
+                if ((msg && msg.length) || scope.chat_area.files.length) {
                     scrollDown();
                     if (scope.chat_area.files) {
                         Upload.upload({
