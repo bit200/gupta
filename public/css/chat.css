@@ -52,15 +52,15 @@
 }
 
 #chat {
-    height: 400px;
     width: 102%;
+    height: 100%;
     overflow: auto;
 }
 
 .chat-block {
     border: 10px solid white;
     overflow: hidden;
-    max-height: 400px;
+    height: calc(100vh - 310px)
 }
 
 .background-msg {
@@ -139,7 +139,7 @@
 @keyframes animate {
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .block-chat-button {
         height: 150px;
         overflow: auto;

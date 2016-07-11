@@ -167,7 +167,6 @@ XYZCtrls.directive('acts', function () {
                                     localStorage.setItem('currentChat', resp.data.data._id);
                                     $state.go('messages', {_id: resp.data.data._id});
                                 }, function (err) {
-                                    console.log(err);
                                     notify({message: err.data.error, duration: 3000, position: 'right', classes: 'alert-danger'});
                                 });
                             } else {

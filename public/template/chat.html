@@ -1,17 +1,30 @@
 <div class="container" style="position: relative;">
-    <div class="row" style="height: 85vh;overflow: hidden;">
+    <div class="row">
         <div class="col-sm-3 block-chat-button">
             <div class="row">
                 <div class="col-sm-12" ng-repeat="room in rooms track by $index">
-                    <div class="chat-button" ng-class="{active:active == room._id, 'last-button':$last}"  ng-click="click(room._id);">
+                    <div class="chat-button" ng-class="{active:active == room._id, 'last-button':$last}" ng-click="click(room._id);">
                         {{room.job.title}}
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-9">
-            <h3 class="text-center text-bold" ng-if="!chat">Enter in chat</h3>
-            <chat-form ng-if="chat" join="chat"></chat-form>
+            <div class="row" ng-if="chat" style="border-bottom: 1px solid">
+                <h3 class="col-sm-4 text-center">
+                    {{currentJob.title}}
+                </h3>
+                <div class="col-sm-8">
+                    <div class="row" style="position: relative; top: 30px;">
+                        <a href="/#/job/{{currentJob._id}}" class="col-sm-8 text-right pointer">View Job</a>
+                        <a ng-href="{{contract.url}}" class="col-sm-4 text-left pointer">{{contract.text}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h3 class="text-center text-bold" ng-if="!chat">Enter in chat</h3>
+                <chat-form ng-if="chat" join="chat"></chat-form>
+            </div>
         </div>
     </div>
 </div>

@@ -28,9 +28,9 @@ exports.create_contract = function (req, res) {
         return;
     }
 
-    console.log("craete contractttttttt", query)
+    console.log("craete contractttttttt", query);
     m.findCreateUpdate(models.Contract, query, params, res, function (contract) {
-        console.log('contractttttttttt', contract)
+        console.log('contractttttttttt', contract);
         updateJobApply(contract, {status: STATUS, contract: contract._id}, res, function (jobApply) {
             res.send({
                 data: contract
@@ -62,7 +62,7 @@ exports.reject_apply = function (req, res) {
         status: STATUS,
         reject_reason: params.reject_reason
     }, res, function (jobApply) {
-        m.findRemove(models.Contract, {job: jobApply.job, freelancer: jobApply.freelancer}, res, function(){
+        m.findRemove(models.Contract, {job: jobApply.job, freelancer: jobApply.freelancer}, res, function () {
             res.send({
                 data: jobApply
             })
@@ -126,9 +126,9 @@ exports.contract_suggest_approve = function (req, res) {
                 data: contract
             })
         })
-       // res.send({
-       //     data: contract
-       // })
+        // res.send({
+        //     data: contract
+        // })
     })
 };
 
@@ -140,9 +140,9 @@ exports.contract_mark_complete = function (req, res) {
     m.findCreateUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
         console.log('contract @@@', contract)
         console.log('contract @@@', params)
-       res.send({
-           data: contract
-       })
+        res.send({
+            data: contract
+        })
     })
 };
 
@@ -223,7 +223,6 @@ exports.detailed = function (req, res) {
     var params = req.params
 
     m.findOne(models.Contract, {_id: params._id}, res, function (contract) {
-
         if (m.isOwner(contract, req.userId, req.freelancerId)) {
             res.send({
                 data: contract
@@ -234,7 +233,21 @@ exports.detailed = function (req, res) {
             })
         }
     }, {populate: 'buyer seller freelancer job suggest'})
+};
 
+exports.findContract = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.Contract, {job: params.job, freelancer: params.freelancer}, res, function (contract) {
+        if (m.isOwner(contract, req.userId, req.freelancerId)) {
+            res.send({
+                data: contract
+            })
+        } else {
+            res.status(400).send({
+                data: 'Another owner'
+            })
+        }
+    }, {populate: 'buyer seller freelancer job suggest'})
 };
 
 exports.rejectJob = function (req, res) {
