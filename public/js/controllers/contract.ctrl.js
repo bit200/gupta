@@ -114,15 +114,18 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             }
         }
         //TODO: close contract
+
+        scope.checkModel = function(model){
+            console.log('model',model)
+        };
         scope.contract_close = function (data) {
-            data = scope.contract
-            console.log('close info', data);
+            data = scope.contract;
             http.post('/api/contract/close/' + data._id, {
                 review_comment: data.review_comment,
                 closure_comment: data.closure_comment,
-                rating: data.rating
+                review: data.review
             }).success(function (resp) {
-                console.log('resp', resp)
+                console.log('resp', resp);
                 scope.onSucc()
             }).error(scope.onErr)
         }

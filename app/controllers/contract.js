@@ -185,23 +185,16 @@ exports.suggest_contract = function (req, res) {
 exports.close_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
-    params.status = 'Closed'
-    console.log('closeeeeeeee', params)
+    params.status = 'Closed';
     m.findUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
-        console.log('closeeeeeeee', contract)
+        m.findUpdate(models.JobApply, {contract: contract._id}, {status: 'closed'}, function(err){log('22222',contract._id)}, function (job) {
+            params.review.contract = contract._id
+            m.findCreate(models.ReviewContract, params.review, {},function(){
+                m.scb(contract,res)
+            });
 
-        // m.findUpdate(models.Job, {contract: contract._id}, {status: 'closed'}, res, function (job) {
-        // console.log('jobbbbbbbb', job)
-
-        // params.job = job._id;
-        res.send({
-            data: contract
         })
-        // m.create(models.Comments, params, res, function () {
-        //     mail.contractClose(contract.seller, contract._id, params.closure, res, m.scb(contract, res))
-        // })
-        // })
-    }, {populate: 'seller'})
+    })
 };
 
 exports.update_contract = function (req, res) {

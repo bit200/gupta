@@ -8,7 +8,7 @@ XYZCtrls.directive('acts', function () {
         '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
         '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
         '</div>',
-        controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify', '$rootScope', function (scope, $location, $http, AuthService, $state, notify, $rootScope) {
+        controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify', '$rootScope', 'ModalService', function (scope, $location, $http, AuthService, $state, notify, $rootScope, ModalService) {
             var item = scope.item
                 , info = JSON.parse(scope.info)
                 , user_type = info.user_type
@@ -148,6 +148,17 @@ XYZCtrls.directive('acts', function () {
                         ui_sref: sref("root.job_recreate", {job: getId(item, 'job')})
                     }
                 },
+                'Get a review': function () {
+                    return {
+                        fn: ModalService.showModal({
+                            templateUrl: "template/modal/templateJobReview.html",
+                            controller: function ($scope, $http, $element, close) {
+                                console.log('sadadasda')
+                            }
+                        })
+                        
+                    }
+                },
                 'Communicate': function () {
                     return {
                         fn: function () {
@@ -156,7 +167,7 @@ XYZCtrls.directive('acts', function () {
                             var sellerId = getId(item, 'seller');
                             var freelancerId = getId(item, 'freelancer');
                             var currentUser = AuthService.currentUser();
-                                // console.log("comunicate Current item :: ", item);
+                            // console.log("comunicate Current item :: ", item);
                             // console.log("comunicate jobId :: ", jobId);
                             // console.log("comunicate freelancerId :: ", freelancerId);
                             // console.log("comunicate sellerId :: ", sellerId);
@@ -210,7 +221,8 @@ XYZCtrls.directive('acts', function () {
                         fn('Mark completed')
                     }
                 } else if (user_type == 'seller' && job_type == 'closed') {
-                    fn('View Contract')
+                    fn('View Contract');
+                    fn('Get a review');
                     fn('View Job')
 
 
@@ -239,6 +251,7 @@ XYZCtrls.directive('acts', function () {
                     fn('Initiate Payment')
 
                 } else if (user_type == 'buyer' && job_type == 'closed') {
+                    fn('Get a review')
                     fn('Recreate Job')
                     fn('View Contract')
                     fn('View Job')

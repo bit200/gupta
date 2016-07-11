@@ -73,11 +73,10 @@ var sort_obj = {
 }
 
 ContractSchema.pre('save', function(next){
-    console.log('this.status', this.status, sort_obj[this.status])
     var priority = sort_obj[this.status]
     this.status_priority = priority || priority == 0 ? priority : -100
     next();
-})
+});
 
 ContractSchema.plugin(autoIncrement.plugin, {
     model: 'Contract',

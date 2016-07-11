@@ -12,12 +12,26 @@
                 <div class="title3">Review Comment</div>
         <textarea class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
                   ng-model="contract.review_comment" required></textarea>
-                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+                <p class="error" ng-if="formContract.title.$error.required">Review Comment is required</p>
 
             </md-input-container>
             <md-input-container class="md-block"
                                 ng-class="{'has-error': submitted && formContract.title.$invalid}">
-                <div class="title3">Rating</div>
+                <div class="title3">Rating:</div>
+                <div>
+                    <div>
+                        <div class="title3">Seller Communication</div>
+                        <star-rating isDisable="false" ng-model="contract.review.seller_communication"></star-rating>
+                    </div>
+                    <div>
+                        <div class="title3">Service and Described</div>
+                        <star-rating isDisable="false" ng-model="contract.review.service_and_described"></star-rating>
+                    </div>
+                    <div>
+                        <div class="title3">Would Recommended</div>
+                        <star-rating isDisable="false" ng-model="contract.review.would_recommend"></star-rating>
+                    </div>
+                </div>
 
                 <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
@@ -27,7 +41,7 @@
                 <div class="title3">Closure Comment</div>
         <textarea class="form-control" name="title" ng-enter="contract_create(contract); submitted=true"
                   ng-model="contract.closure_comment" required></textarea>
-                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+                <p class="error" ng-if="formContract.title.$error.required">Closure Comment is required</p>
 
             </md-input-container>
             <btns list="['contract_close_fn']"></btns>

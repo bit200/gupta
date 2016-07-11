@@ -6,6 +6,10 @@ var ReviewContractSchema = mongoose.Schema({
     service_and_described: Number,
     would_recommend: Number,
     messages: Array,
+    contract: {
+        type: Number,
+        ref: 'Contract'
+    },
     created_at: {
         type: Date,
         default: Date.now

@@ -470,30 +470,35 @@ XYZCtrls.directive("customPagination", function ($location) {
     };
 });
 
-// XYZCtrls.directive("rating", function ($location) {
-//     return {
-//         restrict: "A",
-//         scope: {
-//             rating: "=ngModel"
-//         },
-//         link: function (scope, element, attrs) {
-//             if (!scope.customPagination) scope.customPagination = {};
-//             scope.customPagination.currentPage = parseInt(scope.customPagination.currentPage || 1);
-//             scope.customPagination.countByPage = parseInt(scope.customPagination.countByPage || 10);
-//             scope.customPagination.totalCount = parseInt(scope.customPagination.totalCount || 0);
-//             scope.$watch('customPagination.currentPage', function (val) {
-//                 if (val && parseInt(val)) {
-//                     $location.search('page', val > 1 ? val : null);
-//                     scope.cb({currentPage: val});
-//                 }
-//             })
-//             scope.numberOfPages = function () {
-//                 return Math.ceil(scope.customPagination.totalCount / scope.customPagination.countByPage);
-//             }
-//         }
-// //        replace: true
-//     };
-// });
+XYZCtrls.directive("starRating", function () {
+    return {
+        restrict: "E",
+        scope: {
+            rating: "=ngModel",
+            isDisable: "="
+        },
+        templateUrl: 'template/directive/templateRating.html',
+        link: function (scope, element, attrs) {
+            scope.ratingArr = [];
+            for (var i = 0; i < scope.rating; i++) {
+                scope.ratingArr[i] = true;
+            }
+        },
+        controller: ['$scope', function (scope) {
+            scope.ratingArr = [];
+            scope.sendRating = function (index) {
+                if (!scope.isDisable) {
+                    scope.rating = index;
+                    var count = index;
+                    for (var i = 0; i < 5; i++) {
+                        scope.ratingArr[i] = (count > 0);
+                        count--
+                    }
+                }
+            }
+        }]
+    };
+});
 
 XYZCtrls.directive("chatForm", function () {
     return {
@@ -503,7 +508,7 @@ XYZCtrls.directive("chatForm", function () {
             join: '='
         },
         templateUrl: 'template/directive/templateChat.html',
-        controller: ['$scope', '$http', 'socket', 'AuthService', 'parseTime', 'Upload', '$rootScope', function (scope, http, socket, AuthService, parseTime, Upload,$rootScope) {
+        controller: ['$scope', '$http', 'socket', 'AuthService', 'parseTime', 'Upload', '$rootScope', function (scope, http, socket, AuthService, parseTime, Upload, $rootScope) {
             var user = AuthService.currentUser();
             scope.currentUserName = user.first_name + ' ' + user.last_name;
             socket.emit('join room', {join: scope.join, userID: user._id});
