@@ -1,10 +1,45 @@
 <div class="modal fade seller-modal">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
+        <div class="modal-content" style="border-radius:0px">
+            <div class="modal-header job-review-header" >
+                <button type="button" class="close job-review-close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true" >&times;</button>
+                <h4 class="modal-title">GET A REVIEW</h4>
             </div>
-            <div class="modal-footer">
-                <button type="button" ng-click="close(true)" class="btn btn-default" data-dismiss="modal">OK</button>
+            <div class="modal-body">
+                <div>
+                    <div class="width45 inline-block" style="font-size:12pt">
+                        <div class="text-bold ">Seller Communication</div>
+                        <div class="text-bold  paddingT20 paddingB20">Service and Described</div>
+                        <div class="text-bold">Would Recommend</div>
+                    </div>
+                    <div class="width35 inline-block">
+                        <div class="star-rating-width">
+                            <star-rating ng-model="item.seller_communication" is-disable="true"></star-rating>
+                        </div>
+                        <div class="star-rating-width  paddingT20 paddingB20">
+                            <star-rating ng-model="item.service_and_described" is-disable="true"></star-rating>
+                        </div>
+                        <div class="star-rating-width">
+                            <star-rating ng-model="item.would_recommend" is-disable="true"></star-rating>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-review-comments">
+                    <div class="comment" ng-repeat="comment in comments">
+                        <div class="inline-block job-review-img" >
+                            <img ng-src="{{comment.user}}" style="height: 100%;">
+                        </div>
+                        <div class="inline-block paddingL20">
+                            <div>{{comment.name}}</div>
+                            <div style="padding: 9px 0">{{comment.message}}</div>
+                            <div class="job-review-running-title">for {{comment.title}} at {{comment.created_at}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="job-review-footer">
+                <textarea class="form-control job-review-textarea" ng-model="reviewText" row="5" placeholder="Write a review"></textarea>
+                <button type="button" ng-click="send(reviewText)" class="btn job-button marginT20" data-dismiss="modal">SUBMIT</button>
             </div>
         </div>
 

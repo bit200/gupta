@@ -63,6 +63,7 @@ jobs-list > div {
     letter-spacing: .8px;
     padding-bottom: 15px;
 }
+
 .cont .title3 {
     margin-top: 35px;
 }
@@ -72,6 +73,7 @@ jobs-list > div {
     padding: 0;
 
 }
+
 .job-items {
     position: relative;
 }
@@ -81,12 +83,15 @@ jobs-list > div {
     border-radius: 10px;
     margin-top: 55px;
 }
+
 .jshadow_padd {
     margin-bottom: 90px;
 }
+
 .jheader.jborder {
     border-radius: 10px 10px 0 0;
 }
+
 .jheader, .jbody {
     font-weight: 500;
 }
@@ -94,6 +99,7 @@ jobs-list > div {
 .jheader, .title2, .title3 {
     font-weight: bold;
 }
+
 .cont btns {
     display: block;
     padding: 45px 0 0 0;
@@ -102,18 +108,22 @@ jobs-list > div {
     margin-left: -15px;
     margin-right: -15px;
 }
+
 .jbody {
     padding: 15px 30px 45px 30px;
 }
+
 .jheader {
     background: #f1f1f1;
     padding: 15px 25px;
     text-transform: uppercase;
     color: #323844;
 }
+
 .jshadow .row {
-    margin: 0!important;
+    margin: 0 !important;
 }
+
 .job-nav {
     padding: 20px;
     margin-top: 30px;
@@ -163,28 +173,36 @@ selector .sel-items > div {
     /*display: block;*/
     padding: 5px;
 }
+
 .my_links a {
     margin-left: 5px;
 }
+
 .jheader .fa {
     float: right;
 }
+
 .jheader {
     border-bottom: 1px solid transparent;
 }
+
 .jheader.jhidden {
     border-bottom: 1px solid #d5dae0;
 }
+
 .jheader.jhidden .fa {
     transform: rotate(180deg);
 }
+
 .jheader, .jbody, .jheader .fa {
     transition: all .4s ease;
 }
+
 .jbody.jhidden {
     opacity: 0;
     display: none;
 }
+
 .iblock {
     /*background: #f6f6f6;*/
     /*padding: 15px;*/
@@ -196,9 +214,11 @@ selector .sel-items > div {
 .iblock .title3:after {
     animation: fadeOutTop .4s ease;
 }
+
 .jheader, .title3 {
     font-size: 16px;
 }
+
 .iblock.edited .title3:after {
     content: ' (edited)';
     font-size: 11px;
@@ -312,8 +332,9 @@ jobs-list .fitems {
     padding-right: 25px;
     padding-left: 25px;
 }
+
 jobs-list .pagination {
-    margin: 7px 0!important;
+    margin: 7px 0 !important;
 }
 
 .btn.btn-my, .btn.btn-primary:hover, .btn.btn-my2:hover {
@@ -328,9 +349,11 @@ jobs-list .pagination {
     border: 1px solid #94949c;
     outline: none;
 }
+
 .pagination-control.pagination li:first-child {
     margin-right: 1px;
 }
+
 .pagination-control.pagination span {
     color: #94949c;
 }
@@ -461,8 +484,6 @@ form .form-control {
     margin: 0;
 }
 
-
-
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
     background-color: rgba(50, 57, 67, 0.82);
 }
@@ -559,10 +580,12 @@ mess, desc {
     display: block;
     animation: fadeInTop .6s ease;
 }
+
 .cont {
     animation: fade .4s ease;
     position: relative;
 }
+
 @keyframes fade2 {
     0% {
         opacity: 1;
@@ -582,8 +605,6 @@ mess, desc {
     }
 }
 
-
-
 .error_direct {
     display: block;
     position: relative;
@@ -594,7 +615,7 @@ mess, desc {
     margin-bottom: -15px;
 }
 
-.error_direct>div {
+.error_direct > div {
     color: #e53d32;
     text-align: center;
     display: none;
@@ -605,12 +626,12 @@ mess, desc {
     padding-bottom: 30px;
 }
 
-.error_direct>div.anim-start {
+.error_direct > div.anim-start {
     display: block;
     animation: fade .4s ease-out forwards;
 }
 
-.error_direct>div.anim-finish {
+.error_direct > div.anim-finish {
     display: block;
     animation: fade2 .8s ease-out forwards;
 }
@@ -619,11 +640,10 @@ mess, desc {
     display: inline-block;
 }
 
-
-
 [owner] {
     display: none;
 }
+
 [owner].visible {
     display: block;
     width: 20px;
@@ -634,25 +654,68 @@ mess, desc {
     right: 5px;
     top: 45px;
 }
+
 [owner].visible:hover {
     color: #428bca;
 }
 
-
 .cont md-datepicker {
     position: relative;
 }
-.cont .md-datepicker-button{
+
+.cont .md-datepicker-button {
     position: absolute;
     right: 4px;
     top: -13px;
     background: white;
     /*top: 10*/
 }
+
 .cont .md-datepicker-input-container {
     width: 100%;
     margin: 0;
 }
+
 .cont .md-datepicker-expand-triangle {
     display: none;
+}
+
+.star-rating-width div i {
+    width: 15%;
+}
+
+.job-review-header {
+    background-color: #F1F1F1;
+    padding: 5px 15px;
+}
+
+.job-review-close {
+    font-size: 20pt;
+    padding-right: 10px;
+    color: #E24D40;
+}
+
+.job-review-comments {
+    padding: 20px 10px;
+}
+
+.job-review-img {
+    height: 65px;
+    width: 65px;
+    position: relative;
+    bottom: 30px;
+}
+
+.job-review-running-title {
+    color: #6C6C6C;
+    font-style: italic;
+}
+
+.job-review-footer {
+    padding: 0 20px 20px;
+    text-align: right;
+}
+
+.job-review-textarea {
+    border-radius: 0px
 }
