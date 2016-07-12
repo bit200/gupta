@@ -126,7 +126,8 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
     function (scope, location, http, $q, getContent, $http, $stateParams) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
-        scope.active_profile_menu = 'profile';
+        console.log(scope.viewProfile)
+        scope.active_profile_menu = 'pricing';
 
         $http.post('/api/freelancer/'+$stateParams.id+'/views');
 
