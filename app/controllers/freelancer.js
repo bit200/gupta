@@ -66,6 +66,7 @@ exports.get_freelancers = function (req, res) {
         var limit = parseInt(params.limit) || 10;
         delete params.page;
         delete params.limit;
+        console.log(params)
         m.find(models.Freelancer, params, res, res, {populate: 'contact_detail', skip: skip, limit: limit})
     }
 };
@@ -158,7 +159,7 @@ exports.freelancer_views_count = function (req, res) {
         d.setDate(d.getDate()-parseInt(req.query.days));
         q.created_at = {$gte: d};
     }
-    models.Freelancer.update({_id: req.params.id},{$inc: 1}).exec(function(){})
+    models.Freelancer.update({_id: req.params.id},{$inc: {views: 1}}).exec(function(){})
     models.ViewsProfile.count(q).exec(function(err, count){
         res.json(count);
     });
