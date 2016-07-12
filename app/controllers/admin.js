@@ -53,6 +53,8 @@ exports.approve_registration = function (req, res) {
     var password = randomstring.generate(7)
     models.Freelancer.findOne({_id: req.params.id}).populate('contact_detail').exec(function(err, freelancer){
         if (freelancer.user) {
+            freelancer.registrationStatus = 1
+            freelancer.save(function(){});
             mail.approveAgencyRegistration({
                 freelancer: freelancer,
             }, freelancer.contact_detail.email);
