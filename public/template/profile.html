@@ -12,118 +12,194 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <img class="full-width" ng-src="{{viewProfile.contact_detail.preview}}">
-            <h3>{{viewProfile.name}}</h3>
-            <p>{{viewProfile.introduction}}</p>
-            <p>
-                <ng-md-icon icon="location_on" style="fill: lightgray;top: 7px;position: relative;"></ng-md-icon>
-                {{viewProfile.location}}</p>
-            <div>
-                <ng-md-icon icon="remove_red_eye" style="fill: lightgray;top: -12px;position: relative;"></ng-md-icon>
-                <p style="display: inline-block;margin-bottom: 0px;">
-                    Profile Views {{viewsCount}}
-                    <br />
-                    <b>Last 90 days</b>
+            <div class="profile-wrapper">
+                <img class="full-width" ng-src="{{viewProfile.contact_detail.preview}}">
+                <h3 class="profile-name">{{viewProfile.name}}</h3>
+                <p class="profile-introduction">{{viewProfile.introduction}}</p>
+                <p class="profile-extra-info">
+                    <ng-md-icon icon="location_on" style="fill: rgb(51, 56, 70);top: 7px;position: relative;"></ng-md-icon>
+                    {{viewProfile.location}}</p>
+                <div>
+                    <ng-md-icon icon="remove_red_eye" style="fill: rgb(51, 56, 70);top: -12px;position: relative;"></ng-md-icon>
+                    <p class="profile-extra-info" style="display: inline-block;margin-bottom: 0px;">
+                        Profile Views {{viewsCount}}
+                        <br />
+                        <span>Last 90 days</span>
+                    </p>
+                </div>
+                <p class="profile-extra-info pointer" ng-if="isLogged()" ng-init="checkFavorited()">
+                    <span ng-hide="profileFavorited" ng-click="addFavorite()">
+                        <ng-md-icon icon="favorite_border" style="fill: rgb(51, 56, 70);top: 7px;position: relative;"></ng-md-icon>
+                        Add Favorite
+                    </span>
+                    <span ng-show="profileFavorited" ng-click="removeFavorite()">
+                        <ng-md-icon icon="favorite" style="fill: red;top: 7px;position: relative;"></ng-md-icon>
+                        Remove Favorite
+                    </span>
                 </p>
-            </div>
-            <p style="cursor: pointer;" ng-if="isLogged()" ng-init="checkFavorited()">
-                <span ng-hide="profileFavorited" ng-click="addFavorite()">
-                    <ng-md-icon icon="favorite_border" style="fill: lightgray;top: 7px;position: relative;"></ng-md-icon>
-                    Add Favorite
-                </span>
-                <span ng-show="profileFavorited" ng-click="removeFavorite()">
-                    <ng-md-icon icon="favorite" style="fill: red;top: 7px;position: relative;"></ng-md-icon>
-                    Remove Favorite
-                </span>
-
-            </p>
-
-            <div>
-                <h3>RECENT HISTORY</h3>
-                <p>Last account activity : {{viewProfile.last_activity | date}}</p>
-                <p>Past project : ----- </p>
-                <p>Active project : ----- </p>
+                <div style="border-top: 1px solid lightgray">
+                    <h3 class="profile-name">RECENT HISTORY</h3>
+                    <table class="table no-table-border">
+                        <tr>
+                            <td>
+                                Last account activity
+                                <span style="float: right">:</span>
+                            </td>
+                            <td class="text-right">{{viewProfile.last_activity | date}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Past project
+                                <span style="float: right">:</span>
+                            </td>
+                            <td class="text-right">-----</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Active project
+                                <span style="float: right">:</span>
+                            </td>
+                            <td class="text-right">-----</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-9">
-            <ul class="profile-menu">
-                <li ng-click="active_profile_menu='pricing'" ng-class="{active: active_profile_menu=='pricing'}">PRICING AND PACKAGES</li>
-                <li ng-click="active_profile_menu='profile'" ng-class="{active: active_profile_menu=='profile'}">PROFILE</li>
-                <li ng-click="active_profile_menu='portfolio'" ng-class="{active: active_profile_menu=='portfolio'}">PORTFOLIO</li>
-            </ul>
+            <div class="row registration-tab-menu" ng-init="active_profile_menu = 'pricing'" style="margin-bottom: 20px;margin-left: 0px;margin-right: 0px;">
+                <div ng-click="active_profile_menu = 'pricing'" ng-class="{active: active_profile_menu == 'pricing'}" class="col-md-3 col-sm-4 col-xs-4">
+                    PRICING AND PACKAGES
+                </div>
+                <div ng-click="active_profile_menu = 'profile'" ng-class="{active: active_profile_menu == 'profile'}" class="col-md-3 col-sm-4 col-xs-4">
+                    PROFILE
+                </div>
+                <div ng-click="active_profile_menu = 'portfolio'" ng-class="{active: active_profile_menu == 'portfolio'}" class="col-md-3 col-sm-4 col-xs-4">
+                    PORTFOLIO
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <section ng-show="active_profile_menu=='pricing'">
+                        <table class="packages-table">
+                            <thead>
+                            <th></th>
+                            <th ng-repeat="pkg in viewProfile.service_packages">
+                                <div class="full-absolute">
+                                    <div class="wrapper-pkg-title">
+                                        <div class="title-pkg">{{pkg.title}}</div>
+                                        <div class="price-pkg">{{pkg.pricing}} <i class="fa fa-inr" aria-hidden="true"></i></div>
+                                    </div>
+                                </div>
+                            </th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Information</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages">
+                                    {{pkg.information}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages">
+                                    {{pkg.description}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--<div class="row">-->
+                        <!--<div class="col-md-3"></div>-->
+                        <!--<div class="col-md-3" ng-repeat="pkg in viewProfile.service_packages">-->
+                        <!--<div style="height: 80px;background: rgb(51, 56, 70);"></div>-->
+                        <!--</div>-->
+                        <!--</div>-->
 
-            <section ng-show="active_profile_menu=='pricing'">
-                <div ng-show="viewProfile.price.word || viewProfile.price.hour">
-                    <h4>PRICING</h4>
-                    <p ng-show="viewProfile.price.hour"> Per hour: {{viewProfile.price.hour}}</p>
-                    <p ng-show="viewProfile.price.word"> Per word: {{viewProfile.price.word}}</p>
-                </div>
-                <div ng-show="viewProfile.service_packages">
-                    <h4>PACKAGES</h4>
-                    <div class="row" ng-repeat="pkg in viewProfile.service_packages" style="position:relative;border: 1px solid lightgray;height: 128px;">
-                        <div class="col-md-4" style="height: 100%;position: relative;padding: 0px">
-                            <div style="text-align: center;">
-                                <ng-md-icon ng-hide="pkg.preview.url" icon="insert_photo" style="fill: lightgray;" size="128"></ng-md-icon>
+                        <!--<div ng-show="viewProfile.price.word || viewProfile.price.hour">-->
+                        <!--<h4>PRICING</h4>-->
+                        <!--<p ng-show="viewProfile.price.hour"> Per hour: {{viewProfile.price.hour}}</p>-->
+                        <!--<p ng-show="viewProfile.price.word"> Per word: {{viewProfile.price.word}}</p>-->
+                        <!--</div>-->
+                        <!--<div ng-show="viewProfile.service_packages">-->
+                        <!--<h4>PACKAGES</h4>-->
+                        <!--<div class="row" ng-repeat="pkg in viewProfile.service_packages" style="position:relative;border: 1px solid lightgray;height: 128px;">-->
+                        <!--<div class="col-md-4" style="height: 100%;position: relative;padding: 0px">-->
+                        <!--<div style="text-align: center;">-->
+                        <!--<ng-md-icon ng-hide="pkg.preview.url" icon="insert_photo" style="fill: lightgray;" size="128"></ng-md-icon>-->
+                        <!--</div>-->
+                        <!--<img style="height: 100%;position: relative" ng-show="pkg.preview.url" ng-src="{{pkg.preview.url}}" />-->
+                        <!--</div>-->
+                        <!--<div class="col-md-8" style="padding: 0px;">-->
+                        <!--<h3 style="margin-top: 2px;">{{pkg.title}}</h3>-->
+                        <!--<p>{{pkg.description}}</p>-->
+                        <!--<p>{{pkg.pricing}} / Monthly</p>-->
+                        <!--<ul style="padding-left: 0px;list-style: none;">-->
+                        <!--<li style="float: left" ng-repeat-start="extra in pkg.extras">-->
+                        <!--{{extra.price}} {{extra.description}}-->
+                        <!--</li>-->
+                        <!--<li style="float: left" ng-repeat-end ng-if="!$last">, </li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </section>
+                    <section ng-show="active_profile_menu=='profile'">
+                        <p class="profile-description">{{viewProfile.description}}</p>
+                        <div class="row">
+                            <div class="col-md-4" ng-if="viewProfile.industry_expertise.length" style="margin-top: 30px">
+                                <div class="profile-exp-block">
+                                    <h5>INDUSTRY EXPERTISE</h5>
+                                    <p>
+                                        <span ng-repeat="industry_expertise in viewProfile.industry_expertise">{{industry_expertise}}<span ng-if="!$last">, </span></span>
+                                    </p>
+                                </div>
                             </div>
-                            <img style="height: 100%;position: relative" ng-show="pkg.preview.url" ng-src="{{pkg.preview.url}}" />
+                            <div class="col-md-4" ng-if="viewProfile.content_type.length" style="margin-top: 30px">
+                                <div class="profile-exp-block">
+                                    <h5>CONTENT TYPE</h5>
+                                    <p>
+                                        <span ng-repeat="content_type in viewProfile.content_type">{{content_type}}<span ng-if="!$last">, </span></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-if="viewProfile.languages.length" style="margin-top: 30px">
+                                <div class="profile-exp-block">
+                                    <h5>LANGUAGES</h5>
+                                    <p>
+                                        <span ng-repeat="language in viewProfile.languages">{{language}}<span ng-if="!$last">, </span></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-if="viewProfile.service_providers.length" style="margin-top: 30px">
+                                <div class="profile-exp-block">
+                                    <h5>YEARS OF EXPERIENCE 10</h5>
+                                    <p>
+                                        <span ng-repeat="service_provider in viewProfile.service_providers">{{service_provider}}<span ng-if="!$last">, </span></span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-8" style="padding: 0px;">
-                            <h3 style="margin-top: 2px;">{{pkg.title}}</h3>
-                            <p>{{pkg.description}}</p>
-                            <p>{{pkg.pricing}} / Monthly</p>
-                            <ul style="padding-left: 0px;list-style: none;">
-                                <li style="float: left" ng-repeat-start="extra in pkg.extras">
-                                    {{extra.price}} {{extra.description}}
-                                </li>
-                                <li style="float: left" ng-repeat-end ng-if="!$last">, </li>
-                            </ul>
+                    </section>
+                    <section ng-show="active_profile_menu=='portfolio'">
+                        <div style="border: 1px solid rgb(213, 218, 225)">
+                            <div style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase">
+                                SAMPLE WORK
+                            </div>
+                            <div style="border-bottom: 1px solid rgb(213, 218, 225);padding: 10px;height: 130px;" ng-repeat="work_sample in viewProfile.work.work_samples">
+                                <div class="row" >
+                                    <div class="col-md-3 col-sm-3 text-center" style="position: relative;height: 100%">
+                                        <img ng-src="https://cdn3.iconfinder.com/data/icons/line-icons-set/128/1-07-256.png" style="height: 100%;width: auto;position: relative;" ng-if="!work_sample.attachments[0].path">
+                                        <img ng-src="{{work_sample.attachments[0].path}}" style="height: 100%;width: auto;position: relative;" ng-if="work_sample.attachments[0].path">
+                                    </div>
+                                    <div class="col-md-9 col-sm-9">
+                                        <h3 style="margin: 0px;font-size: 20px;color: rgb(51, 56, 70);">{{work_sample.title}}</h3>
+                                        <p style="font-size: 15px;color: rgb(51, 56, 70);">{{work_sample.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
-            </section>
-            <section ng-show="active_profile_menu=='profile'">
-                <p>{{viewProfile.description}}</p>
-                <div class="row">
-                    <div class="col-md-4" ng-if="viewProfile.industry_expertise.length">
-                        <div class="profile-exp-block">
-                            <h5>INDUSTRY EXPERTISE</h5>
-                            <p>
-                                <span ng-repeat="industry_expertise in viewProfile.industry_expertise">{{industry_expertise}}<span ng-if="!$last">, </span></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" ng-if="viewProfile.content_type.length">
-                        <div class="profile-exp-block">
-                            <h5>CONTENT TYPE</h5>
-                            <p>
-                                <span ng-repeat="content_type in viewProfile.content_type">{{content_type}}<span ng-if="!$last">, </span></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" ng-if="viewProfile.languages.length">
-                        <div class="profile-exp-block">
-                            <h5>LANGUAGES</h5>
-                            <p>
-                                <span ng-repeat="language in viewProfile.languages">{{language}}<span ng-if="!$last">, </span></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4" ng-if="viewProfile.service_providers.length">
-                        <div class="profile-exp-block">
-                            <h5>YEARS OF EXPERIENCE 10</h5>
-                            <p>
-                                <span ng-repeat="service_provider in viewProfile.service_providers">{{service_provider}}<span ng-if="!$last">, </span></span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section ng-show="active_profile_menu=='portfolio'">
-                <p>Customers Count: {{viewProfile.work.customers}}</p>
-                <p>Past client: {{viewProfile.work.past_client}}</p>
-                <p>Testimonials: {{viewProfile.work.testimonials}}</p>
-                <p>Awards: {{viewProfile.work.awards}}</p>
-            </section>
+            </div>
         </div>
     </div>
 </div>

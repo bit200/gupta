@@ -1441,13 +1441,18 @@ div.containerCrop {
 .like-field {
     position: absolute;
     z-index: 30;
-    background-color: rgba(77, 77, 77, 0.48);
+    background-color: lightgray;
     padding: 7px 10px;
     border-radius: 33px;
-    border: 1px solid;
+    border: 1px solid gray;
     right: 14px;
     top: 10px;
 }
+
+.active-like .like-field-heart {
+    color: #EA2B29;
+}
+
 .like-field:hover .like-field-heart {
     color: #EA2B29;
 }
@@ -1515,9 +1520,44 @@ div.containerCrop {
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 20px;
+
+    font-size: 16px;
+    color: rgb(51, 56, 70);
+    text-transform: uppercase;
 }
 
 .profile-exp-block p{
+    font-size: 15px;
+    color: rgba(51, 56, 70, 0.8);
+    margin-bottom: 0px;
+}
+.profile-description{
+    font-size: 15px;
+    color: rgba(51, 56, 70, 0.8);
+}
+
+.profile-name{
+    font-size: 20px;
+    color: rgb(51, 56, 70);
+    text-transform: uppercase;
+}
+
+.profile-introduction{
+    font-size: 14px;
+    color: rgba(51, 56, 70, 0.902);
+}
+
+.profile-wrapper{
+    padding: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(213, 218, 225);
+    background-color: rgb(241, 241, 241);
+}
+
+.profile-extra-info{
+    font-size: 15px;
+    color: rgb(51, 56, 70);
 }
 
 ul.inline-list { list-style-type: none; padding-left: 0px;}
@@ -1640,6 +1680,87 @@ md-autocomplete-wrap{
 .useful-links-body{
     padding-left: 10px;
     padding-right: 10px
+}
+
+
+.packages-table thead{
+    border: 2px solid rgb(51, 56, 70);
+}
+.packages-table tbody td{
+    border: none !important;
+    font-size: 15px;
+    color: rgb(80, 84, 94);
+    padding: 10px;
+}
+.packages-table thead th{
+    border: none !important;
+}
+
+.packages-table thead th:not(:first-child){
+    border-left: 2px solid rgb(213, 218, 225) !important;
+}
+
+.packages-table tbody td:not(:first-child){
+    border-left: 2px solid rgb(213, 218, 225) !important;
+}
+
+.packages-table tbody{
+    border-right: 2px solid rgb(213, 218, 225);
+    border-left: 2px solid rgb(213, 218, 225);
+    border-bottom: 2px solid rgb(213, 218, 225);
+}
+.packages-table th{
+    width: 225px;
+    height: 107px;
+    background: rgb(51, 56, 70);
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.packages-table th *{
+    color: white;
+    text-align: center;
+}
+
+.full-absolute{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.packages-table th .wrapper-pkg-title{
+    align-self: center;
+    margin: 0 auto;
+}
+
+.packages-table th .title-pkg {
+    font-size: 18px;
+}
+
+.packages-table th .title-pkg {
+    font-size: 18px;
+}
+
+.packages-table th .title-pkg {
+    font-size: 18px;
+}
+
+.packages-table th .price-pkg {
+    font-size: 30px;
+}
+
+.packages-table th .price-pkg i{
+    font-size: 27px;
+}
+
+.no-table-border td{
+    border: none !important;
 }
 
 @media (min-width: 992px) {

@@ -161,10 +161,9 @@
         <div class=" text-center marginTB20"><h2 class="marginTB10"> Featured Profiles</h2></div>
         <div class="row">
             <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;"
-                 ng-repeat="profile in profiles | orderBy:'-view'" ng-if="$index < 8"
-                 ng-click="$state.go('categories.profile', {id: profile._id})">
-                <div class="like-field"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
-                <div class="profile">
+                 ng-repeat="profile in profiles | orderBy:'-view'">
+                <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
+                <div class="profile" ng-click="$state.go('categories.profile', {id: profile._id})">
                     <div class="front">
                         <div class="profile-img">
                             <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">

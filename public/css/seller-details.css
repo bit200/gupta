@@ -90,8 +90,11 @@
     margin-top: 30px;
 }
 
-.registration-tab-menu > div{
+.registration-tab-menu {
     border-bottom: 1px solid lightgrey;
+
+}
+.registration-tab-menu > div{
     cursor: pointer;
     text-align: center;
     padding-bottom: 10px;
