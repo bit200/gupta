@@ -150,13 +150,54 @@ XYZCtrls.directive('acts', function () {
                 },
                 'Get a review': function () {
                     return {
-                        fn: ModalService.showModal({
-                            templateUrl: "template/modal/templateJobReview.html",
-                            controller: function ($scope, $http, $element, close) {
-                                console.log('sadadasda')
-                            }
-                        })
-                        
+                        fn: function () {
+                            $http.get('/api/contract/review', {params: {_id: item._id}}).then(function (resp) {
+                                ModalService.showModal({
+                                    templateUrl: "template/modal/templateJobReview.html",
+                                    controller: function ($scope, $element, close) {
+                                        $scope.item = resp.data.data;
+                                        $scope.comments = resp.data.data.messages;
+                                        $scope.close = function (state) {
+                                            $element.modal('hide');
+                                            close(state, 500);
+                                        };
+
+                                        $scope.send = function (text) {
+                                            var user = AuthService.currentUser();
+                                            var date = new Date();
+                                            var monthNames = ["January", "February", "March", "April", "May", "June",
+                                                "July", "August", "September", "October", "November", "December"
+                                            ];
+                                            var obj = {
+                                                _id: $scope.item._id,
+                                                text: {
+                                                    user: user.preview,
+                                                    name: user.first_name +' '+user.last_name,
+                                                    message: text,
+                                                    title:item.job.title,
+                                                    created_at: date.getHours() +':'+ date.getMinutes()+' '+monthNames[date.getMonth()]+','+date.getDay()+','+date.getFullYear()
+                                                }
+                                            };
+                                            $http.post('/api/contract/review', obj).then(function(resp){
+                                                $scope.comments = resp.data.data.messages;
+                                            }, function(err) {
+                                                notify({message: 'Can\'t send review', duration: 3000, position: 'right', classes: 'alert-danger'});
+                                            })
+                                        }
+                                    }
+                                }).then(function (modal) {
+                                    modal.element.modal();
+                                    modal.close.then(function (state) {
+                                        if (state)
+                                            $state.go(state.name, state.params)
+                                    });
+
+                                });
+                            }, function (err) {
+                                notify({message: 'Contract not found', duration: 3000, position: 'right', classes: 'alert-danger'});
+                            })
+
+                        }
                     }
                 },
                 'Communicate': function () {

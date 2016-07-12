@@ -187,10 +187,12 @@ exports.close_contract = function (req, res) {
     delete params._id;
     params.status = 'Closed';
     m.findUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
-        m.findUpdate(models.JobApply, {contract: contract._id}, {status: 'closed'}, function(err){log('22222',contract._id)}, function (job) {
+        m.findUpdate(models.JobApply, {contract: contract._id}, {status: 'closed'}, function (err) {
+            log('22222', contract._id)
+        }, function (job) {
             params.review.contract = contract._id
-            m.findCreate(models.ReviewContract, params.review, {},function(){
-                m.scb(contract,res)
+            m.findCreate(models.ReviewContract, params.review, {}, function () {
+                m.scb(contract, res)
             });
 
         })
@@ -241,6 +243,20 @@ exports.findContract = function (req, res) {
             })
         }
     }, {populate: 'buyer seller freelancer job suggest'})
+};
+
+exports.reviewContract = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.ReviewContract, {contract: params._id}, res, res)
+};
+
+
+exports.addReview = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.ReviewContract, {_id: params._id}, res, function (contract) {
+        contract.messages.push(params.text)
+        m.findUpdate(models.ReviewContract, {_id: params._id}, {messages: contract.messages}, res, res)
+    })
 };
 
 exports.rejectJob = function (req, res) {
