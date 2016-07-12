@@ -1441,13 +1441,18 @@ div.containerCrop {
 .like-field {
     position: absolute;
     z-index: 30;
-    background-color: rgba(77, 77, 77, 0.48);
+    background-color: lightgray;
     padding: 7px 10px;
     border-radius: 33px;
-    border: 1px solid;
+    border: 1px solid gray;
     right: 14px;
     top: 10px;
 }
+
+.active-like .like-field-heart {
+    color: #EA2B29;
+}
+
 .like-field:hover .like-field-heart {
     color: #EA2B29;
 }

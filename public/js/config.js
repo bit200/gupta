@@ -45,7 +45,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     getContent: function ($q, $http) {
                         return $q.all({
-                            sellers: $http.get('/api/freelancers', {}),
+                            sellers: $http.get('/api/freelancers?page=1&limit=8', {}),
                             locations: $http.get('/get-content', {
                                 params: {
                                     name: 'Location',

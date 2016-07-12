@@ -66,9 +66,15 @@ exports.get_freelancers = function (req, res) {
         var limit = parseInt(params.limit) || 10;
         delete params.page;
         delete params.limit;
-        console.log(params)
         m.find(models.Freelancer, params, res, res, {populate: 'contact_detail', skip: skip, limit: limit})
     }
+};
+exports.get_favorites = function(req, res){
+  models.Favorite.find({owner: req.userId}).select('freelancer').exec(function(err, favorites){
+      res.json(_.map(favorites, function(fav){
+          return fav.freelancer
+      }))
+  })
 };
 
 exports.get_freelancer = function (req, res) {

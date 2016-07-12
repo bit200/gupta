@@ -15,11 +15,26 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         location.path(url)
     };
 
+    scope.favorites = [];
+    http.get('/api/my/favorites').success(function(favorites){
+        scope.favorites = favorites
+    });
+
+    scope.addFavorite = function(profileId){
+        http.get('/api/freelancer/'+profileId+'/favorite/add');
+        scope.favorites.push(profileId)
+    };
+
+    scope.removeFavorite = function(profileId){
+        http.get('/api/freelancer/'+profileId+'/favorite/remove');
+        scope.favorites.splice(scope.favorites.indexOf(profileId),1);
+    };
+
+
     scope.jobs = getContent.jobs.data.data;
     scope.profiles = parseRating.rating(getContent.sellers.data.data);
     scope.profiles = parseRating.popularity(scope.profiles);
     scope.viewServiceProvider = function(item){
-        console.log(item)
         ModalService.showModal({
             templateUrl: "template/modal/postJobOrViewService.html",
             controller: function($scope, $element, close){
