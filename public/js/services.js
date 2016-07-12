@@ -276,7 +276,7 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
             userId: function () {
                 return currentUser ? currentUser._id : null
             },
-            userName: function(){
+            userName: function () {
                 return currentUser.first_name && currentUser.last_name ? [currentUser.first_name, currentUser.last_name].join(' ') : null
             },
             currentFreelancer: function () {
@@ -323,10 +323,54 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
 
 XYZCtrls.factory('socket', function (socketFactory) {
     var myIoSocket = io.connect('http://localhost:8080/');
-    
+
     var socket = socketFactory({
         ioSocket: myIoSocket
     });
 
     return socket;
 });
+
+XYZCtrls.service('breadCrumbs', function () {
+    return {
+        returnWay: function (url, user) {
+            var way;
+            switch (url) {
+                case 'dashboard':
+                    way = user + '/Dashboard';
+                    break;
+                case 'root.job_create':
+                    way = user + '/Post a Project';
+                    break;
+                case 'jobs_list.all':
+                    way = user + '/View Jobs';
+                    break;
+                case 'jobs_list.buyer_open':
+                    way = 'Buyer/Dashboard/Open Projects';
+                    break;
+                case 'jobs_list.buyer_ongoing':
+                    way = 'Buyer/Dashboard/Ongoing Projects';
+                    break;
+                case 'jobs_list.buyer_closed':
+                    way = 'Buyer/Dashboard/Closed Projects';
+                    break;
+                case 'jobs_list.seller_open':
+                    way = 'Seller/Dashboard/Open Projects';
+                    break;
+                case 'jobs_list.seller_ongoing':
+                    way = 'Seller/Dashboard/Open Projects';
+                    break;
+                case 'jobs_list.seller_closed':
+                    way = 'Seller/Dashboard/Open Projects';
+                    break;
+                case 'my_profile':
+                    way = 'Dashboard/Profile';
+                    break;
+            }
+            return way;
+        }
+    }
+});
+
+var q = ['Post a Project', 'View Jobs', 'View Projects', 'Open Projects', 'Ongoing Projects', 'Closed Projects', 'Dashboard', 'Profile', 'My Profile Details', 'Home', 'Content Writing'
+    , 'View Profile', 'Profile Details', '', ''];

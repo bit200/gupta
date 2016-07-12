@@ -415,21 +415,45 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
         replace: false,
         link: function ($scope, element, attrs) {
             $scope.$watchCollection('flexMenu', function (arr) {
-                if (arr && arr.length) {
-                    $timeout(function () {
-                        $(element).flexMenu();
-                        $('.flexMenu-popup').on('mouseover', function (event) {
-                            if (($(window).width() - angular.element(event.currentTarget).offset().left) < 400) {
-                                angular.element(event.currentTarget).find('ul').css('left', '-100%')
-                            }
-                        })
-                    }, 100)
+                    if (arr && arr.length) {
+                        $timeout(function () {
+                            $(element).flexMenu();
+                            $('.flexMenu-popup').on('mouseover', function (event) {
+                                if (($(window).width() - angular.element(event.currentTarget).offset().left) < 300) {
+                                    angular.element(event.currentTarget).find('ul').css('left', '-100%')
+                                }
+                            });
+                            $('.flexMenu-viewMore').on('mouseover', function () {
+                                $('.flexMenu-viewMore').toggleClass('active');
+                                $('.flexMenu-popup').css('display', 'block')
+                            });
+                            $('.flexMenu-viewMore').on('mouseout', function () {
+                                $('.flexMenu-viewMore').removeClass('active');
+                                $('.flexMenu-popup').css('display', 'none')
+                            });
+
+
+                        }, 100)
+                    }
                 }
-            })
+            )
         }
     }
-});
+})
+;
 
+XYZCtrls.directive("wayRoute", function ($location) {
+    return {
+        restrict: "E",
+        scope: {
+            ways: '='
+        },
+        template: '<div class="inline-block" ng-repeat="way in ways">{{way}}<span ng-if="!$last">/</div>',
+        controller: ['$scope', function (scope) {
+
+        }]
+    }
+});
 XYZCtrls.directive("customPagination", function ($location) {
     return {
         restrict: "A",

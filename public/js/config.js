@@ -61,7 +61,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('dashboard', {
                 url: '/dashboard',
                 templateUrl: 'template/dashboard.html',
-                controller: 'DashboardCtrl'
+                controller: 'DashboardCtrl',
+                ncyBreadcrumb: {
+                    label: 'Dashboard',
+                    hideType: false
+                }
             })
             .state('forgot_email', {
                 url: '/forgot/email',
@@ -142,7 +146,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('jobs_list', {
                 url: '/jobs',
                 templateUrl: 'js/directives/jobs-list/jobs-content.html',
-                abstract: true
+                abstract: false,
+                ncyBreadcrumb: {
+                    label: 'Dashboard',
+                    hideType: false
+                }
             })
             .state('jobs_list.all', {
                 url: '',
@@ -152,7 +160,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     template: 'jobs-all',
                     header: 'All jobs',
                     url: '/api/jobs/all'
-                })
+                }),
+                ncyBreadcrumb: {
+                    label: 'View Jobs',
+                    hideType: false
+                }
             })
             .state('how_it_work', {
                 url: '/how_it_work',
@@ -186,6 +198,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         user_type: 'buyer',
                         job_type: 'open'
                     })
+                },
+                ncyBreadcrumb: {
+                    label: 'Open Projects',
+                    hideType: false
                 }
             })
 
@@ -199,6 +215,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         user_type: 'buyer',
                         job_type: 'ongoing'
                     })
+                },
+                ncyBreadcrumb: {
+                    label: 'Ongoing Projects',
+                    hideType: false
                 }
             })
             .state('jobs_list.buyer_closed', {
@@ -211,6 +231,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         user_type: 'buyer',
                         job_type: 'closed'
                     })
+                },
+                ncyBreadcrumb: {
+                    label: 'Closed Projects',
+                    hideType: false
                 }
             })
 
@@ -224,6 +248,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         user_type: 'seller',
                         job_type: 'open'
                     })
+                },
+                ncyBreadcrumb: {
+                    label: 'Open Projects',
+                    hideType: false
                 }
             })
             .state('jobs_list.seller_ongoing', {
@@ -236,6 +264,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         user_type: 'seller',
                         job_type: 'ongoing'
                     })
+                },
+                ncyBreadcrumb: {
+                    label: 'Ongoing Projects',
+                    hideType: false
                 }
             })
             .state('jobs_list.seller_closed', {
@@ -248,6 +280,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         user_type: 'seller',
                         job_type: 'closed'
                     })
+                },
+                ncyBreadcrumb: {
+                    label: 'Closed Projects',
+                    hideType: false
                 }
             })
 
@@ -469,6 +505,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'myProfileCtrl',
                 resolve: {
                     auth: authResolve
+                },
+                ncyBreadcrumb: {
+                    label: 'Dashboard/Profile',
+                    hideType: true
                 }
             });
 

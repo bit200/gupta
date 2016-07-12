@@ -20,9 +20,10 @@
     padding-bottom: 15px;
 }
 
-.flex.menu > li.active a{
-    color: #EA2B29 !important;
-    border-bottom: 2px solid #EA2B29;
+.flexMenu-popup ul{
+    top:-40px !important;
+    /*color: #EA2B29 !important;*/
+    /*border-bottom: 2px solid #EA2B29;*/
 }
 
 .flex.menu > li a:hover{
@@ -60,3 +61,16 @@
     cursor: pointer;
     display: block;
 }
+
+.breadcrumb {
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 0;
+    position: absolute;
+    left: 5%;
+    top: 100px;
+    font-size: 16pt;
+}
+
