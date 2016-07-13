@@ -10,6 +10,9 @@ XYZCtrls.directive('jobPost', function () {
         },
         controller: ['$scope', function (scope) {
             //console.log('@@@ Scope Post directive', scope.attrs)
+            // console.log(getContent)
+            // scope.contentType = getContent.contentType.data.data
+            // scope.location = getContent.location.data.data
         }]
     };
 });

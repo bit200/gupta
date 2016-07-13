@@ -419,9 +419,11 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
                         $timeout(function () {
                             $(element).flexMenu();
                             $('.flexMenu-popup').on('mouseover', function (event) {
-                                if (($(window).width() - angular.element(event.currentTarget).offset().left) < 300) {
-                                    angular.element(event.currentTarget).find('ul').css('left', '-100%')
-                                }
+                                $timeout(function(){
+                                    if (($(window).width() - angular.element(event.currentTarget).offset().left) < 300) {
+                                        angular.element(event.currentTarget).find('ul').css('left', '-100%')
+                                    }
+                                },0)
                             });
                             $('.flexMenu-viewMore').on('mouseover', function () {
                                 $('.flexMenu-viewMore').toggleClass('active');

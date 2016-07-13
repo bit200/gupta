@@ -636,7 +636,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             return $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    query: {type: 'Content Writing', filter: 'Content Type'},
                                     distinctName: 'name'
                                 }
                             })
