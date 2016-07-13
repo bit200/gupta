@@ -23,7 +23,12 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
 
         scope.isApply = scope.apply || scope.apply_by_id;
         console.log('is Apply', scope.apply_by_id)
+        console.log(getContent)
+        if(getContent.contentType)
+            scope.contentTypes = getContent.contentType.data.data
 
+        if(getContent.locations)
+            scope.locations = getContent.locations.data.data
 
         if (scope.job) {
             var job = scope.job

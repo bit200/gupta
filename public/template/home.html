@@ -184,9 +184,7 @@
                             <div class="profile-back-rating-block">
                                 <div class="inline-block text-left" style="width: 20%">by test</div>
                                 <div class="inline-block text-center" style="width: 50%">
-                                    <span ng-repeat="star in profile.ratingArr track by $index "
-                                          class="rating-star glyphicon glyphicon-star"
-                                          ng-class="{'glyphicon-star-red': star,'glyphicon-star-white':!star}"></span>
+                                    <star-rating ng-model="profile.rating"></star-rating>
                                 </div>
                                 <div class="inline-block text-right" style="width: 10%">({{profile.ratingCount}})</div>
                             </div>

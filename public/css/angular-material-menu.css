@@ -35,14 +35,18 @@
     padding:0
 }
 
-#primary_nav_wrap ul ul
-{
-    display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    background:#fff;
-    padding:0
+#primary_nav_wrap ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    padding: 0
+}
+
+.top-menu.active a{
+    color: #EA2B29 !important;
+    border-bottom: 2px solid #EA2B29;
 }
 
 .top-menu
