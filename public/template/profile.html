@@ -100,42 +100,22 @@
                                     {{pkg.description}}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>Enter Word Count</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages">
+                                    <md-input-container class="full-width" ng-init="pkg.word_count=500" style="margin: 0px;">
+                                        <input ng-model="pkg.word_count" numbers-only>
+                                    </md-input-container>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td ng-repeat="pkg in viewProfile.service_packages" style="border-top: 2px solid rgb(213, 218, 225) !important;">
+                                    <md-button class="md-raised regular-button full-width" style="height: 50px;" ng-click="openExtra(pkg)"> SELECT </md-button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
-                        <!--<div class="row">-->
-                        <!--<div class="col-md-3"></div>-->
-                        <!--<div class="col-md-3" ng-repeat="pkg in viewProfile.service_packages">-->
-                        <!--<div style="height: 80px;background: rgb(51, 56, 70);"></div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div ng-show="viewProfile.price.word || viewProfile.price.hour">-->
-                        <!--<h4>PRICING</h4>-->
-                        <!--<p ng-show="viewProfile.price.hour"> Per hour: {{viewProfile.price.hour}}</p>-->
-                        <!--<p ng-show="viewProfile.price.word"> Per word: {{viewProfile.price.word}}</p>-->
-                        <!--</div>-->
-                        <!--<div ng-show="viewProfile.service_packages">-->
-                        <!--<h4>PACKAGES</h4>-->
-                        <!--<div class="row" ng-repeat="pkg in viewProfile.service_packages" style="position:relative;border: 1px solid lightgray;height: 128px;">-->
-                        <!--<div class="col-md-4" style="height: 100%;position: relative;padding: 0px">-->
-                        <!--<div style="text-align: center;">-->
-                        <!--<ng-md-icon ng-hide="pkg.preview.url" icon="insert_photo" style="fill: lightgray;" size="128"></ng-md-icon>-->
-                        <!--</div>-->
-                        <!--<img style="height: 100%;position: relative" ng-show="pkg.preview.url" ng-src="{{pkg.preview.url}}" />-->
-                        <!--</div>-->
-                        <!--<div class="col-md-8" style="padding: 0px;">-->
-                        <!--<h3 style="margin-top: 2px;">{{pkg.title}}</h3>-->
-                        <!--<p>{{pkg.description}}</p>-->
-                        <!--<p>{{pkg.pricing}} / Monthly</p>-->
-                        <!--<ul style="padding-left: 0px;list-style: none;">-->
-                        <!--<li style="float: left" ng-repeat-start="extra in pkg.extras">-->
-                        <!--{{extra.price}} {{extra.description}}-->
-                        <!--</li>-->
-                        <!--<li style="float: left" ng-repeat-end ng-if="!$last">, </li>-->
-                        <!--</ul>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
                     </section>
                     <section ng-show="active_profile_menu=='profile'">
                         <p class="profile-description">{{viewProfile.description}}</p>

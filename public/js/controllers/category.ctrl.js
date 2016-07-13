@@ -122,13 +122,32 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
 }]);
 
-XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', '$http', '$stateParams',
-    function (scope, location, http, $q, getContent, $http, $stateParams) {
+XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', '$http', '$stateParams', 'ModalService',
+    function (scope, location, http, $q, getContent, $http, $stateParams, ModalService) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
-        console.log(scope.viewProfile)
         scope.active_profile_menu = 'pricing';
 
+        scope.openExtra = function(pkg){
+            ModalService.showModal({
+                templateUrl: "template/modal/extra.html",
+                controller: function ($scope, close, $element) {
+                    $scope.pkg = pkg;
+
+                    $scope.close = function(res){
+                        $element.modal('hide');
+                        close(res, 500);
+                    }
+
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+            });
+
+        };
+        
         $http.post('/api/freelancer/'+$stateParams.id+'/views');
 
         scope.checkFavorited = function(){
