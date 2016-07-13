@@ -585,9 +585,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve
                 },
                 ncyBreadcrumb: {
-                    label: 'Dashboard/Profile',
+                    label: ' ',
                     labelArr: ['Dashboard','/','Profile'],
-                    hideType: true
+                    hideType: false
                 }
             });
 
