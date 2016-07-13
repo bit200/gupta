@@ -40,6 +40,17 @@ exports.my_business_accounts = function (req, res) {
     });
 };
 
+exports.get_count_rating = function (req, res) {
+    var params = m.getBody(req);
+    models.SetRating.count({freelancer:params.freelancer}).exec(function(err, count){
+        if(err){
+            m.ecb(404,err,res)
+        } else {
+            m.scb(count, res)
+        }
+    })
+};
+
 exports.get_freelancers = function (req, res) {
     var params = req.query;
     params.registrationStatus = 1;

@@ -211,6 +211,7 @@ exports.close_contract = function (req, res) {
                         });
                         async.parallel(arrFunc, function (e, r) {
                             freelancer.rating = sumRating;
+                            freelancer.ratingCount = allRating.length;
                             m.findUpdate(models.Freelancer, {_id: contract.freelancer}, freelancer, res, function (freelancer) {
                                 m.findUpdate(models.JobApply, {contract: contract._id}, {status: 'closed'}, res, function (job) {
                                     m.scb(contract, res)

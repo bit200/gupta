@@ -45,6 +45,10 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    ratingCount: {
+        type: Number,
+        default: 0
+    },
     popularity: {
         type: Number,
         default: 0
