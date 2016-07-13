@@ -587,7 +587,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 ncyBreadcrumb: {
                     label: ' ',
                     labelArr: ['Dashboard','/','Profile'],
-                    hideType: false
+                        hideType: false
                 }
             });
 
@@ -608,7 +608,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'],'',true);
 
 
-        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'],'',true, ['Dashboard' ,'/', 'Post a Project']);
+        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'],'',false, ['Post a Project']);
         _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
         _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*',true);
         _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
