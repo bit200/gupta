@@ -1763,6 +1763,10 @@ md-autocomplete-wrap{
     border: none !important;
 }
 
+.extra-modal *{
+    color: rgb(80, 84, 94) !important;
+}
+
 .add-extra-pkg td:last-child:hover ng-md-icon{
     fill: red !important;
 }
@@ -1771,8 +1775,8 @@ md-autocomplete-wrap{
     border-top: 0px !important;
 }
 
-.add-extra-pkg td:last-child:hover{
-    color: red;
+.add-extra-pkg td:last-child:hover *{
+    color: red !important;
 }
 
 .add-extra-pkg td:last-child{

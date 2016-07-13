@@ -1,26 +1,75 @@
 <div class="modal fade">
     <div class="modal-dialog full-width row">
         <div class="modal-content col-md-offset-3 col-md-6" style="padding: 0px;">
-            <div class="modal-body" style="padding: 0px">
+            <div class="modal-body extra-modal" style="padding: 0px">
                 <div class="extra-title">ADD EXTRA
                     <ng-md-icon icon="close" ng-click="close()" style="top: -4px;position: relative;float: right;fill: red;cursor: pointer;" size="24"></ng-md-icon>
                 </div>
-                <div class="row">
-                    <div class="col-md-9">
+                <div style="padding: 10px">
+                    <div class="row">
+                    <div class="col-md-8 col-sm-8">
                         <table class="table add-extra-pkg">
                             <tbody>
                             <tr ng-repeat="extra in pkg.extras">
                                 <td style="width: 60%">{{extra.description}}</td>
-                                <td style="width: 20%">{{extra.price}}</td>
-                                <td style="width: 20%">
-                                    <ng-md-icon icon="control_point" ng-click="addExtra(newItem)" style="top: -4px;position: relative;" size="24"></ng-md-icon>
-                                    Add Extra
+                                <td style="width: 20%"><i class="fa fa-inr" aria-hidden="true"></i>{{extra.price}}</td>
+                                <td style="width: 20%;position: relative;">
+                                    <ng-md-icon icon="control_point" ng-click="addExtra(newItem)" style="top: 4px;position: absolute;" size="24"></ng-md-icon>
+                                    <div style="margin-left: 24px;" ng-click="extra_pkg.push(extra)">Add Extra</div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class="col-md-4 col-sm-4">
+                        <div style="padding: 10px;background: rgb(241, 241, 241);margin: 10px;">
+                            <h4 style="font-size: 18px;color: rgb(51, 56, 70);text-transform: uppercase;font-weight: bold;">SUMMARY</h4>
+                            <div style="height: 1px ;background: lightgray;width: 100%;margin-top: 10px;margin-bottom: 10px"></div>
+                            <div style="height: 50px">
+                                <img style="width: 50px;border: 1px solid lightgray;float: left;" ng-src="{{viewProfile.contact_detail.preview}}" />
+                                <p style="width: calc(100% - 60px);float: right;">{{viewProfile.introduction}}</p>
+                            </div>
+                            <div style="height: 1px ;background: lightgray;width: 100%;margin-top: 10px;margin-bottom: 10px"></div>
+                            <table class="table no-table-border" style="margin-bottom: 0px">
+                                <tr>
+                                    <td>
+                                        {{pkg.title}}
+                                        <br/>
+                                        Up to {{pkg.word_count}} Words
+                                    </td>
+                                    <td style="width: 60px"><i class="fa fa-inr" aria-hidden="true"></i>{{pkg.pricing}}</td>
+                                </tr>
+                            </table>
+                            <table class="table" style="margin-bottom: 0px">
+                                <tr ng-repeat="ex in extra_pkg track by $index">
+                                    <td style="width: 40px">
+                                        <ng-md-icon ng-click="extra_pkg.splice($index,1)" icon="delete"
+                                                    style="top: -4px;position: relative;float: right;fill: gray;cursor: pointer;" size="24"></ng-md-icon>
+                                    </td>
+                                    <td class="text-left">{{ex.description}}</td>
+                                    <td style="width: 60px"><i class="fa fa-inr" aria-hidden="true"></i>{{ex.price}}</td>
+                                </tr>
+                            </table>
+
+                            <table class="table" style="margin-bottom: 0px">
+                                <tr>
+                                    <td><b>SUBTOTAL</b></td>
+                                    <td style="width: 60px"><i class="fa fa-inr" aria-hidden="true"></i>{{total()}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Processing fee</b></td>
+                                    <td style="width: 60px"><i class="fa fa-inr" aria-hidden="true"></i>0</td>
+                                </tr>
+                                <tr>
+                                    <td><b>TOTAL</b></td>
+                                    <td style="width: 60px"><i class="fa fa-inr" aria-hidden="true"></i>{{total()}}</td>
+                                </tr>
+                            </table>
+
+                            <md-button class="md-raised regular-button" style="height: 40px;" ng-click="payNow()"> PAY NOW </md-button>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>

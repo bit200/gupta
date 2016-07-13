@@ -131,9 +131,20 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
         scope.openExtra = function(pkg){
             ModalService.showModal({
                 templateUrl: "template/modal/extra.html",
-                controller: function ($scope, close, $element) {
+                inputs:{
+                    viewProfile: scope.viewProfile
+                },
+                controller: function ($scope, close, $element, viewProfile) {
+                    $scope.viewProfile = viewProfile;
                     $scope.pkg = pkg;
-
+                    $scope.extra_pkg = [];
+                    $scope.total = function(){
+                        var total = pkg.pricing;
+                        _.each($scope.extra_pkg, function(ex){
+                            total += parseInt(ex.price);
+                        })
+                        return total;
+                    };
                     $scope.close = function(res){
                         $element.modal('hide');
                         close(res, 500);
