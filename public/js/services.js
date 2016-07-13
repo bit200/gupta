@@ -216,30 +216,14 @@ XYZCtrls.service('parseTime', function () {
 
 XYZCtrls.service('parseRating', function () {
     return {
-        rating: function (Arr) {
-            _.forEach(Arr, function (item) {
-                var arr = [0, 0, 0, 0, 0];
-                if (item.rating > 5)
-                    item.rating = 5;
-                for (var i = 0; i < item.rating; i++) {
-                    arr[i] = 1;
+        popularity: function (value) {
+                if (value < 1000) {
+                    return value
                 }
-                item.ratingArr = arr;
-            });
-            return Arr;
-        },
-        popularity: function (Arr) {
-            _.forEach(Arr, function (item) {
-                var arr = [0, 0, 0, 0];
-                if (item.popularity > 4) {
-                    item.popularity = 4;
+                if (value < 1000000) {
+                    return value / 1000 + 'k'
                 }
-                for (var i = 0; i < item.popularity; i++) {
-                    arr[i] = 1;
-                }
-                item.popularityArr = arr;
-            });
-            return Arr;
+                return value / 1000000 + 'm';
         }
     }
 });
