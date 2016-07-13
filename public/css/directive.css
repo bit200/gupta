@@ -217,3 +217,7 @@
     display: block;
     margin: 0 auto;
 }
+
+.breadcrumb-last {
+    color:#B5B5B6;
+}

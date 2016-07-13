@@ -62,8 +62,12 @@
     display: block;
 }
 
+.way {
+    margin: 60px 0px;
+}
 .breadcrumb {
     padding: 0;
+    margin: 20px 0px;
     margin-bottom: 0;
     list-style: none;
     background-color: transparent;
