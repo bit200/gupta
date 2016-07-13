@@ -56,6 +56,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             jobs: $http.get('/api/jobs/popular')
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
             .state('dashboard', {
@@ -70,27 +74,47 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('forgot_email', {
                 url: '/forgot/email',
                 templateUrl: 'template/forgotEmail.html',
-                controller: 'forgotCtrl'
+                controller: 'forgotCtrl',
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
+                }
             })
             .state('login', {
                 url: '/login',
                 templateUrl: 'template/login.html',
-                controller: 'loginCtrl'
+                controller: 'loginCtrl',
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
+                }
             })
             .state('signup', {
                 url: '/signup',
                 templateUrl: 'template/signup.html',
-                controller: 'signupCtrl'
+                controller: 'signupCtrl',
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
+                }
             })
             .state('forgot_restore', {
                 url: '/forgot/restore/:restoreCode',
                 templateUrl: 'template/forgotRestore.html',
-                controller: 'forgotCtrl'
+                controller: 'forgotCtrl',
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
+                }
             })
             .state('confirm', {
                 url: '/confirm/:confirmCode',
                 templateUrl: 'template/confirm.html',
-                controller: 'confirmCtrl'
+                controller: 'confirmCtrl',
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
+                }
             })
 
             .state('agencies', {
@@ -112,6 +136,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             businessAccounts: $http.get('/api/my/business_accounts')
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
 
@@ -120,11 +148,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 templateUrl: 'template/chat.html',
                 controller: 'chatCtrl',
                 resolve: {
-                    getContent: function($q, $http){
+                    getContent: function ($q, $http) {
                         return $q.all({
                             rooms: $http.get('/api/chat/rooms')
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
 
@@ -140,6 +172,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             info: $http.get('/api/me')
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
 
@@ -169,7 +205,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('how_it_work', {
                 url: '/how_it_work',
                 templateUrl: 'template/how_it_work.html',
-                controller: 'howItWorkCtrl'
+                controller: 'howItWorkCtrl',
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
+                }
                 //resolve: getStatic({
                 //    template: 'jobs-all',
                 //    header: 'All jobs',
@@ -186,6 +226,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         user_type: 'buyer',
                         job_type: 'my'
                     })
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
             .state('jobs_list.buyer_open', {
@@ -290,6 +334,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('freelancer_registration', {
                 url: '/freelancer-registration',
                 templateUrl: 'template/freelancer_registration/freelancer_registration.html',
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
+                }
                 // controller: 'FreelancerRegistrationCtrl',
                 // resolve: {
                 //     getContent: function ($q, $http) {
@@ -387,6 +435,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             })
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
 
@@ -415,6 +467,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             user: $http.get('/api/user/me')
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
             .state('categories', {
@@ -462,6 +518,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             })
                         })
                     }]
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    hideType: true
                 }
             })
             .state('categories.profile', {
@@ -479,6 +539,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             profile: $http.get('/api/freelancer/' + $stateParams.id)
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: 'Home/View profile/Profile Details',
+                    hideType: true
                 }
             })
             .state('profile', {
@@ -496,6 +560,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             profile: $http.get('/api/freelancer/' + $stateParams.id)
                         })
                     }
+                },
+                ncyBreadcrumb: {
+                    label: 'Home/View profile/Profile Details',
+                    hideType: true
                 }
             })
 
@@ -513,57 +581,57 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             });
 
 
-        _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'])
-        _states('root.contract_close', '/contract/close/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_edit_terms', '/contract/edit-terms/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_mark_complete', '/contract/mark-complete/:contract', 'contractCtrl', ['contract'])
+        _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'],'',true);
+        _states('root.contract_close', '/contract/close/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_edit_terms', '/contract/edit-terms/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_mark_complete', '/contract/mark-complete/:contract', 'contractCtrl', ['contract'],'',true);
 
-        _states('root.contract_suggest_detailed', '/suggestion/:suggest', 'contractCtrl', ['suggest'])
-        _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_resume', '/contract/resume/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_reject', '/contract/reject/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'])
-        _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'])
-
-
-        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'])
-        _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'])
-        _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*')
-        _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'])
+        _states('root.contract_suggest_detailed', '/suggestion/:suggest', 'contractCtrl', ['suggest'],'',true);
+        _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_resume', '/contract/resume/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_reject', '/contract/reject/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'],'',true);
 
 
-        _states('root.apply_create', '/job/apply/:job', 'jobCtrl', ['job', 'apply'])
-        _states('root.apply_edit', '/job/apply/edit/:job', 'jobCtrl', ['job', 'apply'])
-        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'], '*')
+        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'],'',true, 'Dashboard / Post a Project');
+        _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
+        _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*',true);
+        _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
+
+
+        _states('root.apply_create', '/job/apply/:job', 'jobCtrl', ['job', 'apply'],'',true);
+        _states('root.apply_edit', '/job/apply/edit/:job', 'jobCtrl', ['job', 'apply'],'',true);
+        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'], '*',true);
 
 
         function common_q_all(state_child_name, resolves_arr) {
             return ['$q', '$http', '$stateParams', function ($q, $http, $stateParams) {
                 var info_obj = {}
-                    , t = {}
-                info_obj[state_child_name] = true
+                    , t = {};
+                info_obj[state_child_name] = true;
 
                 var get_fn = function (name) {
                     switch (name) {
                         case 'job':
-                            return $http.get('/api/job/detailed/' + $stateParams.job)
+                            return $http.get('/api/job/detailed/' + $stateParams.job);
                         case 'apply':
-                            return $http.get('/api/job-apply/' + $stateParams.job)
+                            return $http.get('/api/job-apply/' + $stateParams.job);
                         case 'suggest':
-                            return $http.get('/api/suggest/', {params: {suggest: $stateParams.suggest}})
+                            return $http.get('/api/suggest/', {params: {suggest: $stateParams.suggest}});
                         case 'apply_by_id':
-                            return $http.get('/api/job-apply/' + $stateParams.apply + '/pub')
+                            return $http.get('/api/job-apply/' + $stateParams.apply + '/pub');
                         case 'freelancer':
-                            return $http.get('/api/info/Freelancer/' + $stateParams.freelancer)
+                            return $http.get('/api/info/Freelancer/' + $stateParams.freelancer);
                         case 'stats':
-                            return $http.get('/api/job-stats/' + $stateParams.job)
+                            return $http.get('/api/job-stats/' + $stateParams.job);
                         case 'user':
-                            return $http.get('/api/user/me')
+                            return $http.get('/api/user/me');
                         case 'contract':
-                            return $http.get('/api/contract/detailed/' + $stateParams.contract)
+                            return $http.get('/api/contract/detailed/' + $stateParams.contract);
                         case 'contentType':
                             return $http.get('/get-content', {
                                 params: {
@@ -601,15 +669,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         }
 
 
-        function _states(state_name, url, ctrl, resolves_arr, is_free_auth) {
+        function _states(state_name, url, ctrl, resolves_arr, is_free_auth, hideType, label) {
             var state_arr = state_name.split('.')
                 , state_child_name = state_arr[1] || state_arr[0]
 
             _state_obj[state_name] = {
                 url: url,
                 name: state_name
-            }
-
+            };
             var state_obj = {
                 url: url,
                 templateUrl: 'template/jobs/' + state_child_name + '.html',
@@ -619,8 +686,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 } : {
                     auth: authResolve,
                     getContent: common_q_all(state_child_name, resolves_arr)
+                },
+                ncyBreadcrumb: {
+                    label: label || ' ',
+                    hideType: hideType
                 }
-            }
+            };
 
             $stateProvider.state(state_name, state_obj);
         }
@@ -646,6 +717,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                 controller: function ($scope) {
                                     $scope.close = function (data) {
                                         var http = $injector.get('$http');
+
                                         function getToken() {
                                             console.log('qqqqqqqqqqqqq');
                                             http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
@@ -657,6 +729,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                                 }
                                             )
                                         }
+
                                         data ? getToken() : (localStorage.clear(), location.reload());
                                     }
                                 }

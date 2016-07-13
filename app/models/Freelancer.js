@@ -13,10 +13,6 @@ var FreelancerSchema = mongoose.Schema({
     industry_expertise: Array,
     content_type: Array,
     languages: Array,
-    views: {
-        type: Number,
-        default: 0
-    },
     price: {
         word: Number,
         hour: Number
@@ -30,12 +26,12 @@ var FreelancerSchema = mongoose.Schema({
     //0 - pending, 1-approved, 2-rejected
     registrationStatus: {
         type: Number,
-        default:0
+        default: 0
     },
     reject_reason: String,
     isActive: {
         type: Number,
-        default:0
+        default: 0
     },
     work: {
         type: Number,
@@ -50,6 +46,10 @@ var FreelancerSchema = mongoose.Schema({
         default: 0
     },
     popularity: {
+        type: Number,
+        default: 0
+    },
+    views: {
         type: Number,
         default: 0
     },

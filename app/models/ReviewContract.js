@@ -2,9 +2,10 @@ var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
 var ReviewContractSchema = mongoose.Schema({
-    seller_communication: Number,
-    service_and_described: Number,
-    would_recommend: Number,
+    rating: {
+      type: Number,
+        ref: 'SetRating'
+    },
     messages: Array,
     contract: {
         type: Number,

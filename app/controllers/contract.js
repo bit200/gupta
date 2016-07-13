@@ -2,6 +2,7 @@ var models = require('../db')
     , config = require('../config')
     , m = require('../m')
     , mail = require('../mail')
+    , async = require('async')
     , _ = require('underscore');
 
 function updateJobApply(contract, params, ecb, scb) {
@@ -187,14 +188,43 @@ exports.close_contract = function (req, res) {
     delete params._id;
     params.status = 'Closed';
     m.findUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
-        m.findUpdate(models.JobApply, {contract: contract._id}, {status: 'closed'}, function (err) {
-            log('22222', contract._id)
-        }, function (job) {
-            params.review.contract = contract._id
-            m.findCreate(models.ReviewContract, params.review, {}, function () {
-                m.scb(contract, res)
+        var sumRating = Math.floor(_.reduce(_.values(params.review), function (memo, num) {
+                return memo + num
+            }, 0) / 3);
+        log('1')
+        var rating = params.review;
+        rating.buyer = contract.buyer;
+        rating.freelancer = contract.freelancer;
+        m.findCreate(models.SetRating, rating, {}, res, function (setRating) {
+            m.findCreate(models.ReviewContract, {contract: contract._id, rating: setRating._id}, {}, {}, function () {
+                m.findOne(models.Freelancer, {_id: contract.freelancer}, res, function (freelancer) {
+                    m.find(models.SetRating, {freelancer: freelancer._id}, res, function (allRating) {
+                        var arrFunc = [];
+                        arrFunc.push(function (cb) {
+                            var array = _.map(allRating, function (item) {
+                                return parseInt(((item['seller_communication'] + item['service_and_described'] + item['would_recommend']) / 3).toFixed(0))
+                            });
+                            sumRating = (_.reduce(array, function (memo, num) {
+                                return memo + num
+                            }, 0) / allRating.length).toFixed(0);
+                            cb()
+                        });
+                        async.parallel(arrFunc, function (e, r) {
+                            freelancer.rating = sumRating;
+                            m.findUpdate(models.Freelancer, {_id: contract.freelancer}, freelancer, res, function (freelancer) {
+                                m.findUpdate(models.JobApply, {contract: contract._id}, {status: 'closed'}, res, function (job) {
+                                    m.scb(contract, res)
+                                })
+                            });
+                        })
+
+
+                    });
+
+                });
             });
 
+            //
         })
     })
 };
@@ -247,7 +277,7 @@ exports.findContract = function (req, res) {
 
 exports.reviewContract = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(models.ReviewContract, {contract: params._id}, res, res)
+    m.findOne(models.ReviewContract, {contract: params._id}, res, res, {populate: 'rating'})
 };
 
 
