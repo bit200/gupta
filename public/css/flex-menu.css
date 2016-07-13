@@ -62,8 +62,12 @@
     display: block;
 }
 
+.way {
+    margin: 40px 0px;
+}
 .breadcrumb {
     padding: 0;
+    margin: 16px 0px;
     margin-bottom: 0;
     list-style: none;
     background-color: transparent;
@@ -71,6 +75,6 @@
     position: absolute;
     left: 5%;
     top: 100px;
-    font-size: 16pt;
+    font-size: 12pt;
 }
 

@@ -3,7 +3,6 @@
 angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '$rootScope', '$location', '$q', '$timeout', '$stateParams', 'ngDialog', 'notify', 'Upload', '$filter', '$http', 'AuthService',
     function (scope, rootScope, location, $q, $timeout, stateParams, ngDialog, notify, Upload, $filter, http, AuthService) {
         scope.contentReady = false;
-
         var q = {
             industry: http.get('/get-content', {
                 params: {

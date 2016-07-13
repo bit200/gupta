@@ -68,6 +68,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'DashboardCtrl',
                 ncyBreadcrumb: {
                     label: 'Dashboard',
+                    labelArr: ['Dashboard'],
                     hideType: false
                 }
             })
@@ -185,6 +186,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 abstract: false,
                 ncyBreadcrumb: {
                     label: 'Dashboard',
+                    labelArr: ['Dashboard'],
                     hideType: false
                 }
             })
@@ -199,6 +201,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }),
                 ncyBreadcrumb: {
                     label: 'View Jobs',
+                    labelArr: ['View Jobs'],
                     hideType: false
                 }
             })
@@ -245,6 +248,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
+                    labelArr: ['Open Projects'],
                     hideType: false
                 }
             })
@@ -262,6 +266,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Ongoing Projects',
+                    labelArr: ['Ongoing Projects'],
                     hideType: false
                 }
             })
@@ -278,6 +283,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Closed Projects',
+                    labelArr: ['Closed Projects'],
                     hideType: false
                 }
             })
@@ -295,6 +301,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
+                    labelArr: ['Open Projects'],
                     hideType: false
                 }
             })
@@ -311,6 +318,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Ongoing Projects',
+                    labelArr: ['Ongoing Projects'],
                     hideType: false
                 }
             })
@@ -327,6 +335,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Closed Projects',
+                    labelArr: ['Closed Projects'],
                     hideType: false
                 }
             })
@@ -541,31 +550,32 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 },
                 ncyBreadcrumb: {
-                    label: 'Home/View profile/Profile Details',
-                    hideType: true
+                    label: '',
+                    labelArr:['Home','/','View profile','/','Profile Details'],
+                    hideType: false
                 }
             })
-            .state('profile', {
-                url: '/profile/:id',
-                views: {
-                    "@": {
-                        controller: 'ViewProfileCtrl',
-                        templateUrl: 'template/profile.html'
-                    }
-                },
-                resolve: {
-                    getContent: function ($q, $http, $stateParams) {
-                        return $q.all({
-                            viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
-                            profile: $http.get('/api/freelancer/' + $stateParams.id)
-                        })
-                    }
-                },
-                ncyBreadcrumb: {
-                    label: 'Home/View profile/Profile Details',
-                    hideType: true
-                }
-            })
+            // .state('profile', {
+            //     url: '/profile/:id',
+            //     views: {
+            //         "@": {
+            //             controller: 'ViewProfileCtrl',
+            //             templateUrl: 'template/profile.html'
+            //         }
+            //     },
+            //     resolve: {
+            //         getContent: function ($q, $http, $stateParams) {
+            //             return $q.all({
+            //                 viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
+            //                 profile: $http.get('/api/freelancer/' + $stateParams.id)
+            //             })
+            //         }
+            //     },
+            //     ncyBreadcrumb: {
+            //         label: 'Home/View profile/Profile Details',
+            //         hideType: true
+            //     }
+            // })
 
             .state('my_profile', {
                 url: '/my_profile',
@@ -575,8 +585,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve
                 },
                 ncyBreadcrumb: {
-                    label: 'Dashboard/Profile',
-                    hideType: true
+                    label: ' ',
+                    labelArr: ['Dashboard','/','Profile'],
+                        hideType: false
                 }
             });
 
@@ -597,7 +608,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'],'',true);
 
 
-        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'],'',true, 'Dashboard / Post a Project');
+        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'],'',false, ['Post a Project']);
         _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
         _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*',true);
         _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
@@ -688,7 +699,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     getContent: common_q_all(state_child_name, resolves_arr)
                 },
                 ncyBreadcrumb: {
-                    label: label || ' ',
+                    label: ' ',
+                    labelArr: label,
                     hideType: hideType
                 }
             };
