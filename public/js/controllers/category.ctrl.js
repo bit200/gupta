@@ -167,6 +167,26 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
             });
         };
 
+scope.viewProfile.work.work_samples[0].attachments[0].path='http://www.sourcecertain.com/img/Example.png';
+        scope.showPic = function(pic){
+                ModalService.showModal({
+                    templateUrl: "template/modal/workImg.html",
+                    controller: function ($scope, close, $element) {
+                        $scope.pic = pic;
+
+                        $scope.close = function(res){
+                            $element.modal('hide');
+                            close(res, 500);
+                        }
+                    }
+                }).then(function (modal) {
+                    modal.element.modal();
+                    modal.close.then(function (result) {
+                    });
+                });
+
+        };
+
         scope.addFavorite = function(){
             http.get('/api/freelancer/'+scope.viewProfile._id+'/favorite/add');
             scope.profileFavorited = true
