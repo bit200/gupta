@@ -92,7 +92,7 @@ exports.reject_contract = function (req, res) {
 
 exports.pause_contract = function (req, res) {
     var params = m.getBody(req);
-    console.log('asdfasdfasdfasdf', params, req.params)
+    // console.log('asdfasdfasdfasdf', params, req.params)
     var STATUS = 'Paused'
     m.findUpdate(models.Contract, {_id: req.params._id, buyer: req.userId}, {
         status: STATUS,

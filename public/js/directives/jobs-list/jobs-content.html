@@ -1,4 +1,4 @@
-<div class="way">
+<div class="way container">
     <div ncy-breadcrumb></div>
 </div>
 <div class="container job">
@@ -14,11 +14,24 @@
                         <selector type="'job_type'" items="['Open', 'Ongoing', 'Closed']" class-name="'nav'" value="{{info.job_type}}"></selector>
                     </div>
                     <div class="sub-title">
-                        View jobs as
+                        View project as
                     </div>
                     <div class="sub-select">
                         <selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>
                     </div>
+                    <div class="sub-title">
+                        By status
+                    </div>
+                    <div class="sub-select">
+                        <selector type="'job_type'" items="['Open projects', 'Ongoing Projects', 'Closed Projects']" value="Open Projects" class-name="'nav'"></selector>
+                    </div>
+                    <div class="sub-title">
+                        By status
+                    </div>
+                    <div class="sub-select">
+                        <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
+                        </div>
+
                     <b>Buyer</b>
                     <a ui-sref="jobs_list.buyer_open">Open</a>
                     <a ui-sref="jobs_list.buyer_ongoing">Ongoing</a>

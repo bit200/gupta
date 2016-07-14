@@ -187,7 +187,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 ncyBreadcrumb: {
                     label: 'Dashboard',
                     labelArr: ['Dashboard'],
-                    hideType: false
+                    hideType: false,
+                    hideElem: true
                 }
             })
             .state('jobs_list.all', {
@@ -248,7 +249,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
-                    labelArr: ['Open Projects'],
+                    labelArr: ['Dashboard','/','Open Projects'],
                     hideType: false
                 }
             })
@@ -266,7 +267,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Ongoing Projects',
-                    labelArr: ['Ongoing Projects'],
+                    labelArr: ['Dashboard','/','Ongoing Projects'],
                     hideType: false
                 }
             })
@@ -283,7 +284,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Closed Projects',
-                    labelArr: ['Closed Projects'],
+                    labelArr: ['Dashboard','/','Closed Projects'],
                     hideType: false
                 }
             })
@@ -301,7 +302,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
-                    labelArr: ['Open Projects'],
+                    labelArr: ['Dashboard','/','Open Projects'],
                     hideType: false
                 }
             })
@@ -318,7 +319,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Ongoing Projects',
-                    labelArr: ['Ongoing Projects'],
+                    labelArr: ['Dashboard','/','Ongoing Projects'],
                     hideType: false
                 }
             })
@@ -335,7 +336,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: 'Closed Projects',
-                    labelArr: ['Closed Projects'],
+                    labelArr: ['Dashboard','/','Closed Projects'],
                     hideType: false
                 }
             })
@@ -530,7 +531,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: ' ',
-                    hideType: true
+                    hideType: true,
+                    hideElem: true
                 }
             })
             .state('categories.profile', {
@@ -550,9 +552,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 },
                 ncyBreadcrumb: {
-                    label: '',
-                    labelArr:['Home','/','View profile','/','Profile Details'],
-                    hideType: false
+                    label: ' ',
+                    labelArr: ['Home', '/', 'View profile', '/', 'Profile Details'],
+                    hideType: true
                 }
             })
             // .state('profile', {
@@ -586,37 +588,37 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 },
                 ncyBreadcrumb: {
                     label: ' ',
-                    labelArr: ['Dashboard','/','Profile'],
-                        hideType: false
+                    labelArr: ['Dashboard', '/', 'Profile'],
+                    hideType: false
                 }
             });
 
 
-        _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'],'',true);
-        _states('root.contract_close', '/contract/close/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_edit_terms', '/contract/edit-terms/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_mark_complete', '/contract/mark-complete/:contract', 'contractCtrl', ['contract'],'',true);
+        _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'], '', true);
+        _states('root.contract_close', '/contract/close/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_detailed', '/contract/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_edit', '/contract/edit/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_edit_terms', '/contract/edit-terms/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_mark_complete', '/contract/mark-complete/:contract', 'contractCtrl', ['contract'], '', true);
 
-        _states('root.contract_suggest_detailed', '/suggestion/:suggest', 'contractCtrl', ['suggest'],'',true);
-        _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_resume', '/contract/resume/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_reject', '/contract/reject/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'],'',true);
-        _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'],'',true);
-
-
-        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'],'',false, ['Post a Project']);
-        _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
-        _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*',true);
-        _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'],'',true);
+        _states('root.contract_suggest_detailed', '/suggestion/:suggest', 'contractCtrl', ['suggest'], '', true);
+        _states('root.contract_suggest', '/contract/suggest/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_pause', '/contract/pause/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_resume', '/contract/resume/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_reject', '/contract/reject/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'], '', true);
 
 
-        _states('root.apply_create', '/job/apply/:job', 'jobCtrl', ['job', 'apply'],'',true);
-        _states('root.apply_edit', '/job/apply/edit/:job', 'jobCtrl', ['job', 'apply'],'',true);
-        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'], '*',true);
+        _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'], '', false, ['Post a Project']);
+        _states('root.job_recreate', '/job/recreate/:job', 'jobCtrl', ['job', 'contentType', 'locations'], '', true);
+        _states('root.job_detailed', '/job/:job', 'jobCtrl', ['job', 'stats', 'apply'], '*', true);
+        _states('root.job_edit', '/job/edit/:job', 'jobCtrl', ['job', 'contentType', 'locations'], '', true);
+
+
+        _states('root.apply_create', '/job/apply/:job', 'jobCtrl', ['job', 'apply'], '', true);
+        _states('root.apply_edit', '/job/apply/edit/:job', 'jobCtrl', ['job', 'apply'], '', true);
+        _states('root.apply_detailed', '/application/:apply', 'jobCtrl', ['apply_by_id'], '*', true);
 
 
         function common_q_all(state_child_name, resolves_arr) {

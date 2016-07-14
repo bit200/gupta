@@ -20,6 +20,38 @@ XYZCtrls.directive('jobsList', function () {
                 countByPage: 12
             };
 
+            scope.slider = {
+                experience: {
+                    value: 0,
+                    options: {
+                        floor: 1000000,
+                        ceil: 15,
+                        step: 1,
+                        showSelectionBar: true,
+                        getPointerColor: function (value) {
+                            return '#B9B6B9';
+                        },
+                        getSelectionBarColor: function (value) {
+                            return '#B9B6B9';
+                        },
+                        translate: function (value) {
+                            if (value < 1000) {
+                                return value
+                            }
+                            if (value < 1000000) {
+                                return value/1000 + 'k'
+                            }
+                            if (value == 1000000) {
+                                return value/1000000 + 'm'
+                            }
+                            return value + ' years';
+                        },
+                        onEnd: function (r) {
+                        }
+                    }
+                }
+            };
+            console.log('1', scope.slider);
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
