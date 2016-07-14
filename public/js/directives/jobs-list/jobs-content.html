@@ -8,6 +8,25 @@
                 <div>
                     <input class="job-search" placeholder="Search type"/>
                     <div class="sub-title">
+                        Category
+                    </div>
+                    <div class="sub-select">
+                        <selector type="'job_category'" items="categories" class-name="'nav'" on-select-custom="onSelectCustom(item)"></selector>
+                    </div>
+                    <div class="sub-title">
+                        Sub Category
+                    </div>
+                    <div class="sub-select">
+                        <selector type="'job_sub_category'" items="subCategories" class-name="'nav'"></selector>
+                    </div>
+                    <div class="sub-title" ng-if="info.user_type == 'buyer' || info.user_type == 'Buyer'">
+                        Budget
+                    </div>
+                    <div class="sub-select" ng-if="info.user_type == 'buyer' || info.user_type == 'Buyer'">
+                        <rzslider rz-slider-model="slider.value"
+                                  rz-slider-options="slider.options"></rzslider>
+                    </div>
+                    <div class="sub-title">
                         By status
                     </div>
                     <div class="sub-select">
@@ -19,29 +38,16 @@
                     <div class="sub-select">
                         <selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>
                     </div>
-                    <div class="sub-title">
-                        By status
-                    </div>
-                    <div class="sub-select">
-                        <selector type="'job_type'" items="['Open projects', 'Ongoing Projects', 'Closed Projects']" value="Open Projects" class-name="'nav'"></selector>
-                    </div>
-                    <div class="sub-title">
-                        By status
-                    </div>
-                    <div class="sub-select">
-                        <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
-                        </div>
+                    <!--<b>Buyer</b>-->
+                    <!--<a ui-sref="jobs_list.buyer_open">Open</a>-->
+                    <!--<a ui-sref="jobs_list.buyer_ongoing">Ongoing</a>-->
+                    <!--<a ui-sref="jobs_list.buyer_closed">Closed</a>-->
+                    <!--<div></div>-->
+                    <!--<b>Seller</b>-->
 
-                    <b>Buyer</b>
-                    <a ui-sref="jobs_list.buyer_open">Open</a>
-                    <a ui-sref="jobs_list.buyer_ongoing">Ongoing</a>
-                    <a ui-sref="jobs_list.buyer_closed">Closed</a>
-                    <div></div>
-                    <b>Seller</b>
-
-                    <a ui-sref="jobs_list.seller_open">Open</a>
-                    <a ui-sref="jobs_list.seller_ongoing">Ongoing</a>
-                    <a ui-sref="jobs_list.seller_closed">Closed</a>
+                    <!--<a ui-sref="jobs_list.seller_open">Open</a>-->
+                    <!--<a ui-sref="jobs_list.seller_ongoing">Ongoing</a>-->
+                    <!--<a ui-sref="jobs_list.seller_closed">Closed</a>-->
                 </div>
             </div>
         </div>

@@ -234,6 +234,9 @@ selector .sel-items > div {
 .job-nav .sel-items {
     width: 105%;
     margin-left: -2.5%;
+    max-height: 300px;
+    overflow: auto;
+    z-index: 9999;
 }
 
 .container.new {
@@ -719,3 +722,41 @@ mess, desc {
 .job-review-textarea {
     border-radius: 0px
 }
+
+span.rz-pointer.rz-pointer-min:focus {
+    border: 0 !important;
+    outline: 0;
+}
+
+.rzslider .rz-pointer {
+    top: -7px;
+    z-index: 3;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-color: #353B47;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.rzslider .rz-pointer:after {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    content: '';
+}
+
+.rzslider .rz-pointer:hover:after {
+    background-color: transparent;
+}
+.rzslider .rz-pointer.rz-active:after {
+    background-color: transparent;
+}
+

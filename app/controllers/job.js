@@ -48,7 +48,6 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
         app.get(url, auth, routing('find'))
         app.get(url + '/count', auth, routing('count'))
     } else {
-        console.log("@!@@@@@@", url)
         app.get(url, routing('find'))
         app.get(url + '/count', routing('count'))
     }
@@ -58,7 +57,6 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
             var queryParams = m.getBody(req)
             var query = middlewareFn.call(req)
             var info = pubParams(queryParams, query)
-            console.log('infofofofofo', info, query)
             info.params.populate = extra_params.populate || ''
             info.params.sort = extra_params.sort || info.params.sort || ''
 
@@ -128,7 +126,7 @@ exports.list = function (query) {
     return function (req, res) {
         var queryParams = m.getBody(req)
         var info = pubParams(queryParams, query)
-        info.params.populate = 'user'
+        info.params.populate = 'user';
         m.find(models.Job, info.query, res, res, info.params)
     }
 };

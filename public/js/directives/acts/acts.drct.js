@@ -12,7 +12,7 @@ XYZCtrls.directive('acts', function () {
             var item = scope.item
                 , info = JSON.parse(scope.info)
                 , user_type = info.user_type
-                , job_type = info.job_type
+                , job_type = info.job_type;
 
 
             function getInfo(item, field) {
@@ -233,10 +233,10 @@ XYZCtrls.directive('acts', function () {
 
             function fn() {
                 _.each(arguments, function (name) {
-                    var _fn = scope.list[name]
+                    var _fn = scope.list[name];
                     if (_fn) {
-                        var obj = _fn()
-                        obj.name = obj.name || name
+                        var obj = _fn();
+                        obj.name = obj.name || name;
                         scope.actions.push(obj)
                     } else {
                     }
@@ -247,7 +247,7 @@ XYZCtrls.directive('acts', function () {
                 scope.actions = []
                 fn('Communicate')
 
-                console.log('ahahahahhahahahahahah', user_type, job_type, item.status)
+                // console.log('ahahahahhahahahahahah', user_type, job_type, item.status)
                 if (user_type == 'seller' && job_type == 'open') {
                     fn('View Application', 'View Job')
                     if (item.status == 'Seller terms approving' || item.status == 'Seller approving') {

@@ -5,54 +5,52 @@ XYZCtrls.directive('selector', function () {
             items: '=',
             type: '=',
             className: '=',
-            open: '@'
+            open: '@',
+            onSelectCustom: '&'
         },
         templateUrl: 'js/directives/selector/selector.html',
         controller: ['$scope', '$rootScope', '$state', '$timeout', function (scope, $rootScope, $state, $timeout) {
-            scope.onOpen = function(e) {
-                var status = scope.open
+            scope.onOpen = function (e) {
+                var status = scope.open;
                 $rootScope.closePopupFn();
-                console.log('statutututututututut', status)
-                e.stopPropagation()
-                e.preventDefault()
-                $timeout(function(){
+                e.stopPropagation();
+                e.preventDefault();
+                $timeout(function () {
                     scope.open = !status
-                }, 1)
+                }, 1);
                 return;
-            }
-            
-            scope.init = function() {
-                var value = $rootScope.info[scope.type]
-                console.log('hhhhhhhhhhhhhh', value)
-                _.each(scope.items, function(item){
-                    console.log('aaaaa', value, item, scope.selected)
+            };
+            scope.init = function () {
+                console.log()
+                var value = $rootScope.info[scope.type];
+                _.each(scope.items, function (item) {
                     if (item.toLowerCase() == value) {
                         scope.selected = item
                     }
                 })
-            }
-            
+            };
+
             scope.onSelect = function (item, e) {
-                // alert('selected')
-                $rootScope.info[scope.type] = item
-                console.log('rorororrororoor', $rootScope.info)
-                scope.selected = item
-                scope.open = false
-                console.log('ahahahahahahhahahahahah', 'jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type)
-                var state = 'jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type
-                $state.go(state.toLowerCase())
+                if (scope.onSelectCustom) {
+                    scope.onSelectCustom({item: item})
+                }
+                $rootScope.info[scope.type] = item;
+                var state = 'jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type;
+                $state.go(state.toLowerCase());
+                scope.selected = item;
+                scope.open = false;
                 e.preventDefault();
                 e.stopPropagation();
                 return;
 
-            }
+            };
 
-            $rootScope.$watch('closePopup', function(){
+            $rootScope.$watch('closePopup', function () {
                 scope.open = false;
-            })
-            $rootScope.$on('$stateChangeSuccess', function(event, current) {
+            });
+            $rootScope.$on('$stateChangeSuccess', function (event, current) {
                 setTimeout(scope.init, 1)
-             });
+            });
             scope.init()
 
         }]

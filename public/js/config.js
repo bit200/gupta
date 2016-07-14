@@ -183,7 +183,37 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             .state('jobs_list', {
                 url: '/jobs',
                 templateUrl: 'js/directives/jobs-list/jobs-content.html',
+                controller: 'JobsContentCtrl',
                 abstract: false,
+                resolve: {
+                    getContent: function($http){
+                        return $http.get('/get-content', {
+                                            params: {
+                                                name: 'Filters',
+                                                query: {type: 'Content Writing', filter: 'Content Type'},
+                                                distinctName: 'name'
+                                            }
+                                        })
+                    }
+                },
+                // resolve: getStatic({
+                //     info: getResolve({
+                //         user_type: 'buyer',
+                //         job_type: 'open'
+                //     }),
+                //     getContent: function ($q, $http) {
+                //         return $q.all({
+                //             content: $http.get('/get-content', {
+                //                 params: {
+                //                     name: 'Filters',
+                //                     query: {type: 'Content Writing', filter: 'Content Type'},
+                //                     distinctName: 'name'
+                //                 }
+                //             })
+                //         })
+                //     }
+                //
+                // }),
                 ncyBreadcrumb: {
                     label: 'Dashboard',
                     labelArr: ['Dashboard'],
@@ -198,7 +228,17 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: getStatic({
                     template: 'jobs-all',
                     header: 'All jobs',
-                    url: '/api/jobs/all'
+                    url: '/api/jobs/all',
+                    info: getResolve({
+                        user_type: 'buyer',
+                        job_type: 'open',
+                        page_type: 'all'
+                    }),
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            content: $http.get('/get-content', {params: {name: 'Filters', query: {type: 'Content Writing', filter: 'Content Type'}, distinctName: 'name'}}),
+                        })
+                    }
                 }),
                 ncyBreadcrumb: {
                     label: 'View Jobs',
@@ -228,8 +268,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     info: getResolve({
                         user_type: 'buyer',
-                        job_type: 'my'
-                    })
+                        job_type: 'my',
+                        page_type: 'buyer_my'
+                    }),
+                    getContent: function () {
+                    }
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -244,12 +287,25 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     info: getResolve({
                         user_type: 'buyer',
-                        job_type: 'open'
-                    })
+                        job_type: 'open',
+                        page_type: 'buyer_open'
+
+                    }),
+                    getContent: function ($q, $http) {
+                        return $q.all({
+                            content: $http.get('/get-content', {
+                                params: {
+                                    name: 'Filters',
+                                    query: {type: 'Content Writing', filter: 'Content Type'},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
-                    labelArr: ['Dashboard','/','Open Projects'],
+                    labelArr: ['Dashboard', '/', 'Open Projects'],
                     hideType: false
                 }
             })
@@ -262,12 +318,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     info: getResolve({
                         user_type: 'buyer',
-                        job_type: 'ongoing'
-                    })
+                        job_type: 'ongoing',
+                        page_type: 'buyer_ongoing'
+                    }),
+                    getContent: function () {
+                    }
                 },
                 ncyBreadcrumb: {
                     label: 'Ongoing Projects',
-                    labelArr: ['Dashboard','/','Ongoing Projects'],
+                    labelArr: ['Dashboard', '/', 'Ongoing Projects'],
                     hideType: false
                 }
             })
@@ -279,12 +338,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     info: getResolve({
                         user_type: 'buyer',
-                        job_type: 'closed'
-                    })
+                        job_type: 'closed',
+                        page_type: 'buyer_close'
+                    }),
+                    getContent: function () {
+                    }
                 },
                 ncyBreadcrumb: {
                     label: 'Closed Projects',
-                    labelArr: ['Dashboard','/','Closed Projects'],
+                    labelArr: ['Dashboard', '/', 'Closed Projects'],
                     hideType: false
                 }
             })
@@ -297,12 +359,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     info: getResolve({
                         user_type: 'seller',
-                        job_type: 'open'
-                    })
+                        job_type: 'open',
+                        page_type: 'seller_open'
+                    }),
+                    getContent: function () {
+                    }
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
-                    labelArr: ['Dashboard','/','Open Projects'],
+                    labelArr: ['Dashboard', '/', 'Open Projects'],
                     hideType: false
                 }
             })
@@ -314,12 +379,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     info: getResolve({
                         user_type: 'seller',
-                        job_type: 'ongoing'
-                    })
+                        job_type: 'ongoing',
+                        page_type: 'seller_ongoing'
+                    }),
+                    getContent: function () {
+                    }
                 },
                 ncyBreadcrumb: {
                     label: 'Ongoing Projects',
-                    labelArr: ['Dashboard','/','Ongoing Projects'],
+                    labelArr: ['Dashboard', '/', 'Ongoing Projects'],
                     hideType: false
                 }
             })
@@ -331,12 +399,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     auth: authResolve,
                     info: getResolve({
                         user_type: 'seller',
-                        job_type: 'closed'
-                    })
+                        job_type: 'closed',
+                        page_type: 'seller_close'
+                    }),
+                    getContent: function () {
+                    }
                 },
                 ncyBreadcrumb: {
                     label: 'Closed Projects',
-                    labelArr: ['Dashboard','/','Closed Projects'],
+                    labelArr: ['Dashboard', '/', 'Closed Projects'],
                     hideType: false
                 }
             })
@@ -348,56 +419,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     label: ' ',
                     hideType: true
                 }
-                // controller: 'FreelancerRegistrationCtrl',
-                // resolve: {
-                //     getContent: function ($q, $http) {
-                //         return $q.all({
-                //             industry: $http.get('/get-content', {
-                //                 params: {
-                //                     name: 'Filters',
-                //                     query: {type: 'BloggersAndInfluencers', filter: 'Industry Expertise'},
-                //                     distinctName: 'name'
-                //                 }
-                //             }),
-                //             service: $http.get('/get-content', {
-                //                 params: {
-                //                     name: 'ServiceProvider',
-                //                     query: {},
-                //                     distinctName: 'name'
-                //                 }
-                //             }),
-                //             content: $http.get('/get-content', {
-                //                 params: {
-                //                     name: 'Filters',
-                //                     query: {type: 'ContentWriting', filter: 'Content Type'},
-                //                     distinctName: 'name'
-                //                 }
-                //             }),
-                //             languages: $http.get('/get-content', {
-                //                 params: {
-                //                     name: 'Filters',
-                //                     query: {type: 'ContentWriting', filter: 'Languages'},
-                //                     distinctName: 'name'
-                //                 }
-                //             }),
-                //             freelancerType: $http.get('/get-content', {
-                //                 params: {
-                //                     name: 'ServiceProvider',
-                //                     query: {},
-                //                     distinctName: 'name'
-                //                 }
-                //             }),
-                //             locations: $http.get('/get-content', {
-                //                 params: {
-                //                     name: 'Location',
-                //                     query: {},
-                //                     distinctName: 'name'
-                //                 }
-                //             })
-                //             // clients: $http.get('/get-client')
-                //         })
-                //     }
-                // }
             })
 
             .state('freelancer_id', {
@@ -418,14 +439,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             content: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    query: {type: 'Content Writing', filter: 'Content Type'},
                                     distinctName: 'name'
                                 }
                             }),
                             languages: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Languages'},
+                                    query: {type: 'Content Writing', filter: 'Languages'},
                                     distinctName: 'name'
                                 }
                             }),
@@ -470,7 +491,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             topic: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
+                                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
                                     distinctName: 'name'
                                 }
                             }),
@@ -494,21 +515,21 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             topic: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Industry Expertise'},
+                                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
                                     distinctName: 'name'
                                 }
                             }),
                             content: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Content Type'},
+                                    query: {type: 'Content Writing', filter: 'Content Type'},
                                     distinctName: 'name'
                                 }
                             }),
                             languages: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'ContentWriting', filter: 'Languages'},
+                                    query: {type: 'Content Writing', filter: 'Languages'},
                                     distinctName: 'name'
                                 }
                             }),
@@ -671,11 +692,9 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     if (fn) {
                         t[name] = fn
                     } else {
-                        console.log("@@ STATE NOT FOUNDDDDDD !!!!! ERRROR !!!! ERRROR", name)
                     }
                 })
                 t.i = getResolveQ($q, info_obj)
-                console.log('@@@ tttttttt', resolves_arr, t)
 
                 return $q.all(t)
             }]
@@ -733,7 +752,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                         var http = $injector.get('$http');
 
                                         function getToken() {
-                                            console.log('qqqqqqqqqqqqq');
                                             http.get('/refresh-token', {params: {refresh_token: localStorage.getItem('refreshToken')}}).then(
                                                 function (resp) {
                                                     localStorage.setItem('accessToken', resp.data.data.value)

@@ -1,6 +1,3 @@
-<div class="way container">
-    <div ncy-breadcrumb></div>
-</div>
 <div>
     <div ng-if="info.user_type=='seller' && info.job_type=='open'">
         <jobs-list url="/api/jobs/seller/open/active" info="{{info}}" header="Active Candidates" template="seller-open"></jobs-list>
@@ -15,6 +12,4 @@
     <div ng-if="info.user_type=='seller' && info.job_type=='open'">
         <jobs-list url="/api/jobs/seller/open/rejected" info="{{info}}" header="Rejected Applications" template="seller-open"></jobs-list>
     </div>
-
-
 </div>
