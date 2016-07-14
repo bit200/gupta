@@ -12,6 +12,9 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav navbar-right">
+                <li class="floatL" style="margin-right: 5px">
+                    <button ng-click="$state.go('agencies')" class="btn btn-header">CLAIM YOUR AGENCY</button>
+                </li>
                 <li class="floatL">
                     <button ng-click="$state.go('jobs_list.all')" class="btn btn-header">VIEW PROJECTS</button>
                     <ng-md-icon icon="favorite" style="fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
@@ -49,7 +52,7 @@
             <nav id="primary_nav_wrap">
                 <ul class="flex menu" flex-menu="filters" ng-if="isLogged()">
                     <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ng-click="$state.go('dashboard')" class="text-black top-menu-text">DASHBOARD</a></li>
-                    <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a ng-click="$state.go('root.job_create')" class="text-black top-menu-text">POST A PROJECT</a></li>
+                    <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a ng-click="asView.buyer=true;asView.seller=false;$state.go('root.job_create')" class="text-black top-menu-text">POST A PROJECT</a></li>
                     <li class="top-menu" ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}"><a ng-click="$state.go('jobs_list.all')" class="text-black top-menu-text">VIEW PROJECTS</a></li>
                 </ul>
                 <ul class="flex menu" flex-menu="filters" ng-if="!isLogged()">

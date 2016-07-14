@@ -6,6 +6,9 @@ module.exports = function (app) {
     var auth = require('./middlewares/auth');
     app.get('/api/my/favorites', auth.token, freelancer.get_favorites);
     app.get('/api/freelancer/me', auth.token, freelancer.get_current_freelancer);
+    
+    app.get('/api/freelancer/:id/jobs_count', auth.token, freelancer.get_jobs_count);
+    
     app.get('/api/freelancer/:id', freelancer.get_freelancer);
     app.get('/api/freelancers', freelancer.get_freelancers);
     app.get('/api/freelancers/count_rating', freelancer.get_freelancers);

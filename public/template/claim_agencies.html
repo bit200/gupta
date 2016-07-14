@@ -37,33 +37,9 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td class="text-center"><img
-                                src="/img/FireEye.png"
-                        ></td>
-                        <td class="text-center">Content writing</td>
-                        <td class="text-center">Content writing</td>
-                        <td class="text-center">132,Chucrch street</td>
-                        <td class="text-center">
-                            <span>Claimed</span>
+                     <tr ng-repeat="item in agencies">
+                        <td class="text-center"><img ng-src="{{item.contact_detail.preview}}" style="max-width: 50px"/>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center"><img
-                                src="/img/TheLogo.png"
-                        ></td>
-                        <td class="text-center">Content writing</td>
-                        <td class="text-center">Content writing</td>
-                        <td class="text-center">132,Chucrch street</td>
-                        <td class="text-center">
-                            <button class="btn btn-claim">Claim</button>
-                        </td>
-                    </tr>
-                    <tr ng-repeat="item in agencies">
-                        <td class="text-center"><img ng-src="{{item.contact_detail.preview}}"
-                                                     style="max-width: 50px"/><img
-                                src="https://www.fireeye.com/content/dam/fireeye-www/fw/images/fireeye-2-color.png"
-                                style="max-width: 50px"></td>
                         <td class="text-center">{{item.name}}</td>
                         <td class="text-center"><span ng-repeat="type in item.service_providers">{{type}}<span
                                 ng-if="!$last">, </span> </span></td>
@@ -137,56 +113,5 @@
             </div>
         </div>
 
-    </div>
-    <div class="container-fluid">
-        <div class="row div-background-bot">
-            <div class="background-img-bottom-full">
-                <div class="background-img-bottom"></div>
-            </div>
-        </div>
-        <div class="row footer-color">
-            <div class="footer">
-                <div class="col-sm-offset-2 col-sm-5 col-xs-12">
-                    <div class="list">
-                        <ul>
-                            <li><a href="">About</a></li>
-                            <li><a href="">Testimonial</a></li>
-                            <li><a href="">Show to list</a></li>
-                            <li><a href="">How it works</a></li>
-                            <li><a href="">Clients</a></li>
-                            <li><a href="">Terms & Conditions</a></li>
-                            <li><a href="">Press</a></li>
-                            <li><a href="">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-offset-1 col-sm-3 col-xs-12  ">
-                    <div class="footer-social">
-                        <div class="home-footer-social-link">
-                            <i class="fa fa-google-plus" aria-hidden="true"></i>
-                        </div>
-                        <div class="home-footer-social-link">
-                            <i class="fa fa-linkedin-square" aria-hidden="true" style="padding-left:1px"></i>
-                        </div>
-                        <div class="home-footer-social-link">
-                            <i class="fa fa-twitter" aria-hidden="true" style="padding-left:2px"></i>
-                        </div>
-                        <div class="home-footer-social-link">
-                            <i class="fa fa-pinterest-p" aria-hidden="true" style="padding-left:2px"></i>
-                        </div>
-                        <div class="home-footer-social-link">
-                            <i class="fa fa-facebook" aria-hidden="true" style="padding-left:3px"></i>
-                        </div>
-                        <div class="home-footer-social-link">
-                            <i class="fa fa-instagram" aria-hidden="true" style="padding-left:1px"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-offset-2 col-sm-4 col-xs-12 ">© 12TH CROSS 2016</div>
-            <div class="col-sm-offset-2 col-sm-4 col-xs-12 ">POWERED BY: IGENERO</div>
-        </div>
     </div>
 </div>

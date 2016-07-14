@@ -18,9 +18,12 @@ XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     };
     scope.cb = function(currentPage){
         http.get('/api/freelancers?page='+currentPage).success(function(resp){
+            console.log(resp.data)
             scope.agencies = resp.data;
         })
     };
+
+    scope.cb(0);
 
     scope.ctrl = {};
 

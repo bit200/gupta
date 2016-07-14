@@ -10,10 +10,7 @@ XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     scope.claim = function (agency) {
         ModalService.showModal({
             templateUrl: "template/modal/claimForm.html",
-            inputs: {
-                agency: agency
-            },
-            controller: function ($scope, close, $element, agency) {
+            controller: function ($scope, close, $element) {
                 $scope.agency = agency;
                 $scope.sendRequest = function (invalid, claimData) {
                     if (invalid) return;

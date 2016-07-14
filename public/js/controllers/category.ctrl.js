@@ -127,7 +127,15 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.active_profile_menu = 'pricing';
-console.log(scope.viewProfile)
+        
+        $http.get('/api/freelancer/'+scope.viewProfile._id+'/jobs_count?status=ongoing').success(function(count){
+            scope.ongoingJobsCount = count
+        })
+        
+        $http.get('/api/freelancer/'+scope.viewProfile._id+'/jobs_count?status=closed').success(function(count){
+            scope.closedJobsCount = count
+        })
+        
         scope.openExtra = function(pkg){
             ModalService.showModal({
                 templateUrl: "template/modal/extra.html",

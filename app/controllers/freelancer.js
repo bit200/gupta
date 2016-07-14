@@ -124,6 +124,13 @@ exports.get_freelancer = function (req, res) {
     });
 };
 
+exports.get_jobs_count = function (req, res) {
+    req.query._id = req.params.id;
+    models.Job.count(req.query).exec(function(err, count){
+      res.jsonp(count)
+    });
+};
+
 exports.get_current_freelancer = function (req, res) {
     var populate = [
         {

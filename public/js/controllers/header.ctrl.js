@@ -36,5 +36,4 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
             function (event, toState, toParams, fromState, fromParams) {
                 scope.subway = breadCrumbs.returnWay(toState.name, $rootScope.asView.buyer ? 'Buyer' : 'Seller')
             })
-
     }]);
