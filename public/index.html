@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/flex-menu.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/samples.css">
     <link rel="stylesheet" href="fonts/font.css">
     <link rel="stylesheet" href="css/angular-material-menu.css">
     <link rel="stylesheet" href="css/seller-details.css">
@@ -29,8 +30,55 @@
     <link rel="stylesheet" type="text/css" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css">
 </head>
 <body ng-controller="MainCtrl"  style="width: 100%; position: relative">
-<div ng-include="'template/header.html'" class="top-header"></div>
-<div class="body font-family" ui-view style="margin-top: 15px"></div>
+<div class="page-wrap">
+    <div ng-include="'template/header.html'" class="top-header"></div>
+    <div class="body font-family" ui-view></div>
+</div>
+<div class="site-footer">
+    <footer class="home-footer" style="">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-xs-12 text-center-xs pull-left font-family" style="padding-top: 3px;">
+                    <span class="home-footer-text">About</span>
+                    <span class="home-footer-text">Testimonial</span>
+                    <span class="home-footer-text">Show to list</span>
+                    <span class="home-footer-text">How it works</span>
+                    <span class="home-footer-text">Clients</span>
+                    <span class="home-footer-text">Terms & Conditions</span>
+                    <span class="home-footer-text">Press</span>
+                    <span class="home-footer-text">Contact</span>
+                </div>
+                <div class="col-sm-3 col-xs-12 text-center-xs paddingTB15-xs pull-right text-right">
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-linkedin-square" aria-hidden="true" style="padding-left:1px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-twitter" aria-hidden="true" style="padding-left:2px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-pinterest-p" aria-hidden="true" style="padding-left:2px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-facebook" aria-hidden="true" style="padding-left:3px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-instagram" aria-hidden="true" style="padding-left:1px"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 text-center-xs paddingT10-xs pull-left">© 12TH CROSS 2016</div>
+            <div class="col-sm-6 col-xs-12 text-right text-center-xs paddingT10-xs pull-right">POWERED BY: IGENERO</div>
+        </div>
+    </div>
+</div>
+
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="js/libs/flexMenu.js"></script>
 <script src="bower_components/underscore/underscore-min.js"></script>

@@ -107,7 +107,8 @@ exports.get_freelancer = function (req, res) {
             populate: {
                 path: 'work_samples',
                 populate: {
-                    path: 'attachments'
+                    path: 'attachments',
+                    model: 'Attachment'
                 }
             }
         },
@@ -120,6 +121,13 @@ exports.get_freelancer = function (req, res) {
     ];
     models.Freelancer.findOne({_id: req.params.id}).populate(populate).exec(function(err, freelancer){
         res.json(freelancer)
+    });
+};
+
+exports.get_jobs_count = function (req, res) {
+    req.query._id = req.params.id;
+    models.Job.count(req.query).exec(function(err, count){
+      res.jsonp(count)
     });
 };
 

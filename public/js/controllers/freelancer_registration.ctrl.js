@@ -176,6 +176,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             scope.submitSample = function(invalid){
                 if (invalid) return;
                 scope.freelancer_area.submittedSample = false;
+                
                 Upload.upload({
                     url: '/api/work/sample_work',
                     data: JSON.parse(angular.toJson(scope.new_sample)),

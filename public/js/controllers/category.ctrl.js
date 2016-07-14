@@ -127,7 +127,15 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.active_profile_menu = 'pricing';
-
+        
+        $http.get('/api/freelancer/'+scope.viewProfile._id+'/jobs_count?status=ongoing').success(function(count){
+            scope.ongoingJobsCount = count
+        })
+        
+        $http.get('/api/freelancer/'+scope.viewProfile._id+'/jobs_count?status=closed').success(function(count){
+            scope.closedJobsCount = count
+        })
+        
         scope.openExtra = function(pkg){
             ModalService.showModal({
                 templateUrl: "template/modal/extra.html",
@@ -167,8 +175,8 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
             });
         };
 
-scope.viewProfile.work.work_samples[0].attachments[0].path='http://www.sourcecertain.com/img/Example.png';
         scope.showPic = function(pic){
+            console.log(pic)
                 ModalService.showModal({
                     templateUrl: "template/modal/workImg.html",
                     controller: function ($scope, close, $element) {

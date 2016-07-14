@@ -63,6 +63,7 @@ exports.add_sample_work = function(req, res) {
     }).any();
     upload(req, res, function (err) {
         getSampleWork(req, function(){
+            console.log(req.files)
             async.forEach(req.files, function(file, cb){
                 new models.Attachment({
                     originalName: file.originalname,

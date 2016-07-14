@@ -47,14 +47,14 @@
                                 Past project
                                 <span style="float: right">:</span>
                             </td>
-                            <td class="text-right">-----</td>
+                            <td class="text-right">{{closedJobsCount}}</td>
                         </tr>
                         <tr>
                             <td>
                                 Active project
                                 <span style="float: right">:</span>
                             </td>
-                            <td class="text-right">-----</td>
+                            <td class="text-right">{{ongoingJobsCount}}</td>
                         </tr>
                     </table>
                 </div>
@@ -159,26 +159,22 @@
                             <div style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase">
                                 SAMPLE WORK
                             </div>
-                            <div style="border-bottom: 1px solid rgb(213, 218, 225);padding: 10px;height: 130px;" ng-repeat="work_sample in viewProfile.work.work_samples">
-                                <div class="row" style="height: 100%">
-                                    <div class="col-md-3 col-sm-3 text-center" style="position: relative;height: 100%">
-                                        <div  ng-mouseenter="mouseenter=true" style="position: relative;width: 100%;height: 100%">
-                                            <div ng-show="mouseenter==true" ng-mouseleave="mouseenter=false"
-                                                     style="position: absolute;top:0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.8);z-index: 99999;">
-                                                <div style="margin: auto;position: absolute; top: 0; left: 0; bottom: 0; right: 0;height: 25px">
-                                                    <a class="btn" style="background-color: #FF0000; width: 24px;height: 24px; padding: 0px;border:0px;"
-                                                       target="_self" href="{{work_sample.attachments[0].path}}" download="{{work_sample.title}}.jpg">
-                                                        <ng-md-icon icon="file_download"
-                                                                    style=" fill: rgb(255, 255, 255);position: relative;"  size="20"></ng-md-icon>
+                            <div class="samples-item" ng-repeat="work_sample in viewProfile.work.work_samples">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 text-center">
+                                        <div  ng-mouseenter="mouseenter=true" ng-mouseleave="mouseenter=false" class="i_c">
+                                            <div ng-if="work_sample.attachments[0].url" ng-show="mouseenter" class="overlay-container">
+                                                <div>
+                                                    <a class="btn" target="_self" href="{{work_sample.attachments[0].url}}" download="{{work_sample.title}}.jpg">
+                                                        <ng-md-icon icon="file_download" style=" fill: rgb(255, 255, 255);top: 3px;position: relative;"  size="20"></ng-md-icon>
                                                     </a>
-                                                    <div ng-click="showPic(work_sample.attachments[0].path)"  class="btn" style="background-color: #FFFFFF; width: 24px;height: 24px;padding: 0px; border:0px">
-                                                        <ng-md-icon icon="remove_red_eye"
-                                                                    style="fill: rgb(51, 56, 70);position: relative;" size="20"></ng-md-icon>
+                                                    <div ng-click="showPic(work_sample.attachments[0].url)"  class="btn show-pic-icon">
+                                                        <ng-md-icon icon="remove_red_eye" style="fill: rgb(51, 56, 70);top: 3px;position: relative;" size="20"></ng-md-icon>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <img ng-src="https://cdn3.iconfinder.com/data/icons/line-icons-set/128/1-07-256.png" style="max-height: 100%;max-width: 100%;position: relative;" ng-if="!work_sample.attachments[0].path">
-                                            <img ng-src="{{work_sample.attachments[0].path}}" style="max-height: 100%;max-width: 100%;position: relative;" ng-if="work_sample.attachments[0].path">
+                                            <img ng-src="https://cdn3.iconfinder.com/data/icons/line-icons-set/128/1-07-256.png" style="" ng-if="!work_sample.attachments[0].path">
+                                            <img ng-src="{{work_sample.attachments[0].url}}" >
                                         </div>
                                     </div>
                                     <div class="col-md-9 col-sm-9">
