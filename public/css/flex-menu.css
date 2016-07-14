@@ -63,7 +63,6 @@
 }
 
 .way {
-    margin: 40px 0px;
 }
 .breadcrumb {
     padding: 0;
@@ -72,9 +71,7 @@
     list-style: none;
     background-color: transparent;
     border-radius: 0;
-    position: absolute;
-    left: 5%;
-    top: 100px;
+    position: relative;
     font-size: 12pt;
 }
 

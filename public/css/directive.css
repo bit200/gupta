@@ -225,6 +225,6 @@
 .breadcrumb > li + li:before {
     padding: 0;
     padding-left: 5px;
-    color: #ccc;
+    color: black !important;
     content: "/\00a0";
 }

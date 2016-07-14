@@ -63,7 +63,7 @@
             flexObjects.push(this); // Add this object to the flexObjects array
         }
         return this.each(function () {
-            console.log($(this))
+            // console.log($(this))
             var $this = $(this),
                 $items = $this.find('> li'),
                 $firstItem = $items.first(),
