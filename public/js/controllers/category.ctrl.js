@@ -127,7 +127,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.active_profile_menu = 'pricing';
-
+console.log(scope.viewProfile)
         scope.openExtra = function(pkg){
             ModalService.showModal({
                 templateUrl: "template/modal/extra.html",

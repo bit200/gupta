@@ -107,7 +107,8 @@ exports.get_freelancer = function (req, res) {
             populate: {
                 path: 'work_samples',
                 populate: {
-                    path: 'attachments'
+                    path: 'attachments',
+                    model: 'Attachment'
                 }
             }
         },
