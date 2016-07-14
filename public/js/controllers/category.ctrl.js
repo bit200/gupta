@@ -167,7 +167,6 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
             });
         };
 
-scope.viewProfile.work.work_samples[0].attachments[0].path='http://www.sourcecertain.com/img/Example.png';
         scope.showPic = function(pic){
                 ModalService.showModal({
                     templateUrl: "template/modal/workImg.html",
