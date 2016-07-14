@@ -176,6 +176,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
         };
 
         scope.showPic = function(pic){
+            console.log(pic)
                 ModalService.showModal({
                     templateUrl: "template/modal/workImg.html",
                     controller: function ($scope, close, $element) {
