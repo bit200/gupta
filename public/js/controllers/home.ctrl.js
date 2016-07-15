@@ -66,9 +66,9 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
             case 'jobs':
                 $rootScope.$state.go('root.job_detailed', {id: item._id});
                 break;
-            case 'service_providers':
+            case 'service_provider':
                 var q = {
-                    service_providers: [item.displayTitle]
+                    service_provider: item.displayTitle
                 };
                 if (scope.ctrl.city)
                     q.cities = scope.ctrl.city
@@ -76,7 +76,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
                 break;
             case 'filters':
                 var q = {
-                    service_providers: [item.service_provider],
+                    service_provider: item.service_provider,
                     filters: [item.filter_name]
                 };
                 if (scope.ctrl.city)

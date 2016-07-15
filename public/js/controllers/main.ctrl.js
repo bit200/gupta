@@ -8,6 +8,8 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         scope.headerSearch = '';
     };
 
+    scope.activeProvider = {};
+    
     scope.showMessage = false;
     scope.startInput = function () {
         if (!scope.loginForm) scope.loginForm = {};
@@ -18,8 +20,11 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         scope.submitted = false;
     }
 
-    scope.setActiveProvider = function(provider){
-        scope.activeProvider = provider;
+    scope.setActiveProvider = function(key, provider){
+        scope.activeProvider = {
+            name: key,
+            values: provider
+        };
     };
 
 }]);

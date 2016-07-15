@@ -1,15 +1,16 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams',
-    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams) {
+XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter',
+    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter) {
     scope.ownFilter = {}
     scope.arrayTopics = getContent.topic.data.data;
     scope.arrayContent = getContent.content.data.data;
     scope.arrayLanguages = getContent.languages.data.data;
     scope.arrayLocations = getContent.locations.data.data;
     scope.freelancers = [];
-    scope.ownFilter.agency = true;
-    scope.ownFilter.freelancer = true;
+    scope.ownFilter.type = 'freelancer';
+
+    scope.search = {}
 
     scope.slider = {
         experience: {
@@ -61,40 +62,30 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.ownFilter.location = checkValue(stateParams.cities);
     }
 
-    scope.cFilters = {};
-    _.each(angular.copy(rootScope.commonFilters), function(value, key){
-        scope.cFilters[key] = {
-            status: !!(stateParams.service_providers && stateParams.service_providers == key),
-            arr: _.map(value, function(val){
-                val.status = !!(stateParams.filters == val.name && stateParams.service_providers == val.type);
-                return val
-            })
-        }
-    });
-
+    // scope.cFilters = {};
+    // _.each(angular.copy(rootScope.commonFilters), function(value, key){
+    //     scope.cFilters[key] = {
+    //         status: !!(stateParams.service_provider && stateParams.service_provider == key),
+    //         arr: _.map(value, function(val){
+    //             val.status = !!(stateParams.filters == val.name && stateParams.service_provider == val.type);
+    //             return val
+    //         })
+    //     }
+    // });
+    //
     scope.submitFilter = function (data) {
         var filter = angular.copy(data);
         if (filter.freelancer && filter.agency) {
             delete filter.agency;
             delete filter.freelancer;
         }
-        if (filter.agency)
-            filter.type = 'agency';
-        delete filter.agency;
-        if (filter.freelancer)
-            filter.type = 'freelancer';
-        delete filter.freelancer;
         if (filter.languages)
             filter.languages = objInArr(filter.languages);
         if (filter.location)
             filter.location = objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
 
-        filter.service_providers = [];
-        _.each(scope.cFilters, function(value, key){
-            if (value.status)
-                filter.service_providers.push(key)
-        });
+        // filter.service_provider = $filter('filter')(scope.cFilters, {selected: true})[0];
         http.get('/api/freelancers?'+ $.param(filter)).then(function (resp) {
             filter = {};
             scope.freelancers = resp.data.data;
@@ -103,9 +94,10 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
     };
 
     scope.$watch('activeProvider', function(val){
-        if (val)
-            scope.ownFilter.service_providers = val;
-        scope.submitFilter(scope.ownFilter);
+        // console.log(val)
+        // if (val)
+        //     scope.ownFilter.service_provider = val;
+        // scope.submitFilter(scope.ownFilter);
     });
 
 

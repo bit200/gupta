@@ -329,9 +329,13 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
         return name
     }
 
-    $rootScope.commonFilters = [];
-    $http.get('/api/common_filters').success(function (resp) {
+    if (localStorage.getItem('commonFilters')){
+        $rootScope.commonFilters = JSON.parse(localStorage.getItem('commonFilters'))
+    }else
+        $rootScope.commonFilters = [];
+    $http.get('/api/common_filters').success(function (resp){
         $rootScope.commonFilters = resp;
+        localStorage.setItem('commonFilters', JSON.stringify(resp))
     });
 
 

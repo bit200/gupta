@@ -414,8 +414,8 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
         },
         replace: false,
         link: function ($scope, element, attrs) {
-            $scope.$watchCollection('flexMenu', function (arr) {
-                    if (arr && arr.length) {
+            $scope.$watchCollection('flexMenu', function (obj) {
+                    if (obj && Object.keys(obj).length) {
                         $timeout(function () {
                             $(element).flexMenu();
                             $('.flexMenu-popup').on('mouseover', function (event) {
