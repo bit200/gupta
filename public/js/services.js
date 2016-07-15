@@ -232,14 +232,6 @@ XYZCtrls.service('parseRating', function () {
 XYZCtrls.service('jobInformation', function ($http, $rootScope) {
     var information = {};
 
-    var observerCallbacks = [];
-
-    var notifyObservers = function () {
-        angular.forEach(observerCallbacks, function (callback) {
-            callback();
-        });
-    };
-
     return {
         setInfo: function (obj) {
             if (obj.job_category)
@@ -256,8 +248,9 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
                 information.status = obj.job_type;
             if (obj.user_type)
                 information.view_project = obj.user_type;
-
+            console.log('2222')
             $http.get('/api/jobs/filter/' + information.status.toLowerCase(), {params: information}).success(function (data) {
+                console.log('11111')
                 $rootScope.$emit('job-changed', data.data)
             })
         },
@@ -282,6 +275,9 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
             },
             sub_sub_category: function(){
                 return information.sub_sub_category;
+            },
+            user_type: function(){
+                return information.view_project;
             }
 
         }

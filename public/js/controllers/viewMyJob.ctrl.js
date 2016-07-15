@@ -58,7 +58,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', 'j
         $rootScope.$watchCollection('commonFilters', function (val) {
             if (val)
                 scope.categories = Object.keys(val)
-            console.log('123123123', scope.categories)
         });
     }
     ]);
@@ -71,5 +70,4 @@ XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '
     info.url = info.url || ['/api', 'jobs', user_type, job_type].join('/');
     scope.info = info;
     rootScope.info = info;
-
 }]);

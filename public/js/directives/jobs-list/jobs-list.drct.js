@@ -106,10 +106,10 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 //         scope.error = 'An error. Please try again later';
                 //         cb();
                 //     });
-                //
+
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         cb();
-                        scope.configPagination.totalCount = resp.data.data
+                        scope.configPagination.totalCount = resp.data.data;
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {
@@ -121,9 +121,9 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             scope.render();
 
 
-            scope.accept = function() {
-                //console.log('accept')
-            };
+            // scope.accept = function() {
+            //     //console.log('accept')
+            // };
 
         }]
     };

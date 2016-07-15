@@ -80,7 +80,7 @@ exports.filter_job = function (req, res) {
 
     if (params.sub_category)
         category.sub_category = params.sub_category;
-    
+
     if (params.sub_sub_category)
         category.sub_sub_category = params.sub_sub_category;
     switch (params.status) {
@@ -98,16 +98,26 @@ exports.filter_job = function (req, res) {
     m.find(models.Job, category, res, function (jobs) {
         var arrFunc = [],
             jobArr = [];
+        log('1')
         arrFunc.push(function (cb) {
+            var count = 0;
+            var arrModels = []
             _.each(jobs, function (job) {
-                var query = {job: job._id, status: status};
-                if (params.budget_min && params.budget_max)
-                    query.budget = {'$gte':params.budget_min, '$lte':params.budget_max};
-                log(query)
-                m.findOne(models[modelFind], query, {}, function (item) {
-                    jobArr.push(item);
-                    cb()
-                }, {populate: 'job freelancer contract', sort: '-created_at'})
+                (function(job){
+                    var query = {job: job._id, status: status};
+                    if (params.budget_min && params.budget_max)
+                        query.budget = {'$gte':params.budget_min, '$lte':params.budget_max};
+
+                    arrModels.push(function(_cb){
+                        m.findOne(models[modelFind], query, {}, function (item) {
+                            jobArr.push(item);
+                            _cb()
+                        }, {populate: 'job freelancer contract', sort: '-created_at'})
+                    });
+                    async.parallel(arrModels, function (e, r) {
+                        cb()
+                    })
+                })(job)
             })
 
         });
@@ -124,10 +134,10 @@ exports.applyJob = function (req, res) {
         seller: req.userId,
         freelancer: req.freelancerId
     })
-    console.log('paramsssssssssss', params)
+    // console.log('paramsssssssssss', params)
     m.findOne(models.Job, {_id: params.job}, res, function (job) {
         params.buyer = job.user
-        console.log('hahahahahhahaha', job)
+        // console.log('hahahahahhahaha', job)
         m.findCreateUpdate(models.JobApply, {
             job: job._id,
             freelancer: params.freelancer,
@@ -144,7 +154,7 @@ exports.applyJobUpdate = function (req, res) {
         freelancer: req.freelancerId,
         job: params.job
     }
-    console.log("cchchchchchch", query, params)
+    // console.log("cchchchchchch", query, params)
     m.findUpdate2(models.JobApply, query, {message: params.message}, res, res, params)
 }
 
@@ -185,7 +195,7 @@ exports.count = function (query) {
     return function (req, res) {
         var queryParams = m.getBody(req)
         var info = pubParams(queryParams, query)
-        console.log("info", info, info.params)
+        // console.log("info", info, info.params)
         m.count(models.Job, info.query, res, res, info.params)
     }
 };
@@ -194,7 +204,7 @@ exports.buyer_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {buyer: req.userId})
     info.params.populate = 'job freelancer'
-    console.log("infofofofofo", info)
+    // console.log("infofofofofo", info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
@@ -203,7 +213,7 @@ exports.count = function (query) {
     return function (req, res) {
         var queryParams = m.getBody(req)
         var info = pubParams(queryParams, query)
-        console.log("info", info, info.params)
+        // console.log("info", info, info.params)
         m.count(models.Job, info.query, res, res, info.params)
     }
 };
@@ -221,7 +231,7 @@ exports.seller_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {seller: req.userId})
     info.params.populate = 'job freelancer buyer'
-    console.log('infofofofofof', info)
+    // console.log('infofofofofof', info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
