@@ -44,7 +44,7 @@
     padding: 0
 }
 
-.top-menu.active a{
+.top-menu.active > a{
     color: #EA2B29 !important;
     border-bottom: 2px solid #EA2B29;
 }

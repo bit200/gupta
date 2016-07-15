@@ -35,7 +35,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         $stateProvider
             .state('root', {
                 url: '',
-                abstract: true,
+                controller: 'MainCtrl',
+                // abstract: true,
                 template: '<ui-view></ui-view>'
             })
             .state('home', {
@@ -505,10 +506,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories', {
-                url: '/categories?service_providers&cities&filters',
+                url: '/categories?service_provider&cities&filters',
                 templateUrl: 'template/category.html',
                 controller: 'CategoriesCtrl',
                 reloadOnSearch: false,
+                ncyBreadcrumb: {
+                    label: ' ',
+                    labelArr: ['Home', '/', 'View profile'],
+                    hideType: true
+                },
                 resolve: {
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http) {
                         return $q.all({
@@ -549,11 +555,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             })
                         })
                     }]
-                },
-                ncyBreadcrumb: {
-                    label: ' ',
-                    hideType: true,
-                    hideElem: true
                 }
             })
             .state('categories.profile', {

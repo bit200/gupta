@@ -13,7 +13,22 @@ exports.index = function (req, res) {
 
 exports.common_filters = function (req, res) {
     models.Filters.find().lean().exec(function(err, filters){
-        res.jsonp(_.groupBy(filters, 'type'))
+        var resObj = _.groupBy(filters, 'type');
+        _.each(resObj, function(value,key){
+            var tArr = _.groupBy(value, 'filter');
+            resObj[key] = [];
+            _.each(tArr, function(v, k){
+                if (!k){
+                    resObj[key] = resObj[key].concat(v)
+                }else{
+                    resObj[key].push({
+                        subFilter: k,
+                        arr: v
+                    });
+                }
+            })
+        });
+        res.jsonp(resObj)
     });
 };
 

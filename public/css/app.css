@@ -4,6 +4,7 @@ html{
 
 html *{
     font-family: 'MyriadPro-Regular', 'Open Sans', sans-serif;
+    /*color: rgb(51, 57, 69);*/
 }
 
 
@@ -12,7 +13,7 @@ html, body {
 }
 .page-wrap {
     min-height: 100%;
-    margin-bottom: -70px;
+    margin-bottom: -30px;
 }
 .page-wrap:after {
     content: "";
@@ -23,6 +24,9 @@ html, body {
 }
 
 
+.display-none{
+    display: none;
+}
 
 .block-center {
     display: inline-block;
@@ -1039,54 +1043,65 @@ div.block-popularity {
     text-overflow: ellipsis;
 }
 
-.user-topic {
-    border-radius: 5px;
-    height: 200px;
+
+/*.user-topic {*/
+    /*border-radius: 5px;*/
+    /*height: 200px;*/
+    /*position: relative;*/
+    /*overflow: hidden;*/
+    /*transition: all 0.8s;*/
+    /*background-color: #ffffff;*/
+/*}*/
+
+.user-topic{
+    border-top: 1px solid whitesmoke;
+    margin-top: 10px;
+}
+.user-topic-header{
+    text-transform: uppercase;
+    color: rgb(51, 57, 69);
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.expand-topic{
+    float: right;
+    top: -7px;
     position: relative;
-    overflow: hidden;
-    transition: all 0.8s;
-    background-color: #ffffff;
+    cursor: pointer;
 }
 
-.work-type {
-    border-radius: 5px;
-    height: 95px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.8s;
-    background-color: #ffffff;
-}
 
-.topic-close {
-    height: 30px;
-    transition: all 0.8s;
-}
+/*.topic-close {*/
+    /*height: 30px;*/
+    /*transition: all 0.8s;*/
+/*}*/
 
-.user-topic-top {
-    height: 30px;
-    background: whitesmoke;
-    position: absolute;
-    top: 0;
-    z-index: 99;
-    padding: 10px;
-    padding-top: 5px;
-}
+/*.user-topic-top {*/
+    /*height: 30px;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*z-index: 99;*/
+    /*padding: 10px;*/
+    /*padding-top: 5px;*/
+    /*font-weight: bold;*/
+/*}*/
 
-.user-topic-bottom {
-    margin-top: 28px;
-    height: 160px;
-    overflow: auto;
-    width: 106%;
-    padding-left: 10px;
-}
+/*.user-topic-bottom {*/
+    /*margin-top: 28px;*/
+    /*height: 160px;*/
+    /*overflow: auto;*/
+    /*width: 106%;*/
+    /*padding-left: 10px;*/
+/*}*/
 
-.user-topic-input {
-    border: 0;
-    box-shadow: none;
-    border-bottom: 1px solid;
-    border-radius: 0;
-    margin-bottom: 10px;
-}
+/*.user-topic-input {*/
+    /*border: 0;*/
+    /*box-shadow: none;*/
+    /*border-bottom: 1px solid;*/
+    /*border-radius: 0;*/
+    /*margin-bottom: 10px;*/
+/*}*/
 
 .user-search-icon {
     font-size: 17px;

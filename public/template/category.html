@@ -1,92 +1,145 @@
-<div class="container">
+<div class="way container">
+    <div ncy-breadcrumb></div>
+</div>
+
+<div class="container" style="margin-top: 2%">
     <div class="row">
-            <div class="col-md-3 nopadding">
-                <div class="full-width work-type border-grey" ng-class="{'topic-close':close.workType}">
-                    <div class="full-width user-topic-top">
-                        <i class="fa fa-sitemap" aria-hidden="true"></i>
-                        <span>Work type</span>
-                        <i class="fa pointer floatR" ng-class="{'fa-chevron-down': !close.workType,'fa-chevron-up': close.workType}" aria-hidden="true" ng-click="close.workType = !close.workType"></i>
-                    </div>
-                    <div class="user-topic-bottom" toggle="close.workType">
-                        <div class="full-width marginLR20">
-                            <md-checkbox ng-model="ownFilter.agency" ng-change="submitFilter(ownFilter)" class="md-warn">Agency</md-checkbox>
-                            <md-checkbox ng-model="ownFilter.freelancer" ng-change="submitFilter(ownFilter)" class="md-warn">Freelancer</md-checkbox>
-                        </div>
-                    </div>
+        <div class="col-md-3">
+            <div>
+                <div>
+                    WORK TYPE
                 </div>
-                <div class="full-width user-topic border-grey" ng-class="{'topic-close':close.topic}">
-                    <div class="full-width user-topic-top">
-                        <i class="fa fa-sitemap" aria-hidden="true"></i>
-                        <span>Service providers</span>
-                        <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.topic,'fa-chevron-up':close.topic}" aria-hidden="true" ng-click="close.topic = !close.topic"></i>
-                    </div>
-                    <div class="user-topic-bottom" toggle="close.topic">
-                        <div class="full-width">
-                            <md-input-container md-no-float class="md-block" style="margin-bottom: 0px">
-                                <input ng-model="search" type="text" placeholder="Search by Service Providers" >
-                                <md-icon md-svg-src="/img/search.svg" style="display:inline-block;"></md-icon>
-                            </md-input-container>
-                        </div>
-                        <div class="full-width">
-                            <div ng-repeat="filter in cFilters | objectKeys | filter:search">
-                                <md-checkbox ng-model="cFilters[filter].status" ng-change="submitFilter(ownFilter)" class="md-warn">{{filter}}</md-checkbox>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="full-width user-block border-grey">
-                    <div class="user-block-top">
-                        <span>Years of Experience</span>
-                        <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.experience,'fa-chevron-up': close.experience}" aria-hidden="true" ng-click="close.experience = !close.experience"></i>
-                    </div>
-                    <div class="user-block-bottom" toggle="close.experience">
-                        <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
-                    </div>
-                </div>
-
-                <div class="full-width user-block border-grey">
-                    <div class="user-block-top">
-                        <span>Geography</span>
-                        <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.location,'fa-chevron-up': close.location}" aria-hidden="true" ng-click="close.location = !close.location"></i>
-                    </div>
-                    <div class="user-block-bottom" toggle="close.location">
-                        <div ng-repeat="item in arrayLocations">
-                            <md-checkbox ng-model="ownFilter.location[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="full-width user-block border-grey">
-                    <div class="user-block-top">
-                        <span>Package Available</span>
-                        <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.package,'fa-chevron-up': close.package}" aria-hidden="true" ng-click="close.package = !close.package"></i>
-                    </div>
-                    <div class="user-block-bottom" toggle="close.package">
-                        <md-radio-group ng-model="ownFilter.package">
-                            <md-radio-button ng-value="true" aria-label="Yes">Yes</md-radio-button>
-                            <md-radio-button ng-value="false" aria-label="No">No</md-radio-button>
+                <div toggle="close.workType">
+                    <div class="">
+                        <md-radio-group ng-model="ownFilter.type" ng-change="submitFilter(ownFilter)">
+                            <md-radio-button value="agency" class="md-primary">Agency</md-radio-button>
+                            <md-radio-button value="freelancer">Freelancer</md-radio-button>
                         </md-radio-group>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-12 col-xs-6" ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length"><h3>Not found</h3></div>
 
-                    <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
-                        <div class="profile-detail">
-                            <img class="profile-poster-detail" ng-src="{{profile.contact_detail.preview}}">
-                            <ul style="list-style-type: none;">
-                                <li>{{profile.name}}</li>
-                                <li>{{profile.location}}</li>
-                            </ul>
-                            <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
-                            <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
-                            <button class="btn btn-default full-width" ng-click="$state.go('categories.profile', {id: profile._id})">View Details</button>
+
+            <section ng-if="activeProvider.name">
+                <div ng-class="{'topic-close':close[activeProvider.name]}" class="user-topic" ng-if="(activeProvider.values | filter:{subFilter:'!'}).length">
+                    <div class="user-topic-header">
+                        {{activeProvider.name}}
+                        <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
+                        <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
+                    </div>
+                    <div toggle="close[activeProvider.name]">
+                        <div style="position: relative;width: 100%" ng-if="activeProvider.values.length>5">
+                            <md-input-container md-no-float class="md-block">
+                                <input ng-model="search[activeProvider.name]" type="text" placeholder="Search" >
+                                <md-icon md-svg-src="/img/search.svg"></md-icon>
+                            </md-input-container>
                         </div>
+                        <div>
+                            <div ng-repeat="value in activeProvider.values | filter:{subFilter:'!', name: search[activeProvider.name]}">
+                                <md-checkbox ng-model="cFilters[filter].status" aria-label="hidden" ng-change="submitFilter(ownFilter)" class="md-warn">{{value.name}}</md-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section ng-if="(activeProvider.values | filter:{subFilter:'!!'}).length">
+                    <div ng-class="{'topic-close':close[obj.subFilter]}" style="border-top: 1px solid whitesmoke;width: 100%"
+                        ng-repeat="obj in (activeProvider.values | filter:{subFilter:'!!'})">
+                        <div class="user-topic-header">
+                            {{obj.subFilter}}
+                            <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close[obj.subFilter]}" ng-click="close[obj.subFilter] = !close[obj.subFilter]"></ng-md-icon>
+                            <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[obj.subFilter]}" ng-click="close[obj.subFilter] = !close[obj.subFilter]"></ng-md-icon>
+                        </div>
+                        <div toggle="close[obj.subFilter]" style="width: 100%">
+                            <div style="position: relative;width: 100%" ng-if="obj.arr.length>5">
+                                <md-input-container md-no-float class="md-block">
+                                    <input ng-model="search[obj.subFilter]" type="text" placeholder="Search" >
+                                    <md-icon md-svg-src="/img/search.svg"></md-icon>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <div ng-repeat="value in obj.arr | filter: {name : search[obj.subFilter]}">
+                                    <md-checkbox ng-model="cFilters[filter].status" aria-label="hidden" ng-change="submitFilter(ownFilter)" class="md-warn">{{value.name}}</md-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+
+            <!--<div ng-class="{'topic-close':close.topic}" style="border-top: 1px solid whitesmoke">-->
+                <!--<div>-->
+                    <!--SERVICE PROVIDERS-->
+                    <!--<ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.topic}" ng-click="close.topic = !close.topic"></ng-md-icon>-->
+                    <!--<ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.topic}" ng-click="close.topic = !close.topic"></ng-md-icon>-->
+                <!--</div>-->
+                <!--<div toggle="close.topic">-->
+                    <!--<div>-->
+                        <!--<md-input-container md-no-float class="md-block" style="margin-bottom: 0px">-->
+                            <!--<input ng-model="search" type="text" placeholder="Search by Service Providers" >-->
+                            <!--<md-icon md-svg-src="/img/search.svg" style="display:inline-block;"></md-icon>-->
+                        <!--</md-input-container>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<div ng-repeat="filter in cFilters | objectKeys | filter:search">-->
+                            <!--<md-checkbox ng-model="cFilters[filter].status" ng-change="submitFilter(ownFilter)" class="md-warn">{{filter}}</md-checkbox>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="full-width user-block border-grey">
+                <div class="user-block-top">
+                    <span>Years of Experience</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.experience,'fa-chevron-up': close.experience}" aria-hidden="true" ng-click="close.experience = !close.experience"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.experience">
+                    <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
+                </div>
+            </div>
+
+            <div class="full-width user-block border-grey">
+                <div class="user-block-top">
+                    <span>Geography</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.location,'fa-chevron-up': close.location}" aria-hidden="true" ng-click="close.location = !close.location"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.location">
+                    <div ng-repeat="item in arrayLocations">
+                        <md-checkbox ng-model="ownFilter.location[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-width user-block border-grey">
+                <div class="user-block-top">
+                    <span>Package Available</span>
+                    <i class="fa pointer floatR" ng-class="{'fa-chevron-down':!close.package,'fa-chevron-up': close.package}" aria-hidden="true" ng-click="close.package = !close.package"></i>
+                </div>
+                <div class="user-block-bottom" toggle="close.package">
+                    <md-radio-group ng-model="ownFilter.package">
+                        <md-radio-button ng-value="true" aria-label="Yes">Yes</md-radio-button>
+                        <md-radio-button ng-value="false" aria-label="No">No</md-radio-button>
+                    </md-radio-group>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12 col-xs-6" ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length"><h3>Not found</h3></div>
+
+                <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
+                    <div class="profile-detail">
+                        <img class="profile-poster-detail" ng-src="{{profile.contact_detail.preview}}">
+                        <ul style="list-style-type: none;">
+                            <li>{{profile.name}}</li>
+                            <li>{{profile.location}}</li>
+                        </ul>
+                        <span ng-repeat="star in profile.ratingArr track by $index " class="rating-star glyphicon" ng-class="{'glyphicon-star': star,'glyphicon-star-empty':!star}"></span>
+                        <div class="fa block-popularity" ng-repeat="elem in profile.popularityArr track by $index" ng-class="{'fa-square': elem,'fa-square-o': !elem}"></div>
+                        <button class="btn btn-default full-width" ng-click="$state.go('categories.profile', {id: profile._id})">View Details</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </div>
