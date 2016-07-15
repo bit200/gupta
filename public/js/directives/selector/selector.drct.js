@@ -9,7 +9,7 @@ XYZCtrls.directive('selector', function () {
             onSelectCustom: '&'
         },
         templateUrl: 'js/directives/selector/selector.html',
-        controller: ['$scope', '$rootScope', '$state', '$timeout', function (scope, $rootScope, $state, $timeout) {
+        controller: ['$scope', '$rootScope', '$state', '$timeout', 'jobInformation', function (scope, $rootScope, $state, $timeout, jobInformation) {
             scope.onOpen = function (e) {
                 var status = scope.open;
                 $rootScope.closePopupFn();
@@ -21,16 +21,24 @@ XYZCtrls.directive('selector', function () {
                 return;
             };
             scope.init = function () {
-                console.log()
                 var value = $rootScope.info[scope.type];
+                console.log('items',scope.items)
                 _.each(scope.items, function (item) {
                     if (item.toLowerCase() == value) {
                         scope.selected = item
+                        var obj = {};
+                        obj[scope.type] = item;
+                        jobInformation.setInfo(obj);
                     }
                 })
             };
 
             scope.onSelect = function (item, e) {
+                var obj = {};
+                obj[scope.type] = item;
+                jobInformation.setInfo(obj);
+                console.log('obj', obj)
+                console.log('information', jobInformation.getInfo.buyer())
                 if (scope.onSelectCustom) {
                     scope.onSelectCustom({item: item})
                 }

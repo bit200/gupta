@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('JobsContentCtrl', ['$scope','getContent', '$rootScope', function(scope,getContent, $rootScope){
+XYZCtrls.controller('JobsContentCtrl', ['$scope','getContent', '$rootScope', 'jobInformation', function(scope,getContent, $rootScope, jobInformation){
     scope.categories = [];
     scope.subCategories = [];
 
@@ -35,6 +35,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope','getContent', '$rootScope', fun
                 }
             },
             onEnd: function (r) {
+                jobInformation.setInfo({budget:scope.slider.value})
             }
         }
     };

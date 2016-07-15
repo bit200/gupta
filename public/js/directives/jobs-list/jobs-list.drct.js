@@ -1,4 +1,4 @@
-XYZCtrls.directive('jobsList', function () {
+XYZCtrls.directive('jobsList', function (jobInformation) {
     return {
         restrict: 'E',
         scope: {
@@ -12,13 +12,18 @@ XYZCtrls.directive('jobsList', function () {
         },
         templateUrl: 'js/directives/jobs-list/jobs-list.html',
         controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService', function (scope, http, parseTime, rootScope, location, ModalService) {
-            scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('')
-            scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('')
+            scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('');
+            scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
 
             scope.configPagination = {
                 currentPage: 1,
                 countByPage: 12
             };
+
+            // jobInformation.registerObserverCallback(function(data){
+            //     console.log(data)
+            // });
+            
 
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
@@ -86,7 +91,6 @@ XYZCtrls.directive('jobsList', function () {
                         scope.showLoading = false;
                     }
                 }
-                // console.log("objbjbjbjbjbjbjbjb", obj, scope.configPagination)
 
 
                 http.get(scope.url, {params: obj}).success(function (data) {

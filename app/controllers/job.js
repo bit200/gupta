@@ -54,11 +54,11 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
 
     function routing (type) {
         return function (req, res) {
-            var queryParams = m.getBody(req)
-            var query = middlewareFn.call(req)
-            var info = pubParams(queryParams, query)
-            info.params.populate = extra_params.populate || ''
-            info.params.sort = extra_params.sort || info.params.sort || ''
+            var queryParams = m.getBody(req);
+            var query = middlewareFn.call(req); 
+            var info = pubParams(queryParams, query);
+            info.params.populate = extra_params.populate || '';
+            info.params.sort = extra_params.sort || info.params.sort || '';
 
             m[type](models[modelName], info.query, res, res, info.params)
         }
@@ -157,15 +157,6 @@ exports.count = function (query) {
         m.count(models.Job, info.query, res, res, info.params)
     }
 };
-
-exports.buyer_open = function (req, res) {
-    var queryParams = m.getBody(req)
-    var info = pubParams(queryParams, {buyer: req.userId})
-    info.params.populate = 'job freelancer'
-    console.log("infofofofofo", info)
-    m.find(models.JobApply, info.query, res, res, info.params)
-
-}
 
 exports.rejectJobApply = function (req, res) {
     res.send("rejected")
