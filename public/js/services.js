@@ -241,10 +241,6 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
     };
 
     return {
-        registerObserverCallback: function (callback) {
-            observerCallbacks.push(callback);
-        },
-
         setInfo: function (obj) {
             if (obj.job_category)
                 information.category = obj.job_category;
@@ -260,8 +256,6 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
                 information.view_project = obj.user_type;
 
             $http.get('/api/jobs/filter/' + information.status.toLowerCase(), {params: information}).success(function (data) {
-                // notifyObservers(data);
-                console.log('assssssssssssssssssss',data)
                 $rootScope.$emit('job-changed', data.data)
             })
         },

@@ -15,6 +15,11 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('');
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
 
+            scope.$watch('$parent.$parent._keywords', function(val){
+                scope.search = {job:{title:val}}
+            });
+
+            console.log(scope);
             scope.configPagination = {
                 currentPage: 1,
                 countByPage: 12

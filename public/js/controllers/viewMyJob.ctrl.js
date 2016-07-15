@@ -4,14 +4,12 @@ var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('JobsContentCtrl', ['$scope','getContent', '$rootScope', 'jobInformation', function(scope,getContent, $rootScope, jobInformation){
     scope.categories = [];
     scope.subCategories = [];
-
     scope.onSelectCustom = function(item){
         scope.subCategories = _.map(angular.copy($rootScope.commonFilters[item]), function(it){
             return it.name
         });
     };
 
-    $rootScope.search;
     scope.slider = {
         minValue: 1000,
         maxValue: 50000,
@@ -36,7 +34,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope','getContent', '$rootScope', 'jo
                 }
             },
             onEnd: function (r) {
-                console.log('slide', scope.slider.value)
                 jobInformation.setInfo({budget_min:scope.slider.minValue, budget_max: scope.slider.maxValue})
             }
         }
