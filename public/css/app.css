@@ -1054,14 +1054,16 @@ div.block-popularity {
 /*}*/
 
 .user-topic{
-    border-top: 1px solid whitesmoke;
+    border-top: 1px solid lightgrey;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 .user-topic-header{
     text-transform: uppercase;
     color: rgb(51, 57, 69);
     font-weight: bold;
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .expand-topic{
@@ -1071,7 +1073,10 @@ div.block-popularity {
     cursor: pointer;
 }
 
-
+.user-topic-filter{
+    height: 175px;
+    overflow: hidden;
+}
 /*.topic-close {*/
     /*height: 30px;*/
     /*transition: all 0.8s;*/

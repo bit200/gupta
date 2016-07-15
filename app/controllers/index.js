@@ -95,7 +95,7 @@ exports.search = function (req, res) {
             models.Filters.find({name: new RegExp(req.query.query, "i")}).exec(function(err, filters){
                 result.filters = _.map(filters,function(item){
                     return {
-                      displayTitle: item.type + ' - ' + item.name,
+                      displayTitle: item.type + (item.filter ? ' > ' + item.filter : '') + ' > ' + item.name,
                       filter_name: item.name,
                       service_provider: item.type,
                       filter_type: item.filter,
@@ -106,11 +106,11 @@ exports.search = function (req, res) {
             })
         },
         function(cb){
-            models.ServiceProvider.find({name: new RegExp(req.query.query, "i")}).distinct('name', function(err, services){
+            models.Filters.find({type: new RegExp(req.query.query, "i")}).distinct('type', function(err, services){
                 result.services = _.map(services,function(item){
                     return {
                       displayTitle: item,
-                      type: 'service_providers'
+                      type: 'service_provider'
                     }
                 });
                 cb();

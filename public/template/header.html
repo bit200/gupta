@@ -50,22 +50,28 @@
     <div class="header-navigation">
         <div class="container">
             <nav id="primary_nav_wrap">
-                <ul class="flex menu" flex-menu="filters" ng-if="['categories'].indexOf($state.current.name)==-1">
+                <ul class="flex menu" flex-menu="filters" ng-if="['categories', 'home'].indexOf($state.current.name)==-1">
                     <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ng-click="$state.go('dashboard')" class="text-black top-menu-text">DASHBOARD</a></li>
                     <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a ng-click="asView.buyer=true;asView.seller=false;$state.go('root.job_create')" class="text-black top-menu-text">POST A PROJECT</a></li>
                     <li class="top-menu" ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}"><a ng-click="$state.go('jobs_list.all')" class="text-black top-menu-text">VIEW PROJECTS</a></li>
                 </ul>
 
-                <ul class="flex menu" flex-menu="commonFilters" ng-if="['categories'].indexOf($state.current.name)>-1">
+                <ul class="flex menu" flex-menu="commonFilters" ng-if="['categories', 'home'].indexOf($state.current.name)>-1">
                     <li class="top-menu" ng-repeat="(key, value) in commonFilters" ng-class="{active: activeProvider.name == key}">
-                        <a class="text-black top-menu-text" ng-click="setActiveProvider(key, value)">{{key}}</a>
+                        <a class="text-black top-menu-text" ng-click="setActiveProvider(key, value);goCategories()">{{key}}</a>
                         <div class="sub-nav" style="position: absolute">
                             <ul class="top-sub-ul" ng-repeat="val in value track by $index">
-                                <li ng-if="val.name"><a class="text-black top-sub-menu-text">{{val.name}}</a></li>
-                                <li ng-if="val.subFilter" class="dir top-sub-menu">
-                                    <a class="text-black top-sub-menu-text">{{val.subFilter}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
+                                <li ng-if="val.name" ng-class="{active: activeProvider.subName == val.name && activeProvider.name == key}">
+                                    <a ng-click="setActiveProvider(key, value);setSubMenu(val.name);goCategories()" class="text-black top-sub-menu-text">{{val.name}}</a>
+                                </li>
+                                <li ng-if="val.subFilter" class="dir top-sub-menu" ng-class="{active: activeProvider.subName == val.subFilter && activeProvider.name == key}">
+                                    <a class="text-black top-sub-menu-text" ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);goCategories()">
+                                        {{val.subFilter}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
                                     <ul class="top-sub-sub-menu">
-                                        <li ng-repeat="subV in val.arr"><a class="text-black top-sub-menu-text">{{subV.name}}</a></li>
+                                        <li ng-repeat="subV in val.arr" ng-class="{active: activeProvider.subSubName == subV.name && activeProvider.subName == val.subFilter && activeProvider.name == key}">
+                                            <a class="text-black top-sub-menu-text"
+                                                                           ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);setSubSubMenu(subV.name);goCategories()">
+                                            {{subV.name}}</a></li>
                                     </ul>
                                 </li>
                             </ul>

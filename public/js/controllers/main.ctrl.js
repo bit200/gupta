@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$location', '$http', 'safeApply', function (scope, rootScope, location, http, safeApply) {
+angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$location', '$state', function (scope, $rootScope, location, $state) {
     scope.headerSearch = '';
 
     scope.headerSubmit = function (search) {
@@ -8,7 +8,7 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         scope.headerSearch = '';
     };
 
-    scope.activeProvider = {};
+    $rootScope.activeProvider = {};
     
     scope.showMessage = false;
     scope.startInput = function () {
@@ -20,11 +20,27 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         scope.submitted = false;
     }
 
+    scope.setSubMenu = function(filter){
+        $rootScope.activeProvider.subName = filter;
+    };
+    
+    scope.setSubSubMenu = function(subV){
+        $rootScope.activeProvider.subSubName = subV;
+    };
+    
     scope.setActiveProvider = function(key, provider){
-        scope.activeProvider = {
-            name: key,
-            values: provider
+        $rootScope.activeProvider = {
+            name: angular.copy(key),
+            values: angular.copy(provider)
         };
     };
 
+    scope.goCategories = function(){
+        if ($state.current.name != 'categories')
+            $state.go('categories')
+    };
+
+    scope.checkCategoryPage = function(){
+        
+    }
 }]);

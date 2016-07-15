@@ -1,3 +1,11 @@
+md-checkbox .md-ink-ripple{
+    color: rgb(51, 57, 69) !important;
+}
+
+md-checkbox.md-checked .md-icon{
+    background-color: rgb(51, 57, 69) !important;
+}
+
 .flex.menu {
     height: 33px;
 }
@@ -44,7 +52,7 @@
     padding: 0
 }
 
-.top-menu.active > a{
+.flex.menu li.active > a {
     color: #EA2B29 !important;
     border-bottom: 2px solid #EA2B29;
 }

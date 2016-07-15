@@ -57,49 +57,35 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         return res
     };
 
-    if (stateParams.cities){
+    if (stateParams.city){
         scope.ownFilter.location = scope.ownFilter.location || {};
-        scope.ownFilter.location = checkValue(stateParams.cities);
+        scope.ownFilter.location = checkValue(stateParams.city);
     }
 
-    // scope.cFilters = {};
-    // _.each(angular.copy(rootScope.commonFilters), function(value, key){
-    //     scope.cFilters[key] = {
-    //         status: !!(stateParams.service_provider && stateParams.service_provider == key),
-    //         arr: _.map(value, function(val){
-    //             val.status = !!(stateParams.filters == val.name && stateParams.service_provider == val.type);
-    //             return val
-    //         })
-    //     }
-    // });
-    //
-    scope.submitFilter = function (data) {
-        var filter = angular.copy(data);
-        if (filter.freelancer && filter.agency) {
-            delete filter.agency;
-            delete filter.freelancer;
+    scope.$watch('activeProvider', function(val){
+        if (val){
+            scope.submitFilter()
         }
-        if (filter.languages)
-            filter.languages = objInArr(filter.languages);
+    })
+
+    scope.submitFilter = function () {
+        var filter = angular.copy(scope.ownFilter);
         if (filter.location)
             filter.location = objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
-
-        // filter.service_provider = $filter('filter')(scope.cFilters, {selected: true})[0];
-        http.get('/api/freelancers?'+ $.param(filter)).then(function (resp) {
-            filter = {};
-            scope.freelancers = resp.data.data;
-        }, function (err) {
-        })
+        if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length){
+            filter.service_providers = Object.keys(rootScope.activeProvider)
+        }
+        // angular.forEach(rootScope.activeProvider, function(values,key){
+        //     angular.forEach(values, function(value){
+        //         if (value.selected)
+        //     })
+        // });
+        // http.get('/api/freelancers?'+ $.param(filter)).success(function (resp) {
+        //     console.log(resp)
+        //     scope.freelancers = resp;
+        // })
     };
-
-    scope.$watch('activeProvider', function(val){
-        // console.log(val)
-        // if (val)
-        //     scope.ownFilter.service_provider = val;
-        // scope.submitFilter(scope.ownFilter);
-    });
-
 
 
     function objInArr(obj) {

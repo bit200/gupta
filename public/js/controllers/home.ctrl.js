@@ -67,21 +67,32 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
                 $rootScope.$state.go('root.job_detailed', {id: item._id});
                 break;
             case 'service_provider':
-                var q = {
-                    service_provider: item.displayTitle
-                };
-                if (scope.ctrl.city)
-                    q.cities = scope.ctrl.city
-                $rootScope.$state.go('categories', q);
+                angular.forEach($rootScope.commonFilters, function(values,key){
+                    if (key == item.displayTitle){
+                        $rootScope.activeProvider = {
+                            name: key,
+                            values: values
+                        };
+                    }
+                });
+                $rootScope.$state.go('categories', {city: scope.ctrl.city});
                 break;
             case 'filters':
-                var q = {
-                    service_provider: item.service_provider,
-                    filters: [item.filter_name]
-                };
-                if (scope.ctrl.city)
-                    q.cities = [scope.ctrl.city]
-                $rootScope.$state.go('categories', q);
+                angular.forEach($rootScope.commonFilters, function(values,key){
+                    if (key == item.service_provider){
+                        $rootScope.activeProvider = {
+                            name: key,
+                            values: values
+                        };
+
+                        if (item.filter_type){
+                            $rootScope.activeProvider.subName = item.filter_type;
+                            $rootScope.activeProvider.subSubName = item.filter_name;
+                        }else
+                            $rootScope.activeProvider.subName = item.filter_name;
+                    }
+                });
+                $rootScope.$state.go('categories', {city: scope.ctrl.city});
                 break;
         }
     };

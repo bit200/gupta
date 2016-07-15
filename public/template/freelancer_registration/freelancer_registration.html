@@ -67,7 +67,7 @@
             <h4 class="info-title">Location</h4>
             <div class="form-group">
                 <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.location.$invalid}">
-                    <md-select name="location" ng-model="freelancer.location" required>
+                    <md-select aria-label="hidden" name="location" ng-model="freelancer.location" required>
                         <md-option ng-repeat="item in locations" value="{{item}}">
                             {{item}}
                         </md-option>
@@ -81,7 +81,7 @@
             <h4 class="info-title">Cities where you can service</h4>
             <div class="form-group testDisplay">
                 <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.cities.$invalid}">
-                    <md-select ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
+                    <md-select aria-label="hidden" ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
                                data-md-container-class="selectdemoSelectHeader" multiple="" required>
                         <md-select-header class="demo-select-header">
                             <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
@@ -102,7 +102,7 @@
             <h4 class="info-title">Years of Experience (in years)</h4>
             <div class="form-group">
                 <md-input-container class="md-block" flex-gt-sm=""  ng-class="{'has-error': submittedAbout && aboutForm.experience.$invalid}">
-                    <md-select ng-model="freelancer.experience" name="experience" required>
+                    <md-select aria-label="hidden" ng-model="freelancer.experience" name="experience" required>
                         <md-option ng-repeat="item in experience" value="{{item}}">
                             {{item}}
                         </md-option>
@@ -116,7 +116,7 @@
             <h4 class="info-title">I want to register as a freelancer in</h4>
             <div class="form-group">
                 <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.service_providers.$invalid}">
-                    <md-select ng-model="freelancer.service_providers" md-on-close="clearSearchTerm()"
+                    <md-select aria-label="hidden" ng-model="freelancer.service_providers" md-on-close="clearSearchTerm()"
                                data-md-container-class="selectdemoSelectHeader" name="service_providers" multiple required>
                         <md-select-header class="demo-select-header">
                             <input ng-model="searchTerm" type="search" placeholder="Search.."
@@ -149,7 +149,7 @@
             <h4 class="info-title">Industry Expertise (select top 5)</h4>
             <div class="form-group">
                 <md-input-container class="selectTerm">
-                    <md-select ng-model="freelancer.industry_expertise" md-on-close="clearSearchTerm()"
+                    <md-select aria-label="hidden" ng-model="freelancer.industry_expertise" md-on-close="clearSearchTerm()"
                                data-md-container-class="selectdemoSelectHeader" multiple>
                         <md-select-header class="demo-select-header">
                             <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
@@ -169,7 +169,7 @@
             <h4 class="info-title">Content Type</h4>
             <div class="form-group">
                 <md-input-container class="selectTerm">
-                    <md-select ng-model="freelancer.content_type" md-on-close="clearSearchTerm()"
+                    <md-select aria-label="hidden" ng-model="freelancer.content_type" md-on-close="clearSearchTerm()"
                                data-md-container-class="selectdemoSelectHeader" multiple="">
                         <md-select-header class="demo-select-header">
                             <input ng-model="searchTerm" type="search" placeholder="Search for a content type.."
@@ -187,7 +187,7 @@
             <h4 class="info-title">Languages in which you write</h4>
             <div class="form-group">
                 <md-input-container class="selectTerm">
-                    <md-select ng-model="freelancer.languages" md-on-close="clearSearchTerm()"
+                    <md-select aria-label="hidden" ng-model="freelancer.languages" md-on-close="clearSearchTerm()"
                                data-md-container-class="selectdemoSelectHeader" multiple="">
                         <md-select-header class="demo-select-header">
                             <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
@@ -374,7 +374,7 @@
             <h4 class="info-title">Contact Person Name</h4>
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_name.$invalid}">
                 <md-input-container class="md-block">
-                    <input class='form-control' name="contact_name" ng-model="freelancer.contact_detail.name" required>
+                    <input class='form-control' name="contact_name" aria-label="hidden" ng-model="freelancer.contact_detail.name" required>
 
                     <div ng-messages="submittedContact && contactForm.contact_name.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
                         <div ng-show="submittedContact && contactForm.contact_name.$error.required" ng-message="required">Contact Person Name is required</div>
@@ -386,6 +386,7 @@
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_email.$invalid}">
                 <md-input-container class="md-block">
                     <input class='form-control' name="contact_email" ng-model="freelancer.contact_detail.email" required
+                           aria-label="hidden"
                            ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
     `
                     <div ng-messages="submittedContact && contactForm.contact_name.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
@@ -400,6 +401,7 @@
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_mobile.$invalid}">
                 <md-input-container class="md-block">
                     <input class='form-control' phone-number name="contact_mobile"
+                           aria-label="hidden"
                            ng-model="freelancer.contact_detail.mobile"
                            required>
 
