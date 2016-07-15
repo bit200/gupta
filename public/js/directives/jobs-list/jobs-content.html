@@ -6,7 +6,7 @@
         <div class="col-sm-3">
             <div class="job-nav">
                 <div>
-                    <input class="job-search" placeholder="Search type"/>
+                    <input class="job-search" ng-model="search.$" placeholder="Search type"/>
                     <div class="sub-title">
                         Category
                     </div>
@@ -23,7 +23,8 @@
                         Budget
                     </div>
                     <div class="sub-select" ng-if="info.user_type == 'buyer' || info.user_type == 'Buyer'">
-                        <rzslider rz-slider-model="slider.value"
+                        <rzslider rz-slider-model="slider.minValue"
+                                  rz-slider-high="slider.maxValue"
                                   rz-slider-options="slider.options"></rzslider>
                     </div>
                     <div class="sub-title">

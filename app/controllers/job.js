@@ -35,7 +35,7 @@ function pubParams(params, query) {
         sort: '-created_at'
     }
 }
-exports.job_detailed = function(req, res) {
+exports.job_detailed = function (req, res) {
     m.findOne(models.Job, {_id: req.params._id}, res, res, {populate: 'buyer job seller freelancer'})
 }
 
@@ -52,10 +52,10 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
         app.get(url + '/count', routing('count'))
     }
 
-    function routing (type) {
+    function routing(type) {
         return function (req, res) {
             var queryParams = m.getBody(req);
-            var query = middlewareFn.call(req); 
+            var query = middlewareFn.call(req);
             var info = pubParams(queryParams, query);
             info.params.populate = extra_params.populate || '';
             info.params.sort = extra_params.sort || info.params.sort || '';
@@ -63,19 +63,66 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
             m[type](models[modelName], info.query, res, res, info.params)
         }
     }
-}
+};
 
 exports.get_info = function (req, res) {
-    var params = req.params
+    var params = req.params;
     m.findOne(models[params.model], {_id: params._id}, res, res)
-}
+};
+
+exports.filter_job = function (req, res) {
+    var params = m.getBody(req),
+        modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
+        category = {},
+        status = [];
+    if (params.category)
+        category.category = params.category;
+
+    if (params.sub_category)
+        category.sub_category = params.category;
+    switch (params.status) {
+        case 'Open':
+            status = {$in: ["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"]};
+            break;
+        case 'Ongoing':
+            status = {$in: ["Ongoing", "Marked as completed", "Paused"]};
+            break;
+        case 'Closed':
+            status = "Closed";
+            break;
+        default: break;
+    }
+    m.find(models.Job, category, res, function (jobs) {
+        var arrFunc = [],
+            jobArr = [];
+        arrFunc.push(function (cb) {
+            _.each(jobs, function (job) {
+                var query = {job: job._id, status: status};
+                if (params.budget_min && params.budget_max)
+                    query.budget = {'$gte':params.budget_min, '$lte':params.budget_max};
+                log(query)
+                m.findOne(models[modelFind], query, {}, function (item) {
+                    jobArr.push(item);
+                    cb()
+                }, {populate: 'job freelancer contract', sort: '-created_at'})
+            })
+
+        });
+
+        async.parallel(arrFunc, function (e, r) {
+            m.scb(jobArr, res)
+        })
+    })
+};
+
+
 exports.applyJob = function (req, res) {
     var params = _.extend(m.getBody(req), {
         seller: req.userId,
         freelancer: req.freelancerId
     })
     console.log('paramsssssssssss', params)
-    m.findOne(models.Job, {_id: params.job}, res, function(job){
+    m.findOne(models.Job, {_id: params.job}, res, function (job) {
         params.buyer = job.user
         console.log('hahahahahhahaha', job)
         m.findCreateUpdate(models.JobApply, {
@@ -187,7 +234,7 @@ exports.applyJobRemove = function (req, res) {
     m.findRemove(models.JobApply, {_id: params._id}, res, res)
 }
 
-exports.apply_detailed_pub = function(req, res) {
+exports.apply_detailed_pub = function (req, res) {
     m.findOneOwner(models.JobApply, {_id: req.params.apply_id}, res, res, {userId: req.userId, populate: 'buyer job seller freelancer'})
 }
 exports.getApplyInfo = function (req, res) {

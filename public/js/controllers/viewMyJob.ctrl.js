@@ -10,18 +10,22 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope','getContent', '$rootScope', 'jo
             return it.name
         });
     };
+
+    $rootScope.search;
     scope.slider = {
-        value: 0,
+        minValue: 1000,
+        maxValue: 50000,
         options: {
             floor: 0,
-            ceil: 1000000,
+            ceil: 100000,
             step: 1,
+            noSwitching: true,
             showSelectionBar: true,
             getPointerColor: function (value) {
-                return '#B9B6B9';
+                return '#353B47';
             },
             getSelectionBarColor: function (value) {
-                return '#B9B6B9';
+                return '#353B47';
             },
             translate: function (value) {
                 if (value < 1000) {
@@ -30,12 +34,10 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope','getContent', '$rootScope', 'jo
                 if (value < 1000000) {
                     return value / 1000 + 'k'
                 }
-                if (value == 1000000) {
-                    return value / 1000000 + 'm'
-                }
             },
             onEnd: function (r) {
-                jobInformation.setInfo({budget:scope.slider.value})
+                console.log('slide', scope.slider.value)
+                jobInformation.setInfo({budget_min:scope.slider.minValue, budget_max: scope.slider.maxValue})
             }
         }
     };
@@ -52,9 +54,6 @@ XYZCtrls.controller('ViewMyJobCtrl', ['$scope','$http', 'info', '$rootScope', '$
     info.header = info.header || job_type + ' jobs';
     info.url = info.url || ['/api', 'jobs', user_type, job_type].join('/');
     scope.info = info;
-    // scope.selected = info
-    console.log('info', info);
     rootScope.info = info;
-    //  getContent.content.data.data
 
 }]);

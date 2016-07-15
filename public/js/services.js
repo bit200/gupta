@@ -229,59 +229,58 @@ XYZCtrls.service('parseRating', function () {
 });
 
 
-XYZCtrls.service('jobInformation', function ($http,$rootScope) {
-        var information = { category:'',
-            sub_category:'',
-            budget:'',
-            status:'',
-            view_project:''
-        };
+XYZCtrls.service('jobInformation', function ($http, $rootScope) {
+    var information = {};
 
-        var observerCallbacks = [];
+    var observerCallbacks = [];
 
-        var notifyObservers = function(){
-            angular.forEach(observerCallbacks, function(callback){
-                callback();
-            });
-        };
+    var notifyObservers = function () {
+        angular.forEach(observerCallbacks, function (callback) {
+            callback();
+        });
+    };
 
-        return {
-            registerObserverCallback: function(callback){
-                observerCallbacks.push(callback);
+    return {
+        registerObserverCallback: function (callback) {
+            observerCallbacks.push(callback);
+        },
+
+        setInfo: function (obj) {
+            if (obj.job_category)
+                information.category = obj.job_category;
+            if (obj.job_sub_category)
+                information.sub_category = obj.job_sub_category;
+            if (obj.budget_min)
+                information.budget_min = obj.budget_min;
+            if (obj.budget_max)
+                information.budget_max = obj.budget_max;
+            if (obj.job_type)
+                information.status = obj.job_type;
+            if (obj.user_type)
+                information.view_project = obj.user_type;
+
+            $http.get('/api/jobs/filter/' + information.status.toLowerCase(), {params: information}).success(function (data) {
+                // notifyObservers(data);
+                console.log('assssssssssssssssssss',data)
+                $rootScope.$emit('job-changed', data.data)
+            })
+        },
+        getInfo: {
+            buyer: function () {
+                return information;
             },
-            setInfo: function(obj){
-                if(obj.job_category)
-                    information.category = obj.job_category;
-                if(obj.job_sub_category)
-                    information.sub_category = obj.job_sub_category;
-                if(obj.budget)
-                    information.budget = obj.budget;
-                if(obj.job_type)
-                    information.status = obj.job_type;
-                if(obj.user_type)
-                    information.view_project = obj.user_type;
-
-                $http.get('/api/job/filter/'+information.status, {params:{}}).success(function(data){
-                    notifyObservers(data);
-                    $rootScope.emit('job-changed',data)
-                })
-            },
-            getInfo: {
-                buyer: function () {
-                    return information;
-                },
-                seller: function () {
-                    var obj = {
-                        category: information.category,
-                        sub_category: information.sub_category,
-                        status: information.status,
-                        view_project: information.view_project
-                    };
-                    return obj;
-                }
+            seller: function () {
+                var obj = {
+                    category: information.category,
+                    sub_category: information.sub_category,
+                    status: information.status,
+                    view_project: information.view_project
+                };
+                return obj;
             }
-        };
-    });
+        }
+    };
+});
 XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$state',
     function ($q, $rootScope, ModalService, $http, $state) {
         var authTokens = {};

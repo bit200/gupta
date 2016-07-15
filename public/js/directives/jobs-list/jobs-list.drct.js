@@ -72,7 +72,6 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             };
 
             scope.cb = function(a){
-                // console.log('custom paginatinonnn', a)
                 scope.configPagination.currentPage = a;
                 scope.render()
             };
@@ -90,17 +89,19 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                     if (++index == 2) {
                         scope.showLoading = false;
                     }
-                }
+                } 
+            rootScope.$on('job-changed', function(e,data){
+                scope.items = data;
+            });
 
-
-                http.get(scope.url, {params: obj}).success(function (data) {
-                        cb();
-                        scope.items = data.data;
-                    }, function (err) {
-                        scope.error = 'An error. Please try again later';
-                        cb();
-                    });
-                
+                // http.get(scope.url, {params: obj}).success(function (data) {
+                //         cb();
+                //         scope.items = data.data;
+                //     }, function (err) {
+                //         scope.error = 'An error. Please try again later';
+                //         cb();
+                //     });
+                //
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         cb();
                         scope.configPagination.totalCount = resp.data.data
