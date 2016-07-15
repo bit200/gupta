@@ -79,7 +79,10 @@ exports.filter_job = function (req, res) {
         category.category = params.category;
 
     if (params.sub_category)
-        category.sub_category = params.category;
+        category.sub_category = params.sub_category;
+    
+    if (params.sub_sub_category)
+        category.sub_sub_category = params.sub_sub_category;
     switch (params.status) {
         case 'Open':
             status = {$in: ["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"]};

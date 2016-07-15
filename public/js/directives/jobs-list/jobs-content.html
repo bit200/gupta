@@ -17,7 +17,13 @@
                         Sub Category
                     </div>
                     <div class="sub-select">
-                        <selector type="'job_sub_category'" items="subCategories" class-name="'nav'"></selector>
+                        <selector type="'job_sub_category'" items="subCategories" class-name="'nav'" on-select-custom='onSelectSubCategory()'></selector>
+                    </div>
+                    <div class="sub-title" ng-if="isSubSub">
+                        Sub Sub Category
+                    </div>
+                    <div class="sub-select" ng-if="isSubSub">
+                        <selector type="'job_sub_sub_category'" items="subSubCategories" class-name="'nav'"></selector>
                     </div>
                     <div class="sub-title" ng-if="info.user_type == 'buyer' || info.user_type == 'Buyer'">
                         Budget

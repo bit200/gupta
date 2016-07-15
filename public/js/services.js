@@ -246,6 +246,8 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
                 information.category = obj.job_category;
             if (obj.job_sub_category)
                 information.sub_category = obj.job_sub_category;
+            if (obj.job_sub_sub_category)
+                information.sub_sub_category = obj.job_sub_sub_category;
             if (obj.budget_min)
                 information.budget_min = obj.budget_min;
             if (obj.budget_max)
@@ -271,7 +273,17 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
                     view_project: information.view_project
                 };
                 return obj;
+            },
+            category: function(){
+                return information.category;
+            },
+            sub_category: function(){
+                return information.sub_category;
+            },
+            sub_sub_category: function(){
+                return information.sub_sub_category;
             }
+
         }
     };
 });
