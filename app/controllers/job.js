@@ -35,7 +35,7 @@ function pubParams(params, query) {
         sort: '-created_at'
     }
 }
-exports.job_detailed = function(req, res) {
+exports.job_detailed = function (req, res) {
     m.findOne(models.Job, {_id: req.params._id}, res, res, {populate: 'buyer job seller freelancer'})
 }
 
@@ -52,32 +52,92 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
         app.get(url + '/count', routing('count'))
     }
 
-    function routing (type) {
+    function routing(type) {
         return function (req, res) {
-            var queryParams = m.getBody(req)
-            var query = middlewareFn.call(req)
-            var info = pubParams(queryParams, query)
-            info.params.populate = extra_params.populate || ''
-            info.params.sort = extra_params.sort || info.params.sort || ''
+            var queryParams = m.getBody(req);
+            var query = middlewareFn.call(req);
+            var info = pubParams(queryParams, query);
+            info.params.populate = extra_params.populate || '';
+            info.params.sort = extra_params.sort || info.params.sort || '';
 
             m[type](models[modelName], info.query, res, res, info.params)
         }
     }
-}
+};
 
 exports.get_info = function (req, res) {
-    var params = req.params
+    var params = req.params;
     m.findOne(models[params.model], {_id: params._id}, res, res)
-}
+};
+
+exports.filter_job = function (req, res) {
+    var params = m.getBody(req),
+        modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
+        category = {},
+        status = [];
+    if (params.category)
+        category.category = params.category;
+
+    if (params.sub_category)
+        category.sub_category = params.sub_category;
+
+    if (params.sub_sub_category)
+        category.sub_sub_category = params.sub_sub_category;
+    switch (params.status) {
+        case 'Open':
+            status = {$in: ["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"]};
+            break;
+        case 'Ongoing':
+            status = {$in: ["Ongoing", "Marked as completed", "Paused"]};
+            break;
+        case 'Closed':
+            status = "Closed";
+            break;
+        default: break;
+    }
+    m.find(models.Job, category, res, function (jobs) {
+        var arrFunc = [],
+            jobArr = [];
+        log('1')
+        arrFunc.push(function (cb) {
+            var count = 0;
+            var arrModels = []
+            _.each(jobs, function (job) {
+                (function(job){
+                    var query = {job: job._id, status: status};
+                    if (params.budget_min && params.budget_max)
+                        query.budget = {'$gte':params.budget_min, '$lte':params.budget_max};
+
+                    arrModels.push(function(_cb){
+                        m.findOne(models[modelFind], query, {}, function (item) {
+                            jobArr.push(item);
+                            _cb()
+                        }, {populate: 'job freelancer contract', sort: '-created_at'})
+                    });
+                    async.parallel(arrModels, function (e, r) {
+                        cb()
+                    })
+                })(job)
+            })
+
+        });
+
+        async.parallel(arrFunc, function (e, r) {
+            m.scb(jobArr, res)
+        })
+    })
+};
+
+
 exports.applyJob = function (req, res) {
     var params = _.extend(m.getBody(req), {
         seller: req.userId,
         freelancer: req.freelancerId
     })
-    console.log('paramsssssssssss', params)
-    m.findOne(models.Job, {_id: params.job}, res, function(job){
+    // console.log('paramsssssssssss', params)
+    m.findOne(models.Job, {_id: params.job}, res, function (job) {
         params.buyer = job.user
-        console.log('hahahahahhahaha', job)
+        // console.log('hahahahahhahaha', job)
         m.findCreateUpdate(models.JobApply, {
             job: job._id,
             freelancer: params.freelancer,
@@ -94,7 +154,7 @@ exports.applyJobUpdate = function (req, res) {
         freelancer: req.freelancerId,
         job: params.job
     }
-    console.log("cchchchchchch", query, params)
+    // console.log("cchchchchchch", query, params)
     m.findUpdate2(models.JobApply, query, {message: params.message}, res, res, params)
 }
 
@@ -135,7 +195,7 @@ exports.count = function (query) {
     return function (req, res) {
         var queryParams = m.getBody(req)
         var info = pubParams(queryParams, query)
-        console.log("info", info, info.params)
+        // console.log("info", info, info.params)
         m.count(models.Job, info.query, res, res, info.params)
     }
 };
@@ -144,7 +204,7 @@ exports.buyer_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {buyer: req.userId})
     info.params.populate = 'job freelancer'
-    console.log("infofofofofo", info)
+    // console.log("infofofofofo", info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
@@ -153,19 +213,10 @@ exports.count = function (query) {
     return function (req, res) {
         var queryParams = m.getBody(req)
         var info = pubParams(queryParams, query)
-        console.log("info", info, info.params)
+        // console.log("info", info, info.params)
         m.count(models.Job, info.query, res, res, info.params)
     }
 };
-
-exports.buyer_open = function (req, res) {
-    var queryParams = m.getBody(req)
-    var info = pubParams(queryParams, {buyer: req.userId})
-    info.params.populate = 'job freelancer'
-    console.log("infofofofofo", info)
-    m.find(models.JobApply, info.query, res, res, info.params)
-
-}
 
 exports.rejectJobApply = function (req, res) {
     res.send("rejected")
@@ -180,7 +231,7 @@ exports.seller_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {seller: req.userId})
     info.params.populate = 'job freelancer buyer'
-    console.log('infofofofofof', info)
+    // console.log('infofofofofof', info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
@@ -196,7 +247,7 @@ exports.applyJobRemove = function (req, res) {
     m.findRemove(models.JobApply, {_id: params._id}, res, res)
 }
 
-exports.apply_detailed_pub = function(req, res) {
+exports.apply_detailed_pub = function (req, res) {
     m.findOneOwner(models.JobApply, {_id: req.params.apply_id}, res, res, {userId: req.userId, populate: 'buyer job seller freelancer'})
 }
 exports.getApplyInfo = function (req, res) {

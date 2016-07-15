@@ -1,4 +1,4 @@
-XYZCtrls.directive('jobsList', function () {
+XYZCtrls.directive('jobsList', function (jobInformation) {
     return {
         restrict: 'E',
         scope: {
@@ -12,13 +12,23 @@ XYZCtrls.directive('jobsList', function () {
         },
         templateUrl: 'js/directives/jobs-list/jobs-list.html',
         controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService', function (scope, http, parseTime, rootScope, location, ModalService) {
-            scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('')
-            scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('')
+            scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('');
+            scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
 
+            scope.$watch('$parent.$parent._keywords', function(val){
+                scope.search = {job:{title:val}}
+            });
+
+            console.log(scope);
             scope.configPagination = {
                 currentPage: 1,
                 countByPage: 12
             };
+
+            // jobInformation.registerObserverCallback(function(data){
+            //     console.log(data)
+            // });
+            
 
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
@@ -67,7 +77,6 @@ XYZCtrls.directive('jobsList', function () {
             };
 
             scope.cb = function(a){
-                // console.log('custom paginatinonnn', a)
                 scope.configPagination.currentPage = a;
                 scope.render()
             };
@@ -85,21 +94,22 @@ XYZCtrls.directive('jobsList', function () {
                     if (++index == 2) {
                         scope.showLoading = false;
                     }
-                }
-                // console.log("objbjbjbjbjbjbjbjb", obj, scope.configPagination)
+                } 
+            rootScope.$on('job-changed', function(e,data){
+                scope.items = data;
+            });
 
+                // http.get(scope.url, {params: obj}).success(function (data) {
+                //         cb();
+                //         scope.items = data.data;
+                //     }, function (err) {
+                //         scope.error = 'An error. Please try again later';
+                //         cb();
+                //     });
 
-                http.get(scope.url, {params: obj}).success(function (data) {
-                        cb();
-                        scope.items = data.data;
-                    }, function (err) {
-                        scope.error = 'An error. Please try again later';
-                        cb();
-                    });
-                
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         cb();
-                        scope.configPagination.totalCount = resp.data.data
+                        scope.configPagination.totalCount = resp.data.data;
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {
@@ -111,9 +121,9 @@ XYZCtrls.directive('jobsList', function () {
             scope.render();
 
 
-            scope.accept = function() {
-                //console.log('accept')
-            };
+            // scope.accept = function() {
+            //     //console.log('accept')
+            // };
 
         }]
     };

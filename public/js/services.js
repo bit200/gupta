@@ -217,18 +217,72 @@ XYZCtrls.service('parseTime', function () {
 XYZCtrls.service('parseRating', function () {
     return {
         popularity: function (value) {
-                if (value < 1000) {
-                    return value
-                }
-                if (value < 1000000) {
-                    return value / 1000 + 'k'
-                }
-                return value / 1000000 + 'm';
+            if (value < 1000) {
+                return value
+            }
+            if (value < 1000000) {
+                return value / 1000 + 'k'
+            }
+            return value / 1000000 + 'm';
         }
     }
 });
 
 
+XYZCtrls.service('jobInformation', function ($http, $rootScope) {
+    var information = {};
+
+    return {
+        setInfo: function (obj) {
+            if (obj.job_category)
+                information.category = obj.job_category;
+            if (obj.job_sub_category)
+                information.sub_category = obj.job_sub_category;
+            if (obj.job_sub_sub_category)
+                information.sub_sub_category = obj.job_sub_sub_category;
+            if (obj.budget_min)
+                information.budget_min = obj.budget_min;
+            if (obj.budget_max)
+                information.budget_max = obj.budget_max;
+            if (obj.job_type)
+                information.status = obj.job_type;
+            if (obj.user_type)
+                information.view_project = obj.user_type;
+            console.log('2222')
+            $http.get('/api/jobs/filter/' + information.status.toLowerCase(), {params: information}).success(function (data) {
+                console.log('11111')
+                $rootScope.$emit('job-changed', data.data)
+            })
+        },
+        getInfo: {
+            buyer: function () {
+                return information;
+            },
+            seller: function () {
+                var obj = {
+                    category: information.category,
+                    sub_category: information.sub_category,
+                    status: information.status,
+                    view_project: information.view_project
+                };
+                return obj;
+            },
+            category: function(){
+                return information.category;
+            },
+            sub_category: function(){
+                return information.sub_category;
+            },
+            sub_sub_category: function(){
+                return information.sub_sub_category;
+            },
+            user_type: function(){
+                return information.view_project;
+            }
+
+        }
+    };
+});
 XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$state',
     function ($q, $rootScope, ModalService, $http, $state) {
         var authTokens = {};
@@ -248,7 +302,7 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
                 authTokens = tokens;
                 localStorage.setItem('accessToken', tokens.accessToken);
                 localStorage.setItem('refreshToken', tokens.refreshToken);
-                resObj.setCurrentUser()
+                resObj.setCurrentUser();
                 loggedIn = true;
             },
             isLogged: function () {
