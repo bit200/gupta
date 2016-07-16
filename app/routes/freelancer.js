@@ -24,4 +24,7 @@ module.exports = function (app) {
     app.get('/api/freelancer/:id/favorite/add', auth.token, freelancer.add_favorite);
     app.get('/api/freelancer/:id/favorite/remove', auth.token, freelancer.remove_favorite);
     app.get('/api/freelancer/:id/check_favorite', auth.token, freelancer.check_favorite);
+    
+    app.post('/api/freelancer/past_client', freelancer.past_client);
+    app.delete('/api/freelancer/past_client/:id', freelancer.delete_past_client);
 };

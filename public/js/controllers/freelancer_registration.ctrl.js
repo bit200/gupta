@@ -4,27 +4,6 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
     function (scope, rootScope, location, $q, $timeout, stateParams, ngDialog, notify, Upload, $filter, http, AuthService) {
         scope.contentReady = false;
         var q = {
-            industry: http.get('/get-content', {
-                params: {
-                    name: 'Filters',
-                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
-                    distinctName: 'name'
-                }
-            }),
-            service: http.get('/get-content', {
-                params: {
-                    name: 'ServiceProvider',
-                    query: {},
-                    distinctName: 'name'
-                }
-            }),
-            content: http.get('/get-content', {
-                params: {
-                    name: 'Filters',
-                    query: {type: 'Content Writing', filter: 'Content Type'},
-                    distinctName: 'name'
-                }
-            }),
             languages: http.get('/get-content', {
                 params: {
                     name: 'Filters',
@@ -32,10 +11,17 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                     distinctName: 'name'
                 }
             }),
-            freelancerType: http.get('/get-content', {
+            industry: http.get('/get-content', {
                 params: {
-                    name: 'ServiceProvider',
-                    query: {},
+                    name: 'Filters',
+                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
+                    distinctName: 'name'
+                }
+            }),
+            content: http.get('/get-content', {
+                params: {
+                    name: 'Filters',
+                    query: {type: 'Content Writing', filter: 'Content Type'},
                     distinctName: 'name'
                 }
             }),
@@ -47,12 +33,12 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 }
             })
         }
+
         if (AuthService.isLogged()){
             q.freelancer = http.get('/api/freelancer/me')
         }
 
         $q.all(q).then(function(getContent){
-            console.log(getContent)
             scope.freelancer_area = {
                 croppedProfile: '',
                 profilePreview: ''
@@ -64,12 +50,49 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             };
             if (getContent.freelancer && getContent.freelancer.data)
                 scope.freelancer = getContent.freelancer.data
+
+            scope.toggleService = function(service_provider, filter, name){
+                var tQ = {
+                    type: service_provider,
+                    filter: filter ? filter : '!true',
+                    name: name ? name : '!true'
+                };
+                var t =$filter('filter')(scope.freelancer.service_providers, tQ)
+                if (t && t.length){
+
+                    scope.freelancer.service_providers = scope.freelancer.service_providers.filter(function(v){
+                        var condition = v.type == service_provider && v.filter == filter && v.name == name;
+                        if (!name)
+                            condition = v.type == service_provider && v.filter == filter
+                        if (!name && !filter)
+                            condition = v.type == service_provider
+                        return !condition
+                    });
+                }else{
+                    scope.freelancer.service_providers = scope.freelancer.service_providers || [];
+                    scope.freelancer.service_providers.push({
+                        type:service_provider,
+                        filter:filter,
+                        name:name
+                    })
+                }
+            };
+
+            scope.existsService = function(service_provider, filter, name){
+                var tQ = {
+                    type: service_provider,
+                    filter: filter ? filter : '!true',
+                    name: name ? name : '!true'
+                };
+                var t =$filter('filter')(scope.freelancer.service_providers, tQ)
+                return !!(t && t.length)
+            };
+
             rootScope.globalFiles = [];
+            scope.language = getContent.languages.data.data;
+            scope.locations = getContent.locations.data.data;
             scope.industry = getContent.industry.data.data;
             scope.content = getContent.content.data.data;
-            scope.language = getContent.languages.data.data;
-            scope.freelancerType = getContent.freelancerType.data.data;
-            scope.locations = getContent.locations.data.data;
             scope.experience = _.range(51);
             scope.showLink = false;
             rootScope.globalImg = [];
@@ -77,8 +100,6 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 package: {}
             };
             scope.show = {};
-            scope.arrayProviders = getContent.service.data.data;
-
 
 
             scope.scrollToErr = function(){
@@ -168,10 +189,36 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 preview_attachments: []
             };
 
+            scope.newPastClient = {};
+
             scope.freelancer_area.submittedSample = false;
             scope.addSampleWorkFiles = function($files){
                 scope.new_sample.preview_attachments = scope.new_sample.preview_attachments.concat($files)
             };
+
+            scope.addPastClientFile = function($file){
+                scope.newPastClient.preview_attachment = $file
+            };
+
+            scope.addClient = function(){
+                if (!scope.newPastClient.name) return
+                Upload.upload({
+                    url: '/api/freelancer/past_client',
+                    data: JSON.parse(angular.toJson(scope.newPastClient)),
+                    file: scope.newPastClient.preview_attachment
+                }).then(function (resp) {
+                    scope.newPastClient = {};
+                    scope.freelancer.past_clients = scope.freelancer.past_clients || [];
+                    scope.freelancer.past_clients.push(resp.data);
+                }, function (resp) {
+                }, function (evt) {
+                });
+
+            };
+            
+            scope.deletePastClient = function(id){
+                http.delete('/api/freelancer/past_client/'+id)
+            }
 
             scope.submitSample = function(invalid){
                 if (invalid) return;

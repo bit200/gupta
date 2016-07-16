@@ -223,3 +223,70 @@ exports.claim_request = function(req,res){
         res.json(business_user);
     })
 };
+
+
+exports.past_client = function(req,res){
+    var pastClient;
+    var getPastClient = function(req, cb){
+        if (pastClient) return cb();
+        if (req.body.id)
+            models.PastClient.findOne({_id: parseInt(req.body.id)}).exec(function(err, pastClientT){
+                pastClient = pastClientT;
+                cb()
+            });
+        else new models.PastClient().save(function(err, pastClientT){
+            pastClient = pastClientT;
+            cb()
+        });
+    };
+    var attachment;
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            getPastClient(req,function() {
+                var path = config.root + '/public/uploads/past_clients/' + pastClient._id;
+                mkdirp.sync(path);
+                cb(null, path)
+            })
+        },
+        filename: function (req, file, cb) {
+            var name = new Date().getTime()+'_'+file.originalname;
+            cb(null, name)
+        }
+    });
+
+    var upload = multer({
+        storage: storage
+    }).any();
+    upload(req, res, function (err) {
+        getPastClient(req, function(){
+            async.forEach(req.files, function(file, cb){
+                new models.Attachment({
+                    originalName: file.originalname,
+                    name: file.filename,
+                    path: 'past_clients/'+ pastClient._id
+                }).save(function(err, attach){
+                    attachment = attach;
+                    cb();
+                })
+            }, function(){
+                delete req.body.id;
+                pastClient = _.extend(pastClient,req.body);
+                pastClient.attachment = attachment
+                pastClient.save(function(err,pastClient){
+                    pastClient.populate('attachment',function(err, pastClient){
+                        res.jsonp(pastClient)
+                    })
+                });
+            });
+        });
+
+    });
+};
+
+exports.delete_past_client = function(req,res){
+    models.PastClient.findOne({_id: req.params.id}).exec(function(err, past_client){
+        past_client.remove(function(){
+            res.send(200)
+        });
+    });
+};

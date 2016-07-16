@@ -9,14 +9,23 @@ var FreelancerSchema = mongoose.Schema({
     location: String,
     cities: Array,
     experience: Number,
-    service_providers: Array,
-    industry_expertise: Array,
-    content_type: Array,
+    service_providers: [{
+        type: String,
+        name: String,
+        filter: String
+    }],
+    references_and_citations: Boolean,
+    topic_research: Boolean,
     languages: Array,
     price: {
         word: Number,
         hour: Number
     },
+    delivery_time: Number,
+    past_clients: [{
+        type: Number,
+        ref: 'PastClient'
+    }],
     service_packages: [{
         type: Number,
         ref: 'Package'
