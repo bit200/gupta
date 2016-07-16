@@ -15,7 +15,6 @@ exports.doc = function (req, res) {
     res.render('index')
 };
 
-
 exports.tokens_list = function (req, res) {
     redis.keys("token_*", function (err, arr) {
         if (err) {

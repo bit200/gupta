@@ -55,16 +55,6 @@ exports.get_freelancers = function (req, res) {
     var params = req.query;
     params.registrationStatus = 1;
 
-    if (params.service_provider){
-        params.service_provider = {$in: [params.service_provider]}
-    };
-    if (params.content_type){
-        params.content_type = {$in: params.content_type}
-    };
-    _.each(params, function(value, key){
-        if (value instanceof  Array)
-            params[key] = {$in: params[key]}
-    })
     if (params.experience)
         params.experience = {$gte: parseInt(params.experience)};
     if (params.count){
@@ -77,6 +67,7 @@ exports.get_freelancers = function (req, res) {
         var limit = parseInt(params.limit) || 10;
         delete params.page;
         delete params.limit;
+        console.log(params)
         m.find(models.Freelancer, params, res, res, {populate: 'contact_detail', skip: skip, limit: limit})
     }
 };

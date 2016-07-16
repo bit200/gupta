@@ -96,4 +96,8 @@ angular.module( 'admin.sellers', [
                 $scope.sellers.splice($index,1)
             })
         };
-    });
+    }).filter('groupService', function() {
+    return function(arr) {
+        return _.groupBy(arr, 'type')
+    };
+});

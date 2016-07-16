@@ -780,6 +780,15 @@ div.communitySP div.text-center {
     padding: 0px 10px;
 }
 
+.profile-back-rating-block-category{
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+.profile-back-rating-block-category *{
+    font-size: 16px;
+}
+
 .profile-back-rating-block {
     position: absolute;
     width: 100%;
@@ -1288,22 +1297,36 @@ div.containerCrop {
 }
 
 .profile-detail {
-    /*width: 38vw;*/
-    /*height: 40vw;*/
     font-size: 8pt;
-    width: 100%;
-    height: 150px;
-    /*font-size: 8pt;*/
-    border: 1px solid #CECECE;
-    border-radius: 5px;
-    margin: auto;
-    margin-bottom: 100px;
+    border: 1px solid lightgrey;
+    max-width: 200px;
+    margin: 0 auto;
 }
 
+.profile-detail .img-block{
+    height: 150px;width: 100%;text-align: center
+}
+.profile-detail .img-block img{
+    max-width: 150px;height: auto;
+}
+.padding-10{
+    padding: 10px
+}
 .freelancer-info-profile .modal-dialog {
     width: 800px;
 }
+.profile-title{
+    font-size: 15px;font-weight: bold;
+}
+.view-details-button{
+    width: 100%;height: 40px;text-align: center;cursor: pointer;color: rgb(51, 57, 69);font-size: 18px;line-height: 40px;
+    background: whitesmoke;
+}
 
+.view-details-button:hover{
+    color: white;
+    background: red;
+}
 
 .has-error .md-select-value {
     border-bottom-color: red;

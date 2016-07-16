@@ -88,32 +88,56 @@
                             </th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Information</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages">
-                                    {{pkg.information}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Description</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages">
-                                    {{pkg.description}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Enter Word Count</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages">
-                                    <md-input-container class="full-width" ng-init="pkg.word_count=500" style="margin: 0px;">
-                                        <input ng-model="pkg.word_count" numbers-only>
-                                    </md-input-container>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td ng-repeat="pkg in viewProfile.service_packages" style="border-top: 2px solid rgb(213, 218, 225) !important;">
-                                    <md-button class="md-raised regular-button full-width" style="height: 50px;" ng-click="openExtra(pkg)"> SELECT </md-button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>Information</td>
+                                    <td ng-repeat="pkg in viewProfile.service_packages">
+                                        {{pkg.information}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Description</td>
+                                    <td ng-repeat="pkg in viewProfile.service_packages">
+                                        {{pkg.description}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Topic Research</td>
+                                    <td ng-repeat="pkg in viewProfile.service_packages"  style="text-align: center">
+                                        <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.topic_research"></ng-md-icon>
+                                        <span ng-if="!pkg.topic_research">---</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>References & Citations</td>
+                                    <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">
+                                        <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.references_and_citations"></ng-md-icon>
+                                        <span ng-if="!pkg.references_and_citations">---</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery Time</td>
+                                    <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: left">
+                                        <span ng-if="!(pkg.delivery_time && pkg.delivery_time!=1)">1 day</span>
+                                        <md-radio-group ng-model="pkg.delivery_time" layout="row" style="margin-bottom: 25px;" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
+                                            <md-radio-button ng-value="pkg.delivery_time" class="md-primary">{{pkg.delivery_time}} days</md-radio-button>
+                                            <md-radio-button ng-value="1" style="margin-left: 50px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>
+                                        </md-radio-group>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Enter Word Count</td>
+                                    <td ng-repeat="pkg in viewProfile.service_packages">
+                                        <md-input-container class="full-width" ng-init="pkg.word_count=500" style="margin: 0px;">
+                                            <input ng-model="pkg.word_count" numbers-only>
+                                        </md-input-container>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td ng-repeat="pkg in viewProfile.service_packages" style="border-top: 2px solid rgb(213, 218, 225) !important;">
+                                        <md-button class="md-raised regular-button full-width" style="height: 50px;" ng-click="openExtra(pkg)"> SELECT </md-button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </section>

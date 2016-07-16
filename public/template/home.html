@@ -172,7 +172,7 @@
                             <div class="text-center profile-info-name">{{profile.name}}</div>
                             <div class="profile-info-type">
                                 <div class="fa fa-cogs text-center paddingR10"></div>
-                                {{profile.service_providers[0]}}
+                                {{profile.service_providers[0].type}}
                             </div>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                             <div class="profile-back-introduction">{{profile.introduction}}</div>
                             <div class="profile-back-description">{{profile.description}}</div>
                             <div class="profile-back-rating-block">
-                                <div class="inline-block text-left" style="width: 20%">by test</div>
+                                <!--<div class="inline-block text-left" style="width: 20%">by test</div>-->
                                 <div class="inline-block text-center" style="width: 50%">
                                     <star-rating ng-model="profile.rating"></star-rating>
                                 </div>

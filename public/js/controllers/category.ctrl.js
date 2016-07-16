@@ -8,7 +8,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
     scope.arrayLanguages = getContent.languages.data.data;
     scope.arrayLocations = getContent.locations.data.data;
     scope.freelancers = [];
-    scope.ownFilter.type = 'freelancer';
+    scope.ownFilter.type = 'agency';
 
     scope.search = {}
 
@@ -66,25 +66,46 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         if (val){
             scope.submitFilter()
         }
-    })
+    }, true)
 
     scope.submitFilter = function () {
         var filter = angular.copy(scope.ownFilter);
         if (filter.location)
             filter.location = objInArr(filter.location);
         filter.experience = scope.slider.experience.value;
+        if (filter.location)
+            filter.location = {$in: filter.location};
+
+        console.log(filter)
         if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length){
-            filter.service_providers = Object.keys(rootScope.activeProvider)
+            var t = {
+                "service_providers.type": rootScope.activeProvider.name
+            };
+            angular.forEach(rootScope.activeProvider, function(aPm, key){
+                if (key == 'values')
+                    angular.forEach(aPm, function(value){
+                        if (value.arr)
+                            angular.forEach(value.arr, function(aV){
+                                if (aV.selected)
+                                    t['$or'].push({
+                                        "service_providers.type": rootScope.activeProvider.name,
+                                        "service_providers.filter": value.subFilter,
+                                        "service_providers.name": aV.name
+                                    })
+                            });
+                        else if (value.selected)
+                            t['$or'].push({
+                                "service_providers.type": rootScope.activeProvider.name,
+                                "service_providers.name": value.name
+                            })
+                    });
+            });
+            _.extend(filter, t)
         }
-        // angular.forEach(rootScope.activeProvider, function(values,key){
-        //     angular.forEach(values, function(value){
-        //         if (value.selected)
-        //     })
-        // });
-        // http.get('/api/freelancers?'+ $.param(filter)).success(function (resp) {
-        //     console.log(resp)
-        //     scope.freelancers = resp;
-        // })
+        // service_packages
+        http.get('/api/freelancers?'+ $.param(filter)).success(function (resp) {
+            scope.freelancers = resp.data;
+        })
     };
 
 

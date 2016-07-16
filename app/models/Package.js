@@ -8,6 +8,12 @@ var PackageSchema = mongoose.Schema({
     pricing: Number,
     extras: Array,
     information: String,
+    references_and_citations: Boolean,
+    topic_research: Boolean,
+    delivery_time: {
+        type: Number,
+        default: 1
+    },
     preview: {
         type: Number,
         ref: 'Attachment'
