@@ -519,20 +519,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http) {
                         return $q.all({
-                            topic: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            content: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
                             languages: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
@@ -546,10 +532,34 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                     query: {},
                                     distinctName: 'name'
                                 }
-                            }),
-                            arrayProviders: $http.get('/get-content', {
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('view_projects', {
+                url: '/view_projects?city',
+                templateUrl: 'template/category.html',
+                controller: 'ViewProjectsCtrl',
+                reloadOnSearch: false,
+                ncyBreadcrumb: {
+                    label: ' ',
+                    labelArr: ['Home', '/', 'View projects'],
+                    hideType: true
+                },
+                resolve: {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http) {
+                        return $q.all({
+                            languages: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
+                                    query: {type: 'Content Writing', filter: 'Languages'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
                                     query: {},
                                     distinctName: 'name'
                                 }

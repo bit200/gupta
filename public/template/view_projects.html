@@ -5,16 +5,15 @@
 <div class="container" style="margin-top: 2%">
     <div class="row">
         <div class="col-md-3">
-            <div>
+            <div ng-class="{'topic-close':close.category}" class="user-topic">
                 <div class="user-topic-header">
-                    WORK TYPE
+                    CATEGORY
+                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.category}" ng-click="close.category = !close.category"></ng-md-icon>
+                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.category}" ng-click="close.category = !close.category"></ng-md-icon>
                 </div>
-                <div toggle="close.workType">
-                    <div class="">
-                        <md-radio-group ng-model="ownFilter.type" ng-change="submitFilter(ownFilter)">
-                            <md-radio-button value="agency" class="md-primary">Agency</md-radio-button>
-                            <md-radio-button value="freelancer">Freelancer</md-radio-button>
-                        </md-radio-group>
+                <div toggle="close.category">
+                    <div ng-repeat="value in commonFilters | objetKeys">
+                        <md-checkbox aria-label="hidden" ng-click="toggleCategory(value)" ng-checked="checkIfSelectedCategory(value)" class="md-warn">{{value}}</md-checkbox>
                     </div>
                 </div>
             </div>
@@ -100,7 +99,7 @@
                     <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.package}" ng-click="close.package = !close.package"></ng-md-icon>
                 </div>
                 <div toggle="close.package">
-                    <md-radio-group ng-model="ownFilter['service_packages.0']" ng-change="submitFilter()">
+                    <md-radio-group ng-model="ownFilter['service_packages.0']">
                         <md-radio-button ng-value="true" class="md-primary">Yes</md-radio-button>
                         <md-radio-button ng-value="false">No</md-radio-button>
                     </md-radio-group>
@@ -108,32 +107,32 @@
             </div>
         </div>
         <div class="col-md-9">
-            <h3 ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length" style="text-align: center">Not found</h3>
-            <div class="row">
-                <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
+            <!--<h3 ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length" style="text-align: center">Not found</h3>-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">-->
 
-                    <div class="profile-detail">
-                        <div class="img-block">
-                            <img ng-src="{{profile.contact_detail.preview}}">
-                        </div>
-                        <div class="padding-10">
-                            <div class="profile-title">{{profile.name}}</div>
-                            <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
-                            <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
-                            <div class="profile-back-rating-block-category">
-                                <div class="inline-block text-center" style="width: 50%">
-                                    <star-rating ng-model="profile.rating"></star-rating>
-                                </div>
-                                <div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>
-                            </div>
-                        </div>
+                    <!--<div class="profile-detail">-->
+                        <!--<div class="img-block">-->
+                            <!--<img ng-src="{{profile.contact_detail.preview}}">-->
+                        <!--</div>-->
+                        <!--<div class="padding-10">-->
+                            <!--<div class="profile-title">{{profile.name}}</div>-->
+                            <!--<div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>-->
+                            <!--<div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>-->
+                            <!--<div class="profile-back-rating-block-category">-->
+                                <!--<div class="inline-block text-center" style="width: 50%">-->
+                                    <!--<star-rating ng-model="profile.rating"></star-rating>-->
+                                <!--</div>-->
+                                <!--<div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div class="view-details-button" ng-click="$state.go('categories.profile', {id: profile._id})">
-                            View Details
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <!--<div class="view-details-button" ng-click="$state.go('categories.profile', {id: profile._id})">-->
+                            <!--View Details-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 </div>
