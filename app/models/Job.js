@@ -9,9 +9,9 @@ var JobSchema = mongoose.Schema({
     content_types: Array,
     budget: Number,
     mobile: String,
-    category: String,
-    sub_category: String,
-    sub_sub_category: String,
+    type_category: String,
+    type_filter: String,
+    type_name: String,
     email: String,
     client_name: String,
     company_name: String,
@@ -20,6 +20,11 @@ var JobSchema = mongoose.Schema({
     date_of_completion: Date,
     status: String,
     closed_date: Date,
+    attach: Array,
+    preview: {
+        type: Number,
+        ref: 'Attachment'
+    },
     // info: {
     //     name: String,
     //     mobile: String,

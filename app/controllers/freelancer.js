@@ -239,7 +239,7 @@ exports.past_client = function(req,res){
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             getPastClient(req,function() {
-                var path = config.root + '/public/uploads/past_clients/' + pastClient._id;
+                var path = config.root + '/public/uploads/' + pastClient._id;
                 mkdirp.sync(path);
                 cb(null, path)
             })
@@ -267,7 +267,7 @@ exports.past_client = function(req,res){
             }, function(){
                 delete req.body.id;
                 pastClient = _.extend(pastClient,req.body);
-                pastClient.attachment = attachment
+                pastClient.attachment = attachment;
                 pastClient.save(function(err,pastClient){
                     pastClient.populate('attachment',function(err, pastClient){
                         res.jsonp(pastClient)

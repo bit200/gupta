@@ -72,7 +72,7 @@ exports.get_info = function (req, res) {
 
 exports.filter_job = function (req, res) {
     var params = m.getBody(req);
-   params.status = params.status || 'Open';
+    params.status = params.status || 'Open';
 
     var modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
         category = {},
@@ -95,7 +95,8 @@ exports.filter_job = function (req, res) {
         case 'Closed':
             status = "Closed";
             break;
-        default: break;
+        default:
+            break;
     }
     m.find(models.Job, category, res, function (jobs) {
         var arrFunc = [],
@@ -104,12 +105,12 @@ exports.filter_job = function (req, res) {
             var count = 0;
             var arrModels = []
             _.each(jobs, function (job) {
-                (function(job){
+                (function (job) {
                     var query = {job: job._id, status: status};
                     if (params.budget_min && params.budget_max)
-                        query.budget = {'$gte':params.budget_min, '$lte':params.budget_max};
+                        query.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
 
-                    arrModels.push(function(_cb){
+                    arrModels.push(function (_cb) {
                         m.findOne(models[modelFind], query, {}, function (item) {
                             jobArr.push(item);
                             _cb()
@@ -269,13 +270,17 @@ exports.add_job = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;
     params.buyer = req.userId;
-    params.status = 'open'
-    delete params._id
-    delete params.created_at
-    delete params.suggest
-    delete params.contract
-
-    m.create(models.Job, params, res, res)
+    params.status = 'open';
+    
+    if (params._id) {
+        m.findUpdate(models.Job, {_id: params._id}, params, res, res)
+    } else {
+        delete params._id;
+        delete params.created_at;
+        delete params.suggest;
+        delete params.contract;
+        m.create(models.Job, params, res, res)
+    }
 };
 
 
@@ -286,4 +291,41 @@ exports.get_job = function (req, res) {
 
 exports.get_my_job = function (req, res) {
     m.find(models.Job, {user: req.userId}, res, res, {populate: 'user contract'})
+};
+
+exports.job_attach_file = function (req, res) {
+    var attachment;
+    var params = m.getBody(req);
+    log('sdkhskkfhaslkh', params)
+    m.findCreate(models.Job, params.id, {}, res, function (job) {
+        var storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                var path = config.root + '/public/uploads/job/' + job._id;
+                mkdirp.sync(path);
+                cb(null, path)
+
+            },
+            filename: function (req, file, cb) {
+                var name = new Date().getTime() + '_' + file.originalname;
+                cb(null, name)
+            }
+        });
+
+        var upload = multer({
+            storage: storage
+        }).any();
+        upload(req, res, function (err) {
+            async.forEach(req.files, function (file, cb) {
+                new models.Attachment({
+                    originalName: file.originalname,
+                    name: file.filename,
+                    path: 'job/' + job._id
+                }).save(function (err, attach) {
+                    attachment = attach;
+                    m.scb({file: attach, job: job._id}, res);
+                    cb();
+                })
+            });
+        });
+    })
 };

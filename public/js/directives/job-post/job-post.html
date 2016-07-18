@@ -1,10 +1,10 @@
-
 <form name="postjob" novalidate id="postjob">
     <div class="jheader jborder" open>
         Contact Details
     </div>
     <div class="jbody">
-
+        <div class="title3">Choose a category and subcategory</div>
+        <filter-category ng-model="job" filters="commonFilters"></filter-category>
         <div class="row form-group">
             <div ng-class="{'has-error': submitted && postjob.name.$invalid}">
                 <md-input-container class="md-block">
@@ -20,7 +20,7 @@
             </div>
 
             <div
-                 ng-class="{'has-error': submitted && postjob.mobile.$invalid}">
+                    ng-class="{'has-error': submitted && postjob.mobile.$invalid}">
                 <md-input-container class="md-block">
                     <div class="title3">Mobile phone number</div>
                     <input phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
@@ -48,7 +48,7 @@
                 </md-input-container>
             </div>
             <div
-                 ng-class="{'has-error': submitted && postjob.company.$invalid}">
+                    ng-class="{'has-error': submitted && postjob.company.$invalid}">
                 <md-input-container class="md-block">
                     <div class="title3">Company name</div>
                     <input class="form-control" name="company" ng-model="job.company_name" required>
@@ -84,6 +84,31 @@
                     </div>
                 </div>
             </md-input-container>
+        </div>
+        <div class="">
+            <div>
+                <table class="table no-table-border" style="margin-bottom: 0px;">
+                    <tbody>
+                    <tr>
+                        <td style="">
+                            <div style="left: -20px;" class="pointer attach-sample-button" class="pointer" ngf-select="addImage($file)" ngf-pattern="'image/*'" ngf-multiple="false">
+                                <ng-md-icon icon="attach_file" size="35"></ng-md-icon>
+                                <span class="title3" style="position:relative;top:-10px">Add featured image</span>
+                            </div>
+                        </td>
+                        <!--<td ng-repeat="file in preview_attachments">-->
+                        <!--<img ngf-src="file" style="width: 60px;height: auto;" ngf-thumbnail="file" class="thumb">-->
+                        <!--</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <div class="row Files relative" ng-if="preview" style="">
+                        <img ngf-src="preview" style="width: 60px;height: auto; float: left;" ngf-thumbnail="preview" class="thumb">
+                    <span class="close-preview pointer"  ng-click="deleteImg($index)"><i class="fa fa-times" aria-hidden="true" ></i></span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row form-group" ng-class="{'has-error': submitted && postjob.description.$invalid}">
             <md-input-container class="md-block">
@@ -135,20 +160,38 @@
                     </div>
                 </md-input-container>
             </div>
-            <div>
-                <div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>
-                <md-input-container class="md-block">
-                    <input class="form-control" name="payment_basis"
-                           ng-model="contract.payment_basis" required
-                    >
-                </md-input-container>
-            </div>
-
-
-
-
         </div>
+        <div class="">
+            <div>
+                <table class="table no-table-border" style="margin-bottom: 0px;">
+                    <tbody>
+                    <tr>
+                        <td style="">
+                            <div style="left: -20px;" class="pointer attach-sample-button" class="pointer" ngf-select="addFiles($file)" ngf-pattern="'image/*'" ngf-multiple="false">
+                                <ng-md-icon icon="attach_file" size="35"></ng-md-icon>
+                                <span class="text-bold title3" style="position:relative;top:-10px;">Add attachments</span>
+                                <div style="color: lightgrey;"><i>The file can be up to 5 Mb in size</i></div>
 
+                            </div>
+                        </td>
+                        <!--<td ng-repeat="file in preview_attachments">-->
+                        <!--<img ngf-src="file" style="width: 60px;height: auto;" ngf-thumbnail="file" class="thumb">-->
+                        <!--</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <div class="row Files">
+                        <div class="col-xs-8">
+                            <div class="inline-block floatL relative preview" ng-repeat="attach in attach">
+                                <img ngf-src="attach" style="width: 60px;height: auto;" ngf-thumbnail="attach" class="thumb">
+                                <span class="close pointer" ng-click="deleteAttachFile($index)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row" ng-init="job.job_visibility = 'Public'">
             <div class="title3">Job Visibility</div>

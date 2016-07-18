@@ -22,6 +22,8 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', 'j
         scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]))
 
     };
+
+
     scope.onSelectSubCategory = function () {
         _.each($rootScope.commonFilters[jobInformation.getInfo.category()], function (item) {
             if (item.subFilter == jobInformation.getInfo.sub_category()) {

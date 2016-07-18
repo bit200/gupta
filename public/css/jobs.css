@@ -756,6 +756,7 @@ span.rz-pointer.rz-pointer-min:focus {
 .rzslider .rz-pointer:hover:after {
     background-color: transparent;
 }
+
 .rzslider .rz-pointer.rz-active:after {
     background-color: transparent;
 }

@@ -81,10 +81,10 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                     website: user.website
                 })
         }
-        scope.job = scope.job || {}
+        scope.job = scope.job || {};
         scope.new_apply = scope.isApply || {
                 budget: scope.job.budget
-            }
+            };
 
 
         scope.applyJob = function (id) {
@@ -111,13 +111,13 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         }
 
         scope.job_create = function (invalid, type, job) {
-            console.log('invalid', invalid)
-            if (invalid) {
-                console.log('ahahahaha')
+            console.log('invalid', job)
+            // if (invalid) {
+                // console.log('ahahahaha')
 
                 // rootScope.scrollToErr()
-                return;
-            }
+                // return;
+            // }
             job = scope.job
             console.log("job before", job)
             job.content_types = parseType.get(job.content, scope.contentTypes);

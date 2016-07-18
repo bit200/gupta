@@ -77,8 +77,20 @@
     animation: animate 0.5s ease forwards;
     font-size: 14px;
 }
+.close-preview {
+    position: absolute;
+    z-index: 99;
+    top: 7px;
+    left: 47px;
+    opacity: 0.4;
+    animation: animate 0.5s ease forwards;
+    font-size: 14px;
+}
 
 .close:hover {
+    opacity: 1;
+}
+.close-preview:hover {
     opacity: 1;
 }
 
