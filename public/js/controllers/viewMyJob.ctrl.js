@@ -2,7 +2,6 @@
 var XYZCtrls = angular.module('XYZCtrls');
 
 XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '$q', 'getContent', function (scope, $http, _info, rootScope, $q, getContent) {
-    alert('ViewMyJobCtrl')
     var user_type = _info.user_type;
     var job_type = _info.job_type;
     var info = angular.copy(_info)
