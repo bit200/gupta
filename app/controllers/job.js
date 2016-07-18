@@ -100,7 +100,6 @@ exports.filter_job = function (req, res) {
     m.find(models.Job, category, res, function (jobs) {
         var arrFunc = [],
             jobArr = [];
-        log('1')
         arrFunc.push(function (cb) {
             var count = 0;
             var arrModels = []

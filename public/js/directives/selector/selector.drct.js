@@ -24,7 +24,6 @@ XYZCtrls.directive('selector', function () {
             scope.init = function () {
                 $rootScope.info = $rootScope.info || {}
                 var value = $rootScope.info[scope.type];
-                console.log('items',scope.items)
                 _.each(scope.items, function (item) {
                     if (item.toLowerCase() == value) {
                         scope.selected = item
@@ -46,7 +45,6 @@ XYZCtrls.directive('selector', function () {
                 var state = 'jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type;
                 $state.go(state.toLowerCase());
                 scope.selected = item;
-                console.log('change info', scope.selected);
                 scope.open = false;
                 e.preventDefault();
                 e.stopPropagation();

@@ -1,0 +1,4 @@
+<div class="relative" style="height: 50px; border: 1px solid black" ng-click="open = !open">
+    <div ng-repeat="item in items" class="inline-block" style="padding-right: 20px">{{item}} <span ng-if="!$last" class="fa fa-angle-right"></span></div>
+    <list-category ng-model="choiceItem" ng-click="_choice()" ng-if="open" filters="keyFilters"></list-category>
+</div>
