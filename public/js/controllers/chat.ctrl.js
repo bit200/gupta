@@ -26,6 +26,7 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$timeout', 'so
     } else {
         scope.chat = '';
     }
+    
     scope.click = function (item) {
         scope.chat = false;
         scope.currentJob = _.find(scope.rooms, function(num){ return num._id == item; }).job;

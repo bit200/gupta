@@ -13,7 +13,7 @@ html, body {
 }
 .page-wrap {
     min-height: 100%;
-    margin-bottom: -30px;
+    margin-bottom: -70px;
 }
 .page-wrap:after {
     content: "";
@@ -157,7 +157,7 @@ form .progress {
 }
 
 div.Files {
-    min-height: 70px;
+    /*min-height: 70px;*/
 }
 
 .modal-block-body {

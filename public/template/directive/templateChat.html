@@ -40,7 +40,7 @@
 
                 <div class="row enter-block">
                     <div class="col-md-10">
-                        <textarea class="form-control" row="3" ng-enter="send(msg)" ng-model="msg"></textarea>
+                        <textarea class="form-control" row="3" cols="60" ng-enter="send(msg)" ng-model="msg"></textarea>
                         <div class="text-right pointer" ngf-select="addFiles($files)" ngf-pattern="'image/*'" ngf-multiple="true">
                             <ng-md-icon class="upload-button" icon="attach_file" size="24"></ng-md-icon>
                         </div>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn full-width send-button" ng-click="send(msg)">Send</button>
+                        <button class="btn full-width job-button" ng-click="send(msg)" style="height: 54px;">Send</button>
                     </div>
                 </div>
             </div>

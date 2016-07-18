@@ -33,7 +33,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', 'j
             options: {
                 floor: 0,
                 ceil: 100000,
-                step: 1,
+                step: 500,
                 noSwitching: true,
                 showSelectionBar: true,
                 getPointerColor: function (value) {
