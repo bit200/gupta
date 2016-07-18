@@ -141,7 +141,11 @@ function findOneEmpty(model, query, _ecb, _scb, params) {
 }
 function findOneOwner(model, query, _ecb, _scb, params) {
     findOne(model, query, _ecb, function(item){
-        if (isOwner(item, params.userId)) {
+        console.log('is owner', item, params.userId)
+        var req = params.req
+        var userId = params.userId || req.userId
+
+        if (isOwner(item, userId)) {
             scb(item, _scb)
         } else {
             scb({
@@ -731,6 +735,7 @@ module.exports = {
     permission_error: permission_err,
 
     findUpdate: findUpdate,
+    // findUpdateOwner: findUpdateOwner,
     findUpdateWithToken: findUpdateWithToken,
     _findCreateUpdate: _findCreateUpdate,
     findCreateUpdate: findCreateUpdate,

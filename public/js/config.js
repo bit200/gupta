@@ -343,7 +343,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('jobs_list.seller_open', {
                 url: '/seller/open',
-                templateUrl: 'template/viewMyJob.html',
+                templateUrl: 'template/jobs/jobs_seller_open.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,

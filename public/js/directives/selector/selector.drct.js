@@ -36,6 +36,7 @@ XYZCtrls.directive('selector', function () {
             };
 
             scope.onSelect = function (item, e) {
+                console.log('on select', item)
                 var obj = {};
                 obj[scope.type] = item;
                 jobInformation.setInfo(obj);
@@ -43,10 +44,10 @@ XYZCtrls.directive('selector', function () {
                     scope.onSelectCustom({item: item})
                 }
                 $rootScope.info[scope.type] = item;
-                var state = 'jobs_list.' + $rootScope.info.user_type + '_' + $rootScope.info.job_type;
+
+                var state = 'jobs_list.' + ($rootScope.info.user_type || 'buyer') + '_' + ($rootScope.info.job_type || 'open');
                 $state.go(state.toLowerCase());
                 scope.selected = item;
-                console.log('change info', scope.selected);
                 scope.open = false;
                 e.preventDefault();
                 e.stopPropagation();
