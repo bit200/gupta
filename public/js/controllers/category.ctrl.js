@@ -83,18 +83,22 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                     angular.forEach(aPm, function(value){
                         if (value.arr)
                             angular.forEach(value.arr, function(aV){
-                                if (aV.selected)
+                                if (aV.selected){
+                                    t['$or'] = t['$or'] || [];
                                     t['$or'].push({
                                         "service_providers.type": rootScope.activeProvider.name,
                                         "service_providers.filter": value.subFilter,
                                         "service_providers.name": aV.name
                                     })
+                                }
                             });
-                        else if (value.selected)
+                        else if (value.selected){
+                            t['$or'] = t['$or'] || [];
                             t['$or'].push({
                                 "service_providers.type": rootScope.activeProvider.name,
                                 "service_providers.name": value.name
                             })
+                        }
                     });
             });
             _.extend(filter, t)

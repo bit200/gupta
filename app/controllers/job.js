@@ -52,11 +52,16 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
         app.get(url + '/count', routing('count'))
     }
 
+
     function routing(type) {
+
         return function (req, res) {
+
             var queryParams = m.getBody(req);
             var query = middlewareFn.call(req);
             var info = pubParams(queryParams, query);
+            console.log('routing', queryParams, query)
+
             info.params.populate = extra_params.populate || '';
             info.params.sort = extra_params.sort || info.params.sort || '';
 
@@ -71,6 +76,7 @@ exports.get_info = function (req, res) {
 };
 
 exports.filter_job = function (req, res) {
+    console.log('filter job')
     var params = m.getBody(req);
     params.status = params.status || 'Open';
 
@@ -98,6 +104,7 @@ exports.filter_job = function (req, res) {
         default:
             break;
     }
+
     m.find(models.Job, category, res, function (jobs) {
         var arrFunc = [],
             jobArr = [];
@@ -263,6 +270,7 @@ exports.getInfo = function (req, res) {
 
 exports.update = function (req, res) {
     var job = m.getBody(req)
+    console.log("jobbbbbbbbbbbbbb", job, req.userId)
     m.findUpdate(models.Job, {user: req.userId, _id: job._id}, job, res, res, {req: req})
 }
 
@@ -271,7 +279,7 @@ exports.add_job = function (req, res) {
     params.user = req.userId;
     params.buyer = req.userId;
     params.status = 'open';
-    
+
     if (params._id) {
         m.findUpdate(models.Job, {_id: params._id}, params, res, res)
     } else {
@@ -328,4 +336,22 @@ exports.job_attach_file = function (req, res) {
             });
         });
     })
+}
+
+exports.get_jobs = function (req, res) {
+    var params = req.query;
+
+    if (params.count) {
+        delete params.count
+        models.Job.count(params).exec(function (err, count) {
+            res.json(count)
+        });
+    } else {
+        var skip = (parseInt(params.page || 1) - 1) * 10;
+        var limit = parseInt(params.limit) || 10;
+        delete params.page;
+        delete params.limit;
+        m.find(models.Job, params, res, res, {skip: skip, limit: limit})
+
+    }
 };

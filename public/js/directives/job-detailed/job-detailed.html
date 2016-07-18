@@ -131,7 +131,9 @@
             </div>
         </div>
     </div>
-    <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
-    <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
+    <div ng-if="job.user != userId">
+        <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
+        <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
+    </div>
 </div>
 

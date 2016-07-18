@@ -70,29 +70,6 @@
 
             <div class="user-topic">
                 <div class="user-topic-header">
-                    Location
-                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.location}" ng-click="close.location = !close.location"></ng-md-icon>
-                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.location}" ng-click="close.location = !close.location"></ng-md-icon>
-                </div>
-                <section toggle="close.location">
-                    <div ng-if="arrayLocations.length>5">
-                        <md-input-container md-no-float class="md-block">
-                            <input ng-model="search.location" type="text" placeholder="Search" >
-                            <md-icon md-svg-src="/img/search.svg" style="top: 12px"></md-icon>
-                        </md-input-container>
-                    </div>
-                    <div ng-class="{'user-topic-filter': arrayLocations.length>5 && !viewMore.location}">
-                        <div ng-repeat="value in arrayLocations | filter: search.location">
-                            <md-checkbox ng-model="ownFilter.locations[value]" aria-label="hidden" class="md-warn">{{value}}</md-checkbox>
-                        </div>
-                    </div>
-                    <div class="pointer" style="color: red" ng-show="!viewMore.location && arrayLocations.length>5" ng-click="viewMore.location=true">MORE</div>
-                    <div class="pointer" style="color: red" ng-show="viewMore.location" ng-click="viewMore.location=false">LESS</div>
-                </section>
-            </div>
-
-            <div class="user-topic">
-                <div class="user-topic-header">
                     Languages
                     <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.language}" ng-click="close.language = !close.language"></ng-md-icon>
                     <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.language}" ng-click="close.language = !close.language"></ng-md-icon>
@@ -127,34 +104,56 @@
                 </div>
             </div>
 
+            <div class="user-topic">
+                <div class="user-topic-header">
+                    Location
+                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.location}" ng-click="close.location = !close.location"></ng-md-icon>
+                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.location}" ng-click="close.location = !close.location"></ng-md-icon>
+                </div>
+                <section toggle="close.location">
+                    <div ng-if="arrayLocations.length>5">
+                        <md-input-container md-no-float class="md-block">
+                            <input ng-model="search.location" type="text" placeholder="Search" >
+                            <md-icon md-svg-src="/img/search.svg" style="top: 12px"></md-icon>
+                        </md-input-container>
+                    </div>
+                    <div ng-class="{'user-topic-filter': arrayLocations.length>5 && !viewMore.location}">
+                        <div ng-repeat="value in arrayLocations | filter: search.location">
+                            <md-checkbox ng-model="ownFilter.locations[value]" aria-label="hidden" class="md-warn">{{value}}</md-checkbox>
+                        </div>
+                    </div>
+                    <div class="pointer" style="color: red" ng-show="!viewMore.location && arrayLocations.length>5" ng-click="viewMore.location=true">MORE</div>
+                    <div class="pointer" style="color: red" ng-show="viewMore.location" ng-click="viewMore.location=false">LESS</div>
+                </section>
+            </div>
         </div>
         <div class="col-md-9">
-            <!--<h3 ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length" style="text-align: center">Not found</h3>-->
-            <!--<div class="row">-->
-                <!--<div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">-->
+            <h3 ng-if="!projects.length" style="text-align: center">Not found</h3>
+            <div class="row">
+                <div class="col-md-3 col-xs-6" ng-repeat="project in projects">
 
-                    <!--<div class="profile-detail">-->
-                        <!--<div class="img-block">-->
-                            <!--<img ng-src="{{profile.contact_detail.preview}}">-->
-                        <!--</div>-->
-                        <!--<div class="padding-10">-->
-                            <!--<div class="profile-title">{{profile.name}}</div>-->
-                            <!--<div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>-->
-                            <!--<div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>-->
-                            <!--<div class="profile-back-rating-block-category">-->
-                                <!--<div class="inline-block text-center" style="width: 50%">-->
-                                    <!--<star-rating ng-model="profile.rating"></star-rating>-->
-                                <!--</div>-->
-                                <!--<div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <div class="profile-detail">
+                        <div class="img-block">
+                            <img ng-src="{{project.preview}}">
+                        </div>
+                        <div class="padding-10">
+                            <div class="profile-title">{{project.title}}</div>
+                            <div style="font-size: 12px">
+                                <i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>
+                                {{ project.description | limitTo: 100 }}{{project.description.length > 100 ? '...' : ''}}
+                            </div>
+                            <div style="font-size: 12px">
+                                <i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>
+                                {{project.budget || 0}} / Hr
+                            </div>
+                        </div>
 
-                        <!--<div class="view-details-button" ng-click="$state.go('categories.profile', {id: profile._id})">-->
-                            <!--View Details-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+                        <div class="view-details-button" ng-click="$state.go('root.job_detailed', {job: project._id})">
+                            View Details
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
