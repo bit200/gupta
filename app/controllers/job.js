@@ -288,3 +288,20 @@ exports.get_job = function (req, res) {
 exports.get_my_job = function (req, res) {
     m.find(models.Job, {user: req.userId}, res, res, {populate: 'user contract'})
 };
+
+exports.get_jobs = function (req, res) {
+    var params = req.query;
+
+    if (params.count){
+        delete params.count
+        models.Job.count(params).exec(function(err, count){
+            res.json(count)
+        });
+    }else{
+        var skip = (parseInt(params.page || 1)-1)*10;
+        var limit = parseInt(params.limit) || 10;
+        delete params.page;
+        delete params.limit;
+        m.find(models.Job, params, res, res, {skip: skip, limit: limit})
+    }
+};

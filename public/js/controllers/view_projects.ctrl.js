@@ -27,7 +27,7 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
                     return value + 'K';
                 },
                 onEnd: function (r) {
-                    // scope.submitFilter(scope.ownFilter);
+                    scope.submitFilter();
                 }
 
             }
@@ -39,6 +39,7 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
                 scope.selectedCateogries.splice(scope.selectedCateogries.indexOf(value));
             else
                 scope.selectedCateogries.push(value)
+            scope.submitFilter();
         };
 
         scope.checkIfSelectedCategory = function(value){
@@ -61,51 +62,79 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
             scope.ownFilter.location = scope.ownFilter.location || {};
             scope.ownFilter.location = checkValue(stateParams.city);
         }
+        //
+        // scope.$watch('activeProvider', function(val){
+        //     if (val){
+        //         scope.submitFilter()
+        //     }
+        // }, true)
 
-        scope.$watch('activeProvider', function(val){
-            if (val){
-                scope.submitFilter()
-            }
-        }, true)
+        scope.$watch('ownFilter', function(val){
+            if (val && Object.keys(val).length)
+                scope.submitFilter();
+        }, true);
 
         scope.submitFilter = function () {
             var filter = angular.copy(scope.ownFilter);
             if (filter.location)
                 filter.location = objInArr(filter.location);
             // filter.experience = scope.slider.experience.value;
-            if (filter.location)
-                filter.location = {$in: filter.location};
+            if (filter.locations){
+                filter.locations = {$in: _.map(filter.locations, function(value,location){
+                    return value ? location : false
+                }).clean(false)};
+                if (!filter.locations['$in'].length)
+                    delete filter.locations
+            }
+            if (filter.languages){
+                filter.languages = {$in: _.map(filter.languages, function(value,language){
+                    return value ? language : false
+                }).clean(false)};
+
+                if (!filter.languages['$in'].length)
+                    delete filter.languages
+            }
+
+            if (scope.selectedCateogries && scope.selectedCateogries.length)
+                filter.category = {$in: scope.selectedCateogries}
+
+            filter.budget = {$and: [
+                {$gte: scope.slider.minValue},
+                {$lte: scope.slider.maxValue}
+            ]};
+            // if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length){
+            //     var t = {
+            //         "service_providers.type": rootScope.activeProvider.name
+            //     };
+            //     angular.forEach(rootScope.activeProvider, function(aPm, key){
+            //         if (key == 'values')
+            //             angular.forEach(aPm, function(value){
+            //                 if (value.arr)
+            //                     angular.forEach(value.arr, function(aV){
+            //                         if (aV.selected)
+            //                             t['$or'].push({
+            //                                 "service_providers.type": rootScope.activeProvider.name,
+            //                                 "service_providers.filter": value.subFilter,
+            //                                 "service_providers.name": aV.name
+            //                             })
+            //                     });
+            //                 else if (value.selected)
+            //                     t['$or'].push({
+            //                         "service_providers.type": rootScope.activeProvider.name,
+            //                         "service_providers.name": value.name
+            //                     })
+            //             });
+            //     });
+            //     _.extend(filter, t)
+            // }
 
             console.log(filter)
-            if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length){
-                var t = {
-                    "service_providers.type": rootScope.activeProvider.name
-                };
-                angular.forEach(rootScope.activeProvider, function(aPm, key){
-                    if (key == 'values')
-                        angular.forEach(aPm, function(value){
-                            if (value.arr)
-                                angular.forEach(value.arr, function(aV){
-                                    if (aV.selected)
-                                        t['$or'].push({
-                                            "service_providers.type": rootScope.activeProvider.name,
-                                            "service_providers.filter": value.subFilter,
-                                            "service_providers.name": aV.name
-                                        })
-                                });
-                            else if (value.selected)
-                                t['$or'].push({
-                                    "service_providers.type": rootScope.activeProvider.name,
-                                    "service_providers.name": value.name
-                                })
-                        });
-                });
-                _.extend(filter, t)
-            }
-            // http.get('/api/jobs?'+ $.param(filter)).success(function (resp) {
-            //     scope.projects = resp.data;
-            // })
+            http.get('/api/jobs?'+ $.param(filter)).success(function (resp) {
+                scope.projects = resp.data;
+            })
         };
+        scope.submitFilter()
+
 
 
         function objInArr(obj) {
