@@ -249,8 +249,7 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
             if (obj.user_type)
                 information.view_project = obj.user_type;
             console.log('2222')
-            $http.get('/api/jobs/filter/' + information.status.toLowerCase(), {params: information}).success(function (data) {
-                console.log('11111')
+            $http.get('/api/jobs/filter', {params: information}).success(function (data) {
                 $rootScope.$emit('job-changed', data.data)
             })
         },

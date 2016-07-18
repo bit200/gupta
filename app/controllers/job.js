@@ -71,8 +71,10 @@ exports.get_info = function (req, res) {
 };
 
 exports.filter_job = function (req, res) {
-    var params = m.getBody(req),
-        modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
+    var params = m.getBody(req);
+   params.status = params.status || 'Open';
+
+    var modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
         category = {},
         status = [];
     if (params.category)

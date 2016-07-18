@@ -27,9 +27,7 @@ module.exports = function (app) {
     // app.get('/api/job/detailed/me/:_id', auth.token, job.job_detailed_me)
     
     
-    app.get('/api/jobs/filter/open', job.filter_job);
-    app.get('/api/jobs/filter/ongoing', job.filter_job);
-    app.get('/api/jobs/filter/closed', job.filter_job);
+    app.get('/api/jobs/filter', job.filter_job);
 
 
     job.fn('/api/jobs/all', null, 'Job', '{}'
