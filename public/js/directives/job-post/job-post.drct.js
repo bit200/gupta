@@ -25,7 +25,7 @@ XYZCtrls.directive('jobPost', function () {
                         data: {name:$file.name},
                         file: $file
                     }).then(function (resp) {
-                        scope.job.attach.push(resp.data.data.file);
+                        scope.job.attach.push(resp.data.data.file._id);
                         scope.job._id = resp.data.data.job;
                     }, function (resp) {
                     }, function (evt) {
