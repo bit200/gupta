@@ -52,11 +52,16 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
         app.get(url + '/count', routing('count'))
     }
 
+
     function routing(type) {
+
         return function (req, res) {
+
             var queryParams = m.getBody(req);
             var query = middlewareFn.call(req);
             var info = pubParams(queryParams, query);
+            console.log('routing', queryParams, query)
+
             info.params.populate = extra_params.populate || '';
             info.params.sort = extra_params.sort || info.params.sort || '';
 
@@ -71,6 +76,7 @@ exports.get_info = function (req, res) {
 };
 
 exports.filter_job = function (req, res) {
+    console.log('filter job')
     var params = m.getBody(req);
    params.status = params.status || 'Open';
 
@@ -97,6 +103,7 @@ exports.filter_job = function (req, res) {
             break;
         default: break;
     }
+
     m.find(models.Job, category, res, function (jobs) {
         var arrFunc = [],
             jobArr = [];
@@ -263,6 +270,7 @@ exports.getInfo = function (req, res) {
 
 exports.update = function (req, res) {
     var job = m.getBody(req)
+    console.log("jobbbbbbbbbbbbbb", job, req.userId)
     m.findUpdate(models.Job, {user: req.userId, _id: job._id}, job, res, res, {req: req})
 }
 

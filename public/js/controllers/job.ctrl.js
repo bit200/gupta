@@ -5,7 +5,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
 
         console.log('GET CONTENT', getContent, AuthService.currentUser())
         rootScope.extend_scope(scope, getContent)
-
+        scope.userId = AuthService.userId()
 
         scope.estimations = [
             'Less then 1 week',
@@ -33,6 +33,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         if (scope.job) {
             var job = scope.job
             job.date_of_completion = new Date(job.date_of_completion);
+            job.job_visibility_plain = job.job_visibility ? 'Public' : 'Private'
             scope.job = job;
             scope.new_job = job;
             scope.job.type_checkbox = parseEdit(scope.job.types);
@@ -119,7 +120,8 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 return;
             }
             job = scope.job
-            console.log("job before", job)
+            job.job_visibility = (job.job_visibility_plain != 'Private')
+            console.log("job before", job, job.job_visibility_plain, job.job_visibility)
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
@@ -137,6 +139,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             }
             console.log('hahahahahahah', job)
             job = scope.job
+            job.job_visibility = job.job_visibility_plain == 'Public'
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);

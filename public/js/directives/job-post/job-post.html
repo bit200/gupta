@@ -139,7 +139,7 @@
                 <div class="title3">Payment Basis*<br>(mention deliverables, rate, and no. of units)</div>
                 <md-input-container class="md-block">
                     <input class="form-control" name="payment_basis"
-                           ng-model="contract.payment_basis" required
+                           ng-model="job.payment_basis" required
                     >
                 </md-input-container>
             </div>
@@ -152,7 +152,7 @@
 
         <div class="row" ng-init="job.job_visibility = 'Public'">
             <div class="title3">Job Visibility</div>
-            <md-radio-group ng-model="job.job_visibility">
+            <md-radio-group ng-model="job.job_visibility_plain">
                 <md-radio-button value="Public" class="checkdark">Public</md-radio-button>
                 <md-radio-button value="Private" class="checkdark">Private</md-radio-button>
             </md-radio-group>

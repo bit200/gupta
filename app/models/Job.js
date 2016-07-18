@@ -27,6 +27,7 @@ var JobSchema = mongoose.Schema({
     //     company_name: String,
     //     website: String
     // },
+    payment_basis: String,
     admin_approved: {
         type: Number,
         default:0
