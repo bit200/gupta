@@ -20,7 +20,10 @@ var JobSchema = mongoose.Schema({
     date_of_completion: Date,
     status: String,
     closed_date: Date,
-    attach: Array,
+    attach: [{
+        type: Number,
+        ref: 'Attachment'
+    }],
     preview: {
         type: Number,
         ref: 'Attachment'
