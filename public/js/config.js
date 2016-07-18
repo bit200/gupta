@@ -532,7 +532,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
             .state('view_projects', {
                 url: '/view_projects?city',
-                templateUrl: 'template/category.html',
+                templateUrl: 'template/view_projects.html',
                 controller: 'ViewProjectsCtrl',
                 reloadOnSearch: false,
                 ncyBreadcrumb: {
@@ -583,27 +583,29 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     hideType: true
                 }
             })
-            // .state('profile', {
-            //     url: '/profile/:id',
-            //     views: {
-            //         "@": {
-            //             controller: 'ViewProfileCtrl',
-            //             templateUrl: 'template/profile.html'
-            //         }
-            //     },
-            //     resolve: {
-            //         getContent: function ($q, $http, $stateParams) {
-            //             return $q.all({
-            //                 viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
-            //                 profile: $http.get('/api/freelancer/' + $stateParams.id)
-            //             })
-            //         }
-            //     },
-            //     ncyBreadcrumb: {
-            //         label: 'Home/View profile/Profile Details',
-            //         hideType: true
-            //     }
-            // })
+
+            .state('profile', {
+                url: '/profile/:id',
+                views: {
+                    "@": {
+                        controller: 'ViewProfileCtrl',
+                        templateUrl: 'template/profile.html'
+                    }
+                },
+                resolve: {
+                    getContent: function ($q, $http, $stateParams) {
+                        return $q.all({
+                            viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
+                            profile: $http.get('/api/freelancer/' + $stateParams.id)
+                        })
+                    }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    labelArr: ['Home', '/', 'View profile', '/', 'Profile Details'],
+                    hideType: true
+                }
+            })
 
             .state('my_profile', {
                 url: '/my_profile',

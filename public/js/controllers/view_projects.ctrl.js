@@ -3,43 +3,46 @@ var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter',
     function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter) {
         scope.ownFilter = {}
-        scope.arrayTopics = getContent.topic.data.data;
-        scope.arrayContent = getContent.content.data.data;
         scope.arrayLanguages = getContent.languages.data.data;
         scope.arrayLocations = getContent.locations.data.data;
         scope.search = {}
         scope.projects = [];
+
         scope.slider = {
-            experience: {
-                value: 0,
-                options: {
-                    floor: 0,
-                    ceil: 15,
-                    step: 1,
-                    showSelectionBar: true,
-                    getPointerColor: function (value) {
-                        return '#B9B6B9';
-                    },
-                    getSelectionBarColor: function (value) {
-                        return '#B9B6B9';
-                    },
-                    translate: function (value) {
-                        if (value == 0) {
-                            return value
-                        }
-                        if (value == 1) {
-                            return value + ' year'
-                        }
-                        if (value == 15) {
-                            return value + '+ year'
-                        }
-                        return value + ' years';
-                    },
-                    onEnd: function (r) {
-                        scope.submitFilter(scope.ownFilter); // logs 'on end slider-id'
-                    }
+            minValue: 10,
+            maxValue: 200,
+            options: {
+                floor: 10,
+                ceil: 200,
+                step: 10,
+                minRange: 10,
+                maxRange: 190,
+                getPointerColor: function (value) {
+                    return 'rgb(51, 57, 69)';
+                },
+                getSelectionBarColor: function (value) {
+                    return 'rgb(51, 57, 69)';
+                },
+                translate: function (value) {
+                    return value + 'K';
+                },
+                onEnd: function (r) {
+                    // scope.submitFilter(scope.ownFilter);
                 }
+
             }
+        };
+        scope.selectedCateogries = [];
+        
+        scope.toggleCategory = function(value){
+            if (scope.selectedCateogries.indexOf(value)>-1)
+                scope.selectedCateogries.splice(scope.selectedCateogries.indexOf(value));
+            else
+                scope.selectedCateogries.push(value)
+        };
+
+        scope.checkIfSelectedCategory = function(value){
+            return scope.selectedCateogries.indexOf(value) > -1;
         };
 
         var checkValue = function(locSearch){
@@ -69,7 +72,7 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
             var filter = angular.copy(scope.ownFilter);
             if (filter.location)
                 filter.location = objInArr(filter.location);
-            filter.experience = scope.slider.experience.value;
+            // filter.experience = scope.slider.experience.value;
             if (filter.location)
                 filter.location = {$in: filter.location};
 
