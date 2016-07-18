@@ -20,7 +20,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         var getResolve = function (params) {
             return ["$q", function ($q) {
-                console.log('paramssss getResolve', params)
                 var deferred = $q.defer();
                 deferred.resolve(params);
                 return deferred.promise;
@@ -198,24 +197,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                         })
                     }
                 },
-                // resolve: getStatic({
-                //     info: getResolve({
-                //         user_type: 'buyer',
-                //         job_type: 'open'
-                //     }),
-                //     getContent: function ($q, $http) {
-                //         return $q.all({
-                //             content: $http.get('/get-content', {
-                //                 params: {
-                //                     name: 'Filters',
-                //                     query: {type: 'Content Writing', filter: 'Content Type'},
-                //                     distinctName: 'name'
-                //                 }
-                //             })
-                //         })
-                //     }
-                //
-                // }),
                 ncyBreadcrumb: {
                     label: 'Dashboard',
                     labelArr: ['Dashboard'],
@@ -224,10 +205,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('jobs_list.all', {
-                url: '',
+                url: '/',
                 templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
-                resolve: getStatic({
+                resolve:
+                    getStatic({
                     template: 'jobs-all',
                     header: 'All jobs',
                     url: '/api/jobs/all',
@@ -301,9 +283,15 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                     query: {type: 'Content Writing', filter: 'Content Type'},
                                     distinctName: 'name'
                                 }
-                            })
+                            }),
+                            a: 'buyer'
                         })
-                    }
+                    },
+                    s: getResolve({
+                        user_type: 'buyer',
+                        job_type: 'open',
+
+                    }),
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
@@ -355,7 +343,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('jobs_list.seller_open', {
                 url: '/seller/open',
-                templateUrl: 'template/viewMyJob.html',
+                templateUrl: 'template/jobs/jobs_seller_open.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
@@ -365,7 +353,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         page_type: 'seller_open'
                     }),
                     getContent: function () {
-                    }
+                    },
+                    s: getResolve({
+                        user_type: 'seller',
+                        job_type: 'open',
+
+                    }),
                 },
                 ncyBreadcrumb: {
                     label: 'Open Projects',
@@ -519,20 +512,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve: {
                     getContent: ['$q', '$http', '$stateParams', function ($q, $http) {
                         return $q.all({
-                            topic: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
-                                    distinctName: 'name'
-                                }
-                            }),
-                            content: $http.get('/get-content', {
-                                params: {
-                                    name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Content Type'},
-                                    distinctName: 'name'
-                                }
-                            }),
                             languages: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
@@ -546,10 +525,34 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                     query: {},
                                     distinctName: 'name'
                                 }
-                            }),
-                            arrayProviders: $http.get('/get-content', {
+                            })
+                        })
+                    }]
+                }
+            })
+            .state('view_projects', {
+                url: '/view_projects?city',
+                templateUrl: 'template/view_projects.html',
+                controller: 'ViewProjectsCtrl',
+                reloadOnSearch: false,
+                ncyBreadcrumb: {
+                    label: ' ',
+                    labelArr: ['Home', '/', 'View projects'],
+                    hideType: true
+                },
+                resolve: {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http) {
+                        return $q.all({
+                            languages: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
+                                    query: {type: 'Content Writing', filter: 'Languages'},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
                                     query: {},
                                     distinctName: 'name'
                                 }
@@ -580,27 +583,29 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     hideType: true
                 }
             })
-            // .state('profile', {
-            //     url: '/profile/:id',
-            //     views: {
-            //         "@": {
-            //             controller: 'ViewProfileCtrl',
-            //             templateUrl: 'template/profile.html'
-            //         }
-            //     },
-            //     resolve: {
-            //         getContent: function ($q, $http, $stateParams) {
-            //             return $q.all({
-            //                 viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
-            //                 profile: $http.get('/api/freelancer/' + $stateParams.id)
-            //             })
-            //         }
-            //     },
-            //     ncyBreadcrumb: {
-            //         label: 'Home/View profile/Profile Details',
-            //         hideType: true
-            //     }
-            // })
+
+            .state('profile', {
+                url: '/profile/:id',
+                views: {
+                    "@": {
+                        controller: 'ViewProfileCtrl',
+                        templateUrl: 'template/profile.html'
+                    }
+                },
+                resolve: {
+                    getContent: function ($q, $http, $stateParams) {
+                        return $q.all({
+                            viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
+                            profile: $http.get('/api/freelancer/' + $stateParams.id)
+                        })
+                    }
+                },
+                ncyBreadcrumb: {
+                    label: ' ',
+                    labelArr: ['Home', '/', 'View profile', '/', 'Profile Details'],
+                    hideType: true
+                }
+            })
 
             .state('my_profile', {
                 url: '/my_profile',

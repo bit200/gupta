@@ -3,8 +3,6 @@ var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter',
     function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter) {
     scope.ownFilter = {}
-    scope.arrayTopics = getContent.topic.data.data;
-    scope.arrayContent = getContent.content.data.data;
     scope.arrayLanguages = getContent.languages.data.data;
     scope.arrayLocations = getContent.locations.data.data;
     scope.freelancers = [];
@@ -76,7 +74,6 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         if (filter.location)
             filter.location = {$in: filter.location};
 
-        console.log(filter)
         if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length){
             var t = {
                 "service_providers.type": rootScope.activeProvider.name
@@ -102,6 +99,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             });
             _.extend(filter, t)
         }
+
         // service_packages
         http.get('/api/freelancers?'+ $.param(filter)).success(function (resp) {
             scope.freelancers = resp.data;

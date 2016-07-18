@@ -13,8 +13,7 @@
                 </div>
             </div>
             <div class="jobs-list items">
-                {{_keywords}}
-                <div class="row" ng-repeat="item in items|filter:search">
+                <div class="row" ng-repeat="item in items">
                     <div ng-include="templateItem" class="row nomarginxs fitems"></div>
                 </div>
                 <div ng-if="!items.length && !showLoading" class="row">

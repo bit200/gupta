@@ -100,7 +100,7 @@
                     <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.package}" ng-click="close.package = !close.package"></ng-md-icon>
                 </div>
                 <div toggle="close.package">
-                    <md-radio-group ng-model="ownFilter['service_packages.0']">
+                    <md-radio-group ng-model="ownFilter['service_packages.0']" ng-change="submitFilter()">
                         <md-radio-button ng-value="true" class="md-primary">Yes</md-radio-button>
                         <md-radio-button ng-value="false">No</md-radio-button>
                     </md-radio-group>

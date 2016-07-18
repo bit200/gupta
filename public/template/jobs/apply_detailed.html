@@ -5,7 +5,7 @@
     </a>
     <apply-detailed
             title="Application for job #{{job._id}}"
-            btns="['apply_edit']"
+            btns="[{'name': 'Edit your apply', 'ui_sref': 'root.apply_edit', 'ui_params': 'job', 'is_owner': ['job.user']}]"
     ></apply-detailed>
 </div>
 

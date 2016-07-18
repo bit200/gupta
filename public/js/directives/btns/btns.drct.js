@@ -11,7 +11,7 @@ XYZCtrls.directive('btns', function () {
             }
             scope.init_btns()
         },
-        controller: ['$scope', '$attrs', '$rootScope', function (scope, attrs, rootScope) {
+        controller: ['$scope', '$attrs', '$rootScope', 'AuthService', function (scope, attrs, rootScope, AuthService) {
             function gid(name) {
                 return scope[name] ? scope[name]._id || -1 : -1
             }
@@ -39,6 +39,25 @@ XYZCtrls.directive('btns', function () {
                 _.each(scope.btns_list_plain, function(item){
                     var name = item
                     // var obj = _state_obj[name] || _state_obj['root.' + name]
+                    var userId = AuthService.userId()
+                    if (item.is_owner) {
+                        console.log('ananananananna', item, item.is_owner)
+                        var fl = null
+                        _.each(item.is_owner, function(own){
+                            var f_item = scope
+                            _.each(own.split('.'), function(field){
+                                f_item = f_item ? f_item[field] : null
+                            })
+                            console.log('gid(f_item)', f_item)
+                            if (f_item && f_item == userId) {
+                                fl = true
+                            }
+                        })
+                        if (!fl) {
+                            return;
+                        }
+                    }
+
                     if (item.fn) {
                         scope.btns_list.push({
                             fn: scope[item.fn],

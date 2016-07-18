@@ -248,17 +248,11 @@ exports.delete_contract = function (req, res) {
 exports.detailed = function (req, res) {
     var params = req.params
 
-    m.findOne(models.Contract, {_id: params._id}, res, function (contract) {
-        if (m.isOwner(contract, req.userId, req.freelancerId)) {
-            res.send({
-                data: contract
-            })
-        } else {
-            res.status(400).send({
-                data: 'Another owner'
-            })
-        }
-    }, {populate: 'buyer seller freelancer job suggest'})
+    m.findOneOwner(models.Contract, {_id: params._id}, res, function (contract) {
+        res.send({
+            data: contract
+        })
+    }, {req: req, populate: 'buyer seller freelancer job suggest'})
 };
 
 exports.findContract = function (req, res) {
@@ -321,9 +315,9 @@ exports.suggest_contract_apply = function (req, res) {
 exports.suggest_contract_cancel = function (req, res) {
     var params = m.getBody(req);
     m.findRemove(models.SuggestContract, {_id: params.id}, res, function () {
-        m.findOne(models.Contract, {_id: params.id, buyer: req.userId}, res, function (contract) {
+        m.findOneOwner(models.Contract, {_id: params.id, buyer: req.userId}, res, function (contract) {
             mail.suggestCancel(contract.seller, contract._id, res, m.scb(contract, res))
-        }, {populate: 'seller'})
+        }, {req: req, populate: 'seller'})
     })
 };
 

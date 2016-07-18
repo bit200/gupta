@@ -25,13 +25,13 @@ module.exports = function (app) {
     app.post('/contract/close', auth.token, contract.close_contract);
     app.post('/contract/suggest-apply', auth.token, contract.suggest_contract_apply);
     app.get('/contract/suggest-cancel', auth.token, contract.suggest_contract_cancel);
-    app.get('/contract', auth.token, contract.get_contract);
-    app.get('/api/suggest', auth.token, contract.get_suggest);
+    app.get('/contract', auth.freelancer_free, contract.get_contract);
+    app.get('/api/suggest', auth.freelancer_free, contract.get_suggest);
     app.post('/api/contract', auth.token, contract.create_contract);
-    app.get('/api/contract/find', auth.freelancer_token, contract.findContract);
+    app.get('/api/contract/find', auth.freelancer_free, contract.findContract);
     app.get('/api/contract/review', auth.freelancer_token, contract.reviewContract);
     app.post('/api/contract/review', auth.freelancer_token, contract.addReview);
-    app.get('/api/contract/detailed/:_id', auth.freelancer_token, contract.detailed);
+    app.get('/api/contract/detailed/:_id', auth.freelancer_free, contract.detailed);
     app.get('/api/contract/suggest-from-seller/detailed/:_id', auth.freelancer_token, contract.detailed);
 
 };
