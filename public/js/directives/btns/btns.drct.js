@@ -53,10 +53,11 @@ XYZCtrls.directive('btns', function () {
                                 fl = true
                             }
                         })
+                        if (!fl) {
+                            return;
+                        }
                     }
-                    if (!fl) {
-                        return;
-                    }
+
                     if (item.fn) {
                         scope.btns_list.push({
                             fn: scope[item.fn],

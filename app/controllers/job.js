@@ -250,7 +250,7 @@ exports.applyJobRemove = function (req, res) {
 }
 
 exports.apply_detailed_pub = function (req, res) {
-    m.findOneOwner(models.JobApply, {_id: req.params.apply_id}, res, res, {userId: req.userId, populate: 'buyer job seller freelancer'})
+    m.findOneOwner(models.JobApply, {_id: req.params.apply_id}, res, res, {req: req, userId: req.userId, populate: 'buyer job seller freelancer'})
 }
 exports.getApplyInfo = function (req, res) {
     var params = m.getBody(req);
@@ -263,7 +263,7 @@ exports.getInfo = function (req, res) {
 
 exports.update = function (req, res) {
     var job = m.getBody(req)
-    m.findUpdate(models.Job, {_id: job._id}, job, res, res)
+    m.findUpdate(models.Job, {user: req.userId, _id: job._id}, job, res, res, {req: req})
 }
 
 exports.add_job = function (req, res) {
