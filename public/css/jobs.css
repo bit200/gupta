@@ -763,3 +763,9 @@ span.rz-pointer.rz-pointer-min:focus {
 .select-it {
     color: #b1b1b1;
 }
+
+.modal-header .close {
+    margin-top: 0px;
+    margin-right: 10px;
+    font-size: 20px;
+}

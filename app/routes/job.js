@@ -13,7 +13,7 @@ module.exports = function (app) {
     app.get('/api/info/:model/:_id', job.get_info);
 
     app.get('/api/job/:_id', job.getInfo);
-    app.put('/api/job', job.update);
+    app.put('/api/job', auth.token, job.update);
     app.put('/api/jobs', job.get_jobs);
 
     app.post('/api/job-apply', auth.freelancer_token, job.applyJob);
@@ -31,7 +31,7 @@ module.exports = function (app) {
     app.get('/api/jobs/filter', job.filter_job);
 
 
-    job.fn('/api/jobs/all', null, 'Job', '{}'
+    job.fn('/api/jobs/all', null, 'Job', '{job_visibility: true}'
         , {populate: 'user', sort: '-created_at'}, app);
 
     job.fn('/api/jobs/popular', null, 'Job', '{}'
