@@ -95,17 +95,18 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                         scope.showLoading = false;
                     }
                 } 
-            rootScope.$on('job-changed', function(e,data){
-                scope.items = data;
-            });
+            // rootScope.$on('job-changed', function(e,data){
+            //     console.log('data changedchangedchanged', data)
+            //     scope.items = data;
+            // });
 
-                // http.get(scope.url, {params: obj}).success(function (data) {
-                //         cb();
-                //         scope.items = data.data;
-                //     }, function (err) {
-                //         scope.error = 'An error. Please try again later';
-                //         cb();
-                //     });
+                http.get(scope.url, {params: obj}).success(function (data) {
+                        cb();
+                        scope.items = data.data;
+                    }, function (err) {
+                        scope.error = 'An error. Please try again later';
+                        cb();
+                    });
 
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         cb();
