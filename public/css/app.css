@@ -830,6 +830,11 @@ div.communitySP div.text-center {
     padding-top: 28%;
     text-align: center;
     margin-bottom: 40px;
+    transition: all .4s ease;
+}
+.job-logo:hover {
+    color: lightgrey;
+    text-decoration: none;
 }
 
 .job-types {
