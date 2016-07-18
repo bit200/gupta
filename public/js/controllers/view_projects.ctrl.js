@@ -102,31 +102,26 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
                 {$gte: scope.slider.minValue},
                 {$lte: scope.slider.maxValue}
             ]};
-            // if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length){
-            //     var t = {
-            //         "service_providers.type": rootScope.activeProvider.name
-            //     };
-            //     angular.forEach(rootScope.activeProvider, function(aPm, key){
-            //         if (key == 'values')
-            //             angular.forEach(aPm, function(value){
-            //                 if (value.arr)
-            //                     angular.forEach(value.arr, function(aV){
-            //                         if (aV.selected)
-            //                             t['$or'].push({
-            //                                 "service_providers.type": rootScope.activeProvider.name,
-            //                                 "service_providers.filter": value.subFilter,
-            //                                 "service_providers.name": aV.name
-            //                             })
-            //                     });
-            //                 else if (value.selected)
-            //                     t['$or'].push({
-            //                         "service_providers.type": rootScope.activeProvider.name,
-            //                         "service_providers.name": value.name
-            //                     })
-            //             });
-            //     });
-            //     _.extend(filter, t)
-            // }
+            if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length){
+                var t = {
+                    "typeCategory": rootScope.activeProvider.name
+                };
+                angular.forEach(rootScope.activeProvider, function(aPm, key){
+                    if (key == 'values')
+                        angular.forEach(aPm, function(value){
+                            if (value.arr)
+                                angular.forEach(value.arr, function(aV){
+                                    if (aV.selected){
+                                        t.typeFilter = value.subFilter;
+                                        t.typeName = value.name;
+                                    }
+                                });
+                            else if (value.selected)
+                                t.typeName = value.name;
+                        });
+                });
+                _.extend(filter, t)
+            }
 
             console.log(filter)
             http.get('/api/jobs?'+ $.param(filter)).success(function (resp) {

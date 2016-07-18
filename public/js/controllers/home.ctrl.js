@@ -75,7 +75,10 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
                         };
                     }
                 });
-                $rootScope.$state.go('categories', {city: scope.ctrl.city});
+                if ($rootScope.asView.seller)
+                    $rootScope.$state.go('view_projects', {city: scope.ctrl.city});
+                else
+                    $rootScope.$state.go('categories', {city: scope.ctrl.city});
                 break;
             case 'filters':
                 angular.forEach($rootScope.commonFilters, function(values,key){
@@ -92,7 +95,11 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
                             $rootScope.activeProvider.subName = item.filter_name;
                     }
                 });
-                $rootScope.$state.go('categories', {city: scope.ctrl.city});
+                if ($rootScope.asView.seller)
+                    $rootScope.$state.go('view_projects', {city: scope.ctrl.city});
+                else
+                    $rootScope.$state.go('categories', {city: scope.ctrl.city});
+
                 break;
         }
     };
