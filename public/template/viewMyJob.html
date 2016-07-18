@@ -1,15 +1,3 @@
 <div>
-    <div ng-if="info.user_type=='seller' && info.job_type=='open'">
-        <jobs-list url="/api/jobs/seller/open/active" info="{{info}}" header="Active Candidates" template="seller-open"></jobs-list>
-    </div>
-
     <jobs-list url="{{info.url}}" info="{{info}}" header="{{info.header}}" template="{{info.template}}"></jobs-list>
-
-    <div ng-if="info.user_type=='buyer' && info.job_type=='open'">
-        <jobs-list url="/api/jobs/buyer/my" info="{{info}}" header="My Posted jobs" template="buyer-my"></jobs-list>
-    </div>
-
-    <div ng-if="info.user_type=='seller' && info.job_type=='open'">
-        <jobs-list url="/api/jobs/seller/open/rejected" info="{{info}}" header="Rejected Applications" template="seller-open"></jobs-list>
-    </div>
 </div>
