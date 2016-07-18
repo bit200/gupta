@@ -22,6 +22,7 @@ XYZCtrls.directive('selector', function () {
             };
 
             scope.init = function () {
+                $rootScope.info = $rootScope.info || {}
                 var value = $rootScope.info[scope.type];
                 console.log('items',scope.items)
                 _.each(scope.items, function (item) {
