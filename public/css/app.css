@@ -13,7 +13,7 @@ html, body {
 }
 .page-wrap {
     min-height: 100%;
-    margin-bottom: -70px;
+    margin-bottom: -30px;
 }
 .page-wrap:after {
     content: "";
