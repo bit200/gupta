@@ -20,6 +20,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         var getResolve = function (params) {
             return ["$q", function ($q) {
+                console.log('paramssss getResolve', params)
                 var deferred = $q.defer();
                 deferred.resolve(params);
                 return deferred.promise;
@@ -354,7 +355,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('jobs_list.seller_open', {
                 url: '/seller/open',
-                templateUrl: 'template/jobs/jobs_seller_open.html',
+                templateUrl: 'template/viewMyJob.html',
                 controller: 'ViewMyJobCtrl',
                 resolve: {
                     auth: authResolve,
