@@ -248,9 +248,9 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", function ($http, $roo
                 information.status = obj.job_type;
             if (obj.user_type)
                 information.view_project = obj.user_type;
-            $http.get('/api/jobs/filter', {params: information}).success(function (data) {
-                $rootScope.$emit('job-changed', data.data)
-            })
+            // $http.get('/api/jobs/filter', {params: information}).success(function (data) {
+            //     $rootScope.$emit('job-changed', data.data)
+            // })
         },
         getInfo: {
             buyer: function () {

@@ -8,32 +8,32 @@
             <div class="job-nav">
                 <div>
                     <input class="job-search" ng-model="_keywords" placeholder="Keywords"/>
-                    <div class="sub-title">
-                        Category
-                    </div>
-                    <div class="sub-select">
-                        <selector type="'job_category'" items="categories" class-name="'nav'" on-select-custom="onSelectCustom(item)"></selector>
-                    </div>
-                    <div class="sub-title" ng-if="isSub">
-                        Sub Category
-                    </div>
-                    <div class="sub-select" ng-if="isSub">
-                        <selector type="'job_sub_category'" items="subCategories" class-name="'nav'" on-select-custom='onSelectSubCategory()'></selector>
-                    </div>
-                    <div class="sub-title" ng-if="isSubSub">
-                        Sub Sub Category
-                    </div>
-                    <div class="sub-select" ng-if="isSubSub">
-                        <selector type="'job_sub_sub_category'" items="subSubCategories" class-name="'nav'"></selector>
-                    </div>
-                    <div class="sub-title" ng-if="info.user_type == 'buyer' || !asView">
-                        Budget
-                    </div>
-                    <div class="sub-select" ng-if="info.user_type == 'buyer'  || !asView">
-                        <rzslider rz-slider-model="slider.minValue"
-                                  rz-slider-high="slider.maxValue"
-                                  rz-slider-options="slider.options"></rzslider>
-                    </div>
+                    <!--<div class="sub-title">-->
+                        <!--Category-->
+                    <!--</div>-->
+                    <!--<div class="sub-select">-->
+                        <!--<selector type="'job_category'" items="categories" class-name="'nav'" on-select-custom="onSelectCustom(item)"></selector>-->
+                    <!--</div>-->
+                    <!--<div class="sub-title" ng-if="isSub">-->
+                        <!--Sub Category-->
+                    <!--</div>-->
+                    <!--<div class="sub-select" ng-if="isSub">-->
+                        <!--<selector type="'job_sub_category'" items="subCategories" class-name="'nav'" on-select-custom='onSelectSubCategory()'></selector>-->
+                    <!--</div>-->
+                    <!--<div class="sub-title" ng-if="isSubSub">-->
+                        <!--Sub Sub Category-->
+                    <!--</div>-->
+                    <!--<div class="sub-select" ng-if="isSubSub">-->
+                        <!--<selector type="'job_sub_sub_category'" items="subSubCategories" class-name="'nav'"></selector>-->
+                    <!--</div>-->
+                    <!--<div class="sub-title" ng-if="info.user_type == 'buyer' || !asView">-->
+                        <!--Budget-->
+                    <!--</div>-->
+                    <!--<div class="sub-select" ng-if="info.user_type == 'buyer'  || !asView">-->
+                        <!--<rzslider rz-slider-model="slider.minValue"-->
+                                  <!--rz-slider-high="slider.maxValue"-->
+                                  <!--rz-slider-options="slider.options"></rzslider>-->
+                    <!--</div>-->
                     <div class="sub-title" ng-if="asView">
                         By status
                     </div>
