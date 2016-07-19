@@ -89,7 +89,6 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 };
 
                 var index = 0;
-
                 function cb() {
                     if (++index == 2) {
                         scope.showLoading = false;
