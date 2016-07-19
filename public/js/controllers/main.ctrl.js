@@ -2,6 +2,17 @@
 
 angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$location', '$state', function (scope, $rootScope, location, $state) {
     scope.headerSearch = '';
+    // function fbEnsureInit(callback) {
+    //     if(!window.fbApiInit) {
+    //         setTimeout(function() {fbEnsureInit(callback);}, 50);
+    //     } else {
+    //         if(callback) {
+    //             callback();
+    //         }
+    //     }
+    // }
+    // fbEnsureInit(function() {
+    // });
 
     scope.headerSubmit = function (search) {
         location.path('/category/' + search);

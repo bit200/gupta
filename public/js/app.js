@@ -4,6 +4,7 @@ var XYZCtrls = angular.module('XYZCtrls', []);
 var _state_obj = {}
 
 var XYZApp = angular.module('XYZApp', [
+    'directive.g+signin',
     'angularModalService',
     'ngMaterial',
     'rzModule',

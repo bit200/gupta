@@ -1,8 +1,8 @@
-angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location", "AuthService", "$state", "$http", function (safeApply, $timeout, $rootScope, $location, AuthService, $state, $http) {
+angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location", "AuthService", "$state", "$http", 
+    function (safeApply, $timeout, $rootScope, $location, AuthService, $state, $http) {
     var rootScope = $rootScope
     $rootScope.currentUser = AuthService.currentUser;
     $rootScope.isLogged = AuthService.isLogged;
-
 
     $rootScope.closePopupFn = function(is_digest) {
         $rootScope.closePopup = {
@@ -338,6 +338,4 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
         console.log(resp)
         localStorage.setItem('commonFilters', JSON.stringify(resp))
     });
-
-
 }]);
