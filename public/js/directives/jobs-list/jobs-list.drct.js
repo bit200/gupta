@@ -95,7 +95,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                     }
                 } 
             rootScope.$on('job-changed', function(e,data){
-                console.log('data changedchangedchanged', data)
+                console.log('data changedchangedchanged', data);
                 scope.items = data;
             });
 

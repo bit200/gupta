@@ -92,7 +92,7 @@ exports.filter_job = function (req, res) {
         category.type_name = params.sub_sub_category;
     if (params.budget_min && params.budget_max)
         query.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
-    params.status = params.status.toLowerCase(); 
+    category.status = params.status.toLowerCase();
     m.find(models.Job, category, res, function (jobs) {
         m.scb(jobs, res)
     })
