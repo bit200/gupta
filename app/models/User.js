@@ -12,7 +12,7 @@ var UserSchema = mongoose.Schema({
         trim: true,
         unique: true,
         validate: [validateEmail, 'Please fill a valid email address']
-    }, 
+    },
     password: String,
     restore_code: String,
     first_name: String,
