@@ -1,5 +1,5 @@
-// angular.module('XYZApp').config(['$stateParamsProvider', '$httpProvider', '$locationProvider',
-//     function ($stateParamsProvider, $httpProvider, $locationProvider) {
+"use strict";
+
 angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
 

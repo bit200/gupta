@@ -155,8 +155,8 @@ module.exports = function (grunt) {
         },
         uglify: {
             options: {
-                report: 'min',
-                mangle: false
+                mangle: true,
+                compress : true
             },
             production: {
                 files: [{
@@ -281,6 +281,9 @@ module.exports = function (grunt) {
             }
         },
         ngAnnotate: {
+            options: {
+                singleQuotes: true
+            },
             dist: {
                 files: [{
                     expand: true,
