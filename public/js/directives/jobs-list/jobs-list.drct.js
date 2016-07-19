@@ -16,7 +16,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
 
             scope.$watch('$parent.$parent._keywords', function(val){
-                scope.search = {job:{title:val}}
+                scope.search = {title:val}
             });
 
             console.log(scope);
@@ -89,16 +89,15 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 };
 
                 var index = 0;
-
                 function cb() {
                     if (++index == 2) {
                         scope.showLoading = false;
                     }
                 } 
-            // rootScope.$on('job-changed', function(e,data){
-            //     console.log('data changedchangedchanged', data)
-            //     scope.items = data;
-            // });
+            rootScope.$on('job-changed', function(e,data){
+                console.log('data changedchangedchanged', data);
+                scope.items = data;
+            });
 
                 http.get(scope.url, {params: obj}).success(function (data) {
                         cb();

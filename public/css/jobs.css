@@ -723,9 +723,6 @@ mess, desc {
     border-radius: 0px
 }
 
-.ng-invalid {
-    border-bottom: 1px solid #e53d32 !important;
-}
 
 span.rz-pointer.rz-pointer-min:focus {
     border: 0 !important;

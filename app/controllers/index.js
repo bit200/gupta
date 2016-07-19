@@ -7,8 +7,8 @@ var models = require('../db')
     , path = require('path');
 
 
-exports.index = function (req, res) {
-    res.render('src')
+exports.dev = function (req, res) {
+    res.render('../public/index.dev.html')
 };
 
 exports.common_filters = function (req, res) {

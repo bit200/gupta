@@ -40,6 +40,7 @@ exports.create_contract = function (req, res) {
     })
 };
 
+
 exports.approve_contract = function (req, res) {
     var query = {
         _id: req.params._id,
