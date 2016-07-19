@@ -6,3 +6,5 @@ public/uploads
 public/bower_components
 node_modules
 
+public/dist/dist.min.js
+public/dist/dist.min.css
