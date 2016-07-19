@@ -20,7 +20,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', 'j
     scope.subSubCategories = [];
     scope.onSelectCustom = function (item) {
         scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]))
-
+        delete scope.subSubCategories
     };
 
 
