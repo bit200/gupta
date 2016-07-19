@@ -156,7 +156,7 @@ XYZCtrls.directive("passwordVerify", function () {
     };
 });
 
-XYZCtrls.directive('uniqueEmail', function ($http) {
+XYZCtrls.directive('uniqueEmail', ["$http", function ($http) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -172,9 +172,9 @@ XYZCtrls.directive('uniqueEmail', function ($http) {
             });
         }
     };
-})
+}])
 
-XYZCtrls.directive('uniqueName', function ($http) {
+XYZCtrls.directive('uniqueName', ["$http", function ($http) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -190,7 +190,7 @@ XYZCtrls.directive('uniqueName', function ($http) {
             });
         }
     };
-})
+}])
 
 
 XYZCtrls.directive('toggle', function () {
@@ -407,7 +407,7 @@ XYZCtrls.directive('loading', function () {
     }
 });
 
-XYZCtrls.directive('flexMenu', function ($timeout) {
+XYZCtrls.directive('flexMenu', ["$timeout", function ($timeout) {
     return {
         scope: {
             flexMenu: '='
@@ -441,10 +441,10 @@ XYZCtrls.directive('flexMenu', function ($timeout) {
             )
         }
     }
-})
+}])
 ;
 
-XYZCtrls.directive("wayRoute", function ($location) {
+XYZCtrls.directive("wayRoute", ["$location", function ($location) {
     return {
         restrict: "E",
         scope: {
@@ -455,8 +455,8 @@ XYZCtrls.directive("wayRoute", function ($location) {
 
         }]
     }
-});
-XYZCtrls.directive("customPagination", function ($location) {
+}]);
+XYZCtrls.directive("customPagination", ["$location", function ($location) {
     return {
         restrict: "A",
         scope: {
@@ -494,7 +494,7 @@ XYZCtrls.directive("customPagination", function ($location) {
         }
 //        replace: true
     };
-});
+}]);
 
 XYZCtrls.directive("starRating", function () {
     return {

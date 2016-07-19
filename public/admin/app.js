@@ -11,7 +11,7 @@ angular.module( 'admin', [
   'smart-table',
   'admin.jobs'
 ])
-.config( function myAppConfig ($urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
+.config( ["$urlRouterProvider", "jwtInterceptorProvider", "$httpProvider", function myAppConfig ($urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/sellers');
 
   jwtInterceptorProvider.tokenGetter = function(store) {
@@ -19,8 +19,8 @@ angular.module( 'admin', [
   };
 
   $httpProvider.interceptors.push('jwtInterceptor');
-})
-.run(function($rootScope, $state, store, jwtHelper) {
+}])
+.run(["$rootScope", "$state", "store", "jwtHelper", function($rootScope, $state, store, jwtHelper) {
   $rootScope.$on('$stateChangeStart', function(e, to) {
     if (to.data && to.data.requiresLogin) {
       if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
@@ -31,8 +31,8 @@ angular.module( 'admin', [
         $rootScope.isLogged = true;
     }
   });
-})
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location, $state ) {
+}])
+.controller( 'AppCtrl', ["$scope", "$location", "$state", function AppCtrl ( $scope, $location, $state ) {
   $scope.$state = $state
-});
+}]);
 

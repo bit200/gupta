@@ -229,7 +229,7 @@ XYZCtrls.service('parseRating', function () {
 });
 
 
-XYZCtrls.service('jobInformation', function ($http, $rootScope) {
+XYZCtrls.service('jobInformation', ["$http", "$rootScope", function ($http, $rootScope) {
     var information = {};
 
     return {
@@ -281,7 +281,7 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
 
         }
     };
-});
+}]);
 XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$state',
     function ($q, $rootScope, ModalService, $http, $state) {
         var authTokens = {};
@@ -358,7 +358,7 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
         return resObj
     }]);
 
-XYZCtrls.factory('socket', function (socketFactory) {
+XYZCtrls.factory('socket', ["socketFactory", function (socketFactory) {
     var myIoSocket = io.connect('http://localhost:8080/');
 
     var socket = socketFactory({
@@ -366,7 +366,7 @@ XYZCtrls.factory('socket', function (socketFactory) {
     });
 
     return socket;
-});
+}]);
 
 XYZCtrls.service('breadCrumbs', function () {
     return {

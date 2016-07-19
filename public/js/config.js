@@ -47,7 +47,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 templateUrl: 'template/home.html',
                 controller: 'HomeCtrl',
                 resolve: {
-                    getContent: function ($q, $http) {
+                    getContent: ["$q", "$http", function ($q, $http) {
                         return $q.all({
                             sellers: $http.get('/api/freelancers?page=1&limit=8', {}),
                             locations: $http.get('/get-content', {
@@ -59,7 +59,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             jobs: $http.get('/api/jobs/popular')
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -128,7 +128,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'AgencyCtrl',
                 reloadOnSearch: false,
                 resolve: {
-                    getContent: function ($q, $http, $location) {
+                    getContent: ["$q", "$http", "$location", function ($q, $http, $location) {
                         return $q.all({
                             locations: $http.get('/get-content', {
                                 params: {
@@ -140,7 +140,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             totalCount: $http.get('/api/freelancers?count=true'),
                             businessAccounts: $http.get('/api/my/business_accounts')
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -153,11 +153,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 templateUrl: 'template/chat.html',
                 controller: 'chatCtrl',
                 resolve: {
-                    getContent: function ($q, $http) {
+                    getContent: ["$q", "$http", function ($q, $http) {
                         return $q.all({
                             rooms: $http.get('/api/chat/rooms')
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -172,11 +172,11 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     scope.info = info
                 }],
                 resolve: {
-                    info: function ($q, $http) {
+                    info: ["$q", "$http", function ($q, $http) {
                         return $q.all({
                             info: $http.get('/api/me')
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -190,7 +190,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'JobsContentCtrl',
                 abstract: false,
                 resolve: {
-                    getContent: function($http){
+                    getContent: ["$http", function($http){
                         return $http.get('/get-content', {
                                             params: {
                                                 name: 'Filters',
@@ -198,7 +198,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                                 distinctName: 'name'
                                             }
                                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: 'Dashboard',
@@ -278,7 +278,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         page_type: 'buyer_open'
 
                     }),
-                    getContent: function ($q, $http) {
+                    getContent: ["$q", "$http", function ($q, $http) {
                         return $q.all({
                             content: $http.get('/get-content', {
                                 params: {
@@ -289,7 +289,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             a: 'buyer'
                         })
-                    },
+                    }],
                     s: getResolve({
                         user_type: 'buyer',
                         job_type: 'open',
@@ -425,7 +425,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'freelancerCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: function ($q, $http) {
+                    getContent: ["$q", "$http", function ($q, $http) {
                         return $q.all({
                             industry: $http.get('/get-content', {
                                 params: {
@@ -463,7 +463,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                                 }
                             })
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -477,7 +477,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'userCtrl',
                 resolve: {
                     auth: authResolve,
-                    getContent: function ($q, $http) {
+                    getContent: ["$q", "$http", function ($q, $http) {
                         return $q.all({
                             service: $http.get('/get-content', {
                                 params: {
@@ -495,7 +495,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             }),
                             user: $http.get('/api/user/me')
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -573,12 +573,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 },
                 resolve: {
-                    getContent: function ($q, $http, $stateParams) {
+                    getContent: ["$q", "$http", "$stateParams", function ($q, $http, $stateParams) {
                         return $q.all({
                             viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
                             profile: $http.get('/api/freelancer/' + $stateParams.id)
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -596,12 +596,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 },
                 resolve: {
-                    getContent: function ($q, $http, $stateParams) {
+                    getContent: ["$q", "$http", "$stateParams", function ($q, $http, $stateParams) {
                         return $q.all({
                             viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
                             profile: $http.get('/api/freelancer/' + $stateParams.id)
                         })
-                    }
+                    }]
                 },
                 ncyBreadcrumb: {
                     label: ' ',
@@ -744,7 +744,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
 
         var modalService, openedModal;
-        $httpProvider.interceptors.push(function ($q, $injector) {
+        $httpProvider.interceptors.push(["$q", "$injector", function ($q, $injector) {
             return {
                 'responseError': function (rejection) {
                     if (rejection.status === 402) {
@@ -793,6 +793,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     return config;
                 }
             };
-        });
+        }]);
     }
 ]);
