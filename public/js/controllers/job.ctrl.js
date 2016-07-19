@@ -113,12 +113,12 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
 
         scope.job_create = function (invalid, type, job) {
             console.log('invalid', job)
-            // if (invalid) {
-                // console.log('ahahahaha')
+            if (invalid) {
+                console.log('ahahahaha')
 
-                // rootScope.scrollToErr()
-                // return;
-            // }
+                rootScope.scrollToErr()
+                return;
+            }
             job = scope.job
             job.job_visibility = (job.job_visibility_plain != 'Private')
             console.log("job before", job, job.job_visibility_plain, job.job_visibility)
