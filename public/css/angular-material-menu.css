@@ -145,10 +145,10 @@ md-input-container.md-default-theme.md-input-invalid .md-input, md-input-contain
 }
 
 .md-autocomplete-suggestions li{
-    color: rgb(51, 57, 69);
+    color: rgb(51, 57, 69) !important;
 }
 
 .md-autocomplete-suggestions li .highlight{
-    color: black;
+    color: black !important;
 }
 
