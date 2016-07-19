@@ -34,7 +34,6 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 info: getResolve(params)
             }
         };
-
         $stateProvider
             .state('root', {
                 url: '',
