@@ -16,7 +16,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
 
             scope.$watch('$parent.$parent._keywords', function(val){
-                scope.search = {job:{title:val}}
+                scope.search = {title:val}
             });
 
             console.log(scope);

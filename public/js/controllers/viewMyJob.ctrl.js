@@ -18,7 +18,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$
     scope.categories = [];
     scope.subCategories = [];
     scope.subSubCategories = [];
-
+    scope._keywords = '';
     scope.onSelectCustom = function (item) {
         scope.isSub = false;
         scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]));
@@ -73,6 +73,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$
             }
         }
     };
+    
     $rootScope.$watchCollection('commonFilters', function (val) {
         if (val)
             scope.categories = Object.keys(val)
