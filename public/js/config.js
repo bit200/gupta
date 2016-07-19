@@ -5,12 +5,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         // $locationProvider.html5Mode(true).hashPrefix('!')
 
-        var authResolve = ["$q", "AuthService", function ($q, AuthService) {
+        var authResolve = ["$q", "AuthService", "$state", function ($q, AuthService, $state) {
             var deferred = $q.defer();
             AuthService.checkAuthCtrl().then(function () {
                 deferred.resolve();
             }, function () {
-                AuthService.showLogin('/');
+                $state.go('login')
                 deferred.reject();
             });
             return deferred.promise;
