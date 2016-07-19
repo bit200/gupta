@@ -16,9 +16,9 @@
             <span ng-click="jobs_area={openSubCategories: true}" ng-show="menu.activeItem.subFilter">{{menu.activeItem.subFilter}}</span>
             <span ng-click="jobs_area={openSubCategories: true}" ng-show="!menu.activeItem.subFilter && menu.activeItem.name">{{menu.activeItem.name}}</span>
             <ul style="padding-left:0px;list-style-type: none;position: absolute;top:5px;width: 150px;left: 0px;background: white;box-shadow: 1px 1px 4px 1px lightgrey;padding: 0 10px;z-index: 99;" ng-show="jobs_area.openSubCategories">
-                <li ng-repeat="value in filters[menu.activeItem.category]">
-                    <span  style="margin: 12px 0px;" class="pointer" ng-if="value.name" ng-click="menu.activeItem.name=value.name;jobs_area.openSubCategories=false">{{value.name}}</span>
-                    <div ng-if="value.subFilter" style="margin: 12px 0px;">
+                <li ng-repeat="value in filters[menu.activeItem.category]" style="margin: 12px 0px;">
+                    <span class="pointer" ng-if="value.name" ng-click="menu.activeItem.name=value.name;jobs_area.openSubCategories=false">{{value.name}}</span>
+                    <div ng-if="value.subFilter" >
                         <span class="pointer" ng-click="menu.activeItem.subFilter=value.subFilter;jobs_area.openSubNames=true;jobs_area.openSubCategories=false;menu.activeItem.name='';choiceFilter.type_filter=value.subFilter">{{value.subFilter}}</span>
                     </div>
                 </li>
