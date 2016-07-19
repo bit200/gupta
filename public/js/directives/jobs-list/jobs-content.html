@@ -14,10 +14,10 @@
                     <div class="sub-select">
                         <selector type="'job_category'" items="categories" class-name="'nav'" on-select-custom="onSelectCustom(item)"></selector>
                     </div>
-                    <div class="sub-title">
+                    <div class="sub-title" ng-if="isSub">
                         Sub Category
                     </div>
-                    <div class="sub-select">
+                    <div class="sub-select" ng-if="isSub">
                         <selector type="'job_sub_category'" items="subCategories" class-name="'nav'" on-select-custom='onSelectSubCategory()'></selector>
                     </div>
                     <div class="sub-title" ng-if="isSubSub">

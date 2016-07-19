@@ -18,9 +18,12 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', 'j
     scope.categories = [];
     scope.subCategories = [];
     scope.subSubCategories = [];
+
     scope.onSelectCustom = function (item) {
-        scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]))
-        delete scope.subSubCategories
+        scope.isSub = false;
+        scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]));
+        setTimeout(function(){ scope.isSub = true;},0)
+        scope.isSubSub = false;
     };
 
 
