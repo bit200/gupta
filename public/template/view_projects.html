@@ -133,8 +133,9 @@
                 <div class="col-md-3 col-xs-6" ng-repeat="project in projects">
 
                     <div class="profile-detail">
-                        <div class="img-block">
-                            <img ng-src="{{project.preview}}">
+                        <div class="img-block" style="position: relative">
+                            <img style="max-width: 100%;height: auto;margin: 0 auto;" src="https://cdn3.iconfinder.com/data/icons/line-icons-set/128/1-07-256.png" ng-if="!project.preview">
+                            <img ng-src="{{project.preview}}" style="max-width: 100%;height: auto;margin: 0 auto;" ng-if="project.preview">
                         </div>
                         <div class="padding-10">
                             <div class="profile-title">{{project.title}}</div>

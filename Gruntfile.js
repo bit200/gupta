@@ -17,6 +17,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-apidoc');
+    grunt.loadNpmTasks('grunt-ng-annotate');
 
     //try {
     //    var _data = JSON.stringify(require('./doc/api_data.json'));
@@ -114,27 +115,7 @@ module.exports = function (grunt) {
                 }
             }
         },
-        cssmin:  {
-            options: {
-                keepSpecialComments: 0
-            },
-            target: {
-                expand: true,
-                files: [
-                    {
-                        '<%= yeoman.app %>/styles/done.min.css': [
-                            '<%= yeoman.app %>/styles/bootstrap.css'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        cwd: '<%= yeoman.dist %>/tempcss',
-                        src: ['{,**/}*.css', '!{,**/}*.min.css'],
-                        dest: '<%= yeoman.dist %>/tempcss',
-                        ext: '.min.css'
-                    }]
-            }
-        },
+
         jssemicoloned: {
             files: ['<%= yeoman.app %>/scripts/{,**/}*.js']
             //            files: ['<%= yeoman.app %>/scripts/controllers/*.js']
@@ -176,23 +157,142 @@ module.exports = function (grunt) {
             options: {
                 mangle: false
             },
-            dist: {
-                files: {
-                    '<%= yeoman.script_name %>': ['<%= yeoman.dist %>/dist/src/script.built.js'],
-                }
-            },
-            lib: {
-                files: {
-                    '<%= yeoman.lib_name %>': ['<%= yeoman.dist %>/dist/src/libs.js']
-                }
-            },
-            v1: {
-                files: {
-                    '<%= yeoman.v1 %>/dist/script.min.js': ['<%= yeoman.v1 %>/dist/src/script.built.js'],
-                    '<%= yeoman.v1 %>/dist/libs.min.js': ['<%= yeoman.v1 %>/dist/src/libs.js']
-                }
+            production: {
+                files: [{
+                    "public/dist/dist.min.js": [
+                        "public/bower_components/jquery/dist/jquery.js",
+                        "public/js/libs/flexMenu.js",
+                        "public/bower_components/underscore/underscore-min.js",
+                        "public/bower_components/bootstrap/dist/js/bootstrap.min.js",
+                        "public/bower_components/angular/angular.js",
+                        "public/js/libs/angular-materials-icons.min.js",
+                        "public/bower_components/ng-dialog/js/ngDialog.min.js",
+                        "public/bower_components/angular-aria/angular-aria.js",
+                        "public/bower_components/angular-material/angular-material.js",
+                        "public/bower_components/ng-img-crop/compile/minified/ng-img-crop.js",
+                        "public/bower_components/ng-file-upload/ng-file-upload-shim.min.js",
+                        "public/bower_components/ng-file-upload/ng-file-upload.min.js",
+                        "public/bower_components/angular-animate/angular-animate.js",
+                        "public/bower_components/angular-ui-router/release/angular-ui-router.js",
+                        "public/bower_components/angular-resource/angular-resource.js",
+                        "public/bower_components/angularjs-slider/dist/rzslider.min.js",
+                        "public/bower_components/angular-ui-select/dist/select.js",
+                        "public/bower_components/angular-notify/angular-notify.js",
+                        "public/bower_components/angular-modal-service/dst/angular-modal-service.min.js",
+                        "public/bower_components/angular-bootstrap/ui-bootstrap.js",
+                        "public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+                        "public/bower_components/angular-socket-io/socket.min.js",
+                        "public/js/libs/angular-breadcrumb.js",
+                        "public/js/libs/socket.io.js",
+                        "public/js/app.js",
+                        "public/js/directives.js",
+                        "public/js/directives/jobs-list/jobs-list.drct.js",
+                        "public/js/directives/selector/selector.drct.js",
+                        "public/js/directives/budget/budget.drct.js",
+                        "public/js/directives/mess/mess.drct.js",
+                        "public/js/directives/error/error.drct.js",
+                        "public/js/directives/succ/succ.drct.js",
+                        "public/js/directives/desc/desc.drct.js",
+                        "public/js/directives/open/open.drct.js",
+                        "public/js/directives/contract-post/contract-post.drct.js",
+                        "public/js/directives/contract-detailed/contract-detailed.drct.js",
+                        "public/js/directives/apply-detailed/apply-detailed.drct.js",
+                        "public/js/directives/apply-post/apply-post.drct.js",
+                        "public/js/directives/job-detailed/job-detailed.drct.js",
+                        "public/js/directives/job-post/job-post.drct.js",
+                        "public/js/directives/btns/btns.drct.js",
+                        "public/js/directives/edit/edit.drct.js",
+                        "public/js/directives/permission/permission.drct.js",
+                        "public/js/directives/freelancer/freelancer.drct.js",
+                        "public/js/directives/short-preview/short-preview.drct.js",
+                        "public/js/directives/buyer/buyer.drct.js",
+                        "public/js/directives/is-edited/is-edited.drct.js",
+                        "public/js/directives/date/date.drct.js",
+                        "public/js/directives/acts/acts.drct.js",
+                        "public/js/directives/category-job/category.drct.js",
+                        "public/js/directives/category-list/category-list.drct.js  ",
+                        "public/js/services.js",
+                        "public/js/filter.js",
+                        "public/js/run.js",
+                        "public/js/config.js",
+                        "public/js/controllers/main.ctrl.js",
+                        "public/js/controllers/claim_agencies.ctrl.js",
+                        "public/js/controllers/common.ctrl.js",
+                        "public/js/controllers/view_projects.ctrl.js",
+                        "public/js/controllers/category.ctrl.js",
+                        "public/js/controllers/confirm.ctrl.js",
+                        "public/js/controllers/contract.ctrl.js",
+                        "public/js/controllers/contractApprove.ctrl.js",
+                        "public/js/controllers/apply.ctrl.js",
+                        "public/js/controllers/contractClose.ctrl.js",
+                        "public/js/controllers/forgot.ctrl.js",
+                        "public/js/controllers/freelancer_registration.ctrl.js",
+                        "public/js/controllers/header.ctrl.js",
+                        "public/js/controllers/home.ctrl.js",
+                        "public/js/controllers/dashboard.ctrl.js",
+                        "public/js/controllers/job.ctrl.js",
+                        "public/js/controllers/postjob.ctrl.js",
+                        "public/js/controllers/buyer_profile.ctrl.js",
+                        "public/js/controllers/uploadFile.ctrl.js",
+                        "public/js/controllers/user.ctrl.js",
+                        "public/js/controllers/viewMyJob.ctrl.js",
+                        "public/js/controllers/chat.ctrl.js",
+                        "public/js/controllers/login.ctrl.js",
+                        "public/js/controllers/signup.ctrl.js",
+                        "public/js/controllers/myProfile.ctrl.js"
+                    ]
+                }]
+            }
+
+        },
+        cssmin: {
+            combine: {
+                files: [
+                    {
+                        "public/dist/dist.min.css":[
+                            "public/bower_components/bootstrap/dist/css/bootstrap.css",
+                            "public/bower_components/angular-ui-select/dist/select.css",
+                            "public/bower_components/angularjs-slider/dist/rzslider.min.css",
+                            "public/css/app.css",
+                            "public/css/auth.css",
+                            "public/css/home.css",
+                            "public/css/directive.css",
+                            "public/css/jobs.css",
+                            "public/css/claim-angency.css",
+                            "public/css/how_it_work.css",
+                            "public/css/font-awesome.min.css",
+                            "public/css/flex-menu.css",
+                            "public/css/chat.css",
+                            "public/css/img.css",
+                            "public/css/samples.css",
+                            "public/fonts/font.css",
+                            "public/css/angular-material-menu.css",
+                            "public/css/seller-details.css",
+                            "public/bower_components/angular-material/angular-material.css",
+                            "public/bower_components/ng-dialog/css/ngDialog.css",
+                            "public/bower_components/ng-dialog/css/ngDialog-theme-default.css",
+                            "public/bower_components/angular-notify/angular-notify.css",
+                            "public/bower_components/angular-bootstrap/ui-bootstrap-csp.css",
+                            "public/bower_components/ng-img-crop/compile/minified/ng-img-crop.css"
+                        ]
+                    }
+                ]
             }
         },
+        ngAnnotate: {
+            options: {
+                singleQuotes: true
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'public/',
+                    src: '*/**.js',
+                    dest: 'public/'
+                }]
+            }
+        },
+
         'string-replace': {
             apihtml: {
                 files: {

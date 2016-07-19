@@ -1,7 +1,10 @@
 .idea
-node_modules
 projectFilesBackup
 public/unit-tests
 public/api
 public/uploads
-public/bower_components
+node_modules
+
+
+
+

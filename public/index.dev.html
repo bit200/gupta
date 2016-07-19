@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" ng-app="XYZApp">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width">
+    <title>XYZOnline</title>
+    <base href="/">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
+    <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/directive.css">
+    <link rel="stylesheet" href="css/jobs.css">
+    <link rel="stylesheet" href="css/claim-angency.css">
+    <link rel="stylesheet" href="css/how_it_work.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/flex-menu.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/samples.css">
+    <link rel="stylesheet" href="fonts/font.css">
+    <link rel="stylesheet" href="css/angular-material-menu.css">
+    <link rel="stylesheet" href="css/seller-details.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
+    <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" href="bower_components/angular-notify/angular-notify.css">
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css">
+</head>
+<body ng-controller="MainCtrl"  style="width: 100%; position: relative">
+<div class="page-wrap">
+    <div ng-include="'template/header.html'" class="top-header"></div>
+    <div class="body font-family" ui-view></div>
+</div>
+<div class="site-footer">
+    <footer class="home-footer" style="">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-xs-12 text-center-xs pull-left font-family" style="padding-top: 3px;">
+                    <span class="home-footer-text">About</span>
+                    <span class="home-footer-text">Testimonial</span>
+                    <span class="home-footer-text">Show to list</span>
+                    <span class="home-footer-text">How it works</span>
+                    <span class="home-footer-text">Clients</span>
+                    <span class="home-footer-text">Terms & Conditions</span>
+                    <span class="home-footer-text">Press</span>
+                    <span class="home-footer-text">Contact</span>
+                </div>
+                <div class="col-sm-3 col-xs-12 text-center-xs paddingTB15-xs pull-right text-right">
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-linkedin-square" aria-hidden="true" style="padding-left:1px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-twitter" aria-hidden="true" style="padding-left:2px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-pinterest-p" aria-hidden="true" style="padding-left:2px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-facebook" aria-hidden="true" style="padding-left:3px"></i>
+                    </div>
+                    <div class="home-footer-social-link">
+                        <i class="fa fa-instagram" aria-hidden="true" style="padding-left:1px"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 text-center-xs paddingT10-xs pull-left">© 12TH CROSS 2016</div>
+            <div class="col-sm-6 col-xs-12 text-right text-center-xs paddingT10-xs pull-right">POWERED BY: IGENERO</div>
+        </div>
+    </div>
+</div>
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="js/libs/flexMenu.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="js/libs/angular-materials-icons.min.js"></script>
+<script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.js"></script>
+<script src="bower_components/angular-notify/angular-notify.js"></script>
+<script src="bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-socket-io/socket.min.js"></script>
+<script src="js/libs/angular-breadcrumb.js"></script>
+<script src="js/libs/socket.io.js"></script>
+<script src="js/app.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/directives/jobs-list/jobs-list.drct.js"></script>
+<script src="js/directives/selector/selector.drct.js"></script>
+<script src="js/directives/budget/budget.drct.js"></script>
+<script src="js/directives/mess/mess.drct.js"></script>
+<script src="js/directives/error/error.drct.js"></script>
+<script src="js/directives/succ/succ.drct.js"></script>
+<script src="js/directives/desc/desc.drct.js"></script>
+<script src="js/directives/open/open.drct.js"></script>
+<script src="js/directives/contract-post/contract-post.drct.js"></script>
+<script src="js/directives/contract-detailed/contract-detailed.drct.js"></script>
+<script src="js/directives/apply-detailed/apply-detailed.drct.js"></script>
+<script src="js/directives/apply-post/apply-post.drct.js"></script>
+<script src="js/directives/job-detailed/job-detailed.drct.js"></script>
+<script src="js/directives/job-post/job-post.drct.js"></script>
+<script src="js/directives/btns/btns.drct.js"></script>
+<script src="js/directives/edit/edit.drct.js"></script>
+<script src="js/directives/permission/permission.drct.js"></script>
+<script src="js/directives/freelancer/freelancer.drct.js"></script>
+<script src="js/directives/short-preview/short-preview.drct.js"></script>
+<script src="js/directives/buyer/buyer.drct.js"></script>
+<script src="js/directives/is-edited/is-edited.drct.js"></script>
+<script src="js/directives/date/date.drct.js"></script>
+<script src="js/directives/acts/acts.drct.js"></script>
+<script src="js/directives/category-job/category.drct.js"></script>
+<script src="js/directives/category-list/category-list.drct.js  "></script>
+<script src="js/services.js"></script>
+<script src="js/filter.js"></script>
+<script src="js/run.js"></script>
+<script src="js/config.js"></script>
+<script src="js/controllers/main.ctrl.js"></script>
+<script src="js/controllers/claim_agencies.ctrl.js"></script>
+<script src="js/controllers/common.ctrl.js"></script>
+<script src="js/controllers/view_projects.ctrl.js"></script>
+<script src="js/controllers/category.ctrl.js"></script>
+<script src="js/controllers/confirm.ctrl.js"></script>
+<script src="js/controllers/contract.ctrl.js"></script>
+<!--<script src="js/controllers/contractSuggest.ctrl.js"></script>-->
+<script src="js/controllers/contractApprove.ctrl.js"></script>
+<script src="js/controllers/apply.ctrl.js"></script>
+<script src="js/controllers/contractClose.ctrl.js"></script>
+<script src="js/controllers/forgot.ctrl.js"></script>
+<script src="js/controllers/freelancer_registration.ctrl.js"></script>
+<script src="js/controllers/header.ctrl.js"></script>
+<script src="js/controllers/home.ctrl.js"></script>
+<script src="js/controllers/dashboard.ctrl.js"></script>
+<script src="js/controllers/job.ctrl.js"></script>
+<script src="js/controllers/postjob.ctrl.js"></script>
+<script src="js/controllers/buyer_profile.ctrl.js"></script>
+<script src="js/controllers/uploadFile.ctrl.js"></script>
+<script src="js/controllers/user.ctrl.js"></script>
+<script src="js/controllers/viewMyJob.ctrl.js"></script>
+<script src="js/controllers/chat.ctrl.js"></script>
+<script src="js/controllers/login.ctrl.js"></script>
+<script src="js/controllers/signup.ctrl.js"></script>
+<script src="js/controllers/myProfile.ctrl.js"></script>
+<script type="text/javascript">
+    if (!location.hash) location.hash='#/'
+</script>
+
+</body>
+</html>

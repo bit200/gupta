@@ -1,4 +1,4 @@
-angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $location, AuthService, $state, $http) {
+angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location", "AuthService", "$state", "$http", function (safeApply, $timeout, $rootScope, $location, AuthService, $state, $http) {
     var rootScope = $rootScope
     $rootScope.currentUser = AuthService.currentUser;
     $rootScope.isLogged = AuthService.isLogged;
@@ -340,4 +340,4 @@ angular.module('XYZApp').run(function (safeApply, $timeout, $rootScope, $locatio
     });
 
 
-});
+}]);
