@@ -248,7 +248,6 @@ XYZCtrls.service('jobInformation', function ($http, $rootScope) {
                 information.status = obj.job_type;
             if (obj.user_type)
                 information.view_project = obj.user_type;
-            console.log('2222')
             $http.get('/api/jobs/filter', {params: information}).success(function (data) {
                 $rootScope.$emit('job-changed', data.data)
             })

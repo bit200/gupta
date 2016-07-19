@@ -95,10 +95,10 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                         scope.showLoading = false;
                     }
                 } 
-            // rootScope.$on('job-changed', function(e,data){
-            //     console.log('data changedchangedchanged', data)
-            //     scope.items = data;
-            // });
+            rootScope.$on('job-changed', function(e,data){
+                console.log('data changedchangedchanged', data)
+                scope.items = data;
+            });
 
                 http.get(scope.url, {params: obj}).success(function (data) {
                         cb();

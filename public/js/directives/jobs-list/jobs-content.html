@@ -26,24 +26,24 @@
                     <div class="sub-select" ng-if="isSubSub">
                         <selector type="'job_sub_sub_category'" items="subSubCategories" class-name="'nav'"></selector>
                     </div>
-                    <div class="sub-title" ng-if="info.user_type == 'buyer' || info.user_type == 'Buyer'">
+                    <div class="sub-title" ng-if="info.user_type == 'buyer' || !asView">
                         Budget
                     </div>
-                    <div class="sub-select" ng-if="info.user_type == 'buyer' || info.user_type == 'Buyer'">
+                    <div class="sub-select" ng-if="info.user_type == 'buyer'  || !asView">
                         <rzslider rz-slider-model="slider.minValue"
                                   rz-slider-high="slider.maxValue"
                                   rz-slider-options="slider.options"></rzslider>
                     </div>
-                    <div class="sub-title">
+                    <div class="sub-title" ng-if="asView">
                         By status
                     </div>
-                    <div class="sub-select">
+                    <div class="sub-select" ng-if="asView">
                         <selector type="'job_type'" items="['Open', 'Ongoing', 'Closed']" class-name="'nav'" value="{{info.job_type}}"></selector>
                     </div>
-                    <div class="sub-title">
+                    <div class="sub-title" ng-if="asView">
                         View project as
                     </div>
-                    <div class="sub-select">
+                    <div class="sub-select" ng-if="asView">
                         <selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>
                     </div>
                     <!--<b>Buyer</b>-->

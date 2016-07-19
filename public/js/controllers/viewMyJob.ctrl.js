@@ -14,7 +14,7 @@ XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '
     console.log('info', scope.info)
 }]);
 
-XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', 'jobInformation', function (scope, getContent, $rootScope, jobInformation) {
+XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$timeout', 'jobInformation', function (scope, getContent, $rootScope, $timeout, jobInformation) {
     scope.categories = [];
     scope.subCategories = [];
     scope.subSubCategories = [];
@@ -22,7 +22,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', 'j
     scope.onSelectCustom = function (item) {
         scope.isSub = false;
         scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]));
-        setTimeout(function(){ scope.isSub = true;},0)
+        $timeout(function(){ scope.isSub = true;},0)
         scope.isSubSub = false;
     };
 

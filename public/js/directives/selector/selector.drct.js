@@ -35,7 +35,6 @@ XYZCtrls.directive('selector', function () {
             };
 
             scope.onSelect = function (item, e) {
-                console.log('on select', item)
                 var obj = {};
                 obj[scope.type] = item;
                 jobInformation.setInfo(obj);

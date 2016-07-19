@@ -76,7 +76,7 @@ exports.get_info = function (req, res) {
 };
 
 exports.filter_job = function (req, res) {
-    console.log('filter job')
+    console.log('filter job');
     var params = m.getBody(req);
     params.status = params.status || 'Open';
 
@@ -84,56 +84,17 @@ exports.filter_job = function (req, res) {
         category = {},
         status = [];
     if (params.category)
-        category.category = params.category;
+        category.type_category = params.category;
 
     if (params.sub_category)
-        category.sub_category = params.sub_category;
-
+        category.type_filter = params.sub_category;
     if (params.sub_sub_category)
-        category.sub_sub_category = params.sub_sub_category;
-    switch (params.status) {
-        case 'Open':
-            status = {$in: ["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"]};
-            break;
-        case 'Ongoing':
-            status = {$in: ["Ongoing", "Marked as completed", "Paused"]};
-            break;
-        case 'Closed':
-            status = "Closed";
-            break;
-        default:
-            break;
-    }
-
+        category.type_name = params.sub_sub_category;
+    if (params.budget_min && params.budget_max)
+        query.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
+    params.status = params.status.toLowerCase(); 
     m.find(models.Job, category, res, function (jobs) {
-        var arrFunc = [],
-            jobArr = [];
-        arrFunc.push(function (cb) {
-            var count = 0;
-            var arrModels = []
-            _.each(jobs, function (job) {
-                (function (job) {
-                    var query = {job: job._id, status: status};
-                    if (params.budget_min && params.budget_max)
-                        query.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
-
-                    arrModels.push(function (_cb) {
-                        m.findOne(models[modelFind], query, {}, function (item) {
-                            jobArr.push(item);
-                            _cb()
-                        }, {populate: 'job freelancer contract', sort: '-created_at'})
-                    });
-                    async.parallel(arrModels, function (e, r) {
-                        cb()
-                    })
-                })(job)
-            })
-
-        });
-
-        async.parallel(arrFunc, function (e, r) {
-            m.scb(jobArr, res)
-        })
+        m.scb(jobs, res)
     })
 };
 

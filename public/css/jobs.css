@@ -723,7 +723,7 @@ mess, desc {
     border-radius: 0px
 }
 
-.ng-invalid {
+input.ng-invalid.ng-touched {
     border-bottom: 1px solid #e53d32 !important;
 }
 
