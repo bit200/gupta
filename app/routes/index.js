@@ -4,7 +4,6 @@ var index = require('../controllers/index');
 
 module.exports = function (app) {
     var auth = require('./middlewares/auth');
-    app.get('/', index.index);
     app.get('/api/common_filters', index.common_filters);
     app.get('/api/search', index.search);
     app.get('/admin', index.admin);

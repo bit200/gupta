@@ -3,8 +3,8 @@
 angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
 
-        $locationProvider.html5Mode(true).hashPrefix('!')
-        
+        // $locationProvider.html5Mode(true).hashPrefix('!')
+
         var authResolve = ["$q", "AuthService", function ($q, AuthService) {
             var deferred = $q.defer();
             AuthService.checkAuthCtrl().then(function () {
@@ -740,7 +740,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         }
 
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/#/');
 
 
         var modalService, openedModal;
