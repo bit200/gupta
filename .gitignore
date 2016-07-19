@@ -5,14 +5,3 @@ public/unit-tests
 public/api
 public/uploads
 public/bower_components
-
-
-
-
-Client side. Update interface. Add mobile version home page.
-Client side. Update interface. Add mobile version agency page.
-Client side. Update 'Freelancer registration' form. Add angular validation.
-             Resize any fields for more user-friendly interface. Add button to redirect on home page.
-Client side. Create modal form to create package service in freelancer/agency registration.
-Client side. Update 'Post Job' form. Add angular validation.
-             Resize any fields for more user-friendly interface. Add button to redirect on home page.
