@@ -229,6 +229,31 @@ XYZCtrls.service('parseRating', function () {
 });
 
 
+XYZCtrls.service('loginSocial', ["$http", "AuthService", '$state', function ($http, AuthService, $state) {
+    return function (email, first_name, last_name, preview) {
+        var user = {
+            email: email,
+            preview: preview
+        };
+        if (first_name) {
+            user.first_name = first_name
+        }
+        if (last_name) {
+            user.last_name = last_name
+        }
+
+        $http.post('/sign-up-social', user).then(function (resp) {
+            console.log('resp', resp);
+            AuthService.setTokens({
+                accessToken: resp.data.data.accessToken.value,
+                refreshToken: resp.data.data.refreshToken.value
+            });
+            $state.go('home');
+        }, function (err) {
+            console.log('err', err)
+        })
+    }
+}])
 XYZCtrls.service('jobInformation', ["$http", "$rootScope", function ($http, $rootScope) {
     var information = {};
 
@@ -265,16 +290,16 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", function ($http, $roo
                 };
                 return obj;
             },
-            category: function(){
+            category: function () {
                 return information.category;
             },
-            sub_category: function(){
+            sub_category: function () {
                 return information.sub_category;
             },
-            sub_sub_category: function(){
+            sub_sub_category: function () {
                 return information.sub_sub_category;
             },
-            user_type: function(){
+            user_type: function () {
                 return information.view_project;
             }
 

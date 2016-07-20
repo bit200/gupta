@@ -19,11 +19,11 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
 
     $rootScope.go = function (path) {
         $location.path(path)
-    }
+    };
 
     $rootScope.getContent = function (getContent, field) {
         return getContent[field] && getContent[field].data ? getContent[field].data.data : null
-    }
+    };
     $rootScope.scrollToErr = function () {
         $timeout(function () {
             var el1 = angular.element('.md-input-invalid').eq(0).parent()

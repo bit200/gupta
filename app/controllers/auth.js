@@ -51,6 +51,21 @@ exports.sign_up = function (req, res) {
 };
 
 
+exports.sign_up_social = function (req, res) {
+    var params = req.body;
+    m.findCreate(User, {email:params.email},params, res, function (user) {
+        mkdirp(config.root + "/public/uploads/" + user._id.toString(), function (err) {
+            if (err) console.log(err);
+            else {
+                console.log('Directory create!');
+            }
+        });
+        mail.send_confirm(user);
+        m.createToken(models, user, res, res)
+    })
+};
+
+
 exports.refresh_token = function (req, res) {
     var token = m.getBody(req).refresh_token;
     m.findOne(RefreshToken, {value: token}, res, function (refreshToken) {
