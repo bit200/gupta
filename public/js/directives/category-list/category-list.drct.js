@@ -7,7 +7,6 @@ XYZCtrls.directive('listCategory', function () {
         },
         templateUrl: 'js/directives/category-list/category-list.html',
         controller: ['$scope', '$rootScope', function (scope, $rootScope) {
-            console.log('sfsdfsa')
                 scope.choiceFilter = function(item){
                     console.log('item', item);
                     scope.choiceItem = item;

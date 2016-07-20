@@ -7,7 +7,6 @@
         <div class="form-group" ng-class="{'has-error': submittedLogin && loginForm.email.$invalid}">
             <md-input-container class="md-block">
                 <input class="form-control loginInput " name="email" placeholder="Login" ng-model="loginObj.email" required>
-
                 <div ng-messages="submittedLogin && loginForm.email.$invalid" ng-class="{'md-auto-hide': !submittedLogin}">
                     <div ng-show="submittedLogin && loginForm.email.$error.required" ng-message="required">Email is required</div>
                 </div>
@@ -44,18 +43,18 @@
 
         <div class="row" style="margin-top: 40px;">
             <div class="col-md-4">
-                <md-button class="md-raised social-button auth-facebook" id="fb-account">
+                <md-button class="md-raised social-button auth-facebook" id="fb-account" aria-label="hide">
                     <div ng-click="login()" ng-if="!loggedIn">Sign in with Facebook</div>
                     <div ng-click="logout()" ng-if="loggedIn">Log out</div>
                 </md-button>
             </div>
             <div class="col-md-4">
-                <google-plus-signin clientid="1017461938122-hqu19cjkjtc73sjt8lg8igdnacmsmvj3.apps.googleusercontent.com" autorender="false" customtargetid="my-custom-element">
-                    <md-button class="md-raised social-button auth-google">
-                        <div id="my-custom-element">Sign In with Google</div>
+                <!--<google-plus-signin clientid="1017461938122-hqu19cjkjtc73sjt8lg8igdnacmsmvj3.apps.googleusercontent.com" autorender="false" customtargetid="my-custom-element">-->
+                <div id="customBtn">
+                    <md-button ng-click="login_google()" class="md-raised social-button auth-google">
+                        <div id="name">Sign in with Google</div>
                     </md-button>
-                </google-plus-signin>
-
+                </div>
             </div>
             <div class="col-md-4">
                 <md-button class="md-raised social-button auth-linkedin" ng-click="LinkedIn()">

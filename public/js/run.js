@@ -7,11 +7,11 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
     $rootScope.closePopupFn = function(is_digest) {
         $rootScope.closePopup = {
             cd: new Date().getTime()
-        }
+        };
         if (is_digest) {
             $rootScope.$digest()
         }
-    }
+    };
     angular.element('body').on('click', $rootScope.closePopupFn)
 
     
@@ -328,6 +328,17 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
 
         return name
     }
+
+
+        gapi.load('auth2', function () {
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            gapi.auth2.init({
+                client_id: '1017461938122-hqu19cjkjtc73sjt8lg8igdnacmsmvj3.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                // Request scopes in addition to 'profile' and 'email'
+                scope: 'profile email'
+            });
+        });
 
     if (localStorage.getItem('commonFilters')){
         $rootScope.commonFilters = JSON.parse(localStorage.getItem('commonFilters'))

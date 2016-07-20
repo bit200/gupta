@@ -2,6 +2,7 @@
 <html lang="en" ng-app="XYZApp">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width">
+    <meta name="google-signin-client_id" content="1017461938122-hqu19cjkjtc73sjt8lg8igdnacmsmvj3.apps.googleusercontent.com">
     <title>XYZOnline</title>
     <base href="/">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
@@ -103,6 +104,7 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="bower_components/angular-socket-io/socket.min.js"></script>
+<script src="https://apis.google.com/js/api:client.js"></script>
 <script src="js/libs/angular-breadcrumb.js"></script>
 <script src="js/libs/socket.io.js"></script>
 <script src="js/app.js"></script>
@@ -162,6 +164,45 @@
 <script src="js/controllers/login.ctrl.js"></script>
 <script src="js/controllers/signup.ctrl.js"></script>
 <script src="js/controllers/myProfile.ctrl.js"></script>
+<script type="text/javascript" src="//platform.linkedin.com/in.js">
+    api_key: 78wfitxgu7t5gn
+    authorize: true
+    onLoad: onLinkedInLoad
+</script>
+
+<script type="text/javascript">
+
+    // Setup an event listener to make an API call once auth is complete
+    function onLinkedInLoad() {
+        if (IN.User.isAuthorized()){
+            getProfileData()
+        }
+//        console.log(IN.User.isAuthorized())
+//
+        IN.User.authorize(function(resp){
+            console.log('dsds', resp)
+        }, {});
+
+//        IN.Event.on(IN, "auth", getProfileData);
+    }
+
+    // Handle the successful return from the API call
+    function onSuccess(data) {
+        console.log(data);
+    }
+
+    // Handle an error response from the API call
+    function onError(error) {
+        console.log(error);
+    }
+
+    // Use the API call wrapper to request the member's basic profile data
+    function getProfileData() {
+        IN.API.Raw("/people/~").result(onSuccess).error(onError);
+    }
+
+</script>
+
 <script type="text/javascript">
     if (!location.hash) location.hash='#/'
 

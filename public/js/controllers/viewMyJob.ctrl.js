@@ -11,7 +11,6 @@ XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '
     info.url = info.url || ['/api', 'jobs', user_type, job_type].join('/');
     scope.info = info;
     rootScope.info = info;
-    console.log('info', scope.info)
 }]);
 
 XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$timeout', 'jobInformation', function (scope, getContent, $rootScope, $timeout, jobInformation) {
