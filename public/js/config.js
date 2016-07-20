@@ -619,7 +619,47 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     labelArr: ['Dashboard', '/', 'Profile'],
                     hideType: false
                 }
-            });
+            })
+
+            .state('About', {
+                    url: '/about',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">About template</h3>',
+                })
+
+            .state('Testimonial', {
+                    url: '/testimonial',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Testimonial template</h3>',
+                })
+
+            .state('Show to list', {
+                    url: '/show_to_list',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Show to list template</h3>',
+                })
+
+            .state('How it works', {
+                    url: '/how_it_works',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">How it works template</h3>',
+                })
+
+            .state('Clients', {
+                    url: '/clients',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Clients template</h3>',
+                })
+
+            .state('Terms & Conditions', {
+                    url: '/terms_Conditions',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Terms & Conditions template</h3>',
+                })
+
+            .state('Press', {
+                    url: '/press',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Press template</h3>',
+                })
+
+            .state('Contact', {
+                    url: '/contact',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Contact template</h3>',
+                });
 
 
         _states('root.contract_create', '/contract/create/:job/:freelancer', 'contractCtrl', ['job', 'freelancer'], '', true);
