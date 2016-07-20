@@ -313,12 +313,10 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
 
         $rootScope.$watch('asView', function (val) {
             if (val) {
-                if (val.buyer) {
-                    $state.go('dashboard')
-                }
+                $state.go('dashboard');
                 localStorage.setItem('asView', JSON.stringify(val))
             }
-        }, true)
+        }, true);
 
         var resObj = {
             setTokens: function (tokens) {

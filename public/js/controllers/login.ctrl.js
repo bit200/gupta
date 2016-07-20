@@ -17,7 +17,7 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
         });
     };
     $scope.login_google = function () {
-        var element = (document.getElementById('customBtn'))
+        var element = (document.getElementById('customBtn'));
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.attachClickHandler(element, {},
             function (googleUser) {
