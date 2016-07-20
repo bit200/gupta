@@ -39,6 +39,7 @@
                                         md-items="item in ctrl.search(ctrl.searchText)"
                                         md-item-text="item.displayTitle"
                                         md-min-length="2"
+                                        ng-enter="$state.go('categories')"
                                         placeholder="What are you looking for">
                                     <md-item-template>
                                         <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayTitle}}</span>
