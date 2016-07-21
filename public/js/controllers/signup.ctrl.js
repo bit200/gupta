@@ -29,11 +29,6 @@ XYZCtrls.controller('signupCtrl', ['$scope', '$state', 'AuthService', '$http', '
 
     $scope.LinkedIn = function () {
         if (IN.User.isAuthorized()) {
-            // IN.API.Raw("/people/~").result(function (resp) {
-            //     console.log('resp', resp)
-            // }).error(function (err) {
-            //     console.log('err', err)
-            // });
             IN.API.Profile("me").fields("first-name", "last-name", "email-address", "picture-url").result(function (data) {
                 var user = data.values[0];
                 loginSocial(user.emailAddress, user.firstName, user.lastName, user.pictureUrl || ' ');
@@ -51,15 +46,17 @@ XYZCtrls.controller('signupCtrl', ['$scope', '$state', 'AuthService', '$http', '
         }
 
     };
+    $(document).on( "fbInit", function() {
+        $scope.login = function () {
+            FB.login(function (response) {
+                if (response.status === 'connected') {
+                    FB.api('/me?fields=id,email,name,picture', function (data) {
+                        var name = data.name.split(' ');
+                        loginSocial(data.email, name[0], name[1], data.picture.data.url)
+                    })
+                }
+            }, {scope: 'email'});
+        };
+    });
 
-    $scope.login = function () {
-        FB.login(function (response) {
-            if (response.status === 'connected') {
-                FB.api('/me?fields=id,email,name,picture', function (data) {
-                    var name = data.name.split(' ');
-                    loginSocial(data.email, name[0], name[1], data.picture.data.url)
-                })
-            }
-        }, {scope: 'email'});
-    };
-}])
+}]);
