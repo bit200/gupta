@@ -29,7 +29,10 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                     scope.watchName = 'job-reject';
                     break;
             }
-
+            scope.sortBy = 'aaaazz';
+            scope.changeSort = function (text) {
+                scope.sortBy = text;
+            };
             rootScope.$on(scope.watchName, function (e, data) {
                 if (data) {
                     scope.items = data;

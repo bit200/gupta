@@ -93,12 +93,10 @@ exports.filter_job = function (req, res) {
         category.type_name = params.sub_sub_category;
     if (params.budget_min && params.budget_max)
         category.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
-    if (modelFind == 'Contract' && params.status == 'Ongoing') {
+    if (modelFind == 'Contract' && params.status == 'Ongoing')
         category.status = ["Ongoing", "Marked as completed", "Paused"]
-    }
-    if (modelFind == 'Contract' && params.status == 'Close') {
+    if (modelFind == 'Contract' && params.status == 'Close')
         category.status = ["Closed"]
-    }
     m.find(models[modelFind], category, res, function (jobs) {
         m.scb(jobs, res)
     }, {populate: 'job freelancer buyer contract', sort: '-created_at'})
