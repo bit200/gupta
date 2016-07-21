@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', '$timeout'
-    , function (scope, rootScope, location, http, getContent, ModalService, $timeout) {
+XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', 'ModalService', '$timeout','payment'
+    , function (scope, rootScope, location, http, getContent, ModalService, $timeout,payment) {
 
         console.log("@@ GET CONTENT CONTRACT CONTROLLER", getContent)
         rootScope.extend_scope(scope, getContent)
@@ -55,6 +55,10 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             alert('Rating selected - ' + rating);
         };
 
+        scope.initial_payment = function(){
+            if((scope.contract.payment_sum <= 0)||(scope.contract.payment_sum==null)) return scope.contract.payment_sum = '';
+                 payment(scope.contract.payment_sum,false,false,scope.contract);
+        };
         scope.contract_reject_by_seller = function (message) {
             http.post('/api/contract/reject/' + scope.contract._id, {reject_reason: scope.contract.reject_reason}).then(function (resp) {
                 console.log('resp', resp)
@@ -212,7 +216,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                     .error(scope.onErr)
             }
         }
-
         function pub_contr() {
             var data = angular.copy(scope.contract)
 

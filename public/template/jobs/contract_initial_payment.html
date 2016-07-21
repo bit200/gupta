@@ -1,0 +1,20 @@
+<div class="cont {{status_class}}" permission>
+    <h1 class="title2">Initial Payment Contract #{{contract._id}}</h1>
+
+    <div class="jshadow jshadow_padd">
+        <div class="jheader">
+            Payment
+        </div>
+        <form name="formContract">
+            <div class="jbody">
+                <md-input-container class="md-block"
+                                    ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                    <div class="title3">Contribution</div>
+            <textarea class="form-control" name="title" ng-enter="initial_payment(); submitted = true"
+                      ng-model="contract.payment_sum" required></textarea>
+                </md-input-container>
+                <btns list="[{'name': 'PAY NOW', fn: 'initial_payment'}]"></btns>
+            </div>
+        </form>
+    </div>
+</div>

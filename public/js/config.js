@@ -676,6 +676,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
         _states('root.contract_reject', '/contract/reject/:contract', 'contractCtrl', ['contract'], '', true);
         _states('root.contract_approve', '/contract/approve/:contract', 'contractCtrl', ['contract'], '', true);
         _states('root.contract_accept', '/contract/accept/:contract', 'contractCtrl', ['contract'], '', true);
+        _states('root.contract_initial_payment', '/contract/initial-payment/:contract', 'contractCtrl', ['contract'], '', true);
 
 
         _states('root.job_create', '/post-job', 'jobCtrl', ['contentType', 'locations'], '', false, ['Post a Project']);

@@ -134,7 +134,7 @@ XYZCtrls.directive('acts', function () {
                 },
                 'Initiate Payment': function () {
                     return {
-                        ui_sref: sref("root.contract_inital_payment", {contract: getId(item, 'contract')})
+                        ui_sref: sref("root.contract_initial_payment", {contract: getId(item, 'contract')})
                     }
                 },
                 'Mark completed': function () {

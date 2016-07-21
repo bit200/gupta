@@ -123,8 +123,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
 }]);
 
-XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', '$http', '$stateParams', 'ModalService',
-    function (scope, location, http, $q, getContent, $http, $stateParams, ModalService) {
+XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'getContent', '$http', '$stateParams', 'ModalService','payment',
+    function (scope, location, http, $q, getContent, $http, $stateParams, ModalService,payment) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.active_profile_menu = 'pricing';
@@ -136,7 +136,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
         $http.get('/api/freelancer/'+scope.viewProfile._id+'/jobs_count?status=closed').success(function(count){
             scope.closedJobsCount = count
         })
-        
+
         scope.openExtra = function(pkg){
             ModalService.showModal({
                 templateUrl: "template/modal/extra.html",
@@ -153,6 +153,9 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$http', '$q', 'g
                             total += parseInt(ex.price);
                         })
                         return total;
+                    };
+                    $scope.payNow = function(){
+                        payment($scope.total(),$scope.extra_pkg,$scope.pkg,viewProfile);
                     };
                     $scope.close = function(res){
                         $element.modal('hide');
