@@ -58,8 +58,38 @@
 </div>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <script src="dist/dist.min.js"></script>
+<script type="text/javascript" src="//platform.linkedin.com/in.js">
+    api_key: 78wfitxgu7t5gn
+    authorize: true
+    onLoad: onLinkedInLoad
+</script>
+
 <script type="text/javascript">
-    if (!location.hash) location.hash='#/'
+    function onLinkedInLoad() {
+    }
+</script>
+
+<script type="text/javascript">
+    if (!location.hash) location.hash='#/';
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '930075280420914',
+            xfbml      : true,
+            version    : 'v2.5'
+        });
+        window.fbApiInit = true;
+        $(document).trigger('fbInit');
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
 </script>
 
 </body>
