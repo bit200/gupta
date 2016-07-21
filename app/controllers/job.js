@@ -80,11 +80,20 @@ exports.filter_job = function (req, res) {
     if (params.search)
         var re = new RegExp(params.search, 'i');
 
-    params.status = params.status || 'Open';
+    params.status = params.status || 'All';
+
     var modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
-        category = {},
-        status = [];
-    modelFind == 'JobApply' ? category.message = re : (category.$or = [{title: re}, {information: re}, {seller_name: re}, {buyer_name: re}]);
+        category = {};
+    if (params.status == 'All'){
+        modelFind = 'Job';
+    }
+    
+    switch(modelFind){
+        case 'JobApply': category.message = re;break;
+        case 'Contract': category.$or = [{title: re}, {information: re}, {seller_name: re}, {buyer_name: re}];break;
+        case 'Job': category.$or = [{title: re}, {description: re}, {type_category: re}, {type_filter: re}, {type_name:re}];break;
+    }
+
     if (params.category)
         category.type_category = params.category;
     if (params.sub_category)
@@ -96,7 +105,8 @@ exports.filter_job = function (req, res) {
     if (modelFind == 'Contract' && params.status == 'Ongoing')
         category.status = ["Ongoing", "Marked as completed", "Paused"]
     if (modelFind == 'Contract' && params.status == 'Close')
-        category.status = ["Closed"]
+        category.status = ["Closed"];
+
     m.find(models[modelFind], category, res, function (jobs) {
         m.scb(jobs, res)
     }, {populate: 'job freelancer buyer contract', sort: '-created_at'})

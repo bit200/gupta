@@ -25,11 +25,14 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 case 'My Posted jobs':
                     scope.watchName = 'job-my';
                     break;
+                case 'All jobs':
+                    scope.watchName = 'job-all';
+                    break;
                 case 'Rejected candidates':
                     scope.watchName = 'job-reject';
                     break;
             }
-            scope.sortBy = 'aaaazz';
+            scope.sortBy = ' ';
             scope.changeSort = function (text) {
                 scope.sortBy = text;
             };
@@ -38,8 +41,6 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                     scope.items = data;
                 }
             });
-
-            console.log(scope);
             scope.configPagination = {
                 currentPage: 1,
                 countByPage: 12

@@ -256,30 +256,53 @@ XYZCtrls.service('loginSocial', ["$http", "AuthService", '$state', function ($ht
 }])
 XYZCtrls.service('jobSendByStatus', ["$rootScope", 'AuthService', function ($rootScope, AuthService) {
     var jobs = {
-        open:[],
-        new:[],
-        my:[],
-        reject:[]
+        open: [],
+        new: [],
+        my: [],
+        reject: [],
+        all: []
     };
-    return function(arrayJobs){
-        _.each(arrayJobs, function(job, type){
-            if(["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status)> -1){
+    return function (arrayJobs,type) {
+        _.each(arrayJobs, function (job) {
+            if (["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1) {
                 jobs.open.push(job)
             }
-            if(["New Applicant"].indexOf(job.status)> -1){
+            if (["New Applicant"].indexOf(job.status) > -1) {
                 jobs.new.push(job)
             }
-            if(["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status)> -1 && AuthService.userId()==job[type]){
+            if (["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1 && AuthService.userId() == job[type]) {
                 jobs.my.push(job)
             }
-            if(["Rejected by seller", "Rejected by buyer"].indexOf(job.status)> -1){
+            if (["Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1) {
                 jobs.reject.push(job)
             }
+            if (["open", "ongoing", "close"].indexOf(job.status) > -1) {
+                jobs.all.push(job)
+            }
         });
-        $rootScope.$emit('job-open', jobs.open);
-        $rootScope.$emit('job-new', jobs.new);
-        $rootScope.$emit('job-my', jobs.my);
-        $rootScope.$emit('job-reject', jobs.reject);
+        if (type) {
+            $rootScope.$emit('job-open', jobs.open);
+            $rootScope.$emit('job-new', jobs.new);
+            $rootScope.$emit('job-my', jobs.my);
+            $rootScope.$emit('job-reject', jobs.reject);
+            jobs = {
+                open: [],
+                new: [],
+                my: [],
+                reject: [],
+                all: []
+            };
+        } else {
+            $rootScope.$emit('job-all', jobs.all);
+            jobs = {
+                open: [],
+                new: [],
+                my: [],
+                reject: [],
+                all: []
+            };
+        }
+
     }
 }]);
 XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobSendByStatus', function ($http, $rootScope, jobSendByStatus) {
@@ -304,7 +327,7 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobSendByStatus', fu
             if (obj.user_type)
                 information.view_project = obj.user_type;
             $http.get('/api/jobs/filter', {params: information}).success(function (data) {
-                if(information.status.toLowerCase() == 'open'){
+                if (!information.status || information.status.toLowerCase() == 'open') {
                     jobSendByStatus(data.data, obj.user_type)
                 }
             })
