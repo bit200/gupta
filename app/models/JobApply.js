@@ -48,11 +48,11 @@ var sort_obj = {
 }
 
 JobSchema.pre('save', function(next){
-    var priority = sort_obj[this.status]
-    this.status_priority = priority || priority == 0 ? priority : -100
+    var priority = sort_obj[this.status];
+    this.status_priority = priority || priority == 0 ? priority : -100;
     
     next();
-})
+});
 
 JobSchema.plugin(autoIncrement.plugin, {
     model: 'JobApply',

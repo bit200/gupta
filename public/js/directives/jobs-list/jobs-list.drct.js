@@ -14,9 +14,26 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
         controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService', function (scope, http, parseTime, rootScope, location, ModalService) {
             scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('');
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
+            scope.watchName = '';
+            switch (scope.header) {
+                case 'Open Jobs':
+                    scope.watchName = 'job-open';
+                    break;
+                case 'New candidates':
+                    scope.watchName = 'job-new';
+                    break;
+                case 'My Posted jobs':
+                    scope.watchName = 'job-my';
+                    break;
+                case 'Rejected candidates':
+                    scope.watchName = 'job-reject';
+                    break;
+            }
 
-            scope.$watch('$parent.$parent._keywords', function(val){
-                scope.search = {title:val}
+            rootScope.$on(scope.watchName, function (e, data) {
+                if (data) {
+                    scope.items = data;
+                }
             });
 
             console.log(scope);
@@ -28,7 +45,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             // jobInformation.registerObserverCallback(function(data){
             //     console.log(data)
             // });
-            
+
 
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
@@ -76,11 +93,11 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 });
             };
 
-            scope.cb = function(a){
+            scope.cb = function (a) {
                 scope.configPagination.currentPage = a;
                 scope.render()
             };
-            
+
             scope.render = function (params) {
                 scope.showLoading = true;
                 var obj = {
@@ -89,23 +106,21 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 };
 
                 var index = 0;
+
                 function cb() {
                     if (++index == 2) {
                         scope.showLoading = false;
                     }
-                } 
-            rootScope.$on('job-changed', function(e,data){
-                console.log('data changedchangedchanged', data);
-                scope.items = data;
-            });
+                }
+
 
                 http.get(scope.url, {params: obj}).success(function (data) {
-                        cb();
-                        scope.items = data.data;
-                    }, function (err) {
-                        scope.error = 'An error. Please try again later';
-                        cb();
-                    });
+                    cb();
+                    scope.items = data.data;
+                }, function (err) {
+                    scope.error = 'An error. Please try again later';
+                    cb();
+                });
 
                 http.get(scope.url + '/count', {params: obj}).then(function (resp) {
                         cb();

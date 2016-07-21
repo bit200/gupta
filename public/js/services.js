@@ -254,11 +254,41 @@ XYZCtrls.service('loginSocial', ["$http", "AuthService", '$state', function ($ht
         })
     }
 }])
-XYZCtrls.service('jobInformation', ["$http", "$rootScope", function ($http, $rootScope) {
+XYZCtrls.service('jobSendByStatus', ["$rootScope", 'AuthService', function ($rootScope, AuthService) {
+    var jobs = {
+        open:[],
+        new:[],
+        my:[],
+        reject:[]
+    };
+    return function(arrayJobs){
+        _.each(arrayJobs, function(job, type){
+            if(["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status)> -1){
+                jobs.open.push(job)
+            }
+            if(["New Applicant"].indexOf(job.status)> -1){
+                jobs.new.push(job)
+            }
+            if(["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status)> -1 && AuthService.userId()==job[type]){
+                jobs.my.push(job)
+            }
+            if(["Rejected by seller", "Rejected by buyer"].indexOf(job.status)> -1){
+                jobs.reject.push(job)
+            }
+        });
+        $rootScope.$emit('job-open', jobs.open);
+        $rootScope.$emit('job-new', jobs.new);
+        $rootScope.$emit('job-my', jobs.my);
+        $rootScope.$emit('job-reject', jobs.reject);
+    }
+}]);
+XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobSendByStatus', function ($http, $rootScope, jobSendByStatus) {
     var information = {};
 
     return {
         setInfo: function (obj) {
+            if (obj.search)
+                information.search = obj.search;
             if (obj.job_category)
                 information.category = obj.job_category;
             if (obj.job_sub_category)
@@ -273,9 +303,11 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", function ($http, $roo
                 information.status = obj.job_type;
             if (obj.user_type)
                 information.view_project = obj.user_type;
-            // $http.get('/api/jobs/filter', {params: information}).success(function (data) {
-            //     $rootScope.$emit('job-changed', data.data)
-            // })
+            $http.get('/api/jobs/filter', {params: information}).success(function (data) {
+                if(information.status.toLowerCase() == 'open'){
+                    jobSendByStatus(data.data, obj.user_type)
+                }
+            })
         },
         getInfo: {
             buyer: function () {

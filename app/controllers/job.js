@@ -76,26 +76,32 @@ exports.get_info = function (req, res) {
 };
 
 exports.filter_job = function (req, res) {
-    console.log('filter job');
     var params = m.getBody(req);
-    params.status = params.status || 'Open';
+    if (params.search)
+        var re = new RegExp(params.search, 'i');
 
+    params.status = params.status || 'Open';
     var modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
         category = {},
         status = [];
+    modelFind == 'JobApply' ? category.message = re : (category.$or = [{title: re}, {information: re}, {seller_name: re}, {buyer_name: re}]);
     if (params.category)
         category.type_category = params.category;
-
     if (params.sub_category)
         category.type_filter = params.sub_category;
     if (params.sub_sub_category)
         category.type_name = params.sub_sub_category;
     if (params.budget_min && params.budget_max)
-        query.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
-    category.status = params.status.toLowerCase();
-    m.find(models.Job, category, res, function (jobs) {
+        category.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
+    if (modelFind == 'Contract' && params.status == 'Ongoing') {
+        category.status = ["Ongoing", "Marked as completed", "Paused"]
+    }
+    if (modelFind == 'Contract' && params.status == 'Close') {
+        category.status = ["Closed"]
+    }
+    m.find(models[modelFind], category, res, function (jobs) {
         m.scb(jobs, res)
-    })
+    }, {populate: 'job freelancer buyer contract', sort: '-created_at'})
 };
 
 

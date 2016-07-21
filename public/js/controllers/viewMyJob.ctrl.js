@@ -21,7 +21,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$
     scope.onSelectCustom = function (item) {
         scope.isSub = false;
         scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]));
-        $timeout(function(){ scope.isSub = true;},0)
+        $timeout(function(){ scope.isSub = true;},0);
         scope.isSubSub = false;
     };
 
@@ -72,6 +72,12 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$
             }
         }
     };
+
+    scope.$watch('_keywords', function(e,val){
+        if(e){
+            jobInformation.setInfo({search:e})
+        }
+    });
     
     $rootScope.$watchCollection('commonFilters', function (val) {
         if (val)
