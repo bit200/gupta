@@ -48,22 +48,8 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
                 });
             }, {});
         }
-        // $http.get('https://www.linkedin.com/oauth/v2/authorization', {params: {response_type: 'code', client_id: '78wfitxgu7t5gn', redirect_uri: 'http://localhost:8000', state: 'wEDsdsgdfgGESgsd',  scope: 'r_basicprofile r_emailaddress'}}).then(function (resp) {
-        //     console.log('resp', resp)
-        // }, function (err) {
-        //     console.log('err', err)
-        // })
-    }
-    //
-    // $scope.google_singin = function(event, authResult){
-    //     console.log('first', event, authResult);
-    //     $http.get('https://www.googleapis.com/plus/v1/people/me', {params: {access_token: authResult.access_token}}).then(function (data) {
-    //         console.log('resp', data, data.data.emails[0].value);
-    //         loginSocial(data.data.emails[0].value, data.data.name.givenName, data.data.name.familyName, data.data.image.url)
-    //     }, function (err) {
-    //         console.log('err', err)
-    //     });
-    // };
+
+    };
 
     $scope.login = function () {
         FB.login(function (response) {
@@ -75,16 +61,7 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
             }
         }, {scope: 'email'});
     };
-
-    // $scope.$on('event:google-plus-signin-success', function (event, authResult) {
-    //     $http.get('https://www.googleapis.com/plus/v1/people/me', {params: {access_token: authResult.access_token}}).then(function (data) {
-    //         console.log('resp', data, data.data.emails[0].value);
-    //         loginSocial(data.data.emails[0].value, data.data.name.givenName, data.data.name.familyName, data.data.image.url)
-    //     }, function (err) {
-    //         console.log('err', err)
-    //     });
-    //     console.log('first', event, authResult)
-    // });
+    
 
 
 }]);

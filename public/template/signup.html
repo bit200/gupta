@@ -56,30 +56,32 @@
             <br/>
         </div>
 
-        <div style="width: 100%;margin-top: 30px;height: 1px" class="">
+        <div style="width: 100%;margin-top: 10px;" class="">
             <div style="width: 45%;height:100%;background: #C4C5C6;float: left;"></div>
             <div style="width: 45%;height:100%;background: #C4C5C6;float: right;"></div>
         </div>
 
-        <!--<div class="row" style="margin-top: 40px;">-->
-            <!--<div class="col-md-4">-->
-                <!--<md-button class="md-raised social-button auth-facebook">-->
-                    <!--Sign in with Facebook-->
-                <!--</md-button>-->
-            <!--</div>-->
-            <!--<div class="col-md-4">-->
-                <!--<md-button class="md-raised social-button auth-google">-->
-                    <!--Sign in with Google+-->
-                <!--</md-button>-->
-            <!--</div>-->
-            <!--<div class="col-md-4">-->
-                <!--<md-button class="md-raised social-button auth-linkedin">-->
-                    <!--Sign in win Linkedin-->
-                <!--</md-button>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="col-md-4">
+            <md-button class="md-raised social-button auth-facebook" id="fb-account" aria-label="hide">
+                <div ng-click="login()" ng-if="!loggedIn">Sign in with Facebook</div>
+                <div ng-click="logout()" ng-if="loggedIn">Log out</div>
+            </md-button>
+        </div>
+        <div class="col-md-4">
+            <!--<google-plus-signin clientid="1017461938122-hqu19cjkjtc73sjt8lg8igdnacmsmvj3.apps.googleusercontent.com" autorender="false" customtargetid="my-custom-element">-->
+            <div id="customBtn">
+                <md-button ng-click="login_google()" class="md-raised social-button auth-google">
+                    <div id="name">Sign in with Google</div>
+                </md-button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <md-button class="md-raised social-button auth-linkedin" ng-click="LinkedIn()">
+                Sign in with Linkedin
+            </md-button>
+        </div>
 
-        <div style="height: 1px;width: 100%;background: #C4C5C6;margin-top: 40px;"></div>
+        <div style="height: 1px;width: 100%;margin-top: 40px;"></div>
 
         <p>Already registered? <a ng-click="$state.go('login')" style="color: #E9655E"> Sign Up</a></p>
 
