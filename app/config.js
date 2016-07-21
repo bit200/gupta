@@ -29,7 +29,7 @@ if (process.env.NODE_ENV=='production'){
     resObj.appHost = 'http://52.221.227.52:8080',
     resObj.apiHost = "http://52.221.227.52:8080"
 }
-if (process.env.NODE_ENV=='developer'){
+if (process.env.NODE_ENV=='development'){
     resObj.adminEmail = 'roruslanvl@gmail.com'
 }
 
