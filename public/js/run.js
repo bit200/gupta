@@ -328,8 +328,6 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
 
         return name
     }
-
-
         gapi.load('auth2', function () {
             // Retrieve the singleton for the GoogleAuth library and set up the client.
             gapi.auth2.init({

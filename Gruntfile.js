@@ -184,6 +184,7 @@ module.exports = function (grunt) {
                         "public/bower_components/angular-socket-io/socket.min.js",
                         "public/bower_components/angular-facebook/lib/angular-facebook.js",
                         "public/bower_components/angular-directive.g-signin/google-plus-signin.js",
+                        "https://apis.google.com/js/api:client.js",
                         "public/js/libs/angular-breadcrumb.js",
                         "public/js/libs/socket.io.js",
                         "public/js/app.js",
