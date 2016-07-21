@@ -1,14 +1,62 @@
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'loginSocial', function ($scope, $http, AuthService, $state, loginSocial) {
+XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'loginSocial', 'ModalService', function ($scope, $http, AuthService, $state, loginSocial, ModalService) {
     $scope.signin = function (invalid, data) {
         $scope.loginError = '';
         if (invalid) return;
         $http.get('/sign-in', {params: {email: data.email, password: data.password}}).success(function (resp) {
-            AuthService.setTokens({
-                accessToken: resp.data.accessToken.value,
-                refreshToken: resp.data.refreshToken.value
-            });
-            $state.go('home');
+            if (!resp.data.user.first_singin) {
+                AuthService.setTokens({
+                    accessToken: resp.data.accessToken.value,
+                    refreshToken: resp.data.refreshToken.value
+                });
+                $state.go('home');
+            } else {
+                ModalService.showModal({
+                    templateUrl: "template/modal/changePassword.html",
+                    controller: function ($scope, $element, $http, notify, AuthService, $state) {
+                        $scope.changePass = function (invalid, password) {
+                            if (invalid) return;
+                            if (password.newPassword != password.confirm_password) {
+                                $scope.failPassword = true
+                            }
+                            if (password.newPassword == password.confirm_password) {
+                                $scope.failPassword = false;
+                                password.userId = resp.data.user._id;
+                                $http.post('/api/user/first-update-password', password).then(function (data) {
+                                    $scope.changePassword = false;
+                                    notify({message: 'Password was changed!', duration: 3000, position: 'right', classes: "alert-success"});
+                                    AuthService.setTokens({
+                                        accessToken: resp.data.accessToken.value,
+                                        refreshToken: resp.data.refreshToken.value
+                                    });
+                                    $element.modal('hide');
+                                    $state.go('home');
+                                }, function (err) {
+                                    if (err.data.error == "Wrong password")
+                                        $scope.wrongPassword = true;
+                                })
+                            }
+                        };
+
+                        $scope.continue = function () {
+                            $http.get('/api/user/first-signIn', {params: {userId: resp.data.user._id}}).then(function (data) {
+                                AuthService.setTokens({
+                                    accessToken: resp.data.accessToken.value,
+                                    refreshToken: resp.data.refreshToken.value
+                                });
+                                $element.modal('hide');
+                                $state.go('home');
+                            })
+                        }
+                    }
+                }).then(function (modal) {
+                    modal.element.modal();
+                    modal.close.then(function (result) {
+
+                    });
+
+                });
+            }
         }).error(function (err) {
             if (err.error == 'Item not found')
                 $scope.loginError = 'User with this login not found';
@@ -61,7 +109,6 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
             }
         }, {scope: 'email'});
     };
-    
 
 
 }]);

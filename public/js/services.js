@@ -298,7 +298,7 @@ XYZCtrls.service('loginSocial', ["$http", "AuthService", '$state', function ($ht
         })
     }
 }])
-XYZCtrls.service('jobSendByStatus', ["$rootScope", 'AuthService', function ($rootScope, AuthService) {
+XYZCtrls.service('jobParseByStatus', ["$rootScope", 'AuthService', function ($rootScope, AuthService) {
     var jobs = {
         open: [],
         new: [],
@@ -306,7 +306,7 @@ XYZCtrls.service('jobSendByStatus', ["$rootScope", 'AuthService', function ($roo
         reject: [],
         all: []
     };
-    return function (arrayJobs,type) {
+    return function (arrayJobs, type) {
         _.each(arrayJobs, function (job) {
             if (["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1) {
                 jobs.open.push(job)
@@ -349,7 +349,7 @@ XYZCtrls.service('jobSendByStatus', ["$rootScope", 'AuthService', function ($roo
 
     }
 }]);
-XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobSendByStatus', function ($http, $rootScope, jobSendByStatus) {
+XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobParseByStatus', function ($http, $rootScope, jobParseByStatus) {
     var information = {};
 
     return {
@@ -370,11 +370,14 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobSendByStatus', fu
                 information.status = obj.job_type;
             if (obj.user_type)
                 information.view_project = obj.user_type;
-            $http.get('/api/jobs/filter', {params: information}).success(function (data) {
-                if (!information.status || information.status.toLowerCase() == 'open') {
-                    jobSendByStatus(data.data, obj.user_type)
-                }
-            })
+            if (!obj.job_type && !obj.user_type) {
+                console.log('sdf')
+                $http.get('/api/jobs/filter', {params: information}).success(function (data) {
+                    if (!information.status || information.status.toLowerCase() == 'open') {
+                        jobParseByStatus(data.data, obj.user_type)
+                    }
+                })
+            }
         },
         getInfo: {
             buyer: function () {

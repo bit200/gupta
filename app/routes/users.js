@@ -4,6 +4,8 @@ var users = require('../controllers/users');
 module.exports = function (app) {
     var auth = require('./middlewares/auth');
     app.post('/api/user/update-password', auth.token, users.update_password);
+    app.post('/api/user/first-update-password', users.update_password);
+    app.get('/api/user/first-signIn', users.first_signIn);
     app.put('/api/user/profile',auth.token, users.update_profile);
     app.get('/api/user/me', auth.token,  users.me);
     app.get('/api/restore',  users.restore);

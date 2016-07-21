@@ -21,6 +21,10 @@ var UserSchema = mongoose.Schema({
     company_name: String,
     preview: String,
     online: Boolean,
+    first_singin: {
+        type: Number,
+        default: 0
+    },
     created_at: {
         type: Date,
         default: Date.now

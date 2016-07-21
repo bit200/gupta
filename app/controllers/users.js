@@ -26,20 +26,19 @@ exports.me = function (req, res) {
     m.findOne(models.User, {_id: req.userId}, res, res, {publish: true, populate: {path: 'poster'}})
 };
 
+exports.first_signIn = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.User, {_id: params.userId},{first_singin:0 }, res, res)
+};
+
 exports.update_password = function (req, res) {
     var params = m.getBody(req);
-    m.findOne(models.User, {_id: req.userId}, res, function (user) {
+    m.findOne(models.User, {_id: params.userId || req.userId}, res, function (user) {
         user.comparePassword(params.oldPassword, function (err, isMatch) {
             if (err || !isMatch) {
                 return m.ecb(401, err, res)
             }
-            user.save(function (e, r) {
-                if (e) {
-                    m.ecb(399, e, res)
-                } else {
-                    m.scb(r.publish, res)
-                }
-            })
+            m.findUpdate(models.User, {_id: params.userId || req.userId},{password:md5(params.newPassword), first_singin:0 }, res, res)
         });
     })
 };

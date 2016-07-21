@@ -24,7 +24,7 @@ exports.tokens_list = function (req, res) {
 
 exports.sign_in = function (req, res) {
     var params = m.getBody(req);
-    console.log(params)
+    // console.log(params)
     m.findOne(User, {email: params.email}, res, function (user) {
         user.comparePassword(params.password, function (err, isMatch) {
             if (err || !isMatch) {
