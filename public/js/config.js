@@ -211,7 +211,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 resolve:
                     getStatic({
                     template: 'jobs-all',
-                    header: 'All jobs',
+                        header: 'All jobs',
                     url: '/api/jobs/all',
                     info: getResolve({
                         user_type: 'buyer',
@@ -580,7 +580,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 ncyBreadcrumb: {
                     label: ' ',
                     labelArr: ['Home', '/', 'View profile', '/', 'Profile Details'],
-                    hideType: true
+                    hideType: false
                 }
             })
 
