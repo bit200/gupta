@@ -15,7 +15,7 @@ var resObj = {
     appHost : 'http://localhost:8080',
     apiHost : "http://139.162.29.37:9000",
     adminJWTSecret: 'asdasdADS23432dsfds1111',
-    adminEmail: 'roruslanvl@gmail.com',
+    adminEmail: 'a@igenero.com',
     smtp:{
         host: "smtp.gmail.com",
         auth: {
