@@ -106,10 +106,8 @@ exports.filter_job = function (req, res) {
         category.status = ["Ongoing", "Marked as completed", "Paused"]
     if (modelFind == 'Contract' && params.status == 'Close')
         category.status = ["Closed"];
-
-    m.find(models[modelFind], category, res, function (jobs) {
-        m.scb(jobs, res)
-    }, {populate: 'job freelancer buyer contract', sort: '-created_at'})
+    log('fosfyasfasdf', category)
+    m.find(models[modelFind], category, res, res, {populate: 'job freelancer buyer contract', sort: '-created_at'})
 };
 
 
