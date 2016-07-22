@@ -24,7 +24,7 @@
 
         <form name="aboutForm" ng-show="freelancer_area.activeTab == 'about'">
             <div class="tab-title-wrap">
-               <h3 class="tab-title">Freelancer Information</h3>
+                <h3 class="tab-title">Freelancer Information</h3>
                 <p class="sub-tab-title">Please provide brief information about yourself</p>
             </div>
 
@@ -101,7 +101,7 @@
 
             <h4 class="info-title">Years of Experience (in years)</h4>
             <div class="form-group">
-                <md-input-container class="md-block" flex-gt-sm=""  ng-class="{'has-error': submittedAbout && aboutForm.experience.$invalid}">
+                <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.experience.$invalid}">
                     <md-select aria-label="hidden" ng-model="freelancer.experience" name="experience" required>
                         <md-option ng-repeat="item in experience" value="{{item}}">
                             {{item}}
@@ -123,14 +123,17 @@
                         <ul style="list-style-type: none;" ng-show="existsService(commonFilter, '', '')">
                             <li ng-repeat="value in values">
                                 <md-checkbox ng-checked="existsService(commonFilter, '', value.name)" ng-click="toggleService(commonFilter, '', value.name)"
-                                             ng-if="value.name" class="margin-top-8 md-warn">{{value.name}}</md-checkbox>
+                                             ng-if="value.name" class="margin-top-8 md-warn">{{value.name}}
+                                </md-checkbox>
                                 <div ng-if="value.subFilter">
                                     <md-checkbox ng-checked="existsService(commonFilter, value.subFilter, '')" ng-click="toggleService(commonFilter, value.subFilter, '')"
-                                                 class="margin-top-8 md-warn">{{value.subFilter}}</md-checkbox>
+                                                 class="margin-top-8 md-warn">{{value.subFilter}}
+                                    </md-checkbox>
                                     <ul ng-if="value.subFilter" ng-show="existsService(commonFilter, value.subFilter, '')" style="list-style-type: none;">
                                         <li ng-repeat="subV in value.arr">
                                             <md-checkbox ng-checked="existsService(commonFilter, value.subFilter, subV.name)" ng-click="toggleService(commonFilter, value.subFilter, subV.name)"
-                                                         class="margin-top-8 md-warn">{{subV.name}}</md-checkbox>
+                                                         class="margin-top-8 md-warn">{{subV.name}}
+                                            </md-checkbox>
                                         </li>
                                     </ul>
                                 </div>
@@ -141,7 +144,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <md-button class="md-raised next-button" ng-click="submittedAbout=true;aboutForm.$invalid ? scrollToErr() : freelancer_area.activeTab = 'expertise'"> NEXT </md-button>
+                    <md-button class="md-raised next-button" ng-click="submittedAbout=true;aboutForm.$invalid ? scrollToErr() : freelancer_area.activeTab = 'expertise'"> NEXT</md-button>
                 </div>
                 <div class="col-md-6"></div>
             </div>
@@ -278,10 +281,10 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='about'"> PREVIOUS </md-button>
+                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='about'"> PREVIOUS</md-button>
                 </div>
                 <div class="col-md-6">
-                    <md-button class="md-raised next-button" ng-click="submittedExpertise=true;expertiseForm.$invalid ? scrollToErr() : freelancer_area.activeTab = 'work'"> NEXT </md-button>
+                    <md-button class="md-raised next-button" ng-click="submittedExpertise=true;expertiseForm.$invalid ? scrollToErr() : freelancer_area.activeTab = 'work'"> NEXT</md-button>
                 </div>
             </div>
         </form>
@@ -304,42 +307,54 @@
                     <div class="samples-border">
                         <table class="table no-table-border" style="margin-bottom: 0px;">
                             <tbody>
-                                <tr ng-repeat="past_client in freelancer.past_clients">
-                                    <td style="width: calc(100% - 235px);">
-                                        <md-input-container class="md-block">
-                                            <input class='form-control' ng-model="past_client.name" placeholder="Client Name"/>
-                                        </md-input-container>
-                                    </td>
-                                    <td style="width: 145px">
-                                        <img ng-src="{{past_client.attachment.url}}" style="width: 30px;height: auto;">
-                                    </td>
-                                    <td style="width: 90px">
-                                        <a style="top: 10px;position: relative;color: red;" class="pointer" href="" ng-click="freelancer.past_clients.splice($index,1);deletePastClient(past_client._id)">
-                                            <ng-md-icon icon="control_point" style="fill: red;position: relative;top: 3px;" size="16"></ng-md-icon>
-                                            Remove
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: calc(100% - 235px);">
-                                        <md-input-container class="md-block">
-                                            <input class='form-control' ng-model="newPastClient.name" placeholder="Client Name"/>
-                                        </md-input-container>
-                                    </td>
-                                    <td style="width: 145px">
-                                        <div class="pointer attach-sample-button" class="pointer" ngf-select="addPastClientFile($file)"  ngf-pattern="'image/*'" ngf-multiple="false">
-                                            <ng-md-icon icon="attach_file" size="16"></ng-md-icon>
-                                            <span style="position:relative;font-size: 14px;top:-3px;">Attach Files</span>
+                            <tr ng-repeat="past_client in freelancer.past_clients">
+                                <td style="width: calc(100% - 235px);">
+                                    <md-input-container class="md-block">
+                                        <input class='form-control' ng-model="past_client.name" placeholder="Client Name"/>
+                                    </md-input-container>
+                                </td>
+                                <td style="width: 145px">
+                                    <img ng-src="{{past_client.attachment.url}}" style="width: 30px;height: auto;">
+                                </td>
+                                <td style="width: 90px">
+                                    <a style="top: 10px;position: relative;color: red;" class="pointer" href="" ng-click="freelancer.past_clients.splice($index,1);deletePastClient(past_client._id)">
+                                        <ng-md-icon icon="control_point" style="fill: red;position: relative;top: 3px;" size="16"></ng-md-icon>
+                                        Remove
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="relative">
+                                <td style="width: calc(100% - 235px);">
+                                    <md-input-container class="md-block">
+                                        <input class='form-control' ng-model="newPastClient.name" placeholder="Client Name"/>
+                                        <div ng-if="potential_clients.length" class="potential_client">
+                                            <div style="overflow: auto;max-height: 250px;width: 104%;">
+                                                <div class="client pointer" ng-repeat="client in potential_clients" ng-click="choiceClient($event,client)" >
+                                                    <div class="client-image inline-block">
+                                                        <img class="client-src" ng-src="{{client.attachment.url}}">
+                                                    </div>
+                                                    <div class="client-name inline-block">
+                                                        {{client.name}}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <img ngf-src="newPastClient.preview_attachment" style="width: 30px;height: auto;" ngf-thumbnail="newPastClient.preview_attachment" class="thumb">
-                                    </td>
-                                    <td style="width: 90px">
-                                        <!--<a style="top: 10px;position: relative;color: red;" class="pointer" href="">-->
-                                            <!--<ng-md-icon icon="control_point" style="fill: red;position: relative;top: 3px;" size="16"></ng-md-icon>-->
-                                            <!--Remove-->
-                                        <!--</a>-->
-                                    </td>
-                                </tr>
+                                    </md-input-container>
+                                </td>
+                                <td style="width: 145px">
+                                    <div class="pointer attach-sample-button" class="pointer" ngf-select="addPastClientFile($file)" ngf-pattern="'image/*'" ngf-multiple="false">
+                                        <ng-md-icon icon="attach_file" size="16"></ng-md-icon>
+                                        <span style="position:relative;font-size: 14px;top:-3px;">Attach Logo</span>
+                                    </div>
+                                    <img ngf-src="newPastClient.preview_attachment" style="width: 30px;height: auto;" ngf-thumbnail="newPastClient.preview_attachment" class="thumb">
+                                </td>
+                                <td style="width: 90px">
+                                    <!--<a style="top: 10px;position: relative;color: red;" class="pointer" href="">-->
+                                    <!--<ng-md-icon icon="control_point" style="fill: red;position: relative;top: 3px;" size="16"></ng-md-icon>-->
+                                    <!--Remove-->
+                                    <!--</a>-->
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -400,7 +415,7 @@
                                 <ng-md-icon icon="close" size="16" ng-click="new_sample.preview_attachments.splice($index,1)"></ng-md-icon>
                             </div>
 
-                            <div class="attach-sample-button" class="pointer" ngf-select="addSampleWorkFiles($files)"  ngf-pattern="'image/*'" ngf-multiple="true">
+                            <div class="attach-sample-button" class="pointer" ngf-select="addSampleWorkFiles($files)" ngf-pattern="'image/*'" ngf-multiple="true">
                                 <ng-md-icon icon="attach_file" size="32"></ng-md-icon>
                                 <span style="position:relative;font-size: 20px;top:-8px;">Attach Files</span>
                             </div>
@@ -417,10 +432,10 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='expertise'"> PREVIOUS </md-button>
+                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='expertise'"> PREVIOUS</md-button>
                 </div>
                 <div class="col-md-6">
-                    <md-button class="md-raised next-button" ng-click="submittedWork=true;submitWork()"> NEXT </md-button>
+                    <md-button class="md-raised next-button" ng-click="submittedWork=true;submitWork()"> NEXT</md-button>
                 </div>
             </div>
         </section>
@@ -448,11 +463,12 @@
                     <input class='form-control' name="contact_email" ng-model="freelancer.contact_detail.email" required
                            aria-label="hidden"
                            ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
-    `
+                    `
                     <div ng-messages="submittedContact && contactForm.contact_name.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
                         <div ng-show="submittedContact && contactForm.contact_email.$error.required" ng-message="required">Email ID is required</div>
                         <div ng-show="submittedContact && !contactForm.contact_email.$error.required && contactForm.contact_email.$error.pattern"
-                             ng-message="pattern">Email ID is invalid</div>
+                             ng-message="pattern">Email ID is invalid
+                        </div>
                     </div>
                 </md-input-container>
             </div>
@@ -473,15 +489,16 @@
 
             <div class="text-right pointer" ng-click="show.profilePreview=true">
                 <img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">
-                <span style="font-size: 20px">Attach samples</span> <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
+                <span style="font-size: 20px">Attach samples</span>
+                <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='work'"> PREVIOUS </md-button>
+                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='work'"> PREVIOUS</md-button>
                 </div>
                 <div class="col-md-6">
-                    <md-button class="md-raised next-button" ng-click="submittedContact=true;addContactDetails(contactForm.$invalid)"> SUBMIT </md-button>
+                    <md-button class="md-raised next-button" ng-click="submittedContact=true;addContactDetails(contactForm.$invalid)"> SUBMIT</md-button>
                 </div>
             </div>
         </form>

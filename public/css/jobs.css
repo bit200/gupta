@@ -723,7 +723,6 @@ mess, desc {
     border-radius: 0px
 }
 
-
 span.rz-pointer.rz-pointer-min:focus {
     border: 0 !important;
     outline: 0;
@@ -767,7 +766,51 @@ span.rz-pointer.rz-pointer-min:focus {
 }
 
 .modal-header .close {
-    margin-top: 0px;
+    margin-top: 0;
     margin-right: 10px;
     font-size: 20px;
+}
+
+.client:hover {
+    border-right: 3px solid lightgrey;
+}
+
+.client {
+    height: 50px;
+    width: 100%;
+    padding-left: 10px;
+    display: inline-block;
+    position: relative;
+}
+
+.client-image {
+    height: 100%;
+    width: 50px;
+    position: relative;
+}
+
+.client-src {
+    width: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.potential_client {
+    position: absolute;
+    width: 98%;
+    background: white;
+    box-shadow: 1px 1px 4px 1px lightgray;
+    top: 40px;
+    z-index: 99;
+    overflow: hidden;
+}
+
+.client-name {
+    margin-left: 10px;
+    position: absolute;
+    line-height: 50px;
 }

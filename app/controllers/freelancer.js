@@ -221,6 +221,12 @@ exports.claim_request = function(req,res){
 };
 
 
+exports.get_clients = function(req,res){
+    var params = m.getBody(req);
+    var re = new RegExp(params.name, 'i');
+    m.find(models.PastClient, {name:re}, res, res, {populate:'attachment'})
+};
+
 exports.past_client = function(req,res){
     var pastClient;
     var getPastClient = function(req, cb){
@@ -239,7 +245,7 @@ exports.past_client = function(req,res){
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             getPastClient(req,function() {
-                var path = config.root + '/public/uploads/' + pastClient._id;
+                var path = config.root + '/public/uploads/past_clients/' + pastClient._id;
                 mkdirp.sync(path);
                 cb(null, path)
             })
