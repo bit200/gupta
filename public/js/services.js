@@ -224,6 +224,19 @@ XYZCtrls.service('parseRating', function () {
                 return value / 1000 + 'k'
             }
             return value / 1000000 + 'm';
+        },
+        views: function (profiles) {
+            profiles = _.each(profiles, function (profile) {
+                profile.view = profile.views;
+                if (profile.views > 1000 && profile.views < 1000000) {
+                    profile.view = (profile.views / 1000).toFixed(0) + 'k';
+                }
+                if (profile.views > 1000000) {
+                    profile.view = (profile.views / 1000000).toFixed(0) + 'm';
+                }
+            });
+            console.log('sdkfhskjfhsfhsjdk', profiles)
+            return profiles
         }
     }
 });
@@ -231,36 +244,36 @@ XYZCtrls.service('parseRating', function () {
 XYZCtrls.service('payment', ["$http", "AuthService", 'notify', function ($http, AuthService, notify) {
     var user = AuthService.currentUser();
     return function (total, extra_pkg, pkg, contract) {
-        var saveParams={};
-        saveParams.amount = total*100;
-        if(pkg){
+        var saveParams = {};
+        saveParams.amount = total * 100;
+        if (pkg) {
             var for_pkg = [];
             for_pkg.push(pkg.title);
-            if(extra_pkg)
-                _.each(extra_pkg, function(ex){
+            if (extra_pkg)
+                _.each(extra_pkg, function (ex) {
                     for_pkg.push(ex.description);
                 });
             saveParams.for_pkg = for_pkg;
         }
 
-        if (contract.seller ) saveParams.seller = contract.seller._id;
-        if (contract.job ) saveParams.contract = contract._id;
+        if (contract.seller) saveParams.seller = contract.seller._id;
+        if (contract.job) saveParams.contract = contract._id;
 
         var options = {
             "key": "rzp_test_Rwg8wDQEM22Lza",
-            "amount": total*100, // 2000 paise = INR 20
+            "amount": total * 100, // 2000 paise = INR 20
             "name": contract.name,
             "description": contract.description,
             "image": "https://pbs.twimg.com/profile_images/615614376947527680/NZJ6as4r.jpg",
-            "handler": function (response){
+            "handler": function (response) {
                 saveParams.payment_id = response.razorpay_payment_id;
-                $http.post('/payments/capture',saveParams).success(function (resp) {
+                $http.post('/payments/capture', saveParams).success(function (resp) {
 
                     notify({message: 'You have successfully paid.', duration: 3000, position: 'right', classes: "alert-success"});
                 });
             },
             "prefill": {
-                "name":  user.first_name,
+                "name": user.first_name,
                 "email": user.email,
                 "contact": user.phone
             },

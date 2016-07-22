@@ -775,9 +775,10 @@ div.communitySP div.text-center {
     text-align: center;
     margin-top: 20px;
     overflow: hidden;
-    max-height: 80px;
+    max-height: 110px;
     text-overflow: ellipsis;
     padding: 0px 10px;
+    font-size: 15px;
 }
 
 .profile-back-rating-block-category{
