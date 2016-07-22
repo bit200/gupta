@@ -28,4 +28,5 @@ module.exports = function (app) {
     app.post('/api/freelancer/past_client', freelancer.past_client);
     app.delete('/api/freelancer/past_client/:id', freelancer.delete_past_client);
     app.get('/api/get-clients', freelancer.get_clients);
+    app.get('/make-fake', freelancer.make_fake);
 };

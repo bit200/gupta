@@ -293,3 +293,243 @@ exports.delete_past_client = function (req, res) {
         });
     });
 };
+
+exports.make_fake = function(req,res){
+    var arrFunc = [];
+    arrFunc.push(function (cb) {
+        var freelancer = {
+            "user": 100, "work": 100, "type": "agency",
+            "name": "Siavash A",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 99999, "rating": 4,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Creative and Ad Making"],
+            "cities": ["Mumbai"],
+            "views": 21005
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+
+        var freelancer = {
+            "user": 101, "work": 101, "type": "agency",
+            "name": "Soumya Nalam",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 95999, "rating": 4,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Content Writing"],
+            "cities": ["Mumbai"],
+            "views": 18005
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var freelancer = {
+            "user": 102, "work": 102, "type": "agency",
+            "name": "Shadrack K",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 94999, "rating": 2,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Bloggers and Influencers"],
+            "cities": ["Mumbai"],
+            "views": 15005
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var freelancer = {
+            "user": 103, "work": 103, "type": "agency",
+            "name": "Mohamed M. A.",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 93999, "rating": 4,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Bloggers and Influencers"],
+            "cities": ["Mumbai"],
+            "views": 12005
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var freelancer = {
+            "user": 104, "work": 104, "type": "agency",
+            "name": "David Kibra",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 92999, "rating": 4,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Event Management"],
+            "cities": ["Mumbai"],
+            "views": 11005
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var freelancer = {
+            "user": 105, "work": 105, "type": "agency",
+            "name": "Emma Davidson",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 90999, "rating": 4,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Content Writing"],
+            "cities": ["Mumbai"],
+            "views": 10005
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var freelancer = {
+            "user": 106, "work": 106, "type": "agency",
+            "name": "Retha Groenewald",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 89999, "rating": 4,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Direct Marketing"],
+            "cities": ["Mumbai"],
+            "views": 9000
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var freelancer = {
+            "user": 106, "work": 106, "type": "agency",
+            "name": "Leeanna Weideman",
+            "introduction": "Senior IOS Developer",
+            "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
+            "popularity": 89999, "rating": 4,
+            "isActive": 1, "registrationStatus": 1, "service_packages": [],
+            "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
+            "service_providers": ["Media Planning"],
+            "cities": ["Mumbai"],
+            "views": 9000
+        };
+        m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var job = {
+            "job_visibility": true,
+            "title": "Technical Writing & Creative Writing",
+            "description": "Proven UI experience. We are looking for a talented Web / UI Designer to create amazing user experiences. A Reputed UK based Software Company is looking for a...",
+            "budget": 10000,
+            "mobile": "+5944-345-345-4",
+            "client_name": "Sqall Leonhart",
+            "company_name": "BEST NaME EVER",
+            "website": "elefant",
+            "type_category": "Content Writing",
+            "type_filter": "Languages",
+            "type_name": "German",
+            "email": "jiga-san@mail.ru",
+            "user": 100002,
+            "buyer": 100002,
+            "status": "open",
+            "contracts": [],
+            "admin_approved": 1,
+
+            "local_preference": [
+                "Hyderabat"
+            ]
+        };
+        m.findCreate(models.Job, job,{}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var job = {
+            "job_visibility": true,
+            "title": "Editor, Writer, Technical writer",
+            "description": "Proven UI experience. We are looking for a talented Web / UI Designer to create amazing user experiences. A Reputed UK based Software Company is looking for a...",
+            "budget": 10000,
+            "mobile": "+5944-345-345-4",
+            "client_name": "Sqall Leonhart",
+            "company_name": "BEST NaME EVER",
+            "website": "elefant",
+            "type_category": "Content Writing",
+            "type_filter": "Languages",
+            "type_name": "German",
+            "email": "jiga-san@mail.ru",
+            "user": 100002,
+            "buyer": 100002,
+            "status": "open",
+            "contracts": [],
+            "admin_approved": 1,
+            "local_preference": [
+                "Hyderabat"
+            ]
+        };
+        m.findCreate(models.Job, job,{}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var job = {
+            "job_visibility": true,
+            "title": "Copywriter. Technical writer. Editor",
+            "description": "Proven UI experience. We are looking for a talented Web / UI Designer to create amazing user experiences. A Reputed UK based Software Company is looking for a...",
+            "budget": 10000,
+            "mobile": "+5944-345-345-4",
+            "client_name": "Sqall Leonhart",
+            "company_name": "BEST NaME EVER",
+            "website": "elefant",
+            "type_category": "Content Writing",
+            "type_filter": "Languages",
+            "type_name": "German",
+            "email": "jiga-san@mail.ru",
+            "user": 100002,
+            "buyer": 100002,
+            "status": "open",
+            "contracts": [],
+            "admin_approved": 1,
+            "local_preference": [
+                "Hyderabat"
+            ]
+        };
+        m.findCreate(models.Job, job,{}, cb,cb);
+    });
+
+    arrFunc.push(function (cb) {
+        var job = {
+            "job_visibility": true,
+            "title": "Business writing consultant",
+            "description": "Proven UI experience. We are looking for a talented Web / UI Designer to create amazing user experiences. A Reputed UK based Software Company is looking for a...",
+            "budget": 10000,
+            "mobile": "+5944-345-345-4",
+            "client_name": "Sqall Leonhart",
+            "company_name": "BEST NaME EVER",
+            "website": "elefant",
+            "type_category": "Content Writing",
+            "type_filter": "Languages",
+            "type_name": "German",
+            "email": "jiga-san@mail.ru",
+            "user": 100002,
+            "buyer": 100002,
+            "status": "open",
+            "contracts": [],
+            "admin_approved": 1,
+            "local_preference": [
+                "Hyderabat"
+            ]
+        };
+        m.findCreate(models.Job, job,{}, cb,cb);
+    });
+  async.parallel(arrFunc, function(e,r){
+      m.scb('created!', res)
+  })
+};
