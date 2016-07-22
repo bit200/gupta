@@ -103,7 +103,7 @@ exports.filter_job = function (req, res) {
     if (params.budget_min && params.budget_max)
         category.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
     if (modelFind == 'Contract' && params.status == 'Ongoing')
-        category.status = ["Ongoing", "Marked as completed", "Paused"]
+        category.status = ["Ongoing", "Marked as completed", "Paused"];
     if (modelFind == 'Contract' && params.status == 'Close')
         category.status = ["Closed"];
     log('fosfyasfasdf', category)
