@@ -235,7 +235,6 @@ XYZCtrls.service('parseRating', function () {
                     profile.view = (profile.views / 1000000).toFixed(0) + 'm';
                 }
             });
-            console.log('sdkfhskjfhsfhsjdk', profiles)
             return profiles
         }
     }

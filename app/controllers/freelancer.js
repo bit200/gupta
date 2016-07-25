@@ -155,6 +155,12 @@ exports.get_current_freelancer = function (req, res) {
             populate: {
                 path: 'preview'
             }
+        },
+        {
+            path: 'past_clients',
+            populate: {
+                path: 'attachment'
+            }
         }
     ];
     models.Freelancer.findOne({user: req.userId}).populate(populate).exec(function (err, freelancer) {
@@ -189,7 +195,7 @@ exports.freelancer_views_count = function (req, res) {
 
 exports.add_freelancer_view = function (req, res) {
     new models.ViewsProfile({freelancer: req.params.id}).save(function () {
-        res.send(200);
+        res.sendStatus(200);
     });
 };
 
@@ -286,6 +292,63 @@ exports.past_client = function (req, res) {
     });
 };
 
+exports.get_freelancer_past_client = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.JobApply, {freelancer: params._id}, res, function(jobs){})
+};
+
+exports.get_freelancer_review = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.JobApply, {freelancer: params._id}, res, function(jobs){
+        var arr = [],
+            comments = [];
+        arr.push(function(cb){
+            var count = 0;
+            _.each(jobs, function(job){
+                count++;
+                comments.push({title:job.job.title, review:job.contract.review_comment,name:job.contract.buyer_name});
+                if(count >= jobs.length){
+                    cb()
+                }
+            });
+        });
+        async.parallel(arr, function(e,r){
+            m.scb(comments, res)
+        })
+    }, {populate:'contract job'})
+};
+
+exports.get_freelancer_rating = function (req, res) {
+    var params = m.getBody(req);
+    var rating = {
+        seller_communication:0,
+        service_and_described:0,
+        would_recommend:0
+    };
+    m.find(models.SetRating, {freelancer:params._id}, res, function(freelancers){
+        var arr = [];
+        arr.push(function(cb){
+            var count = 0;
+            _.each(freelancers, function(freelancer){
+                count++;
+                rating.seller_communication += freelancer.seller_communication;
+                rating.service_and_described += freelancer.service_and_described;
+                rating.would_recommend += freelancer.would_recommend;
+                if(count >= freelancers.length){
+                    cb()
+                }
+            });
+        });
+        async.parallel(arr, function(e,r){
+            rating.seller_communication = (rating.seller_communication / freelancers.length).toFixed(1);
+            rating.service_and_described = (rating.service_and_described / freelancers.length).toFixed(1);
+            rating.would_recommend = (rating.would_recommend / freelancers.length).toFixed(1);
+            m.scb(rating, res)
+        })
+
+    })
+};
+
 exports.delete_past_client = function (req, res) {
     models.PastClient.findOne({_id: req.params.id}).exec(function (err, past_client) {
         past_client.remove(function () {
@@ -293,6 +356,8 @@ exports.delete_past_client = function (req, res) {
         });
     });
 };
+
+
 
 exports.make_fake = function(req,res){
     var arrFunc = [];
@@ -307,6 +372,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Creative and Ad Making"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 21005
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
@@ -324,6 +390,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Content Writing"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 18005
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
@@ -340,6 +407,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Bloggers and Influencers"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 15005
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
@@ -356,6 +424,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Bloggers and Influencers"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 12005
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
@@ -372,6 +441,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Event Management"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 11005
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
@@ -388,6 +458,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Content Writing"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 10005
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
@@ -404,6 +475,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Direct Marketing"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 9000
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);
@@ -420,6 +492,7 @@ exports.make_fake = function(req,res){
             "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
             "service_providers": ["Media Planning"],
             "cities": ["Mumbai"],
+            "location":"Hyderabat",
             "views": 9000
         };
         m.findCreate(models.Freelancer, freelancer, {}, cb,cb);

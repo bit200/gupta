@@ -13,23 +13,23 @@
                 <p class="profile-introduction">{{viewProfile.introduction}}</p>
                 <p class="profile-extra-info">
                     <ng-md-icon icon="location_on" style="fill: rgb(51, 56, 70);top: 7px;position: relative;"></ng-md-icon>
-                    {{viewProfile.location}}</p>
-                <div>
+                    <span class="inline-block paddingL10">{{viewProfile.location}}</span></p>
+                <div style="padding-top:10px;">
                     <ng-md-icon icon="remove_red_eye" style="fill: rgb(51, 56, 70);top: -12px;position: relative;"></ng-md-icon>
-                    <p class="profile-extra-info" style="display: inline-block;margin-bottom: 0px;">
+                    <p class="profile-extra-info paddingL10" style="display: inline-block;margin-bottom: 0px;">
                         Profile Views {{viewsCount}}
-                        <br />
-                        <span>Last 90 days</span>
+                        <br/>
+                        <span class="text-grey">Last 90 days</span>
                     </p>
                 </div>
                 <p class="profile-extra-info pointer" ng-if="isLogged()" ng-init="checkFavorited()">
                     <span ng-hide="profileFavorited" ng-click="addFavorite()">
                         <ng-md-icon icon="favorite_border" style="fill: rgb(51, 56, 70);top: 7px;position: relative;"></ng-md-icon>
-                        Add Favorite
+                        <span class="inline-block paddingL10">Add Favorite</span>
                     </span>
                     <span ng-show="profileFavorited" ng-click="removeFavorite()">
                         <ng-md-icon icon="favorite" style="fill: red;top: 7px;position: relative;"></ng-md-icon>
-                        Remove Favorite
+                        <span class="inline-block paddingL10">Remove Favorite</span>
                     </span>
                 </p>
                 <div style="border-top: 1px solid lightgray">
@@ -47,14 +47,14 @@
                                 Past project
                                 <span style="float: right">:</span>
                             </td>
-                            <td class="text-right">{{closedJobsCount}}</td>
+                            <td class="text-left" style="padding-left: 15px;">{{closedJobsCount}}</td>
                         </tr>
-                        <tr>
+                        <tr style="color:#1E9A4C">
                             <td>
                                 Active project
                                 <span style="float: right">:</span>
                             </td>
-                            <td class="text-right">{{ongoingJobsCount}}</td>
+                            <td class="text-left" style="padding-left: 15px;">{{ongoingJobsCount}}</td>
                         </tr>
                     </table>
                 </div>
@@ -88,56 +88,56 @@
                             </th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Information</td>
-                                    <td ng-repeat="pkg in viewProfile.service_packages">
-                                        {{pkg.information}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Description</td>
-                                    <td ng-repeat="pkg in viewProfile.service_packages">
-                                        {{pkg.description}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Topic Research</td>
-                                    <td ng-repeat="pkg in viewProfile.service_packages"  style="text-align: center">
-                                        <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.topic_research"></ng-md-icon>
-                                        <span ng-if="!pkg.topic_research">---</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>References & Citations</td>
-                                    <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">
-                                        <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.references_and_citations"></ng-md-icon>
-                                        <span ng-if="!pkg.references_and_citations">---</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Delivery Time</td>
-                                    <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: left">
-                                        <span ng-if="!(pkg.delivery_time && pkg.delivery_time!=1)">1 day</span>
-                                        <md-radio-group ng-model="pkg.delivery_time" layout="row" style="margin-bottom: 25px;" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
-                                            <md-radio-button ng-value="pkg.delivery_time" class="md-primary">{{pkg.delivery_time}} days</md-radio-button>
-                                            <md-radio-button ng-value="1" style="margin-left: 50px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>
-                                        </md-radio-group>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Enter Word Count</td>
-                                    <td ng-repeat="pkg in viewProfile.service_packages">
-                                        <md-input-container class="full-width" ng-init="pkg.word_count=500" style="margin: 0px;">
-                                            <input ng-model="pkg.word_count" numbers-only>
-                                        </md-input-container>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td ng-repeat="pkg in viewProfile.service_packages" style="border-top: 2px solid rgb(213, 218, 225) !important;">
-                                        <md-button class="md-raised regular-button full-width" style="height: 50px;" ng-click="openExtra(pkg)"> SELECT </md-button>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>Information</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages">
+                                    {{pkg.information}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages">
+                                    {{pkg.description}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Topic Research</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">
+                                    <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.topic_research"></ng-md-icon>
+                                    <span ng-if="!pkg.topic_research">---</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>References & Citations</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">
+                                    <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.references_and_citations"></ng-md-icon>
+                                    <span ng-if="!pkg.references_and_citations">---</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Delivery Time</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: left">
+                                    <span ng-if="!(pkg.delivery_time && pkg.delivery_time!=1)">1 day</span>
+                                    <md-radio-group ng-model="pkg.delivery_time" layout="row" style="margin-bottom: 25px;" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
+                                        <md-radio-button ng-value="pkg.delivery_time" class="md-primary">{{pkg.delivery_time}} days</md-radio-button>
+                                        <md-radio-button ng-value="1" style="margin-left: 50px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>
+                                    </md-radio-group>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Enter Word Count</td>
+                                <td ng-repeat="pkg in viewProfile.service_packages">
+                                    <md-input-container class="full-width" ng-init="pkg.word_count=500" style="margin: 0px;">
+                                        <input ng-model="pkg.word_count" numbers-only>
+                                    </md-input-container>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td ng-repeat="pkg in viewProfile.service_packages" style="border-top: 2px solid rgb(213, 218, 225) !important;">
+                                    <md-button class="md-raised regular-button full-width" style="height: 50px;" ng-click="openExtra(pkg)"> SELECT</md-button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </section>
@@ -177,28 +177,94 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row" ng-if="reviews.length || ratings.length" style="margin-top: 20px">
+                            <div class="col-xs-12" style="margin-left: 15px;border:1px solid lightgrey">
+                                <div class="row">
+                                    <div class="col-xs-12" style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase;">
+                                        REVIEWS
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div ng-if="reviews.length" class="text-center" style="color:rgba(51, 56, 70, 0.8);font-size: 16px; text-align: left">
+                                            <div class="text-bold" style="padding: 15px 0;font-size: 18px;">{{reviews[0].title}}</div>
+                                            <div>{{reviews[0].review}}</div>
+                                            <div style="color: lightgrey;padding-bottom: 10px">- {{reviews[0].name}}</div>
+                                        </div>
+                                        <table class="full-width" style="color:rgba(51, 56, 70, 0.8);font-size: 16px;">
+                                            <tr style="height: 40px;">
+                                                <td style="width: 35%">
+                                                    <span>Communication: </span>
+                                                </td>
+                                                <td style="width: 35%">
+                                                    <span class="text-bold">{{ratings.seller_communication}} / 5.0</span>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 40px;">
+                                                <td style="width: 35%">
+                                                    <span>Service and describe: </span>
+                                                </td>
+                                                <td style="width: 35%">
+                                                    <span class="text-bold">{{ratings.service_and_described}} / 5.0</span>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 40px;">
+                                                <td style="width: 35%">
+                                                    <span>Would recommend: </span>
+                                                </td>
+                                                <td style="width: 35%">
+                                                    <span class="text-bold">{{ratings.would_recommend}} / 5.0</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div ng-if="reviews.length > 1" class="row" style="border-top:1px solid lightgrey">
+                                    <div class="col-xs-12" style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);">
+                                        {{reviews.length}} Reviews
+                                    </div>
+                                    <div class="row" ng-repeat="review in reviews">
+                                        <div class="col-xs-12">
+                                            <div class="full-width" style="padding: 15px 15px 0px;" ng-class="{'border-bottom-lightgrey':!$last}">
+                                                <div>{{review.review}}</div>
+                                                <div style="padding: 10px 10px 0">{{review.name}}</div>
+                                                <div style="color: lightgrey;padding: 0px 10px 10px">- for {{review.title}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     <section ng-show="active_profile_menu=='portfolio'">
-                        <div style="border: 1px solid rgb(213, 218, 225)">
+                        <div ng-if="viewProfile.work.work_samples.length" style="border: 1px solid rgb(213, 218, 225)">
+                            <div style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase">
+                                PAST CLIENTS
+                            </div>
+                            <div class="inline-block block-past-client" ng-repeat="past_client in past_clients">
+                                <img class="img-past-client" ng-src="{{past_client.attachment.url}}">
+                            </div>
+                        </div>
+                        <div ng-if="viewProfile.work.work_samples.length" style="margin-top: 35px;border: 1px solid rgb(213, 218, 225)">
                             <div style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase">
                                 SAMPLE WORK
                             </div>
                             <div class="samples-item" ng-repeat="work_sample in viewProfile.work.work_samples">
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 text-center">
-                                        <div  ng-mouseenter="mouseenter=true" ng-mouseleave="mouseenter=false" class="i_c">
+                                        <div ng-mouseenter="mouseenter=true" ng-mouseleave="mouseenter=false" class="i_c">
                                             <div ng-if="work_sample.attachments[0].url" ng-show="mouseenter" class="overlay-container">
                                                 <div>
                                                     <a class="btn" target="_self" href="{{work_sample.attachments[0].url}}" download="{{work_sample.title}}.jpg">
-                                                        <ng-md-icon icon="file_download" style=" fill: rgb(255, 255, 255);top: 3px;position: relative;"  size="20"></ng-md-icon>
+                                                        <ng-md-icon icon="file_download" style=" fill: rgb(255, 255, 255);top: 3px;position: relative;" size="20"></ng-md-icon>
                                                     </a>
-                                                    <div ng-click="showPic(work_sample.attachments[0].url)"  class="btn show-pic-icon">
+                                                    <div ng-click="showPic(work_sample.attachments[0].url)" class="btn show-pic-icon">
                                                         <ng-md-icon icon="remove_red_eye" style="fill: rgb(51, 56, 70);top: 3px;position: relative;" size="20"></ng-md-icon>
                                                     </div>
                                                 </div>
                                             </div>
                                             <img ng-src="https://cdn3.iconfinder.com/data/icons/line-icons-set/128/1-07-256.png" style="" ng-if="!work_sample.attachments[0].path">
-                                            <img ng-src="{{work_sample.attachments[0].url}}" >
+                                            <img ng-src="{{work_sample.attachments[0].url}}">
                                         </div>
                                     </div>
                                     <div class="col-md-9 col-sm-9">

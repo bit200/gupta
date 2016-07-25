@@ -174,7 +174,8 @@
                             <div class="text-center profile-info-name">{{profile.name}}</div>
                             <div class="profile-info-type">
                                 <div class="inline-block" style="width: 13%;height: 30px;">
-                                    <img style="fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type ||profile.service_providers[0]).split(' ').join('-').toLowerCase()}}.svg">
+                                    <img ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}.svg">
+                                    <img ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}F.svg">
                                 </div>
                                 <div class="inline-block" style="width: 80%;text-align: center;">{{profile.service_providers[0].type || profile.service_providers[0]}}</div>
                             </div>

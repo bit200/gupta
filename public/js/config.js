@@ -505,7 +505,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 controller: 'CategoriesCtrl',
                 reloadOnSearch: false,
                 ncyBreadcrumb: {
-                    label: ' ',
+                    label: '  ',
                     labelArr: ['Home', '/', 'View profile'],
                     hideType: true
                 },
@@ -573,7 +573,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     getContent: ["$q", "$http", "$stateParams", function ($q, $http, $stateParams) {
                         return $q.all({
                             viewsCount: $http.get('/api/freelancer/' + $stateParams.id + '/views?days=90'),
-                            profile: $http.get('/api/freelancer/' + $stateParams.id)
+                            profile: $http.get('/api/freelancer/' + $stateParams.id),
                         })
                     }]
                 },
@@ -601,7 +601,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }]
                 },
                 ncyBreadcrumb: {
-                    label: ' ',
+                    label: '  ',
                     labelArr: ['Home', '/', 'View profile', '/', 'Profile Details'],
                     hideType: true
                 }

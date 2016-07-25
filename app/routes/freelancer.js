@@ -12,6 +12,9 @@ module.exports = function (app) {
     app.get('/api/freelancer/:id', freelancer.get_freelancer);
     app.get('/api/freelancers', freelancer.get_freelancers);
     app.get('/api/freelancers/count_rating', freelancer.get_freelancers);
+    app.get('/freelancer/rating', freelancer.get_freelancer_rating);
+    app.get('/freelancer/review', freelancer.get_freelancer_review);
+    app.get('/freelancer/past_client', freelancer.get_freelancer_past_client);
     app.get('/api/my/business_accounts', auth.checkIfUser, freelancer.my_business_accounts);
     app.post('/api/claim_request', auth.checkIfUser, freelancer.claim_request);
     app.post('/api/freelancer/request', auth.checkIfUser, freelancer.freelancer_request);
