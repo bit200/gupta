@@ -127,7 +127,6 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
     function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
-        console.log(scope.viewProfile);
         scope.active_profile_menu = 'pricing';
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {
             scope.ratings = resp.data.data;
@@ -135,7 +134,8 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         $http.get('/freelancer/review', {params: {_id: $stateParams.id}}).then(function (resp) {
             scope.reviews = resp.data.data;
         });
-        scope.past_clients = AuthService.currentFreelancer().past_clients;
+        if(scope.viewProfile.past_clients)
+            scope.past_clients = scope.viewProfile.past_clients;
         $http.get('/api/freelancer/' + scope.viewProfile._id + '/jobs_count?status=ongoing').success(function (count) {
             scope.ongoingJobsCount = count
         });

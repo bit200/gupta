@@ -107,6 +107,13 @@ exports.get_freelancer = function (req, res) {
             path: 'business_account'
         },
         {
+            path: 'past_clients',
+            populate: {
+                path: 'attachment',
+
+            }
+        },
+        {
             path: 'business_account'
         },
         {
