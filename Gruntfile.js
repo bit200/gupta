@@ -242,7 +242,8 @@ module.exports = function (grunt) {
                         "public/js/controllers/chat.ctrl.js",
                         "public/js/controllers/login.ctrl.js",
                         "public/js/controllers/signup.ctrl.js",
-                        "public/js/controllers/myProfile.ctrl.js"
+                        "public/js/controllers/myProfile.ctrl.js",
+                        "public/js/controllers/favorite.ctrl.js"
                     ]
                 }]
             }

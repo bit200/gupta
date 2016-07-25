@@ -15,7 +15,7 @@
                     <ng-md-icon icon="location_on" style="fill: rgb(51, 56, 70);top: 7px;position: relative;"></ng-md-icon>
                     <span class="inline-block paddingL10">{{viewProfile.location}}</span></p>
                 <div style="padding-top:10px;">
-                    <ng-md-icon icon="remove_red_eye" style="fill: rgb(51, 56, 70);top: -12px;position: relative;"></ng-md-icon>
+                    <ng-md-icon icon="remove_red_eye" class="small-svg" style="fill: rgb(51, 56, 70);top: -16px;position: relative;"></ng-md-icon>
                     <p class="profile-extra-info paddingL10" style="display: inline-block;margin-bottom: 0px;">
                         Profile Views {{viewsCount}}
                         <br/>
@@ -24,11 +24,11 @@
                 </div>
                 <p class="profile-extra-info pointer" ng-if="isLogged()" ng-init="checkFavorited()">
                     <span ng-hide="profileFavorited" ng-click="addFavorite()">
-                        <ng-md-icon icon="favorite_border" style="fill: rgb(51, 56, 70);top: 7px;position: relative;"></ng-md-icon>
+                        <ng-md-icon icon="favorite_border" class="small-svg" style="fill: rgb(51, 56, 70);top: 4px;position: relative;"></ng-md-icon>
                         <span class="inline-block paddingL10">Add Favorite</span>
                     </span>
                     <span ng-show="profileFavorited" ng-click="removeFavorite()">
-                        <ng-md-icon icon="favorite" style="fill: red;top: 7px;position: relative;"></ng-md-icon>
+                        <ng-md-icon icon="favorite" class="small-svg" style="fill: red;top: 4px;position: relative;"></ng-md-icon>
                         <span class="inline-block paddingL10">Remove Favorite</span>
                     </span>
                 </p>

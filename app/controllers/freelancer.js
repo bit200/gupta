@@ -76,8 +76,19 @@ exports.get_freelancers = function (req, res) {
         m.find(models.Freelancer, params, res, res, {populate: 'contact_detail', skip: skip, limit: limit, sort:'-views'})
     }
 };
+
 exports.get_favorites = function (req, res) {
-    models.Favorite.find({owner: req.userId}).select('freelancer').exec(function (err, favorites) {
+    var populate = [
+         {
+            path: 'freelancer',
+            populate: {
+                path: 'contact_detail'
+            }
+
+        }
+    ];
+        models.Favorite.find({owner: req.userId}).select('freelancer').populate(populate).exec(function (err, favorites) {
+            console.log("hahadshfhasdf", err, favorites)
         res.json(_.map(favorites, function (fav) {
             return fav.freelancer
         }))

@@ -17,7 +17,7 @@
                 </li>
                 <li class="floatL">
                     <button ng-click="$state.go('jobs_list.all')" class="btn btn-header">VIEW PROJECTS</button>
-                    <ng-md-icon icon="favorite" style="fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
+                    <ng-md-icon icon="favorite" ng-click="$state.go('favorite')" style="cursor: pointer;fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
                 </li>
                 <li class="floatR" ng-if="!isLogged()">
                     <div class="pull-right text-red marginT12 paddingLR10 pointer" ng-click="$state.go('signup')" style="{font-size: 10pt;}">Signup</div>

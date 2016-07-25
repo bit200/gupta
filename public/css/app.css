@@ -380,6 +380,10 @@ div.text-padding {
     padding-bottom: 10px;
 }
 
+.paddingB3 {
+    padding-bottom: 3px !important;
+}
+
 .paddingT20 {
     padding-top: 20px;
 }
@@ -627,7 +631,6 @@ html, body {
     border-bottom: 1px solid lightgrey;
 }
 
-
 .img-past-client {
     width: 100%;
     position: absolute;
@@ -654,9 +657,8 @@ html, body {
 }
 
 @keyframes upBlock {
-    
-}
 
+}
 
 .noborder {
     outline: none;
@@ -802,6 +804,13 @@ div.communitySP div.text-center {
     margin-top: 10px;
 }
 
+.profile-service-provider {
+    width: 80%;
+    text-align: center;
+    position: relative;
+    font-size: 14px;
+}
+
 .profile-back-description {
     text-align: center;
     margin-top: 20px;
@@ -849,6 +858,10 @@ div.communitySP div.text-center {
     font-size: 14pt;
     padding: 12px;
     padding-left: 20px;
+}
+
+.small-svg > svg {
+    height: 20px;
 }
 
 .job-logo {
@@ -2179,3 +2192,4 @@ md-autocomplete-wrap {
         background-position-x: 300px;
     }
 }
+

@@ -1,0 +1,39 @@
+<div class="container">
+    <div class=" text-center paddingB50 paddingT20"><h2>Your favorite freelancers</h2></div>
+    <div class="row">
+        <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;"
+             ng-repeat="profile in profiles | orderBy:'-views'">
+            <div class="profile" ng-click="$state.go('categories.profile', {id: profile._id})">
+                <div class="front">
+                    <div class="profile-img">
+                        <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
+                    </div>
+                    <div class="profile-info">
+                        <div class="text-center profile-info-name">{{profile.name}}</div>
+                        <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
+                            <div class="inline-block" style="width: 13%;height: 30px;position: relative;">
+                                <img ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" style="color:black;fill:black; height: 100%;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}.svg">
+                                <img ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}F.svg">
+                            </div>
+                            <div ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" class="inline-block profile-service-provider" >{{profile.service_providers[0].type || profile.service_providers[0]}}</div>
+                            <div ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type || profile.service_providers[0]}}</div>                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="profile-back">
+                        <div class="profile-back-name">{{profile.name}}</div>
+                        <div class="profile-back-introduction">{{profile.introduction}}</div>
+                        <div class="profile-back-description">{{profile.description}}</div>
+                        <div class="profile-back-rating-block">
+                            <div class="inline-block text-left" style="width: 30%">by jademax</div>
+                            <div class="inline-block text-center" style="width: 35%">
+                                <star-rating ng-model="profile.rating"></star-rating>
+                            </div>
+                            <div class="inline-block text-right" style="width: 20%">({{profile.views}})</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

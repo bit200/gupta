@@ -172,12 +172,13 @@
                         </div>
                         <div class="profile-info">
                             <div class="text-center profile-info-name">{{profile.name}}</div>
-                            <div class="profile-info-type">
-                                <div class="inline-block" style="width: 13%;height: 30px;">
+                            <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
+                                <div class="inline-block" style="width: 13%;height: 30px;position: relative">
                                     <img ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}.svg">
-                                    <img ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}F.svg">
+                                    <img ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}F.svg">
                                 </div>
-                                <div class="inline-block" style="width: 80%;text-align: center;">{{profile.service_providers[0].type || profile.service_providers[0]}}</div>
+                                <div ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" class="inline-block profile-service-provider" >{{profile.service_providers[0].type || profile.service_providers[0]}}</div>
+                                <div ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type || profile.service_providers[0]}}</div>
                             </div>
                         </div>
                     </div>
