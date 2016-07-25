@@ -49,11 +49,30 @@ exports.get_seller = function (req, res) {
         res.json(freelancer)
     })
 };
+
+exports.edit_filter = function (req, res) {
+    models.Filters.update(req.body.query,req.body.newParams,{multi: true}).exec(function (err, result) {
+        if(err) {console.log('Error update filters',err); return res.send(398);}
+        res.send(200);
+    })
+};
+
+exports.delete_filter = function (req, res) {
+  var  params = JSON.parse(req.params.data);
+    m._findRemove(models.Filters,params,res,function(){
+        res.send(200);
+    });
+};
+
+exports.create_filter = function (req, res) {
+    m.create(models.Filters,req.body,res,res);
+};
+
 exports.approve_registration = function (req, res) {
-    var password = randomstring.generate(7)
+    var password = randomstring.generate(7);
     models.Freelancer.findOne({_id: req.params.id}).populate('contact_detail').exec(function (err, freelancer) {
         if (freelancer.user) {
-            freelancer.registrationStatus = 1
+            freelancer.registrationStatus = 1;
             freelancer.save(function () {
             });
             mail.approveAgencyRegistration({
@@ -84,7 +103,6 @@ exports.reject_registration = function (req, res) {
         }, freelancer.name);
         res.send(200)
     }, {populate: 'contact_detail'});
-
 };
 
 
@@ -112,7 +130,7 @@ exports.approve_account = function (req, res) {
     models.BusinessUser.findOne({_id: req.params.id}).exec(function (err, b_account) {
         b_account.status = 1;
         if (!b_account.user) {
-            var password = randomstring.generate(7)
+            var password = randomstring.generate(7);
             new models.User({email: b_account.email, password: password}).save(function (err, user) {
                 if (!user) res.send(200);
                 b_account.user = user;

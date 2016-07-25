@@ -7,7 +7,10 @@ module.exports = function (app) {
     app.get('/admin/api/sellers', _admin.get_sellers);
     app.get('/admin/api/jobs', _admin.get_jobs);
     app.get('/admin/api/seller/:id', _admin.get_seller);
-    
+    app.post('/admin/api/filter/', _admin.edit_filter);
+    app.delete('/admin/api/filter/:data', _admin.delete_filter);
+    app.post('/admin/api/filter/add', _admin.create_filter);
+
     app.post('/admin/api/registration/approve/:id', _admin.approve_registration);
     app.post('/admin/api/registration/reject/:id', _admin.reject_registration);
     

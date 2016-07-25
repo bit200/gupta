@@ -268,6 +268,7 @@ XYZCtrls.service('payment', ["$http", "AuthService", 'notify', function ($http, 
                 saveParams.payment_id = response.razorpay_payment_id;
                 $http.post('/payments/capture', saveParams).success(function (resp) {
 
+
                     notify({message: 'You have successfully paid.', duration: 3000, position: 'right', classes: "alert-success"});
                 });
             },

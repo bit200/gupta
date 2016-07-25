@@ -1,14 +1,37 @@
-<div class="login jumbotron center-block">
-  <h1>Login</h1>
-  <form role="form">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" ng-model="user.email" id="email" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" ng-model="user.password" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
-</form>
+
+<div class="container">
+    <div style="margin-top: 3%;margin-bottom: 3%;">
+        <h2 style="font-size: 20.0pt;color: rgba(51, 56, 70, 255);text-align: center;">LOGIN</h2>
+        <div style="margin: 0 auto;height: 2px;background: red;width: 45px;"></div>
+    </div>
+      <form name="loginForm" class="auth-form" shake-that novalidate style="width: 550px;margin: 0 auto;">
+      <div class="form-group" ng-class="{'has-error': submittedLogin && loginForm.email.$invalid}">
+         <md-input-container class="md-block">
+              <input class="form-control loginInput " name="email" placeholder="Email" ng-model="user.email" required>
+              <div ng-messages="submittedLogin && loginForm.email.$invalid" ng-class="{'md-auto-hide': !submittedLogin}">
+                  <div ng-show="submittedLogin && loginForm.email.$error.required" ng-message="required">Email is required</div>
+              </div>
+          </md-input-container>
+      </div>
+      <div class="form-group" ng-class="{'has-error': submittedLogin && loginForm.password.$invalid}">
+          <md-input-container class="md-block">
+              <input class="form-control loginInput" name="password" type="password" id="password" ng-model="user.password"
+                     placeholder="Password" required>
+              <div ng-messages="submittedLogin && loginForm.password.$invalid" ng-class="{'md-auto-hide': !submittedLogin}">
+                  <div ng-show="submittedLogin && loginForm.password.$error.required" ng-message="required">Password is required</div>
+              </div>
+          </md-input-container>
+            </div>
+          <div class="form-group">
+              <div class="text-center">
+                  <div class="full-width text-center" style="height: 30px">
+                      <p class="error-login" ng-if="loginError">{{loginError}}</p>
+                  </div>
+                  <button class="md-raised auth-button" ng-click="submittedLogin=true; login()">
+                      Submit
+                  </button>
+              </div>
+              <br/>
+          </div>
+    </form>
 </div>
