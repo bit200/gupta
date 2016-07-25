@@ -20,7 +20,7 @@ angular.module( 'admin.login', [
       store.set('jwt', response.data.id_token);
       $state.go('sellers');
     }, function(error) {
-      alert(error.data);
+      alert(JSON.stringify(error.data));
     });
   }
 
