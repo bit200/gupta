@@ -5,6 +5,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state, AuthService) {
 
     scope.currentFreelancer = AuthService.currentFreelancer
+    $rootScope.dynamic=30
     scope.howItWorks= false;
     scope.mainPage= true;
     scope.cancelRegistration = function () {
@@ -18,7 +19,8 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     scope.favorites = [];
     http.get('/api/my/favorite').success(function(favorites){
         console.log('ewrw',favorites);
-        scope.favorites = favorites
+        scope.favorites = favorites;
+        $rootScope.dynamic = 100
     });
 
     scope.addFavorite = function(profileId){

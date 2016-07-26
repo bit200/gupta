@@ -7,7 +7,10 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         location.path('/category/' + search);
         scope.headerSearch = '';
     };
-
+    $rootScope.dynamic=0;
+    scope.$on('$viewContentLoaded', function(val) {
+        $rootScope.dynamic=20
+    });
     $rootScope.activeProvider = {};
     
     scope.showMessage = false;
