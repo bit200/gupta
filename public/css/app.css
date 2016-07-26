@@ -871,6 +871,21 @@ div.communitySP div.text-center {
 md-radio-button:focus {
     outline: none;
 }
+#loading-bar .bar {
+    background: #ff0c05 !important;
+}
+
+#loading-bar .peg {
+    -webkit-box-shadow: #ff0c05 1px 0 6px 1px !important;
+    -moz-box-shadow: #ff0c05 1px 0 6px 1px !important;
+    -ms-box-shadow: #ff0c05 1px 0 6px 1px !important;
+    box-shadow: #ff0c05 1px 0 6px 1px !important;
+}
+
+#loading-bar-spinner .spinner-icon {
+    border-top-color: #ff0c05  !important;
+    border-left-color: #ff0c05 !important;
+}
 
 .job-logo {
     background-color: #565A5D;
