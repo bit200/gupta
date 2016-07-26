@@ -52,7 +52,9 @@ angular.module( 'admin.categories', [
         $scope.addField = function(Filter,SubName,newField,cancel){
             if(cancel) return $scope.edit_space = {};
             var  addParams = {};
-            if(!Filter && !newField) return ;
+
+           if(!Filter && !newField) return ;
+           if(Filter && (!$scope.commonFilters[Filter])) var mainCreate = true;
            if(SubName && newField){
 
                addParams = {
@@ -71,13 +73,11 @@ angular.module( 'admin.categories', [
                    $scope.commonFilters[Filter] = $scope.commonFilters[Filter] ||[];
                    $scope.commonFilters[Filter].push(frontParams);
                }else{
-
                    $scope.commonFilters[$scope.activeProvider.name].forEach(function(item,index){
                        if (item.subFilter == SubName){
                            item.arr.push(addParams);
                        }
                    });
-
                }
            }
            else if(SubName){
@@ -102,6 +102,7 @@ angular.module( 'admin.categories', [
                 }
             }
             else return $scope.edit_space.NoValid = true;
+            addParams.main = mainCreate;
             $http.post('/admin/api/filter/add', addParams).success(function (resp) {
                 $scope.edit_space = {};
                 var resultField = newField||SubName||Filter;
@@ -109,7 +110,7 @@ angular.module( 'admin.categories', [
             });
         };
 
-        $scope.editField = function(Filter,SubName,newField,oldField,remove){
+        $scope.editField = function(Filter,SubName,newField,oldField,main,remove){
             if(remove && $scope.edit_space.is_edit) return $scope.edit_space.is_edit = '';
 
             var updateParams = {
@@ -161,15 +162,19 @@ angular.module( 'admin.categories', [
                     });
                 else
                     delete $scope.commonFilters[updateParams.query.type];
+                if(main) updateParams.query.main = true;
                 $http.delete('/admin/api/filter/'+angular.toJson(updateParams.query)).success(function (resp) {
                     var resultField = newField||SubName||Filter;
                     notify({message: 'You have successfully delete. \n Field:' + resultField, duration: 3000, position: 'right', classes: "alert-success"});
                 });
             }
-            else
+            else{
+                if(main) updateParams.query.main = true;
                 $http.post('/admin/api/filter/',updateParams).success(function (resp) {
                     var resultField = newField||SubName||Filter;
                     notify({message: 'You have successfully update. \n Field:' + resultField, duration: 3000, position: 'right', classes: "alert-success"});
                 });
+            }
+
         };
     });

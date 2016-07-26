@@ -18,7 +18,7 @@
 .st-sort-descent:before {content: '\25BC'}
 
 .active_tab{
-    font-weight: bold;
+    /*font-weight: bold;*/
     text-decoration: underline;
 }
 

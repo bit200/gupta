@@ -10,7 +10,11 @@ var models = require('../db')
 exports.dev = function (req, res) {
     res.render('../public/index.dev.html')
 };
-
+exports.get_locations = function (req, res) {
+    models.Location.find({}).exec(function(err,result){
+        res.jsonp(result)
+    });
+};
 exports.common_filters = function (req, res) {
     models.Filters.find().lean().exec(function(err, filters){
         var resObj = _.groupBy(filters, 'type');

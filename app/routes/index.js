@@ -6,6 +6,7 @@ module.exports = function (app) {
     var auth = require('./middlewares/auth');
     app.get('/dev', index.dev);
     app.get('/api/common_filters', index.common_filters);
+    app.get('/api/locations', index.get_locations);
     app.get('/api/search', index.search);
     app.get('/admin', index.admin);
     

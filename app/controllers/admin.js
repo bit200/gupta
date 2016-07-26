@@ -51,6 +51,10 @@ exports.get_seller = function (req, res) {
 };
 
 exports.edit_filter = function (req, res) {
+    if(req.body.query.main){
+        models.ServiceProvider.update({name:req.body.query.type},{name:req.body.newParams.type}).exec();
+        delete req.body.query.main;
+    }
     models.Filters.update(req.body.query,req.body.newParams,{multi: true}).exec(function (err, result) {
         if(err) {console.log('Error update filters',err); return res.send(398);}
         res.send(200);
@@ -59,14 +63,35 @@ exports.edit_filter = function (req, res) {
 
 exports.delete_filter = function (req, res) {
   var  params = JSON.parse(req.params.data);
+    if(params.main){
+        m._findRemove(models.ServiceProvider,{name:params.type},'','');
+        delete params.main;
+    }
     m._findRemove(models.Filters,params,res,function(){
         res.send(200);
     });
 };
 
 exports.create_filter = function (req, res) {
+    if(req.body.main)
+        m.create(models.ServiceProvider,{name:req.body.type,isActive:true,sub_categories:[]},'','');
     m.create(models.Filters,req.body,res,res);
 };
+
+exports.edit_location = function (req, res) {
+    m.findUpdate(models.Location,req.body.query,req.body.params,res,res);
+};
+
+exports.delete_location = function (req, res) {
+    var  params = JSON.parse(req.params.data);
+    m._findRemove(models.Location,params,res,function(){
+        res.send(200);
+    });
+};
+exports.add_location = function (req, res) {
+    m.findCreate(models.Location,req.body.params,req.body.params,res,res);
+};
+
 
 exports.approve_registration = function (req, res) {
     var password = randomstring.generate(7);

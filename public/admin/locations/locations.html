@@ -1,0 +1,37 @@
+<style>
+    .menu{
+        cursor: pointer;
+        /*display: table-column;*/
+    }
+    .edit_input_label{
+        width: calc(100% - 80px);
+    }
+    .edit_input{
+        border: none;border-bottom: 1px solid #000000;outline: none; width: 100%
+    }
+</style>
+<div class="col-md-2"></div>
+<div class="col-md-8" style="margin-top: 20px;">
+    <ul class="list-group">
+        <li class="list-group-item menu" ng-repeat=" location in locations">
+            <a class="text-black top-menu-text">
+                <span ng-hide="edit_space.is_edit == location.name"  ng-click="" >{{location.name}}</span>
+                <label ng-show="edit_space.is_edit == location.name" class="edit_input_label">
+                    <input type="text"  class="edit_input"
+                           ng-model="edit_space.newName">
+                </label>
+                <span ng-click="act_location(location.name,false,location)" style="color: red;" class="pointer glyphicon glyphicon-remove floatR"></span>
+                <span ng-hide="edit_space.is_edit == location.name" ng-click="edit_space.is_edit = location.name;edit_space.newName = location.name" style="color: green;margin-right: 10px" class="pointer glyphicon glyphicon-pencil floatR"></span>
+                <span ng-show="edit_space.is_edit == location.name" ng-click="edit_location(edit_space.newName,location.name); location.name = edit_space.newName; edit_space.is_edit = '';" style="color: green;margin-right: 10px" class="pointer glyphicon glyphicon-ok floatR"></span>
+            </a>
+        <li class="list-group-item menu" style="padding-bottom: 0;">
+            <label class="edit_input_label">
+                <input type="text"  class="edit_input"
+                       ng-model="edit_space.newNameMain" placeholder="New Location">
+            </label>
+            <span ng-click="act_location(false,true)" style="color: red;" class="pointer glyphicon glyphicon-remove floatR"></span>
+            <span ng-click="act_location(edit_space.newNameMain,false,false);" style="color: green;margin-right: 10px" class="pointer glyphicon glyphicon-ok floatR"></span>
+        </li>
+    </ul>
+</div>
+<div class="col-md-2"></div>

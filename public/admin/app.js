@@ -2,6 +2,7 @@ angular.module( 'admin', [
   'admin.login',
   'admin.sellers',
   'admin.categories',
+  'admin.locations',
   'admin.business_accounts',
   'angular-jwt',
   'angular-storage',

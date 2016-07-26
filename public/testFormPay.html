@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<button id="rzp-button1">Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "rzp_test_Rwg8wDQEM22Lza",
+        "amount": "2000", // 2000 paise = INR 20
+        "name": "Merchant Name",
+        "description": "Purchase Description",
+        "image": "https://pbs.twimg.com/profile_images/615614376947527680/NZJ6as4r.jpg",
+        "handler": function (response){
+            alert(response.razorpay_payment_id);
+        },
+        "prefill": {
+            "name": "Harshil Mathur",
+            "email": "harshil@razorpay.com"
+        },
+        "notes": {
+            "address": "Hello World"
+        },
+        "theme": {
+            "color": "#F37254"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+
+    $("#rzp-button1").click(function(e){
+        rzp1.open();
+        e.preventDefault();
+    });
+</script>
+</body>
+</html>

@@ -11,6 +11,11 @@ module.exports = function (app) {
     app.delete('/admin/api/filter/:data', _admin.delete_filter);
     app.post('/admin/api/filter/add', _admin.create_filter);
 
+    app.post('/admin/api/locations/', _admin.edit_location);
+    app.post('/admin/api/locations/add', _admin.add_location);
+    app.delete('/admin/api/locations/:data', _admin.delete_location);
+
+
     app.post('/admin/api/registration/approve/:id', _admin.approve_registration);
     app.post('/admin/api/registration/reject/:id', _admin.reject_registration);
     

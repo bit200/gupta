@@ -1,3 +1,8 @@
+<style>
+    button{
+        outline: none;
+    }
+</style>
 <div class="topbar" ng-controller="HeaderCtrl">
 
     <div class="topbar-left">
@@ -13,7 +18,7 @@
             <div class="">
                 <div class="pull-left">
                     <button ng-click="$state.go('business_accounts')" class="button-menu-mobile open-left waves-effect"
-                            ng-class="{active_tab: $state.current.name=='business_accounts'}">Business Accounts
+                            ng-class="{active_tab: $state.current.name=='business_accounts'}" >Business Accounts
                     </button>
                     <span class="clearfix"></span>
                 </div>
@@ -33,6 +38,12 @@
                 <div class="pull-left">
                     <button ng-click="$state.go('categories');" class="button-menu-mobile open-left waves-effect"
                             ng-class="{active_tab: $state.current.name=='categories'}">Categories
+                    </button>
+                    <span class="clearfix"></span>
+                </div>
+                <div class="pull-left">
+                    <button ng-click="$state.go('locations');" class="button-menu-mobile open-left waves-effect"
+                            ng-class="{active_tab: $state.current.name=='locations'}">Locations
                     </button>
                     <span class="clearfix"></span>
                 </div>

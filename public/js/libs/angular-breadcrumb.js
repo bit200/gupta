@@ -227,7 +227,10 @@ function BreadcrumbDirective($interpolate, $breadcrumb, $rootScope) {
                 };
 
                 $rootScope.$watch('asView', function(val){
-                    scope.type = $rootScope.asView.buyer ? 'Buyer' : 'Seller'
+                    if (!$rootScope.asView )
+                        scope.type = 'Buyer';
+                    else
+                        scope.type = $rootScope.asView.buyer ? 'Buyer' : 'Seller'
                 }, true);
 
                 $rootScope.$on('$viewContentLoaded', function (event) {
