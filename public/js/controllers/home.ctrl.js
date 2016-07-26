@@ -5,7 +5,6 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state, AuthService) {
 
     scope.currentFreelancer = AuthService.currentFreelancer
-    $rootScope.dynamic=30
     scope.howItWorks= false;
     scope.mainPage= true;
     scope.cancelRegistration = function () {
