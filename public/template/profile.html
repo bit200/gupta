@@ -115,12 +115,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Delivery Time</td>
+                                <td style="padding-bottom: 70px;">Delivery Time</td>
                                 <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: left">
                                     <span ng-if="!(pkg.delivery_time && pkg.delivery_time!=1)">1 day</span>
-                                    <md-radio-group ng-model="pkg.delivery_time" layout="row" style="margin-bottom: 25px;" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
+                                    <md-radio-group ng-model="pkg.delivery_time" layout="row" style="margin-bottom: 25px; display: inline-block" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
                                         <md-radio-button ng-value="pkg.delivery_time" class="md-primary">{{pkg.delivery_time}} days</md-radio-button>
-                                        <md-radio-button ng-value="1" style="margin-left: 50px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>
+                                        <md-radio-button ng-value="1" style="margin-top: 20px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>
                                     </md-radio-group>
                                 </td>
                             </tr>
@@ -172,7 +172,7 @@
                                 <div class="profile-exp-block">
                                     <h5>YEARS OF EXPERIENCE 10</h5>
                                     <p>
-                                        <span ng-repeat="service_provider in viewProfile.service_providers">{{service_provider}}<span ng-if="!$last">, </span></span>
+                                        <span ng-repeat="service_provider in viewProfile.service_providers">{{service_provider.type || service_provider.filter|| service_provider.name}}<span ng-if="!$last">, </span></span>
                                     </p>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                         </div>
                     </section>
                     <section ng-show="active_profile_menu=='portfolio'">
-                        <div ng-if="viewProfile.work.work_samples.length" style="border: 1px solid rgb(213, 218, 225)">
+                        <div ng-if="past_clients.length" style="border: 1px solid rgb(213, 218, 225)">
                             <div style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase">
                                 PAST CLIENTS
                             </div>

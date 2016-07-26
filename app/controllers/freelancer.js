@@ -74,7 +74,7 @@ exports.get_freelancers = function (req, res) {
 
         // if ('service_provider')
         console.log(params)
-        m.find(models.Freelancer, params, res, function(freelancer){
+        m.find(models.Freelancer, params, res, function (freelancer) {
             log('12312313123123', freelancer)
             m.scb(freelancer, res)
         }, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-views'})
@@ -82,7 +82,7 @@ exports.get_freelancers = function (req, res) {
 };
 
 exports.get_favorites = function (req, res) {
-    models.Favorite.find({owner: req.userId, freelancer:{$gt:0}}).select('freelancer').exec(function (err, favorites) {
+    models.Favorite.find({owner: req.userId, freelancer: {$gt: 0}}).select('freelancer').exec(function (err, favorites) {
         res.json(_.map(favorites, function (fav) {
             return fav.freelancer
         }))
@@ -98,7 +98,7 @@ exports.get_favorites_freelancer = function (req, res) {
 
         }
     ];
-    models.Favorite.find({owner: req.userId, freelancer:{$gt:0}}).select('freelancer').populate(populate).exec(function (err, favorites) {
+    models.Favorite.find({owner: req.userId, freelancer: {$gt: 0}}).select('freelancer').populate(populate).exec(function (err, favorites) {
         res.json(_.map(favorites, function (fav) {
             return fav.freelancer
         }))
@@ -384,29 +384,175 @@ exports.delete_past_client = function (req, res) {
 
 
 exports.make_fake = function (req, res) {
-    var arrFunc = [];
+    var arrFunc = [],
+        subArr = [],
+        jobArr = [],
+        subItems = {
+            work: 0,
+            service_packages: [],
+            job: 0
+        };
+
+    function create_job(freelancer_id, cb) {
+        var contract = {
+            "freelancer": freelancer_id,
+            "buyer": 100003,
+            "job": 100000,
+            "title": "Creating work",
+            "seller": 100002,
+            "budget": 456745,
+            "buyer_name": "Ted Boston",
+            "buyer_company_name": "elefant",
+            "seller_contact": "100002",
+            "seller_name": "Teb not Boston",
+            "final_amount": 456745,
+            "status": "Closed",
+            "status_priority": -1,
+            "complete_comment": "All done!",
+            "closure_comment": "Good",
+            "review_comment": "It's freelancer a great person! He replies to messages quickly and her finished product is fabulos. I applied for a position on Thursday and got a call for and interview less than 24 hours later."
+        };
+        var contract2 = {
+            "freelancer": freelancer_id,
+            "buyer": 100003,
+            "job": 100001,
+            "title": "Creating work",
+            "seller": 100002,
+            "budget": 3000,
+            "buyer_name": "Zed Shadow",
+            "buyer_company_name": "elefant",
+            "seller_contact": "100002",
+            "seller_name": "Teb not Boston",
+            "final_amount": 5000,
+            "status": "Closed",
+            "status_priority": -1,
+            "complete_comment": "All okey done!",
+            "closure_comment": "Good",
+            "review_comment": "He replies to messages quickly and her finished product is fabulos. I applied for a position on Thursday and got a call for and interview less than 24 hours later."
+        };
+        m.findCreate(models.Contract, contract, {}, cb, function (contract) {
+            m.findCreate(models.Contract, contract2, {}, cb, function (contract2) {
+                var rating = {
+                    "seller_communication": 4,
+                    "service_and_described": 3,
+                    "would_recommend": 5,
+                    "buyer": 100003,
+                    "freelancer": freelancer_id
+                };
+                var rating2 = {
+                    "seller_communication": 3,
+                    "service_and_described": 4,
+                    "would_recommend": 3,
+                    "buyer": 100003,
+                    "freelancer": freelancer_id
+                };
+                m.findCreate(models.SetRating, rating, {}, {}, function () {
+                    m.findCreate(models.SetRating, rating2, {}, {}, function () {
+                        var jobApply = {
+                            "job": subItems.job,
+                            "freelancer": freelancer_id,
+                            "seller": 100002,
+                            "budget": "100000",
+                            "time_estimation": "1 to 3 months",
+                            "message": "Test messages",
+                            "buyer": 100003,
+                            "status_priority": -100,
+                            "status": "closed",
+                            "contract": contract._id
+                        };
+                        var jobApply2 = {
+                            "job": subItems.job,
+                            "freelancer": freelancer_id,
+                            "seller": 100002,
+                            "budget": "100000",
+                            "time_estimation": "1 to 3 months",
+                            "message": "Test messages2",
+                            "buyer": 100003,
+                            "status_priority": -100,
+                            "status": "closed",
+                            "contract": contract._id
+                        };
+                        m.findCreate(models.JobApply, jobApply, {}, {}, function () {
+                            m.findCreate(models.JobApply, jobApply2, {}, cb,cb)
+                        })
+                    });
+                });
+
+            })
+        })
+    }
+
+
+    subArr.push(function (cb) {
+
+
+        var package = {
+            "delivery_time": 3,
+            "extras": [],
+            "description": "I will write one high-quality article",
+            "information": "BASIC PACKAGE",
+            "preview": 100201,
+            "pricing": 500,
+            "title": "Basic",
+            "topic_research": true
+        };
+        var package2 = {
+            "delivery_time": 3,
+            "extras": [],
+            "information": "VALUE PACKAGE",
+            "description": "I will write one high-quality article, add 3 relevant images and add at least 2 citations  / references",
+            "pricing": 1000,
+            "references_and_citations": true,
+            "title": "STANDART",
+            "topic_research": true,
+            "preview": 100202
+        };
+        var work = {
+            "work_samples": [
+                100001, 100002
+            ],
+            "awards": "20",
+            "customers": 15,
+            "past_client": "10"
+        };
+        m.findCreate(models.Work, work, {}, cb, function (work) {
+            subItems.work = work._id;
+            m.findCreate(models.Package, package, {}, cb, function (package) {
+                m.findCreate(models.Package, package2, {}, cb, function (package2) {
+                    subItems.service_packages.push(package._id, package2._id);
+                    cb()
+                })
+            });
+        })
+    });
+
+
     arrFunc.push(function (cb) {
         var item = {
             preview: "data:image/jpeg;base64,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"
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 100, "work": 100, "type": "agency",
+                "user": 100, "work": subItems.work, "type": "agency",
                 "name": "Siavash A",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 99999, "rating": 4,
-                "experience":1,
+                "experience": 1,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers" : [{"type" : "Creative and Ad Making" }],
+                "service_providers": [{"type": "Creative and Ad Making"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 21005
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         });
     });
 
@@ -416,21 +562,26 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 101, "work": 101, "type": "agency",
+                "user": 101, "work": subItems.work, "type": "agency",
                 "name": "Soumya Nalam",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 95999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers" : [{"type" : "Content Writing" }],
+                "service_providers": [{"type": "Content Writing"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 18005
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages;
+
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         })
     });
 
@@ -441,22 +592,26 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 102, "work": 102, "type": "agency",
+                "user": 102, "work": subItems.work, "type": "agency",
                 "name": "Shadrack K",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 94999, "rating": 2,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers" : [{"type" : "Bloggers and Influencers" }],
+                "service_providers": [{"type": "Bloggers and Influencers"}],
 
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 15005
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         })
     });
 
@@ -467,21 +622,25 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 103, "work": 103, "type": "agency",
+                "user": 103, "work": subItems.work, "type": "agency",
                 "name": "Mohamed M. A.",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 93999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers" : [{"type" : "Bloggers and Influencers" }],
+                "service_providers": [{"type": "Bloggers and Influencers"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 12005
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages;
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         })
     });
 
@@ -492,23 +651,25 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 104, "work": 104, "type": "agency",
+                "user": 104, "work": subItems.work, "type": "agency",
                 "name": "David Kibra",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 92999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": [{"type":"Event Management"}],
-
-
+                "service_providers": [{"type": "Event Management"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 11005
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages;
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         })
     });
 
@@ -519,21 +680,25 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 105, "work": 105, "type": "agency",
+                "user": 105, "work": subItems.work, "type": "agency",
                 "name": "Emma Davidson",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 90999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": [{"type":"Content Writing"}],
+                "service_providers": [{"type": "Content Writing"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 10005
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         })
     });
 
@@ -543,21 +708,25 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 106, "work": 106, "type": "agency",
+                "user": 106, "work": subItems.work, "type": "agency",
                 "name": "Retha Groenewald",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 89999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": [{"type":"Direct Marketing"}],
+                "service_providers": [{"type": "Direct Marketing"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 9000
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         })
     });
 
@@ -567,25 +736,29 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 106, "work": 106, "type": "agency",
+                "user": 106, "work": subItems.work, "type": "agency",
                 "name": "Leeanna Weideman",
-                "experience":1,
+                "experience": 1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 89999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": [{"type":"Media Planning"}],
+                "service_providers": [{"type": "Media Planning"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
+                "past_clients": [100011, 100012, 100013],
                 "views": 9000
             };
-            m.findCreate(models.Freelancer, freelancer, {}, cb, cb);
+            freelancer.service_packages = subItems.service_packages;
+            m.findCreate(models.Freelancer, freelancer, {}, cb, function (freelancer) {
+                create_job(freelancer._id, cb)
+            });
         })
     });
 
-    arrFunc.push(function (cb) {
+    jobArr.push(function (cb) {
         var job = {
             "job_visibility": true,
             "title": "Technical Writing & Creative Writing",
@@ -609,10 +782,13 @@ exports.make_fake = function (req, res) {
                 "Hyderabat"
             ]
         };
-        m.findCreate(models.Job, job, {}, cb, cb);
+        m.findCreate(models.Job, job, {}, cb, function (job) {
+            subItems.job = job._id;
+            cb()
+        });
     });
 
-    arrFunc.push(function (cb) {
+    jobArr.push(function (cb) {
         var job = {
             "job_visibility": true,
             "title": "Editor, Writer, Technical writer",
@@ -638,7 +814,7 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.Job, job, {}, cb, cb);
     });
 
-    arrFunc.push(function (cb) {
+    jobArr.push(function (cb) {
         var job = {
             "job_visibility": true,
             "title": "Copywriter. Technical writer. Editor",
@@ -664,7 +840,7 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.Job, job, {}, cb, cb);
     });
 
-    arrFunc.push(function (cb) {
+    jobArr.push(function (cb) {
         var job = {
             "job_visibility": true,
             "title": "Business writing consultant",
@@ -689,8 +865,11 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.Job, job, {}, cb, cb);
     });
-
-    async.parallel(arrFunc, function (e, r) {
-        m.scb('created!', res)
+    async.parallel(jobArr, function (e, r) {
+        async.parallel(subArr, function (e, r) {
+            async.parallel(arrFunc, function (e, r) {
+                m.scb('created!', res)
+            })
+        })
     })
 };

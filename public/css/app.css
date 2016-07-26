@@ -1374,17 +1374,25 @@ div.containerCrop {
     border: 1px solid lightgrey;
     max-width: 200px;
     margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .profile-detail .img-block {
     height: 150px;
     width: 100%;
-    text-align: center
+    text-align: center;
+    position: relative;
 }
 
 .profile-detail .img-block img {
     max-width: 150px;
     height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 
 .padding-10 {
