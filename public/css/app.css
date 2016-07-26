@@ -610,7 +610,15 @@ html, body {
 .text-red {
     color: #E52D27;
 }
+.text-header-menu, .text-header-menu:focus, .text-header-menu >svg {
+    color: #FFFFFF;
+    fill: #FFFFFF;
+}
 
+.text-header-menu:hover, .text-header-menu >svg:hover {
+    color: #E52D27;
+    fill: #E52D27;
+}
 .text-white, .text-white:hover, .text-white:focus {
     color: #FFFFFF;
 }
