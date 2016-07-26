@@ -495,9 +495,8 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
         return resObj
     }]);
 
-XYZCtrls.factory('socket', ["socketFactory", function (socketFactory) {
-    var myIoSocket = io.connect('http://localhost:8080/');
-
+XYZCtrls.factory('socket', ["socketFactory",'$location', function (socketFactory, $location) {
+    var myIoSocket = io.connect('http://'+$location.host()+':'+$location.port());
     var socket = socketFactory({
         ioSocket: myIoSocket
     });
