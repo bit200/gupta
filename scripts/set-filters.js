@@ -78,7 +78,7 @@ module.exports = function (done) {
         arrFunc.push(function (cb) {
             var arr = ['Print Ads', 'Videos', 'Animated Videos', 'Cinema Ads', 'Music and Audio', 'Banner Ads', 'Cartoonist',
                 'Photography', 'Presentation Design', 'Infographics'];
-            findCreateFilter('Creative and Ad making', '', arr, cb)
+            findCreateFilter('Creative and Ad Making', '', arr, cb)
         });
 
         arrFunc.push(function (cb) {

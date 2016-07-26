@@ -81,6 +81,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 angular.forEach(rootScope.activeProvider, function (aPm, key) {
                     if (key == 'values')
                         angular.forEach(aPm, function (value) {
+                            console.log(value)
                             if (value.arr)
                                 angular.forEach(value.arr, function (aV) {
                                     if (aV.selected) {
@@ -106,6 +107,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
             // service_packages
             http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
+                console.log('resp',resp)
                 scope.freelancers = resp.data;
             })
         };

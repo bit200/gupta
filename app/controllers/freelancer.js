@@ -54,7 +54,6 @@ exports.get_count_rating = function (req, res) {
 exports.get_freelancers = function (req, res) {
     var params = req.query;
     params.registrationStatus = 1;
-
     if (params.experience)
         params.experience = {$gte: parseInt(params.experience)};
     if (params["service_packages.0"]) {
@@ -63,7 +62,7 @@ exports.get_freelancers = function (req, res) {
         }
     }
     if (params.count) {
-        delete params.count
+        delete params.count;
         models.Freelancer.count(params).exec(function (err, count) {
             res.json(count)
         });
@@ -72,8 +71,13 @@ exports.get_freelancers = function (req, res) {
         var limit = parseInt(params.limit) || 10;
         delete params.page;
         delete params.limit;
+
+        // if ('service_provider')
         console.log(params)
-        m.find(models.Freelancer, params, res, res, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-views'})
+        m.find(models.Freelancer, params, res, function(freelancer){
+            log('12312313123123', freelancer)
+            m.scb(freelancer, res)
+        }, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-views'})
     }
 };
 
@@ -389,12 +393,14 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 100, "work": 100, "type": "agency",
                 "name": "Siavash A",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 99999, "rating": 4,
+                "experience":1,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Creative and Ad Making"],
+                "service_providers" : [{"type" : "Creative and Ad Making" }],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
@@ -412,12 +418,13 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 101, "work": 101, "type": "agency",
                 "name": "Soumya Nalam",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 95999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Content Writing"],
+                "service_providers" : [{"type" : "Content Writing" }],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
@@ -436,12 +443,14 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 102, "work": 102, "type": "agency",
                 "name": "Shadrack K",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 94999, "rating": 2,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Bloggers and Influencers"],
+                "service_providers" : [{"type" : "Bloggers and Influencers" }],
+
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
@@ -460,12 +469,13 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 103, "work": 103, "type": "agency",
                 "name": "Mohamed M. A.",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 93999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Bloggers and Influencers"],
+                "service_providers" : [{"type" : "Bloggers and Influencers" }],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
@@ -484,12 +494,15 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 104, "work": 104, "type": "agency",
                 "name": "David Kibra",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 92999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Event Management"],
+                "service_providers": [{"type":"Event Management"}],
+
+
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
@@ -508,12 +521,13 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 105, "work": 105, "type": "agency",
                 "name": "Emma Davidson",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 90999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Content Writing"],
+                "service_providers": [{"type":"Content Writing"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
@@ -531,12 +545,13 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 106, "work": 106, "type": "agency",
                 "name": "Retha Groenewald",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 89999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Direct Marketing"],
+                "service_providers": [{"type":"Direct Marketing"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
@@ -554,12 +569,13 @@ exports.make_fake = function (req, res) {
             var freelancer = {
                 "user": 106, "work": 106, "type": "agency",
                 "name": "Leeanna Weideman",
+                "experience":1,
                 "introduction": "Senior IOS Developer",
                 "description": "Lorem ipsum dolor sit amet, consecretur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ",
                 "popularity": 89999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": ["Media Planning"],
+                "service_providers": [{"type":"Media Planning"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
