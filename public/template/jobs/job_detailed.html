@@ -5,7 +5,15 @@
     <h1 class="title2">
         Job #{{job._id}}
     </h1>
-    <div class="jshadow">
+    <p class="profile-extra-info pointer" ng-if="isLogged()" ng-init="checkFavorited()" style="text-align: center">
+                    <span ng-hide="jobFavorited" ng-click="addFavorite()">
+                        <ng-md-icon icon="favorite_border" class="big-svg" style="fill: rgb(51, 56, 70);top: 4px;position: relative;"></ng-md-icon>
+                    </span>
+                    <span ng-show="jobFavorited" ng-click="removeFavorite()">
+                        <ng-md-icon icon="favorite" class="big-svg" style="fill: red;top: 4px;position: relative;"></ng-md-icon>
+                    </span>
+    </p>
+    <div class="jshadow" style="margin-top: 0px">
         <job-detailed
         ></job-detailed>
     </div>

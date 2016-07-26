@@ -77,7 +77,7 @@ exports.get_freelancers = function (req, res) {
     }
 };
 
-exports.get_favorites = function (req, res) {
+exports.get_favorites_freelancer = function (req, res) {
     var populate = [
         {
             path: 'freelancer',
@@ -87,8 +87,7 @@ exports.get_favorites = function (req, res) {
 
         }
     ];
-    models.Favorite.find({owner: req.userId}).select('freelancer').populate(populate).exec(function (err, favorites) {
-        console.log("hahadshfhasdf", err, favorites)
+    models.Favorite.find({owner: req.userId, freelancer:{$gt:0}}).select('freelancer').populate(populate).exec(function (err, favorites) {
         res.json(_.map(favorites, function (fav) {
             return fav.freelancer
         }))

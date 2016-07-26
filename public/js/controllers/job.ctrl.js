@@ -13,13 +13,13 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             '1 to 3 months',
             '3 to 6 months',
             'More than 6 months'
-        ]
+        ];
 
         var user = AuthService.currentUser() || {}
         scope.types = [
             'Agency',
             'Freelancer'
-        ]
+        ];
 
         scope.isApply = scope.apply || scope.apply_by_id;
         console.log('is Apply', scope.apply_by_id)
@@ -35,6 +35,21 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             job.date_of_completion = new Date(job.date_of_completion);
             job.job_visibility_plain = job.job_visibility ? 'Public' : 'Private'
             scope.job = job;
+            scope.checkFavorited = function () {
+                http.get('/job/check_favorite', {params:{job:scope.job._id}}).success(function (resp) {
+                    console.log('qweqwe', resp)
+                    scope.jobFavorited = resp
+                });
+            };
+            scope.addFavorite = function () {
+                http.get('/job/favorite/add', {params:{_id:scope.job._id}});
+                scope.jobFavorited = true
+            };
+
+            scope.removeFavorite = function () {
+                http.get('/job/favorite/remove', {params:{_id:scope.job._id}});
+                scope.jobFavorited = false
+            };
             scope.new_job = job;
             scope.job.type_checkbox = parseEdit(scope.job.types);
             scope.job.content = parseEdit(scope.job.content_types);

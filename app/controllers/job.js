@@ -84,14 +84,20 @@ exports.filter_job = function (req, res) {
 
     var modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
         category = {};
-    if (params.status == 'All'){
+    if (params.status == 'All') {
         modelFind = 'Job';
     }
-    
-    switch(modelFind){
-        case 'JobApply': category.message = re;break;
-        case 'Contract': category.$or = [{title: re}, {information: re}, {seller_name: re}, {buyer_name: re}];break;
-        case 'Job': category.$or = [{title: re}, {description: re}, {type_category: re}, {type_filter: re}, {type_name:re}];break;
+
+    switch (modelFind) {
+        case 'JobApply':
+            category.message = re;
+            break;
+        case 'Contract':
+            category.$or = [{title: re}, {information: re}, {seller_name: re}, {buyer_name: re}];
+            break;
+        case 'Job':
+            category.$or = [{title: re}, {description: re}, {type_category: re}, {type_filter: re}, {type_name: re}];
+            break;
     }
 
     if (params.category)
@@ -331,4 +337,34 @@ exports.get_jobs = function (req, res) {
         m.find(models.Job, params, res, res, {skip: skip, limit: limit})
 
     }
+};
+
+exports.add_favorite = function (req, res) {
+    var params = m.getBody(req);
+    m.findCreate(models.Favorite, {owner: req.userId, job: params._id}, {}, res, res);
+};
+
+exports.remove_favorite = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models.Favorite, {owner: req.userId, job: params._id}, res, res);
+};
+
+exports.check_job_favorite = function (req, res) {
+    var params = m.getBody(req);
+    log('sfsfsdfsd', req.userId, params.job);
+    m.findOne(models.Favorite, {owner: req.userId, job: params.job}, res, res);
+
+};
+
+exports.get_favorites_jobs = function (req, res) {
+    var populate = [
+        {
+            path: 'job'
+        }
+    ];
+    models.Favorite.find({owner: req.userId, job:{$gt:0}}).select('job').populate(populate).exec(function (err, favorites) {
+        res.json(_.map(favorites, function (fav) {
+            return fav.job
+        }))
+    })
 };

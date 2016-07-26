@@ -9,9 +9,7 @@ module.exports = function (app) {
     app.post('/job', auth.token, job.add_job);
     app.post('/get-job', auth.token, job.get_job);
     app.get('/get-my-job', auth.token, job.get_my_job);
-    
     app.get('/api/info/:model/:_id', job.get_info);
-
     app.get('/api/job/:_id', job.getInfo);
     app.post('/api/job/attach', job.job_attach_file);
     app.put('/api/job', auth.token, job.update);
@@ -30,6 +28,11 @@ module.exports = function (app) {
     
     
     app.get('/api/jobs/filter', job.filter_job);
+
+    app.get('/job/favorite/add', auth.token, job.add_favorite);
+    app.get('/job/favorite/remove', auth.token, job.remove_favorite);
+    app.get('/job/check_favorite', auth.token, job.check_job_favorite);
+    app.get('/job/favorites', auth.token, job.get_favorites_jobs);
 
 
     job.fn('/api/jobs/all', null, 'Job', '{job_visibility: true}'

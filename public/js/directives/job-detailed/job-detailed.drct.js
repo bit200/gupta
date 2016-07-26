@@ -8,7 +8,9 @@ XYZCtrls.directive('jobDetailed', function () {
             scope.title = attrs.title
             scope.btns = attrs.btns
         },
-        controller: ['$scope', function (scope) {
+        controller: ['$scope', '$http', function (scope, $http) {
+          
+            
             //console.log('@@@ Scope Post directive', scope.attrs)
         }]
     };

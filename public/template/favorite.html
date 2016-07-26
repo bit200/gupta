@@ -1,36 +1,92 @@
-<div class="container">
-    <div class=" text-center paddingB50 paddingT20"><h2>Your favorite freelancers</h2></div>
-    <div class="row">
-        <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;"
-             ng-repeat="profile in profiles | orderBy:'-views'">
-            <div class="profile" ng-click="$state.go('categories.profile', {id: profile._id})">
-                <div class="front">
-                    <div class="profile-img">
-                        <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
-                    </div>
-                    <div class="profile-info">
-                        <div class="text-center profile-info-name">{{profile.name}}</div>
-                        <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
-                            <div class="inline-block" style="width: 13%;height: 30px;position: relative;">
-                                <img ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" style="color:black;fill:black; height: 100%;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}.svg">
-                                <img ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}F.svg">
+<div class="container marginT30">
+    <div ng-init="display.type = 'freelancers'; getFreelancer()" class="text-center">
+        <md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block">
+            <md-radio-button ng-click="getFreelancer()" value="freelancers" class="md-primary inline-block">Freelancers</md-radio-button>
+            <md-radio-button ng-click="getJobs()" value="jobs" style="margin-left: 50px;display:inline-block">Jobs</md-radio-button>
+        </md-radio-group>
+    </div>
+    <loading ng-if="loading" margin-top="40"></loading>
+    <div ng-if="!loading">
+        <div ng-if="!favorites.length">
+            <h3 class="text-center">You have not favorite {{display.type}}</h3>
+        </div>
+        <div ng-if="favorites.length">
+            <div class="text-center paddingB50 paddingT20"><h2>Your favorite {{display.type}}</h2></div>
+            <div class="row" ng-if="display.type == 'freelancers'">
+                <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;"
+                     ng-repeat="profile in favorites | orderBy:'-views'">
+                    <div class="profile" ng-click="$state.go('categories.profile', {id: profile._id})">
+                        <div class="front">
+                            <div class="profile-img">
+                                <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
                             </div>
-                            <div ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" class="inline-block profile-service-provider" >{{profile.service_providers[0].type || profile.service_providers[0]}}</div>
-                            <div ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type || profile.service_providers[0]}}</div>                        </div>
+                            <div class="profile-info">
+                                <div class="text-center profile-info-name">{{profile.name}}</div>
+                                <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
+                                    <div class="inline-block" style="width: 13%;height: 30px;position: relative;">
+                                        <img ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" style="color:black;fill:black; height: 100%;" class="text-center"
+                                             ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}.svg">
+                                        <img ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center"
+                                             ng-src="/img/{{(profile.service_providers[0].type || profile.service_providers[0]).split(' ').join('-').toLowerCase()}}F.svg">
+                                    </div>
+                                    <div ng-if="profile.service_providers[0].type != 'Content Writing' && profile.service_providers[0] != 'Content Writing'" class="inline-block profile-service-provider">{{profile.service_providers[0].type ||
+                                        profile.service_providers[0]}}
+                                    </div>
+                                    <div ng-if="profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'" class="inline-block profile-service-provider" style="bottom: 10px">
+                                        {{profile.service_providers[0].type || profile.service_providers[0]}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="profile-back">
+                                <div class="profile-back-name">{{profile.name}}</div>
+                                <div class="profile-back-introduction">{{profile.introduction}}</div>
+                                <div class="profile-back-description">{{profile.description}}</div>
+                                <div class="profile-back-rating-block">
+                                    <div class="inline-block text-left" style="width: 30%">by jademax</div>
+                                    <div class="inline-block text-center" style="width: 35%">
+                                        <star-rating ng-model="profile.rating"></star-rating>
+                                    </div>
+                                    <div class="inline-block text-right" style="width: 20%">({{profile.views}})</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="back">
-                    <div class="profile-back">
-                        <div class="profile-back-name">{{profile.name}}</div>
-                        <div class="profile-back-introduction">{{profile.introduction}}</div>
-                        <div class="profile-back-description">{{profile.description}}</div>
-                        <div class="profile-back-rating-block">
-                            <div class="inline-block text-left" style="width: 30%">by jademax</div>
-                            <div class="inline-block text-center" style="width: 35%">
-                                <star-rating ng-model="profile.rating"></star-rating>
-                            </div>
-                            <div class="inline-block text-right" style="width: 20%">({{profile.views}})</div>
+            </div>
+            <div class="row" ng-if="display.type == 'jobs'">
+                <div class="col-md-offset-1 col-md-10 marginTB20 border-bottom" ng-repeat="job in favorites" ng-if="$index < 4">
+                    <div class="row">
+                        <div class="col-sm-2 hide-xs">
+                            <a ui-sref="root.job_detailed({job: job._id})" class="job-logo hide-xs">12TH CROSS <br> JOB</a>
                         </div>
+                        <div class="col-sm-10 col-xs-12">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="text-bold marginB10 job-types">
+                                        <div class="inline-block">{{job.title}}</div>
+                                    </div>
+                                    <div class="job-title">{{job.description}}</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="job-info">
+                                        <div class="job-info-location">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            <span style="padding-left: 15px">{{job.local_preference[0] || 'N/A'}}</span>
+                                        </div>
+                                        <div class="job-info-price">
+                                            <span class="img-budget" aria-hidden="true"></span>
+                                            <span style="padding-left: 5px">{{job.budget}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 job-button-block">
+                                    <a ui-sref="root.job_detailed({job: job._id})" class="btn job-button">View Project</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

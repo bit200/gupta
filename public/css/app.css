@@ -863,6 +863,14 @@ div.communitySP div.text-center {
 .small-svg > svg {
     height: 20px;
 }
+.big-svg > svg {
+    height: 70px;
+    width: 70px;
+}
+
+md-radio-button:focus {
+    outline: none;
+}
 
 .job-logo {
     background-color: #565A5D;

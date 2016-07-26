@@ -10,6 +10,10 @@ var FavoriteSchema = mongoose.Schema({
         type: Number,
         ref: 'Freelancer'
     },
+    job: {
+        type: Number,
+        ref: 'Job'
+    },
     created_at: {
         type: Date,
         default: Date.now
