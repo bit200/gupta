@@ -1,25 +1,23 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 
-XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$state', 'AuthService',
-    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state, AuthService) {
-
-    scope.currentFreelancer = AuthService.currentFreelancer
+XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$state', 'AuthService', 'cfpLoadingBar',
+    function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state, AuthService,cfpLoadingBar) {
+    
+    scope.currentFreelancer = AuthService.currentFreelancer;
     scope.howItWorks= false;
     scope.mainPage= true;
     scope.cancelRegistration = function () {
         location.path('/')
     };
-
+ 
     scope.link = function (url) {
         location.path(url)
     };
 
     scope.favorites = [];
     http.get('/api/my/favorite').success(function(favorites){
-        console.log('ewrw',favorites);
         scope.favorites = favorites;
-        $rootScope.dynamic = 100
     });
 
     scope.addFavorite = function(profileId){

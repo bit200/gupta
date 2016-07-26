@@ -28,58 +28,37 @@
     <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
     <link rel="stylesheet" href="bower_components/angular-notify/angular-notify.css">
     <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
-    <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' type='text/css' media='all'/>
     <link rel="stylesheet" type="text/css" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css">
 </head>
-<body ng-controller="MainCtrl"  style="width: 100%; position: relative">
+<body ng-controller="MainCtrl" style="width: 100%; position: relative">
 <div class="page-wrap">
-    <div ng-include="'template/header.html'" class="top-header"></div>
-    <div class="body font-family" ui-view></div>
-</div>
-<div class="site-footer">
-    <footer class="home-footer" style="">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-9 col-xs-12 text-center-xs pull-left font-family" style="padding-top: 3px;">
-                    <span class="home-footer-text pointer" ng-click="$state.go('About')">About</span>
-                    <span class="home-footer-text pointer" ng-click="$state.go('Testimonial')">Testimonial</span>
-                    <span class="home-footer-text pointer" ng-click="$state.go('Show to list')">Show to list</span>
-                    <span class="home-footer-text pointer" ng-click="$state.go('How it works')">How it works</span>
-                    <span class="home-footer-text pointer" ng-click="$state.go('Clients')">Clients</span>
-                    <span class="home-footer-text pointer" ng-click="$state.go('Terms & Conditions')">Terms & Conditions</span>
-                    <span class="home-footer-text pointer" ng-click="$state.go('Press')">Press</span>
-                    <span class="home-footer-text pointer" ng-click="$state.go('Contact')">Contact</span>
-                </div>
-                <div class="col-sm-3 col-xs-12 text-center-xs paddingTB15-xs pull-right text-right">
-                    <div class="home-footer-social-link">
-                        <i class="fa fa-google-plus" aria-hidden="true"></i>
-                    </div>
-                    <div class="home-footer-social-link">
-                        <i class="fa fa-linkedin-square" aria-hidden="true" style="padding-left:1px"></i>
-                    </div>
-                    <div class="home-footer-social-link">
-                        <i class="fa fa-twitter" aria-hidden="true" style="padding-left:2px"></i>
-                    </div>
-                    <div class="home-footer-social-link">
-                        <i class="fa fa-pinterest-p" aria-hidden="true" style="padding-left:2px"></i>
-                    </div>
-                    <div class="home-footer-social-link">
-                        <i class="fa fa-facebook" aria-hidden="true" style="padding-left:3px"></i>
-                    </div>
-                    <div class="home-footer-social-link">
-                        <i class="fa fa-instagram" aria-hidden="true" style="padding-left:1px"></i>
-                    </div>
-                </div>
+    <div class="splash-screen" ng-class="{'hide-screen':!isLoadingPage}">
+        <div class="block-center" style="height: 200px;width: 200px;bottom: 26%">
+            <div class="text-center inline-block" style="font-size: 34px;width: 100%;">Please wait</div>
+            <div class="sk-circle" style="width:30px; height: 30px;">
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
             </div>
         </div>
-    </footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-xs-12 text-center-xs paddingT10-xs pull-left">© 12TH CROSS 2016</div>
-            <div class="col-sm-6 col-xs-12 text-right text-center-xs paddingT10-xs pull-right">POWERED BY: IGENERO</div>
-        </div>
     </div>
+    <div>
+        <div ng-include="'template/header.html'" class="top-header"></div>
+        <div  class="body font-family" ui-view></div>
+    </div>
+
 </div>
+<div ng-include="'template/footer.html'"></div>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -169,32 +148,37 @@
 <script src="js/controllers/myProfile.ctrl.js"></script>
 <script src="js/controllers/favorite.ctrl.js"></script>
 <script type="text/javascript" src="//platform.linkedin.com/in.js">
-    api_key: 78wfitxgu7t5gn
+    api_key: 78
+    wfitxgu7t5gn
     authorize: true
     onLoad: onLinkedInLoad
 </script>
 
 <script type="text/javascript">
-    function onLinkedInLoad() {}
+    function onLinkedInLoad() {
+    }
 </script>
 
 <script type="text/javascript">
-    if (!location.hash) location.hash='#/';
+    if (!location.hash) location.hash = '#/';
 
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         FB.init({
-            appId      : '930075280420914',
-            xfbml      : true,
-            version    : 'v2.5'
+            appId: '930075280420914',
+            xfbml: true,
+            version: 'v2.5'
         });
         window.fbApiInit = true;
         $(document).trigger('fbInit');
     };
 
-    (function(d, s, id){
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));

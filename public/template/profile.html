@@ -118,7 +118,7 @@
                                 <td style="padding-bottom: 70px;">Delivery Time</td>
                                 <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: left">
                                     <span ng-if="!(pkg.delivery_time && pkg.delivery_time!=1)">1 day</span>
-                                    <md-radio-group ng-model="pkg.delivery_time" layout="row" style="margin-bottom: 25px; display: inline-block" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
+                                    <md-radio-group ng-model="pkg.delivery_times" layout="row" style="margin-bottom: 25px; display: inline-block" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
                                         <md-radio-button ng-value="pkg.delivery_time" class="md-primary">{{pkg.delivery_time}} days</md-radio-button>
                                         <md-radio-button ng-value="1" style="margin-top: 20px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>
                                     </md-radio-group>

@@ -25,6 +25,9 @@
     /*color: #EA2B29 !important;*/
     /*border-bottom: 2px solid #EA2B29;*/
 }
+.flex.menu > li a {
+    border-bottom: 2px solid transparent;
+}
 
 .flex.menu > li a:hover{
     color: #EA2B29 !important;

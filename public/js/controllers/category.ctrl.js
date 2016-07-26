@@ -6,6 +6,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.arrayLanguages = getContent.languages.data.data;
         scope.arrayLocations = getContent.locations.data.data;
         scope.freelancers = [];
+        scope.loading = true;
         scope.ownFilter.type = 'agency';
 
         scope.search = {}
@@ -109,6 +110,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
                 console.log('resp',resp)
                 scope.freelancers = resp.data;
+                scope.loading = false;
             })
         };
 
@@ -134,6 +136,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
             scope.ratings = resp.data.data;
         });
         $http.get('/freelancer/review', {params: {_id: $stateParams.id}}).then(function (resp) {
+            scope.reviews = resp.data.data;
             scope.reviews = resp.data.data;
         });
         if(scope.viewProfile.past_clients)

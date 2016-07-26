@@ -347,4 +347,5 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
         console.log(resp)
         localStorage.setItem('commonFilters', JSON.stringify(resp))
     });
+    $rootScope.isLoadingPage = false;
 }]);

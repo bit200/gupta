@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$location', '$state', function (scope, $rootScope, location, $state) {
+angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$location', '$state', 'cfpLoadingBar', function (scope, $rootScope, location, $state, cfpLoadingBar) {
     scope.headerSearch = '';
-
     scope.headerSubmit = function (search) {
         location.path('/category/' + search);
         scope.headerSearch = '';

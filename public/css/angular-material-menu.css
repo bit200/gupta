@@ -10,9 +10,27 @@ md-checkbox.md-checked .md-icon{
     height: 33px;
 }
 
-#primary_nav_wrap
-{
+
+
+.flex.menu {
+    opacity: 0;
+    height: 0;
+    position: absolute;
+}
+
+.flex.menu.flex-fix {
+    opacity: 1;
+    height: auto;
+}
+
+#primary_nav_wrap {
     margin-top: 6px;
+    opacity: 0;
+}
+
+#primary_nav_wrap.visible {
+    opacity: 1;
+    transition: all .5s ease;
 }
 
 #primary_nav_wrap ul

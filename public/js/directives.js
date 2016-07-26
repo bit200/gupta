@@ -419,11 +419,11 @@ XYZCtrls.directive('flexMenu', ["$timeout", function ($timeout) {
                         $timeout(function () {
                             $(element).flexMenu();
                             $('.flexMenu-popup').on('mouseover', function (event) {
-                                $timeout(function(){
+                                $timeout(function () {
                                     if (($(window).width() - angular.element(event.currentTarget).offset().left) < 300) {
                                         angular.element(event.currentTarget).find('ul').css('left', '-100%')
                                     }
-                                },0)
+                                }, 0)
                             });
                             $('.flexMenu-viewMore').on('mouseover', function () {
                                 $('.flexMenu-viewMore').toggleClass('active');
@@ -433,9 +433,9 @@ XYZCtrls.directive('flexMenu', ["$timeout", function ($timeout) {
                                 $('.flexMenu-viewMore').removeClass('active');
                                 $('.flexMenu-popup').css('display', 'none')
                             });
-
-
-                        }, 100)
+                            
+                            $('#primary_nav_wrap').addClass('visible')
+                        }, 1)
                     }
                 }
             )

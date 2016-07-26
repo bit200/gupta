@@ -30,7 +30,7 @@
                     <div toggle="close[activeProvider.name]">
                         <div ng-if="activeProvider.values.length>5">
                             <md-input-container md-no-float class="md-block">
-                                <input ng-model="search[activeProvider.name]" type="text" placeholder="Search" >
+                                <input ng-model="search[activeProvider.name]" type="text" placeholder="Search">
                                 <md-icon md-svg-src="/img/search.svg" style="top: 12px"></md-icon>
                             </md-input-container>
                         </div>
@@ -53,7 +53,7 @@
                         <div toggle="close[obj.subFilter]">
                             <div ng-if="obj.arr.length>5">
                                 <md-input-container md-no-float class="md-block">
-                                    <input ng-model="search[obj.subFilter]" type="text" placeholder="Search" >
+                                    <input ng-model="search[obj.subFilter]" type="text" placeholder="Search">
                                     <md-icon md-svg-src="/img/search.svg" style="top: 12px"></md-icon>
                                 </md-input-container>
                             </div>
@@ -107,29 +107,38 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-9">
-            <h3 ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length" style="text-align: center">Not found</h3>
-            <div class="row">
-                <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
+            <div ng-if="loading">
+                <div class="text-center">
+                    <h3>Loading</h3>
+                    <loading w="20" h="20" margin-top="20" margin-bottom="20"></loading>
+                </div>
+            </div>
+            <div ng-if="!loading">
+                <h3 ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length" style="text-align: center">Not found</h3>
+                <div class="row">
+                    <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
 
-                    <div class="profile-detail">
-                        <div class="img-block">
-                            <img ng-src="{{profile.contact_detail.preview}}">
-                        </div>
-                        <div class="padding-10">
-                            <div class="profile-title">{{profile.name}}</div>
-                            <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
-                            <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
-                            <div class="profile-back-rating-block-category">
-                                <div class="inline-block text-center" style="width: 50%">
-                                    <star-rating ng-model="profile.rating"></star-rating>
-                                </div>
-                                <div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>
+                        <div class="profile-detail">
+                            <div class="img-block">
+                                <img ng-src="{{profile.contact_detail.preview}}">
                             </div>
-                        </div>
+                            <div class="padding-10">
+                                <div class="profile-title">{{profile.name}}</div>
+                                <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
+                                <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
+                                <div class="profile-back-rating-block-category">
+                                    <div class="inline-block text-center" style="width: 50%">
+                                        <star-rating ng-model="profile.rating"></star-rating>
+                                    </div>
+                                    <div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>
+                                </div>
+                            </div>
 
-                        <div class="view-details-button" ng-click="$state.go('categories.profile', {id: profile._id})">
-                            View Details
+                            <div class="view-details-button" ng-click="$state.go('categories.profile', {id: profile._id})">
+                                View Details
+                            </div>
                         </div>
                     </div>
                 </div>
