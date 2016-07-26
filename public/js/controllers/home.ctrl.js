@@ -16,18 +16,26 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
     };
 
     scope.favorites = [];
-    http.get('/api/my/favorites').success(function(favorites){
+    http.get('/api/my/favorite').success(function(favorites){
+        console.log('ewrw',favorites);
         scope.favorites = favorites
     });
 
     scope.addFavorite = function(profileId){
-        http.get('/api/freelancer/'+profileId+'/favorite/add');
-        scope.favorites.push(profileId)
+        http.get('/api/freelancer/'+profileId+'/favorite/add').then(function(){
+            scope.favorites.push(profileId)
+        }, function(err){
+            if(err.status == 401) {
+                $state.go('login')
+            }
+        });
     };
 
     scope.removeFavorite = function(profileId){
-        http.get('/api/freelancer/'+profileId+'/favorite/remove');
-        scope.favorites.splice(scope.favorites.indexOf(profileId),1);
+        http.get('/api/freelancer/'+profileId+'/favorite/remove').then(function(){
+            console.log(scope.favorites, profileId)
+            scope.favorites.splice(scope.favorites.indexOf(profileId),1);
+        })
     };
 
 

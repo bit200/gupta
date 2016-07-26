@@ -4,6 +4,7 @@ var freelancer = require('../controllers/freelancer');
 
 module.exports = function (app) {
     var auth = require('./middlewares/auth');
+    app.get('/api/my/favorite', auth.token, freelancer.get_favorites);
     app.get('/api/my/favorites/freelancer', auth.token, freelancer.get_favorites_freelancer);
     app.get('/api/freelancer/me', auth.token, freelancer.get_current_freelancer);
     
@@ -20,10 +21,10 @@ module.exports = function (app) {
     app.post('/api/freelancer/request', auth.checkIfUser, freelancer.freelancer_request);
     app.post('/api/freelancer/contact_detail', freelancer.add_update_contact_detail);
     app.get('/api/freelancers/search', freelancer.search_freelancers);
-    
+
     app.get('/api/freelancer/:id/views', freelancer.freelancer_views_count);
     app.post('/api/freelancer/:id/views', freelancer.add_freelancer_view);
-    
+
     app.get('/api/freelancer/:id/favorite/add', auth.token, freelancer.add_favorite);
     app.get('/api/freelancer/:id/favorite/remove', auth.token, freelancer.remove_favorite);
     app.get('/api/freelancer/:id/check_favorite', auth.token, freelancer.check_favorite);

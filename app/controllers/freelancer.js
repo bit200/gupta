@@ -77,6 +77,13 @@ exports.get_freelancers = function (req, res) {
     }
 };
 
+exports.get_favorites = function (req, res) {
+    models.Favorite.find({owner: req.userId, freelancer:{$gt:0}}).select('freelancer').exec(function (err, favorites) {
+        res.json(_.map(favorites, function (fav) {
+            return fav.freelancer
+        }))
+    })
+};
 exports.get_favorites_freelancer = function (req, res) {
     var populate = [
         {
@@ -217,15 +224,11 @@ exports.add_freelancer_view = function (req, res) {
 };
 
 exports.add_favorite = function (req, res) {
-    new models.Favorite({owner: req.userId, freelancer: req.params.id}).save(function () {
-        res.send(200);
-    });
+    m.findCreate(models.Favorite, {owner: req.userId, freelancer: req.params.id}, {}, res, res);
 };
 
 exports.remove_favorite = function (req, res) {
-    models.Favorite.remove({owner: req.userId, freelancer: req.params.id}).exec(function () {
-        res.send(200);
-    });
+    m.findRemove(models.Favorite, {owner: req.userId, freelancer: req.params.id}, res, res);
 };
 
 exports.check_favorite = function (req, res) {
