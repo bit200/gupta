@@ -184,6 +184,7 @@ module.exports = function (grunt) {
                         "public/bower_components/angular-socket-io/socket.min.js",
                         "public/bower_components/angular-facebook/lib/angular-facebook.js",
                         "public/bower_components/angular-directive.g-signin/google-plus-signin.js",
+                        "public/bower_components/angular-loading-bar/build/loading-bar.min.js",
                         "https://apis.google.com/js/api:client.js",
                         "public/js/libs/angular-breadcrumb.js",
                         "public/js/libs/socket.io.js",
@@ -277,7 +278,8 @@ module.exports = function (grunt) {
                             "public/bower_components/ng-dialog/css/ngDialog-theme-default.css",
                             "public/bower_components/angular-notify/angular-notify.css",
                             "public/bower_components/angular-bootstrap/ui-bootstrap-csp.css",
-                            "public/bower_components/ng-img-crop/compile/minified/ng-img-crop.css"
+                            "public/bower_components/ng-img-crop/compile/minified/ng-img-crop.css",
+                            "public/bower_components/angular-loading-bar/build/loading-bar.min.css"
                         ]
                     }
                 ]

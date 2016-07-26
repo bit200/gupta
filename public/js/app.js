@@ -17,5 +17,6 @@ var XYZApp = angular.module('XYZApp', [
     'ui.bootstrap',
     'ui.router',
     'btford.socket-io',
-    'ncy-angular-breadcrumb'
+    'ncy-angular-breadcrumb',
+    'angular-loading-bar'
 ]);
