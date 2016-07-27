@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default top-home" ng-controller="HeaderCtrl" style="position: fixed; top:0px">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -13,32 +14,47 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="floatL" style="margin-right: 5px">
-                    <a  ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>
+                    <a ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>
                 </li>
                 <li class="floatL">
                     <a ui-sref='jobs_list.all' class="btn btn-header">VIEW PROJECTS</a>
-                    <ng-md-icon icon="favorite" class="text-header-menu inline-block" ui-sref="favorite" style="cursor: pointer;fill: white;position: relative;top: 8px;margin-left: 10px;" size="24"></ng-md-icon>
+                    <a ui-sref="favorite" style="padding: 0 !important;display: inline-block !important;">
+                        <ng-md-icon icon="favorite" class="text-header-menu inline-block"
+                                    style="cursor: pointer;fill: white;position: relative;top: 8px;margin-left: 10px;"
+                                    size="24"></ng-md-icon>
+                    </a>
                 </li>
                 <li class="floatR" ng-if="!isLogged()">
-                    <a class="pull-right text-header-menu marginT12 paddingLR10 pointer" ui-sref="signup" style="{font-size: 10pt; margin-left: 10px;}">Signup</a>
-                    <a class="pull-right text-header-menu marginT12 paddingLR10 pointer" ui-sref="login" style="{font-size: 10pt; margin-left: 10px;}">Login</a>
+                    <a class="pull-right text-header-menu marginT12 paddingLR10 pointer" ui-sref="signup"
+                       style="{font-size: 10pt; margin-left: 10px;}">Signup</a>
+                    <a class="pull-right text-header-menu marginT12 paddingLR10 pointer" ui-sref="login"
+                       style="{font-size: 10pt; margin-left: 10px;}">Login</a>
                 </li>
                 <li class="floatR dropdown" ng-if="isLogged()" style="color: white">
-                    <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button"
+                         aria-haspopup="true" aria-expanded="false">
                         <div style="display: inline-block;margin-left: 10px;">
-                            <img style="width: 32px;border-radius: 23px;top: 8px;position: relative;" ng-show="currentUser().preview" ng-src="{{currentUser().preview}}">
-                            <ng-md-icon ng-hide="currentUser().preview" icon="account_circle" style="fill: red;top: 4px;position: relative;" size="42"></ng-md-icon>
+                            <img style="width: 32px;border-radius: 23px;top: 8px;position: relative;"
+                                 ng-show="currentUser().preview" ng-src="{{currentUser().preview}}">
+                            <ng-md-icon ng-hide="currentUser().preview" icon="account_circle"
+                                        style="fill: red;top: 4px;position: relative;" size="42"></ng-md-icon>
                         </div>
                         <div style="float: right;margin-left: 10px">
-                            <div style="display: inline-block;position: relative;top:-4px;color: white;">{{currentUser().first_name}} {{currentUser().last_name}}</div>
-                            <ng-md-icon icon="keyboard_arrow_down" style="position: relative;top: 9px;fill: white;" size="32"></ng-md-icon>
+                            <div style="display: inline-block;position: relative;top:-4px;color: white;">
+                                {{currentUser().first_name}} {{currentUser().last_name}}
+                            </div>
+                            <ng-md-icon icon="keyboard_arrow_down" style="position: relative;top: 9px;fill: white;"
+                                        size="32"></ng-md-icon>
                         </div>
                     </div>
                     <ul class="dropdown-menu">
-                        <li ng-click="asView.buyer=true;asView.seller=false;" ng-class="{active: asView.buyer}"><a href="">As Buyer</a></li>
-                        <li ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a href="">As Seller</a></li>
+                        <li ng-click="asView.buyer=true;asView.seller=false;" ng-class="{active: asView.buyer}"><a
+                                href="">As Buyer</a></li>
+                        <li ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a
+                                href="">As Seller</a></li>
                         <li role="separator" class="divider"></li>
-                        <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ui-sref='my_profile'>Profile</a></li>
+                        <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ui-sref='my_profile'>Profile</a>
+                        </li>
                         <!--<li><a href="">My Activities</a></li>-->
                         <li><a ng-click="logout()" href="">Logout</a></li>
                     </ul>
@@ -51,27 +67,42 @@
         <div class="container">
             <nav id="primary_nav_wrap">
                 <!--<ul class="flex menu" flex-menu="filters" ng-if="currentUser() && ['categories', 'home'].indexOf($state.current.name) == -1">-->
-                <ul class="flex menu" flex-menu="filters" ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories', 'home'].indexOf($state.current.name) == -1}">
-                    <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard')" class="text-black top-menu-text">DASHBOARD</a></li>
-                    <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a ng-click="asView.buyer=true;asView.seller=false;$state.go('root.job_create')" class="text-black top-menu-text">POST A PROJECT</a></li>
-                    <li class="top-menu" ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}"><a ui-sref='jobs_list.all' class="text-black top-menu-text">VIEW PROJECTS</a></li>
+                <ul class="flex menu" flex-menu="filters"
+                    ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories', 'home'].indexOf($state.current.name) == -1}">
+                    <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard')"
+                        class="text-black top-menu-text">DASHBOARD</a></li>
+                    <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a
+                            ng-click="asView.buyer=true;asView.seller=false;$state.go('root.job_create')"
+                            class="text-black top-menu-text">POST A PROJECT</a></li>
+                    <li class="top-menu"
+                        ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}">
+                        <a ui-sref='jobs_list.all' class="text-black top-menu-text">VIEW PROJECTS</a></li>
                 </ul>
-                <ul  class="flex menu" ng-class="{'flex-fix': !currentUser() ||  ['categories', 'home'].indexOf($state.current.name) > -1}" flex-menu="commonFilters">
-                    <li class="top-menu" ng-repeat="(key, value) in commonFilters" ng-class="{active: activeProvider.name == key}">
+                <ul class="flex menu"
+                    ng-class="{'flex-fix': !currentUser() ||  ['categories', 'home'].indexOf($state.current.name) > -1}"
+                    flex-menu="commonFilters">
+                    <li class="top-menu" ng-repeat="(key, value) in commonFilters"
+                        ng-class="{active: activeProvider.name == key}">
                         <a class="text-black top-menu-text" ng-click="setActiveProvider(key, value);goCategories()">{{key}}</a>
+
                         <div class="sub-nav" style="position: absolute">
                             <ul class="top-sub-ul" ng-repeat="val in value track by $index">
-                                <li ng-if="val.name" ng-class="{active: activeProvider.subName == val.name && activeProvider.name == key}">
-                                    <a ng-click="setActiveProvider(key, value);setSubMenu(val.name);goCategories()" class="text-black top-sub-menu-text">{{val.name}}</a>
+                                <li ng-if="val.name"
+                                    ng-class="{active: activeProvider.subName == val.name && activeProvider.name == key}">
+                                    <a ng-click="setActiveProvider(key, value);setSubMenu(val.name);goCategories()"
+                                       class="text-black top-sub-menu-text">{{val.name}}</a>
                                 </li>
-                                <li ng-if="val.subFilter" class="dir top-sub-menu" ng-class="{active: activeProvider.subName == val.subFilter && activeProvider.name == key}">
-                                    <a class="text-black top-sub-menu-text" ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);goCategories()">
+                                <li ng-if="val.subFilter" class="dir top-sub-menu"
+                                    ng-class="{active: activeProvider.subName == val.subFilter && activeProvider.name == key}">
+                                    <a class="text-black top-sub-menu-text"
+                                       ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);goCategories()">
                                         {{val.subFilter}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
                                     <ul class="top-sub-sub-menu">
-                                        <li ng-repeat="subV in val.arr" ng-class="{active: activeProvider.subSubName == subV.name && activeProvider.subName == val.subFilter && activeProvider.name == key}">
+                                        <li ng-repeat="subV in val.arr"
+                                            ng-class="{active: activeProvider.subSubName == subV.name && activeProvider.subName == val.subFilter && activeProvider.name == key}">
                                             <a class="text-black top-sub-menu-text"
-                                                                           ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);setSubSubMenu(subV.name);goCategories()">
-                                            {{subV.name}}</a></li>
+                                               ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);setSubSubMenu(subV.name);goCategories()">
+                                                {{subV.name}}</a></li>
                                     </ul>
                                 </li>
                             </ul>

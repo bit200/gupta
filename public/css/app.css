@@ -526,8 +526,9 @@ div.text-padding {
     text-decoration: none;
 }
 
-.service-provider {
+.service-provider, .service-provider:focus {
     /*width: calc(100% / 2 - 20px);*/
+    text-decoration: none;
     color: #333;
     width: 223px;
     display: inline-block;
@@ -544,7 +545,6 @@ div.text-padding {
     background-color: #F6F6F6;
     transition: all 500ms;
     min-height: 175px;
-
 }
 
 .alert-danger {
@@ -2117,7 +2117,7 @@ md-autocomplete-wrap {
         text-align: left;
     }
 
-    .service-provider {
+    .service-provider, .service-provider:focus {
         font-size: 11pt;
         /*width: calc(100% / 5 - 20px);*/
         height: 214px;
@@ -2155,7 +2155,7 @@ md-autocomplete-wrap {
         width: 800px;
     }
 
-    .service-provider {
+    .service-provider,.service-provider:focus {
         font-size: 13pt;
     }
 
