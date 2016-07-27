@@ -66,7 +66,7 @@ angular.module( 'admin.sellers', [
             ModalService.showModal({
                 templateUrl: "sellers/reject.modal.html",
                 controller: ['$scope', '$element', 'close', function (scope, $element, close) {
-                    scope.seller = seller
+                    scope.seller = seller;
                     scope.submit = function(invalid, rejectReason){
                         if (invalid) return
                         scope.close(rejectReason)
@@ -89,7 +89,6 @@ angular.module( 'admin.sellers', [
         
         $scope.rejectApproveProfile = function(status, sellerId, $index, body){
             cfpLoadingBar.start();
-            console.log(body)
             $http.post('/admin/api/registration/'+status+'/'+sellerId, body || {}).success(function(){
                 cfpLoadingBar.complete()
                 notify({message: 'Seller with id ' + sellerId + ' has been succesfully '+ (status == 'reject' ? 'rejected' : 'approved'), position: 'right'});

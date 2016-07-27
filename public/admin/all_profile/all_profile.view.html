@@ -1,0 +1,46 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="rejectForm" novalidate>
+                <div class="modal-body">
+                    <h2 class="text-center">Change information</h2>
+                    <div ng-if="type == 'users'">
+                        <h4>First name</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control" name="fname" unique-name ng-model="profile.first_name"  placeholder="Enter first name" style="color: black">
+                        </md-input-container>
+                        <h4>Last name</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control" name="lname" unique-name ng-model="profile.last_name"  placeholder="Enter last name" style="color: black">
+                        </md-input-container>
+                        <h4>Phone number</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control" phone-number name="phone" unique-name ng-model="profile.phone"  placeholder="Enter  number phone" style="color: black">
+                        </md-input-container>
+                        <h4>Company name</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control" phone-number name="company_name" unique-name ng-model="profile.company_name"  placeholder="Enter company name" style="color: black">
+                        </md-input-container>
+                    </div>
+                    <div ng-if="type == 'freelancers'">
+                        <h4>Name</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control" name="fname" unique-name ng-model="profile.name"  placeholder="Enter name" style="color: black">
+                        </md-input-container>
+                        <h4>Type</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control" name="lname" unique-name ng-model="profile.type"  placeholder="Enter type" style="color: black">
+                        </md-input-container>
+                        <h4>Location</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control" phone-number name="phone" unique-name ng-model="profile.location"  placeholder="Enter location" style="color: black">
+                        </md-input-container>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" ng-click="submit(profile);">Submit</button>
+                    <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

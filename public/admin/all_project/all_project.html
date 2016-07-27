@@ -1,0 +1,43 @@
+<div class="container marginT30">
+    <div style="margin-top: 20px">
+   
+        <h2 ng-if="!all_projects.length" class="text-center">No project</h2>
+
+        <table class="table table-striped" ng-if="all_projects.length">
+            <thead>
+            <tr>
+                <th st-sort-default="true" class="text-bold pointer" >Title</th>
+                <th class="text-bold pointer" >Email</th>
+                <th class="text-bold pointer" >Budget</th>
+                <th class="text-bold pointer" >Status</th>
+                <th>Actions</th>
+            </tr>
+
+            </thead>
+            <tbody>
+
+            <tr  ng-repeat="all_project in all_projects" ng-class="{'rejecting-row': all_projects.rejectedItemIndex == $index}">
+                <td>{{all_project.title}}</td>
+                <td>{{all_project.email}}</td>
+                <!--<td>{{all_project.type_category}} <span ng-if="all_project.type_filter"> > </span> {{all_project.type_filter}} <span ng-if="all_project.type_name"> > </span> {{all_project.type_name}}</td>-->
+                <td>{{all_project.budget}}</td>
+                <td>{{all_project.status}}</td>
+                <td>
+                    <span style="color: green" ng-click="getInformation()" class="pointer glyphicon glyphicon-pencil inline-block"></span>
+                    <span ng-click="reject(all_project, $index)" style="color: red" class="pointer glyphicon glyphicon-remove"></span>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="7" class="text-center">
+                    <div st-pagination="" st-items-by-page="15" st-displayed-pages="7"></div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="text-center">
+            <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+        </div>
+    </div>
+</div>

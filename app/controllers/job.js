@@ -186,7 +186,7 @@ exports.count = function (query) {
         // console.log("info", info, info.params)
         m.count(models.Job, info.query, res, res, info.params)
     }
-};
+};  
 
 exports.buyer_open = function (req, res) {
     var queryParams = m.getBody(req)
@@ -195,7 +195,7 @@ exports.buyer_open = function (req, res) {
     // console.log("infofofofofo", info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
-}
+};
 
 exports.count = function (query) {
     return function (req, res) {
@@ -208,12 +208,13 @@ exports.count = function (query) {
 
 exports.rejectJobApply = function (req, res) {
     res.send("rejected")
-}
+};
+
 exports.buyer_open_count = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {buyer: req.userId})
     m.count(models.JobApply, info.query, res, res, info.params)
-}
+};
 
 exports.seller_open = function (req, res) {
     var queryParams = m.getBody(req)

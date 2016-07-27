@@ -10,6 +10,16 @@ module.exports = function (app) {
     app.post('/admin/api/filter/', _admin.edit_filter);
     app.delete('/admin/api/filter/:data', _admin.delete_filter);
     app.post('/admin/api/filter/add', _admin.create_filter);
+    
+    app.get('/admin/api/all/freelancer', _admin.all_freelancer);
+    app.get('/admin/api/all/users', _admin.all_users);
+    app.get('/admin/api/all/projects', _admin.all_projects);
+    app.post('/admin/api/users', _admin.change_user);
+    app.post('/admin/api/freelancers', _admin.change_freelancer);
+    app.delete('/admin/api/freelancers', _admin.delete_freelancers);
+    app.delete('/admin/api/users', _admin.delete_users);
+    app.delete('/admin/api/project', _admin.delete_projects);
+
 
     app.post('/admin/api/locations/', _admin.edit_location);
     app.post('/admin/api/locations/add', _admin.add_location);

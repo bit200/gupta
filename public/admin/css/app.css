@@ -21,6 +21,9 @@
     /*font-weight: bold;*/
     text-decoration: underline;
 }
+.text-black, .text-black:hover {
+    color:#333;
+}
 
 .hasError textarea{
     border: 1px solid red;

@@ -51,45 +51,99 @@ exports.get_seller = function (req, res) {
 };
 
 exports.edit_filter = function (req, res) {
-    if(req.body.query.main){
-        models.ServiceProvider.update({name:req.body.query.type},{name:req.body.newParams.type}).exec();
+    if (req.body.query.main) {
+        models.ServiceProvider.update({name: req.body.query.type}, {name: req.body.newParams.type}).exec();
         delete req.body.query.main;
     }
-    models.Filters.update(req.body.query,req.body.newParams,{multi: true}).exec(function (err, result) {
-        if(err) {console.log('Error update filters',err); return res.send(398);}
+    models.Filters.update(req.body.query, req.body.newParams, {multi: true}).exec(function (err, result) {
+        if (err) {
+            console.log('Error update filters', err);
+            return res.send(398);
+        }
         res.send(200);
     })
 };
 
+
 exports.delete_filter = function (req, res) {
-  var  params = JSON.parse(req.params.data);
-    if(params.main){
-        m._findRemove(models.ServiceProvider,{name:params.type},'','');
+    var params = JSON.parse(req.params.data);
+    if (params.main) {
+        m._findRemove(models.ServiceProvider, {name: params.type}, '', '');
         delete params.main;
     }
-    m._findRemove(models.Filters,params,res,function(){
+    m._findRemove(models.Filters, params, res, function () {
         res.send(200);
     });
 };
 
+exports.all_projects = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.Job, {}, res, function(users){
+        models.Job.count({_id:{$gt:0}}).exec(function (count) {
+            m.scb({data:users, count: count},res)
+        });
+    }, {skip:params.skip, limit:params.limit})
+};
+exports.all_users = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.User, {}, res, function(users){
+        models.User.count({_id:{$gt:0}}).exec(function (count) {
+            m.scb({data:users, count: count},res)
+        });
+    }, {skip:params.skip, limit:params.limit})
+};
+
+exports.all_freelancer = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.Freelancer, {}, res, function(freelancers){
+        m.count(models.Freelancer,{}, res, function (count) {
+            m.scb({data:freelancers, count: count},res)
+        });
+    }, {skip:params.skip, limit:params.limit})
+};
+
+
+exports.change_user = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.User, {_id:params.user._id}, params.user, res, res)
+};
+
+exports.change_freelancer = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.Freelancer, {_id:params.user._id}, params.user, res, res)
+};
+
+exports.delete_users = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models.User, {_id: params._id}, res, res)
+};
+exports.delete_freelancers = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models.Freelancer, {_id: params._id}, res, res)
+};
+exports.delete_projects = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models.Job, {_id: params._id}, res, res)
+};
+
 exports.create_filter = function (req, res) {
-    if(req.body.main)
-        m.create(models.ServiceProvider,{name:req.body.type,isActive:true,sub_categories:[]},'','');
-    m.create(models.Filters,req.body,res,res);
+    if (req.body.main)
+        m.create(models.ServiceProvider, {name: req.body.type, isActive: true, sub_categories: []}, '', '');
+    m.create(models.Filters, req.body, res, res);
 };
 
 exports.edit_location = function (req, res) {
-    m.findUpdate(models.Location,req.body.query,req.body.params,res,res);
+    m.findUpdate(models.Location, req.body.query, req.body.params, res, res);
 };
 
 exports.delete_location = function (req, res) {
-    var  params = JSON.parse(req.params.data);
-    m._findRemove(models.Location,params,res,function(){
+    var params = JSON.parse(req.params.data);
+    m._findRemove(models.Location, params, res, function () {
         res.send(200);
     });
 };
 exports.add_location = function (req, res) {
-    m.findCreate(models.Location,req.body.params,req.body.params,res,res);
+    m.findCreate(models.Location, req.body.params, req.body.params, res, res);
 };
 
 
