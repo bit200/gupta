@@ -7,11 +7,17 @@
     padding-left: 10px;
     font-size: 12px;
     color: #252525;
-    font-weight: 700;
     text-decoration: none;
 }
 
+.home-footer-social-link-img {
+    font-size: 13px;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+}
 .home-footer-social-link {
+    position: relative;
     display: inline-block;
     width: 26px;
     height: 26px;
@@ -20,4 +26,6 @@
     color: #DDDDDD;
     border-radius: 25px;
     font-size: 13px;
+    top:5px;
+    margin: 0 5px;
 }

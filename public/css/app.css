@@ -580,6 +580,12 @@ html, body {
     width: 100% !important;
 }
 
+.home-footer-text {
+    padding-top: 9px;
+    padding-bottom: 6px;
+    font-size: 12px;
+}
+
 .nopadding {
     padding: 0 !important;
 }

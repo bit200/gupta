@@ -222,14 +222,3 @@ table.claim-table tbody tr td:first-child img {
 .footer-social {
     padding: 7px;
 }
-
-.home-footer-social-link {
-    display: inline-block;
-    width: 26px;
-    height: 26px;
-    padding: 5px 6px;
-    background-color: #7B7B7D;
-    color: #DDDDDD;
-    border-radius: 25px;
-    font-size: 13px;
-}
