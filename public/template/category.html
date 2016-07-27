@@ -122,7 +122,7 @@
 
                         <div class="profile-detail">
                             <div class="img-block">
-                                <img ng-click="showPic(profile.contact_detail.preview)" ng-src="{{profile.contact_detail.preview}}">
+                                <img ng-click="$state.go('categories.profile', {id: profile._id})" ng-src="{{profile.contact_detail.preview}}">
                             </div>
                             <div class="padding-10">
                                 <div class="profile-title">{{profile.name}}</div>
