@@ -170,8 +170,8 @@ File: Topbar,Left-sidebar,Right-sidebar
 .app-search a:hover {
     color: #ffffff;
 }
-.app-search .form-control,
-.app-search .form-control:focus {
+.app-search.form-control,
+.app-search.form-control:focus {
     border: none;
     font-size: 13px;
     color: #ffffff;

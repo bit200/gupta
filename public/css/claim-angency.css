@@ -43,14 +43,19 @@
     background-color: #333945;
     padding-top: 15px;
 }
+md-input-container input.search-input:focus, md-input-container input.search-input:not(:focus) {
+    padding-bottom: 2px;
+}
 
-md-input-container input.search-input {
+
+md-input-container input.search-input, md-input-container input.search-input:focus, md-input-container input.search-input:not(:focus) {
     background-color: white;
     height: 45px;
-    border: 4px solid #ECECEE;
+    border: 4px solid #ECECEE !important;
     border-radius: 5px;
-    box-shadow: inset 0 0 1px 1px #888;
+    box-shadow: inset 0 0 1px 1px #888 !important;
     padding-left: 20px;
+
 }
 
 .search-div .md-errors-spacer {
