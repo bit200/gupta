@@ -12,10 +12,10 @@ md-checkbox.md-checked .md-icon{
 
 
 
-.flex.menu {
+.flex.menu, .flex.menu ul li{
     opacity: 0;
-    height: 0;
-    position: absolute;
+    height: 0 !important;
+    position: absolute !important;
 }
 
 .flex.menu.flex-fix {

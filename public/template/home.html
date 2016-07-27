@@ -165,7 +165,7 @@
                  ng-repeat="profile in profiles | orderBy:'-views'">
                 <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)"><i class="fa fa-heart like-field-heart"
                                                                                                                                                                                                                 aria-hidden="true"></i></div>
-                <div class="profile" ng-click="$state.go('categories.profile', {id: profile._id})">
+                <a class="profile inline-block full-width" ui-sref="categories.profile({id: profile._id})">
                     <div class="front">
                         <div class="profile-img">
                             <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
@@ -245,9 +245,9 @@
 <div class="register-with-us-img" ng-hide="currentFreelancer()">
     <h2 class="text-center text-white register-with-us-text font-family">JOIN OUR COMMUNITY OF SERVICE PROVIDERS</h2>
     <div class="text-center">
-        <button class="btn btn-red text-white font-family" ng-click="$state.go('freelancer_registration')">REGISTER WITH
+        <a class="btn btn-red text-white font-family" ui-sref="freelancer_registration">REGISTER WITH
             US
-        </button>
+        </a>
     </div>
 </div>
 

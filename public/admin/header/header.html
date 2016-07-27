@@ -17,34 +17,34 @@
         <div class="container">
             <div class="">
                 <div class="pull-left">
-                    <button ng-click="$state.go('business_accounts')" class="button-menu-mobile open-left waves-effect"
+                    <a ui-sref="business_accounts"  class="button-menu-mobile open-left waves-effect"
                             ng-class="{active_tab: $state.current.name=='business_accounts'}" >Business Accounts
-                    </button>
+                    </a>
                     <span class="clearfix"></span>
                 </div>
                 <div class="pull-left">
-                    <button ng-click="$state.go('sellers');" class="button-menu-mobile open-left waves-effect"
+                    <a ui-sref='sellers' class="button-menu-mobile open-left waves-effect"
                             ng-class="{active_tab: $state.current.name=='sellers'}">Sellers
-                    </button>
+                    </a>
                     <span class="clearfix"></span>
                 </div>
 
                 <div class="pull-left">
-                    <button ng-click="$state.go('jobs');" class="button-menu-mobile open-left waves-effect"
+                    <a ui-sref='jobs' class="button-menu-mobile open-left waves-effect"
                             ng-class="{active_tab: $state.current.name=='jobs'}">Jobs
-                    </button>
+                    </a>
                     <span class="clearfix"></span>
                 </div>
                 <div class="pull-left">
-                    <button ng-click="$state.go('categories');" class="button-menu-mobile open-left waves-effect"
+                    <a ui-sref='categories' class="button-menu-mobile open-left waves-effect"
                             ng-class="{active_tab: $state.current.name=='categories'}">Categories
-                    </button>
+                    </a>
                     <span class="clearfix"></span>
                 </div>
                 <div class="pull-left">
-                    <button ng-click="$state.go('locations');" class="button-menu-mobile open-left waves-effect"
+                    <a ui-sref='locations' class="button-menu-mobile open-left waves-effect"
                             ng-class="{active_tab: $state.current.name=='locations'}">Locations
-                    </button>
+                    </a>
                     <span class="clearfix"></span>
                 </div>
                 <ul class="nav navbar-nav navbar-right pull-right">

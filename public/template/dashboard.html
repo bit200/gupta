@@ -1,31 +1,32 @@
 <div class="way container">
     <div ncy-breadcrumb></div>
 </div>
+
 <div class="container">
     <h3 style="margin-top: 4%;margin-bottom: 4%;">Welcome to 12th Cross, {{currentUser().first_name}}</h3>
     <div class="row back-service-provider">
         <div class="col-md-9">
-            <div class="service-provider relative" ng-click="$state.go('jobs_list.buyer_open')">
+            <a class="service-provider relative inline-block" ui-sref="jobs_list.buyer_open">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/open_projects.svg"> </md-icon>
                 </div>
                 <div>OPEN PROJECTS</div>
-            </div>
-            <div class="service-provider relative" ng-click="$state.go('jobs_list.buyer_ongoing')">
+            </a>
+            <a class="service-provider relative inline-block" ui-sref="jobs_list.buyer_ongoing">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/ongoing_projects.svg"> </md-icon>
                 </div>
                 <div>ONGOING PROJECTS</div>
-            </div>
-            <div class="service-provider relative" ng-click="$state.go('jobs_list.buyer_closed')">
+            </a>
+            <a class="service-provider relative inline-block" ui-sref="jobs_list.buyer_closed"">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/closed_projects.svg"> </md-icon>
                 </div>
                 <div>CLOSED PROJECTS</div>
-            </div>
+            </a>
             <section ng-show="asView.buyer">
-                <md-button class="md-raised regular-button" ng-hide="currentFreelancer()" ng-click="$state.go('freelancer_registration')">CREATE MY PROFILE</md-button>
-                <md-button class="md-raised regular-button" ng-show="currentFreelancer()" ng-click="$state.go('freelancer_registration')">UPDATE MY PROFILE</md-button>
+                <md-button class="md-raised regular-button" ng-hide="currentFreelancer()" ui-sref="freelancer_registration">CREATE MY PROFILE</md-button>
+                <md-button class="md-raised regular-button" ng-show="currentFreelancer()" ui-sref="freelancer_registration">UPDATE MY PROFILE</md-button>
             </section>
         </div>
         <div class="col-md-3">

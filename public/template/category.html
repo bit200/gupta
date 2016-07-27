@@ -122,7 +122,9 @@
 
                         <div class="profile-detail">
                             <div class="img-block">
-                                <img ng-click="$state.go('categories.profile', {id: profile._id})" ng-src="{{profile.contact_detail.preview}}">
+                                <a ui-sref="categories.profile({id: profile._id})" >
+                                    <img class="pointer" ng-src="{{profile.contact_detail.preview}}">
+                                </a>
                             </div>
                             <div class="padding-10">
                                 <div class="profile-title">{{profile.name}}</div>
@@ -136,9 +138,9 @@
                                 </div>
                             </div>
 
-                            <div class="view-details-button" ng-click="$state.go('categories.profile', {id: profile._id})">
+                            <a class="view-details-button inline-block" ui-sref="categories.profile({id: profile._id})">
                                 View Details
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

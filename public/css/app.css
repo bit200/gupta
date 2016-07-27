@@ -521,8 +521,14 @@ div.text-padding {
     margin-bottom: 5%;
 }
 
+.service-provider:hover {
+    color: white;
+    text-decoration: none;
+}
+
 .service-provider {
     /*width: calc(100% / 2 - 20px);*/
+    color: #333;
     width: 223px;
     display: inline-block;
     float: left;
@@ -610,15 +616,22 @@ html, body {
 .text-red {
     color: #E52D27;
 }
-.text-header-menu, .text-header-menu:focus, .text-header-menu >svg {
-    color: #FFFFFF;
+
+a.text-header-menu {
+    margin-left: 10px !important;
+}
+
+a.text-header-menu, a.text-header-menu:focus, .text-header-menu, .text-header-menu:focus, .text-header-menu > svg {
+    padding: 0 !important;
+    color: #FFFFFF !important;
     fill: #FFFFFF;
 }
 
-.text-header-menu:hover, .text-header-menu >svg:hover {
-    color: #E52D27;
+ a.text-header-menu:hover, .text-header-menu:hover, .text-header-menu > svg:hover {
+    color: #E52D27  !important;
     fill: #E52D27;
 }
+
 .text-white, .text-white:hover, .text-white:focus {
     color: #FFFFFF;
 }
@@ -678,6 +691,7 @@ html, body {
     animation: fade-out 1s ease forwards;
     display: none;
 }
+
 body > .inner {
     display: none;
 }
@@ -687,12 +701,21 @@ body.pg-loaded > .inner {
 }
 
 @keyframes fade-out {
-    from {opacity: 1;}
-    to {opacity: 0;}
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
+
 @keyframes fade-in {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* ANIMATION SPINER */
@@ -725,18 +748,23 @@ body.pg-loaded > .inner {
 }
 
 @-webkit-keyframes sk-bouncedelay {
-    0%, 80%, 100% { -webkit-transform: scale(0) }
-    40% { -webkit-transform: scale(1.0) }
+    0%, 80%, 100% {
+        -webkit-transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
 }
 
 @keyframes sk-bouncedelay {
     0%, 80%, 100% {
         -webkit-transform: scale(0);
         transform: scale(0);
-    } 40% {
-          -webkit-transform: scale(1.0);
-          transform: scale(1.0);
-      }
+    }
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
 }
 
 /****************************************************/
@@ -948,6 +976,7 @@ div.communitySP div.text-center {
 .small-svg > svg {
     height: 20px;
 }
+
 .big-svg > svg {
     height: 70px;
     width: 70px;
@@ -956,6 +985,7 @@ div.communitySP div.text-center {
 md-radio-button:focus {
     outline: none;
 }
+
 #loading-bar .bar {
     background: #ff0c05 !important;
 }
@@ -968,7 +998,7 @@ md-radio-button:focus {
 }
 
 #loading-bar-spinner .spinner-icon {
-    border-top-color: #ff0c05  !important;
+    border-top-color: #ff0c05 !important;
     border-left-color: #ff0c05 !important;
 }
 
@@ -1502,11 +1532,17 @@ div.containerCrop {
     font-size: 18px;
     line-height: 40px;
     background: whitesmoke;
+    text-decoration: none;
 }
 
 .view-details-button:hover {
     color: white;
     background: red;
+    text-decoration: none;
+}
+
+.block-link-text {
+
 }
 
 .has-error .md-select-value {
@@ -1536,15 +1572,17 @@ div.containerCrop {
     background-color: white;
 }
 
-.btn-header, .btn-header:hover, .btn-header:focus {
-    color: #ffffff;
-    border-color: #ffffff;
-    background-color: #1B1B1B;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    padding: 7px 22px;
-    font-size: 9pt;
-    line-height: 18px;
+a.btn-header, a.btn-header:hover, a.btn-header:focus {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    background-color: #1B1B1B !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    padding: 7px 22px !important;
+    font-size: 9pt !important;
+    line-height: 18px !important;
+    text-transform: none !important;
+    display: inline-block !important;
 }
 
 .marginT12 {
@@ -1725,6 +1763,12 @@ div.containerCrop {
     border-color: red !important;
 }
 
+.link-button {
+    padding: 0 !important;
+    color: white;
+    text-decoration: none;
+}
+
 [role="button"]:focus {
     outline: 0;
 }
@@ -1900,6 +1944,11 @@ md-autocomplete-wrap {
 
 .margin-top-8 {
     margin-top: 8px
+}
+
+.regular-button > span {
+    position: relative;
+    top: 10px;
 }
 
 .regular-button {

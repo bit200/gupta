@@ -15,7 +15,7 @@
             <div class="row" ng-if="display.type == 'freelancers'">
                 <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;"
                      ng-repeat="profile in favorites | orderBy:'-views'">
-                    <div class="profile" ng-click="$state.go('categories.profile', {id: profile._id})">
+                    <a class="profile inline-block full-width" ui-sref="categories.profile({id: profile._id})">
                         <div class="front">
                             <div class="profile-img">
                                 <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="row" ng-if="display.type == 'jobs'">
