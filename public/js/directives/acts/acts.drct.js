@@ -138,6 +138,7 @@ XYZCtrls.directive('acts', function () {
                     }
                 },
                 'Mark completed': function () {
+                    console.log('INSIDE');
                     return {
                         ui_sref: sref("root.contract_mark_complete", {contract: getId(item, 'contract')})
                     }

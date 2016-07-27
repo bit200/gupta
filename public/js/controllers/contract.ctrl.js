@@ -97,18 +97,27 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             http.post('/api/contract/approve-suggestion/' + scope.contract._id, {resume_reason: scope.contract.resume_reason}).success(function (resp) {
                 console.log('resp', resp)
             }).error(scope.onErr)
-        }
+        };
         scope.contract_approve = function () {
             http.post('/api/contract/approve/' + scope.contract._id).success(function (resp) {
                 scope.onSucc();
                 console.log('resp', resp)
             }).error(scope.onErr)
-        }
+        };
+
         scope.contract_mark_complete = function(invalid) {
+            console.log('+++++++++++++',scope.contract);
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
-                http.post('/api/contract/mark-complete/' + scope.contract._id, {complete_comment: scope.contract.complete_comment})
+                if(scope.contract.review){
+                    scope.contract.review.contract = scope.contract._id;
+                    scope.contract.review.fromType = 'Seller';
+                }
+                http.post('/api/contract/mark-complete/' + scope.contract._id, {
+                    complete_comment: scope.contract.complete_comment,
+                    review: scope.contract.review
+                })
                     .success(function(data){
                         scope.suggest = data.data;
                         scope.onSucc()
@@ -123,6 +132,8 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         };
         scope.contract_close = function (data) {
             data = scope.contract;
+            if(data.review)
+                data.review.contract = data._id;
             http.post('/api/contract/close/' + data._id, {
                 review_comment: data.review_comment,
                 closure_comment: data.closure_comment,
@@ -131,7 +142,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 console.log('resp', resp);
                 scope.onSucc()
             }).error(scope.onErr)
-        }
+        };
 
         scope.contract_suggest = function (invalid, type, _data) {
             if (invalid) {

@@ -181,7 +181,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
                         var total = pkg.pricing;
                         _.each($scope.extra_pkg, function (ex) {
                             total += parseInt(ex.price);
-                        })
+                        });
                         return total;
                     };
                     $scope.payNow = function () {

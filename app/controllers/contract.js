@@ -135,16 +135,45 @@ exports.contract_suggest_approve = function (req, res) {
 };
 
 exports.contract_mark_complete = function (req, res) {
-    var STATUS = 'Marked as completed'
-    var params = m.getBody(req)
-    params.status = STATUS
-
+    var STATUS = 'Marked as completed';
+    var params = m.getBody(req);
+    params.status = STATUS;
+    var rating = params.review || {};
     m.findCreateUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
-        console.log('contract @@@', contract)
-        console.log('contract @@@', params)
-        res.send({
-            data: contract
-        })
+        //console.log('contract @@@', JSON.stringify(contract));
+        //console.log('params @@@', params);
+        var sumRating = Math.floor(_.reduce(_.values(rating), function (memo, num) {
+            return memo + num
+        }, 0) / 3);
+        rating.buyer = contract.buyer;
+        rating.freelancer = contract.freelancer;
+        m.findCreate(models.SetRating, rating, {}, res, function (setRating) {
+                m.findOne(models.User, {_id: contract.buyer}, res, function (buyer) {
+                    m.find(models.SetRating, {buyer: buyer._id, fromType: "Seller"}, res, function (allRating) {
+                        var arrFunc = [];
+                        arrFunc.push(function (cb) {
+                            var array = _.map(allRating, function (item) {
+                                var sum = 0;
+                                if(item['buyer_communication']){sum += item['buyer_communication'];}
+                                if(item['job_described']){sum += item['job_described'];}
+                                if(item['would_recommend']){sum += item['would_recommend'];}
+                                  return parseInt(((sum) / 3).toFixed(0));
+                            });
+                            sumRating = (_.reduce(array, function (memo, num) {
+                                return memo + num
+                            }, 0) / allRating.length).toFixed(0);
+                            cb()
+                        });
+                        async.parallel(arrFunc, function (e, r) {
+                            buyer.rating = sumRating;
+                            buyer.ratingCount = allRating.length;
+                            m.findUpdate(models.User, {_id: contract.buyer}, buyer, res, function (buyer_) {
+                                    m.scb(contract, res)
+                            });
+                        })
+                    });
+                });
+        });
     })
 };
 
@@ -188,22 +217,27 @@ exports.close_contract = function (req, res) {
     var params = m.getBody(req);
     delete params._id;
     params.status = 'Closed';
+    var rating =  params.review || {};
     m.findUpdate(models.Contract, {_id: req.params._id}, params, res, function (contract) {
-        var sumRating = Math.floor(_.reduce(_.values(params.review), function (memo, num) {
-                return memo + num
-            }, 0) / 3);
-        log('1')
-        var rating = params.review;
+        var sumRating = Math.floor(_.reduce(_.values(rating), function (memo, num) {
+            return memo + num
+        }, 0) / 3);
+        log('1');
+
         rating.buyer = contract.buyer;
         rating.freelancer = contract.freelancer;
         m.findCreate(models.SetRating, rating, {}, res, function (setRating) {
             m.findCreate(models.ReviewContract, {contract: contract._id, rating: setRating._id}, {}, {}, function () {
                 m.findOne(models.Freelancer, {_id: contract.freelancer}, res, function (freelancer) {
-                    m.find(models.SetRating, {freelancer: freelancer._id}, res, function (allRating) {
+                    m.find(models.SetRating, {freelancer: freelancer._id, fromType:{$exists:false}}, res, function (allRating) {
                         var arrFunc = [];
                         arrFunc.push(function (cb) {
                             var array = _.map(allRating, function (item) {
-                                return parseInt(((item['seller_communication'] + item['service_and_described'] + item['would_recommend']) / 3).toFixed(0))
+                                var sum = 0;
+                                if(item['seller_communication']){sum += item['seller_communication'];}
+                                if(item['service_and_described']){sum += item['service_and_described'];}
+                                if(item['would_recommend']){sum += item['would_recommend'];}
+                                    return parseInt(((sum) / 3).toFixed(0));
                             });
                             sumRating = (_.reduce(array, function (memo, num) {
                                 return memo + num
@@ -219,14 +253,10 @@ exports.close_contract = function (req, res) {
                                 })
                             });
                         })
-
-
                     });
 
                 });
             });
-
-            //
         })
     })
 };

@@ -21,6 +21,14 @@ var UserSchema = mongoose.Schema({
     company_name: String,
     preview: String,
     online: Boolean,
+    rating: {
+        type: Number,
+        default: 0
+    },
+    ratingCount: {
+        type: Number,
+        default: 0
+    },
     first_singin: {
         type: Number,
         default: 0

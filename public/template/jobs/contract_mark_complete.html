@@ -13,6 +13,25 @@
                 <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
 
             </md-input-container>
+            <md-input-container class="md-block"
+                                ng-class="{'has-error': submitted && formContract.title.$invalid}">
+                <div class="title3">Rating:</div>
+                <div>
+                    <div>
+                        <div class="title3">Buyer Communication</div>
+                        <star-rating isDisable="false" ng-model="contract.review.buyer_communication"></star-rating>
+                    </div>
+                    <div>
+                        <div class="title3">Job Described</div>
+                        <star-rating isDisable="false" ng-model="contract.review.job_described"></star-rating>
+                    </div>
+                    <div>
+                        <div class="title3">Would Recommended</div>
+                        <star-rating isDisable="false" ng-model="contract.review.would_recommend"></star-rating>
+                    </div>
+                </div>
+                <p class="error" ng-if="formContract.title.$error.required">Title is required</p>
+            </md-input-container>
             <btns list="[{'fn': 'contract_mark_complete', 'name': 'Send Complete Request'}]"></btns>
         </div>
     </div>
