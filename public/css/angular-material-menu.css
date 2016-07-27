@@ -24,6 +24,7 @@ md-checkbox.md-checked .md-icon{
     z-index: 1;
     opacity: 1;
     height: auto;
+    overflow: visible;
 }
 
 #primary_nav_wrap {

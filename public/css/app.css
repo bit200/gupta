@@ -923,11 +923,17 @@ div.communitySP div.text-center {
     margin-top: 10px;
 }
 
-.profile-service-provider {
+.profile-service-provider, .profile-service-provider:hover {
     width: 80%;
     text-align: center;
     position: relative;
     font-size: 14px;
+    color: #333;
+}
+
+a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: none;
 }
 
 .profile-back-description {
@@ -961,13 +967,14 @@ div.communitySP div.text-center {
     width: 100%;
 }
 
-.profile-info-name {
+.profile-info-name, .profile-info-name:hover, .profile-info-name:focus {
     width: 100%;
     height: 50%;
     color: #EC423F;
     font-size: 14pt;
     padding: 12px;
     padding-left: 20px;
+    text-decoration: none;
 }
 
 .profile-info-type {
