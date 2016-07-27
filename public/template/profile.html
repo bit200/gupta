@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="profile-wrapper">
-                <img class="full-width" ng-src="{{viewProfile.contact_detail.preview}}">
+                <img ng-click="showPic(viewProfile.contact_detail.preview)" class="full-width pointer" ng-src="{{viewProfile.contact_detail.preview}}">
                 <h3 class="profile-name">{{viewProfile.name}}</h3>
                 <p class="profile-introduction">{{viewProfile.introduction}}</p>
                 <p class="profile-extra-info">

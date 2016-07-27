@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter',
-    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter) {
+XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter', 'ModalService',
+    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter,ModalService) {
         scope.ownFilter = {}
         scope.arrayLanguages = getContent.languages.data.data;
         scope.arrayLocations = getContent.locations.data.data;
@@ -66,6 +66,24 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 scope.submitFilter()
             }
         }, true)
+        scope.showPic = function (pic) {
+            ModalService.showModal({
+                templateUrl: "template/modal/workImg.html",
+                controller: function ($scope, close, $element) {
+                    $scope.pic = pic;
+
+                    $scope.close = function (res) {
+                        $element.modal('hide');
+                        close(res, 500);
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+            });
+
+        };
 
         scope.submitFilter = function () {
             var filter = angular.copy(scope.ownFilter);
