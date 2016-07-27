@@ -5,6 +5,9 @@ var SetRatingSchema = mongoose.Schema({
     seller_communication: Number,
     service_and_described: Number,
     would_recommend: Number,
+    fromType: String,
+    buyer_communication: Number,
+    job_described: Number,
     contract: {
         type: Number,
         ref: 'Contract'

@@ -989,7 +989,10 @@ a:hover, a:focus {
 .small-svg > svg {
     height: 20px;
 }
-
+.middle-svg >svg {
+    height: 35px;
+    width: 35px;
+}
 .big-svg > svg {
     height: 70px;
     width: 70px;
