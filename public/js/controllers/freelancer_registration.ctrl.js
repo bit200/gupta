@@ -34,10 +34,10 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             })
         };
         scope.Experience = {
-            value: 0,
+            value: 2,
             options: {
-                floor: 0,
-                ceil: 50,
+                floor: 2,
+                ceil: 10,
                 step: 1
             }
         };
