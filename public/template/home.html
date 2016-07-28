@@ -178,7 +178,7 @@
                                     <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
                                     <div class="profile-back-rating-block-category">
                                         <div class="inline-block text-center">
-                                            <star-rating ng-model="profile.rating"></star-rating>
+                                            <star-rating is-disable="true" ng-model="profile.rating"></star-rating>
                                         </div>
                                         <div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>
                                     </div>
@@ -202,7 +202,7 @@
                                 <div class="profile-back-rating-block">
                                     <div class="inline-block text-left" style="width: 30%">by jademax</div>
                                     <div class="inline-block text-center" style="width: 35%">
-                                        <star-rating ng-model="profile.rating"></star-rating>
+                                        <star-rating is-disable="true" ng-model="profile.rating"></star-rating>
                                     </div>
                                     <div class="inline-block text-right" style="width: 20%">({{profile.view}})</div>
                                 </div>
