@@ -16,7 +16,7 @@ angular.module( 'admin', [
   'admin.jobs'
 ])
 .config( ["$urlRouterProvider", "jwtInterceptorProvider", "$httpProvider", function myAppConfig ($urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
-  $urlRouterProvider.otherwise('/sellers');
+  $urlRouterProvider.otherwise('/all_profile');
 
   jwtInterceptorProvider.tokenGetter = function(store) {
     return store.get('jwt');

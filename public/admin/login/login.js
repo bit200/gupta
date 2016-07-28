@@ -18,7 +18,7 @@ angular.module( 'admin.login', [
       data: $scope.user
     }).then(function(response) {
       store.set('jwt', response.data.id_token);
-      $state.go('sellers');
+      $state.go('all_profile');
     }, function(error) {
       alert(JSON.stringify(error.data));
     });

@@ -2,6 +2,13 @@
     button{
         outline: none;
     }
+    a:focus{
+        color: white;
+        text-decoration: underline;
+    }
+    a:hover{
+        color: white;
+    }
 </style>
 <div class="topbar" ng-controller="HeaderCtrl">
 
@@ -17,7 +24,7 @@
         <div class="container">
             <div class="">
                 <div class="pull-left">
-                    <a ui-sref="all_profile"  class="button-menu-mobile open-left waves-effect"
+                    <a ui-sref="all_profile"  class="button-menu-mobile open-left waves-effect" style="color:#FFFFFF"
                             ng-class="{active_tab: $state.current.name=='all_profile'}">Profiles
                     </a>
                     <span class="clearfix"></span>
