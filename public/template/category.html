@@ -118,29 +118,72 @@
             <div ng-if="!loading">
                 <h3 ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length" style="text-align: center">Not found</h3>
                 <div class="row">
-                    <div class="col-md-3 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
+                    <div class="col-md-4 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
 
-                        <div class="profile-detail">
-                            <div class="img-block">
-                                <a ui-sref="categories.profile({id: profile._id})" >
-                                    <img class="pointer" ng-src="{{profile.contact_detail.preview}}">
-                                </a>
-                            </div>
-                            <div class="padding-10">
-                                <div class="profile-title">{{profile.name}}</div>
-                                <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
-                                <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
-                                <div class="profile-back-rating-block-category">
-                                    <div class="inline-block text-center" style="width: 50%">
-                                        <star-rating ng-model="profile.rating"></star-rating>
+                        <!--<div class="profile-detail">-->
+                            <!--<div class="img-block">-->
+                                <!--<a ui-sref="categories.profile({id: profile._id})" >-->
+                                    <!--<img class="pointer" ng-src="{{profile.contact_detail.preview}}">-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--<div class="padding-10">-->
+                                <!--<div class="profile-title">{{profile.name}}</div>-->
+                                <!--<div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>-->
+                                <!--<div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>-->
+                                <!--<div class="profile-back-rating-block-category">-->
+                                    <!--<div class="inline-block text-center" style="width: 50%">-->
+                                        <!--<star-rating ng-model="profile.rating"></star-rating>-->
+                                    <!--</div>-->
+                                    <!--<div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <div class="profile inline-block full-width flip-container"  ontouchstart="this.classList.toggle('hover');" style="cursor: pointer; border: none">
+                            <div class="flipper">
+                                <div class="flip-front" style="border: 1px solid #ddd">
+                                    <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)" style="z-index: 9999999999999"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
+                                    <div class="profile-img">
+                                        <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
                                     </div>
-                                    <div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>
+                                    <div class="profile-info" style="color: #000000">
+                                        <!--<div class="text-center profile-info-name">{{profile.name}}</div>-->
+                                        <div class="padding-10">
+                                            <div class="profile-title">{{profile.name}}</div>
+                                            <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
+                                            <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
+                                            <div class="profile-back-rating-block-category">
+                                                <div class="inline-block text-center">
+                                                    <star-rating is-disable="true" ng-model="profile.rating"></star-rating>
+                                                </div>
+                                                <div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
+                                            <div class="inline-block" style="width: 13%;height: 30px;position: relative">
+                                                <img ng-if="profile.service_providers[0].type != 'Content Writing'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}.svg">
+                                                <img ng-if="profile.service_providers[0].type == 'Content Writing'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}F.svg">
+                                            </div>
+                                            <div ng-if="profile.service_providers[0].type != 'Content Writing'" class="inline-block profile-service-provider" >{{profile.service_providers[0].type}}</div>
+                                            <div ng-if="profile.service_providers[0].type == 'Content Writing'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-back">
+                                    <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)" style="z-index: 9999999999999"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
+                                    <div class="profile-back" style="height: 112%; margin-top: -15%; padding-top: 15%;" ui-sref="categories.profile({id: profile._id})">
+                                        <div class="profile-back-name">{{profile.name}}</div>
+                                        <div class="profile-back-introduction">{{profile.introduction}}</div>
+                                        <div class="profile-back-description">{{profile.description}}</div>
+                                        <div class="profile-back-rating-block">
+                                            <div class="inline-block text-left" style="width: 28%">by jademax</div>
+                                            <div class="inline-block text-center" style="width: 45%">
+                                                <star-rating is-disable="true" ng-model="profile.rating" ng-click="" style="cursor: none"></star-rating>
+                                            </div>
+                                            <div class="inline-block text-right" style="width: 15%">({{profile.view}})</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <a class="view-details-button inline-block" ui-sref="categories.profile({id: profile._id})">
-                                View Details
-                            </a>
+                        </div>
                         </div>
                     </div>
                 </div>
