@@ -10,7 +10,28 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.ownFilter.type = 'agency';
 
         scope.search = {}
+        scope.favorites = [];
+        http.get('/api/my/favorite').success(function(favorites){
+            scope.favorites = favorites;
+        });
 
+        scope.addFavorite = function(profileId){
+            http.get('/api/freelancer/'+profileId+'/favorite/add').then(function(){
+                scope.favorites.push(profileId)
+            }, function(err){
+                if(err.status == 401) {
+                    $state.go('login')
+                }
+            });
+        };
+
+
+        scope.removeFavorite = function(profileId){
+            http.get('/api/freelancer/'+profileId+'/favorite/remove').then(function(){
+                console.log(scope.favorites, profileId)
+                scope.favorites.splice(scope.favorites.indexOf(profileId),1);
+            })
+        };
         scope.slider = {
             experience: {
                 value: 0,
@@ -127,7 +148,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             // service_packages
             http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
                 console.log('resp',resp)
-                scope.freelancers = resp.data;
+                //scope.freelancers = resp.data;
+                scope.freelancers = scope.profiles = parseRating.views(resp.data);
                 scope.loading = false;
             })
         };

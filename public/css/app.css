@@ -896,19 +896,67 @@ div.communitySP div.text-center {
     transform: translateY(300px);
 }
 
-.profile:hover .back {
-    opacity: 1;
-    transform: translateY(0px);
+/*.profile:hover .back {*/
+    /*opacity: 1;*/
+    /*transform: rotateY(180deg);*/
+/*}*/
+
+/*.profile:hover .front {*/
+
+/*}*/
+
+/*----------------------------------------------------------------*/
+.flip-container {
+    perspective: 1000px;
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+    transform: rotateY(180deg);
 }
 
-.profile:hover .front {
-
+.flip-container, .flip-front, .flip-back {
+    width: 100%;
+    height: 350px;
 }
 
-.profile-back {
+/* flip speed goes here */
+.flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+
+    position: relative;
+}
+
+/* hide back of pane during swap */
+.flip-front, .flip-back {
+    backface-visibility: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* front pane, placed above back */
+.flip-front {
+    z-index: 2;
+    /* for firefox 31 */
+    transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.flip-back {
     background-color: black;
     color: white;
+    transform: rotateY(180deg);
 }
+
+
+/*--------------------------------------------------------------*/
+
+/*.profile-back {*/
+    /*background-color: black;*/
+    /*color: white;*/
+/*}*/
 
 .profile-back-name {
     margin-top: 15%;
@@ -940,7 +988,7 @@ a:hover, a:focus {
     text-align: center;
     margin-top: 20px;
     overflow: hidden;
-    max-height: 110px;
+    max-height: 125px;
     text-overflow: ellipsis;
     padding: 0px 10px;
     font-size: 15px;
