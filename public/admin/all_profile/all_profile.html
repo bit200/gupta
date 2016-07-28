@@ -1,4 +1,4 @@
-<div class="container marginT30">
+<div class="marginT30">
     <div style="margin-top: 20px">
         <div ng-init="display.type = 'freelancers'; check('freelancers')" class="text-center">
             <md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block">
@@ -8,76 +8,64 @@
         </div>
         <h2 ng-if="!all_profiles.length" class="text-center">No accounts</h2>
 
-        <table class="table table-striped" ng-if="all_profiles.length && display.type=='freelancers'">
-            <thead>
-            <tr>
-                <th class="text-bold pointer" >Name</th>
-                <th class="text-bold pointer" >Type</th>
-                <th class="text-bold pointer">Location</th>
-                <th ng-if="selectFilter=='rejected'" class="text-bold pointer">Reject reason</th>
-                <th>Actions</th>
-            </tr>
-            <!--<tr>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="name"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="type"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="location"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="languages"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="registrationStatus"/></th>-->
-                <!--<th ng-if="selectFilter=='rejected'"></th>-->
-                <!--<th></th>-->
-            <!--</tr>-->
-            </thead>
-            <tbody>
+        <div class="portlet-body">
+            <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='freelancers'">
+                <thead>
+                <tr>
+                    <th class="text-bold pointer">Name</th>
+                    <th class="text-bold pointer">Type</th>
+                    <th class="text-bold pointer">Location</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
+                    <td>{{all_profile.name}}</td>
+                    <td>{{all_profile.type}}</td>
+                    <td>{{all_profile.location}}</td>
+                    <td>
+                        <span style="color: green" ng-click="getInformation(all_profile, display.type)" class="pointer fa fa-pencil inline-block"></span>
+                        <span ng-click="reject(all_profile, $index)" style="color: red" class="pointer fa fa-times"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-            <tr  ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
-                <td>{{all_profile.name}}</td>
-                <td>{{all_profile.type}}</td>
-                <td>{{all_profile.location}}</td>
-                <td>
-                    <span style="color: green" ng-click="getInformation(all_profile, display.type)" class="pointer glyphicon glyphicon-pencil inline-block"></span>
-                    <span ng-click="reject(all_profile, $index)" style="color: red" class="pointer glyphicon glyphicon-remove"></span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="table table-striped" ng-if="all_profiles.length && display.type=='users'">
-            <thead>
-            <tr>
-                <th class="text-bold pointer" >First Name</th>
-                <th class="text-bold pointer">Last Name</th>
-                <th class="text-bold pointer" >Email</th>
-                <th class="text-bold pointer" >Phone</th>
-                <th class="text-bold pointer" >Company name</th>
-                <th ng-if="selectFilter=='rejected'" class="text-bold pointer">Reject reason</th>
-                <th>Actions</th>
-            </tr>
-            <!--<tr>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="first_name"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="last_name"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="email"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="phone"/></th>-->
-                <!--<th><input class="form-control" placeholder="Search..." st-search="company_name"/></th>-->
-                <!--<th ng-if="selectFilter=='rejected'"></th>-->
-                <!--<th></th>-->
-            <!--</tr>-->
-            </thead>
-            <tbody>
-            <tr class="pointer" ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
-                <td>{{all_profile.first_name}}</td>
-                <td>{{all_profile.last_name}}</td>
-                <td>{{all_profile.email}}</td>
-                <td>{{all_profile.phone}}</td>
-                <td>{{all_profile.company_name}}</td>
-                <td>
-                <span style="color: green" ng-click="getInformation(all_profile, display.type)" class="pointer glyphicon glyphicon-pencil inline-block"></span>
-                <span ng-click="reject(all_profile, $index)" style="color: red" class="pointer glyphicon glyphicon-remove"></span>
-                </td>
-            </tr>
-            </tbody>
+        <div class="portlet-body">
+            <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='users'">
+                <thead>
+                <tr>
+                    <th class="text-bold pointer">First Name</th>
+                    <th class="text-bold pointer">Last Name</th>
+                    <th class="text-bold pointer">Email</th>
+                    <th class="text-bold pointer">Phone</th>
+                    <th class="text-bold pointer">Company name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
+                    <td>{{all_profile.first_name}}</td>
+                    <td>{{all_profile.last_name}}</td>
+                    <td>{{all_profile.email}}</td>
+                    <td>{{all_profile.phone}}</td>
+                    <td>{{all_profile.company_name}}</td>
+                    <td>
+                        <span style="color: green" ng-click="getInformation(all_profile, display.type)" class="pointer fa fa-pencil inline-block"></span>
+                        <span ng-click="reject(all_profile, $index)" style="color: red" class="pointer fa fa-times">X</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-        </table>
+
         <div class="text-center">
             <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
         </div>
     </div>
 </div>
+
+
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="admin" ng-controller="AppCtrl">
+  <head>
+    <title ng-bind="pageTitle"></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- font awesome from BootstrapCDN -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
+    <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="bower_components/angular-notify/angular-notify.css">
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <script src=""></script>
+
+    <link rel="stylesheet" type="text/css" href="../css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/menu.css">
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/a0-angular-storage/dist/angular-storage.js" type="text/javascript"> </script>
+    <script src="bower_components/angular-jwt/dist/angular-jwt.js" type="text/javascript"> </script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+    <script src="bower_components/angular-notify/angular-notify.js"></script>
+    <script src="bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="sellers/sellers.js"></script>
+    <script type="text/javascript" src="jobs/jobs.js"></script>
+    <script type="text/javascript" src="categories/categories.js"></script>
+    <script type="text/javascript" src="locations/locations.js"></script>
+    <script type="text/javascript" src="business_accounts/business_accounts.js"></script>
+    <script type="text/javascript" src="header/header.js"></script>
+    <script type="text/javascript" src="login/login.js"></script>
+    <script type="text/javascript" src="all_project/all_project.js"></script>
+    <script type="text/javascript" src="all_profile/all_profile.js"></script>
+    <script type="text/javascript" src="components/confirm.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header" ng-include="'header/header.html'" ng-if="isLogged"></div>
+    <div class="container" ui-view></div>
+  </body>
+</html>
+
+/*
+Сам по себе лес не должен гангать. Есть лесные кери, которые фармят лес, типа киндред, юи, шивы. Им не обязательно гангать. А есть лесники, что могут убить/помочь убить не имея много итемов. Они обязаны гангать
+*/

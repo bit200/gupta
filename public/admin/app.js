@@ -16,6 +16,7 @@ angular.module( 'admin', [
   'admin.jobs'
 ])
 .config( ["$urlRouterProvider", "jwtInterceptorProvider", "$httpProvider", function myAppConfig ($urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
+  
   $urlRouterProvider.otherwise('/all_profile');
 
   jwtInterceptorProvider.tokenGetter = function(store) {
@@ -29,14 +30,19 @@ angular.module( 'admin', [
     if (to.data && to.data.requiresLogin) {
       if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
         e.preventDefault();
-        $state.go('login');
+        window.location = '/admin/login';
         $rootScope.isLogged = false;
       }else
         $rootScope.isLogged = true;
     }
   });
 }])
-.controller( 'AppCtrl', ["$scope", "$location", "$state", function AppCtrl ( $scope, $location, $state ) {
+.controller( 'AppCtrl', ["$scope", "$location", '$rootScope',"$state", 'store', function AppCtrl ( $scope, $location,$rootScope, $state, store ) {
   $scope.$state = $state
+  $scope.logout = function(){
+    $rootScope.isLogged = false;
+    store.remove('jwt');
+    window.location = '/admin/login';
+  }
 }]);
 

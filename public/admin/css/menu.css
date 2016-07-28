@@ -35,6 +35,15 @@ File: Topbar,Left-sidebar,Right-sidebar
     margin: 0px auto;
     text-align: center;
 }
+
+.floatR{
+    float: right;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 .logo i {
     color: #ffffff;
 }
@@ -53,20 +62,20 @@ File: Topbar,Left-sidebar,Right-sidebar
 .navbar-default .navbar-nav > .open > a:hover {
     background-color: rgba(0, 0, 0, 0.06);
 }
-.nav > li > a {
-    color: #ffffff !important;
-    line-height: 70px;
-    padding: 0px 15px;
-    position: relative;
-}
-.nav > li > a i {
-    font-size: 20px;
-}
-.nav > li > a .badge {
-    position: absolute;
-    right: 10px;
-    top: 18px;
-}
+/*.nav > li > a {*/
+    /*color: #ffffff !important;*/
+    /*!*line-height: 70px;*!*/
+    /*padding: 0px 15px;*/
+    /*position: relative;*/
+/*}*/
+/*.nav > li > a i {*/
+    /*font-size: 20px;*/
+/*}*/
+/*.nav > li > a .badge {*/
+    /*position: absolute;*/
+    /*right: 10px;*/
+    /*top: 18px;*/
+/*}*/
 .profile img {
     border: 2px solid #edf0f0;
     height: 36px;

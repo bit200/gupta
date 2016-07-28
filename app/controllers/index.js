@@ -39,6 +39,9 @@ exports.common_filters = function (req, res) {
 exports.admin = function (req, res) {
     res.render('admin/index')
 };
+exports.admin_login = function (req, res) {
+    res.render('admin/login/login')
+};
 
 exports.get_content = function (req, res) {
     var params = m.getBody(req);

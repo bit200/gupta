@@ -1,4 +1,4 @@
-<div class="container marginT30">
+<div class="marginT30">
     <div style="margin-top: 20px">
    
         <h2 ng-if="!all_projects.length" class="text-center">No project</h2>
@@ -24,7 +24,7 @@
                 <td>{{all_project.status}}</td>
                 <td>
                     <!--<span style="color: green" ng-click="getInformation()" class="pointer glyphicon glyphicon-pencil inline-block"></span>-->
-                    <span ng-click="reject(all_project, $index)" style="color: red" class="pointer glyphicon glyphicon-remove"></span>
+                    <span ng-click="reject(all_project, $index)" style="color: red" class="pointer fa fa-times"></span>
                 </td>
             </tr>
             </tbody>

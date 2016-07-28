@@ -55,8 +55,25 @@ angular.module('admin.all_profile', [
         };
 
         $scope.reject = function (item, index) {
-            $scope.all_profiles.splice(index, 1);
-            $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}})
+            ModalService.showModal({
+                templateUrl: "delete_modal.html",
+                controller: function ($scope,$element, $http) {
+                    $scope.submit = function(){
+                        $scope.all_profiles.splice(index, 1);
+                        $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}}) 
+                    };
+                    $scope.close = function (res) {
+                        $element.modal('hide');
+                        close(res, 500);
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
+            
         }
 
         $scope.getInformation = function (user, type) {

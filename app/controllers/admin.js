@@ -78,16 +78,16 @@ exports.delete_filter = function (req, res) {
 
 exports.all_projects = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Job, {}, res, function(users){
-        models.Job.count({_id:{$gt:0}}).exec(function (count) {
-            m.scb({data:users, count: count},res)
+    m.find(models.Job, {}, res, function(jobs){
+        m.count(models.Job,{}, res, function(count){
+            m.scb({data:jobs, count: count},res)
         });
     }, {skip:params.skip, limit:params.limit})
 };
 exports.all_users = function (req, res) {
     var params = m.getBody(req);
     m.find(models.User, {}, res, function(users){
-        models.User.count({_id:{$gt:0}}).exec(function (count) {
+        m.count(models.User,{}, res, function(count){
             m.scb({data:users, count: count},res)
         });
     }, {skip:params.skip, limit:params.limit})

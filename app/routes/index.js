@@ -9,6 +9,7 @@ module.exports = function (app) {
     app.get('/api/locations', index.get_locations);
     app.get('/api/search', index.search);
     app.get('/admin', index.admin);
+    app.get('/admin/login', index.admin_login);
     
     app.get('/get-content', index.get_content);
     app.get('/get-filters', index.get_filters);
