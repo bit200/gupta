@@ -150,6 +150,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.active_profile_menu = 'pricing';
+        scope.loading = true;
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {
             scope.ratings = resp.data.data;
         });
@@ -160,11 +161,13 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         if(scope.viewProfile.past_clients)
             scope.past_clients = scope.viewProfile.past_clients;
         $http.get('/api/freelancer/' + scope.viewProfile._id + '/jobs_count?status=ongoing').success(function (count) {
-            scope.ongoingJobsCount = count
+            scope.ongoingJobsCount = count;
+            scope.loading = false;
         });
 
         $http.get('/api/freelancer/' + scope.viewProfile._id + '/jobs_count?status=closed').success(function (count) {
-            scope.closedJobsCount = count
+            scope.closedJobsCount = count;
+            scope.loading = false;
         });
 
         scope.openExtra = function (pkg) {

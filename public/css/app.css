@@ -1964,7 +1964,7 @@ md-autocomplete-wrap {
 
 .regular-button > span {
     position: relative;
-    top: 10px;
+    /*top: 10px;*/
 }
 
 .regular-button {

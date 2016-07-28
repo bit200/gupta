@@ -1,8 +1,9 @@
 <div class="claim">
     <div class="container">
+        <div>
         <div class="row div-background">
             <div class="background-img-top"></div>
-            <div class="background-img-top-text"><h3>Claim your Agency</h3></div>
+            <div class="background-img-top-text"><h3> {{loading}}Claim your Agency</h3></div>
         </div>
         <div class="row">
             <div class="text-center  "><h3 class="h3">Find and Claim your Agency Page</h3></div>
@@ -37,7 +38,12 @@
                     </thead>
 
                     <tbody>
-                     <tr ng-repeat="item in agencies">
+                     <tr ng-if="loading">
+                         <td colspan="5">
+                             <loading w="30" h="30"></loading>
+                         </td>
+                     </tr>
+                     <tr ng-repeat="item in agencies" ng-if="!loading">
                         <td class="text-center"><img ng-src="{{item.contact_detail.preview}}" style="max-width: 50px"/>
                         </td>
                         <td class="text-center">{{item.name}}</td>
@@ -57,7 +63,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="text-center">
+                <div class="text-center" ng-show="!loading">
                     <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
                 </div>
             </div>
@@ -112,6 +118,6 @@
                 </div>
             </div>
         </div>
-
+    </div>
     </div>
 </div>

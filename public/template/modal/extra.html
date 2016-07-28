@@ -10,6 +10,9 @@
                     <div class="col-md-8 col-sm-8" style="padding-right: 0px">
                         <table class="table add-extra-pkg">
                             <tbody>
+                            <tr ng-if="!pkg.extras.length">
+                               <td style="width: 50%; text-align: center; font-size: 16px">No extra packages.</td>
+                            </tr>
                             <tr ng-repeat="extra in pkg.extras">
                                 <td style="width: 67%">{{extra.description}}</td>
                                 <td style="width: 13%"><i class="fa fa-inr" aria-hidden="true" style="margin-right: 2px"></i>{{extra.price | number:2}}</td>

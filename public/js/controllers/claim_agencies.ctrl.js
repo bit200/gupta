@@ -8,9 +8,8 @@ XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     scope.agencies = [];
     scope.businessAccounts = getContent.businessAccounts.data || [];
     scope.searchObj = {};
-
+    scope.loading = true;
     var locations = getContent.locations.data.data;
-
     scope.configPagination = {
         totalCount: getContent.totalCount.data,
         currentPage: location.search().page,
@@ -18,8 +17,8 @@ XYZCtrls.controller('AgencyCtrl', ['$scope', '$location', '$http', 'parseType', 
     };
     scope.cb = function(currentPage){
         http.get('/api/freelancers?page='+currentPage).success(function(resp){
-            console.log(resp.data)
             scope.agencies = resp.data;
+            scope.loading = false;
         })
     };
 
