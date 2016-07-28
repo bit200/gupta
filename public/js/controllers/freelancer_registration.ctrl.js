@@ -32,24 +32,38 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                     distinctName: 'name'
                 }
             })
-        }
+        };
+        scope.Experience = {
+            value: 0,
+            options: {
+                floor: 0,
+                ceil: 50,
+                step: 1
+            }
+        };
 
         if (AuthService.isLogged()) {
             q.freelancer = http.get('/api/freelancer/me')
         }
 
         $q.all(q).then(function (getContent) {
+
             scope.freelancer_area = {
                 croppedProfile: '',
                 profilePreview: ''
-            }
+            };
             scope.contentReady = true;
             scope.freelancer = {
                 isagency: true,
                 work: {}
             };
-            if (getContent.freelancer && getContent.freelancer.data)
-                scope.freelancer = getContent.freelancer.data
+
+            if (getContent.freelancer && getContent.freelancer.data) {
+                scope.freelancer = getContent.freelancer.data;
+                scope.Experience.value = scope.freelancer.experience
+            }
+
+
 
             scope.toggleService = function (service_provider, filter, name) {
                 var tQ = {
@@ -57,13 +71,13 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                     filter: filter ? filter : '!true',
                     name: name ? name : '!true'
                 };
-                var t = $filter('filter')(scope.freelancer.service_providers, tQ)
+                var t = $filter('filter')(scope.freelancer.service_providers, tQ);
                 if (t && t.length) {
 
                     scope.freelancer.service_providers = scope.freelancer.service_providers.filter(function (v) {
                         var condition = v.type == service_provider && v.filter == filter && v.name == name;
                         if (!name)
-                            condition = v.type == service_provider && v.filter == filter
+                            condition = v.type == service_provider && v.filter == filter;
                         if (!name && !filter)
                             condition = v.type == service_provider
                         return !condition
@@ -292,6 +306,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
 
             scope.addContactDetails = function (invalid) {
                 if (invalid) return;
+                scope.freelancer.experience = scope.Experience.value;
                 http.post('/api/freelancer/contact_detail', scope.freelancer.contact_detail).success(function (resp) {
                     scope.freelancer.contact_detail = resp.data;
                     if (scope.freelancer.work && !scope.freelancer.work._id)

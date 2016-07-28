@@ -101,16 +101,19 @@
 
             <h4 class="info-title">Years of Experience (in years)</h4>
             <div class="form-group">
-                <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.experience.$invalid}">
-                    <md-select aria-label="hidden" ng-model="freelancer.experience" name="experience" required>
-                        <md-option ng-repeat="item in experience" value="{{item}}">
-                            {{item}}
-                        </md-option>
-                    </md-select>
-                    <div ng-messages="submittedAbout && aboutForm.experience.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                        <div ng-show="submittedAbout && aboutForm.experience.$error.required" ng-message="required">Required field</div>
-                    </div>
-                </md-input-container>
+                <!--<md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.experience.$invalid}">-->
+                    <!--<md-select aria-label="hidden" ng-model="freelancer.experience" name="experience" required>-->
+                        <!--<md-option ng-repeat="item in experience" value="{{item}}">-->
+                            <!--{{item}}-->
+                        <!--</md-option>-->
+                    <!--</md-select>-->
+                    <!--<div ng-messages="submittedAbout && aboutForm.experience.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">-->
+                        <!--<div ng-show="submittedAbout && aboutForm.experience.$error.required" ng-message="required">Required field</div>-->
+                    <!--</div>-->
+                <!--</md-input-container>-->
+                <div>
+                    <rzslider rz-slider-model="Experience.value" rz-slider-options="Experience.options"></rzslider>
+                </div>
             </div>
 
             <h4 class="info-title">I want to register as a freelancer in</h4>
