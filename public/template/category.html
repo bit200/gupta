@@ -51,6 +51,9 @@
                             <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[obj.subFilter]}" ng-click="close[obj.subFilter] = !close[obj.subFilter]"></ng-md-icon>
                         </div>
                         <div toggle="close[obj.subFilter]">
+                            <div >
+                                {{value.selected}}
+                            </div>
                             <div ng-if="obj.arr.length>5">
                                 <md-input-container md-no-float class="md-block">
                                     <input ng-model="search[obj.subFilter]" type="text" placeholder="Search">

@@ -63,7 +63,20 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 scope.Experience.value = scope.freelancer.experience
             }
 
+            scope.translation = {};
+            scope.translationAdd = function(from,to){
+                scope.translation.inRequerd = !(from && to)?true:false;
+                scope.translation.inValid = (from == to)?true:false;
+                if(!(from && to)||(from == to))
+                    return ;
+                scope.translation.inValid = true;
+                scope.freelancer.translation.push({from:from,to:to});
+            };
 
+            scope.translationRemove = function(item){
+                scope.freelancer.translation.splice(scope.freelancer.translation.indexOf(item),1);
+                console.log(scope.freelancer.translation.indexOf(item));
+            };
 
             scope.toggleService = function (service_provider, filter, name) {
                 var tQ = {

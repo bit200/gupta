@@ -173,6 +173,14 @@
                                     </p>
                                 </div>
                             </div>
+                            <div class="col-md-4" ng-if="viewProfile.translation && viewProfile.translation.length" style="margin-top: 30px; min-height: 200px; height: auto">
+                                <div class="profile-exp-block">
+                                    <h5>Translation</h5>
+                                    <p ng-repeat="language in viewProfile.translation">
+                                        <span>{{language.from}} <i class="fa fa-angle-right" aria-hidden="true"></i>     {{language.to}}<span ng-if="!$last">,  </span></span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div class="row" ng-if="reviews.length || ratings.length" style="margin-top: 20px">
                             <div class="col-xs-12" style="margin-left: 15px;border:1px solid lightgrey">
