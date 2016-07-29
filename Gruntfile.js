@@ -244,7 +244,8 @@ module.exports = function (grunt) {
                         "public/js/controllers/login.ctrl.js",
                         "public/js/controllers/signup.ctrl.js",
                         "public/js/controllers/myProfile.ctrl.js",
-                        "public/js/controllers/favorite.ctrl.js"
+                        "public/js/controllers/favorite.ctrl.js",
+                        "public/js/libs/carousel.js"
                     ]
                 }]
             }
@@ -279,7 +280,8 @@ module.exports = function (grunt) {
                             "public/bower_components/angular-notify/angular-notify.css",
                             "public/bower_components/angular-bootstrap/ui-bootstrap-csp.css",
                             "public/bower_components/ng-img-crop/compile/minified/ng-img-crop.css",
-                            "public/bower_components/angular-loading-bar/build/loading-bar.css"
+                            "public/bower_components/angular-loading-bar/build/loading-bar.css",
+                            'public/js/libs/carousel.css'
                         ]
                     }
                 ]

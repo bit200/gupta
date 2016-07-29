@@ -19,5 +19,6 @@ var XYZApp = angular.module('XYZApp', [
     'btford.socket-io',
     'ncy-angular-breadcrumb',
     'angular-loading-bar',
-    'cfp.loadingBar'
+    'cfp.loadingBar',
+    'jkAngularCarousel'
 ]);

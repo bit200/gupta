@@ -163,10 +163,11 @@
         <div class="row">
             <div class="col-md-3 col-xs-6 col-sm-6 noborder pointer" style="padding: 2px;"
                  ng-repeat="profile in profiles | orderBy:'-views'">
-                <a class="profile inline-block full-width flip-container"  ontouchstart="this.classList.toggle('hover');" style="border: none">
+                <a class="profile inline-block full-width flip-container" ontouchstart="this.classList.toggle('hover');" style="border: none">
                     <div class="flipper">
                         <div class="flip-front" style="border: 1px solid #ddd">
-                            <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
+                            <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)"><i
+                                    class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
                             <div class="profile-img">
                                 <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
                             </div>
@@ -185,16 +186,19 @@
                                 </div>
                                 <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
                                     <div class="inline-block" style="width: 13%;height: 30px;position: relative">
-                                        <img ng-if="profile.service_providers[0].type != 'Content and Translation'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}.svg">
-                                        <img ng-if="profile.service_providers[0].type == 'Content and Translation'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}F.svg">
+                                        <img ng-if="profile.service_providers[0].type != 'Content and Translation'" style="color:black;fill:black; height: 100%" class="text-center"
+                                             ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}.svg">
+                                        <img ng-if="profile.service_providers[0].type == 'Content and Translation'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center"
+                                             ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}F.svg">
                                     </div>
-                                    <div ng-if="profile.service_providers[0].type != 'Content and Translation'" class="inline-block profile-service-provider" >{{profile.service_providers[0].type}}</div>
+                                    <div ng-if="profile.service_providers[0].type != 'Content and Translation'" class="inline-block profile-service-provider">{{profile.service_providers[0].type}}</div>
                                     <div ng-if="profile.service_providers[0].type == 'Content and Translation'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type}}</div>
                                 </div>
                             </div>
                         </div>
                         <div class="flip-back">
-                            <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)" style="z-index: 9999999999999"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
+                            <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)" style="z-index: 9999999999999"><i
+                                    class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
                             <div class="profile-back" style="height: 112%; margin-top: -15%; padding-top: 15%   " ui-sref="categories.profile({id: profile._id})">
                                 <div class="profile-back-name">{{profile.name}}</div>
                                 <div class="profile-back-introduction">{{profile.introduction}}</div>
@@ -264,21 +268,52 @@
     </div>
 </div>
 
-<div class="full-width text-center">
-    <div class="face-block">
-        <img class="face-text" src="/img/face.png">
-    </div>
-    <div class="text-center quote-text">
-        " Instead of hiring more engineers, we've used Upwork as a more scalable solution that lets us ramp-up and down
-        as needed."
-    </div>
-    <div class="text-center quote-author inline-block">
-        <div class="text-red text-bold font-family">Nick Greenfield</div>
-        <div class="quote-author-text font-family">Vice President of Marketing & Growth</div>
-        <div class="width45" style="margin: 0 auto; height: 5px;">
-            <div class="quote-page"></div>
-            <div class="quote-page-red"></div>
-            <div class="quote-page"></div>
-        </div>
-    </div>
-</div>
+
+<md-card layout="column" layout-align="center center" style="padding-bottom: 10x" >
+    <jk-carousel data="dataArray" item-template-url="'template/item-template.html'"max-width="800" max-height="650" ></jk-carousel>
+</md-card>
+<!--<div class="full-width text-center">-->
+<!--<carousel interval="6000" >-->
+<!--<slide ng-repeat="slide in carosels" active="slide.active">-->
+<!--<div class="face-block">-->
+<!--<img class="face-text" ng-src="{{slide.img}}">-->
+<!--</div>-->
+<!--<div class="text-center quote-text">{{slide.text}}</div>-->
+<!--<div class="text-center quote-author inline-block">-->
+<!--<div class="text-red text-bold font-family">{{slide.title}}</div>-->
+<!--sadas-->
+<!--<div class="quote-author-text font-family">{{slide.subTitle}}</div>-->
+<!--</div>-->
+<!--<div class="carousel-caption">-->
+<!--</div>-->
+<!--</slide>-->
+<!--</carousel>-->
+<!--</div>-->
+
+<style type="text/css">
+    .jk-carousel .md-icon-button md-icon {
+        display: none;
+    }
+    .jk-carousel .radio-buttons-container md-radio-button .md-off {
+        border-color: lightgray;
+        background-color: lightgray;
+    }
+    md-radio-button.md-checked .md-on {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        background-color: #e52d27;
+    }
+    md-radio-button.md-checked .md-on {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        background-color: red;
+    }
+    md-radio-button .md-on, md-radio-button .md-off {
+        height: 5px;
+        width: 30px;
+        border-radius: 0;
+    }
+    md-radio-button .md-container .md-ripple-container {
+        left: 50px;
+    }
+</style>
