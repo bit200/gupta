@@ -72,71 +72,144 @@
             <div class="row">
                 <div class="col-md-12">
                     <section ng-show="active_profile_menu=='pricing'">
-                        <table class="packages-table">
-                            <thead>
-                            <th></th>
-                            <th ng-repeat="pkg in viewProfile.service_packages">
-                                <div class="full-absolute">
-                                    <div class="wrapper-pkg-title">
-                                        <div class="title-pkg">{{pkg.title}}</div>
-                                        <div class="price-pkg"><i class="fa fa-inr" aria-hidden="true"></i>{{pkg.pricing}}</div>
+                        <!--<table class="packages-table">-->
+                            <!--<thead>-->
+                            <!--<th></th>-->
+                            <!--<th ng-repeat="pkg in viewProfile.service_packages">-->
+                                <!--<div class="full-absolute">-->
+                                    <!--<div class="wrapper-pkg-title">-->
+                                        <!--<div class="title-pkg">{{pkg.title}}</div>-->
+                                        <!--<div class="price-pkg"><i class="fa fa-inr" aria-hidden="true"></i>{{pkg.pricing}}</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</th>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr>-->
+                                <!--<td>Information</td>-->
+                                <!--<td ng-repeat="pkg in viewProfile.service_packages">-->
+                                    <!--{{pkg.information}}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>Description</td>-->
+                                <!--<td ng-repeat="pkg in viewProfile.service_packages">-->
+                                    <!--{{pkg.description}}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>Topic Research</td>-->
+                                <!--<td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">-->
+                                    <!--<ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.topic_research"></ng-md-icon>-->
+                                    <!--<span ng-if="!pkg.topic_research">---</span>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>References & Citations</td>-->
+                                <!--<td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">-->
+                                    <!--<ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.references_and_citations"></ng-md-icon>-->
+                                    <!--<span ng-if="!pkg.references_and_citations">---</span>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="padding-bottom: 70px;">Delivery Time</td>-->
+                                <!--<td ng-repeat="pkg in viewProfile.service_packages" style="text-align: left">-->
+                                    <!--<span ng-if="!(pkg.delivery_time && pkg.delivery_time!=1)">1 day</span>-->
+                                    <!--<md-radio-group ng-model="pkg.delivery_times" layout="row" style="margin-bottom: 25px; display: inline-block" ng-if="pkg.delivery_time && pkg.delivery_time!=1">-->
+                                        <!--<md-radio-button ng-value="pkg.delivery_time" class="md-primary">{{pkg.delivery_time}} days</md-radio-button>-->
+                                        <!--<md-radio-button ng-value="1" style="margin-top: 20px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>-->
+                                    <!--</md-radio-group>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>Enter Word Count</td>-->
+                                <!--<td ng-repeat="pkg in viewProfile.service_packages">-->
+                                    <!--<md-input-container class="full-width" ng-init="pkg.word_count=500" style="margin: 0px;">-->
+                                        <!--<input ng-model="pkg.word_count" numbers-only>-->
+                                    <!--</md-input-container>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td></td>-->
+                                <!--<td ng-repeat="pkg in viewProfile.service_packages" style="border-top: 2px solid rgb(213, 218, 225) !important;">-->
+                                    <!--<md-button class="md-raised regular-button full-width" style="height: 50px;" ng-click="openExtra(pkg)"> SELECT</md-button>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                        <div class="col-xs-12" style="margin-left: 15px;border:1px solid lightgrey">
+                            <div class="row">
+                                <div class="col-xs-12" style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase;">
+                                    PRACING
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table class="full-width" style="color:rgba(51, 56, 70, 0.8);font-size: 16px;">
+                                        <tr style="height: 70px;">
+                                            <td style="width: 35%">
+                                                <span> {{replaceAlt(viewProfile.introduction)}} </span>
+                                            </td>
+                                            <td style="width: 35%">
+                                                <span ng-if="viewProfile.price.hour" class="text-bold">{{viewProfile.price.hour}} / Hr</span>
+                                                <span ng-if="viewProfile.price.hour && viewProfile.price.word">, </span>
+                                                <span ng-if="viewProfile.price.word" class="text-bold">{{viewProfile.price.word}} / Word</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-xs-12" style="margin-left: 15px;border:1px solid lightgrey;margin-top: 20px">
+                            <div class="row">
+                                <div class="col-xs-12" style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);">
+                                    PACKAGES
+                                </div>
+                                <div ng-if="viewProfile.service_packages.length < 1" class="row">
+                                    <div class="col-xs-12">
+                                        <div class="full-width row" style="padding: 15px 15px 0px; margin: 0px;" ng-class="{'border-bottom-lightgrey':!$last}">
+                                            <div class="col-xs-12" >
+                                                <div style="color: rgb(51, 56, 70); margin-bottom: 10px; text-align: center">
+                                                    NO PACKAGES
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </th>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Information</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages">
-                                    {{pkg.information}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Description</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages">
-                                    {{pkg.description}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Topic Research</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">
-                                    <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.topic_research"></ng-md-icon>
-                                    <span ng-if="!pkg.topic_research">---</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>References & Citations</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: center">
-                                    <ng-md-icon icon="done" style="fill: red" size="32" ng-if="pkg.references_and_citations"></ng-md-icon>
-                                    <span ng-if="!pkg.references_and_citations">---</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding-bottom: 70px;">Delivery Time</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages" style="text-align: left">
-                                    <span ng-if="!(pkg.delivery_time && pkg.delivery_time!=1)">1 day</span>
-                                    <md-radio-group ng-model="pkg.delivery_times" layout="row" style="margin-bottom: 25px; display: inline-block" ng-if="pkg.delivery_time && pkg.delivery_time!=1">
-                                        <md-radio-button ng-value="pkg.delivery_time" class="md-primary">{{pkg.delivery_time}} days</md-radio-button>
-                                        <md-radio-button ng-value="1" style="margin-top: 20px">1 day (<i class="fa fa-inr" aria-hidden="true"></i> 100)</md-radio-button>
-                                    </md-radio-group>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Enter Word Count</td>
-                                <td ng-repeat="pkg in viewProfile.service_packages">
-                                    <md-input-container class="full-width" ng-init="pkg.word_count=500" style="margin: 0px;">
-                                        <input ng-model="pkg.word_count" numbers-only>
-                                    </md-input-container>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td ng-repeat="pkg in viewProfile.service_packages" style="border-top: 2px solid rgb(213, 218, 225) !important;">
-                                    <md-button class="md-raised regular-button full-width" style="height: 50px;" ng-click="openExtra(pkg)"> SELECT</md-button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                <div ng-if="viewProfile.service_packages.length >= 1" class="row" ng-repeat="pkg in viewProfile.service_packages">
+                                    <div class="col-xs-12">
+                                        <div class="full-width row" style="padding: 15px 15px 0px; margin: 0px;" ng-class="{'border-bottom-lightgrey':!$last}">
+                                            <div class="col-xs-3" style="padding: 0px">
+                                                <div class="full-width" style=" ">
+
+                                                    <img ng-if="pkg.preview.url" src="{{pkg.preview.url}}" style="
+                                                          display: block;
+                                                          max-width:100%;
+                                                          max-height:150px;
+                                                          width: auto;
+                                                          height: auto;
+                                                          margin: auto;">
+                                                    <img ng-if="!pkg.preview.url" src="/img/Forma1copy5.png " style="
+                                                          display: block;
+                                                          width: 95%;
+                                                          margin: auto;">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-9" >
+                                                <div style="font-size: 20px;color: rgb(51, 56, 70); padding-left: 10px;font-weight: 600">
+                                                    {{pkg.title}}
+                                                </div>
+                                                <div style="padding: 10px 10px 0; color: #777">{{pkg.description}}</div>
+                                                <div style="color: #000000;padding: 0px 10px 10px; margin-top: 10px">
+                                                    <b><i class="fa fa-inr" aria-hidden="true"></i>{{pkg.pricing}} / Monthly</b></div>
+                                                <md-button class="md-raised regular-button" style="min-height: 24px; line-height: 24px;  font-size: 14px !important;
+                                                    height: 32px; margin-bottom: 20px;  margin-left: 10px !important; width: 30%; padding: 0 !important;" ng-click="openExtra(pkg)"> ADD TO CART </md-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     <section ng-show="active_profile_menu=='profile'">
                         <p class="profile-description">{{viewProfile.description}}</p>
@@ -149,14 +222,14 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="col-md-4" ng-if="viewProfile.content_type.length" style="margin-top: 30px">
-                                <div class="profile-exp-block">
-                                    <h5>CONTENT TYPE</h5>
-                                    <p>
-                                        <span ng-repeat="content_type in viewProfile.content_type">{{content_type}}<span ng-if="!$last">, </span></span>
-                                    </p>
-                                </div>
-                            </div>
+                            <!--<div class="col-md-4" ng-if="viewProfile.content_type.length" style="margin-top: 30px">-->
+                                <!--<div class="profile-exp-block">-->
+                                    <!--<h5>CONTENT TYPE</h5>-->
+                                    <!--<p>-->
+                                        <!--<span ng-repeat="content_type in viewProfile.content_type">{{content_type}}<span ng-if="!$last">, </span></span>-->
+                                    <!--</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
                             <div class="col-md-4" ng-if="viewProfile.languages.length" style="margin-top: 30px">
                                 <div class="profile-exp-block">
                                     <h5>LANGUAGES</h5>
@@ -176,8 +249,8 @@
                             <div class="col-md-4" ng-if="viewProfile.translation && viewProfile.translation.length" style="margin-top: 30px; min-height: 200px; height: auto">
                                 <div class="profile-exp-block">
                                     <h5>Translation</h5>
-                                    <p ng-repeat="language in viewProfile.translation">
-                                        <span>{{language.from}} <i class="fa fa-angle-right" aria-hidden="true"></i>     {{language.to}}<span ng-if="!$last">,  </span></span>
+                                    <p>
+                                        <div ng-repeat="language in viewProfile.translation" style="float: left;white-space: pre;">{{language.from}} <i class="fa fa-angle-right" aria-hidden="true"></i> {{language.to}}<span ng-if="!$last">, </span></div>
                                     </p>
                                 </div>
                             </div>

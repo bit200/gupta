@@ -198,6 +198,10 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
             scope.loading = false;
         });
 
+        console.log('Here',scope.viewProfile);
+        scope.replaceAlt = function(str){
+          return str.replace('&',', ');
+        };
         scope.openExtra = function (pkg) {
             ModalService.showModal({
                 templateUrl: "template/modal/extra.html",
