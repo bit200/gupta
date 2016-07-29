@@ -84,7 +84,6 @@
                     <li class="top-menu" ng-repeat="(key, value) in commonFilters"
                         ng-class="{active: activeProvider.name == key}">
                         <a class="text-black top-menu-text" ng-click="setActiveProvider(key, value);goCategories()">{{key}}</a>
-
                         <div class="sub-nav" style="position: absolute">
                             <ul class="top-sub-ul" ng-repeat="val in value track by $index">
                                 <li ng-if="val.name"

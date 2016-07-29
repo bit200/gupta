@@ -23,16 +23,14 @@ exports.common_filters = function (req, res) {
             resObj[key] = [];
             _.each(tArr, function(v, k){
                 if (!k){
-                    resObj[key] = resObj[key].concat(v)
                 }else{
                     resObj[key].push({
-                        subFilter: k,
-                        arr: v
+                        name: v[0].filter
                     });
                 }
             })
         });
-        res.jsonp(resObj)
+        res.jsonp(resObj);
     });
 };
 

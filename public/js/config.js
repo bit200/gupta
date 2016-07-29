@@ -191,7 +191,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         return $http.get('/get-content', {
                                             params: {
                                                 name: 'Filters',
-                                                query: {type: 'Content Writing', filter: 'Content Type'},
+                                                query: {type: 'Content and Translation'},
                                                 distinctName: 'name'
                                             }
                                         })
@@ -220,7 +220,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }),
                     getContent: function ($q, $http) {
                         return $q.all({
-                            content: $http.get('/get-content', {params: {name: 'Filters', query: {type: 'Content Writing', filter: 'Content Type'}, distinctName: 'name'}}),
+                            content: $http.get('/get-content', {params: {name: 'Filters', query: {type: 'Content and Translation'}, distinctName: 'name'}}),
                         })
                     }
                 }),
@@ -280,7 +280,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             content: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Content Type'},
+                                    query: {type: 'Content and Translation'},
                                     distinctName: 'name'
                                 }
                             }),
@@ -434,14 +434,14 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             content: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Content Type'},
+                                    query: {type: 'Content and Translation'},
                                     distinctName: 'name'
                                 }
                             }),
                             languages: $http.get('/get-content', {
                                 params: {
-                                    name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Languages'},
+                                    name: 'Languages',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             }),
@@ -486,7 +486,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             topic: $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
+                                    query: {type: 'Content and Translation'},
                                     distinctName: 'name'
                                 }
                             }),
@@ -500,7 +500,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories', {
-                url: '/categories?city',
+                url: '/categories/:type/:filter/:name',
                 templateUrl: 'template/category.html',
                 controller: 'CategoriesCtrl',
                 reloadOnSearch: false,
@@ -514,8 +514,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         return $q.all({
                             languages: $http.get('/get-content', {
                                 params: {
-                                    name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Languages'},
+                                    name: 'Languages',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             }),
@@ -545,8 +545,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                         return $q.all({
                             languages: $http.get('/get-content', {
                                 params: {
-                                    name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Languages'},
+                                    name: 'Languages',
+                                    query: {},
                                     distinctName: 'name'
                                 }
                             }),
@@ -727,7 +727,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                             return $http.get('/get-content', {
                                 params: {
                                     name: 'Filters',
-                                    query: {type: 'Content Writing', filter: 'Content Type'},
+                                    query: {type: 'Content and Translation'},
                                     distinctName: 'name'
                                 }
                             })

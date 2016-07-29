@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter', 'ModalService',
-    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter,ModalService) {
+XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter', 'ModalService', '$state',
+    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter,ModalService, $state) {
         scope.ownFilter = {}
         scope.arrayLanguages = getContent.languages.data.data;
         scope.arrayLocations = getContent.locations.data.data;
@@ -9,7 +9,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.loading = true;
         scope.ownFilter.type = 'agency';
 
-        scope.search = {}
+        scope.search = {};
         scope.favorites = [];
         http.get('/api/my/favorite').success(function(favorites){
             scope.favorites = favorites;
@@ -28,7 +28,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
         scope.removeFavorite = function(profileId){
             http.get('/api/freelancer/'+profileId+'/favorite/remove').then(function(){
-                console.log(scope.favorites, profileId)
+                console.log(scope.favorites, profileId);
                 scope.favorites.splice(scope.favorites.indexOf(profileId),1);
             })
         };
