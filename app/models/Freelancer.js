@@ -23,6 +23,7 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         ref: 'Package'
     }],
+    translation:Array,
     profile: String,
     number_employees: Number,
     //0 - pending, 1-approved, 2-rejected

@@ -137,6 +137,62 @@
                                             <md-checkbox ng-checked="existsService(commonFilter, value.subFilter, subV.name)" ng-click="toggleService(commonFilter, value.subFilter, subV.name)"
                                                          class="margin-top-8 md-warn">{{subV.name}}
                                             </md-checkbox>
+                                            <div ng-if="subV.name == 'Translation'">
+                                                    <md-list>
+                                                        <md-list-item ng-repeat="item in freelancer.translation">
+                                                            <p> {{ item.from }} - {{ item.to }} </p>
+                                                            <ng-md-icon icon="cancel" ng-click="translationRemove(item)" style="fill: #969696 ;cursor: pointer"></ng-md-icon>
+                                                        </md-list-item>
+                                                    </md-list>
+                                                    <div>
+                                                        <md-input-container style="width: 40%; margin-bottom: 0px;margin-top: 0px;">
+                                                            <md-select aria-label="hidden"
+                                                                       ng-model="translation.translationFrom"
+                                                                       md-on-close="clearSearchTerm()"
+                                                                       data-md-container-class="selectdemoSelectHeader"
+                                                                       required>
+                                                                <md-select-header class="demo-select-header">
+                                                                    <input ng-model="searchTerm" type="search"
+                                                                           placeholder="From"
+                                                                           class="demo-header-searchbox _md-text">
+                                                                </md-select-header>
+                                                                <md-optgroup label="locations">
+                                                                    <md-option ng-value="item"
+                                                                               ng-repeat="item in language | filter:$select.search">
+                                                                        {{item}}
+                                                                    </md-option>
+                                                                </md-optgroup>
+                                                            </md-select>
+                                                        </md-input-container>
+
+                                                        <md-input-container style="width: 40%; margin-bottom: 0px;margin-top: 0px;">
+                                                            <md-select aria-label="hidden"
+                                                                       ng-model="translation.translationTo"
+                                                                       md-on-close="clearSearchTerm()"
+                                                                       data-md-container-class="selectdemoSelectHeader" required>
+                                                                <md-select-header class="demo-select-header">
+                                                                    <input ng-model="searchTerm" type="search"
+                                                                           placeholder="To"
+                                                                           class="demo-header-searchbox _md-text">
+                                                                </md-select-header>
+                                                                <md-optgroup label="locations">
+                                                                    <md-option ng-value="item"
+                                                                               ng-repeat="item in language | filter:$select.search">
+                                                                        {{item}}
+                                                                    </md-option>
+                                                                </md-optgroup>
+                                                            </md-select>
+                                                            <div ng-messages="translation.inValid" >
+                                                                <div  ng-message="required">Contact Person Name is required</div>
+                                                            </div>
+                                                        </md-input-container>
+                                                        <ng-md-icon icon="done" ng-click="translationAdd(translation.translationFrom,translation.translationTo);"
+                                                                    style="fill: #969696 ;cursor: pointer; margin-top: 18px;"></ng-md-icon>
+                                                        <br/>
+                                                        <span ng-if="translation.inValid && (translation.translationFrom == translation.translationTo)" style="color: red;margin-bottom: 18px">Language must be different</span><br/>
+                                                        <span ng-if="(translation.inRequerd && (!translation.translationFrom || !translation.translationTo) ) " style="color: red;margin-bottom: 18px">Select languages</span>
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -157,7 +213,6 @@
                 <h3 class="tab-title">Create Packages</h3>
                 <p class="sub-tab-title">Please provide information about the Packages services you offer</p>
             </div>
-
             <!--<h4 class="info-title">Industry Expertise (select top 5)</h4>-->
             <!--<div class="form-group">-->
                 <!--<md-input-container class="selectTerm">-->
