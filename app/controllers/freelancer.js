@@ -75,7 +75,6 @@ exports.get_freelancers = function (req, res) {
         // if ('service_provider')
         console.log(params)
         m.find(models.Freelancer, params, res, function (freelancer) {
-            log('12312313123123', freelancer)
             m.scb(freelancer, res)
         }, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-views'})
     }

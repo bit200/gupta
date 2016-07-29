@@ -158,43 +158,43 @@
                 <p class="sub-tab-title">Please provide information about the Packages services you offer</p>
             </div>
 
-            <h4 class="info-title">Industry Expertise (select top 5)</h4>
-            <div class="form-group">
-                <md-input-container class="selectTerm">
-                    <md-select aria-label="hidden" ng-model="freelancer.industry_expertise" md-on-close="clearSearchTerm()"
-                               data-md-container-class="selectdemoSelectHeader" multiple>
-                        <md-select-header class="demo-select-header">
-                            <input ng-model="searchTerm" type="search" placeholder="Search for a industry.."
-                                   class="demo-header-searchbox _md-text">
-                        </md-select-header>
-                        <md-optgroup label="locations">
-                            <md-option ng-value="item" ng-repeat="item in industry | filter:$select.search ">
-                                {{item}}
-                            </md-option>
-                        </md-optgroup>
-                    </md-select>
-                </md-input-container>
+            <!--<h4 class="info-title">Industry Expertise (select top 5)</h4>-->
+            <!--<div class="form-group">-->
+                <!--<md-input-container class="selectTerm">-->
+                    <!--<md-select aria-label="hidden" ng-model="freelancer.industry_expertise" md-on-close="clearSearchTerm()"-->
+                               <!--data-md-container-class="selectdemoSelectHeader" multiple>-->
+                        <!--<md-select-header class="demo-select-header">-->
+                            <!--<input ng-model="searchTerm" type="search" placeholder="Search for a industry.."-->
+                                   <!--class="demo-header-searchbox _md-text">-->
+                        <!--</md-select-header>-->
+                        <!--<md-optgroup label="locations">-->
+                            <!--<md-option ng-value="item" ng-repeat="item in industry | filter:$select.search ">-->
+                                <!--{{item}}-->
+                            <!--</md-option>-->
+                        <!--</md-optgroup>-->
+                    <!--</md-select>-->
+                <!--</md-input-container>-->
 
 
-            </div>
+            <!--</div>-->
 
-            <h4 class="info-title">Content Type</h4>
-            <div class="form-group">
-                <md-input-container class="selectTerm">
-                    <md-select aria-label="hidden" ng-model="freelancer.content_type" md-on-close="clearSearchTerm()"
-                               data-md-container-class="selectdemoSelectHeader" multiple="">
-                        <md-select-header class="demo-select-header">
-                            <input ng-model="searchTerm" type="search" placeholder="Search for a content type.."
-                                   class="demo-header-searchbox _md-text">
-                        </md-select-header>
-                        <md-optgroup label="content_type">
-                            <md-option ng-value="item" ng-repeat="item in content | filter:$select.search ">
-                                {{item}}
-                            </md-option>
-                        </md-optgroup>
-                    </md-select>
-                </md-input-container>
-            </div>
+            <!--<h4 class="info-title">Content Type</h4>-->
+            <!--<div class="form-group">-->
+                <!--<md-input-container class="selectTerm">-->
+                    <!--<md-select aria-label="hidden" ng-model="freelancer.content_type" md-on-close="clearSearchTerm()"-->
+                               <!--data-md-container-class="selectdemoSelectHeader" multiple="">-->
+                        <!--<md-select-header class="demo-select-header">-->
+                            <!--<input ng-model="searchTerm" type="search" placeholder="Search for a content type.."-->
+                                   <!--class="demo-header-searchbox _md-text">-->
+                        <!--</md-select-header>-->
+                        <!--<md-optgroup label="content_type">-->
+                            <!--<md-option ng-value="item" ng-repeat="item in content | filter:$select.search ">-->
+                                <!--{{item}}-->
+                            <!--</md-option>-->
+                        <!--</md-optgroup>-->
+                    <!--</md-select>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
 
             <h4 class="info-title">Languages in which you write</h4>
             <div class="form-group">
@@ -202,7 +202,7 @@
                     <md-select aria-label="hidden" ng-model="freelancer.languages" md-on-close="clearSearchTerm()"
                                data-md-container-class="selectdemoSelectHeader" multiple="">
                         <md-select-header class="demo-select-header">
-                            <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
+                            <input ng-model="searchTerm" type="search" placeholder="Search for a languages.."
                                    class="demo-header-searchbox _md-text">
                         </md-select-header>
                         <md-optgroup label="locations">

@@ -159,11 +159,11 @@
                                         </div>
                                         <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
                                             <div class="inline-block" style="width: 13%;height: 30px;position: relative">
-                                                <img ng-if="profile.service_providers[0].type != 'Content Writing'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}.svg">
-                                                <img ng-if="profile.service_providers[0].type == 'Content Writing'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}F.svg">
+                                                <img ng-if="profile.service_providers[0].type != 'Content and Translation'" style="color:black;fill:black; height: 100%" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}.svg">
+                                                <img ng-if="profile.service_providers[0].type == 'Content and Translation'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center" ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}F.svg">
                                             </div>
-                                            <div ng-if="profile.service_providers[0].type != 'Content Writing'" class="inline-block profile-service-provider" >{{profile.service_providers[0].type}}</div>
-                                            <div ng-if="profile.service_providers[0].type == 'Content Writing'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type}}</div>
+                                            <div ng-if="profile.service_providers[0].type != 'Content and Translation'" class="inline-block profile-service-provider" >{{profile.service_providers[0].type}}</div>
+                                            <div ng-if="profile.service_providers[0].type == 'Content and Translation'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type}}</div>
                                         </div>
                                     </div>
                                 </div>

@@ -6,25 +6,25 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
         var q = {
             languages: http.get('/get-content', {
                 params: {
-                    name: 'Filters',
-                    query: {type: 'Content Writing', filter: 'Languages'},
+                    name: 'Languages',
+                    query: {},
                     distinctName: 'name'
                 }
             }),
-            industry: http.get('/get-content', {
-                params: {
-                    name: 'Filters',
-                    query: {type: 'Content Writing', filter: 'Industry Expertise'},
-                    distinctName: 'name'
-                }
-            }),
-            content: http.get('/get-content', {
-                params: {
-                    name: 'Filters',
-                    query: {type: 'Content Writing', filter: 'Content Type'},
-                    distinctName: 'name'
-                }
-            }),
+            // industry: http.get('/get-content', {
+            //     params: {
+            //         name: 'Filters',
+            //         query: {type: 'Content Writing', filter: 'Industry Expertise'},
+            //         distinctName: 'name'
+            //     }
+            // }),
+            // content: http.get('/get-content', {
+            //     params: {
+            //         name: 'Filters',
+            //         query: {type: 'Content Writing', filter: 'Content Type'},
+            //         distinctName: 'name'
+            //     }
+            // }),
             locations: http.get('/get-content', {
                 params: {
                     name: 'Location',
@@ -105,8 +105,8 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             rootScope.globalFiles = [];
             scope.language = getContent.languages.data.data;
             scope.locations = getContent.locations.data.data;
-            scope.industry = getContent.industry.data.data;
-            scope.content = getContent.content.data.data;
+            // scope.industry = getContent.industry.data.data;
+            // scope.content = getContent.content.data.data;
             scope.experience = _.range(51);
             scope.showLink = false;
             rootScope.globalImg = [];
