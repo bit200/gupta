@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="flip-back">
                                     <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)" style="z-index: 9999999999999"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
-                                    <div class="profile-back" style="height: 112%; margin-top: -15%; padding-top: 15%;" ui-sref="categories.profile({id: profile._id})">
+                                    <div class="profile-back" style="height: 112%; margin-top: -15%; padding-top: 15%;" ui-sref="profile({id: profile._id})">
                                         <div class="profile-back-name">{{profile.name}}</div>
                                         <div class="profile-back-introduction">{{profile.introduction}}</div>
                                         <div class="profile-back-description">{{profile.description}}</div>

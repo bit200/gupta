@@ -82,7 +82,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         }
 
         scope.$watch('activeProvider', function (val) {
-            if (val) {
+            if (val.name) {
                 // if ($state.current.name == 'categories') {
                 //     var obj = {};
                 //     if (rootScope.activeProvider.name)
@@ -91,6 +91,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 //         obj.filter = rootScope.activeProvider.subName.split(' ').join('-').toLowerCase();
                 //     $state.go('categories',obj)
                 // }
+                console.log('######val', val)
                 scope.submitFilter()
             }
         }, true);
@@ -156,7 +157,6 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 //scope.freelancers = resp.data;
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
                 scope.loading = false;
-                rootScope.activeProvider = {};
             })
         };
 

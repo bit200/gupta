@@ -23,10 +23,16 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
     };
     
     scope.setActiveProvider = function(key, provider){
+
+        console.log('ssdf', $rootScope.activeProvider)
         $rootScope.activeProvider = {
             name: angular.copy(key),
             values: angular.copy(provider)
         };
+
+        console.log('zxczxczx',$rootScope.activeProvider)
+
+
     };
 
     scope.goCategories = function(){
@@ -34,7 +40,6 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
             var obj = {};
             if ($rootScope.activeProvider.name)
                 obj.type = $rootScope.activeProvider.name.split(' ').join('-').toLowerCase();
-
                 obj.filter = $rootScope.activeProvider.subName ? $rootScope.activeProvider.subName.split(' ').join('-').toLowerCase():'';
             $state.go('categories',obj)
     };
