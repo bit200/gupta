@@ -22,10 +22,6 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         $rootScope.activeProvider.subName = filter;
     };
     
-    scope.setSubSubMenu = function(subV){
-        $rootScope.activeProvider.subSubName = subV;
-    };
-    
     scope.setActiveProvider = function(key, provider){
         $rootScope.activeProvider = {
             name: angular.copy(key),
@@ -35,7 +31,12 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
 
     scope.goCategories = function(){
         if ($state.current.name != 'categories')
-            $state.go('categories')
+            var obj = {};
+            if ($rootScope.activeProvider.name)
+                obj.type = $rootScope.activeProvider.name.split(' ').join('-').toLowerCase();
+            if ($rootScope.activeProvider.subName)
+                obj.filter = $rootScope.activeProvider.subName.split(' ').join('-').toLowerCase();
+            $state.go('categories',obj)
     };
 
     scope.checkCategoryPage = function(){

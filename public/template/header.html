@@ -91,19 +91,6 @@
                                     <a ng-click="setActiveProvider(key, value);setSubMenu(val.name);goCategories()"
                                        class="text-black top-sub-menu-text">{{val.name}}</a>
                                 </li>
-                                <li ng-if="val.subFilter" class="dir top-sub-menu"
-                                    ng-class="{active: activeProvider.subName == val.subFilter && activeProvider.name == key}">
-                                    <a class="text-black top-sub-menu-text"
-                                       ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);goCategories()">
-                                        {{val.subFilter}}<i class="fa fa-angle-right floatR" aria-hidden="true"></i></a>
-                                    <ul class="top-sub-sub-menu">
-                                        <li ng-repeat="subV in val.arr"
-                                            ng-class="{active: activeProvider.subSubName == subV.name && activeProvider.subName == val.subFilter && activeProvider.name == key}">
-                                            <a class="text-black top-sub-menu-text"
-                                               ng-click="setActiveProvider(key, value);setSubMenu(val.subFilter);setSubSubMenu(subV.name);goCategories()">
-                                                {{subV.name}}</a></li>
-                                    </ul>
-                                </li>
                             </ul>
                         </div>
                     </li>
