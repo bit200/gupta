@@ -147,7 +147,6 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
             // service_packages
             http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
-                console.log('resp',resp)
                 //scope.freelancers = resp.data;
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
                 scope.loading = false;

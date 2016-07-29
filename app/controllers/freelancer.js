@@ -743,7 +743,7 @@ exports.make_fake = function (req, res) {
                 "popularity": 89999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": [{"type": "Media Planning"}],
+                "service_providers": [{"type": "Marketing Advisor"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
