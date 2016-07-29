@@ -70,6 +70,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 if(!(from && to)||(from == to))
                     return ;
                 scope.translation.inValid = true;
+                scope.freelancer.translation = scope.freelancer.translation || [];
                 scope.freelancer.translation.push({from:from,to:to});
             };
 
