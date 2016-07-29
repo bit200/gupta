@@ -658,7 +658,7 @@ exports.make_fake = function (req, res) {
                 "popularity": 92999, "rating": 4,
                 "isActive": 1, "registrationStatus": 1, "service_packages": [],
                 "price": {"hour": null, "word": 10}, "languages": ["Spanish"], "content_type": ["Blogs and Articles"], "industry_expertise": ["Sports", "Technology", "Automotive", "Lifestyle"],
-                "service_providers": [{"type": "Event Management"}],
+                "service_providers": [{"type": "Events and Exhibitions"}],
                 "cities": ["Mumbai"],
                 "location": "Hyderabat",
                 "contact_detail": detail._id,
