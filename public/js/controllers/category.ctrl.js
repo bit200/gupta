@@ -1,7 +1,7 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRating', '$q', 'getContent', '$rootScope', '$stateParams', '$filter', 'ModalService', '$state',
-    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter,ModalService, $state) {
+    function (scope, location, http, parseRating, $q, getContent, rootScope, stateParams, $filter, ModalService, $state) {
         scope.ownFilter = {}
         scope.arrayLanguages = getContent.languages.data.data;
         scope.arrayLocations = getContent.locations.data.data;
@@ -11,25 +11,24 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
         scope.search = {};
         scope.favorites = [];
-        http.get('/api/my/favorite').success(function(favorites){
+        http.get('/api/my/favorite').success(function (favorites) {
             scope.favorites = favorites;
         });
 
-        scope.addFavorite = function(profileId){
-            http.get('/api/freelancer/'+profileId+'/favorite/add').then(function(){
+        scope.addFavorite = function (profileId) {
+            http.get('/api/freelancer/' + profileId + '/favorite/add').then(function () {
                 scope.favorites.push(profileId)
-            }, function(err){
-                if(err.status == 401) {
+            }, function (err) {
+                if (err.status == 401) {
                     $state.go('login')
                 }
             });
         };
 
 
-        scope.removeFavorite = function(profileId){
-            http.get('/api/freelancer/'+profileId+'/favorite/remove').then(function(){
-                console.log(scope.favorites, profileId);
-                scope.favorites.splice(scope.favorites.indexOf(profileId),1);
+        scope.removeFavorite = function (profileId) {
+            http.get('/api/freelancer/' + profileId + '/favorite/remove').then(function () {
+                scope.favorites.splice(scope.favorites.indexOf(profileId), 1);
             })
         };
         scope.slider = {
@@ -84,9 +83,17 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
         scope.$watch('activeProvider', function (val) {
             if (val) {
+                // if ($state.current.name == 'categories') {
+                //     var obj = {};
+                //     if (rootScope.activeProvider.name)
+                //         obj.type = rootScope.activeProvider.name.split(' ').join('-').toLowerCase();
+                //     if (rootScope.activeProvider.subName)
+                //         obj.filter = rootScope.activeProvider.subName.split(' ').join('-').toLowerCase();
+                //     $state.go('categories',obj)
+                // }
                 scope.submitFilter()
             }
-        }, true)
+        }, true);
         scope.showPic = function (pic) {
             ModalService.showModal({
                 templateUrl: "template/modal/workImg.html",
@@ -121,7 +128,6 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 angular.forEach(rootScope.activeProvider, function (aPm, key) {
                     if (key == 'values')
                         angular.forEach(aPm, function (value) {
-                            console.log(value);
                             if (value.arr)
                                 angular.forEach(value.arr, function (aV) {
                                     if (aV.selected) {
@@ -150,6 +156,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 //scope.freelancers = resp.data;
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
                 scope.loading = false;
+                rootScope.activeProvider = {};
             })
         };
 
@@ -179,7 +186,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
             scope.reviews = resp.data.data;
             scope.reviews = resp.data.data;
         });
-        if(scope.viewProfile.past_clients)
+        if (scope.viewProfile.past_clients)
             scope.past_clients = scope.viewProfile.past_clients;
         $http.get('/api/freelancer/' + scope.viewProfile._id + '/jobs_count?status=ongoing').success(function (count) {
             scope.ongoingJobsCount = count;
@@ -234,7 +241,6 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         };
 
         scope.showPic = function (pic) {
-            console.log(pic);
             ModalService.showModal({
                 templateUrl: "template/modal/workImg.html",
                 controller: function ($scope, close, $element) {

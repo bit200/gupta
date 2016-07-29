@@ -30,12 +30,12 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
     };
 
     scope.goCategories = function(){
-        if ($state.current.name != 'categories')
+        // if ($state.current.name != 'categories')
             var obj = {};
             if ($rootScope.activeProvider.name)
                 obj.type = $rootScope.activeProvider.name.split(' ').join('-').toLowerCase();
-            if ($rootScope.activeProvider.subName)
-                obj.filter = $rootScope.activeProvider.subName.split(' ').join('-').toLowerCase();
+
+                obj.filter = $rootScope.activeProvider.subName ? $rootScope.activeProvider.subName.split(' ').join('-').toLowerCase():'';
             $state.go('categories',obj)
     };
 
@@ -43,3 +43,9 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
         
     }
 }]);
+
+
+/*
+
+Слушай, щас будет странный вопрос, мне интересен ответ. Вопрос чисто информационного характера, ничего и никого он не изменит.  Только прошу ответить максимально честно. Нравлюсь ли я тебе как парень?
+ */
