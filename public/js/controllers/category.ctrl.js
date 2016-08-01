@@ -61,11 +61,65 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                         scope.submitFilter(scope.ownFilter); // logs 'on end slider-id'
                     }
                 }
+            },
+            rating: {
+                value: 0,
+                options: {
+                    floor: 0,
+                    ceil: 5,
+                    step: 1,
+                    showSelectionBar: true,
+                    getPointerColor: function (value) {
+                        return '#B9B6B9';
+                    },
+                    getSelectionBarColor: function (value) {
+                        return '#B9B6B9';
+                    },
+                    translate: function (value) {
+                        if (value < 2) {
+                            return value + ' star'
+                        }
+                        if (value >= 2) {
+                            return value + ' stars'
+                        }
+                    },
+                    onStart: function (r) {
+                        if (!scope.checkRating)
+                            scope.checkRating = 'more';
+                    },
+                    onEnd: function (r) {
+                        scope.checkRating == 'more' ? scope.ownFilter.rating = {'$gte':scope.slider.rating.value} : scope.ownFilter.rating = {'$lte':scope.slider.rating.value};
+                        scope.submitFilter(scope.ownFilter);
+                    }
+                }
+            },
+            views: {
+                value: 0,
+                options: {
+                    floor: 0,
+                    ceil: 25000,
+                    step: 100,
+                    showSelectionBar: true,
+                    getPointerColor: function (value) {
+                        return '#B9B6B9';
+                    },
+                    getSelectionBarColor: function (value) {
+                        return '#B9B6B9';
+                    },
+                    onStart: function (r) {
+                        if (!scope.checkViews)
+                            scope.checkViews = 'more';
+                    },
+                    onEnd: function (r) {
+                        scope.checkViews == 'more' ? scope.ownFilter.views = {'$gte':scope.slider.views.value} : scope.ownFilter.views = {'$lte':scope.slider.views.value};
+                        scope.submitFilter(scope.ownFilter);
+                    }
+                }
             }
         };
 
         var checkValue = function (locSearch) {
-            if (!locSearch) return
+            if (!locSearch) return;
             var res = {};
             if (locSearch === Array)
                 _.each(locSearch, function (i_e) {
@@ -91,7 +145,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 //         obj.filter = rootScope.activeProvider.subName.split(' ').join('-').toLowerCase();
                 //     $state.go('categories',obj)
                 // }
-                console.log('######val', val)
+                // console.log('######val', val)
                 scope.submitFilter()
             }
         }, true);
@@ -122,6 +176,22 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             if (filter.location)
                 filter.location = {$in: filter.location};
 
+            if (scope.date && scope.date.start){
+                filter.created_at = filter.created_at || {};
+                filter.created_at['$gte'] = scope.date.start
+            }
+
+            if (scope.date && scope.date.end) {
+                filter.created_at = filter.created_at || {};
+                filter.created_at['$lte'] = scope.date.end
+            }
+
+            if (scope.checkRating) {
+                scope.checkRating == 'more' ? filter.rating = {'$gte':scope.slider.rating.value} : filter.rating = {'$lte':scope.slider.rating.value};
+            }
+            if (scope.checkViews) {
+                scope.checkViews == 'more' ? filter.views = {'$gte':scope.slider.views.value} : filter.views = {'$lte':scope.slider.views.value};
+            }
             if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length) {
                 var t = {
                     "service_providers.type": rootScope.activeProvider.name
