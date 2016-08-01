@@ -6,7 +6,7 @@
         <table class="table table-striped" ng-if="all_projects.length">
             <thead>
             <tr>
-                <th st-sort-default="true" class="text-bold pointer" >Title</th>
+                <th class="text-bold pointer" >Title</th>
                 <th class="text-bold pointer" >Email</th>
                 <th class="text-bold pointer" >Budget</th>
                 <th class="text-bold pointer" >Status</th>
@@ -28,13 +28,7 @@
                 </td>
             </tr>
             </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="7" class="text-center">
-                    <div st-pagination="" st-items-by-page="15" st-displayed-pages="7"></div>
-                </td>
-            </tr>
-            </tfoot>
+
         </table>
         <div class="text-center">
             <div custom-pagination="configPagination" cb="cb(currentPage)"></div>

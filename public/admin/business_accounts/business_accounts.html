@@ -44,11 +44,11 @@
                 <span ng-confirm-click="Are you sure your want to approve business user <b>{{business_account.first_name}} {{business_account.last_name}}</b> ?"
                       ng-confirm-action="rejectApproveAccount('approve', business_account._id, $index)"
                       ng-show="business_account.status==0 || business_account.status==2"
-                      style="color: green" class="pointer glyphicon glyphicon-ok"></span>
+                      style="color: green" class="pointer fa fa-check"></span>
 
                 <span ng-click="reject(business_account, $index)" style="color: red"
                       ng-show="business_account.status==0 || business_account.status==1"
-                      class="pointer glyphicon glyphicon-remove"></span>
+                      class="pointer fa fa-times"></span>
             </td>
         </tr>
         </tbody>

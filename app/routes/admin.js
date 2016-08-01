@@ -30,7 +30,7 @@ module.exports = function (app) {
     app.post('/admin/api/registration/reject/:id', _admin.reject_registration);
     
     app.post('/admin/api/jobs/approve', _admin.approve_job);
-    app.post('/admin/api/jobs/reject/:id', _admin.reject_job);
+    app.post('/admin/api/jobs/reject', _admin.reject_job);
     
     app.get('/admin/api/business_accounts', _admin.business_accounts);
     
