@@ -25,6 +25,7 @@ angular.module( 'admin', [
 
   $httpProvider.interceptors.push('jwtInterceptor');
 }])
+
 .run(["$rootScope", "$state", "store", "jwtHelper", function($rootScope, $state, store, jwtHelper) {
   $rootScope.$on('$stateChangeStart', function(e, to) {
     if (to.data && to.data.requiresLogin) {
@@ -44,5 +45,5 @@ angular.module( 'admin', [
     store.remove('jwt');
     window.location = '/admin/login';
   }
-}]);
+}])
 

@@ -10,12 +10,26 @@ angular.module('admin.all_profile', [
             templateUrl: 'all_profile/all_profile.html',
             data: {
                 requiresLogin: true
+            },
+            resolve: {
+                getContent: ["$q", "$http", "$stateParams", function ($q, $http, $stateParams) {
+                    return $q.all({
+                        location: $http.get('/get-content', {
+                            params: {
+                                name: 'Location',
+                                query: {},
+                                distinctName: 'name'
+                            }
+                        })
+                    })
+                }]
             }
         });
     })
-    
-    .controller('AllProfileCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService) {
+
+    .controller('AllProfileCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService, getContent) {
         $scope.selectFilter = 'pending';
+        $scope.locations = getContent.location.data.data;
         $scope.getFreelancer = function (skip, limit) {
             var _skip = skip ? (skip - 1) * $scope.configPagination.countByPage : 0;
             $http.get('/admin/api/all/freelancer', {params: {limit: limit || $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
@@ -57,10 +71,10 @@ angular.module('admin.all_profile', [
         $scope.reject = function (item, index) {
             ModalService.showModal({
                 templateUrl: "delete_modal.html",
-                controller: function ($scope,$element, $http) {
-                    $scope.submit = function(){
+                controller: function ($scope, $element, $http) {
+                    $scope.submit = function () {
                         $scope.all_profiles.splice(index, 1);
-                        $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}}) 
+                        $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}})
                     };
                     $scope.close = function (res) {
                         $element.modal('hide');
@@ -73,17 +87,17 @@ angular.module('admin.all_profile', [
                 });
 
             });
-            
+
         }
 
         $scope.getInformation = function (user, type) {
             ModalService.showModal({
                 templateUrl: "all_profile/all_profile.view.html",
-                controller: function ($scope,$element, $http) {
+                controller: function ($scope, $element, $http) {
                     $scope.type = type;
                     $scope.profile = user;
-                    $scope.submit = function(user){
-                        $http.post('/admin/api/'+type, {user:user}).then(function(resp){
+                    $scope.submit = function (user) {
+                        $http.post('/admin/api/' + type, {user: user}).then(function (resp) {
                             $scope.close()
                         })
                     }
