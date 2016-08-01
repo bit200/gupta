@@ -349,7 +349,7 @@ function _findCreateUpdate(model, query, _ecb, _scb, params, upsert) {
 function findCreate(model, query, new_query, _ecb, _scb, params) {
     new_query = _.extend({}, query, new_query);
     findOne(model, query, function (code, err) {
-        if (code == 397) {
+        if (code == 397 || query == {}) {
             create(model, new_query, _ecb, _scb, params)
         } else {
                ecb(code, err, _ecb)

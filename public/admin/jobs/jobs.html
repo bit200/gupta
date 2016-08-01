@@ -1,6 +1,6 @@
 <div style="margin-top: 20px">
     <h2 ng-if="!jobs.length" class="text-center" style="margin-top: 74px">No pending jobs</h2>
-    <table class="table table-striped" st-safe-src="jobs" st-table="jobsCopy" ng-if="jobsCopy.length">
+    <table class="table table-striped" ng-if="jobs.length">
         <thead>
         <tr>
             <th>Title</th>
@@ -16,7 +16,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="job in jobsCopy" ng-class="{'rejecting-row': job_area.rejectedItemIndex == $index}">
+        <tr ng-repeat="job in jobs" ng-class="{'rejecting-row': job_area.rejectedItemIndex == $index}">
             <td>{{job.title}}</td>
             <td><span ng-repeat="type in job.types">{{type}}<span ng-if="!$last">,</span> </span></td>
             <td>{{job.description}}</td>
@@ -30,20 +30,13 @@
                 <span ng-confirm-click="Are you sure your want to approve job <b>{{job.name}} </b> ?"
                       ng-confirm-action="rejectApproveJob('approve', job._id, $index)"
                       ng-show="job.admin_approved==0 || job.admin_approved==2"
-                      style="color: green" class="pointer glyphicon glyphicon-ok"></span>
+                      style="color: green" class="pointer fa fa-check"></span>
 
                 <span ng-click="reject(job, $index)" style="color: red"
                       ng-show="job.admin_approved==0 || job.admin_approved==1"
-                      class="pointer glyphicon glyphicon-remove"></span>
+                      class="pointer fa fa-times"></span>
             </td>
         </tr>
         </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="6" class="text-center">
-                <div st-pagination="" st-items-by-page="20" st-displayed-pages="7"></div>
-            </td>
-        </tr>
-        </tfoot>
     </table>
 </div>

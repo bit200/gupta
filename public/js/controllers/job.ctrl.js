@@ -22,22 +22,19 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         ];
 
         scope.isApply = scope.apply || scope.apply_by_id;
-        console.log('is Apply', scope.apply_by_id)
-        console.log(getContent)
         if (getContent.contentType)
-            scope.contentTypes = getContent.contentType.data.data
+            scope.contentTypes = getContent.contentType.data.data;
 
         if (getContent.locations)
-            scope.locations = getContent.locations.data.data
+            scope.locations = getContent.locations.data.data;
 
         if (scope.job) {
-            var job = scope.job
+            var job = scope.job;
             job.date_of_completion = new Date(job.date_of_completion);
-            job.job_visibility_plain = job.job_visibility ? 'Public' : 'Private'
+            job.job_visibility_plain = job.job_visibility ? 'Public' : 'Private';
             scope.job = job;
             scope.checkFavorited = function () {
                 http.get('/job/check_favorite', {params:{job:scope.job._id}}).success(function (resp) {
-                    console.log('qweqwe', resp)
                     scope.jobFavorited = resp
                 });
             };
@@ -56,8 +53,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.job.location = parseEdit(scope.job.local_preference);
             if (getContent.stats) {
                 scope.stats = getContent.stats.data.data;
-                console.log('rere', scope.stats)
-                scope.job.stats = []
+                scope.job.stats = [];
                 scope.job.stats.push(scope.stats.interviews !== 1 ? {
                     count: scope.stats.interviews,
                     name: 'Interviews'
@@ -77,8 +73,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 } : {count: scope.stats.hired, name: 'Hired'});
 
             }
-            scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false'
-            console.log("GET CONTETNT STEP2", scope.job, scope.new_apply, getContent)
+            scope.job.job_visibility ? scope.job.job_visibility = 'true' : scope.job.job_visibility = 'false';
         } else if (scope.apply_by_id) {
             scope.job = scope.apply_by_id.job
         } else {
@@ -125,38 +120,32 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         }
 
         scope.job_create = function (invalid, type, job) {
-            console.log('invalid', job)
             if (invalid) {
-                console.log('ahahahaha')
-
                 rootScope.scrollToErr()
                 return;
             }
-            job = scope.job
-            job.job_visibility = (job.job_visibility_plain != 'Private')
-            console.log("job before", job, job.job_visibility_plain, job.job_visibility)
-            job.content_types = parseType.get(job.content, scope.contentTypes);
+            job = scope.job;
+            job.job_visibility = (job.job_visibility_plain != 'Private');
+                job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
 
             http.post('/job', job).success(function (data) {
-                scope.job = data.data
+                scope.job = data.data;
                 scope.onSucc(data)
             }).error(scope.onErr)
         };
 
         scope.job_edit = function (invalid, job) {
             if (invalid) {
-                rootScope.scrollToErr()
+                rootScope.scrollToErr();
                 return;
             }
-            console.log('hahahahahahah', job)
-            job = scope.job
-            job.job_visibility = job.job_visibility_plain == 'Public'
+            job = scope.job;
+            job.job_visibility = job.job_visibility_plain == 'Public';
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
-            console.log('hahahahahahah after', job)
 
             http.put('/api/job', job).success(function () {
                 scope.onSucc()
@@ -164,9 +153,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         };
 
         function sendApply(text, type, $element) {
-            console.log('hahahahahahahahahah', text)
             http[type]('/api/job-apply', {job: scope.job._id, message: text}).then(function (resp) {
-                console.log("fhfhfhfhfhfhhf", resp)
                 scope.isApply = resp.data.data;
                 $element.modal('hide');
             })

@@ -29,8 +29,8 @@ module.exports = function (app) {
     app.post('/admin/api/registration/approve/:id', _admin.approve_registration);
     app.post('/admin/api/registration/reject/:id', _admin.reject_registration);
     
-    app.post('/admin/api/job/approve/:id', _admin.approve_job);
-    app.post('/admin/api/job/reject/:id', _admin.reject_job);
+    app.post('/admin/api/jobs/approve', _admin.approve_job);
+    app.post('/admin/api/jobs/reject/:id', _admin.reject_job);
     
     app.get('/admin/api/business_accounts', _admin.business_accounts);
     

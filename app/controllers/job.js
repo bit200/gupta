@@ -263,14 +263,16 @@ exports.add_job = function (req, res) {
     params.user = req.userId;
     params.buyer = req.userId;
     params.status = 'open';
-
+    console.log('asdasdasd0', params);
     if (params._id) {
+        console.log('asdasdasd1', params);
         m.findUpdate(models.Job, {_id: params._id}, params, res, res)
     } else {
         delete params._id;
         delete params.created_at;
         delete params.suggest;
         delete params.contract;
+        console.log('asdasdasd2', params);
         m.create(models.Job, params, res, res)
     }
 };
@@ -288,8 +290,7 @@ exports.get_my_job = function (req, res) {
 exports.job_attach_file = function (req, res) {
     var attachment;
     var params = m.getBody(req);
-    log('sdkhskkfhaslkh', params)
-    m.findCreate(models.Job, params.id, {}, res, function (job) {
+    m.findCreate(models.Job, {_id:params.id}, {}, res, function (job) {
         var storage = multer.diskStorage({
             destination: function (req, file, cb) {
                 var path = config.root + '/public/uploads/job/' + job._id;

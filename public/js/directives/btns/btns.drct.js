@@ -24,7 +24,6 @@ XYZCtrls.directive('btns', function () {
                 return v ? v.$invalid : null
             }
             scope.on_fn = function(btn) {
-                console.log(scope.postjob)
                 if (isinvalid(scope.postjob) || isinvalid(scope.formContract)) {
                     scope.onErr && scope.onErr({message: 'Please fill all fields'})
                     rootScope.scrollToErr()
@@ -41,7 +40,6 @@ XYZCtrls.directive('btns', function () {
                     // var obj = _state_obj[name] || _state_obj['root.' + name]
                     var userId = AuthService.userId()
                     if (item.is_owner) {
-                        console.log('ananananananna', item, item.is_owner)
                         var fl = null
                         _.each(item.is_owner, function(own){
                             var f_item = scope

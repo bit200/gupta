@@ -40,7 +40,7 @@ exports.get_sellers = function (req, res) {
     })
 };
 exports.get_jobs = function (req, res) {
-    models.Freelancer.find({admin_approved: 0}).exec(function (err, jobs) {
+    models.Job.find({admin_approved: 0}).exec(function (err, jobs) {
         res.json(jobs)
     })
 };
