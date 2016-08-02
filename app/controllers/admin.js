@@ -39,11 +39,17 @@ exports.get_sellers = function (req, res) {
         res.json(freelancers)
     })
 };
-exports.get_jobs = function (req, res) {
-    models.Job.find({admin_approved: 0}).exec(function (err, jobs) {
-        res.json(jobs)
-    })
+exports.get_count_jobs = function (req, res) {
+    models.Job.count({}).exec(function (err, count) {
+        res.jsonp(count)
+    });
 };
+
+exports.get_jobs = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.Job,{admin_approved: 0},res, res, {limit:params.limit, skip: params.skip})
+};
+
 exports.get_seller = function (req, res) {
     models.Freelancer.findOne({_id: req.params.id}).populate('poster Attachments work contact_detail service_packages user').exec(function (err, freelancer) {
         res.json(freelancer)
@@ -190,6 +196,11 @@ exports.approve_job = function (req, res) {
     m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function (job) {
         mail.job_approve(job.user, res, m.scb(job, res))
     }, {populate: 'user'});
+};
+
+exports.update_job = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.Job, {_id: params.job._id}, params.job, res, res)
 };
 
 exports.reject_job = function (req, res) {

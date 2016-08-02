@@ -86,11 +86,11 @@
                         <h4>Service provider</h4>
                         <md-input-container class="md-block" ng-repeat="service in profile.service_providers">
                             <div>
-                                <h4>Type:</h4>
+                                <h4>Category:</h4>
                                 <input class="form-control" name="typeFilter" ng-model="profile.service_providers[$index].type" placeholder="Enter languages" style="color: black">
                             </div>
                             <div ng-if="service.name">
-                                <h4>Name:</h4>
+                                <h4>Sub category:</h4>
                                 <input class="form-control" name="nameFilter" ng-model="profile.service_providers[$index].name" placeholder="Enter languages" style="color: black">
 
                                 <div ng-if="service.name == 'Translation'" >

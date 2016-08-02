@@ -36,7 +36,31 @@ angular.module('admin.all_project', [
             countByPage: 12,
             totalCount: 0
         };
+        
+        $scope.getInformation = function (job, index, jobs) {
+            ModalService.showModal({
+                templateUrl: "all_project/project.view.html",
+                controller: function ($scope, $element, $http) {
+                    $scope.job = angular.copy(job);
+                    $scope.submit = function (job) {
+                        $http.post('/admin/api/job/update', {job: job}).then(function (resp) {
+                            console.log(jobs, index, jobs[index])
+                            jobs[index] = resp.data.data;
+                            $scope.close()
+                        })
+                    };
+                    $scope.close = function (res) {
+                        $element.modal('hide');
+                        close(res, 500);
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
 
+            });
+        }
 
         $scope.reject = function (item, index) {
             $scope.all_projects.splice(index, 1);

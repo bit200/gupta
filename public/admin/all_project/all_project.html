@@ -24,6 +24,8 @@
                 <td>{{all_project.status}}</td>
                 <td>
                     <!--<span style="color: green" ng-click="getInformation()" class="pointer glyphicon glyphicon-pencil inline-block"></span>-->
+                    <span style="color: green" ng-click="getInformation(all_project, $index, all_projects)" class="pointer fa fa-pencil inline-block"></span>
+
                     <span ng-click="reject(all_project, $index)" style="color: red" class="pointer fa fa-times"></span>
                 </td>
             </tr>

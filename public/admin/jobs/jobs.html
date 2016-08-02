@@ -4,7 +4,6 @@
         <thead>
         <tr>
             <th>Title</th>
-            <th>Types</th>
             <th>Description</th>
             <th>Budget</th>
             <th>Email</th>
@@ -18,7 +17,6 @@
         <tbody>
         <tr ng-repeat="job in jobs" ng-class="{'rejecting-row': job_area.rejectedItemIndex == $index}">
             <td>{{job.title}}</td>
-            <td><span ng-repeat="type in job.types">{{type}}<span ng-if="!$last">,</span> </span></td>
             <td>{{job.description}}</td>
             <td>{{job.budget}}</td>
             <td>{{job.email}}</td>
@@ -32,6 +30,7 @@
                       ng-show="job.admin_approved==0 || job.admin_approved==2"
                       style="color: green" class="pointer fa fa-check"></span>
 
+
                 <span ng-click="reject(job, $index)" style="color: red"
                       ng-show="job.admin_approved==0 || job.admin_approved==1"
                       class="pointer fa fa-times"></span>
@@ -39,4 +38,9 @@
         </tr>
         </tbody>
     </table>
+    <div>
+    <div class="text-center">
+        <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+    </div>
+    </div>
 </div>
