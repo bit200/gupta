@@ -287,11 +287,6 @@ exports.get_my_job = function (req, res) {
     m.find(models.Job, {user: req.userId}, res, res, {populate: 'user contract'})
 };
 
-for (var i = 0; i < 90; i++){
-    m.create(models.Job, {title:'title '+i, email: 'test'+i+'@gmail.com', budget:12345 * i})
-
-}
-
 exports.job_attach_file = function (req, res) {
     var attachment;
     var params = m.getBody(req);
