@@ -53,10 +53,9 @@ angular.module( 'admin.categories', [
             if(cancel) return $scope.edit_space = {};
             var  addParams = {};
 
-           if(!Filter && !newField) return ;
+           if(!Filter) return ;
            if(Filter && (!$scope.commonFilters[Filter])) var mainCreate = true;
            if(SubName && newField){
-
                addParams = {
                    name:newField,
                    type:Filter||$scope.activeProvider.name,
@@ -65,6 +64,7 @@ angular.module( 'admin.categories', [
                    isActive: true
                };
                if(Filter){
+                   console.log("Here");
                    var frontParams = {
                        subFilter:SubName,
                        arr:[]
@@ -93,14 +93,21 @@ angular.module( 'admin.categories', [
                 }
                 else{
                     addParams = {
-                        name:SubName,
+                        //name:SubName,
                         type:Filter,
-                        filter:"",
+                        filter:SubName,
                         isActive: true
                     };
-                    $scope.commonFilters[Filter].push(addParams);
+                    $scope.commonFilters[Filter].push({type:Filter,name:SubName});
                 }
             }
+           else if(Filter){
+               addParams = {
+                   type:Filter,
+                   isActive: true
+               };
+               $scope.commonFilters[Filter]=Filter;
+           }
             else return $scope.edit_space.NoValid = true;
             addParams.main = mainCreate;
             $http.post('/admin/api/filter/add', addParams).success(function (resp) {
@@ -134,15 +141,17 @@ angular.module( 'admin.categories', [
             }
             else if(newField){
                 updateParams.query.type = $scope.activeProvider.name;
-                updateParams.query.name = oldField;
-                updateParams.query.filter = '';
-                updateParams.newParams.name = newField;
+                //updateParams.query.name = oldField;
+                //updateParams.query.filter = '';
+                updateParams.query.filter = oldField;
+                updateParams.newParams.filter = newField;
                 editType = 'SubName';
             }
             else if(Filter){
                 updateParams.query.type = oldField;
                 updateParams.newParams.type = Filter;
             }
+
             if(remove){
                 //search for delete
                 if(updateParams.query.name || updateParams.query.filter)
