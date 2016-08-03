@@ -13,9 +13,6 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav navbar-right">
-                <!--<li ng-if="$state.current.name == 'profile'" class="floatL" style="margin-right: 5px">-->
-                    <!--<a ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>-->
-                <!--</li>-->
                 <li ng-if="$state.current.name == 'profile'" class="header-search-block">
                         <div class="full-width">
                             <md-autocomplete class="header-search"
@@ -36,6 +33,9 @@
                                 </md-not-found>
                             </md-autocomplete>
                         </div>
+                </li>
+                <li ng-if="$state.current.name == 'profile'" class="floatL" style="margin-right: 5px">
+                    <a ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>
                 </li>
                 <li class="floatL">
                     <a ui-sref='jobs_list.all' class="btn btn-header">VIEW PROJECTS</a>
@@ -89,7 +89,7 @@
             <nav id="primary_nav_wrap">
                 <!--<ul class="flex menu" flex-menu="filters" ng-if="currentUser() && ['categories', 'home'].indexOf($state.current.name) == -1">-->
                 <ul class="flex menu" flex-menu="filters"
-                    ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories', 'home', 'how_it_work'].indexOf($state.current.name) == -1}">
+                    ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories','category', 'home', 'how_it_work'].indexOf($state.current.name) == -1}">
                     <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard')"
                         class="text-black top-menu-text">DASHBOARD</a></li>
                     <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a
@@ -100,7 +100,7 @@
                         <a ui-sref='jobs_list.all' class="text-black top-menu-text">VIEW PROJECTS</a></li>
                 </ul>
                 <ul class="flex menu"
-                    ng-class="{'flex-fix': !currentUser() ||  ['categories', 'home', 'how_it_work'].indexOf($state.current.name) > -1}"
+                    ng-class="{'flex-fix': !currentUser() ||  ['categories', 'category', 'home', 'how_it_work'].indexOf($state.current.name) > -1}"
                     flex-menu="commonFilters">
                     <li class="top-menu" ng-repeat="(key, value) in commonFilters"
                         ng-class="{active: activeProvider.name == key}">
