@@ -243,51 +243,86 @@ exports.get_user = function (req, res) {
 };
 
 exports.create_test_user = function (req, res) {
-    var arrF = [];
-    var user = {
-        "first_name": "Sqall0",
-        "last_name": "Leonhart0",
-        "company_name": "Tes0t"
-    };
+      var arrF = [];
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqall0",
+            "last_name": "Leonhart0",
+            "company_name": "Tes0t"
+        };
         user._id = 100;
         user.email = "jig234asan7000000@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user,function(err,text){log('1',err, text);cb()}, function(user){log('1',user._id);cb()})
     });
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqall1",
+            "last_name": "Leonhart1",
+            "company_name": "Te1st"
+        };
         user._id = 101;
         user.email = "jiga546san7000001@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user, function(err,text){cb();log('2',err, text)}, function(user){log('2',user._id);cb()})
     });
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqall2",
+            "last_name": "Leonhart2",
+            "company_name": "Test",
+        };
         user._id = 102;
         user.email = "jiga73san7000002@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user, function(err){log('3',err);cb()}, function(user){log('3',user._id);cb()})
     });
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqall3",
+            "last_name": "Leonhart3",
+            "company_name": "Te3st",
+        };
         user._id = 103;
         user.email = "jigaertysan7000003@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user, function(err){log('4',err);cb()}, function(user){log('4',user._id);cb()})
     });
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqall4",
+            "last_name": "Leonh4art",
+            "company_name": "Te4st",
+        };
         user._id = 104;
         user.email = "jigasahdfghn7000004@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user, function(err){log('5',err);cb()}, function(user){log('5',user._id);cb()})
     });
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqal5l",
+            "last_name": "Leon5hart",
+            "company_name": "Tes5t",
+        };
         user._id = 105;
         user.email = "jigasacvbnn7000005@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user, function(err){log('6',err);cb()}, function(user){log('6',user._id);cb()})
     });
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqal66l",
+            "last_name": "Leonha6rt",
+            "company_name": "Tes6t",
+        };
         user._id = 106;
         user.email = "jigasasdfgn7000006@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user, function(err){log('7',err);cb()}, function(user){log('7',user._id);cb()})
     });
     arrF.push(function (cb) {
+        var user = {
+            "first_name": "Sqal7l",
+            "last_name": "Leonh7art",
+            "company_name": "Te7st",
+        };
         user._id = 107;
         user.email = "jighgjkasan7000007@gmail.com";
-        m.create(models.User, user, cb, cb)
+        m.create(models.User, user, function(err){log('8',err);cb()}, function(user){log('8',user._id);cb()})
     });
     async.series(arrF, function (e, r) {
         m.scb('ok', res)
