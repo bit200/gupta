@@ -13,8 +13,29 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav navbar-right">
-                <li ng-if="$state.current.name == 'profile'" class="floatL" style="margin-right: 5px">
-                    <a ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>
+                <!--<li ng-if="$state.current.name == 'profile'" class="floatL" style="margin-right: 5px">-->
+                    <!--<a ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>-->
+                <!--</li>-->
+                <li ng-if="$state.current.name == 'profile'" class="header-search-block">
+                        <div class="full-width">
+                            <md-autocomplete class="header-search"
+                                    ng-disabled="false"
+                                    md-no-cache="true"
+                                    md-search-text="ctrl.searchText"
+                                    md-selected-item-change="ctrl.selectedItemChange(item)"
+                                    md-items="item in ctrl.search(ctrl.searchText)"
+                                    md-item-text="item.displayTitle"
+                                    md-min-length="2"
+                                    ng-enter="$state.go('categories')"
+                                    placeholder="search type">
+                                <md-item-template>
+                                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayTitle}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    No states matching "{{ctrl.searchText}}" were found.
+                                </md-not-found>
+                            </md-autocomplete>
+                        </div>
                 </li>
                 <li class="floatL">
                     <a ui-sref='jobs_list.all' class="btn btn-header">VIEW PROJECTS</a>
@@ -68,7 +89,7 @@
             <nav id="primary_nav_wrap">
                 <!--<ul class="flex menu" flex-menu="filters" ng-if="currentUser() && ['categories', 'home'].indexOf($state.current.name) == -1">-->
                 <ul class="flex menu" flex-menu="filters"
-                    ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories', 'home'].indexOf($state.current.name) == -1}">
+                    ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories', 'home', 'how_it_work'].indexOf($state.current.name) == -1}">
                     <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard')"
                         class="text-black top-menu-text">DASHBOARD</a></li>
                     <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a
@@ -79,7 +100,7 @@
                         <a ui-sref='jobs_list.all' class="text-black top-menu-text">VIEW PROJECTS</a></li>
                 </ul>
                 <ul class="flex menu"
-                    ng-class="{'flex-fix': !currentUser() ||  ['categories', 'home'].indexOf($state.current.name) > -1}"
+                    ng-class="{'flex-fix': !currentUser() ||  ['categories', 'home', 'how_it_work'].indexOf($state.current.name) > -1}"
                     flex-menu="commonFilters">
                     <li class="top-menu" ng-repeat="(key, value) in commonFilters"
                         ng-class="{active: activeProvider.name == key}">

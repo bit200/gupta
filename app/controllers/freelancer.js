@@ -329,6 +329,7 @@ exports.get_freelancer_review = function (req, res) {
         arr.push(function (cb) {
             var count = 0;
             _.each(jobs, function (job) {
+                job.job = job.job || {};
                 count++;
                 comments.push({title: job.job.title, review: job.contract.review_comment, name: job.contract.buyer_name});
                 if (count >= jobs.length) {

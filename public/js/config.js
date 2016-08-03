@@ -232,17 +232,27 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
             .state('how_it_work', {
                 url: '/how_it_work',
-                templateUrl: 'template/how_it_work.html',
-                controller: 'howItWorkCtrl',
+                templateUrl: 'template/home.html',
+                controller: 'HomeCtrl',
                 ncyBreadcrumb: {
                     label: ' ',
                     hideType: true
-                }
-                //resolve: getStatic({
-                //    template: 'jobs-all',
-                //    header: 'All jobs',
-                //    url: '/api/jobs/all'
-                //})
+                },
+                resolve: {
+                    getContent: ["$q", "$http", function ($q, $http) {
+                        return $q.all({
+                            sellers: $http.get('/api/freelancers?page=1&limit=8', {}),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            jobs: $http.get('/api/jobs/popular')
+                        })
+                    }]
+                },
             })
             .state('jobs_list.buyer_my', {
                 url: '/buyer/my',
@@ -645,10 +655,10 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     template: '<h3 class="text-center" style="margin-top: 135px;">Show to list template</h3>',
                 })
 
-            .state('How it works', {
-                    url: '/how_it_works',
-                    template: '<h3 class="text-center" style="margin-top: 135px;">How it works template</h3>',
-                })
+            // .state('How it works', {
+            //         url: '/how_it_works',
+            //         template: '<h3 class="text-center" style="margin-top: 135px;">How it works template</h3>',
+            //     })
 
             .state('Clients', {
                     url: '/clients',

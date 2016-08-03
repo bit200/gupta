@@ -29,3 +29,25 @@
     top:5px;
     margin: 0 5px;
 }
+
+.header-search-block {
+    margin-right: 10px;
+    height: 34px;
+    margin-top: 9px;
+    border-radius: 3px;
+}
+.header-search > md-autocomplete-wrap > input {
+    height: 100% !important;
+}
+
+.header-search, .header-search > md-autocomplete-wrap {
+    height: 32px;
+    border-radius: 3px;
+    border: 1px solid lightgray;
+    background: #1b1b1b !important;
+}
+
+.header-search > md-autocomplete-wrap {
+    border: 0px;
+    height: 28px;
+}

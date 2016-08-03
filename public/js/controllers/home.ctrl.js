@@ -10,6 +10,11 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         scope.cancelRegistration = function () {
             location.path('/')
         };
+        if($state.current.name == 'how_it_work'){
+            scope.howItWorks = true;
+            scope.mainPage = false;
+        }
+
 
         scope.link = function (url) {
             location.path(url)
