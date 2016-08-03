@@ -17,9 +17,8 @@
 .st-sort-ascent:before {content: '\25B2'}
 .st-sort-descent:before {content: '\25BC'}
 
-.active_tab{
-    /*font-weight: bold;*/
-    text-decoration: underline;
+.active-tab{
+    background-color: #49596f;
 }
 .text-black, .text-black:hover {
     color:#333;
@@ -34,3 +33,4 @@
     color: white;
     font-weight: bold;
 }
+
