@@ -26,7 +26,7 @@ angular.module('admin.all_project', [
             }
         });
     })
-    .controller('AllProjectCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent) {
+    .controller('AllProjectCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.selectFilter = 'pending';
         $scope.getAllProject = function (skip, cb) {
             var _skip = skip ? (skip - 1) * $scope.configPagination.countByPage : 0;
@@ -50,9 +50,10 @@ angular.module('admin.all_project', [
             countByPage: 12,
             totalCount: 0
         };
-        function refreshForModel(cb){
+        function refreshForModel(cb) {
             $scope.getAllProject($scope.configPagination.currentPage, cb)
         }
+
         $scope.getInformation = function (job, index, jobs) {
             ModalService.showModal({
                 templateUrl: "all_project/project.view.html",
@@ -77,9 +78,9 @@ angular.module('admin.all_project', [
 
             });
         };
-        
-        $scope.add_job = function(){
-            $http.get('/api/common_filters').then(function(commonFilters) {
+
+        $scope.add_job = function () {
+            $http.get('/api/common_filters').then(function (commonFilters) {
                 ModalService.showModal({
                     templateUrl: "all_project/add_job.modal.html",
                     controller: function ($scope, $element, $http, Upload) {
@@ -99,7 +100,7 @@ angular.module('admin.all_project', [
                             if ($file && $file != null) {
                                 $scope.attach.push($file);
                                 Upload.upload({
-                                    url: '/api/job/attach/'+$scope.job._id,
+                                    url: '/api/job/attach/' + $scope.job._id,
                                     data: {name: $file.name},
                                     file: $file
                                 }).then(function (resp) {
@@ -120,7 +121,7 @@ angular.module('admin.all_project', [
                             if ($file && $file != null) {
                                 $scope.preview = $file;
                                 Upload.upload({
-                                    url: '/api/job/attach/'+$scope.job._id,
+                                    url: '/api/job/attach/' + $scope.job._id,
                                     data: {name: $file.name},
                                     file: $file
                                 }).then(function (resp) {
@@ -136,9 +137,21 @@ angular.module('admin.all_project', [
                             delete $scope.job.preview;
                         };
                         $scope.submit = function (job) {
-                            $http.post('/admin/api/job/add', {job: job, adminID: store.get('id')}).then(function (resp) {
-                                refreshForModel($scope.close())
-                            })
+                            if (job.preview &&!job.preview.length) {
+                                delete job.preview
+                            }
+                            if (job.attach && !job.attach.length) {
+                                delete job.attach
+                            }
+                            if (!_.isEmpty(job)) {
+                                $http.post('/admin/api/job/add', {job: job, adminID: store.get('id')}).then(function (resp) {
+                                    refreshForModel($scope.close())
+                                }, function (err) {
+                                    notify({message: 'Some fields are filled in not correctly', duration: 3000, position: 'right', classes: "alert-error"});
+                                })
+                            } else {
+                                notify({message: 'Not one fields not filled', duration: 3000, position: 'right', classes: "alert-error"});
+                            }
                         };
                         $scope.close = function (res) {
                             $element.modal('hide');
@@ -156,7 +169,7 @@ angular.module('admin.all_project', [
 
         $scope.reject = function (item, index) {
             $scope.all_projects.splice(index, 1);
-            $http.delete('/admin/api/project', {params: {_id: item._id}}).then(function(){
+            $http.delete('/admin/api/project', {params: {_id: item._id}}).then(function () {
                 $http.get('/admin/api/all/projects', {params: {limit: $scope.configPagination.countByPage, skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage}}).then(function (resp) {
                     $scope.all_projects = resp.data.data.data;
                     $scope.configPagination.totalCount = resp.data.data.count;

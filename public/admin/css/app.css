@@ -34,3 +34,9 @@
     font-weight: bold;
 }
 
+.alert-error {
+    border: #e62a2e;
+    background-color: #e62a2e;
+    color: white;
+}
+
