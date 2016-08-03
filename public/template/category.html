@@ -23,9 +23,9 @@
             <section ng-if="activeProvider.name">
                 <div ng-class="{'topic-close':close[activeProvider.name]}" class="user-topic" ng-if="(activeProvider.values | filter:{subFilter:'!'}).length">
                     <div class="user-topic-header">
-                        {{activeProvider.name}}
-                        <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
-                        <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
+                        {{activeProvider.name}} {{activeProvider.values.length}}
+                        <ng-md-icon ng-show="activeProvider.values.length>1" icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
+                        <ng-md-icon  icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
                     </div>
                     <div toggle="close[activeProvider.name]">
                         <div ng-if="activeProvider.values.length>5">
@@ -35,7 +35,7 @@
                             </md-input-container>
                         </div>
                         <div ng-class="{'user-topic-filter': activeProvider.values.length>5 && !viewMore[activeProvider.name]}">
-                            <div ng-repeat="value in activeProvider.values | filter:{subFilter:'!', name: search[activeProvider.name]}">
+                            <div ng-if="value.name" ng-repeat="value in activeProvider.values | filter:{subFilter:'!', name: search[activeProvider.name]}">
                                 <md-checkbox ng-model="value.selected" aria-label="hidden" ng-init="value.selected=activeProvider.subName==value.name" class="md-warn">{{value.name}}</md-checkbox>
                             </div>
                         </div>
