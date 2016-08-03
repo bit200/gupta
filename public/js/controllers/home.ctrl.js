@@ -12,7 +12,8 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         };
         if($state.current.name == 'how_it_work'){
             scope.howItWorks = true;
-            scope.mainPage = false;
+            scope.mainPage = true;
+
         }
 
 

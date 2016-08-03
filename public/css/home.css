@@ -42,12 +42,15 @@
 
 .header-search, .header-search > md-autocomplete-wrap {
     height: 32px;
+    width: 242px;
     border-radius: 3px;
     border: 1px solid lightgray;
     background: #1b1b1b !important;
+    color: white;
 }
 
 .header-search > md-autocomplete-wrap {
     border: 0px;
     height: 28px;
+    width: 240px;
 }
