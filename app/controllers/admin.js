@@ -155,6 +155,42 @@ exports.create_filter = function (req, res) {
     m.create(models.Filters, req.body, res, res);
 };
 
+exports.change_order = function (req, res) {
+
+    var params = req.body;
+
+    var query = {},setParam = {};
+
+     if(params.type){
+         query = {
+             type:params.type,
+             filter:params.name_from
+         };
+         setParam = {
+             $set:{filter_order:params.order_from}
+         }
+     }
+    else {
+         query.type = params.name_from;
+         setParam.$set = {order:params.order_from};
+     }
+    models.Filters.update(query,setParam,{multi: true}).exec(function(err,data){
+        if(err) return m.ecb(398,err,res);
+        if(params.type){
+            query.filter = params.name_to;
+            setParam.$set = {filter_order:params.order_to};
+        }
+        else{
+            query.type = params.name_to;
+            setParam.$set = {order:params.order_to};
+        }
+        models.Filters.update(query,setParam,{multi: true}).exec(function(err,data){
+            if(err) return m.ecb(398,err,res);
+             m.scb(data,res);
+        })
+    });
+};
+
 exports.edit_location = function (req, res) {
     m.findUpdate(models.Location, req.body.query, req.body.params, res, res);
 };
@@ -242,7 +278,7 @@ exports.approve_account = function (req, res) {
                 if (!user) res.send(200);
                 b_account.user = user;
                 b_account.save(function () {
-                    console.log(b_account)
+                    //console.log(b_account)
                     mail.claimApproved(b_account);
                     m.findUpdate(models.Freelancer, {_id: b_account.agency}, {business_account: b_account._id}, res, function (freelancer) {
                         mail.approveAgencyRegistration({

@@ -5,6 +5,8 @@ var CommonFiltersSchema = mongoose.Schema({
     type: String,
     name: String,
     filter: String,
+    order:Number,
+    filter_order:Number,
     isActive: Boolean,
     created_at: {
         type: Date,

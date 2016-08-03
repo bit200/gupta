@@ -23,7 +23,7 @@
             <section ng-if="activeProvider.name">
                 <div ng-class="{'topic-close':close[activeProvider.name]}" class="user-topic" ng-if="(activeProvider.values | filter:{subFilter:'!'}).length">
                     <div class="user-topic-header">
-                        {{activeProvider.name}} {{activeProvider.values.length}}
+                        {{activeProvider.name}}
                         <ng-md-icon ng-show="activeProvider.values.length>1" icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
                         <ng-md-icon  icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
                     </div>

@@ -102,14 +102,14 @@
                 <ul class="flex menu"
                     ng-class="{'flex-fix': !currentUser() ||  ['categories', 'category', 'home', 'how_it_work'].indexOf($state.current.name) > -1}"
                     flex-menu="commonFilters">
-                    <li class="top-menu" ng-repeat="(key, value) in commonFilters"
-                        ng-class="{active: activeProvider.name == key}">
-                        <a class="text-black top-menu-text" ng-click="setActiveProvider(key, value);goCategories()">{{key}}</a>
+                    <li class="top-menu" ng-repeat="(key, item) in filtersArr | orderBy:'order'"
+                        ng-class="{active: activeProvider.name == item.title}">
+                        <a class="text-black top-menu-text" ng-click="setActiveProvider(item.title, item.data);goCategories()">{{item.title}}</a>
                         <div class="sub-nav" style="position: absolute">
-                            <ul class="top-sub-ul" ng-repeat="val in value track by $index">
+                            <ul class="top-sub-ul" ng-repeat="val in item.data | orderBy:'filter_order'">
                                 <li ng-if="val.name"
-                                    ng-class="{active: activeProvider.subName == val.name && activeProvider.name == key}">
-                                    <a ng-click="setActiveProvider(key, value);setSubMenu(val.name);goCategories()"
+                                    ng-class="{active: activeProvider.subName == val.name && activeProvider.name == item.title}">
+                                    <a ng-click="setActiveProvider(item.title, item.data);setSubMenu(val.name);goCategories()"
                                        class="text-black top-sub-menu-text">{{val.name}}</a>
                                 </li>
                             </ul>

@@ -7,6 +7,19 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         scope.showAuth = function (text) {
             $location.path('/' + text)
         };
+
+        scope.filtersArr = [];
+        angular.forEach($rootScope.commonFilters,function(item,key){
+            var a = {
+                title:key,
+                data:item,
+                order:item[0].order>=0?item[0].order:100
+            };
+            scope.filtersArr.push(a);
+        });
+
+
+
         scope.arrayProviders = [];
         http.get('/get-content', {
             params: {

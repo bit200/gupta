@@ -25,7 +25,10 @@ exports.common_filters = function (req, res) {
                 if (!k){
                 }else{
                     resObj[key].push({
-                        name: v[0].filter
+                        name: v[0].filter,
+                        order: v[0].order,
+                        filter_order: v[0].filter_order
+
                     });
                 }
             })
