@@ -16,5 +16,4 @@ XYZCtrls.directive('filterCategory', function () {
             
         }]
     }
-})
-;
+});

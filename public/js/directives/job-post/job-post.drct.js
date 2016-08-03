@@ -17,7 +17,6 @@ XYZCtrls.directive('jobPost', function () {
                 activeItem: {},
                 subName: {}
             };
-            console.log('11111111111111111111111111',scope.job)
             scope.addFiles = function ($file) {
                 if ($file && $file != null) {
                     scope.attach.push($file);
@@ -40,7 +39,6 @@ XYZCtrls.directive('jobPost', function () {
 
 
             scope.addImage = function ($file) {
-                console.log('AAAAAAAAAAAAAAAAAAA',scope.job._id);
                 if ($file && $file != null) {
                     scope.preview = $file;
                     Upload.upload({

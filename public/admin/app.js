@@ -11,6 +11,8 @@ angular.module('admin', [
     'angularModalService',
     'ngDialog',
     'cgNotify',
+    'ngFileUpload',
+    'ngMaterial',
     'angular-loading-bar',
     'smart-table',
     'admin.jobs'
@@ -133,6 +135,25 @@ angular.module('admin', [
 //        replace: true
         };
     }])
+    .directive('filterCategory', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                filters: '=',
+                choiceFilter: '=ngModel'
+            },
+            templateUrl: '/js/directives/category-job/category.html',
+            controller: ['$scope', '$http', function (scope, $http) {
+                scope.jobs_area = {};
+
+                scope.menu = {
+                    activeItem: {},
+                    subName: {}
+                }
+
+            }]
+        }
+    })
     .controller('AppCtrl', ["$scope", "$location", '$rootScope', "$state", 'store', function AppCtrl($scope, $location, $rootScope, $state, store) {
         $scope.$state = $state
         $scope.logout = function () {

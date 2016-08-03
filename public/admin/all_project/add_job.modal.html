@@ -1,0 +1,169 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="col-xs-12">
+                    <form name="postjob" novalidate id="postjob">
+                        <div class="jbody">
+                            <div class="row form-group">
+                                <div>
+                                    <div class="title3" style="padding-bottom: 10px;">Choose a category and subcategory</div>
+                                    <filter-category ng-model="job" filters="commonFilters"></filter-category>
+                                </div>
+                                <div>
+                                    <md-input-container class="md-block">
+                                        <div class="title3">Name</div>
+                                        <input aria-label='hidden' class="form-control border-grey" name="name" ng-model="job.client_name" style="color:#333">
+                                    </md-input-container>
+                                </div>
+                                <div>
+                                    <md-input-container class="md-block">
+                                        <div class="title3">Mobile phone number</div>
+                                        <input aria-label='hidden' phone-number class="form-control border-grey" name="mobile" ng-model="job.mobile" style="color:#333">
+                                    </md-input-container>
+                                </div>
+                                <div>
+                                    <md-input-container class="md-block">
+                                        <div class="title3">Email</div>
+                                        <input aria-label='hidden' type="email" class="form-control border-grey" name="email" ng-model="job.email" style="color:#333">
+                                    </md-input-container>
+                                </div>
+                                <div>
+                                    <md-input-container class="md-block">
+                                        <div class="title3">Company name</div>
+                                        <input aria-label='hidden' class="form-control border-grey" name="company" ng-model="job.company_name" style="color:#333">
+                                    </md-input-container>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <md-input-container class="md-block">
+                                    <div class="title3">Website URL</div>
+                                    <input aria-label='hidden' class="form-control border-grey" ng-model="job.website" style="color:#333">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div class="jbody">
+                            <div class="row form-group">
+                                <md-input-container class="md-block">
+                                    <div class="title3">Project Title</div>
+                                    <input aria-label='hidden' class="form-control border-grey" name="title" ng-model="job.title" style="color:#333">
+                                </md-input-container>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <table class="table no-table-border" style="margin-bottom: 0px;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="border-top: 0px solid #e7ecf1;">
+                                                <div style="left: -20px;" class="pointer attach-sample-button" class="pointer" ngf-select="addImage($file)" ngf-pattern="'image/*'" ngf-multiple="false">
+                                                    <i class="fa fa-plus-square" aria-hidden="true" style="position: relative;top: -10px;"></i>
+                                                    <span class="title3" style="position:relative;top:-10px;left:10px;font-weight: 700">Add featured image</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-right">
+                                        <div class="row Files relative" ng-if="preview" style="padding: 0px 20px;">
+                                            <div style="position: relative;width: 60px;height: 60px;display: inline-block;float: left">
+                                                <img ngf-src="preview" style="width: 100%;height: auto; position: absolute; margin: auto; left: 0" ngf-thumbnail="preview" class="thumb">
+                                                <span class="close-preview pointer" ng-click="deleteImg($index)" style="position: absolute;right: 0"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <md-input-container class="md-block">
+                                    <div class="title3">Provide a description of your requirements</div>
+                                    <textarea aria-label='hidden' style="min-height: 87px!important;border: 1px solid lightgray !important;" class="form-control" name="description" ng-model="job.description" rows="4" style="color:#333"></textarea>
+                                </md-input-container>
+                            </div>
+                            <div class="row">
+                                <div class="md-block">
+                                    <div class="title3">Do you have a location preference?</div>
+                                    <div ng-repeat="location in locations">
+                                        <md-checkbox ng-model="job.location[location]" class="checkdark">{{location}}
+                                        </md-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-init="job.type = 'Agency'">
+                                <div class="title3">Do you have a preference for a type of professional</div>
+                                <div ng-repeat="type in types">
+                                    <md-checkbox ng-model="job.type_checkbox[type]" class="checkdark">{{type}}</md-checkbox>
+                                </div>
+                            </div>
+                            <div class="md-block">
+
+                                <div class="row form-group">
+                                    <div class="title3">What is your maximal budget for this marketing campaign</div>
+                                    <md-input-container class="md-block">
+                                        <input aria-label='hidden' class="form-control border-grey" name="budget" numbers-only ng-model="job.budget" style="color:#333">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <table class="table no-table-border" style="margin-bottom: 0px;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="border-top: 0px solid #e7ecf1;">
+                                                <div style="left: -20px;" class="pointer attach-sample-button" class="pointer" ngf-select="addFiles($file)" ngf-pattern="'image/*'" ngf-multiple="false">
+                                                    <i class="fa fa-plus-square" aria-hidden="true" style="position: relative;top: -10px;"></i>
+                                                    <span class="text-bold title3" style="position:relative;top:-10px;left: 10px">Add attachments</span>
+                                                    <div style="color: lightgrey;"><i>The file can be up to 5 Mb in size</i></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-right">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <!--<div class="preview" style="padding: 0px 20px;">-->
+                                                    <!--<div style="position: relative;width: 60px;height: 60px" >-->
+                                                        <!--<img ngf-src="attach" style="width: 70px; height: auto;" ngf-thumbnail="attach" class="thumb">-->
+                                                        <!--<span class="close pointer" ng-click="deleteAttachFile($index)"><i class="fa fa-times" aria-hidden="true"></i></span>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <div class="row Files relative" ng-if="attach" style="padding: 0px 20px;">
+                                                    <div ng-repeat="attach in attach" style="position: relative;width: 60px;height: 60px;display: inline-block;float: left; margin: 0px 10px">
+                                                        <img ngf-src="attach" style="width: 100%;height: auto; position: absolute; margin: auto; left: 0" ngf-thumbnail="attach" class="thumb">
+                                                        <span class="close-preview pointer" ng-click="deleteImg($index)" style="position: absolute;right: 0"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-init="job.job_visibility = 'Public'">
+                                <div class="title3">Job Visibility</div>
+                                <md-radio-group ng-model="job.job_visibility_plain">
+                                    <md-radio-button value="Public" class="checkdark">Public</md-radio-button>
+                                    <md-radio-button value="Private" class="checkdark">Private</md-radio-button>
+                                </md-radio-group>
+                            </div>
+
+                            <div class="row">
+                                <div class="md-block">
+                                    <div class="title3">Expected Date of Completion</div>
+                                    <md-datepicker ng-model="job.date_of_completion" md-placeholder="Enter date"
+                                                   md-open-on-focus=""></md-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top: 0px">
+                <button class="btn btn-danger" ng-click="submit(job)">Submit</button>
+                <button class="btn btn-primary" ng-click="close()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

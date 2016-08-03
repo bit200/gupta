@@ -2,7 +2,7 @@
     <div style="margin-top: 20px">
    
         <h2 ng-if="!all_projects.length" class="text-center">No project</h2>
-
+        <div><button class="btn btn-default" ng-click="add_job()">Add project</button></div>
         <table class="table table-striped" ng-if="all_projects.length">
             <thead>
             <tr>

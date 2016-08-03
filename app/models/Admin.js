@@ -33,7 +33,7 @@ AdminSchema.plugin(uniqueValidator, {
 });
 
 AdminSchema.plugin(autoIncrement.plugin, {
-    model: 'User',
+    model: 'Admin',
     field: '_id',
     startAt: 100000
 });

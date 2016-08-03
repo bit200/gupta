@@ -27,9 +27,26 @@ exports.login = function (req, res) {
         }
 
         res.status(201).send({
-            id_token: createToken(admin)
+            id_token: createToken(admin),
+            id_admin: admin._id
         });
     });
+};
+
+exports.add_admin_job = function (req, res) {
+    var params = m.getBody(req);
+    params.job.user = params.adminID;
+    params.job.buyer = params.adminID;
+    params.job.status = 'open';
+    if (params.job._id) {
+        m.findUpdate(models.Job, {_id: params.job._id}, params.job, res, res)
+    } else {
+        delete params.job._id;
+        delete params.job.created_at;
+        delete params.job.suggest;
+        delete params.job.contract;
+        m.create(models.Job, params.job, res, res)
+    }
 };
 
 exports.get_sellers = function (req, res) {

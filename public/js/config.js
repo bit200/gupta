@@ -789,7 +789,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
         $urlRouterProvider.otherwise('/#/');
 
-
+    
         var modalService, openedModal;
         $httpProvider.interceptors.push(["$q", "$injector", function ($q, $injector) {
             return {

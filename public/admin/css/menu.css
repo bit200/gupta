@@ -611,3 +611,41 @@ body.fixed-left .side-menu.left {
     font-size: 9px;
     line-height: 30px;
 }
+
+
+md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
+    background-color: rgba(50, 57, 67, 0.82);
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused label {
+    color: rgba(50, 57, 67, 0.82);
+}
+
+md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    /*border-color: #323943;*/
+    border-color: rgba(50, 57, 67, 0.82);
+}
+
+md-radio-group.md-default-theme.md-focused:not(:empty) .md-checked .md-container:before, md-radio-group.md-focused:not(:empty) .md-checked .md-container:before {
+    background: rgba(185, 174, 178, 0.26);
+}
+
+md-input-container textarea.md-input {
+    min-height: 87px;
+}
+
+md-input-container {
+    margin: 0;
+}
+
+.border-grey {
+    border-bottom: 1px solid lightgray !important;
+}
+
+li > span.fa.fa-angle-right {
+    bottom: -2px !important;
+}
+
+.md-datepicker-calendar-pane{
+    z-index: 999999;
+}

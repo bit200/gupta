@@ -226,7 +226,6 @@ exports.seller_open = function (req, res) {
     var queryParams = m.getBody(req)
     var info = pubParams(queryParams, {seller: req.userId})
     info.params.populate = 'job freelancer buyer'
-    // console.log('infofofofofof', info)
     m.find(models.JobApply, info.query, res, res, info.params)
 
 }
@@ -260,7 +259,6 @@ exports.getInfo = function (req, res) {
 
 exports.update = function (req, res) {
     var job = m.getBody(req)
-    console.log("jobbbbbbbbbbbbbb", job, req.userId);
     m.findUpdate(models.Job, {user: req.userId, _id: job._id}, job, res, res, {req: req})
 };
 
@@ -269,9 +267,7 @@ exports.add_job = function (req, res) {
     params.user = req.userId;
     params.buyer = req.userId;
     params.status = 'open';
-    console.log('asdasdasd0', params);
     if (params._id > 0 ) {
-        console.log('asdasdasd1', params);
         mail.job_created(params);
         m.findUpdate(models.Job, {_id: params._id}, params, res, res)
     } else {
@@ -279,7 +275,6 @@ exports.add_job = function (req, res) {
         delete params.created_at;
         delete params.suggest;
         delete params.contract;
-        console.log('asdasdasd2', params);
         mail.job_created(params);
         m.create(models.Job, params, res, res);
     }
@@ -298,7 +293,6 @@ exports.get_my_job = function (req, res) {
 exports.job_attach_file = function (req, res) {
     var attachment;
     var query = {};
-    console.log('---------------/', req.params.id)
      query._id = req.params.id > 0 ?req.params.id:-50;
     models.Job.findOne(query).exec(function (err, _job) {
         if (_job) next(err,_job)
