@@ -509,6 +509,38 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     hideType: true
                 }
             })
+            .state('category', {
+                url: '/categories',
+                templateUrl: 'template/category.html',
+                controller: 'CategoriesCtrl',
+                reloadOnSearch: false,
+                ncyBreadcrumb: {
+                    label: '  ',
+                    labelArr: ['Home', '/', 'View profile'],
+                    hideType: true
+                },
+                resolve: {
+                    getContent: ['$q', '$http', '$stateParams', function ($q, $http) {
+                        return $q.all({
+                            languages: $http.get('/get-content', {
+                                params: {
+                                    name: 'Languages',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            }),
+                            locations: $http.get('/get-content', {
+                                params: {
+                                    name: 'Location',
+                                    query: {},
+                                    distinctName: 'name'
+                                }
+                            })
+                        })
+                    }]
+                }
+            })
+
             .state('categories', {
                 url: '/categories/:type/:filter',
                 templateUrl: 'template/category.html',

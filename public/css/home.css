@@ -36,6 +36,10 @@
     margin-top: 9px;
     border-radius: 3px;
 }
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    z-index: 9999999 !important;
+}
 .header-search > md-autocomplete-wrap > input {
     height: 100% !important;
 }
