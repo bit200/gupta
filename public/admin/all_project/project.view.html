@@ -6,69 +6,63 @@
                     <h2 class="text-center">Change information</h2>
                     <h4>Title</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="title" ng-enter="submit(job)" ng-enter="submit(job)" ng-model="job.title" placeholder="Enter title" style="color: black">
+                        <input class="form-control border-grey" name="title" ng-enter="submit(job)" ng-enter="submit(job)" ng-model="job.title" style="color: black">
                     </md-input-container>
 
                     <h4>Description</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="description" ng-enter="submit(job)" ng-model="job.description" placeholder="Enter description" style="color: black">
+                        <input class="form-control border-grey" name="description" ng-enter="submit(job)" ng-model="job.description" style="color: black">
                     </md-input-container>
 
                     <h4>Email</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control text-black" name="email" placeholder="Enter email" ng-enter="submit(job)" ng-model="job.email"
+                        <input class="form-control text-black" name="email" ng-enter="submit(job)" ng-model="job.email"
                                ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' style="color: black">
                     </md-input-container>
 
                     <h4>Phone number</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" phone-number name="mobile" ng-enter="submit(job)" ng-model="job.mobile" placeholder="Enter  number phone" style="color: black">
+                        <input class="form-control border-grey" phone-number name="mobile" ng-enter="submit(job)" ng-model="job.mobile" number phone" style="color: black">
                     </md-input-container>
 
                     <h4>Category</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="type_category" ng-enter="submit(job)" ng-model="job.type_category" placeholder="Enter category" style="color: black">
+                        <input class="form-control border-grey" name="type_category" ng-enter="submit(job)" ng-model="job.type_category" style="color: black">
                     </md-input-container>
 
                     <h4>Sub category</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="type_name" ng-enter="submit(job)" ng-model="job.type_name" placeholder="Enter sub category" style="color: black">
+                        <input class="form-control border-grey" name="type_name" ng-enter="submit(job)" ng-model="job.type_name" style="color: black">
                     </md-input-container>
 
                     <h4>Budget</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" numbers-only name="company_name" ng-enter="submit(job)" ng-model="job.budget" placeholder="Enter budget" style="color: black">
-                    </md-input-container>
-
-                    <h4>Content types</h4>
-                    <md-input-container class="md-block">
-                        <input ng-if="!job.content_types.length" class="form-control" name="type_name" ng-enter="submit(job)" ng-model="job.type_name" placeholder="Enter sub category" style="color: black">
-                        <input ng-repeat="item in job.content_types" class="form-control" name="content_types" ng-enter="submit(job)" ng-model="job.content_types[$index]" placeholder="Enter content type" style="color: black">
+                        <input class="form-control border-grey" numbers-only name="company_name" ng-enter="submit(job)" ng-model="job.budget" style="color: black">
                     </md-input-container>
 
                     <h4>Client name</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="client_name" ng-enter="submit(job)" ng-model="job.client_name" placeholder="Enter client name" style="color: black">
+                        <input class="form-control border-grey" name="client_name" ng-enter="submit(job)" ng-model="job.client_name" style="color: black">
                     </md-input-container>
 
                     <h4>Company name</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="company_name" ng-enter="submit(job)" ng-model="job.company_name" placeholder="Enter company name" style="color: black">
+                        <input class="form-control border-grey" name="company_name" ng-enter="submit(job)" ng-model="job.company_name" style="color: black">
                     </md-input-container>
 
                     <h4>Website</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="website" ng-enter="submit(job)" ng-model="job.website" placeholder="Enter website" style="color: black">
+                        <input class="form-control border-grey" name="website" ng-enter="submit(job)" ng-model="job.website" style="color: black">
                     </md-input-container>
 
                     <h4>Status</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="status" ng-enter="submit(job)" ng-model="job.status" placeholder="Enter status" style="color: black">
+                        <input class="form-control border-grey" name="status" ng-enter="submit(job)" ng-model="job.status" style="color: black">
                     </md-input-container>
 
                     <h4>Payment basis</h4>
                     <md-input-container class="md-block">
-                        <input class="form-control" name="payment_basis" ng-enter="submit(job)" ng-model="job.payment_basis" placeholder="Enter payment basis" style="color: black">
+                        <input class="form-control border-grey" name="payment_basis" ng-enter="submit(job)" ng-model="job.payment_basis" style="color: black">
                     </md-input-container>
 
                     <div class="modal-footer">
