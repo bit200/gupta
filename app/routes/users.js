@@ -22,4 +22,5 @@ module.exports = function (app) {
     app.get('/api/checkUnique/', users.check_unique)
     app.get('/api/uniqueName/', users.check_unique_freelancer)
     app.get('/api/me-ids', auth.freelancer_token, users.me_ids)
+    app.get('/api/create-test-user',users.create_test_user)
 };

@@ -99,6 +99,9 @@
                                                 <span ng-if="viewProfile.price.hour && viewProfile.price.word">, </span>
                                                 <span ng-if="viewProfile.price.word" class="text-bold">{{viewProfile.price.word}} / Word</span>
                                             </td>
+                                            <td style="width: 25%">
+                                                <button class="btn regular-button" ng-click="createChat(viewProfile.user)">Request a Quote</button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>

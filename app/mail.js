@@ -434,7 +434,7 @@ function contractAction(user,buyer, action,  contractID, reason_reject, _ecb, _s
 
 //ok
 function chatMessage(user, job, _ecb, _scb) {
-    //console.log('contractMessage'+JSON.stringify(user));
+    
 
     var _options = options('You have a message.',user.email, tpl.confirm({
         name: {

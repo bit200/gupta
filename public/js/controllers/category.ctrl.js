@@ -243,8 +243,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
     }]);
 
-XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService',
-    function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService) {
+XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService', '$state',
+    function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService,$state) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.active_profile_menu = 'pricing';
@@ -268,7 +268,13 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
             scope.loading = false;
         });
 
-        console.log('Here',scope.viewProfile);
+        scope.createChat = function (id) {
+            $http.post('/api/create/chat', {params:{buyer:AuthService.userId(), seller:id}}).then(function(resp){
+                localStorage.setItem('currentChat', resp.data.data._id);
+                $state.go('messages', {_id: resp.data.data._id});
+            })
+        };
+        
         scope.replaceAlt = function(str){
           return str.replace('&',', ');
         };

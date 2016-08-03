@@ -28,24 +28,30 @@ exports.createMsg = function (req, res) {
     m.create(models.ChatMessage, params, res, res, {})
 };
 
+
 exports.emailNotification = function (req, res) {
-    var params  = req.body;
-    //console.log('11111111',params);
-    models.ChatRoom.findOne({_id:params.chatRoom})
+    var params = req.body;
+    models.ChatRoom.findOne({_id: params.chatRoom})
         .select('job seller buyer')
-        .populate([{path:'seller'},{path:'buyer'},{path:'job',select:'title'}])
-        .exec(function(err, data){
-            if(err) {console.log('Error find data for chat room', err); return m.ecb(398,{},res)}
-            if(!data) return m.ecb(397,{},res);
-
+        .populate([{path: 'seller'}, {path: 'buyer'}, {path: 'job', select: 'title'}])
+        .exec(function (err, data) {
+            if (err) {
+                console.log('Error find data for chat room', err);
+                return m.ecb(398, {}, res)
+            }
+            if (!data) return m.ecb(397, {}, res);
             var user = {}, job = data.job || {};
-            if(data.buyer._id == params.user._id)
+            if (data.buyer && data.buyer._id == params.user._id) {
                 user = data.seller;
-            else if(data.seller._id == params.user._id)
+            }
+            else if (data.seller && data.seller._id == params.user._id) {
                 user = data.buyer;
-            else { console.log("Error find user from chat room"); return m.ecb(398,{},res);}
-
-            mail.chatMessage(user,job,res,res);
+            }
+            else {
+                console.log("Error find user from chat room");
+                return m.ecb(398, {}, res);
+            }
+            mail.chatMessage(user, job, res, res);
         })
 };
 

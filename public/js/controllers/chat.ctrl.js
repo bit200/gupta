@@ -2,6 +2,7 @@ var XYZCtrls = angular.module('XYZCtrls');
 
 XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$timeout', 'socket', '$state', 'AuthService', 'getContent', function (scope, location, http, $timeout, socket, state, AuthService, getContent) {
     scope.rooms = getContent.rooms.data.data;
+    console.log('sdfsdfsdfsd', scope.rooms);
     scope.currentFreelancer = AuthService.currentFreelancer();
     scope.checkContract = function(job, freelancer){
         http.get('/api/contract/find', {params:{job:job,freelancer:freelancer}}).then(function(resp){
@@ -22,7 +23,8 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$timeout', 'so
         scope.chat = item;
         scope.active = item;
         scope.currentJob = _.find(scope.rooms, function(num){ return num._id == item}).job;
-        scope.checkContract(scope.currentJob._id, scope.currentFreelancer._id)
+        if(scope.currentJob && scope.currentJob._id && scope.currentFreelancer && scope.currentFreelancer._id)
+            scope.checkContract(scope.currentJob._id, scope.currentFreelancer._id)
     } else {
         scope.chat = '';
     }
@@ -30,7 +32,8 @@ XYZCtrls.controller('chatCtrl', ['$scope', '$location', '$http', '$timeout', 'so
     scope.click = function (item) {
         scope.chat = false;
         scope.currentJob = _.find(scope.rooms, function(num){ return num._id == item; }).job;
-        scope.checkContract(scope.currentJob._id, scope.currentFreelancer._id);
+        if(scope.currentJob && scope.currentJob._id && scope.currentFreelancer && scope.currentFreelancer._id)
+            scope.checkContract(scope.currentJob._id, scope.currentFreelancer._id);
         $timeout(function () {
             scope.active = item;
             scope.chat = item;

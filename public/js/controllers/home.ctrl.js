@@ -153,8 +153,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
                     templateUrl: "template/modal/modalSeller.html",
                     controller: function ($scope) {
                         $scope.profile = parseRating.rating(resp.data.data)[0];
-                        $scope.createChat = function (id) {
-                        }
+                        
                     }
                 }).then(function (modal) {
                     modal.element.modal();
