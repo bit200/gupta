@@ -637,6 +637,10 @@ XYZCtrls.directive("chatForm", function () {
             };
 
             function afterSend(msg, isFile, files) {
+                console.log('HERE',scope.chatRoom,user);
+                http.post('/chat/email', {chatRoom:scope.chatRoom,user:user}).then(function (resp) {
+                    console.log('For email',resp)
+                });
                 msg = isFile ? scope.parseMessageWithFile(msg, files) : scope.parseMessage(msg);
                 socket.emit('post msg', {msg: msg, room: scope.chatRoom});
                 msg.time = parseTime.dateTime(msg.time);

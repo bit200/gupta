@@ -48,7 +48,7 @@
                                         No states matching "{{ctrl.searchText}}" were found.
                                     </md-not-found>
                                 </md-autocomplete>
-                                <span class="fa fa-search input-home-search" ng-hide="ctrl.searchText"></span>
+                                <span class="fa fa-search input-home-search" ng-hide="ctrl.searchText" ng-click="$state.go('categories')" style="cursor: pointer"></span>
                             </div>
                         </div>
                     </div>

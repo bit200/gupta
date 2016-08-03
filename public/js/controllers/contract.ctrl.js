@@ -81,7 +81,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
             http.post('/api/contract/pause/' + scope.contract._id, {pause_reason: scope.contract.pause_reason}).then(function (resp) {
                 console.log('resp', resp)
                 scope.onSucc()
-
             }, function (err) {
                 console.log('err', err)
             })
@@ -106,7 +105,6 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         };
 
         scope.contract_mark_complete = function(invalid) {
-            console.log('+++++++++++++',scope.contract);
             if (invalid) {
                 rootScope.scrollToErr()
             } else {
@@ -188,7 +186,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
                 rootScope.scrollToErr()
             } else {
 
-                http.post('/api/contract', pub_contr())
+                http.post('/contract/update', pub_contr())
                     .success(function (data) {
                         scope.contract = data.data
                         scope.onSucc()

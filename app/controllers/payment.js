@@ -1,4 +1,5 @@
 var models = require('../db')
+    , mail = require('../mail')
     , config = require('../config')
     , m = require('../m'),
     fs = require('fs'),
@@ -16,6 +17,7 @@ var paymentsStr='https://'+key_id+':'+key_secret+'@api.razorpay.com/v1/payments/
 
 exports.capture_payment = function (req, res) {
     var params = m.getBody(req);
+    console.log('111',params);
     request({
         method: 'POST',
         url: paymentsStr+params.payment_id+'/capture',
@@ -26,6 +28,11 @@ exports.capture_payment = function (req, res) {
         if(error) return log(error);
         params.buyer=req.userId;
        models.Payment.create(params,function(err,data){
+           models.Contract.findOne({_id:params.contract}).populate({path:'buyer'}).exec(function(err,data){
+               console.log('11213',JSON.stringify(data));
+               if(data)
+                   mail.initialPayment(data.buyer,data,params.amount);
+           });
            res.send(200);
        });
     });

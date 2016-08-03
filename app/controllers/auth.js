@@ -45,8 +45,8 @@ exports.sign_up = function (req, res) {
                 console.log('Directory create!');
             }
         });
-        mail.send_confirm(user);
         m.createToken(models, user, res, res)
+        mail.send_confirm(user);
     })
 };
 

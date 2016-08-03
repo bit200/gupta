@@ -1,6 +1,7 @@
 var models = require('../db')
     , config = require('../config')
-    , m = require('../m'),
+    , m = require('../m')
+    , mail = require('../mail'),
     fs = require('fs'),
     _ = require('underscore'),
     mkdirp = require('mkdirp'),
@@ -112,7 +113,7 @@ exports.filter_job = function (req, res) {
         category.status = ["Ongoing", "Marked as completed", "Paused"];
     if (modelFind == 'Contract' && params.status == 'Close')
         category.status = ["Closed"];
-    log('fosfyasfasdf', category)
+    //log('fosfyasfasdf', category)
     m.find(models[modelFind], category, res, res, {populate: 'job freelancer buyer contract', sort: '-created_at'})
 };
 
@@ -121,11 +122,16 @@ exports.applyJob = function (req, res) {
     var params = _.extend(m.getBody(req), {
         seller: req.userId,
         freelancer: req.freelancerId
-    })
+    });
     // console.log('paramsssssssssss', params)
     m.findOne(models.Job, {_id: params.job}, res, function (job) {
         params.buyer = job.user
-        // console.log('hahahahahhahaha', job)
+        //console.log('hahahahahhahaha', JSON.stringify(params));
+        models.User.findOne({_id:params.buyer}).select('email first_name last_name').exec(function(err,buyer){
+            if (err) console.log('apply job find buyer Error: ',err);
+            if (buyer)
+                mail.job_apply({job:job,user:buyer, title: job.title});
+        });
         m.findCreateUpdate(models.JobApply, {
             job: job._id,
             freelancer: params.freelancer,
@@ -242,21 +248,21 @@ exports.apply_detailed_pub = function (req, res) {
         userId: req.userId,
         populate: 'buyer job seller freelancer'
     })
-}
+};
 exports.getApplyInfo = function (req, res) {
     var params = m.getBody(req);
     m.findOneEmpty(models.JobApply, {job: req.params.job_id, freelancer: req.freelancerId}, res, res)
-}
+};
 
 exports.getInfo = function (req, res) {
     m.find(models.Job, {_id: req.params._id}, res, res, {populate: 'user'})
-}
+};
 
 exports.update = function (req, res) {
     var job = m.getBody(req)
-    console.log("jobbbbbbbbbbbbbb", job, req.userId)
+    console.log("jobbbbbbbbbbbbbb", job, req.userId);
     m.findUpdate(models.Job, {user: req.userId, _id: job._id}, job, res, res, {req: req})
-}
+};
 
 exports.add_job = function (req, res) {
     var params = m.getBody(req);
@@ -264,8 +270,9 @@ exports.add_job = function (req, res) {
     params.buyer = req.userId;
     params.status = 'open';
     console.log('asdasdasd0', params);
-    if (params._id) {
+    if (params._id > 0 ) {
         console.log('asdasdasd1', params);
+        mail.job_created(params);
         m.findUpdate(models.Job, {_id: params._id}, params, res, res)
     } else {
         delete params._id;
@@ -273,7 +280,8 @@ exports.add_job = function (req, res) {
         delete params.suggest;
         delete params.contract;
         console.log('asdasdasd2', params);
-        m.create(models.Job, params, res, res)
+        mail.job_created(params);
+        m.create(models.Job, params, res, res);
     }
 };
 
@@ -289,37 +297,43 @@ exports.get_my_job = function (req, res) {
 
 exports.job_attach_file = function (req, res) {
     var attachment;
-    var params = m.getBody(req);
-    m.findCreate(models.Job, {_id:params.id}, {}, res, function (job) {
-        var storage = multer.diskStorage({
-            destination: function (req, file, cb) {
-                var path = config.root + '/public/uploads/job/' + job._id;
-                mkdirp.sync(path);
-                cb(null, path)
-
-            },
-            filename: function (req, file, cb) {
-                var name = new Date().getTime() + '_' + file.originalname;
-                cb(null, name)
-            }
-        });
-
-        var upload = multer({
-            storage: storage
-        }).any();
-        upload(req, res, function (err) {
-            async.forEach(req.files, function (file, cb) {
-                new models.Attachment({
-                    originalName: file.originalname,
-                    name: file.filename,
-                    path: 'job/' + job._id
-                }).save(function (err, attach) {
-                    attachment = attach;
-                    m.scb({file: attach, job: job._id}, res);
-                    cb();
-                })
+    var query = {};
+    console.log('---------------/', req.params.id)
+     query._id = req.params.id > 0 ?req.params.id:-50;
+    models.Job.findOne(query).exec(function (err, _job) {
+        if (_job) next(err,_job)
+        else new models.Job({}).save(next);
+        function next(err,job) {
+            if (err) return m.ecb(398,err,res);
+            var storage = multer.diskStorage({
+                destination: function (req, file, cb) {
+                    var path = config.root + '/public/uploads/job/' + job._id || -52;
+                    mkdirp.sync(path);
+                    cb(null, path)
+                },
+                filename: function (req, file, cb) {
+                    var name = new Date().getTime() + '_' + file.originalname;
+                    cb(null, name)
+                }
             });
-        });
+
+            var upload = multer({
+                storage: storage
+            }).any();
+            upload(req, res, function (err) {
+                async.forEach(req.files, function (file, cb) {
+                    new models.Attachment({
+                        originalName: file.originalname,
+                        name: file.filename,
+                        path: 'job/' + job._id
+                    }).save(function (err, attach) {
+                            attachment = attach;
+                            m.scb({file: attach, job: job._id}, res);
+                            cb();
+                        })
+                });
+            });
+        }
     })
 }
 

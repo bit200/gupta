@@ -194,7 +194,7 @@ exports.reject_registration = function (req, res) {
 exports.approve_job = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function (job) {
-        mail.job_approve(job.user, res, m.scb(job, res))
+        mail.job_approve(job, res, m.scb(job, res))
     }, {populate: 'user'});
 };
 
@@ -206,7 +206,7 @@ exports.update_job = function (req, res) {
 exports.reject_job = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2, reject_reason: req.body.reject_reason}, res, function (job) {
-        mail.job_approve(job.user, res, m.scb(job, res))
+        mail.job_reject(job.user, req.body.reject_reason,res, m.scb(job, res))
     }, {populate: 'user'});
 };
 
@@ -248,7 +248,9 @@ exports.approve_account = function (req, res) {
 };
 
 exports.reject_account = function (req, res) {
-    m.findUpdate(models.BusinessUser, {_id: req.params.id}, {status: 2, reject_reason: req.body.reject_reason}, res, function (account) {
-        res.jsonp(account)
+    m.findUpdate(models.BusinessUser, {_id: req.params.id}, {status: 2, reject_reason: req.body.reject_reason}, res, function (b_account) {
+        mail.claimRejected(b_account);
+        b_account.remove(function(err,data){res.jsonp(b_account)});
+
     });
 };

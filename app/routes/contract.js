@@ -20,6 +20,7 @@ module.exports = function (app) {
     app.post('/api/contract/edit-terms', auth.token, contract.contract_edit_terms);
     app.post('/api/contract/mark-complete/:_id', auth.token, contract.contract_mark_complete);
 
+
     app.post('/api/contract/close/:_id', auth.token, contract.close_contract);
     app.post('/contract/suggest', auth.token, contract.suggest_contract);
     app.post('/contract/close', auth.token, contract.close_contract);

@@ -3,6 +3,7 @@ XYZCtrls.controller('signupCtrl', ['$scope', '$state', 'AuthService', '$http', '
     var q = {};
 
     $scope.signup = function (invalid, data) {
+        console.log('asdfasdasdfasdfads');
         $scope.emailError = '';
         if (invalid) return;
         $http.post('/sign-up', data).success(function (resp) {

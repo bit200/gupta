@@ -319,7 +319,6 @@ function isOwner (item, user1, user2) {
 
 function findCreateUpdate(model, query, new_params, _ecb, _scb, params) {
     new_params = _.extend({}, query, new_params);
-
     findOne(model, query, function (code, err) {
         if (code == 397) {
             create(model, new_params, _ecb, _scb, params)

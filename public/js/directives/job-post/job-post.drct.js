@@ -17,11 +17,12 @@ XYZCtrls.directive('jobPost', function () {
                 activeItem: {},
                 subName: {}
             };
+            console.log('11111111111111111111111111',scope.job)
             scope.addFiles = function ($file) {
                 if ($file && $file != null) {
                     scope.attach.push($file);
                     Upload.upload({
-                        url: '/api/job/attach',
+                        url: '/api/job/attach/'+scope.job._id,
                         data: {name:$file.name},
                         file: $file
                     }).then(function (resp) {
@@ -39,13 +40,15 @@ XYZCtrls.directive('jobPost', function () {
 
 
             scope.addImage = function ($file) {
+                console.log('AAAAAAAAAAAAAAAAAAA',scope.job._id);
                 if ($file && $file != null) {
                     scope.preview = $file;
                     Upload.upload({
-                        url: '/api/job/attach',
+                        url: '/api/job/attach/'+scope.job._id,
                         data: {name:$file.name},
                         file: $file
                     }).then(function (resp) {
+                        console.log('aaaaaaaaaaaa222222',resp);
                         scope.job.preview = resp.data.data.file._id;
                         scope.job._id = resp.data.data.job;
                     }, function (resp) {

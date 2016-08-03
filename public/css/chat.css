@@ -60,7 +60,8 @@
 .chat-block {
     border: 10px solid white;
     overflow: hidden;
-    height: calc(100vh - 310px)
+    /*height: calc(100vh - 310px)*/
+    height: calc(100vh - 340px)
 }
 
 .background-msg {

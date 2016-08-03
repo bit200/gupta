@@ -5,7 +5,7 @@ var m = require('../../m');
 
 
 function check_auth (req, res, next, role, skip_token) {
-    var _token = req.headers['authorization']
+    var _token = req.headers['authorization'];
     if (!_token && !skip_token) {
         return res.status(401).send({
             success: false,

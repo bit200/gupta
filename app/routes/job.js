@@ -11,7 +11,7 @@ module.exports = function (app) {
     app.get('/get-my-job', auth.token, job.get_my_job);
     app.get('/api/info/:model/:_id', job.get_info);
     app.get('/api/job/:_id', job.getInfo);
-    app.post('/api/job/attach', job.job_attach_file);
+    app.post('/api/job/attach/:id', job.job_attach_file);
     app.put('/api/job', auth.token, job.update);
     app.put('/api/jobs', job.get_jobs);
 

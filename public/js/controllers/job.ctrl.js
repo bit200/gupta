@@ -15,6 +15,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             'More than 6 months'
         ];
 
+
         var user = AuthService.currentUser() || {}
         scope.types = [
             'Agency',
@@ -173,20 +174,19 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 modal.element.modal();
                 modal.close.then(function (result) {
                 });
-
             });
-        }
+        };
 
 
         scope.apply_create = function (invalid) {
             console.log('scope.apply', invalid, scope.new_apply, scope.job, scope.apply)
-            scope.new_apply.job = scope.job._id
+            scope.new_apply.job = scope.job._id;
             http
                 .post('/api/job-apply', scope.new_apply)
                 .success(function () {
                     $state.go('jobs_list.seller_open')
                 }).error(scope.onErr)
-        }
+        };
 
         scope.apply_edit = function (invalid) {
             console.log('scope.apply', invalid, scope.new_apply, scope.job, scope.apply)

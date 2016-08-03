@@ -23,6 +23,7 @@ angular.module( 'admin.jobs', [
     .controller( 'JobsCtrl', function JobsController( $scope, $http, store, jwtHelper, jobs, count, ModalService, cfpLoadingBar, notify) {
         $scope.jobs = jobs.data.data;
         $scope.job_area = {};
+
         function get_jobs() {
             return $http.get('/admin/api/jobs', {params: {limit: $scope.configPagination.countByPage, skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage}})
         }
@@ -36,7 +37,7 @@ angular.module( 'admin.jobs', [
         $scope.configPagination.totalCount = count.data;
 
         $scope.cb = function (page) {
-            console.log('asd',page)
+            //console.log('asd',page)
             get_jobs().then(function(resp){$scope.jobs = resp.data.data})
         };
 
@@ -58,9 +59,10 @@ angular.module( 'admin.jobs', [
             }).then(function (modal) {
                 modal.element.modal();
                 modal.close.then(function (rejected_reason) {
+                    //console.log('5151555',rejected_reason)
                     $scope.job_area.rejectedItemIndex = undefined;
                     if (rejected_reason){
-                        $scope.rejectApproveJob('reject',job._id, $index, {reject_reason: rejected_reason})
+                        $scope.rejectApproveJob('reject',null, $index, {_id:job._id,reject_reason: rejected_reason})
                     }
                 });
             });
@@ -68,8 +70,11 @@ angular.module( 'admin.jobs', [
 
         $scope.rejectApproveJob = function(status, jobId, $index, body){
             cfpLoadingBar.start();
-            $http.post('/admin/api/jobs/'+status, {_id:jobId || body}).success(function(){
-                cfpLoadingBar.complete();
+
+            var params = jobId?{_id:jobId}:body;
+            //console.log('asdasdasdkdjhlksjhlskdfhl', '/admin/api/jobs/'+status+'/'+params)
+            $http.post('/admin/api/jobs/'+status, params).success(function(){
+                cfpLoadingBar.complete()
                 notify({message: 'job with id ' + jobId + ' has been succesfully '+ (status == 'reject' ? 'rejected' : 'approved'), position: 'right'});
                 $scope.jobs.splice($index,1)
             })
