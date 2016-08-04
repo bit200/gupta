@@ -131,11 +131,12 @@ angular.module('directive', [])
             restrict: 'E',
             scope: {
                 question: '=ngModel',
-                createNew: '=',
+                createNew: '='
             },
             templateUrl: 'questionnaire/questions.directive.html',
             controller: ['$scope', '$http', function (scope, $http) {
-                
+                console.log(scope.question)
+                    scope.arrItems = scope.question.items;
             }]
         }
     });

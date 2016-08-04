@@ -1,36 +1,25 @@
 <div>
-    <div ng-if="!createNew" class="">
-        <h4>Service provider</h4>
-        <div>{{question.service_provider}}</div>
-    </div>
-    <div ng-if="createNew" class="">
+    <div>
         <h4>Service provider</h4>
         <md-input-container class="md-block">
-            <input class="form-control border-grey" name="languages" ng-model="question.service_provider" style="color: black">
+            <input  aria-label="none" class="form-control border-grey" name="languages" ng-model="question.service_provider" style="color: black">
         </md-input-container>
     </div>
-    <div ng-if="!createNew" class="">
-        <h4>Question</h4>
-        <div>{{question.question}}</div>
-    </div>
-    <div ng-if="createNew" class="">
+
+    <div>
         <h4>Question</h4>
         <md-input-container class="md-block">
-            <input class="form-control border-grey" name="languages" ng-model="question.question" style="color: black">
+            <input aria-label="none" class="form-control border-grey" name="languages" ng-model="question.question" style="color: black">
         </md-input-container>
     </div>
-    <div ng-if="!createNew">
-        <ul>
-            <li ng-repeat="item in question.items track by $index">{{item}}</li>
-        </ul>
-    </div>
-    <div ng-if="createNew" ng-init="arrItem = [' ']">
-        <div ng-repeat="elem in arrItem track by $index">
+
+    <div>
+        <div ng-repeat="elem in arrItems track by $index">
             <h4>item {{$index+1}}</h4>
             <md-input-container class="md-block">
-                <input class="form-control border-grey" name="languages" ng-model="question.items[$index].item" style="color: black">
+                <input aria-label="none" class="form-control border-grey" name="languages" ng-model="question.items[$index]" style="color: black">
             </md-input-container>
-            <span ng-if="$last" class="add-item fa fa-plus" ng-click="arrItem.push(' ')"></span>
+            <span ng-if="$last" class="add-item fa fa-plus" ng-click="arrItems.push(' ')"></span>
         </div>
     </div>
 </div>

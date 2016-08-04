@@ -33,20 +33,20 @@ angular.module('admin.questionnaire', [
                 $scope.isLoading = false;
                 $scope.questions = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
-                console.log($scope.questions)
             }, function(err){
                 $scope.isLoading = false;
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
         };
+
         function refresh(type){
             $scope.getQuestions(type);
         }
 
         $scope.cb = function () {
-            if($scope.active_tab)
-                $scope.getQuestions($scope.active_tab)
+            $scope.getQuestions($scope.active_tab)
         };
+
 
         $scope.add_question = function(active){
             ModalService.showModal({
@@ -55,7 +55,7 @@ angular.module('admin.questionnaire', [
                     $scope.question = {service_provider:active};
                     $scope.isNew = true;
                     $scope.submit = function (question) {
-                        question.items = _.pluck(question.items, 'item');
+                        question.items = _.values(question.items);
                         $http.post('/admin/api/question', question).then(function(resp){
                             refresh(active);
                             $scope.close();
@@ -74,9 +74,35 @@ angular.module('admin.questionnaire', [
             });    
         };
 
+        $scope.changeInformation = function(item, active){
+            ModalService.showModal({
+                templateUrl: "questionnaire/question.modal.html",
+                controller: function ($scope, $element, $http) {
+                    $scope.question = angular.copy(item);
+                    $scope.isNew = true;
+                    $scope.submit = function (question) {
+                        question.items = _.values(question.items);
+                        $http.post('/admin/api/question', question).then(function(resp){
+                            refresh(active);
+                            $scope.close();
+                        })
+                    };
+                    $scope.close = function (res) {
+                        $element.modal('hide');
+                        close(res, 500);
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
+        };
+
         $scope.configPagination = {
             currentPage: 1,
-            countByPage: 1,
+            countByPage: 12,
             totalCount: 0
         };
 
@@ -84,4 +110,7 @@ angular.module('admin.questionnaire', [
             $scope.active_tab = key;
             $scope.getQuestions(key)
         };
+
+        $scope.getQuestions($scope.active_tab)
+
     });
