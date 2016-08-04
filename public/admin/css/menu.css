@@ -612,6 +612,10 @@ body.fixed-left .side-menu.left {
     line-height: 30px;
 }
 
+.active_tab {
+    text-decoration: underline;
+    outline: none;
+}
 
 md-radio-button .md-on, md-checkbox.md-checked.checkdark .md-icon {
     background-color: rgba(50, 57, 67, 0.82);

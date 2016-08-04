@@ -1,0 +1,26 @@
+<div>
+    <button class="btn btn-default" ng-click="add_question(active_tab)">Add questionnaire</button>
+</div>
+
+<div style="height: 50px;margin: 10px 0;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;">
+    <div ng-repeat="(key,value) in commonFilters" ng-class="{'active_tab': active_tab == key}" ng-click="choice(key)" style="outline: none;display: inline-block; margin:0px 10px;height: 100%;line-height: 45px;">{{key}}</div>
+</div>
+<div>
+
+    <div>
+        <div ng-if="!questions.length">
+            <h3>Questionnaires to this service provider not found</h3>
+        </div>
+        <div ng-if="questions.length" ng-repeat="item in questions">
+            <questions ng-model="item" createNew='false'></questions>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="text-center" ng-if="questions.length">
+    <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+</div>
+
+

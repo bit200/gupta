@@ -58,6 +58,7 @@ function _mongoose_cb_handler(err, data, _ecb, _scb, params) {
     if (err) {
         ecb(398, err, _ecb)
     } else if (!data) {
+        params = params || {};
         err = params['not_found'] ? params['not_found'] : 'Item not found'
         ecb(397, err, _ecb)
     } else {
@@ -179,7 +180,6 @@ function count(model, new_params, _ecb, _scb, params) {
         ecb(399, 'Model not found', _ecb);
         return;
     }
-
     model.count(new_params, function (err, data) {
         _mongoose_cb_handler(err, data, _ecb, _scb, params)
     })

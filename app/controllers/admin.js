@@ -64,7 +64,7 @@ exports.get_count_jobs = function (req, res) {
 
 exports.get_jobs = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Job,{admin_approved: 0},res, res, {limit:params.limit, skip: params.skip})
+    m.find(models.Job, {admin_approved: 0}, res, res, {limit: params.limit, skip: params.skip})
 };
 
 exports.get_seller = function (req, res) {
@@ -101,39 +101,39 @@ exports.delete_filter = function (req, res) {
 
 exports.all_projects = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Job, {}, res, function(jobs){
-        m.count(models.Job,{}, res, function(count){
-            m.scb({data:jobs, count: count},res)
+    m.find(models.Job, {}, res, function (jobs) {
+        m.count(models.Job, {}, res, function (count) {
+            m.scb({data: jobs, count: count}, res)
         });
-    }, {skip:params.skip, limit:params.limit})
+    }, {skip: params.skip, limit: params.limit})
 };
 exports.all_users = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.User, {}, res, function(users){
-        m.count(models.User,{}, res, function(count){
-            m.scb({data:users, count: count},res)
+    m.find(models.User, {}, res, function (users) {
+        m.count(models.User, {}, res, function (count) {
+            m.scb({data: users, count: count}, res)
         });
-    }, {skip:params.skip, limit:params.limit})
+    }, {skip: params.skip, limit: params.limit})
 };
 
 exports.all_freelancer = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Freelancer, {}, res, function(freelancers){
-        m.count(models.Freelancer,{}, res, function (count) {
-            m.scb({data:freelancers, count: count},res)
+    m.find(models.Freelancer, {}, res, function (freelancers) {
+        m.count(models.Freelancer, {}, res, function (count) {
+            m.scb({data: freelancers, count: count}, res)
         });
-    }, {skip:params.skip, limit:params.limit})
+    }, {skip: params.skip, limit: params.limit})
 };
 
 
 exports.change_user = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {_id:params.user._id}, params.user, res, res)
+    m.findUpdate(models.User, {_id: params.user._id}, params.user, res, res)
 };
 
 exports.change_freelancer = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.Freelancer, {_id:params.user._id}, params.user, res, res)
+    m.findUpdate(models.Freelancer, {_id: params.user._id}, params.user, res, res)
 };
 
 exports.delete_users = function (req, res) {
@@ -159,34 +159,34 @@ exports.change_order = function (req, res) {
 
     var params = req.body;
 
-    var query = {},setParam = {};
+    var query = {}, setParam = {};
 
-     if(params.type){
-         query = {
-             type:params.type,
-             filter:params.name_from
-         };
-         setParam = {
-             $set:{filter_order:params.order_from}
-         }
-     }
+    if (params.type) {
+        query = {
+            type: params.type,
+            filter: params.name_from
+        };
+        setParam = {
+            $set: {filter_order: params.order_from}
+        }
+    }
     else {
-         query.type = params.name_from;
-         setParam.$set = {order:params.order_from};
-     }
-    models.Filters.update(query,setParam,{multi: true}).exec(function(err,data){
-        if(err) return m.ecb(398,err,res);
-        if(params.type){
+        query.type = params.name_from;
+        setParam.$set = {order: params.order_from};
+    }
+    models.Filters.update(query, setParam, {multi: true}).exec(function (err, data) {
+        if (err) return m.ecb(398, err, res);
+        if (params.type) {
             query.filter = params.name_to;
-            setParam.$set = {filter_order:params.order_to};
+            setParam.$set = {filter_order: params.order_to};
         }
-        else{
+        else {
             query.type = params.name_to;
-            setParam.$set = {order:params.order_to};
+            setParam.$set = {order: params.order_to};
         }
-        models.Filters.update(query,setParam,{multi: true}).exec(function(err,data){
-            if(err) return m.ecb(398,err,res);
-             m.scb(data,res);
+        models.Filters.update(query, setParam, {multi: true}).exec(function (err, data) {
+            if (err) return m.ecb(398, err, res);
+            m.scb(data, res);
         })
     });
 };
@@ -259,8 +259,24 @@ exports.update_job = function (req, res) {
 exports.reject_job = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 2, reject_reason: req.body.reject_reason}, res, function (job) {
-        mail.job_reject(job.user, req.body.reject_reason,res, m.scb(job, res))
+        mail.job_reject(job.user, req.body.reject_reason, res, m.scb(job, res))
     }, {populate: 'user'});
+};
+
+exports.update_questionnaire = function (req, res) {
+    var params = m.getBody(req);
+    m.findCreateUpdate(models.Questionnaire, {_id: params._id}, params, res, res)
+};
+
+exports.get_questionnaires = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.Questionnaire, {service_provider: params.service_provider}, res, function (question) {
+        m.count(models.Questionnaire, {service_provider: params.service_provider}, function(err){
+            m.scb({data: question, count: 0}, res)
+        }, function (count) {
+            m.scb({data: question, count: count}, res)
+        });
+    }, {skip: params.skip, limit: params.limit})
 };
 
 exports.business_accounts = function (req, res) {
@@ -303,7 +319,9 @@ exports.approve_account = function (req, res) {
 exports.reject_account = function (req, res) {
     m.findUpdate(models.BusinessUser, {_id: req.params.id}, {status: 2, reject_reason: req.body.reject_reason}, res, function (b_account) {
         mail.claimRejected(b_account);
-        b_account.remove(function(err,data){res.jsonp(b_account)});
+        b_account.remove(function (err, data) {
+            res.jsonp(b_account)
+        });
 
     });
 };
