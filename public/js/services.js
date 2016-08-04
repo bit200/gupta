@@ -31,6 +31,15 @@ XYZCtrls.service('parseType', function () {
             });
             return arr
         },
+        
+        getKey: function(item){
+            var arr = [];
+            _.forEach(item, function (value, key) {
+                if(value)
+                    arr.push(key)
+            });
+            return arr
+        },
 
         getByNumber: function (item, Arr) {
             var arr = [];

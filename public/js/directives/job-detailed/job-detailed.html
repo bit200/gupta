@@ -118,8 +118,22 @@
             </div>
         </div>
     </div>
+</div>
+<div class="jheader" open>
+    Job Questionnaire
+</div>
+<div class="jbody">
+    <div>
+        <div ng-repeat="(i,question) in job.questionnaire">
+            <div hidden>{{job.questionnaire[i].question = question.question}}</div>
+            <h3>{{question.question}}</h3>
 
-
+            <div ng-if="!question.items.length">{{job.questionnaire[i].answer}}</div>
+            <div ng-if="question.items.length" >
+                <md-checkbox ng-repeat="(q,elem) in question.items" ng-model="job.questionnaire[i].answer[elem]" class="checkdark">{{elem}}</md-checkbox>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="jheader" open>
     Applications

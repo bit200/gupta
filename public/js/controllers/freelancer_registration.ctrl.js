@@ -93,7 +93,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                         if (!name)
                             condition = v.type == service_provider && v.filter == filter;
                         if (!name && !filter)
-                            condition = v.type == service_provider
+                            condition = v.type == service_provider;
                         return !condition
                     });
                 } else {

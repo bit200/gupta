@@ -1,15 +1,21 @@
 <div>
     <div>
+        <h4>Type</h4>
+        <md-input-container class="md-block">
+            <input aria-label="none" class="form-control border-grey" name="type" ng-model="question.type" style="color: black">
+        </md-input-container>
+    </div>
+    <div>
         <h4>Service provider</h4>
         <md-input-container class="md-block">
-            <input  aria-label="none" class="form-control border-grey" name="languages" ng-model="question.service_provider" style="color: black">
+            <input aria-label="none" class="form-control border-grey" name="service_provider" ng-model="question.service_provider" style="color: black">
         </md-input-container>
     </div>
 
     <div>
         <h4>Question</h4>
         <md-input-container class="md-block">
-            <input aria-label="none" class="form-control border-grey" name="languages" ng-model="question.question" style="color: black">
+            <input aria-label="none" class="form-control border-grey" name="question" ng-model="question.question" style="color: black">
         </md-input-container>
     </div>
 
@@ -17,7 +23,7 @@
         <div ng-repeat="elem in arrItems track by $index">
             <h4>item {{$index+1}}</h4>
             <md-input-container class="md-block">
-                <input aria-label="none" class="form-control border-grey" name="languages" ng-model="question.items[$index]" style="color: black">
+                <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.items[$index]" style="color: black">
             </md-input-container>
             <span ng-if="$last" class="add-item fa fa-plus" ng-click="arrItems.push(' ')"></span>
         </div>

@@ -28,17 +28,10 @@ var JobSchema = mongoose.Schema({
         type: Number,
         ref: 'Attachment'
     },
-    // info: {
-    //     name: String,
-    //     mobile: String,
-    //     email: String,
-    //     company_name: String,
-    //     website: String
-    // },
     payment_basis: String,
     admin_approved: {
         type: Number,
-        default:0
+        default: 0
     },
     reject_reason: String,
     user: {
@@ -60,7 +53,8 @@ var JobSchema = mongoose.Schema({
     created_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    questionnaries: [{question: String, answer: String, answer_items: {}}]
 });
 
 JobSchema.plugin(autoIncrement.plugin, {

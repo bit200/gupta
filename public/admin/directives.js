@@ -1,27 +1,26 @@
-
 angular.module('directive', [])
-.directive('numbersOnly', function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, element, attr, ngModelCtrl) {
-            function fromUser(text) {
-                if (text) {
-                    text = text.toString();
-                    var transformedInput = text.replace(/[^0-9]/g, '');
+    .directive('numbersOnly', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attr, ngModelCtrl) {
+                function fromUser(text) {
+                    if (text) {
+                        text = text.toString();
+                        var transformedInput = text.replace(/[^0-9]/g, '');
 
-                    if (transformedInput !== text) {
-                        ngModelCtrl.$setViewValue(transformedInput);
-                        ngModelCtrl.$render();
+                        if (transformedInput !== text) {
+                            ngModelCtrl.$setViewValue(transformedInput);
+                            ngModelCtrl.$render();
+                        }
+                        return transformedInput;
                     }
-                    return transformedInput;
+                    return undefined;
                 }
-                return undefined;
-            }
 
-            ngModelCtrl.$parsers.push(fromUser);
-        }
-    };
-})
+                ngModelCtrl.$parsers.push(fromUser);
+            }
+        };
+    })
     .directive('phoneNumber', function () {
         return {
             require: 'ngModel',
@@ -135,8 +134,7 @@ angular.module('directive', [])
             },
             templateUrl: 'questionnaire/questions.directive.html',
             controller: ['$scope', '$http', function (scope, $http) {
-                console.log(scope.question)
-                    scope.arrItems = scope.question.items;
+                scope.arrItems = scope.question.items || [''];
             }]
         }
     });

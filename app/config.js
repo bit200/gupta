@@ -30,7 +30,7 @@ if (process.env.NODE_ENV=='production'){
     resObj.apiHost = "http://52.221.227.52:8080"
 }
 if (process.env.NODE_ENV=='development'){
-    resObj.adminEmail = 'paulpetrash1@gmail.com'
+    resObj.adminEmail = 'silverFox@gmail.com'
 }
 
 module.exports = resObj;

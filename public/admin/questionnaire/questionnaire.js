@@ -12,52 +12,57 @@ angular.module('admin.questionnaire', [
                 requiresLogin: true
             },
             resolve: {
-                getContent: ['$q', '$http', function($q,$http){
+                getContent: ['$q', '$http', function ($q, $http) {
                     return $q.all({
-                        commonFilter:$http.get('/api/common_filters')
+                        commonFilter: $http.get('/api/common_filters')
                     })
                 }]
             }
-            
+
         });
     })
     .controller('QuestionnaireCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.commonFilters = getContent.commonFilter.data;
         console.log(_.keys($scope.commonFilters)[0])
-        $scope.active_tab = _.keys($scope.commonFilters)[0];
+        $scope.active_tab = {service: _.keys($scope.commonFilters)[0], type: 'post'};
+        $scope.type = 'post';
         $scope.questions = [];
-        $scope.getQuestions = function(type){
+        $scope.getQuestions = function (service, type) {
             $scope.isLoading = true;
-            $http.get('/admin/api/questionnaires', {params:{service_provider:type,limit:$scope.configPagination.countByPage,
-                skip:($scope.configPagination.currentPage-1) *$scope.configPagination.countByPage}}).then(function(resp){
+            $http.get('/admin/api/questionnaires', {
+                params: {
+                    service_provider: service, type: type, limit: $scope.configPagination.countByPage,
+                    skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage
+                }
+            }).then(function (resp) {
                 $scope.isLoading = false;
                 $scope.questions = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
-            }, function(err){
+            }, function (err) {
                 $scope.isLoading = false;
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
         };
 
-        function refresh(type){
-            $scope.getQuestions(type);
+        function refresh(service, type) {
+            $scope.getQuestions(service, type);
         }
 
         $scope.cb = function () {
-            $scope.getQuestions($scope.active_tab)
+            $scope.getQuestions($scope.active_tab, $scope.type)
         };
 
 
-        $scope.add_question = function(active){
+        $scope.add_question = function (active, type) {
             ModalService.showModal({
                 templateUrl: "questionnaire/question.modal.html",
                 controller: function ($scope, $element, $http) {
-                    $scope.question = {service_provider:active};
+                    $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
                     $scope.submit = function (question) {
                         question.items = _.values(question.items);
-                        $http.post('/admin/api/question', question).then(function(resp){
-                            refresh(active);
+                        $http.post('/admin/api/question', question).then(function (resp) {
+                            refresh(active, type);
                             $scope.close();
                         })
                     };
@@ -71,10 +76,10 @@ angular.module('admin.questionnaire', [
                 modal.close.then(function (result) {
                 });
 
-            });    
+            });
         };
 
-        $scope.changeInformation = function(item, active){
+        $scope.changeInformation = function (item, active) {
             ModalService.showModal({
                 templateUrl: "questionnaire/question.modal.html",
                 controller: function ($scope, $element, $http) {
@@ -82,7 +87,7 @@ angular.module('admin.questionnaire', [
                     $scope.isNew = true;
                     $scope.submit = function (question) {
                         question.items = _.values(question.items);
-                        $http.post('/admin/api/question', question).then(function(resp){
+                        $http.post('/admin/api/question', question).then(function (resp) {
                             refresh(active);
                             $scope.close();
                         })
@@ -106,11 +111,16 @@ angular.module('admin.questionnaire', [
             totalCount: 0
         };
 
-        $scope.choice = function(key){
-            $scope.active_tab = key;
-            $scope.getQuestions(key)
+        $scope.check = function (type) {
+            $scope.type = type;
+            $scope.getQuestions($scope.active_tab, type)
         };
 
-        $scope.getQuestions($scope.active_tab)
+        $scope.choice = function (key) {
+            $scope.active_tab = key;
+            $scope.getQuestions(key, $scope.type)
+        };
+
+        $scope.getQuestions($scope.active_tab,$scope.type)
 
     });

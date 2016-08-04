@@ -36,6 +36,14 @@ function pubParams(params, query) {
         sort: '-created_at'
     }
 }
+exports.get_questionnaire = function (req, res) {
+    var params = m.getBody(req);
+    log(params)
+    m.find(models.Questionnaire, params, res, res)
+};
+
+
+
 exports.job_detailed = function (req, res) {
     m.findOne(models.Job, {_id: req.params._id}, res, res, {populate: 'buyer job seller freelancer'})
 }
@@ -267,6 +275,7 @@ exports.add_job = function (req, res) {
     params.user = req.userId;
     params.buyer = req.userId;
     params.status = 'open';
+    log('adasdasd', params)
     if (params._id > 0 ) {
         mail.job_created(params);
         m.findUpdate(models.Job, {_id: params._id}, params, res, res)

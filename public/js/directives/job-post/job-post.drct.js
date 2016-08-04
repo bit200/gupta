@@ -8,15 +8,28 @@ XYZCtrls.directive('jobPost', function () {
             scope.title = attrs.title;
             scope.btns = attrs.btns || attrs.list
         },
-        controller: ['$scope', 'Upload', function (scope, Upload) {
+        controller: ['$scope', 'Upload', '$http', '$rootScope', function (scope, Upload, $http, $rootScope) {
+
             scope.jobs_area = {};
             scope.job.preview = [];
             scope.job.attach = [];
             scope.attach = [];
+
             scope.menu = {
                 activeItem: {},
                 subName: {}
             };
+
+            scope.choiceType = function(text){
+                console.log('text',scope.job.type_category)
+              $http.get('/api/questionnaire', {params:{type:'post',service_provider:scope.job.type_category}}).then(function(resp){
+                  
+                  scope.job.questionnaries = resp.data.data
+              })
+            };
+            
+
+
             scope.addFiles = function ($file) {
                 if ($file && $file != null) {
                     scope.attach.push($file);
@@ -32,6 +45,7 @@ XYZCtrls.directive('jobPost', function () {
                     });
                 }
             };
+
             scope.deleteAttachFile = function (index) {
                 scope.attach.splice(index, 1);
                 scope.job.attach.splice(index, 1);
@@ -46,7 +60,6 @@ XYZCtrls.directive('jobPost', function () {
                         data: {name:$file.name},
                         file: $file
                     }).then(function (resp) {
-                        console.log('aaaaaaaaaaaa222222',resp);
                         scope.job.preview = resp.data.data.file._id;
                         scope.job._id = resp.data.data.job;
                     }, function (resp) {
@@ -54,6 +67,7 @@ XYZCtrls.directive('jobPost', function () {
                     });
                 }
             };
+
             scope.deleteImg = function (index) {
                 delete scope.preview;
                 delete scope.job.preview;

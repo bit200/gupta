@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
     , autoIncrement = require('mongoose-auto-increment');
 
 var QuestionnaireSchema = mongoose.Schema({
+    type: String,
     service_provider: String,
     question: String,
     items: [String],

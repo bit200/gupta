@@ -1,7 +1,12 @@
 <div>
-    <button class="btn btn-default" ng-click="add_question(active_tab)">Add questionnaire</button>
+    <button class="btn btn-default" ng-click="add_question(active_tab, type)">Add questionnaire</button>
 </div>
-
+<div class="text-center">
+    <md-radio-group ng-model="type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
+        <md-radio-button ng-class="{active_tab: type == 'post'}" ng-click="check('post')" value="post" class="md-primary inline-block" style="outline: none">Post a Project</md-radio-button>
+        <md-radio-button ng-class="{active_tab: type == 'register'}" ng-click="check('register')" value="register" style="margin-left: 50px;display:inline-block;outline: none">Registration freelancer/agency</md-radio-button>
+    </md-radio-group>
+</div>
 <div style="height: 50px;margin: 10px 0;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;">
     <div ng-repeat="(key,value) in commonFilters" ng-class="{'active_tab': active_tab == key}" ng-click="choice(key)" style="outline: none;display: inline-block; margin:0px 10px;height: 100%;line-height: 45px;">{{key}}</div>
 </div>
@@ -11,7 +16,7 @@
         <div ng-if="!questions.length">
             <h3>Questionnaires to this service provider not found</h3>
         </div>
-        <table class="table table-bordered table-hover"ng-if="questions.length">
+        <table class="table table-bordered table-hover" ng-if="questions.length">
             <thead>
             <tr>
                 <th class="text-bold pointer">Service provider</th>
@@ -21,7 +26,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in questions" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
+            <tr ng-repeat="item in questions">
                 <td>{{item.service_provider}}</td>
                 <td>{{item.question}}</td>
                 <td>

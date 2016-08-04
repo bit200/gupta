@@ -23,6 +23,8 @@ module.exports = function (app) {
     app.get('/api/job-apply/:job_id', auth.freelancer_free, job.getApplyInfo);
     app.get('/api/job-apply/:apply_id/pub', auth.freelancer_free, job.apply_detailed_pub);
 
+    app.get('/api/questionnaire', job.get_questionnaire);
+    
     app.get('/api/job/detailed/:_id', job.job_detailed);
     // app.get('/api/job/detailed/me/:_id', auth.token, job.job_detailed_me)
     

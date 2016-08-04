@@ -270,8 +270,8 @@ exports.update_questionnaire = function (req, res) {
 
 exports.get_questionnaires = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Questionnaire, {service_provider: params.service_provider}, res, function (question) {
-        m.count(models.Questionnaire, {service_provider: params.service_provider}, function(err){
+    m.find(models.Questionnaire, {service_provider: params.service_provider, type: params.type}, res, function (question) {
+        m.count(models.Questionnaire, {service_provider: params.service_provider, type: params.type}, function (err) {
             m.scb({data: question, count: 0}, res)
         }, function (count) {
             m.scb({data: question, count: count}, res)

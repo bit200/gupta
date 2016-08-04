@@ -2,11 +2,8 @@
 var XYZCtrls = angular.module('XYZCtrls');
 XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope', '$location', '$http', 'parseType', '$q', 'getContent', '$stateParams', 'ModalService', '$timeout',
     function ($state, AuthService, scope, rootScope, location, http, parseType, $q, getContent, stateParams, ModalService, $timeout) {
-
-        console.log('GET CONTENT', getContent, AuthService.currentUser())
         rootScope.extend_scope(scope, getContent)
         scope.userId = AuthService.userId()
-
         scope.estimations = [
             'Less then 1 week',
             'Less then 1 month',
@@ -15,6 +12,18 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             'More than 6 months'
         ];
 
+        function delete_null_properties(obj) {
+            for (var i in obj) {
+                if (!obj[i]) {
+                    delete obj[i];
+                }
+            }
+            return obj
+        }
+
+        http.get('/api/common_filters').then(function (resp) {
+            scope.commonFilters = resp.data
+        });
 
         var user = AuthService.currentUser() || {}
         scope.types = [
@@ -35,17 +44,17 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             job.job_visibility_plain = job.job_visibility ? 'Public' : 'Private';
             scope.job = job;
             scope.checkFavorited = function () {
-                http.get('/job/check_favorite', {params:{job:scope.job._id}}).success(function (resp) {
+                http.get('/job/check_favorite', {params: {job: scope.job._id}}).success(function (resp) {
                     scope.jobFavorited = resp
                 });
             };
             scope.addFavorite = function () {
-                http.get('/job/favorite/add', {params:{_id:scope.job._id}});
+                http.get('/job/favorite/add', {params: {_id: scope.job._id}});
                 scope.jobFavorited = true
             };
 
             scope.removeFavorite = function () {
-                http.get('/job/favorite/remove', {params:{_id:scope.job._id}});
+                http.get('/job/favorite/remove', {params: {_id: scope.job._id}});
                 scope.jobFavorited = false
             };
             scope.new_job = job;
@@ -126,11 +135,28 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 return;
             }
             job = scope.job;
-            job.job_visibility = (job.job_visibility_plain != 'Private');
-                job.content_types = parseType.get(job.content, scope.contentTypes);
+            // job.job_visibility = (job.job_visibility_plain != 'Private');
+            job.content_types = parseType.get(job.content, scope.contentTypes);
+            job.local_preference = parseType.get(job.location, scope.locations);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
-
+            job.questionnaries = _.map(job.questionnaries, function(item) {
+                return {
+                    question: item.question,
+                    answer: item.answer,
+                    answer_items: delete_null_properties(item.answer_items),
+                    items: item.items
+                }
+            })
+            console.log('asdfasdfasdfasdfasdfasdfasdf', job, scope.job.questionnaries)
+            // _.each(job.questionnaire, function (item) {
+            //     if (typeof(item.answer) == 'object') {
+            //         item.answer = [];
+            //         item.answer = parseType.getKey(item.answer);
+            //     }
+            // });
+            if(job.preview == '')
+                delete job.preview;
             http.post('/job', job).success(function (data) {
                 scope.job = data.data;
                 scope.onSucc(data)
@@ -179,7 +205,6 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
 
 
         scope.apply_create = function (invalid) {
-            console.log('scope.apply', invalid, scope.new_apply, scope.job, scope.apply)
             scope.new_apply.job = scope.job._id;
             http
                 .post('/api/job-apply', scope.new_apply)
@@ -189,7 +214,6 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         };
 
         scope.apply_edit = function (invalid) {
-            console.log('scope.apply', invalid, scope.new_apply, scope.job, scope.apply)
             scope.new_apply.job = scope.job._id
             http
                 .post('/api/job-apply', scope.new_apply)
