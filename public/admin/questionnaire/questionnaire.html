@@ -22,6 +22,7 @@
                 <th class="text-bold pointer">Service provider</th>
                 <th class="text-bold pointer">Question</th>
                 <th class="text-bold pointer">Items</th>
+                <th class="text-bold pointer">Table</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -31,6 +32,13 @@
                 <td>{{item.question}}</td>
                 <td>
                     <span ng-repeat="elem in item.items track by $index">{{elem}}<span ng-if="!$last">, </span></span>
+                </td>
+                <td>
+                    <div ng-repeat="table in item.table" style="margin-bottom: 5px">
+                        <div>Header:{{table.table_header}}</div>
+                        <div>Type:{{table.type}}</div>
+                        <div ng-if="table.row">rows: <span ng-repeat="value in table.row">{{value.value}} <span ng-if="!$last">, </span> </span></div>
+                    </div>
                 </td>
                 <td>
                     <span style="color: green" ng-click="changeInformation(item,active_tab )" class="pointer fa fa-pencil inline-block"></span>
