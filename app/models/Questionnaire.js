@@ -6,7 +6,7 @@ var QuestionnaireSchema = mongoose.Schema({
     service_provider: String,
     question: String,
     table:Array,
-
+    row_number: Number,
     items: [String],
     created_at: {
         type: Date,

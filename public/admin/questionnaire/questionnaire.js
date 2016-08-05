@@ -59,11 +59,11 @@ angular.module('admin.questionnaire', [
                 controller: function ($scope, $element, $http) {
                     $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
+                  
                     $scope.submit = function (question) {
-                            
+                        console.log(question)
                         question.items = _.values(question.items);
                         question.table = _.values(question.table);
-
                         $http.post('/admin/api/question', question).then(function (resp) {
                             refresh(active, type);
                             $scope.close();
@@ -125,7 +125,7 @@ angular.module('admin.questionnaire', [
         };
 
         $scope.addRow = function(elem){
-            elem = ['']
+            elem = [{}]
         };
 
         $scope.getQuestions($scope.active_tab,$scope.type)

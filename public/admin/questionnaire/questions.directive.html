@@ -50,7 +50,7 @@
                     <md-input-container class="md-block">
                         <h4 style="display: inline-block">Row {{$index+1}}:</h4>
                         <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.table[_index].row[$index].value" style="color: black;width: 80%;float: right">
-                        <div ng-if="$last" class="btn btn-default" style="width: 100%" ng-click="elem.rows.push({})"><span class="add-item fa fa-plus" style="text-align: center; width: 100%" >Add row</span></div>
+                        <div ng-if="$last" class="btn btn-default" style="width: 100%" ng-click="elem.rows.push({}); maxRoute(elem.rows.length)"><span class="add-item fa fa-plus" style="text-align: center; width: 100%" >Add row</span></div>
                     </md-input-container>
                 </div>
                 <div ng-if="$last" class="btn btn-default" style="width: 100%"  ng-click="arrItems.push({})"><span class="add-item fa fa-plus" style="text-align: center; width: 100%">Add column</span></div>

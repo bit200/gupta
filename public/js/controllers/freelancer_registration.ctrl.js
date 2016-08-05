@@ -104,6 +104,17 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                         name: name
                     })
                 }
+
+                scope.questions = _.uniq(_.pluck(angular.copy(scope.freelancer.service_providers), 'type'));
+            };
+
+
+            scope.loadQuestions = function(){
+                http.post('/api/questionnaire/registration', {type:'register', service_provider: {'$in':scope.questions}}).then(function(resp){
+                    scope.questionnaire = resp.data.data;
+                }, function(err){
+                    console.log('err', err)
+                })
             };
 
             scope.existsService = function (service_provider, filter, name) {
@@ -112,7 +123,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                     filter: filter ? filter : '!true',
                     name: name ? name : '!true'
                 };
-                var t = $filter('filter')(scope.freelancer.service_providers, tQ)
+                var t = $filter('filter')(scope.freelancer.service_providers, tQ);
                 return !!(t && t.length)
             };
 

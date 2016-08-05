@@ -24,6 +24,9 @@ module.exports = function (app) {
 
     app.get('/api/freelancer/:id/views', freelancer.freelancer_views_count);
     app.post('/api/freelancer/:id/views', freelancer.add_freelancer_view);
+    
+    
+    app.post('/api/questionnaire/registration', freelancer.get_questionnaire);
 
     app.get('/api/freelancer/:id/favorite/add', auth.token, freelancer.add_favorite);
     app.get('/api/freelancer/:id/favorite/remove', auth.token, freelancer.remove_favorite);

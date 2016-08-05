@@ -38,7 +38,6 @@ function pubParams(params, query) {
 }
 exports.get_questionnaire = function (req, res) {
     var params = m.getBody(req);
-    log(params)
     m.find(models.Questionnaire, params, res, res)
 };
 

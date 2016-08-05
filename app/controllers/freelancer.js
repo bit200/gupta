@@ -33,6 +33,12 @@ exports.freelancer_request = function (req, res) {
     }
 };
 
+exports.get_questionnaire = function (req, res) {
+    var params = m.getBody(req);
+    log('####', params)
+    m.find(models.Questionnaire, params, res, res)
+};
+
 exports.my_business_accounts = function (req, res) {
     if (!req.userId) return res.jsonp([]);
     models.BusinessUser.find({user: req.userId}).exec(function (err, business_accounts) {
