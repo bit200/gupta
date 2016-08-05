@@ -11,6 +11,18 @@ var FreelancerSchema = mongoose.Schema({
     experience: Number,
     service_providers: Array,
     languages: Array,
+    url: String,
+    address: String,
+    phone: String,
+    employees: String,
+    logo: {
+        type: Number,
+        ref: 'Attachment'
+    },
+    brochure: {
+        type: Number,
+        ref: 'Attachment'
+    },
     price: {
         word: Number,
         hour: Number

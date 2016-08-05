@@ -24,7 +24,7 @@ angular.module('admin.questionnaire', [
     .controller('QuestionnaireCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.commonFilters = getContent.commonFilter.data;
         console.log(_.keys($scope.commonFilters)[0])
-        $scope.active_tab = {service: _.keys($scope.commonFilters)[0], type: 'post'};
+        $scope.active_tab = _.keys($scope.commonFilters)[0];
         $scope.type = 'post';
         $scope.questions = [];
         $scope.getQuestions = function (service, type) {
@@ -119,6 +119,10 @@ angular.module('admin.questionnaire', [
         $scope.choice = function (key) {
             $scope.active_tab = key;
             $scope.getQuestions(key, $scope.type)
+        };
+
+        $scope.addRow = function(elem){
+            elem = ['']
         };
 
         $scope.getQuestions($scope.active_tab,$scope.type)

@@ -20,12 +20,43 @@
     </div>
 
     <div>
-        <div ng-repeat="elem in arrItems track by $index">
-            <h4>item {{$index+1}}</h4>
-            <md-input-container class="md-block">
-                <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.items[$index]" style="color: black">
-            </md-input-container>
-            <span ng-if="$last" class="add-item fa fa-plus" ng-click="arrItems.push(' ')"></span>
+        <md-radio-group ng-model="type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
+            <md-radio-button value="list" class="md-primary inline-block" style="outline: none">List menu</md-radio-button>
+            <md-radio-button value="table" style="margin-left: 50px;display:inline-block;outline: none">Table</md-radio-button>
+        </md-radio-group>
+        <div ng-if="type == 'list'">
+            <div ng-repeat="elem in arrItems track by $index">
+                <h4 style="display: inline-block">item {{$index+1}}:</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.items[$index]" style="color: black">
+                </md-input-container>
+                <div><span ng-if="$last" class="add-item fa fa-plus" style="text-align: center; width: 100%" ng-click="arrItems.push(' ')"></span></div>
+            </div>
         </div>
+
+
+        <div ng-if="type == 'table'">
+            <div ng-repeat="elem in arrItems track by $index" ng-init="_index = $index;">
+                <md-input-container ng-if="table[$index] == text" class="md-block">
+                    <h4 style="display: inline-block">Column {{_index+1}}:</h4>
+                    <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.table.column[_index].text" style="color: black;width: 80%;float: right">
+                </md-input-container>
+                <md-radio-group ng-model="question.table.column[_index].type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
+                    <md-radio-button value="checkbox" ng-click="rows(false,elem)" class="md-primary inline-block" style="margin-left: 110px;outline: none">Checkbox</md-radio-button>
+                    <md-radio-button value="input" ng-click="rows(false,elem)" style="margin-left: 15px;display:inline-block;outline: none">Input</md-radio-button>
+                    <md-radio-button value="text" ng-click="rows(true, elem)" style="margin-left: 15px;display:inline-block;outline: none">Text</md-radio-button>
+                </md-radio-group>
+                <div ng-if="question.table.column[_index].type == 'text'" ng-repeat="_row in elem.rows track by $index">
+                    <md-input-container class="md-block">
+                        <h4 style="display: inline-block">Row {{$index+1}}:</h4>
+                        <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.table.column[_index].row[$index].text" style="color: black;width: 80%;float: right">
+                        <div ng-if="$last" class="btn btn-default" style="width: 100%" ng-click="elem.rows.push(' ')"><span class="add-item fa fa-plus" style="text-align: center; width: 100%" >Add row</span></div>
+                    </md-input-container>
+                </div>
+                <div ng-if="$last" class="btn btn-default" style="width: 100%"  ng-click="arrItems.push(' ')"><span class="add-item fa fa-plus" style="text-align: center; width: 100%">Add column</span></div>
+            </div>
+        </div>
+
+
     </div>
 </div>

@@ -7,7 +7,7 @@
         <md-radio-button ng-class="{active_tab: type == 'register'}" ng-click="check('register')" value="register" style="margin-left: 50px;display:inline-block;outline: none">Registration freelancer/agency</md-radio-button>
     </md-radio-group>
 </div>
-<div style="height: 50px;margin: 10px 0;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;">
+<div style="height: auto;margin: 10px 0;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;">
     <div ng-repeat="(key,value) in commonFilters" ng-class="{'active_tab': active_tab == key}" ng-click="choice(key)" style="outline: none;display: inline-block; margin:0px 10px;height: 100%;line-height: 45px;">{{key}}</div>
 </div>
 <div>

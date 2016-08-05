@@ -135,6 +135,16 @@ angular.module('directive', [])
             templateUrl: 'questionnaire/questions.directive.html',
             controller: ['$scope', '$http', function (scope, $http) {
                 scope.arrItems = scope.question.items || [''];
+                
+                scope.rows = function(bool,elem){
+                    if (bool){
+                        elem = elem || {};
+                        elem.rows = elem.rows || [];
+                        elem.rows.push(' ')
+                    } else {
+                        delete elem.rows
+                    }
+                }
             }]
         }
     });
