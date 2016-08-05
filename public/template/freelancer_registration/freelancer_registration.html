@@ -23,17 +23,12 @@
         </div>
 
         <form name="aboutForm" ng-show="freelancer_area.activeTab == 'about'">
-            <div ng-if="freelancer.type == 'freelancer'" class="tab-title-wrap">
+            <div class="tab-title-wrap">
                 <h3 class="tab-title">Freelancer Information</h3>
                 <p class="sub-tab-title">Please provide brief information about yourself</p>
             </div>
-            <div ng-if="freelancer.type == 'agency'" class="tab-title-wrap">
-                <h3 class="tab-title">Agency Information</h3>
-                <p class="sub-tab-title">Please provide brief information about agency</p>
-            </div>
 
-            <h4 ng-if="freelancer.type == 'freelancer'" class="info-title">Display name</h4>
-            <h4 ng-if="freelancer.type == 'agency'" class="info-title">Agency name</h4>
+            <h4 class="info-title">NAME</h4>
             <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.name.$invalid}">
                 <md-input-container class="md-block">
                     <input class="form-control" name="name" unique-name ng-model="freelancer.name" required placeholder="Short text">
@@ -44,8 +39,8 @@
                 </md-input-container>
             </div>
 
-            <h4 class="info-title">Provide a short introduction of you <span ng-if="freelancer.type == 'agency'">agency</span> (ideally 10-20 words)</h4>
-            <p class="sub-info-title">(ideally 10-20 words)</p>
+            <h4 class="info-title">Provide a short introduction of you (10-15 words)</h4>
+            <p class="sub-info-title">(10-15 WORDS)</p>
 
             <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.introduction.$invalid}">
                 <md-input-container class="md-block">
@@ -55,150 +50,82 @@
                     </div>
                 </md-input-container>
             </div>
-            <!--/*findpoint*/-->
-            <div ng-if="freelancer.type == 'agency'">
 
-                <h4 class="info-title">Company URL</h4>
-                <div class="form-group">
-                    <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.url.$invalid}">
-                        <input aria-label="hidden" name="url" ng-model="freelancer.url" required>
-                        <div ng-messages="submittedAbout && aboutForm.url.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                            <div ng-show="submittedAbout && aboutForm.url.$error.required" ng-message="required">Required field</div>
-                        </div>
-                    </md-input-container>
-                </div>
+            <h4 class="info-title">Why should an organization pick you from many others?</h4>
+            <p class="sub-info-title">(YOUR 200 WORDS SALES PITCH)</p>
 
-                <h4 class="info-title">Head Office Address</h4>
-                <div class="form-group">
-                    <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.address.$invalid}">
-                        <input aria-label="hidden" name="address" ng-model="freelancer.address" required>
-                        <div ng-messages="submittedAbout && aboutForm.address.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                            <div ng-show="submittedAbout && aboutForm.address.$error.required" ng-message="required">Required field</div>
-                        </div>
-                    </md-input-container>
-                </div>
+            <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.description.$invalid}">
+                <md-input-container class="md-block">
+                    <textarea class="form-control" name="description" ng-model="freelancer.description" placeholder="Long text" required></textarea>
+                    <div ng-messages="submittedAbout && aboutForm.description.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
+                        <div ng-show="submittedAbout && aboutForm.description.$error.required" ng-message="required">Required field</div>
+                    </div>
 
-                <h4 class="info-title">Office Phone Number</h4>
-                <div class="form-group">
-                    <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.address.$invalid}">
-                        <input aria-label="hidden" name="address" ng-model="freelancer.address" required>
-                        <div ng-messages="submittedAbout && aboutForm.address.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                            <div ng-show="submittedAbout && aboutForm.address.$error.required" ng-message="required">Required field</div>
-                        </div>
-                    </md-input-container>
-                </div>
-
-                <h4 class="info-title">Cities where you can service</h4>
-                <div class="form-group testDisplay">
-                    <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.cities.$invalid}">
-                        <md-select aria-label="hidden" ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
-                                   data-md-container-class="selectdemoSelectHeader" multiple="" required>
-                            <md-select-header class="demo-select-header">
-                                <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
-                                       class="demo-header-searchbox _md-text">
-                            </md-select-header>
-                            <md-optgroup label="locations">
-                                <md-option ng-value="item" ng-repeat="item in locations | filter:$select.search ">
-                                    {{item}}
-                                </md-option>
-                            </md-optgroup>
-                        </md-select>
-                        <div ng-messages="submittedAbout && aboutForm.cities.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                            <div ng-show="submittedAbout && aboutForm.cities.$error.required" ng-message="required">Required field</div>
-                        </div>
-                    </md-input-container>
-                </div>
-
-                <h4 class="info-title">Number of Employees</h4>
-                <div class="form-group">
-                    <md-radio-group ng-model="freelancer.employees" layout="row" style="margin-bottom: 25px;">
-                        <md-radio-button value="1-10" class="md-primary">1-10</md-radio-button>
-                        <md-radio-button value="11-50" style="margin-left: 50px">11-50</md-radio-button>
-                        <md-radio-button value="51-250" style="margin-left: 50px">51-250</md-radio-button>
-                        <md-radio-button value="251-1000" style="margin-left: 50px">251-1000</md-radio-button>
-                        <md-radio-button value="1000+" style="margin-left: 50px">1000+</md-radio-button>
-                    </md-radio-group>
-                </div>
-
-
-                <div class="text-right pointer" ng-click="show.profilePreview=true">
-                    <img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">
-                    <span style="font-size: 20px">Please upload your agency logo</span>
-                    <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
-                </div>
-
-
-                <div class="text-right pointer" ng-click="show.profilePreview=true">
-                    <img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">
-                    <span style="font-size: 20px">Please upload your agency logo</span>
-                    <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
-                </div>
+                </md-input-container>
             </div>
 
-            <div ng-if="freelancer.type == 'freelancer'">
+            <h4 class="info-title">Location</h4>
+            <div class="form-group">
+                <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.location.$invalid}">
+                    <md-select aria-label="hidden" name="location" ng-model="freelancer.location" required>
+                        <md-option ng-repeat="item in locations" value="{{item}}">
+                            {{item}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="submittedAbout && aboutForm.location.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
+                        <div ng-show="submittedAbout && aboutForm.location.$error.required" ng-message="required">Required field</div>
+                    </div>
+                </md-input-container>
+            </div>
 
-                <h4 class="info-title">Your location</h4>
-                <div class="form-group">
-                    <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.location.$invalid}">
-                        <md-select aria-label="hidden" name="location" ng-model="freelancer.location" required>
-                            <md-option ng-repeat="item in locations" value="{{item}}">
+            <h4 class="info-title">Cities where you can service</h4>
+            <div class="form-group testDisplay">
+                <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.cities.$invalid}">
+                    <md-select aria-label="hidden" ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
+                               data-md-container-class="selectdemoSelectHeader" multiple="" required>
+                        <md-select-header class="demo-select-header">
+                            <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
+                                   class="demo-header-searchbox _md-text">
+                        </md-select-header>
+                        <md-optgroup label="locations">
+                            <md-option ng-value="item" ng-repeat="item in locations | filter:$select.search ">
                                 {{item}}
                             </md-option>
-                        </md-select>
-                        <div ng-messages="submittedAbout && aboutForm.location.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                            <div ng-show="submittedAbout && aboutForm.location.$error.required" ng-message="required">Required field</div>
-                        </div>
-                    </md-input-container>
-                </div>
-
-                <h4 class="info-title">Cities where you can service</h4>
-                <div class="form-group testDisplay">
-                    <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.cities.$invalid}">
-                        <md-select aria-label="hidden" ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
-                                   data-md-container-class="selectdemoSelectHeader" multiple="" required>
-                            <md-select-header class="demo-select-header">
-                                <input ng-model="searchTerm" type="search" placeholder="Search for a cities.."
-                                       class="demo-header-searchbox _md-text">
-                            </md-select-header>
-                            <md-optgroup label="locations">
-                                <md-option ng-value="item" ng-repeat="item in locations | filter:$select.search ">
-                                    {{item}}
-                                </md-option>
-                            </md-optgroup>
-                        </md-select>
-                        <div ng-messages="submittedAbout && aboutForm.cities.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                            <div ng-show="submittedAbout && aboutForm.cities.$error.required" ng-message="required">Required field</div>
-                        </div>
-                    </md-input-container>
-                </div>
-
-                <h4 class="info-title">Years of Experience (in years)</h4>
-                <div class="form-group">
-                    <div>
-                        <rzslider rz-slider-model="Experience.value" rz-slider-options="Experience.options"></rzslider>
+                        </md-optgroup>
+                    </md-select>
+                    <div ng-messages="submittedAbout && aboutForm.cities.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
+                        <div ng-show="submittedAbout && aboutForm.cities.$error.required" ng-message="required">Required field</div>
                     </div>
-                </div>
-
-                <div class="text-right pointer" ng-click="show.profilePreview=true">
-                    <img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">
-                    <span style="font-size: 20px">Upload profile picture</span>
-                    <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
-                </div>
-
-
+                </md-input-container>
             </div>
 
-            <h4 class="info-title" ng-if="freelancer.type == 'agency'">I want to register as an agency in:</h4>
-            <h4 class="info-title" ng-if="freelancer.type == 'freelancer'">I want to register as a freelancer/ consultant in:</h4>
+            <h4 class="info-title">Years of Experience (in years)</h4>
+            <div class="form-group">
+                <!--<md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.experience.$invalid}">-->
+                <!--<md-select aria-label="hidden" ng-model="freelancer.experience" name="experience" required>-->
+                <!--<md-option ng-repeat="item in experience" value="{{item}}">-->
+                <!--{{item}}-->
+                <!--</md-option>-->
+                <!--</md-select>-->
+                <!--<div ng-messages="submittedAbout && aboutForm.experience.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">-->
+                <!--<div ng-show="submittedAbout && aboutForm.experience.$error.required" ng-message="required">Required field</div>-->
+                <!--</div>-->
+                <!--</md-input-container>-->
+                <div>
+                    <rzslider rz-slider-model="Experience.value" rz-slider-options="Experience.options"></rzslider>
+                </div>
+            </div>
+
+            <h4 class="info-title">I want to register as a freelancer in</h4>
             <div class="form-group">
                 <ul style="list-style-type: none; padding-left: 0px;">
-                    <li ng-repeat="(commonFilter, values) in commonFilters" ng-if="!(commonFilter == 'Bloggers and Influencers' && freelancer.type == 'agency')">
+                    <li ng-repeat="(commonFilter, values) in commonFilters">
                         <md-checkbox ng-checked="existsService(commonFilter, '', '')" ng-click="toggleService(commonFilter)">
                             {{commonFilter}}
                         </md-checkbox>
                         <ul style="list-style-type: none;" ng-show="existsService(commonFilter, '', '')">
                             <li ng-repeat="value in values">
-                                <md-checkbox ng-checked="existsService(commonFilter, '', value.name)" ng-click="toggleService(commonFilter, '', value.name)"
+                                <md-checkbox ng-checked="existsService(commonFilter, '', value.name)" ng-module="{{value.name}}" ng-click="toggleService(commonFilter, '', value.name)"
                                              ng-if="value.name" class="margin-top-8 md-warn">{{value.name}}
                                 </md-checkbox>
                                 <div ng-if="value.name == 'Translation'">
@@ -208,7 +135,7 @@
                                             <ng-md-icon icon="cancel" ng-click="translationRemove(item)" style="fill: #969696 ;cursor: pointer"></ng-md-icon>
                                         </md-list-item>
                                     </md-list>
-                                    <div>
+                                    <div ng-if="Translation">
                                         <md-input-container style="width: 40%; margin-bottom: 0px;margin-top: 0px;">
                                             <md-select aria-label="hidden"
                                                        ng-model="translation.translationFrom"
@@ -246,8 +173,8 @@
                                                     </md-option>
                                                 </md-optgroup>
                                             </md-select>
-                                            <div ng-messages="translation.inValid">
-                                                <div ng-message="required">Contact Person Name is required</div>
+                                            <div ng-messages="translation.inValid" >
+                                                <div  ng-message="required">Contact Person Name is required</div>
                                             </div>
                                         </md-input-container>
                                         <ng-md-icon icon="done" ng-click="translationAdd(translation.translationFrom,translation.translationTo);"
@@ -274,32 +201,55 @@
                     </li>
                 </ul>
             </div>
-
-
-
-
-
-            <h4 class="info-title">Why should an organization pick you from many others?</h4>
-            <p class="sub-info-title">(YOUR 200 WORDS SALES PITCH)</p>
-
-            <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.description.$invalid}">
-                <md-input-container class="md-block">
-                    <textarea class="form-control" name="description" ng-model="freelancer.description" placeholder="Long text" required></textarea>
-                    <div ng-messages="submittedAbout && aboutForm.description.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                        <div ng-show="submittedAbout && aboutForm.description.$error.required" ng-message="required">Required field</div>
-                    </div>
-
-                </md-input-container>
-            </div>
-
-
-            <h4 class="info-title">Years of Experience (in years)</h4>
-            <div class="form-group">
-                <div>
-                    <rzslider rz-slider-model="Experience.value" rz-slider-options="Experience.options"></rzslider>
+            <div class="row">
+                <div class="col-md-6">
+                    <md-button class="md-raised next-button" ng-click="submittedAbout=true;aboutForm.$invalid ? scrollToErr() : freelancer_area.activeTab = 'expertise'"> NEXT</md-button>
                 </div>
+                <div class="col-md-6"></div>
             </div>
+        </form>
+        <form name="expertiseForm" ng-show="freelancer_area.activeTab == 'expertise'">
+            <div class="tab-title-wrap">
+                <h3 class="tab-title">Create Packages</h3>
+                <p class="sub-tab-title">Please provide information about the Packages services you offer</p>
+            </div>
+            <!--<h4 class="info-title">Industry Expertise (select top 5)</h4>-->
+            <!--<div class="form-group">-->
+            <!--<md-input-container class="selectTerm">-->
+            <!--<md-select aria-label="hidden" ng-model="freelancer.industry_expertise" md-on-close="clearSearchTerm()"-->
+            <!--data-md-container-class="selectdemoSelectHeader" multiple>-->
+            <!--<md-select-header class="demo-select-header">-->
+            <!--<input ng-model="searchTerm" type="search" placeholder="Search for a industry.."-->
+            <!--class="demo-header-searchbox _md-text">-->
+            <!--</md-select-header>-->
+            <!--<md-optgroup label="locations">-->
+            <!--<md-option ng-value="item" ng-repeat="item in industry | filter:$select.search ">-->
+            <!--{{item}}-->
+            <!--</md-option>-->
+            <!--</md-optgroup>-->
+            <!--</md-select>-->
+            <!--</md-input-container>-->
 
+
+            <!--</div>-->
+
+            <!--<h4 class="info-title">Content Type</h4>-->
+            <!--<div class="form-group">-->
+            <!--<md-input-container class="selectTerm">-->
+            <!--<md-select aria-label="hidden" ng-model="freelancer.content_type" md-on-close="clearSearchTerm()"-->
+            <!--data-md-container-class="selectdemoSelectHeader" multiple="">-->
+            <!--<md-select-header class="demo-select-header">-->
+            <!--<input ng-model="searchTerm" type="search" placeholder="Search for a content type.."-->
+            <!--class="demo-header-searchbox _md-text">-->
+            <!--</md-select-header>-->
+            <!--<md-optgroup label="content_type">-->
+            <!--<md-option ng-value="item" ng-repeat="item in content | filter:$select.search ">-->
+            <!--{{item}}-->
+            <!--</md-option>-->
+            <!--</md-optgroup>-->
+            <!--</md-select>-->
+            <!--</md-input-container>-->
+            <!--</div>-->
 
             <h4 class="info-title">Languages in which you write</h4>
             <div class="form-group">
@@ -437,7 +387,7 @@
                                         <input class='form-control' ng-model="newPastClient.name" placeholder="Client Name"/>
                                         <div ng-if="potential_clients.length" class="potential_client">
                                             <div style="overflow: auto;max-height: 250px;width: 104%;">
-                                                <div class="client pointer" ng-repeat="client in potential_clients" ng-click="choiceClient($event,client)">
+                                                <div class="client pointer" ng-repeat="client in potential_clients" ng-click="choiceClient($event,client)" >
                                                     <div class="client-image inline-block">
                                                         <img class="client-src" ng-src="{{client.attachment.url}}">
                                                     </div>
@@ -667,5 +617,3 @@
         </div>
     </script>
 </section>
-
-
