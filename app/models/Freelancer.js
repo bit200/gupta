@@ -15,14 +15,9 @@ var FreelancerSchema = mongoose.Schema({
     address: String,
     phone: String,
     employees: String,
-    logo: {
-        type: Number,
-        ref: 'Attachment'
-    },
-    brochure: {
-        type: Number,
-        ref: 'Attachment'
-    },
+    questionnaire: Array,
+    logo: String,
+    brochure: String,
     price: {
         word: Number,
         hour: Number
@@ -35,7 +30,7 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         ref: 'Package'
     }],
-    translation:Array,
+    translation: Array,
     profile: String,
     number_employees: Number,
     //0 - pending, 1-approved, 2-rejected

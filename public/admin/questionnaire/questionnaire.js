@@ -59,7 +59,6 @@ angular.module('admin.questionnaire', [
                 controller: function ($scope, $element, $http) {
                     $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
-                  
                     $scope.submit = function (question) {
                         console.log(question)
                         question.items = _.values(question.items);

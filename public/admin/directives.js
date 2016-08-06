@@ -149,7 +149,7 @@ angular.module('directive', [])
                 scope.maxRoute = function (max) {
                     if (scope.question.row_number < max) {
                         scope.question.row_number = max
-                        console.log(scope.question, max)
+                        console.log(    scope.question, max)
                     }
                 };
             }]

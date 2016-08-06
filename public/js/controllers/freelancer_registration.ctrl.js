@@ -64,18 +64,18 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             }
 
             scope.translation = {};
-            scope.translationAdd = function(from,to){
-                scope.translation.inRequerd = !(from && to)?true:false;
-                scope.translation.inValid = (from == to)?true:false;
-                if(!(from && to)||(from == to))
-                    return ;
+            scope.translationAdd = function (from, to) {
+                scope.translation.inRequerd = !(from && to) ? true : false;
+                scope.translation.inValid = (from == to) ? true : false;
+                if (!(from && to) || (from == to))
+                    return;
                 scope.translation.inValid = true;
                 scope.freelancer.translation = scope.freelancer.translation || [];
-                scope.freelancer.translation.push({from:from,to:to});
+                scope.freelancer.translation.push({from: from, to: to});
             };
 
-            scope.translationRemove = function(item){
-                scope.freelancer.translation.splice(scope.freelancer.translation.indexOf(item),1);
+            scope.translationRemove = function (item) {
+                scope.freelancer.translation.splice(scope.freelancer.translation.indexOf(item), 1);
                 console.log(scope.freelancer.translation.indexOf(item));
             };
 
@@ -109,12 +109,17 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             };
 
 
-            scope.loadQuestions = function(){
-                http.post('/api/questionnaire/registration', {type:'register', service_provider: {'$in':scope.questions}}).then(function(resp){
+            scope.loadQuestions = function () {
+                http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
                     scope.questionnaire = resp.data.data;
-                }, function(err){
+                }, function (err) {
                     console.log('err', err)
                 })
+            };
+
+            scope.rows = function (item, num) {
+                if (num)
+                    item.row_number = new Array(num);
             };
 
             scope.existsService = function (service_provider, filter, name) {
@@ -241,18 +246,18 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 scope.newPastClient.preview_attachment = $file
             };
             scope.potential_clients = [];
-            $('body').click(function(e){
+            $('body').click(function (e) {
                 scope.viewClient = false;
                 scope.potential_clients = [];
                 scope.$apply()
             });
 
-            scope.focusin = function(){
+            scope.focusin = function () {
                 scope.viewClient = true;
                 scope.getClients(scope.newPastClient.name)
             };
 
-            scope.choiceClient = function(e,item){
+            scope.choiceClient = function (e, item) {
                 e.preventDefault()
                 scope.newPastClient = {};
                 scope.freelancer.past_clients = scope.freelancer.past_clients || [];
@@ -265,7 +270,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 }
             });
 
-            scope.getClients = function(name){
+            scope.getClients = function (name) {
                 http.get('/api/get-clients', {params: {name: name}}).then(function (resp) {
                     scope.potential_clients = resp.data.data;
                 }, function (err) {
@@ -360,9 +365,16 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             })
         };
 
-        scope.submitCropped = function (croppedImg) {
+        scope.submitCropped = function (croppedImg, type) {
             if (croppedImg) {
-                scope.freelancer.contact_detail.preview = croppedImg;
+                scope.freelancer.contact_detail = scope.freelancer.contact_detail || {};
+                console.log('sdfsdf', type)
+                switch (type){
+                    case 'logo':scope.freelancer.logo = croppedImg;break;
+                    case 'brochure':scope.freelancer.brochure = croppedImg;break;
+                    case 'preview':scope.freelancer.contact_detail.preview = croppedImg;break;
+                }
+                // scope.freelancer.contact_detail.preview = croppedImg;
                 scope.show.profilePreview = false;
                 scope.freelancer_area.croppedProfile = '';
             }
