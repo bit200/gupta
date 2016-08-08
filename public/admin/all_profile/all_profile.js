@@ -67,13 +67,17 @@ angular.module('admin.all_profile', [
         $scope.check = function (type) {
             type == 'freelancers' ? $scope.getFreelancer(1) : $scope.getUsers(1)
         };
+        
+        function spliceItem(index){
+            $scope.all_profiles.splice(index, 1);
+        }
 
         $scope.reject = function (item, index) {
             ModalService.showModal({
                 templateUrl: "delete_modal.html",
                 controller: function ($scope, $element, $http) {
                     $scope.submit = function () {
-                        $scope.all_profiles.splice(index, 1);
+                        spliceItem(index);
                         $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}})
                     };
                     $scope.close = function (res) {
@@ -87,8 +91,7 @@ angular.module('admin.all_profile', [
                 });
 
             });
-
-        }
+        };
 
         $scope.getInformation = function (user, type) {
             ModalService.showModal({

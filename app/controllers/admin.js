@@ -279,6 +279,11 @@ exports.get_questionnaires = function (req, res) {
     }, {skip: params.skip, limit: params.limit})
 };
 
+exports.delete_questionnaire = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models.Questionnaire, {_id: params._id}, res, res)
+};
+
 exports.business_accounts = function (req, res) {
     models.BusinessUser.find(req.query).populate('agency').exec(function (err, business_accounts) {
         res.jsonp(business_accounts)

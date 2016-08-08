@@ -53,6 +53,34 @@ angular.module('admin.questionnaire', [
         };
 
 
+        function spliceItem(index){
+            $scope.questions.splice(index, 1);
+        }
+
+        $scope.delete_question = function (item, index) {
+            ModalService.showModal({
+                templateUrl: "delete_modal.html",
+                controller: function ($scope, $element, $http) {
+                    $scope.submit = function () {
+                        $http.delete('/admin/api/questionnaire', {params: {_id: item._id}}).then(function(){
+                            spliceItem(index);
+                            $scope.close();
+                        })
+                    };
+                    $scope.close = function (res) {
+                        $element.modal('hide');
+                        close(res, 500);
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
+        };
+
+
         $scope.add_question = function (active, type) {
             ModalService.showModal({
                 templateUrl: "questionnaire/question.modal.html",
@@ -81,7 +109,7 @@ angular.module('admin.questionnaire', [
             });
         };
 
-        $scope.changeInformation = function (item, active) {
+        $scope.changeInformation = function (item, active, type) {
             ModalService.showModal({
                 templateUrl: "questionnaire/question.modal.html",
                 controller: function ($scope, $element, $http) {
@@ -90,7 +118,7 @@ angular.module('admin.questionnaire', [
                     $scope.submit = function (question) {
                         question.items = _.values(question.items);
                         $http.post('/admin/api/question', question).then(function (resp) {
-                            refresh(active);
+                            refresh(active, type);
                             $scope.close();
                         })
                     };

@@ -136,7 +136,9 @@ angular.module('directive', [])
             controller: ['$scope', '$http', function (scope, $http) {
                 scope.question.row_number = 1;
                 scope.arrItems = scope.question.items || [{}];
-
+                scope.question.table = scope.question.table || [{}];
+                scope.question.items = scope.question.items || [''];
+                scope.type = scope.question.items.length ? 'list' : scope.question.table.length ? 'table' : 'list';
                 scope.rows = function (bool, elem) {
                     if (bool) {
                         elem = elem || {};
@@ -149,7 +151,6 @@ angular.module('directive', [])
                 scope.maxRoute = function (max) {
                     if (scope.question.row_number < max) {
                         scope.question.row_number = max
-                        console.log(    scope.question, max)
                     }
                 };
             }]

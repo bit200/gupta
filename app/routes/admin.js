@@ -41,6 +41,7 @@ module.exports = function (app) {
     
     app.get('/admin/api/questionnaires', _admin.get_questionnaires);
     app.post('/admin/api/question', _admin.update_questionnaire);
+    app.delete('/admin/api/questionnaire', _admin.delete_questionnaire);
     
     
     app.post('/admin/api/business_accounts/approve/:id', _admin.approve_account);
