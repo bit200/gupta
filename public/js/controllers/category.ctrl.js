@@ -253,7 +253,6 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         }, function (err) {
             console.log('err', err)
         });
-        console.log('qweqweqweqwe',scope.viewProfile)
         scope.active_profile_menu = 'pricing';
         scope.loading = true;
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {

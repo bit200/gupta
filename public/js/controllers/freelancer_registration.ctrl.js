@@ -111,11 +111,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
 
 
             scope.loadQuestions = function () {
-                http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
-                    scope.questionnaire = resp.data.data;
-                }, function (err) {
-                    console.log('err', err)
-                })
+                console.log
             };
 
             scope.rows = function (item, num) {
@@ -369,7 +365,6 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
         scope.submitCropped = function (croppedImg, type) {
             if (croppedImg) {
                 scope.freelancer.contact_detail = scope.freelancer.contact_detail || {};
-                console.log('sdfsdf', type)
                 switch (type){
                     case 'logo':scope.freelancer.logo = croppedImg;break;
                     case 'brochure':scope.freelancer.brochure = croppedImg;break;

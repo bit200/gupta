@@ -23,7 +23,6 @@ angular.module('admin.questionnaire', [
     })
     .controller('QuestionnaireCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.commonFilters = getContent.commonFilter.data;
-        console.log(_.keys($scope.commonFilters)[0])
         $scope.active_tab = _.keys($scope.commonFilters)[0];
         $scope.type = 'post';
         $scope.questions = [];
@@ -93,7 +92,6 @@ angular.module('admin.questionnaire', [
                         } else {
                             delete question.items
                         }
-                        console.log(question,question.table[0])
                         if(question.table[0].length > 0) {
                             question.table = _.values(question.table);
                         } else {
