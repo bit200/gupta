@@ -147,8 +147,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                     answer_items: delete_null_properties(item.answer_items),
                     items: item.items
                 }
-            })
-            console.log('asdfasdfasdfasdfasdfasdfasdf', job, scope.job.questionnaries)
+            });
             // _.each(job.questionnaire, function (item) {
             //     if (typeof(item.answer) == 'object') {
             //         item.answer = [];
@@ -157,6 +156,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             // });
             if(job.preview == '')
                 delete job.preview;
+
             http.post('/job', job).success(function (data) {
                 scope.job = data.data;
                 scope.onSucc(data)
@@ -173,7 +173,8 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             job.content_types = parseType.get(job.content, scope.contentTypes);
             job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
-
+            if(!job.preview.length || job.preview == '')
+                delete job.preview;
             http.put('/api/job', job).success(function () {
                 scope.onSucc()
             }).error(scope.onErr)

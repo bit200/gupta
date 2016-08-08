@@ -187,16 +187,18 @@
     </div>
     <div class="jbody">
         <div>
-            <div>{{job.questionnaries}}</div>
-            <div ng-repeat="question in job.questionnaries">
+            <div ng-repeat="(i,question) in job.questionnaries">
                 <h3>{{question.question}}</h3>
-                <div ng-if="!question.items.length">
+                <div ng-show="!question.items && !question.answer_items">
                     <md-input-container class="md-block">
                         <input aria-label='hidden' class="form-control" ng-model="question.answer">
                     </md-input-container>
                 </div>
-                <div ng-if="question.items.length">
+                <div ng-show="question.items">
                     <md-checkbox ng-repeat="elem in question.items" ng-model="question.answer_items[elem]" class="checkdark">{{elem}}</md-checkbox>
+                </div>
+                <div ng-show="question.answer_items">
+                    <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="question.answer_items[q]" class="checkdark">{{q}}</md-checkbox>
                 </div>
             </div>
         </div>

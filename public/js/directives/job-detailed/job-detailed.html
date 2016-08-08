@@ -124,13 +124,12 @@
 </div>
 <div class="jbody">
     <div>
-        <div ng-repeat="(i,question) in job.questionnaire">
-            <div hidden>{{job.questionnaire[i].question = question.question}}</div>
+        <div ng-repeat="(i,question) in job.questionnaries">
+            <div hidden>{{job.questionnaries[i].question = question.question}}</div>
             <h3>{{question.question}}</h3>
-
-            <div ng-if="!question.items.length">{{job.questionnaire[i].answer}}</div>
-            <div ng-if="question.items.length" >
-                <md-checkbox ng-repeat="(q,elem) in question.items" ng-model="job.questionnaire[i].answer[elem]" class="checkdark">{{elem}}</md-checkbox>
+            <div ng-show="!question.answer_items">{{job.questionnaries[i].answer}}</div>
+            <div ng-show="question.answer_items" >
+                <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="job.questionnaries[i].answer_items[q]" disabled="true" class="checkdark" ><span style="color: #333">{{q}}</span></md-checkbox>
             </div>
         </div>
     </div>

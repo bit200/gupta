@@ -11,8 +11,6 @@ XYZCtrls.directive('jobPost', function () {
         controller: ['$scope', 'Upload', '$http', '$rootScope', function (scope, Upload, $http, $rootScope) {
 
             scope.jobs_area = {};
-            scope.job.preview = [];
-            scope.job.attach = [];
             scope.attach = [];
 
             scope.menu = {
@@ -23,7 +21,6 @@ XYZCtrls.directive('jobPost', function () {
             scope.choiceType = function(text){
                 console.log('text',scope.job.type_category)
               $http.get('/api/questionnaire', {params:{type:'post',service_provider:scope.job.type_category}}).then(function(resp){
-                  
                   scope.job.questionnaries = resp.data.data
               })
             };
@@ -31,6 +28,7 @@ XYZCtrls.directive('jobPost', function () {
 
 
             scope.addFiles = function ($file) {
+                scope.job.attach = scope.job.attach || [];
                 if ($file && $file != null) {
                     scope.attach.push($file);
                     Upload.upload({
@@ -53,6 +51,7 @@ XYZCtrls.directive('jobPost', function () {
 
 
             scope.addImage = function ($file) {
+                scope.job.preview = scope.job.preview || [];
                 if ($file && $file != null) {
                     scope.preview = $file;
                     Upload.upload({
