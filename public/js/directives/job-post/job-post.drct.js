@@ -19,7 +19,6 @@ XYZCtrls.directive('jobPost', function () {
             };
 
             scope.choiceType = function(text){
-                console.log('text',scope.job.type_category)
               $http.get('/api/questionnaire', {params:{type:'post',service_provider:scope.job.type_category}}).then(function(resp){
                   scope.job.questionnaries = resp.data.data
               })
