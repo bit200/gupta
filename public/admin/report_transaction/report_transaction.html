@@ -1,0 +1,41 @@
+<div class="marginT30">
+    <div style="margin-top: 20px">
+
+        <div class="portlet-body">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="text-bold pointer">Amount</th>
+                    <th class="text-bold pointer">Buyer</th>
+                    <th class="text-bold pointer">Seller</th>
+                    <th class="text-bold pointer">Contract</th>
+                    <th class="text-bold pointer">Payment id</th>
+                    <th>Payment date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="payment in payments">
+                    <td>{{payment.amount/100}}</td>
+                    <td>{{payment.buyer.first_name}}</td>
+                    <td>{{payment.seller.first_name}}</td>
+                    <td>{{payment.contract.title}}</td>
+                    <td>{{payment.payment_id}}</td>
+                    <td>{{payment.created_at}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="text-center">
+            <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

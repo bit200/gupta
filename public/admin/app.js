@@ -8,6 +8,7 @@ angular.module('admin', [
     'admin.all_project',
     'admin.business_accounts',
     'admin.questionnaire',
+    'admin.report_transaction',
     'angular-jwt',
     'angular-storage',
     'angularModalService',
