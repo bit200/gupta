@@ -247,11 +247,23 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
     function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService,$state) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
+        scope.questions = _.uniq(_.pluck(angular.copy(scope.viewProfile.service_providers), 'type'));
+        $http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
+            scope.questionnaire = resp.data.data;
+        }, function (err) {
+            console.log('err', err)
+        });
+        console.log('qweqweqweqwe',scope.viewProfile)
         scope.active_profile_menu = 'pricing';
         scope.loading = true;
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {
             scope.ratings = resp.data.data;
         });
+
+        scope.rows = function (item, num) {
+            if (num)
+                item.row_number = new Array(num);
+        };
         $http.get('/freelancer/review', {params: {_id: $stateParams.id}}).then(function (resp) {
             scope.reviews = resp.data.data;
             scope.reviews = resp.data.data;

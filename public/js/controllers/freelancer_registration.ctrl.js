@@ -60,7 +60,8 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
 
             if (getContent.freelancer && getContent.freelancer.data) {
                 scope.freelancer = getContent.freelancer.data;
-                scope.Experience.value = scope.freelancer.experience
+                scope.Experience.value = scope.freelancer.experience;
+                scope.questions = _.uniq(_.pluck(angular.copy(scope.freelancer.service_providers), 'type'));
             }
 
             scope.translation = {};

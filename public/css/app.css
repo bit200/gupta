@@ -1278,6 +1278,19 @@ div.block-popularity {
     color: #993333;
 }
 
+.checkbox-profile {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    width: 20px;
+    margin: auto;
+    margin-right: auto !important;
+    margin-left: auto !important    ;
+}
+
 .createPackage {
     width: 600px;
     margin: auto;
