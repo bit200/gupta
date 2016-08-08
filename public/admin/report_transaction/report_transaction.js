@@ -22,8 +22,23 @@ angular.module('admin.report_transaction', [
     })
 
     .controller('TransactionCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService, getContent) {
-        console.log('TransactionCtrl',getContent)
-        $scope.payments = getContent.payments.data;
+        console.log('TransactionCtrl',getContent);
+        $scope.configPagination = {
+            currentPage: 1,
+            countByPage: 12,
+            totalCount: 0
+        };
+        $scope.payments = getContent.payments.data.item;
+        $scope.configPagination.totalCount = getContent.payments.data.count;
+        $scope.getPayment = function(){
+            $http.get('/payments', {params:{skip:($scope.configPagination.currentPage - 1)*$scope.configPagination.countByPage, limit:$scope.configPagination.countByPage}}).then(function(resp){
+                $scope.payments = resp.data;
+            })
+        };
+        $scope.cb = function (page) {
+            $scope.getPayment()
+        };
+
 
     });
 

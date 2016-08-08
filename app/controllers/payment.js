@@ -11,37 +11,43 @@ var models = require('../db')
 // razorplay/// |pass:| testXYZonline5  |ID:|6499WGgcoJGvvw  |key_ID| rzp_test_Rwg8wDQEM22Lza |key secret| BQi4QKJXDD1E4VGilt9m4Zzu
 ///---------------------------------------------------------------------------------------------------
 var request = require('request');
-var key_id='rzp_test_Rwg8wDQEM22Lza';
-var key_secret='BQi4QKJXDD1E4VGilt9m4Zzu';
-var paymentsStr='https://'+key_id+':'+key_secret+'@api.razorpay.com/v1/payments/';
+var key_id = 'rzp_test_Rwg8wDQEM22Lza';
+var key_secret = 'BQi4QKJXDD1E4VGilt9m4Zzu';
+var paymentsStr = 'https://' + key_id + ':' + key_secret + '@api.razorpay.com/v1/payments/';
 ///---------------------------------------------------------------------------------------------------
 
 
-exports.get_payments = function(req,res){
-    models.Payment.find({}).populate([{path:'buyer'},{path:'seller'},{path:'contract'}]).exec(function(err,data){
-        if(err) return console.log('Find payments err', err);
-        res.send(data);
-    })
+exports.get_payments = function (req, res) {
+    var params = m.getBody(req);
+    models.Payment.find({}).populate([{path: 'buyer'}, {path: 'seller'}, {path: 'contract'}]).skip(params.skip).limit(params.limit).exec(function (err, data) {
+        if (err) return console.log('Find payments err', err);
+        m.count(models.Payment, {}, function(){
+            res.send({item: data, count: 0});
+        }, function (count) {
+            res.send({item: data, count: count});
+        })
+    });
+
 };
 exports.capture_payment = function (req, res) {
     var params = m.getBody(req);
-    console.log('111',params);
+    console.log('111', params);
     request({
         method: 'POST',
-        url: paymentsStr+params.payment_id+'/capture',
+        url: paymentsStr + params.payment_id + '/capture',
         form: {
             amount: params.amount
         }
     }, function (error, response, body) {
-        if(error) return log(error);
-        params.buyer=req.userId;
-       models.Payment.create(params,function(err,data){
-           models.Contract.findOne({_id:params.contract}).populate({path:'buyer'}).exec(function(err,data){
-               console.log('11213',JSON.stringify(data));
-               if(data)
-                   mail.initialPayment(data.buyer,data,params.amount);
-           });
-           res.send(200);
-       });
+        if (error) return log(error);
+        params.buyer = req.userId;
+        models.Payment.create(params, function (err, data) {
+            models.Contract.findOne({_id: params.contract}).populate({path: 'buyer'}).exec(function (err, data) {
+                console.log('11213', JSON.stringify(data));
+                if (data)
+                    mail.initialPayment(data.buyer, data, params.amount);
+            });
+            res.send(200);
+        });
     });
 };

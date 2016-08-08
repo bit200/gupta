@@ -111,7 +111,7 @@ angular.module('admin.all_profile', [
                         $http.post('/admin/api/' + type, {user: user}).then(function (resp) {
                             $scope.close()
                         })
-                    }
+                    };
                     $scope.close = function (res) {
                         $element.modal('hide');
                         close(res, 500);

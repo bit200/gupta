@@ -23,7 +23,6 @@ var PaymentSchema = mongoose.Schema({
     contract:{
         type:Number,
         ref:'Contract'
-
     },
     created_at: {
         type: Date,

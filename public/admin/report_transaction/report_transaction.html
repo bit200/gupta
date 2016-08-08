@@ -16,8 +16,8 @@
                 <tbody>
                 <tr ng-repeat="payment in payments">
                     <td>{{payment.amount/100}}</td>
-                    <td>{{payment.buyer.first_name}}</td>
-                    <td>{{payment.seller.first_name}}</td>
+                    <td>{{payment.buyer.first_name}} {{payment.buyer.last_name}}</td>
+                    <td>{{payment.seller.first_name}} {{payment.seller.last_name}}</td>
                     <td>{{payment.contract.title}}</td>
                     <td>{{payment.payment_id}}</td>
                     <td>{{payment.created_at}}</td>
