@@ -18,6 +18,7 @@
             <th class="text-bold pointer" st-sort="role">Role</th>
             <th class="text-bold pointer">Agency</th>
             <th ng-if="selectFilter=='rejected'" class="text-bold pointer">Reject reason</th>
+            <th class="text-bold pointer">Created</th>
             <th>Actions</th>
         </tr>
         <tr>
@@ -40,6 +41,7 @@
             <td>{{business_account.role}}</td>
             <td><a href="" ng-click="showAgencyDetails(business_account.agency._id)">{{business_account.agency.name}}</a></td>
             <td ng-if="selectFilter=='rejected'">{{business_account.reject_reason}}</td>
+            <td>{{business_account.created_at}}</td>
             <td>
                 <span ng-confirm-click="Are you sure your want to approve business user <b>{{business_account.first_name}} {{business_account.last_name}}</b> ?"
                       ng-confirm-action="rejectApproveAccount('approve', business_account._id, $index)"

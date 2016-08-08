@@ -10,6 +10,7 @@
                 <th class="text-bold pointer" >Email</th>
                 <th class="text-bold pointer" >Budget</th>
                 <th class="text-bold pointer" >Status</th>
+                <th class="text-bold pointer" >Created</th>
                 <th>Actions</th>
             </tr>
 
@@ -22,6 +23,7 @@
                 <!--<td>{{all_project.type_category}} <span ng-if="all_project.type_filter"> > </span> {{all_project.type_filter}} <span ng-if="all_project.type_name"> > </span> {{all_project.type_name}}</td>-->
                 <td>{{all_project.budget}}</td>
                 <td>{{all_project.status}}</td>
+                <td>{{all_project.created_at}}</td>
                 <td>
                     <!--<span style="color: green" ng-click="getInformation()" class="pointer glyphicon glyphicon-pencil inline-block"></span>-->
                     <span style="color: green" ng-click="getInformation(all_project, $index, all_projects)" class="pointer fa fa-pencil inline-block"></span>

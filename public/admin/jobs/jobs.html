@@ -11,6 +11,7 @@
             <th>Client Name</th>
             <th>Company Name</th>
             <th>Date Of Completion</th>
+            <th>Created</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -24,6 +25,7 @@
             <td>{{job.client_name}}</td>
             <td>{{job.company_name}}</td>
             <td>{{job.date_of_completion}}</td>
+            <td>{{job.created_at}}</td>
             <td>
                 <span ng-confirm-click="Are you sure your want to approve job <b>{{job.name}} </b> ?"
                       ng-confirm-action="rejectApproveJob('approve', job._id, $index)"

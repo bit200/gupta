@@ -13,6 +13,7 @@
             <th>Service Categories</th>
             <th>Currently owned by</th>
             <th>Claimed by</th>
+            <th>Created</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
@@ -29,6 +30,7 @@
                 <span ng-if="seller.business_account">Claimed</span>
                 <span ng-if="!seller.business_account">Unclaimed</span>
             </td>
+            <td>{{seller.created_at}}</td>
             <td>
                 <span ng-confirm-click="Are you sure your want to approve seller <b>{{seller.name}} </b> ?"
                       ng-confirm-action="rejectApproveProfile('approve', seller._id, $index)"
