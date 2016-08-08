@@ -82,7 +82,7 @@ exports.get_freelancers = function (req, res) {
         console.log(params)
         m.find(models.Freelancer, params, res, function (freelancer) {
             m.scb(freelancer, res)
-        }, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-views'})
+        }, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-sorted -views'})
     }
 };
 

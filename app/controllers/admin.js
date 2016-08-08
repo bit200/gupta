@@ -144,6 +144,12 @@ exports.delete_freelancers = function (req, res) {
     var params = m.getBody(req);
     m.findRemove(models.Freelancer, {_id: params._id}, res, res)
 };
+exports.sorted_freelancer  = function (req, res) {
+    var params = m.getBody(req);
+    params.sorted = !params.sorted;
+    m.findUpdate(models.Freelancer, {_id: params._id}, {sorted: params.sorted}, res, res)
+};
+
 exports.delete_projects = function (req, res) {
     var params = m.getBody(req);
     m.findRemove(models.Job, {_id: params._id}, res, res)

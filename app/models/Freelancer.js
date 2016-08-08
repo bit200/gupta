@@ -18,6 +18,10 @@ var FreelancerSchema = mongoose.Schema({
     questionnaire: Array,
     logo: String,
     brochure: String,
+    sorted: {
+        type: Boolean,
+        default: false
+    },
     price: {
         word: Number,
         hour: Number

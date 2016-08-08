@@ -38,7 +38,7 @@ angular.module('admin.all_profile', [
                 $scope.configPagination.totalCount = resp.data.data.count;
                 $scope.configPagination.currentPage = skip;
             }, function (err) {
-                console.log('err', err)
+                notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
         };
         $scope.getUsers = function (skip, limit) {
@@ -49,7 +49,7 @@ angular.module('admin.all_profile', [
                 $scope.configPagination.totalCount = resp.data.data.count;
                 $scope.configPagination.currentPage = skip;
             }, function (err) {
-                console.log('err', err)
+                notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
 
         };
@@ -71,6 +71,14 @@ angular.module('admin.all_profile', [
         function spliceItem(index){
             $scope.all_profiles.splice(index, 1);
         }
+        
+        $scope.getFavorite = function(freelancer, index){
+            $http.post('/admin/api/sorted', {_id:freelancer._id, sorted: freelancer.sorted || false}).then(function(resp){
+                $scope.all_profiles[index] = resp.data.data
+            }, function(err){
+                notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
+            })
+        };
 
         $scope.reject = function (item, index) {
             ModalService.showModal({

@@ -38,7 +38,6 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
 
         scope.removeFavorite = function (profileId) {
             http.get('/api/freelancer/' + profileId + '/favorite/remove').then(function () {
-                console.log(scope.favorites, profileId)
                 scope.favorites.splice(scope.favorites.indexOf(profileId), 1);
             })
         };
