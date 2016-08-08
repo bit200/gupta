@@ -138,16 +138,18 @@ angular.module('directive', [])
                 scope.arrItems = scope.question.items || [{}];
                 scope.question.table = scope.question.table || [{}];
                 scope.question.items = scope.question.items || [''];
-                scope.type = scope.question.items.length ? 'list' : scope.question.table.length ? 'table' : 'list';
+                scope.type = scope.question.items.length > 0 ? 'list' : scope.question.table.length > 0 ? 'table' : 'list';
                 scope.rows = function (bool, elem) {
                     if (bool) {
                         elem = elem || {};
-                        elem.rows = elem.rows || [];
-                        elem.rows.push({})
+                        elem.row = elem.row || [];
+                        elem.row.push({})
                     } else {
-                        delete elem.rows
+                        delete elem.row
                     }
                 };
+                
+
                 scope.maxRoute = function (max) {
                     if (scope.question.row_number < max) {
                         scope.question.row_number = max

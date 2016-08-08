@@ -88,9 +88,17 @@ angular.module('admin.questionnaire', [
                     $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
                     $scope.submit = function (question) {
-                        console.log(question)
-                        question.items = _.values(question.items);
-                        question.table = _.values(question.table);
+                        if(question.items && question.items.length >0) {
+                            question.items = _.values(question.items);
+                        } else {
+                            delete question.items
+                        }
+                        console.log(question,question.table[0])
+                        if(question.table[0].length > 0) {
+                            question.table = _.values(question.table);
+                        } else {
+                            delete question.table
+                        }
                         $http.post('/admin/api/question', question).then(function (resp) {
                             refresh(active, type);
                             $scope.close();
