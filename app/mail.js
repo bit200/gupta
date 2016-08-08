@@ -123,10 +123,10 @@ function send_confirm(user, _ecb, _scb) {
         },
         confirm_code: user.confirm_code,
         userId: user._id,
-        message:" Thank you for creating an account with us. \n" +
-        "Please click on the button below to verify your email address.\n",
-        link:'#/confirm/'+user.confirm_code,
-        link_name:'Verify My Account',
+        message:" Thank you for creating an account with us. \n",
+        //"Please click on the button below to verify your email address.\n",
+        link:'#/',
+        link_name:'Go to site',
         appHost: config.appHost
     }));
     //var _options = options('One Last Step To Create Your Account!', user.email, tpl.confirm({
@@ -147,7 +147,7 @@ function send_confirm(user, _ecb, _scb) {
 function job_apply(obj, _ecb, _scb) {
     //console.log('Job Apply');
     //console.log('AAAA'+JSON.stringify(obj));
-    var _options = options('Apply your Job!', obj.job.email, tpl.confirm({
+    var _options = options('Your Job was applied!', obj.job.email, tpl.confirm({
         email: obj.user.email,
         name: {
             first: obj.user.first_name,
