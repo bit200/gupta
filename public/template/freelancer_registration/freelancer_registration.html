@@ -284,12 +284,16 @@
 
 
         <form ng-show="freelancer_area.activeTab == 'expertise'">
+            <div ng-if="!questionnaire.length">
+                <h3 class="text-center">Choice service provider not have questionnaire</h3>
+            </div>
             <div ng-repeat="service in questions">
                 <div class="jheader" open>
                     {{service}} Section
                 </div>
                 <div class="jbody">
                     <div ng-repeat="item in questionnaire|filter:service" ng-init="_index=$index">
+
                         <h3 ng-init="freelancer.questionnaire[_index].question=item.question">{{item.question}}</h3>
 
                         <div ng-if="!item.items && !item.table">
@@ -303,18 +307,18 @@
                         </div>
                         <div ng-if="item.table">
                             <table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">
-                                    <tr>
-                                        <td ng-init="item.table[$index].table_header = table.table_header" ng-repeat="table in item.table track by $index">{{table.table_header}}</td>
-                                    </tr>
-                                    <tr ng-repeat="el in item.row_number track by $index" ng-init="row = $index">
-                                        <td class="relative" ng-repeat="(i,table) in item.table track by $index">
-                                            <div ng-if="table.type=='text'" class="text-center" ng-init="freelancer.questionnaire[_index].table[row].text = table.row[row].value" style="line-height: 55px;">{{table.row[row].value}}</div>
-                                            <md-input-container ng-if="table.type=='input'" class="md-block" flex-gt-sm>
-                                                <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[_index].table[row].input[$index]">
-                                            </md-input-container>
-                                            <md-checkbox class="checkbox-profile" ng-if="table.type=='checkbox'" ng-model="freelancer.questionnaire[_index].table[row].checkbox">    </md-checkbox>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td ng-init="item.table[$index].table_header = table.table_header" ng-repeat="table in item.table track by $index">{{table.table_header}}</td>
+                                </tr>
+                                <tr ng-repeat="el in item.row_number track by $index" ng-init="row = $index">
+                                    <td class="relative" ng-repeat="(i,table) in item.table track by $index">
+                                        <div ng-if="table.type=='text'" class="text-center" ng-init="freelancer.questionnaire[_index].table[row].text = table.row[row].value" style="line-height: 55px;">{{table.row[row].value}}</div>
+                                        <md-input-container ng-if="table.type=='input'" class="md-block" flex-gt-sm>
+                                            <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[_index].table[row].input[$index]">
+                                        </md-input-container>
+                                        <md-checkbox class="checkbox-profile" ng-if="table.type=='checkbox'" ng-model="freelancer.questionnaire[_index].table[row].checkbox"></md-checkbox>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
 
@@ -530,9 +534,9 @@
             </div>
 
             <!--<div class="text-right pointer" ng-click="show.profilePreview=true;">-->
-                <!--<img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">-->
-                <!--<span style="font-size: 20px">Attach samples</span>-->
-                <!--<ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>-->
+            <!--<img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">-->
+            <!--<span style="font-size: 20px">Attach samples</span>-->
+            <!--<ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>-->
             <!--</div>-->
 
             <div class="row">

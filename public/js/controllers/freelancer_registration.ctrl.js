@@ -77,7 +77,6 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
 
             scope.translationRemove = function (item) {
                 scope.freelancer.translation.splice(scope.freelancer.translation.indexOf(item), 1);
-                console.log(scope.freelancer.translation.indexOf(item));
             };
 
             scope.toggleService = function (service_provider, filter, name) {
@@ -111,7 +110,11 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
 
 
             scope.loadQuestions = function () {
-                console.log
+                http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
+                    scope.questionnaire = resp.data.data;
+                }, function (err) {
+                    console.log('err', err)
+                })
             };
 
             scope.rows = function (item, num) {
