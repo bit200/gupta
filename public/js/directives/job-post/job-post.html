@@ -170,7 +170,7 @@
             </md-input-container>
         </div>
 
-        <div class="title3">Choose a category and subcategory</div>
+        <div class="title3">Choose a category</div>
         <div class="form-group">
             <md-input-container class="md-block" flex-gt-sm="">
                 <md-select ng-change="choiceType()" aria-label="hidden" name="category" ng-model="job.type_category" required>
@@ -181,7 +181,7 @@
             </md-input-container>
         </div>
     </div>
-    <div class="jheader" open>
+    <div ng-if="job.questionnaries" class="jheader" open>
         Job Questionnaire
     </div>
     <div class="jbody">
