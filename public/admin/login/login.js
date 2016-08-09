@@ -11,6 +11,7 @@ angular.module('admin.login', [
     }).then(function(response) {
       store.set('jwt', response.data.id_token);
       store.set('id', response.data.id_admin);
+      store.set('name', response.data.email);
       window.location = '/admin'
     }, function(error) {
       alert(JSON.stringify(error.data));

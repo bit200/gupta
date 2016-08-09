@@ -9,7 +9,8 @@ angular.module('admin.report_transaction', [
             controller: 'TransactionCtrl',
             templateUrl: 'report_transaction/report_transaction.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Transaction'
             },
             resolve: {
                 getContent: ["$q", "$http", "$stateParams", function ($q, $http, $stateParams) {

@@ -9,7 +9,8 @@ angular.module('admin.all_project', [
             controller: 'AllProjectCtrl',
             templateUrl: 'all_project/all_project.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Projects'
             },
             resolve: {
                 getContent: ["$q", "$http", function ($q, $http) {

@@ -28,7 +28,8 @@ exports.login = function (req, res) {
 
         res.status(201).send({
             id_token: createToken(admin),
-            id_admin: admin._id
+            id_admin: admin._id,
+            email: admin.email
         });
     });
 };

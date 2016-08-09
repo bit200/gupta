@@ -8,7 +8,8 @@ angular.module( 'admin.jobs', [
             controller: 'JobsCtrl',
             templateUrl: 'jobs/jobs.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Jobs'
             },
             resolve: {
                 jobs: function($http){

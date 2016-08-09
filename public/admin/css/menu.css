@@ -653,3 +653,22 @@ li > span.fa.fa-angle-right {
 .md-datepicker-calendar-pane{
     z-index: 999999;
 }
+
+.name-admin {
+    height: 50px;
+    color: white;
+    line-height: 50px;
+    cursor: default;
+}
+
+.green{
+    color:green;
+}
+
+.page-content {
+    background: #ECF0F5
+}
+
+.background-dark-blue {
+    background-color: #2D5F8B !important;
+}

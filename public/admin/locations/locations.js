@@ -8,7 +8,8 @@ angular.module( 'admin.locations', [
         controller: 'LocationsCtrl',
         templateUrl: 'locations/locations.html',
         data: {
-            requiresLogin: true
+            requiresLogin: true,
+            name: 'Locations'
         },
         resolve: {
             locations: function($http){

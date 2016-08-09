@@ -9,7 +9,8 @@ angular.module('admin.all_profile', [
             controller: 'AllProfileCtrl',
             templateUrl: 'all_profile/all_profile.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Profile'
             },
             resolve: {
                 getContent: ["$q", "$http", "$stateParams", function ($q, $http, $stateParams) {

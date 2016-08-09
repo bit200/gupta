@@ -9,7 +9,8 @@ angular.module( 'admin.business_accounts', [
             controller: 'BusinessAccountsCtrl',
             templateUrl: 'business_accounts/business_accounts.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Business Accounts'
             },
             resolve: {
                 business_accounts: function($http){

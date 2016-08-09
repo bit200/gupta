@@ -45,7 +45,9 @@ angular.module('admin', [
     }])
 
     .controller('AppCtrl', ["$scope", "$location", '$rootScope', "$state", 'store', function AppCtrl($scope, $location, $rootScope, $state, store) {
-        $scope.$state = $state
+        $scope.$state = $state;
+        $scope.name = store.get('name');
+        console.log($state)
         $scope.logout = function () {
             $rootScope.isLogged = false;
             store.remove('jwt');

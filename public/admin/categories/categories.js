@@ -8,7 +8,8 @@ angular.module( 'admin.categories', [
             controller: 'CategoriesCtrl',
             templateUrl: 'categories/categories.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Categories'
             },
             resolve: {
                 categories: function($http){

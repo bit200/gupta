@@ -9,7 +9,8 @@ angular.module( 'admin.sellers', [
             controller: 'SellersCtrl',
             templateUrl: 'sellers/sellers.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Sellers'
             },
             resolve: {
                 sellers: function($http){

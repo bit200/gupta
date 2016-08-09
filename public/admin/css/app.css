@@ -46,3 +46,12 @@
 .red {
     color:#e62a2e;
 }
+
+.ui-block {
+    border: 1px solid whitesmoke;
+    padding: 20px;
+    padding-top: 0px;
+    border-radius: 5px;
+    border-top: 5px solid #4B8DBA;
+    background: white;
+}

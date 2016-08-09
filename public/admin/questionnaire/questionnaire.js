@@ -9,7 +9,8 @@ angular.module('admin.questionnaire', [
             controller: 'QuestionnaireCtrl',
             templateUrl: 'questionnaire/questionnaire.html',
             data: {
-                requiresLogin: true
+                requiresLogin: true,
+                name: 'Questionnaires'
             },
             resolve: {
                 getContent: ['$q', '$http', function ($q, $http) {
