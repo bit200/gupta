@@ -29,7 +29,7 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
             var el1 = angular.element('.md-input-invalid').eq(0).parent()
             var el2 = angular.element('.md-datepicker-invalid').eq(0).parent().parent()
             var el = el1.offset() ? el1 : el2.offset() ? el2 : null
-            console.log('erl', el, el)
+            // console.log('erl', el, el)
             if (el && el.offset && el.offset()) {
                 angular.element("body").animate({scrollTop: el.offset().top - 100}, "slow");
             }
@@ -42,7 +42,7 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
     }
 
     $rootScope.onError = function (err) {
-        console.log('on error', err)
+        // console.log('on error', err)
 
         $rootScope.err_resp = {
             message: err ? err.message : null,
@@ -344,7 +344,7 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
         $rootScope.commonFilters = [];
     $http.get('/api/common_filters').success(function (resp){
         $rootScope.commonFilters = resp;
-        console.log(resp)
+        // console.log(resp)
         localStorage.setItem('commonFilters', JSON.stringify(resp))
     });
     $rootScope.isLoadingPage = false;

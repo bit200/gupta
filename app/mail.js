@@ -664,7 +664,6 @@ function approveAgencyRegistration(obj, email, _ecb, _scb) {
     //    obj: obj,
     //    appHost: config.appHost
     //}));
-
     var _options = options('Registration approved', email, tpl.confirm({
         name: {
             first: obj.freelancer.name
@@ -675,6 +674,7 @@ function approveAgencyRegistration(obj, email, _ecb, _scb) {
             email:obj.email,
             password:obj.password
         },
+        message:" Thank you for creating an account with us. \n",
         link_name:'Go to site',
         appHost: config.appHost
     }));

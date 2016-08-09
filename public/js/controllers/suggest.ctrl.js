@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('suggestCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', '$stateParams', 'parseType', 'ModalService', function (scope, location, http, getContent, stateParams, parseType, ModalService) {
+XYZCtrls.controller('suggestCtrl', ['$scope', '$rootScope', '$location', '$http', 'getContent', '$stateParams', 'parseType', 'ModalService', 'notify', function (scope, rootScope, location, http, getContent, stateParams, parseType, ModalService, notify) {
     rootScope.extend_scope(scope, getContent)
     scope.suggest = parseType.contract(getContent.suggest.data.data);
     scope.contract = scope.suggest.contract;
@@ -33,7 +33,7 @@ XYZCtrls.controller('suggestCtrl', ['$scope', '$rootScope', '$location', '$http'
         http.post('/contract/suggest-apply', {suggest: scope.suggest}).then(function (resp) {
             console.log('resp', resp)
         }, function (err) {
-            console.log('err', err)
+            notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});  
         })
     }
 
@@ -42,7 +42,7 @@ XYZCtrls.controller('suggestCtrl', ['$scope', '$rootScope', '$location', '$http'
                 console.log('resp', resp)
             },
             function (err) {
-                console.log('err', err)
+                notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
     }
 }]);

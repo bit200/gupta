@@ -307,14 +307,14 @@ XYZCtrls.service('loginSocial', ["$http", "AuthService", '$state', function ($ht
         }
 
         $http.post('/sign-up-social', user).then(function (resp) {
-            console.log('resp', resp);
+            // console.log('resp', resp);
             AuthService.setTokens({
                 accessToken: resp.data.data.accessToken.value,
                 refreshToken: resp.data.data.refreshToken.value
             });
             $state.go('home');
         }, function (err) {
-            console.log('err', err)
+            // console.log('err', err)
         })
     }
 }])
@@ -391,7 +391,7 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobParseByStatus', f
             if (obj.user_type)
                 information.view_project = obj.user_type;
             if (!obj.job_type && !obj.user_type) {
-                console.log('sdf')
+                // console.log('sdf')
                 $http.get('/api/jobs/filter', {params: information}).success(function (data) {
                     if (!information.status || information.status.toLowerCase() == 'open') {
                         jobParseByStatus(data.data, obj.user_type)

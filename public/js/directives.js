@@ -140,7 +140,6 @@ XYZCtrls.directive("passwordVerify", function () {
                 if (value) {
                     ctrl.$parsers.unshift(function (viewValue) {
                         var origin = scope.passwordVerify;
-                        console.log(origin, viewValue, scope.passwordVerify);
 
                         if (origin !== viewValue) {
                             ctrl.$setValidity("passwordVerify", false);
@@ -219,7 +218,7 @@ XYZCtrls.directive('openJobSeller', function () {
         controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
             scope.open = ['Job Title', 'Client name', 'View Application', 'Status', 'Date Applied', 'Action'];
             scope.action = function (id, type) {
-                console.log('da', id, type)
+                // console.log('da', id, type)
             };
 
 
@@ -239,14 +238,14 @@ XYZCtrls.directive('openJobBuyer', function () {
         controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
             scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
             scope.action = function (id, type) {
-                console.log('da', id, type)
+                // console.log('da', id, type)
             };
             scope.rejectJob = function (id) {
                 http.get('/api/job-apply/reject/' + id).then(function (resp) {
-                    console.log('resp', resp);
+                    // console.log('resp', resp);
                     scope.jobs = resp.data.data
                 }, function (err) {
-                    console.log('err', err)
+                    // console.log('err', err)
                 })
             };
 
@@ -310,14 +309,14 @@ XYZCtrls.directive('allJobsBuyer', function () {
         controller: ['$scope', '$http', 'ModalService', '$location', '$timeout', function (scope, http, ModalService, location, $timeout) {
             scope.open = ['Job Title', 'Service Provider', 'View Response', 'Status', 'Date Applied', 'Action'];
             scope.action = function (id, type) {
-                console.log('da', id, type)
+                // console.log('da', id, type)
             };
             scope.rejectJob = function (id) {
                 http.get('/api/job-apply/reject/' + id).then(function (resp) {
-                    console.log('resp', resp)
+                    // console.log('resp', resp)
                     scope.jobs = resp.data.data
                 }, function (err) {
-                    console.log('err', err)
+                    // console.log('err', err)
                 })
             };
 
@@ -637,9 +636,9 @@ XYZCtrls.directive("chatForm", function () {
             };
 
             function afterSend(msg, isFile, files) {
-                console.log('HERE',scope.chatRoom,user);
+                // console.log('HERE',scope.chatRoom,user);
                 http.post('/chat/email', {chatRoom:scope.chatRoom,user:user}).then(function (resp) {
-                    console.log('For email',resp)
+                    // console.log('For email',resp)
                 });
                 msg = isFile ? scope.parseMessageWithFile(msg, files) : scope.parseMessage(msg);
                 socket.emit('post msg', {msg: msg, room: scope.chatRoom});

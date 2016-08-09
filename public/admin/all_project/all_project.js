@@ -36,8 +36,7 @@ angular.module('admin.all_project', [
                 $scope.configPagination.currentPage = skip;
                 cb
             }, function (err) {
-                console.log('err', err)
-            })
+                notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});            })
         };
 
 
@@ -174,8 +173,7 @@ angular.module('admin.all_project', [
                     $scope.all_projects = resp.data.data.data;
                     $scope.configPagination.totalCount = resp.data.data.count;
                 }, function (err) {
-                    console.log('err', err)
-                })
+                    notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});                })
             })
         }
 

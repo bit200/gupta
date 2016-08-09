@@ -251,8 +251,7 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         $http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
             scope.questionnaire = resp.data.data;
         }, function (err) {
-            console.log('err', err)
-        });
+            notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});        });
         scope.active_profile_menu = 'pricing';
         scope.loading = true;
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {

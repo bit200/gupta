@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('favoriteCtrl', ['$scope', '$rootScope', '$location', '$http', 'ModalService', '$timeout', 'AuthService', function (scope, rootScope, location, http, ModalService, $timeout, AuthService) {
+XYZCtrls.controller('favoriteCtrl', ['$scope', '$rootScope', '$location', '$http', 'ModalService', '$timeout', 'AuthService', 'notify', function (scope, rootScope, location, http, ModalService, $timeout, AuthService, notify) {
     scope.loading = true;
     scope.getFreelancer = function(){
         scope.loading = true;
@@ -11,7 +11,7 @@ XYZCtrls.controller('favoriteCtrl', ['$scope', '$rootScope', '$location', '$http
             console.log(resp)
         }, function (err) {
             scope.loading = false;
-            console.log('err', err)
+            notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
         })
     };
     
@@ -24,7 +24,7 @@ XYZCtrls.controller('favoriteCtrl', ['$scope', '$rootScope', '$location', '$http
             console.log(scope.profiles)
         }, function (err) {
             scope.loading = false;
-            console.log('err', err)
+            notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
         })
     }
 }]);

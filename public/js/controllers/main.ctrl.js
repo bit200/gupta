@@ -24,13 +24,11 @@ angular.module('XYZCtrls').controller('MainCtrl', ['$scope', '$rootScope', '$loc
     
     scope.setActiveProvider = function(key, provider){
 
-        console.log('ssdf', $rootScope.activeProvider)
         $rootScope.activeProvider = {
             name: angular.copy(key),
             values: angular.copy(provider)
         };
 
-        console.log('zxczxczx',$rootScope.activeProvider)
 
 
     };
