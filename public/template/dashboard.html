@@ -29,7 +29,7 @@
                 <md-button class="md-raised regular-button" ng-show="currentFreelancer()" ui-sref="freelancer_registration" style="padding-top: 10px">UPDATE MY PROFILE</md-button>
             </section>
         </div>
-        <div class="col-md-3">
+        <div ng-if="asView.seller==true" class="col-md-3">
             <div class="useful-links-section">
                 <div class="useful-links-title">USEFUL LINKS</div>
                 <div class="useful-links-body">
