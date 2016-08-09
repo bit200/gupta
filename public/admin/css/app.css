@@ -59,3 +59,19 @@
 .inline-block {
     display: inline-block !important;
 }
+
+.agency-type {
+    display: inline-block;
+    background: #EA9F34;
+    padding: 0px 10px 3px;
+    border-radius: 3px;
+    color: white;
+}
+
+.freelancer-type {
+    display: inline-block;
+    background: #49BEEC;
+    padding: 0px 10px 3px;
+    border-radius: 3px;
+    color: white;
+}

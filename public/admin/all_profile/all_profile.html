@@ -1,9 +1,9 @@
 <div class="marginT30">
     <div style="margin-top: 20px">
         <div ng-init="display.type = 'freelancers'; check('freelancers')" class="text-center">
-            <md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block">
-                <md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block">Freelancers</md-radio-button>
-                <md-radio-button ng-class="{active_tab: display.type == 'users'}" ng-click="check('users')" value="users" style="margin-left: 50px;display:inline-block">Users</md-radio-button>
+            <md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
+                <md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block" style="outline: none">Freelancers</md-radio-button>
+                <md-radio-button ng-class="{active_tab: display.type == 'users'}" ng-click="check('users')" value="users" style="margin-left: 50px;display:inline-block;outline: none">Users</md-radio-button>
             </md-radio-group>
         </div>
         <h2 ng-if="!all_profiles.length" class="text-center">No accounts</h2>
@@ -22,7 +22,7 @@
                 <tbody>
                 <tr ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
                     <td>{{all_profile.name}}</td>
-                    <td>{{all_profile.type}}</td>
+                    <td><div ng-class="{'agency-type':all_profile.type=='agency', 'freelancer-type':all_profile.type=='freelancer'}">{{all_profile.type}}</div></td>
                     <td>{{all_profile.location}}</td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
