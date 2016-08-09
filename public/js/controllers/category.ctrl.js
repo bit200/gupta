@@ -88,7 +88,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                             scope.checkRating = 'more';
                     },
                     onEnd: function (r) {
-                        scope.checkRating == 'more' ? scope.ownFilter.rating = {'$gte':scope.slider.rating.value} : scope.ownFilter.rating = {'$lte':scope.slider.rating.value};
+                        scope.checkRating == 'more' ? scope.ownFilter.rating = {'$gte': scope.slider.rating.value} : scope.ownFilter.rating = {'$lte': scope.slider.rating.value};
                         scope.submitFilter(scope.ownFilter);
                     }
                 }
@@ -111,7 +111,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                             scope.checkViews = 'more';
                     },
                     onEnd: function (r) {
-                        scope.checkViews == 'more' ? scope.ownFilter.views = {'$gte':scope.slider.views.value} : scope.ownFilter.views = {'$lte':scope.slider.views.value};
+                        scope.checkViews == 'more' ? scope.ownFilter.views = {'$gte': scope.slider.views.value} : scope.ownFilter.views = {'$lte': scope.slider.views.value};
                         scope.submitFilter(scope.ownFilter);
                     }
                 }
@@ -176,7 +176,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             if (filter.location)
                 filter.location = {$in: filter.location};
 
-            if (scope.date && scope.date.start){
+            if (scope.date && scope.date.start) {
                 filter.created_at = filter.created_at || {};
                 filter.created_at['$gte'] = scope.date.start
             }
@@ -187,10 +187,10 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             }
 
             if (scope.checkRating) {
-                scope.checkRating == 'more' ? filter.rating = {'$gte':scope.slider.rating.value} : filter.rating = {'$lte':scope.slider.rating.value};
+                scope.checkRating == 'more' ? filter.rating = {'$gte': scope.slider.rating.value} : filter.rating = {'$lte': scope.slider.rating.value};
             }
             if (scope.checkViews) {
-                scope.checkViews == 'more' ? filter.views = {'$gte':scope.slider.views.value} : filter.views = {'$lte':scope.slider.views.value};
+                scope.checkViews == 'more' ? filter.views = {'$gte': scope.slider.views.value} : filter.views = {'$lte': scope.slider.views.value};
             }
             if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length) {
                 var t = {
@@ -244,7 +244,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
     }]);
 
 XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService', '$state',
-    function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService,$state) {
+    function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService, $state) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.questions = _.uniq(_.pluck(angular.copy(scope.viewProfile.service_providers), 'type'));
@@ -279,15 +279,19 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
             scope.loading = false;
         });
 
-        scope.createChat = function (id) {
-            $http.post('/api/create/chat', {params:{buyer:AuthService.userId(), seller:id}}).then(function(resp){
-                localStorage.setItem('currentChat', resp.data.data._id);
-                $state.go('messages', {_id: resp.data.data._id});
-            })
+        scope.createChat = function (id, name) {
+            if (AuthService.isLogged()) {
+                $http.post('/api/create/chat', {params: {buyer: AuthService.userId(), seller: id, name: name}}).then(function (resp) {
+                    localStorage.setItem('currentChat', resp.data.data._id);
+                    $state.go('messages', {_id: resp.data.data._id});
+                })
+            } else {
+                $state.go('login')
+            }
         };
-        
-        scope.replaceAlt = function(str){
-          return str.replace('&',', ');
+
+        scope.replaceAlt = function (str) {
+            return str.replace('&', ', ');
         };
         scope.openExtra = function (pkg) {
             ModalService.showModal({

@@ -12,6 +12,7 @@ module.exports = function (app) {
     
     app.get('/api/freelancer/:id', freelancer.get_freelancer);
     app.get('/api/freelancers', freelancer.get_freelancers);
+    app.get('/api/freelancers/count', freelancer.get_freelancers_count);
     app.get('/api/freelancers/count_rating', freelancer.get_freelancers);
     app.get('/freelancer/rating', freelancer.get_freelancer_rating);
     app.get('/freelancer/review', freelancer.get_freelancer_review);

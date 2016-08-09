@@ -99,7 +99,7 @@
                                                 <span ng-if="viewProfile.price.word" class="text-bold">{{viewProfile.price.word}} / Word</span>
                                             </td>
                                             <td style="width: 25%">
-                                                <button class="btn button-profile" ng-click="createChat(viewProfile.user)">Request a Quote</button>
+                                                <button class="btn button-profile" ng-click="createChat(viewProfile.user, viewProfile.name)">Request a Quote</button>
                                             </td>
                                         </tr>
                                     </table>
@@ -149,9 +149,9 @@
                                                 <div style="padding: 10px 10px 0; color: #777">{{pkg.description}}</div>
                                                 <div style="color: #000000;padding: 0px 10px 10px; margin-top: 10px">
                                                     <b><i class="fa fa-inr" aria-hidden="true"></i>{{pkg.pricing}} / Monthly</b></div>
-                                                <md-button class="md-raised regular-button" style="min-height: 24px; line-height: 24px;  font-size: 14px !important;
+                                                <button class="btn button-profile" style="min-height: 24px; line-height: 24px;  font-size: 14px !important;
                                                     height: 32px; margin-bottom: 20px;  margin-left: 10px !important; width: 30%; padding: 0 !important;" ng-click="openExtra(pkg)"> ADD TO CART
-                                                </md-button>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

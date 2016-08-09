@@ -580,11 +580,13 @@ div.text-padding {
     text-align: center !important;
     padding-left: 50px !important;
     padding-right: 50px !important;
+    border-bottom: 4px solid #c1b8b8;
 }
 
 
 .button-profile:hover {
     background-color: #EA2B29;
+    border-bottom: 4px solid #bc2725;
     color: white !important;
     bottom: 5px;
     box-shadow: 5px 5px 6px 0 #cccbcb;

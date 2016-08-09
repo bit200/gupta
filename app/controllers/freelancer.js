@@ -57,6 +57,10 @@ exports.get_count_rating = function (req, res) {
     })
 };
 
+exports.get_freelancers_count = function (req, res) {
+    m.count(models.Freelancer, {}, res, res)
+};
+
 exports.get_freelancers = function (req, res) {
     var params = req.query;
     params.registrationStatus = 1;
@@ -67,19 +71,24 @@ exports.get_freelancers = function (req, res) {
             $exists: params["service_packages.0"] == 'true'
         }
     }
+    if (params.location)
+        params.location = new RegExp(params.location, "i");
+    if (params.name)
+        params.name = new RegExp(params.name, "i");
     if (params.count) {
         delete params.count;
-        models.Freelancer.count(params).exec(function (err, count) {
-            res.json(count)
-        });
+        
+        m.count(models.Freelancer, params, res, res);
+        // models.Freelancer.count(params).exec(function (err, count) {
+        //     res.json(count)
+        // });
     } else {
-        var skip = (parseInt(params.page || 1) - 1) * 10;
+        var skip = (parseInt(params.skip || 1));
         var limit = parseInt(params.limit) || 10;
-        delete params.page;
+        delete params.skip;
         delete params.limit;
 
-        // if ('service_provider')
-        console.log(params)
+        log('###########', skip, limit)
         m.find(models.Freelancer, params, res, function (freelancer) {
             m.scb(freelancer, res)
         }, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-sorted -views'})

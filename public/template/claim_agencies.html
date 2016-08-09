@@ -1,123 +1,128 @@
 <div class="claim">
     <div class="container">
         <div>
-        <div class="row div-background">
-            <div class="background-img-top"></div>
-            <div class="background-img-top-text"><h3>Claim your Agency</h3></div>
-        </div>
-        <div class="row">
-            <div class="text-center  "><h3 class="h3">Find and Claim your Agency Page</h3></div>
-        </div>
-        <div class="row claim-sear">
-            <div class="col-md-offset-2 col-md-8 search-div">
-                <div class="col-md-4 col-xs-12">
-                    <md-input-container md-no-float="" class="md-block">
-                        <input class="form-control search-input" name="description" ng-model="search.location"
-                               placeholder="City">
-                    </md-input-container>
-                </div>
-                <div class="col-md-8 col-xs-12">
-                    <md-input-container md-no-float="" class="md-block">
-                        <input class="form-control search-input" name="description" ng-model="search.name"
-                               placeholder="Agency name">
-                    </md-input-container>
-                    <a class="search-link"><span class="glyphicon glyphicon-search"></span></a>
-                </div>
+            <div class="row div-background">
+                <div class="background-img-top"></div>
+                <div class="background-img-top-text"><h3>Claim your Agency</h3></div>
             </div>
-        </div>
-        <div class="row paddingB40">
-            <div class="col-md-offset-2 col-md-8">
-                <table class="table col-xs-12 claim-table marginT20">
-
-                    <thead>
-                    <th class="text-center">Logo</th>
-                    <th class="text-center">Agency Name</th>
-                    <th class="text-center">Service Category</th>
-                    <th class="text-center">Address</th>
-                    <th class="text-center">Status</th>
-                    </thead>
-
-                    <tbody>
-                     <tr ng-if="loading">
-                         <td colspan="5">
-                             <loading w="30" h="30"></loading>
-                         </td>
-                     </tr>
-                     <tr ng-repeat="item in agencies" ng-if="!loading">
-                        <td class="text-center"><img ng-src="{{item.contact_detail.preview}}" style="max-width: 50px"/>
-                        </td>
-                        <td class="text-center">{{item.name}}</td>
-                        <td class="text-center"><span ng-repeat="type in item.service_providers">{{type.type}}<span
-                                ng-if="!$last">, </span> </span></td>
-                        <td class="text-center">{{item.location}}</td>
-                        <td class="text-center">
-                            <div ng-show="!item.business_account">
-                                <span ng-show="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 0}).length">Pending</span>
-                                <span ng-show="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 1}).length">Claimed</span>
-                                <button ng-hide="(businessAccounts | filter:{agency: item._id,  user: current_user._id}).length"
-                                        ng-click="claim(item)" class="btn btn-claim">Claim
-                                </button>
-                            </div>
-                            <span ng-show="item.business_account">Claimed</span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="text-center" ng-show="!loading">
-                    <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
-                </div>
+            <div class="row">
+                <div class="text-center  "><h3 class="h3">Find and Claim your Agency Page</h3></div>
             </div>
-        </div>
-
-        <div class="claimAgencyPage">
-            <div class="row question">
-                <div class="h3 text-center padding10">Why you should claim your agency page?</div>
-            </div>
-            <div class="row paddingLR20">
-                <div class="col-xs-12 col-sm-4">
-                    <div class="claim-question-block">
-                        <div class="claim-question-block-answer">
-                            <img src="/img/Shape1_0.png">
-                            <div class="text-bold padding10">MANAGE YOUR OWN AGENCY PROFILE
-                            </div>
-                        </div>
-                        <div class="claim-question-block-rede">Update information about your agency such as website URL,
-                            services that you offer, past
-                            clients,
-                            and
-                            samples of
-                            your work.
-                        </div>
+            <div class="row claim-sear">
+                <div class="col-md-offset-2 col-md-8 search-div">
+                    <div class="col-md-4 col-xs-12">
+                        <md-input-container md-no-float="" class="md-block">
+                            <input class="form-control search-input" name="description" ng-model="search.location" ng-keyup="searchFreelancer(search)" placeholder="City">
+                        </md-input-container>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="claim-question-block">
-                        <div class="claim-question-block-answer">
-                            <img src="/img/Shape1_0.png">
-                            <div class="text-bold padding10"> RESPOND TO JOBS
-
-                            </div>
-                        </div>
-                        <div class="claim-question-block-rede">Apply for jobs posted by businesses and communicate
-                            directly with then
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="claim-question-block">
-                        <div class="claim-question-block-answer">
-                            <img src="/img/Forma1_8.png">
-                            <div class="text-bold padding10">ANALYTICS (COMING SOON)
-
-                            </div>
-                        </div>
-                        <div class="claim-question-block-rede">Keep a track of visitors and engagement on your agency
-                            profile page.
-                        </div>
+                    <div class="col-md-8 col-xs-12">
+                        <md-input-container md-no-float="" class="md-block">
+                            <input class="form-control search-input" name="description" ng-model="search.name" ng-keyup="searchFreelancer(search)" placeholder="Agency name">
+                        </md-input-container>
+                        <a class="search-link"><span class="glyphicon glyphicon-search"></span></a>
                     </div>
                 </div>
             </div>
+            <div class="row paddingB40">
+                <div class="col-md-offset-2 col-md-8">
+                    <table class="table col-xs-12 claim-table marginT20">
+
+                        <thead>
+                        <th class="text-center">Logo</th>
+                        <th class="text-center">Agency Name</th>
+                        <th class="text-center">Service Category</th>
+                        <th class="text-center">Address</th>
+                        <th class="text-center">Status</th>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-if="loading">
+                            <td colspan="5">
+                                <loading w="30" h="30"></loading>
+                            </td>
+                        </tr>
+                        <tr ng-if="!agencies.length && !loading">
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><h3>Agency not found</h3></td>
+                            <td></td>
+                        </tr>
+                        <tr ng-repeat="item in agencies" ng-if="!loading">
+
+                            <td class="text-center"><img ng-src="{{item.contact_detail.preview}}" style="max-width: 50px"/>
+                            </td>
+                            <td class="text-center">{{item.name}}</td>
+                            <td class="text-center"><span ng-repeat="type in item.service_providers">{{type.type}}<span
+                                    ng-if="!$last">, </span> </span></td>
+                            <td class="text-center">{{item.location}}</td>
+                            <td class="text-center">
+                                <div ng-show="!item.business_account">
+                                    <span ng-show="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 0}).length">Pending</span>
+                                    <span ng-show="(businessAccounts | filter:{agency: item._id,  user: current_user._id, status: 1}).length">Claimed</span>
+                                    <button ng-hide="(businessAccounts | filter:{agency: item._id,  user: current_user._id}).length"
+                                            ng-click="claim(item)" class="btn btn-claim">Claim
+                                    </button>
+                                </div>
+                                <span ng-show="item.business_account">Claimed</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center" ng-show="!loading">
+                        <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="claimAgencyPage">
+                <div class="row question">
+                    <div class="h3 text-center padding10">Why you should claim your agency page?</div>
+                </div>
+                <div class="row paddingLR20">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="claim-question-block">
+                            <div class="claim-question-block-answer">
+                                <img src="/img/Shape1_0.png">
+                                <div class="text-bold padding10">MANAGE YOUR OWN AGENCY PROFILE
+                                </div>
+                            </div>
+                            <div class="claim-question-block-rede">Update information about your agency such as website URL,
+                                services that you offer, past
+                                clients,
+                                and
+                                samples of
+                                your work.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="claim-question-block">
+                            <div class="claim-question-block-answer">
+                                <img src="/img/Shape1_0.png">
+                                <div class="text-bold padding10"> RESPOND TO JOBS
+
+                                </div>
+                            </div>
+                            <div class="claim-question-block-rede">Apply for jobs posted by businesses and communicate
+                                directly with then
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="claim-question-block">
+                            <div class="claim-question-block-answer">
+                                <img src="/img/Forma1_8.png">
+                                <div class="text-bold padding10">ANALYTICS (COMING SOON)
+
+                                </div>
+                            </div>
+                            <div class="claim-question-block-rede">Keep a track of visitors and engagement on your agency
+                                profile page.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
     </div>
 </div>
