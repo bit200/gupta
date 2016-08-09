@@ -181,11 +181,12 @@
             </md-input-container>
         </div>
     </div>
-    <div ng-if="job.questionnaries" class="jheader" open>
+    <div ng-if="job.questionnaries.length" class="jheader" open>
         Job Questionnaire
     </div>
     <div class="jbody">
         <div>
+            <div></div>
             <div ng-repeat="(i,question) in job.questionnaries">
                 <h3>{{question.question}}</h3>
                 <div ng-show="!question.items.length && !question.answer_items">
