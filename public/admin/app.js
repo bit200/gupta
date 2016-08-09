@@ -32,6 +32,7 @@ angular.module('admin', [
     }])
 
     .run(["$rootScope", "$state", "store", "jwtHelper", function ($rootScope, $state, store, jwtHelper) {
+        $rootScope.loadData = false;
         $rootScope.$on('$stateChangeStart', function (e, to) {
             if (to.data && to.data.requiresLogin) {
                 if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
@@ -47,7 +48,7 @@ angular.module('admin', [
     .controller('AppCtrl', ["$scope", "$location", '$rootScope', "$state", 'store', function AppCtrl($scope, $location, $rootScope, $state, store) {
         $scope.$state = $state;
         $scope.name = store.get('name');
-        console.log($state)
+        $rootScope.loadData = true;
         $scope.logout = function () {
             $rootScope.isLogged = false;
             store.remove('jwt');

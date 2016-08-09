@@ -55,3 +55,7 @@
     border-top: 5px solid #4B8DBA;
     background: white;
 }
+
+.inline-block {
+    display: inline-block !important;
+}

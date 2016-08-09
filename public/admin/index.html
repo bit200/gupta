@@ -107,7 +107,7 @@
             </a>
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
-                    <li ng-if="name.length">
+                    <li ng-class="{'inline-block':loadData}" style="display: none">
                         <div class="name-admin"><i class="fa fa-circle green" aria-hidden="true"></i>  {{name}}</div>
                     </li>
                     <li class="dropdown">
@@ -198,7 +198,7 @@
         </div>
         <div class="page-content-wrapper">
             <div class="page-content" style="min-height:1144px;">
-                <div style="margin-bottom: 10px;font-size: 16px;">{{$state.current.data.name}}</div>
+                <div ng-class="{'inline-block':loadData}" style="margin-bottom: 10px;font-size: 16px; display: none">{{$state.current.data.name}}</div>
                 <div class="ui-block" ui-view></div>
             </div>
         </div>
