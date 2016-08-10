@@ -87,7 +87,9 @@ angular.module('admin.all_profile', [
                 controller: function ($scope, $element, $http) {
                     $scope.submit = function () {
                         spliceItem(index);
-                        $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}})
+                        $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}}).then(function(){
+                            $scope.close()
+                        })
                     };
                     $scope.close = function (res) {
                         $element.modal('hide');
