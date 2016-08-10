@@ -325,50 +325,71 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-4">
-                    <md-checkbox ng-model="addService" class="md-warn" ng-init="addService = !!freelancer.service_packages.length">
-                        <span>Packaged Services(?)</span>
-                    </md-checkbox>
-                </div>
-                <div class="col-xs-8">
-                    <a class="create-package-word pointer" ng-click="createPackage()">
-                        Create Packages
-                    </a>
-                </div>
-            </div>
-            <div class="row" ng-if="freelancer.service_packages.length">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <td>Preview</td>
-                        <td>Title</td>
-                        <td>Price</td>
-                        <td style="width: 100px">Action</td>
-                    </tr>
-                    <tr ng-repeat="elem in freelancer.service_packages">
-                        <td><img style="max-height: 70px;" ng-if="elem.preview.url" ng-src="{{elem.preview.url}}"></td>
-                        <td>{{elem.title}}</td>
-                        <td>{{elem.pricing}}</td>
-                        <td style="width: 100px">
-                            <ng-md-icon icon="cancel" ng-click="delete_package(elem)" style="fill: red;cursor: pointer"></ng-md-icon>
-                            <ng-md-icon icon="mode_edit" ng-click="editPackage(elem, $index);show.pkgModal=true" style="fill: #63acff;cursor: pointer"></ng-md-icon>
-                        </td>
-                    </tr>
+            
+            <h4 class="info-title">Please specify pricing for your services</h4>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <md-checkbox ng-click="priceHour=false;service=false;freelancer.price.hour=''"
+                                     ng-model="priceWord"
+                                     class="margin-top-8 md-warn">Rs. Per word
+                        </md-checkbox>
+                    </div>
+                    <div class="col-xs-9">
+                        <md-input-container class="md-block">
+                            <input class='form-control' numbers-only ng-disabled="!priceWord"
+                                   ng-init="priceWord=!!freelancer.price.word"
+                                   ng-model="freelancer.price.word" aria-label="Price Word">
 
-                </table>
-            </div>
-            <div class="row">
-                <div class="col-xs-3">
-                    <md-checkbox ng-click="freelancer.price.word = '';" ng-model="priceHour" class="margin-top-8 md-warn">Rs. Per hour
-                    </md-checkbox>
+                        </md-input-container>
+                    </div>
                 </div>
-                <div class="col-xs-9">
-                    <md-input-container class="md-block">
-                        <input class='form-control' numbers-only ng-disabled="!priceHour"
-                               ng-init="priceHour=!!freelancer.price.hour"
-                               ng-model="freelancer.price.hour" aria-label="Price Hour">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <md-checkbox ng-click="freelancer.price.word = '';" ng-model="priceHour" class="margin-top-8 md-warn">Rs. Per hour
+                        </md-checkbox>
+                    </div>
+                    <div class="col-xs-9">
+                        <md-input-container class="md-block">
+                            <input class='form-control' numbers-only ng-disabled="!priceHour"
+                                   ng-init="priceHour=!!freelancer.price.hour"
+                                   ng-model="freelancer.price.hour" aria-label="Price Hour">
 
-                    </md-input-container>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <md-checkbox ng-model="addService" class="md-warn" ng-init="addService = !!freelancer.service_packages.length">
+                            <span>Packaged Services(?)</span>
+                        </md-checkbox>
+                    </div>
+                    <div class="col-xs-8">
+                        <a class="create-package-word pointer" ng-click="createPackage()">
+                            Create Packages
+                        </a>
+                    </div>
+                </div>
+                <div class="row" ng-if="freelancer.service_packages.length">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>Preview</td>
+                            <td>Title</td>
+                            <td>Price</td>
+                            <td style="width: 100px">Action</td>
+                        </tr>
+                        <tr ng-repeat="elem in freelancer.service_packages">
+                            <td><img style="max-height: 70px;" ng-if="elem.preview.url" ng-src="{{elem.preview.url}}"></td>
+                            <td>{{elem.title}}</td>
+                            <td>{{elem.pricing}}</td>
+                            <td style="width: 100px">
+                                <ng-md-icon icon="cancel" ng-click="delete_package(elem)" style="fill: red;cursor: pointer"></ng-md-icon>
+                                <ng-md-icon icon="mode_edit" ng-click="editPackage(elem, $index);show.pkgModal=true" style="fill: #63acff;cursor: pointer"></ng-md-icon>
+                            </td>
+                        </tr>
+
+                    </table>
+
                 </div>
             </div>
             <div class="row">
