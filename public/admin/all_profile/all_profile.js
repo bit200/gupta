@@ -31,6 +31,7 @@ angular.module('admin.all_profile', [
     .controller('AllProfileCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.selectFilter = 'pending';
         $scope.locations = getContent.location.data.data;
+        $scope.display = {type : 'freelancers'};
         $scope.getFreelancer = function (skip, limit) {
             var _skip = skip ? (skip - 1) * $scope.configPagination.countByPage : 0;
             $http.get('/admin/api/all/freelancer', {params: {limit: limit || $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
@@ -38,6 +39,7 @@ angular.module('admin.all_profile', [
                 $scope.all_profiles = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
                 $scope.configPagination.currentPage = skip;
+                console.log('1', $scope.display)
             }, function (err) {
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
@@ -81,13 +83,14 @@ angular.module('admin.all_profile', [
             })
         };
 
-        $scope.reject = function (item, index) {
+        $scope.reject = function (item, index, type) {
             ModalService.showModal({
                 templateUrl: "delete_modal.html",
                 controller: function ($scope, $element, $http) {
+                    console.log(type)
                     $scope.submit = function () {
                         spliceItem(index);
-                        $http.delete('/admin/api/' + $scope.display.type, {params: {_id: item._id}}).then(function(){
+                        $http.delete('/admin/api/' + type, {params: {_id: item._id}}).then(function(){
                             $scope.close()
                         })
                     };

@@ -30,7 +30,7 @@
                     <td>
                         <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}"  class="pointer fa fa-star inline-block" style="outline: none"></span></button>
                         <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span  class="pointer fa fa-pencil inline-block"></span></button>
-                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index)"><span  class="pointer fa fa-trash-o"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span  class="pointer fa fa-trash-o"></span></button>
                     </td>
                 </tr>
                 </tbody>
@@ -60,7 +60,7 @@
                     <td>{{all_profile.created_at}}</td>
                     <td>
                         <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
-                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index)"><span class="pointer fa fa-trash-o"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span class="pointer fa fa-trash-o"></span></button>
                     </td>
                 </tr>
                 </tbody>
