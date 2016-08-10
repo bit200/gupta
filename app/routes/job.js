@@ -29,6 +29,7 @@ module.exports = function (app) {
     // app.get('/api/job/detailed/me/:_id', auth.token, job.job_detailed_me)
     
     
+    app.get('/api/jobs', job.job);
     app.get('/api/jobs/filter', job.filter_job);
 
     app.get('/job/favorite/add', auth.token, job.add_favorite);

@@ -1,0 +1,38 @@
+<div style="margin: 20px 0">
+    <button class="btn btn-default" ng-click="add_default(  )">Create default headers</button>
+</div>
+<div>
+    <div>
+        <div ng-show="!headers.length">
+            <h3>Header texts not found. Create default headers.</h3>
+        </div>
+        <table class="table table-bordered table-hover" ng-show="headers.length">
+            <thead>
+            <tr>
+                <th class="text-bold pointer">Service provider</th>
+                <th class="text-bold pointer">Title</th>
+                <th class="text-bold pointer">Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in headers">
+                <td>{{item.type}}</td>
+                <td>{{item.title}} </td>
+                <td>{{item.description}}</td>
+                <td>
+                    <button class="btn btn-sm btn-pencil white"  ng-click="changeItem(item)"><span class="pointer fa fa-pencil inline-block"></span></button>
+                    <button class="btn btn-sm btn-times white" ng-click="delete_question(item, $index)"><span class="pointer fa fa-trash-o"></span></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="text-center" ng-show="headers.length">
+    <div custom-pagination="configPagination" cb="cb()"></div>
+</div>
+
+

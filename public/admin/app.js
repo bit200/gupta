@@ -5,6 +5,7 @@ angular.module('admin', [
     'admin.categories',
     'admin.locations',
     'admin.dashboard',
+    'admin.header_text',
     'admin.all_profile',
     'admin.all_project',
     'admin.business_accounts',

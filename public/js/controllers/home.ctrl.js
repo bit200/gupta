@@ -10,12 +10,23 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         scope.cancelRegistration = function () {
             location.path('/')
         };
+        
         if($state.current.name == 'how_it_work'){
             scope.howItWorks = true;
-            scope.mainPage = true;
-
+            scope.mainPage = false;
+            http.get('/api/header', {params:{type:$rootScope.activeProvider.name || ''}}).then(function(resp){
+                scope.header = resp.data.data
+                http.get('api/freelancers', {params: {'service_providers.type':scope.header.type}}).then(function(resp){
+                    scope.profiles = parseRating.views(resp.data.data)
+                });
+                http.get('/api/jobs', {params:{type_category:scope.header.type}}).then(function (resp) {
+                    scope.jobs = resp.data.data
+                })
+            })
+        } else {
+            scope.jobs = getContent.jobs.data.data;
+            scope.profiles = parseRating.views(getContent.sellers.data.data);
         }
-
 
         scope.link = function (url) {
             location.path(url)
@@ -43,8 +54,8 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         };
 
 
-        scope.jobs = getContent.jobs.data.data;
-        scope.profiles = parseRating.views(getContent.sellers.data.data);
+        // scope.jobs = getContent.jobs.data.data;
+        // scope.profiles = parseRating.views(getContent.sellers.data.data);
         scope.viewServiceProvider = function (item) {
             ModalService.showModal({
                 templateUrl: "template/modal/postJobOrViewService.html",

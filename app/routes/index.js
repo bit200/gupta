@@ -16,6 +16,9 @@ module.exports = function (app) {
     
     app.get('/get-agency', auth.checkIfUser, index.get_agency);
     app.get('/get-client',auth.token, index.get_client);
+    
+    
+    app.get('/api/header', index.header_text);
 
 };
 

@@ -92,6 +92,18 @@ function checkObj(arr, objName) {
     return result;
 }
 
+exports.header_text = function (req, res) {
+    var params = m.getBody(req);
+    if(!params.type) {
+        m.findOne(models.Filters, {order: 0}, {}, function(filter){
+            m.findOne(models.HeaderText, {type:filter.type},res,res)
+        })
+    } else {
+        m.findOne(models.HeaderText, {type:params.type},res,res)
+    }
+
+};
+
 exports.get_client = function (req, res) {
     m.find(models.Client, {}, res, res)
 };

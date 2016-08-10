@@ -238,9 +238,12 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     label: ' ',
                     hideType: true
                 },
+                data: {
+                    how_it_work: true
+                },
                 resolve: {
                     getContent: ["$q", "$http", function ($q, $http) {
-                        return $q.all({
+                        return $q.all({ 
                             sellers: $http.get('/api/freelancers?page=1&limit=8', {}),
                             locations: $http.get('/get-content', {
                                 params: {

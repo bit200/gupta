@@ -1,0 +1,30 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="rejectForm" novalidate>
+                <div class="modal-body">
+                    <h2 class="text-center">Change information</h2>
+                        <h4>Type</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control border-grey" name="fname"  ng-model="item.type" style="color: black">
+                        </md-input-container>
+
+                        <h4>Title</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control border-grey" name="lname" ng-model="item.title" style="color: black">
+                        </md-input-container>
+
+                        <h4>Description</h4>
+                        <md-input-container class="md-block">
+                            <input class="form-control border-grey" name="lname" ng-model="item.description" style="color: black">
+                        </md-input-container>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" ng-click="submit(item);">Submit</button>
+                        <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

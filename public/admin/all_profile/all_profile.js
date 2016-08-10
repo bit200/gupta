@@ -28,7 +28,7 @@ angular.module('admin.all_profile', [
         });
     })
 
-    .controller('AllProfileCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService, getContent) {
+    .controller('AllProfileCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.selectFilter = 'pending';
         $scope.locations = getContent.location.data.data;
         $scope.getFreelancer = function (skip, limit) {
@@ -125,6 +125,5 @@ angular.module('admin.all_profile', [
 
             });
         }
-
-    })
+    });
     

@@ -4,6 +4,7 @@ var models = require('../db')
     , mail = require('../mail')
     , _ = require('lodash')
     , jwt = require('jsonwebtoken')
+    , async = require('async')
     , Admin = models.Admin
     , mkdirp = require('mkdirp');
 var randomstring = require("randomstring");
@@ -201,6 +202,30 @@ exports.change_order = function (req, res) {
             m.scb(data, res);
         })
     });
+};
+
+exports.get_header = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.HeaderText, {}, res, res, {sort:'_id',skip:params.skip, limit: params.limit})
+};
+
+exports.get_default_header = function (req, res) {
+    var params = m.getBody(req);
+    var arrFunc = [];
+    _.each(params.array, function(item){
+        arrFunc.push(function(cb){
+            m.findCreate(models.HeaderText, {type:item}, {}, cb, cb)
+        })
+    });
+   async.parallel(arrFunc, function(e,r){
+       m.scb('ok', res)
+   })
+
+};
+
+exports.update_header = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.HeaderText, {type: params.type}, params, res, res)
 };
 
 exports.edit_location = function (req, res) {

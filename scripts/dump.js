@@ -15,8 +15,6 @@ var date = new Date();
 
 
 function createUsers() {
-    console.log(date, "ahsahahahahaaha")
-    console.log('ZAWEL')
     for (var i = 0; i < 500; i++) {
         models.User.create({
             email: 'test@test' + i + '.com',
@@ -36,7 +34,6 @@ function createUsers() {
 function getRandomCategory() {
     var a = Math.floor(Math.random() * serviceProvider.length)
     var arr = [];
-    console.log("ZAWEL ajajaja")
     switch (a) {
         case 0:
             arr.push(serviceProvider[0])

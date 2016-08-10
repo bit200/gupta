@@ -78,6 +78,12 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
     }
 };
 
+exports.job = function (req, res) {
+    var params = m.getBody(req);
+    m.find(models.Job, params, res, res, {sort:'-created_at'})
+    
+};
+
 exports.get_info = function (req, res) {
     var params = req.params;
     m.findOne(models[params.model], {_id: params._id}, res, res)

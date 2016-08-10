@@ -35,7 +35,6 @@ exports.freelancer_request = function (req, res) {
 
 exports.get_questionnaire = function (req, res) {
     var params = m.getBody(req);
-    log('####', params)
     m.find(models.Questionnaire, params, res, res)
 };
 
@@ -83,12 +82,12 @@ exports.get_freelancers = function (req, res) {
         //     res.json(count)
         // });
     } else {
-        var skip = (parseInt(params.skip || 1));
+        var skip = (parseInt(params.skip || params.page || 1));
         var limit = parseInt(params.limit) || 10;
         delete params.skip;
+        delete params.page;
         delete params.limit;
 
-        log('###########', skip, limit)
         m.find(models.Freelancer, params, res, function (freelancer) {
             m.scb(freelancer, res)
         }, {populate: 'contact_detail', skip: skip, limit: limit, sort: '-sorted -views'})
