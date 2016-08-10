@@ -13,6 +13,7 @@ module.exports = function (app) {
     app.post('/admin/api/filter/add', _admin.create_filter);
     app.post('/admin/api/filter/order', _admin.change_order);
 
+    app.get('/admin/api/all', _admin.all);
     app.get('/admin/api/all/freelancer', _admin.all_freelancer);
     app.get('/admin/api/all/users', _admin.all_users);
     app.get('/admin/api/all/projects', _admin.all_projects);

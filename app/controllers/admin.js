@@ -100,6 +100,11 @@ exports.delete_filter = function (req, res) {
     });
 };
 
+exports.all = function (req, res) {
+    var params = m.getBody(req);
+    m.count(models[params.model], {}, res, res)
+};
+
 exports.all_projects = function (req, res) {
     var params = m.getBody(req);
     m.find(models.Job, {}, res, function (jobs) {

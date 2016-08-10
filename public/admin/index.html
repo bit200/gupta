@@ -129,6 +129,13 @@
                             <span></span>
                         </div>
                     </li>
+                    <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'dashboard'}">
+                        <a href="javascript:;" ui-sref="dashboard" class="nav-link nav-toggle">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <span class="title">Dashboard</span>
+                            <!--<span class="arrow arrow fa fa-angle-left"></span>-->
+                        </a>
+                    </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'all_profile'}">
                         <a href="javascript:;" ui-sref="all_profile" class="nav-link nav-toggle">
                             <i class="fa fa-users" aria-hidden="true"></i>
@@ -298,6 +305,7 @@
 <script type="text/javascript" src="login/login.js"></script>
 <script type="text/javascript" src="questionnaire/questionnaire.js"></script>
 <script type="text/javascript" src="report_transaction/report_transaction.js"></script>
+<script type="text/javascript" src="dashboard/dashboard.js"></script>
 <script type="text/javascript" src="all_project/all_project.js"></script>
 <script type="text/javascript" src="all_profile/all_profile.js"></script>
 <script type="text/javascript" src="components/confirm.js"></script>

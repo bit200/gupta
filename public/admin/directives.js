@@ -125,6 +125,23 @@ angular.module('directive', [])
             }
         }
     })
+    .directive('dashboardBlock', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '/admin/dashboard/dashboard.directive.html',
+            scope: {
+                total: "=",
+                urlCount: "=",
+                urlModel: "="
+            },
+            controller: ['$scope', '$http', function (scope, $http) {
+                console.log('asdasdasd', scope.urlCount);
+                $http.get(scope.urlCount, scope.urlModel).then(function(resp){
+                    scope.count = resp.data.data
+                })
+            }]
+        }
+    })
     .directive('questions', function () {
         return {
             restrict: 'E',
@@ -148,7 +165,7 @@ angular.module('directive', [])
                         delete elem.row
                     }
                 };
-                
+
 
                 scope.maxRoute = function (max) {
                     if (scope.question.row_number < max) {

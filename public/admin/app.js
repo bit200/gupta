@@ -4,6 +4,7 @@ angular.module('admin', [
     'admin.sellers',
     'admin.categories',
     'admin.locations',
+    'admin.dashboard',
     'admin.all_profile',
     'admin.all_project',
     'admin.business_accounts',
