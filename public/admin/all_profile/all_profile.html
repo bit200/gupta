@@ -22,13 +22,15 @@
                 <tbody>
                 <tr ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
                     <td>{{all_profile.name}}</td>
-                    <td><div ng-class="{'agency-type':all_profile.type=='agency', 'freelancer-type':all_profile.type=='freelancer'}">{{all_profile.type}}</div></td>
+                    <td>
+                        <div ng-class="{'agency-type':all_profile.type=='agency', 'freelancer-type':all_profile.type=='freelancer'}">{{all_profile.type}}</div>
+                    </td>
                     <td>{{all_profile.location}}</td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
-                        <span ng-class="{red:all_profile.sorted, black:!all_profile.sorted}" ng-click="getFavorite(all_profile, $index)" class="pointer fa fa-star inline-block" style="outline: none"></span>
-                        <span style="color: green" ng-click="getInformation(all_profile, display.type)" class="pointer fa fa-pencil inline-block"></span>
-                        <span ng-click="reject(all_profile, $index)" style="color: red" class="pointer fa fa-times"></span>
+                        <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}"  class="pointer fa fa-star inline-block" style="outline: none"></span></button>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span  class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index)"><span  class="pointer fa fa-trash-o"></span></button>
                     </td>
                 </tr>
                 </tbody>
@@ -57,8 +59,8 @@
                     <td>{{all_profile.company_name}}</td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
-                        <span style="color: green" ng-click="getInformation(all_profile, display.type)" class="pointer fa fa-pencil inline-block"></span>
-                        <span ng-click="reject(all_profile, $index)" style="color: red" class="pointer fa fa-times"></span>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index)"><span class="pointer fa fa-trash-o"></span></button>
                     </td>
                 </tr>
                 </tbody>

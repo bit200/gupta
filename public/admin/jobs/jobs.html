@@ -27,22 +27,21 @@
             <td>{{job.date_of_completion}}</td>
             <td>{{job.created_at}}</td>
             <td>
-                <span ng-confirm-click="Are you sure your want to approve job <b>{{job.name}} </b> ?"
-                      ng-confirm-action="rejectApproveJob('approve', job._id, $index)"
-                      ng-show="job.admin_approved==0 || job.admin_approved==2"
-                      style="color: green" class="pointer fa fa-check"></span>
+                <button class="btn btn-sm btn-check white" ng-confirm-click="Are you sure your want to approve job <b>{{job.name}} </b> ?"
+                        ng-confirm-action="rejectApproveJob('approve', job._id, $index)" ng-show="job.admin_approved==0 || job.admin_approved==2">
+                    <span  class="pointer fa fa-check"></span>
+                </button>
 
-
-                <span ng-click="reject(job, $index)" style="color: red"
-                      ng-show="job.admin_approved==0 || job.admin_approved==1"
-                      class="pointer fa fa-times"></span>
+                <button class="btn btn-sm btn-times white" ng-click="reject(job, $index)" style="color: red" ng-show="job.admin_approved==0 || job.admin_approved==1">
+                    <span class="pointer fa fa-trash-o"></span>
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
     <div>
-    <div class="text-center">
-        <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
-    </div>
+        <div class="text-center">
+            <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+        </div>
     </div>
 </div>

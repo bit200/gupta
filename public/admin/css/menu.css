@@ -665,10 +665,45 @@ li > span.fa.fa-angle-right {
     color:green;
 }
 
+.white, .white:hover, .white:focus {
+    color:#FFF !important;
+}
+
 .page-content {
     background: #ECF0F5
 }
 
 .background-dark-blue {
     background-color: #2D5F8B !important;
+}
+
+.btn-star {
+    background: #FFE658 !important;
+}
+
+.btn-pencil {
+    background: #EA9F34 !important;
+}
+
+.btn-times {
+    background: #CF5D46 !important;
+}
+.btn-check {
+    background: #A8CD1B !important;
+}
+
+.fa {
+    outline: none;
+}
+
+.relative {
+    position: relative;
+}
+
+.up-button7 {
+    bottom: 7px;
+}
+
+.up-button3 {
+    bottom: 3px;
 }

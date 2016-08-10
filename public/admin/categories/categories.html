@@ -1,136 +1,179 @@
 <style>
-    .menu{
+    .menu {
         cursor: pointer;
         /*display: table-column;*/
     }
-    .sub-nav{
-            padding-top: 5px;
-            padding-bottom: 5px;
+
+    .sub-nav {
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
-    .edit_input_label{
-        width: calc(100% - 85px);
+
+    .edit_input_label {
+        width: calc(100% - 120px);
     }
-    .edit_input{
-        border: none;border-bottom: 1px solid #000000;outline: none; width: 100%
+
+    .edit_input {
+        border: none;
+        border-bottom: 1px solid #000000;
+        outline: none;
+        width: 100%
     }
 </style>
 <div class="row">
-<div class="col-md-12" style="margin-top: 20px;">
+    <div class="col-md-12" style="margin-top: 20px;">
         <ul class="list-group">
             <li class="list-group-item menu" ng-repeat="(key,item) in filtersArr " style="padding-bottom: 0;">
                 <a class="text-black top-menu-text">
                     <i class="fa floatL" aria-hidden="true" style="margin-right: 10px;height: 20px;width: 20px;" ng-click="setActiveProvider(item.title, item.data);edit_space.is_edit=''"
                        ng-class="{'fa-angle-right': activeProvider.name == item.title,'fa-angle-down':activeProvider.name != item.title}"></i>
-                   <span ng-hide="edit_space.is_edit == item.title" ng-click="setActiveProvider(item.title, item.data);">{{item.title}}</span>
+                    <span ng-hide="edit_space.is_edit == item.title" ng-click="setActiveProvider(item.title, item.data);">{{item.title}}</span>
                     <label ng-show="edit_space.is_edit == item.title" class="edit_input_label">
-                        <input type="text"  class="edit_input"
+                        <input type="text" class="edit_input"
                                ng-model="edit_space.newType">
                     </label>
-                    <span ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(key,1)" style="color: #555;" class="pointer fa fa-arrow-down floatR"></span>
-                    <span ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(key,-1)" style="color: #555;" class="pointer fa fa-arrow-up floatR"></span>
-                    <span ng-click="editField(item.title,false,false,item.title,true,true,key)" style="color: red;" class="pointer fa fa-times floatR"></span>
-                    <span ng-hide="edit_space.is_edit == item.title" ng-click="edit_space.is_edit = item.title;edit_space.newType = item.title" style="color: green;margin-right: 10px" class="pointer fa fa-pencil floatR"></span>
-                    <span ng-show="edit_space.is_edit == item.title" ng-click="editField(edit_space.newType,false,false,item.title,true); item.title = edit_space.newType; edit_space.is_edit = '';" style="color: green;margin-right: 10px" class="pointer fa fa-check floatR"></span>
+                    <button style="margin: 0 1px" class="btn btn-sm relative up-button3 floatR" ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(key,1)"><span style="color: #555;" class="pointer fa fa-arrow-down"></span></button>
+                    <button style="margin: 0 1px" class="btn btn-sm relative up-button3 floatR" ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(key,-1)"><span style="color: #555;" class="pointer fa fa-arrow-up"></span></button>
+                    <button class="btn btn-sm relative up-button3 btn-times white floatR" ng-click="editField(item.title,false,false,item.title,true,true,key)"><span class="pointer fa fa-trash-o"></span></button>
+                    <button class="btn btn-sm relative up-button3 btn-pencil white floatR" ng-hide="edit_space.is_edit == item.title" ng-click="edit_space.is_edit = item.title;edit_space.newType = item.title"><span
+                            class="pointer fa fa-pencil"></span></button>
+                    <button class="btn btn-sm relative up-button3 btn-check white floatR" ng-show="edit_space.is_edit == item.title"
+                            ng-click="editField(edit_space.newType,false,false,item.title,true); item.title = edit_space.newType; edit_space.is_edit = '';"><span class="pointer fa fa-check"></span></button>
                 </a>
                 <div class="sub-nav">
                     <ul class="list-group active" ng-repeat="(index,val) in item.data track by $index " style="margin-bottom: 0px;">
                         <li ng-if="(val.name && !val.subFilter) && (activeProvider.name == item.title)" class="list-group-item">
                             <!--ng-class="{active: activeProvider.subName == val.name && activeProvider.name == item.title}">-->
-                            <span ng-hide="edit_space.is_edit == val.name" ng-click="setActiveProvider(item.title, item.data);setSubMenu(val.name);" >{{val.name}}</span>
-                            <label class="edit_input_label" ng-show="edit_space.is_edit == val.name" >
-                                <input type="text"  class="edit_input"
+                            <span ng-hide="edit_space.is_edit == val.name" ng-click="setActiveProvider(item.title, item.data);setSubMenu(val.name);">{{val.name}}</span>
+                            <label class="edit_input_label" ng-show="edit_space.is_edit == val.name">
+                                <input type="text" class="edit_input"
                                        ng-model="edit_space.newSubSubName">
                             </label>
-                            <span ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(index,1,key)" style="color: #555;" class="pointer fa fa-arrow-down floatR"></span>
-                            <span ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(index,-1,key)" style="color: #555;" class="pointer fa fa-arrow-up floatR"></span>
-                            <span ng-click="editField(false,false,val.name,val.name,false,true,key)" style="color: red;" class="pointer fa fa-times floatR"></span>
-                            <span ng-hide="edit_space.is_edit == val.name" ng-click="edit_space.is_edit = val.name; edit_space.newSubSubName = val.name " style="color: green;margin-right: 10px" class="pointer fa fa-pencil floatR"></span>
-                            <span ng-show="edit_space.is_edit == val.name" ng-click="editField(false,false,edit_space.newSubSubName,val.name);
-                             edit_space.is_edit = ''; val.name = edit_space.newSubSubName" style="color: green;margin-right: 10px" class="pointer fa fa-check floatR"></span>
+                            <button style="margin: 0 1px" class="btn btn-sm relative up-button7 floatR" ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(index,1,key)"><span style="color: #555;" class="pointer fa fa-arrow-down"></span>
+                            </button>
+                            <button style="margin: 0 1px" class="btn btn-sm relative up-button7 floatR" ng-hide="edit_space.is_edit == item.title" ng-click="moveItem(index,-1,key)"><span style="color: #555;" class="pointer fa fa-arrow-up"></span>
+                            </button>
+                            <button class="btn btn-sm relative up-button7 btn-times white floatR" ng-click="editField(false,false,val.name,val.name,false,true,key)"><span class="pointer fa fa-trash-o"></span></button>
+                            <button class="btn btn-sm relative up-button7 btn-pencil white floatR" ng-hide="edit_space.is_edit == val.name" ng-click="edit_space.is_edit = val.name; edit_space.newSubSubName = val.name "><span
+                                    class="pointer fa fa-pencil"></span></button>
+                            <button class="btn btn-sm relative up-button7 btn-check white floatR" ng-show="edit_space.is_edit == val.name"
+                                    ng-click="editField(false,false,edit_space.newSubSubName,val.name);edit_space.is_edit = ''; val.name = edit_space.newSubSubName">
+                                <span class="pointer fa fa-check "></span>
+                            </button>
                         </li>
-                        <li ng-if="(val.subFilter)&&(activeProvider.name == item.title)" class="list-group-item" >
+                        <li ng-if="(val.subFilter)&&(activeProvider.name == item.title)" class="list-group-item">
                             <!--ng-class="{active: activeProvider.subName == val.subFilter && activeProvider.name == item.title}">-->
                             <i class="fa floatL" aria-hidden="true" style="margin-right: 10px;height: 20px;width: 20px;" ng-click="setSubMenu(val.subFilter);edit_space.is_edit=''"
                                ng-class="{'fa-angle-right': activeProvider.subName == val.subFilter,'fa-angle-down':activeProvider.subName != val.subFilter}"></i>
-                            <span ng-hide="edit_space.is_edit == val.subFilter" ng-click="setSubMenu(val.subFilter);" >{{val.subFilter}}</span>
+                            <span ng-hide="edit_space.is_edit == val.subFilter" ng-click="setSubMenu(val.subFilter);">{{val.subFilter}}</span>
                             <label class="edit_input_label" ng-show="edit_space.is_edit == val.subFilter">
                                 <input type="text" class="edit_input"
                                        ng-model="edit_space.subName">
                             </label>
-                            <span ng-click="editField(false,val.subFilter,false,val.subFilter,false,true,key)" style="color: red;" class="pointer fa fa-times floatR"></span>
-                            <span ng-hide="edit_space.is_edit == val.subFilter" ng-click="edit_space.is_edit = val.subFilter; edit_space.subName = val.subFilter " style="color: green;margin-right: 10px" class="pointer fa fa-pencil floatR"></span>
-                            <span ng-show="edit_space.is_edit == val.subFilter" ng-click="editField(false,edit_space.subName,false,val.subFilter); edit_space.is_edit = ''; val.subFilter = edit_space.subName" style="color: green;margin-right: 10px" class="pointer fa fa-check floatR"></span>
+
+                            <button class="btn btn-sm relative up-button3 btn-times white floatR" ng-click="editField(false,val.subFilter,false,val.subFilter,false,true,key)">
+                                <span class="pointer fa fa-trash-o"></span>
+                            </button>
+
+                            <button class="btn btn-sm relative up-button3 btn-pencil white floatR" ng-hide="edit_space.is_edit == val.subFilter" ng-click="edit_space.is_edit = val.subFilter; edit_space.subName = val.subFilter ">
+                                <span class="pointer fa fa-pencil"></span>
+                            </button>
+
+                            <button class="btn btn-sm relative up-button3 btn-check white floatR" ng-show="edit_space.is_edit == val.subFilter"
+                                    ng-click="editField(false,edit_space.subName,false,val.subFilter); edit_space.is_edit = ''; val.subFilter = edit_space.subName">
+                                <span class="pointer fa fa-check"></span>
+                            </button>
+
                             <ul class="list-group" ng-if="val.subFilter==activeProvider.subName">
                                 <li ng-if="subV" ng-repeat="subV in val.arr track by $index" class="list-group-item">
                                     <span ng-hide="edit_space.is_edit == subV.name">{{subV.name}}</span>
                                     <label class="edit_input_label" ng-show="edit_space.is_edit == subV.name">
-                                        <input type="text" ng-show="edit_space.is_edit == subV.name"  class="edit_input"
+                                        <input type="text" ng-show="edit_space.is_edit == subV.name" class="edit_input"
                                                ng-model="edit_space.newSubSubName">
                                     </label>
-                                    <span ng-click="editField(false,val.subFilter,subV.name,subV.name,true,key)" style="color: red;" class="pointer fa fa-times floatR"></span>
-                                    <span ng-hide="edit_space.is_edit == subV.name" ng-click="edit_space.is_edit = subV.name; edit_space.newSubSubName = subV.name " style="color: green;margin-right: 10px" class="pointer fa fa-pencil floatR"></span>
-                                    <span ng-show="edit_space.is_edit == subV.name" ng-click="editField(false,val.subFilter,edit_space.newSubSubName,subV.name); edit_space.is_edit = ''; subV.name = edit_space.newSubSubName" style="color: green;margin-right: 10px" class="pointer fa fa-check floatR"></span>
+
+                                    <button class="btn btn-sm relative up-button3 btn-times white floatR" ng-click="editField(false,val.subFilter,subV.name,subV.name,true,key)">
+                                        <span class="pointer fa fa-trash-o"></span>
+                                    </button>
+
+                                    <button class="btn btn-sm relative up-button3 btn-pencil white floatR" ng-hide="edit_space.is_edit == subV.name" ng-click="edit_space.is_edit = subV.name; edit_space.newSubSubName = subV.name ">
+                                        <span class="pointer fa fa-pencil"></span>
+                                    </button>
+
+                                    <button class="btn btn-sm relative up-button3 btn-check white floatR" ng-show="edit_space.is_edit == subV.name"
+                                            ng-click="editField(false,val.subFilter,edit_space.newSubSubName,subV.name); edit_space.is_edit = ''; subV.name = edit_space.newSubSubName">
+                                        <span class="pointer fa fa-check"></span>
+                                    </button>
                                 </li>
                                 <li class="list-group-item menu" style="padding-bottom: 0;">
                                     <label style="width: calc(100% - 50px);">
-                                        <input type="text"  class="edit_input" placeholder="New subSubName "
+                                        <input type="text" class="edit_input" placeholder="New subSubName "
                                                ng-model="edit_space.AddSubSubName">
                                     </label>
-                                    <span ng-click="addField(key,false,false,false,true)" style="color: red;" class="pointer fa fa-times floatR"></span>
-                                    <span ng-click="addField(key,false,val.subFilter,edit_space.AddSubSubName)" style="color: green;margin-right: 10px" class="pointer fa fa-check floatR"></span>
+                                    <button class="btn btn-sm relative up-button3 btn-times white floatR" ng-click="addField(key,false,false,false,true)"><span class="pointer fa fa-trash-o"></span></button>
+                                    <button class="btn btn-sm relative up-button3 btn-check white floatR" ng-click="addField(key,false,val.subFilter,edit_space.AddSubSubName)"><span class="pointer fa fa-check"></span></button>
                                 </li>
                             </ul>
                         </li>
                         <li ng-if="(($last) && (activeProvider.name == item.title))" class="list-group-item menu" style="padding-bottom: 0;">
                             <label class="edit_input_label">
-                                <input type="text"  class="edit_input" placeholder="New subName"
+                                <input type="text" class="edit_input" placeholder="New subName"
                                        ng-model="edit_space.AddFilter">
                             </label>
                             <label ng-if="edit_space.flSubFilter" class="edit_input_label">
-                                <input type="text"  class="edit_input"
+                                <input type="text" class="edit_input"
                                        ng-model="edit_space.AddSubSubName" placeholder="New subSubName">
                             </label>
-                            <span ng-if="edit_space.AddFilter" ng-click="addField(key,false,false,false,true); myStyle = {} " style="color: red;" class="pointer fa fa-times floatR"></span>
+                            <button class="btn btn-sm relative up-button7 btn-times white floatR" ng-if="edit_space.AddFilter" ng-click="addField(key,false,false,false,true); myStyle = {} ">
+                                <span class="pointer fa fa-trash-o"></span>
+                            </button>
                             <!--<span  ng-click="edit_space.flSubFilter = edit_space.flSubFilter?false:true; myStyle = edit_space.flSubFilter?{color:'green'}:{}" ng-style="myStyle" style=" margin-right: 10px" class="pointer floatR">SUB</span>-->
-                            <span ng-if="edit_space.AddFilter" ng-click="addField(key,item.title,edit_space.AddFilter,edit_space.AddSubSubName)" style="color: green;margin-right: 10px" class="pointer fa fa-check floatR"></span>
+                            <button class="btn btn-sm relative up-button7 btn-check white floatR" ng-if="edit_space.AddFilter" ng-click="addField(key,item.title,edit_space.AddFilter,edit_space.AddSubSubName)">
+                                <span class="pointer fa fa-check"></span>
+                            </button>
                         </li>
                     </ul>
-                    <ul  ng-if="(!item.data.length)&&(activeProvider.name == item.title)" class="list-group active" style="padding-bottom: 0;">
+                    <ul ng-if="(!item.data.length)&&(activeProvider.name == item.title)" class="list-group active" style="padding-bottom: 0;">
                         <li class="list-group-item menu" style="padding-bottom: 0;">
                             <label class="edit_input_label">
-                                <input type="text"  class="edit_input" placeholder="New subName "
+                                <input type="text" class="edit_input" placeholder="New subName "
                                        ng-model="edit_space.AddFilter">
                             </label>
                             <label ng-if="edit_space.flSubFilter" class="edit_input_label">
-                                <input type="text"  class="edit_input"
+                                <input type="text" class="edit_input"
                                        ng-model="edit_space.AddSubSubName" placeholder="New subSubName ">
                             </label>
-                            <span ng-click="addField(key,false,false,false,true); myStyle = {}" style="color: red;" class="pointer fa fa-times floatR"></span>
+                            <button class="btn btn-sm relative up-button3 btn-times white" ng-click="addField(key,false,false,false,true); myStyle = {}"><span class="pointer fa fa-trash-o floatR"></span></button>
                             <!--<span ng-click="edit_space.flSubFilter = edit_space.flSubFilter?false:true; myStyle = edit_space.flSubFilter?{color:'green'}:{}" ng-style="myStyle" style=" margin-right: 10px" class="pointer floatR">SUB</span>-->
-                            <span  ng-click="addField(key,item.title,edit_space.AddFilter,edit_space.AddSubSubName)" style="color: green; margin-right: 10px" class="pointer fa fa-check floatR"></span>
+                            <button class="btn btn-sm relative up-button3 btn-check white" ng-click="addField(key,item.title,edit_space.AddFilter,edit_space.AddSubSubName)"><span class="pointer fa fa-check floatR"></span></button>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="list-group-item menu" style="padding-bottom: 0;">
                 <label class="edit_input_label">
-                    <input type="text"  class="edit_input"
+                    <input type="text" class="edit_input"
                            ng-model="edit_space.AddTypeMain" placeholder="New type Name">
                 </label>
                 <label class="edit_input_label">
-                    <input type="text"  class="edit_input" required
+                    <input type="text" class="edit_input" required
                            ng-model="edit_space.AddFilterMain" placeholder="New subName Name">
                 </label>
                 <label ng-if="edit_space.flSubFilterMain" class="edit_input_label">
-                    <input type="text"  class="edit_input" required
+                    <input type="text" class="edit_input" required
                            ng-model="edit_space.AddSubSubNameMain" placeholder="New subSubName Name">
                 </label>
                 <span>
                 <!--<span ng-click="edit_space.flSubFilterMain = edit_space.flSubFilterMain?false:true; myStyle = edit_space.flSubFilterMain?{color:'green'}:{}" ng-style="myStyle" style=" margin-right: 0px" class="pointer">SUB</span>-->
-                <span ng-if="edit_space.AddTypeMain || edit_space.AddFilterMain" ng-click="addField(false,edit_space.AddTypeMain,edit_space.AddFilterMain,edit_space.AddSubSubNameMain); myStyle={}" style="color: green;margin-right: 0px" class="pointer fa fa-check"></span>
-                <span ng-if="edit_space.AddTypeMain || edit_space.AddFilterMain" ng-click="addField(false,false,false,false,true)" style="color: red;" class="pointer fa fa-times"></span>
+                  <button class="btn btn-sm relative up-button3 btn-check white" ng-if="edit_space.AddTypeMain || edit_space.AddFilterMain"
+                          ng-click="addField(false,edit_space.AddTypeMain,edit_space.AddFilterMain,edit_space.AddSubSubNameMain); myStyle={}">
+                        <span class="pointer fa fa-check"></span>
+                  </button>
+                <button class="btn btn-sm relative up-button3 btn-times white" ng-if="edit_space.AddTypeMain || edit_space.AddFilterMain" ng-click="addField(false,false,false,false,true)">
+                    <span class="pointer fa fa-trash-o"></span>
+                </button>
                 </span>
             </li>
         </ul>
-</div>
+    </div>
 </div>
