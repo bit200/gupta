@@ -22,7 +22,7 @@ XYZCtrls.directive('selector', function () {
             };
 
             scope.init = function () {
-                $rootScope.info = $rootScope.info || {}
+                $rootScope.info = $rootScope.info || {};
                 var value = $rootScope.info[scope.type];
                 _.each(scope.items, function (item) {
                     if (item.toLowerCase() == value) {
@@ -42,7 +42,7 @@ XYZCtrls.directive('selector', function () {
                     scope.onSelectCustom({item: item})
                 }
                 $rootScope.info[scope.type] = item;
-                var state = 'jobs_list.' + ($rootScope.info.user_type || $rootScope.asView.buyer ? 'buyer' : 'seller') + '_' + ($rootScope.info.job_type || 'open');
+                var state = 'jobs_list.' + ($rootScope.info.user_type ? $rootScope.info.user_type : $rootScope.asView.buyer ? 'buyer' : 'seller') + '_' + ($rootScope.info.job_type || 'open');
                 $state.go(state.toLowerCase());
                 scope.selected = item;
                 scope.open = false;
