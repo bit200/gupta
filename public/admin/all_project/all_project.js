@@ -31,7 +31,7 @@ angular.module('admin.all_project', [
         $scope.selectFilter = 'pending';
         $scope.getAllProject = function (skip, cb) {
             var _skip = skip ? (skip - 1) * $scope.configPagination.countByPage : 0;
-            $http.get('/admin/api/all/projects', {params: {limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.get('/admin/api/all', {params: {model: 'Job', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.all_projects = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
                 $scope.configPagination.currentPage = skip;

@@ -102,6 +102,11 @@ exports.delete_filter = function (req, res) {
 };
 
 
+exports.all_count = function (req, res) {
+    var params = m.getBody(req);
+    m.count(models[params.model],{}, res, res);
+};
+
 exports.all = function (req, res) {
     var params = m.getBody(req);
     m.find(models[params.model], {}, res, function (item) {
@@ -111,32 +116,6 @@ exports.all = function (req, res) {
     }, {skip: params.skip, limit: params.limit})
 };
 
-exports.all_projects = function (req, res) {
-    var params = m.getBody(req);
-    m.find(models.Job, {}, res, function (jobs) {
-        m.count(models.Job, {}, res, function (count) {
-            m.scb({data: jobs, count: count}, res)
-        });
-    }, {skip: params.skip, limit: params.limit})
-};
-
-exports.all_users = function (req, res) {
-    var params = m.getBody(req);
-    m.find(models.User, {}, res, function (users) {
-        m.count(models.User, {}, res, function (count) {
-            m.scb({data: users, count: count}, res)
-        });
-    }, {skip: params.skip, limit: params.limit})
-};
-
-exports.all_freelancer = function (req, res) {
-    var params = m.getBody(req);
-    m.find(models.Freelancer, {}, res, function (freelancers) {
-        m.count(models.Freelancer, {}, res, function (count) {
-            m.scb({data: freelancers, count: count}, res)
-        });
-    }, {skip: params.skip, limit: params.limit})
-};
 
 exports.change = function (req, res) {
     var params = m.getBody(req);

@@ -76,7 +76,6 @@ angular.module('admin.job_apply', [
                 modal.element.modal();
                 modal.close.then(function (result) {
                 });
-
             });
         };
 
@@ -87,8 +86,8 @@ angular.module('admin.job_apply', [
                     $scope.job = user;
                     $scope.submit = function (user) {
                         $http.post('/admin/api/change', {model:'JobApply', item :user}).then(function (resp) {
-                            update_table()
-                            $scope.close()
+                            update_table();
+                            $scope.close();
                         })
                     };
                     $scope.close = function (res) {

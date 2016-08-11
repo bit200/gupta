@@ -12,19 +12,6 @@ angular.module('admin.dashboard', [
                 requiresLogin: true,
                 name: 'Dashboard'
             }
-            // resolve: {
-            //     getContent: ["$q", "$http", "$stateParams", function ($q, $http, $stateParams) {
-            //         return $q.all({
-            //             location: $http.get('/get-content', {
-            //                 params: {
-            //                     name: 'Location',
-            //                     query: {},
-            //                     distinctName: 'name'
-            //                 }
-            //             })
-            //         })
-            //     }]
-            // }
         });
     })
 

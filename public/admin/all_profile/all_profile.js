@@ -34,7 +34,7 @@ angular.module('admin.all_profile', [
         $scope.display = {type : 'freelancers'};
         $scope.getFreelancer = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all/freelancer', {params: {limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.get('/admin/api/all', {params: {model:'Freelancer',limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.display.type = 'freelancers';
                 $scope.all_profiles = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
@@ -45,7 +45,7 @@ angular.module('admin.all_profile', [
         };
         $scope.getUsers = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all/users', {params: {limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.get('/admin/api/all/users', {params: {model: 'User', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.display.type = 'users';
                 $scope.all_profiles = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
@@ -73,6 +73,10 @@ angular.module('admin.all_profile', [
         function spliceItem(index){
             $scope.all_profiles.splice(index, 1);
         }
+
+        function update_profile(index){
+            $scope.all_profiles.splice(index, 1);
+        }
         
         $scope.getFavorite = function(freelancer, index){
             $http.post('/admin/api/sorted', {_id:freelancer._id, sorted: freelancer.sorted || false}).then(function(resp){
@@ -88,8 +92,8 @@ angular.module('admin.all_profile', [
                 controller: function ($scope, $element, $http) {
                     console.log(type)
                     $scope.submit = function () {
-                        spliceItem(index);
                         $http.delete('/admin/api/' + type, {params: {_id: item._id}}).then(function(){
+                            spliceItem(index);
                             $scope.close()
                         })
                     };
@@ -111,7 +115,7 @@ angular.module('admin.all_profile', [
                 templateUrl: "all_profile/all_profile.view.html",
                 controller: function ($scope, $element, $http) {
                     $scope.type = type;
-                    $scope.profile = user;
+                    $scope.profile = angular.copy(user);
                     $scope.submit = function (user) {
                         $http.post('/admin/api/' + type, {user: user}).then(function (resp) {
                             $scope.close()

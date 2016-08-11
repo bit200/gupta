@@ -135,8 +135,8 @@ angular.module('directive', [])
                 urlModel: "="
             },
             controller: ['$scope', '$http', function (scope, $http) {
-                console.log('asdasdasd', scope.urlCount);
                 $http.get(scope.urlCount, scope.urlModel).then(function(resp){
+                    console.log(resp)
                     scope.count = resp.data.data
                 })
             }]
