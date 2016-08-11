@@ -269,7 +269,9 @@ exports.close_contract = function (req, res) {
                             freelancer.ratingCount = allRating.length;
                             m.findUpdate(models.Freelancer, {_id: contract.freelancer}, freelancer, res, function (freelancer) {
                                 m.findUpdate(models.JobApply, {contract: contract._id}, {status: 'closed'}, res, function (job) {
-                                    m.scb(contract, res)
+                                    m.findUpdate(models.Job, {_id: job.job}, {status: 'closed'},res,function(){
+                                        m.scb(contract, res)
+                                    });
                                 })
                             });
                         })
