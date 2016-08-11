@@ -23,7 +23,7 @@ angular.module('admin.job_apply', [
     })
 
     .controller('JobApplyCtrl', function JobApplyController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
-        $scope.getContracts = function (skip, limit) {
+        $scope.getJobs = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
             $http.get('/admin/api/all', {params: {model:'JobApply', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.jobApplies = resp.data.data.data;
@@ -39,7 +39,7 @@ angular.module('admin.job_apply', [
         };
 
         $scope.cb = function (page) {
-            $scope.getContracts(page)
+            $scope.getJobs(page)
         };
 
         $scope.configPagination = {
@@ -52,6 +52,9 @@ angular.module('admin.job_apply', [
             $scope.jobApplies.splice(index, 1);
         }
         
+        function update_table(){
+            $scope.getJobs()
+        }
     
         $scope.reject = function (item, index, type) {
             ModalService.showModal({
@@ -60,6 +63,7 @@ angular.module('admin.job_apply', [
                     $scope.submit = function () {
                         spliceItem(index);
                         $http.delete('/admin/api/delete', {params: {model:'JobApply',_id: item._id}}).then(function(){
+                            update_table();
                             $scope.close()
                         })
                     };
@@ -83,6 +87,7 @@ angular.module('admin.job_apply', [
                     $scope.job = user;
                     $scope.submit = function (user) {
                         $http.post('/admin/api/change', {model:'JobApply', item :user}).then(function (resp) {
+                            update_table()
                             $scope.close()
                         })
                     };

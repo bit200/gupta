@@ -56,15 +56,19 @@ angular.module('admin.contract', [
             $scope.contracts.splice(index, 1);
         }
         
+        function update_table(){
+            $scope.getContracts()
+        }
+        
     
         $scope.reject = function (item, index, type) {
             ModalService.showModal({
                 templateUrl: "delete_modal.html",
                 controller: function ($scope, $element, $http) {
-                    console.log(type)
                     $scope.submit = function () {
                         spliceItem(index);
                         $http.delete('/admin/api/delete', {params: {model:'Contract', _id: item._id}}).then(function(){
+                            update_table();
                             $scope.close()
                         })
                     };
@@ -85,9 +89,10 @@ angular.module('admin.contract', [
             ModalService.showModal({
                 templateUrl: "contract/contract.view.html",
                 controller: function ($scope, $element, $http) {
-                    $scope.contract = user;
+                    $scope.contract = angular.copy(user);
                     $scope.submit = function (user) {
                         $http.post('/admin/api/change', {model:'Contract', item :user}).then(function (resp) {
+                            update_table();
                             $scope.close()
                         })
                     };
