@@ -109,11 +109,15 @@ exports.all_count = function (req, res) {
 
 exports.all = function (req, res) {
     var params = m.getBody(req);
+    if(!params.query){
+        params.query.skip = params.skip;
+        params.query.limit =  params.limit;
+    }
     m.find(models[params.model], {}, res, function (item) {
         m.count(models[params.model], {}, res, function (count) {
             m.scb({data: item, count: count}, res)
         });
-    }, {skip: params.skip, limit: params.limit})
+    }, params.query)
 };
 
 
@@ -149,6 +153,16 @@ exports.sorted_freelancer  = function (req, res) {
     var params = m.getBody(req);
     params.sorted = !params.sorted;
     m.findUpdate(models.Freelancer, {_id: params._id}, {sorted: params.sorted}, res, res)
+};
+
+exports.delete_message = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.ChatRoom, {_id: params._id}, res, function(room){
+        room.messages = _.filter(room.messages, function(item){
+                return item.message != params.message.message && item.time != params.message.time
+        });
+        m.findUpdate(models.ChatRoom, {_id: params._id}, {messages:room.messages}, res, res)
+    })
 };
 
 exports.delete_projects = function (req, res) {

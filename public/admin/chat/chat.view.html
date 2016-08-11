@@ -1,0 +1,30 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="rejectForm" novalidate>
+                <div class="modal-body">
+                    <h2 class="text-center">Change information</h2>
+
+                    <h4>Name chat: {{chat.name || chat._id}}</h4>
+                    <table class="table table-bordered table-hover" >
+                        <thead>
+                        <tr>
+                            <th class="text-bold pointer">From</th>
+                            <th class="text-bold pointer">Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="message in chat.messages">
+                            <td>{{message.name}}</td>
+                            <td>{{message.message}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

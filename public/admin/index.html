@@ -157,6 +157,13 @@
                             <!--<span class="arrow fa fa-angle-left"></span>-->
                         </a>
                     </li>
+                    <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'chat'}">
+                        <a href="javascript:;" ui-sref="chat" class="nav-link nav-toggle">
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                            <span class="title">Chat</span>
+                            <!--<span class="arrow fa fa-angle-left"></span>-->
+                        </a>
+                    </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'business_accounts'}">
                         <a href="javascript:;" ui-sref="business_accounts" class="nav-link nav-toggle">
                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -330,6 +337,7 @@
 <script type="text/javascript" src="headerText/headerText.js"></script>
 <script type="text/javascript" src="contract/contract.js"></script>
 <script type="text/javascript" src="job_apply/job_apply.js"></script>
+<script type="text/javascript" src="chat/chat.js"></script>
 <script type="text/javascript" src="all_project/all_project.js"></script>
 <script type="text/javascript" src="all_profile/all_profile.js"></script>
 <script type="text/javascript" src="components/confirm.js"></script>

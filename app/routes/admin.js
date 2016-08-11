@@ -22,6 +22,7 @@ module.exports = function (app) {
     app.delete('/admin/api/freelancers', _admin.delete_freelancers);
     app.delete('/admin/api/users', _admin.delete_users);
     app.delete('/admin/api/project', _admin.delete_projects);
+    app.post('/admin/api/chat/message', _admin.delete_message);
     app.post('/admin/api/sorted', _admin.sorted_freelancer);
     
     

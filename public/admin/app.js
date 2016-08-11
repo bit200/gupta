@@ -7,6 +7,7 @@ angular.module('admin', [
     'admin.dashboard',
     'admin.header_text',
     'admin.contract',
+    'admin.chat',
     'admin.job_apply',
     'admin.all_profile',
     'admin.all_project',

@@ -1,0 +1,37 @@
+<div class="marginT30">
+    <div style="margin-top: 20px">
+        <h2 ng-if="!chats.length" class="text-center">No chats rooms</h2>
+
+        <div class="portlet-body">
+            <table class="table table-bordered table-hover" ng-if="chats.length">
+                <thead>
+                <tr>
+                    <th class="text-bold pointer">Name</th>
+                    <th class="text-bold pointer">Messages count</th>
+                    <th class="text-bold pointer">Last message</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="chat in chats">
+                    <td>{{chat.name || chat._id}}</td>
+                    <td>{{chat.messages.length}}</td>
+                    <td>{{chat.messages[chat.messages.length-1].message}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-eye white" ng-click="getInformation(chat)"><span  class="pointer fa fa-eye inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(chat)"><span  class="pointer fa fa-trash-o"></span></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="text-center">
+            <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+        </div>
+    </div>
+</div>
+
+
+
