@@ -16,22 +16,20 @@ function updateJobApply(contract, params, ecb, scb) {
 
 exports.create_contract = function (req, res) {
     var params = m.getBody(req);
-    var STATUS = 'Seller approving'
-    params.status = STATUS
+    var STATUS = 'Seller approving';
+    params.status = STATUS;
     var query = {
         freelancer: params.freelancer,
         buyer: params.buyer,
         job: params.job
-    }
+    };
 
     if (query.buyer != req.userId) {
-        m.permission_err(res, 'Another buyer')
+        m.permission_err(res, 'Another buyer');
         return;
     }
 
-    console.log("craete contractttttttt", query);
     m.findCreateUpdate(models.Contract, query, params, res, function (contract) {
-        console.log('contractttttttttt', contract);
         models.Contract.findOne({_id:contract._id}).populate([{
             path:'buyer',
             select:'email first_name last_name'},{
@@ -76,7 +74,6 @@ exports.reject_apply = function (req, res) {
         reject_reason: params.reject_reason
     }, res, function (jobApply) {
         m.findRemove(models.Contract, {job: jobApply.job, freelancer: jobApply.freelancer}, res, function (data) {
-            console.log('DADADADADADADADDADAADAD',data);
             res.send({
                 data: jobApply
             })
