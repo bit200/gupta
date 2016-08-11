@@ -6,7 +6,7 @@
     <h3 style="margin-top: 4%;margin-bottom: 4%;">Welcome to 12th Cross, {{currentUser().first_name}}</h3>
     <div class="row back-service-provider">
         <div class="col-md-9">
-            <a class="service-provider relative inline-block" ui-sref="jobs_list.buyer_open">
+            <a class="service-provider relative inline-block" ui-sref="{{job_open}}">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/open_projects.svg"> </md-icon>
                 </div>
@@ -18,7 +18,7 @@
                 </div>
                 <div>ONGOING PROJECTS</div>
             </a>
-            <a class="service-provider relative inline-block" ui-sref="jobs_list.buyer_closed"">
+            <a class="service-provider relative inline-block" ui-sref="jobs_list.buyer_closed">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/closed_projects.svg"> </md-icon>
                 </div>

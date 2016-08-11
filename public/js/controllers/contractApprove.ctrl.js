@@ -5,7 +5,6 @@ XYZCtrls.controller('contractApproveCtrl', ['$scope', '$location', '$http', 'get
     scope.createContract = function (invalid, type, data) {
         http.post('/contract/' + type, data).then(function (resp) {
             type == 'delete' ? location.path('/home') : location.path('/home');
-            console.log('resp', resp)
         }, function (err) {
             notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});        })
     };

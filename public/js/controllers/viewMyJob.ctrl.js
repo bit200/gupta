@@ -2,12 +2,11 @@
 var XYZCtrls = angular.module('XYZCtrls');
 
 XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '$q', 'getContent', '$state', function (scope, $http, _info, rootScope, $q, getContent, $state) {
-
     var user_type = _info.user_type;
     var job_type = _info.job_type;
     var info = angular.copy(_info);
     if ($state.current.name != 'jobs_list.all'){
-        info.user_type = rootScope.asView.buyer ? 'buyer' : 'seller';;
+        // info.user_type = rootScope.asView.buyer ? 'buyer' : 'seller';
     }
     info.template = info.template || [user_type, job_type].join('-');
     info.header = info.header || job_type + ' jobs';
