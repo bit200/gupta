@@ -101,9 +101,14 @@ exports.delete_filter = function (req, res) {
     });
 };
 
+
 exports.all = function (req, res) {
     var params = m.getBody(req);
-    m.count(models[params.model], {}, res, res)
+    m.find(models[params.model], {}, res, function (item) {
+        m.count(models[params.model], {}, res, function (count) {
+            m.scb({data: item, count: count}, res)
+        });
+    }, {skip: params.skip, limit: params.limit})
 };
 
 exports.all_projects = function (req, res) {
@@ -114,6 +119,7 @@ exports.all_projects = function (req, res) {
         });
     }, {skip: params.skip, limit: params.limit})
 };
+
 exports.all_users = function (req, res) {
     var params = m.getBody(req);
     m.find(models.User, {}, res, function (users) {
@@ -132,6 +138,10 @@ exports.all_freelancer = function (req, res) {
     }, {skip: params.skip, limit: params.limit})
 };
 
+exports.change = function (req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models[params.model], {_id: params.item._id}, params.item, res, res)
+};
 
 exports.change_user = function (req, res) {
     var params = m.getBody(req);
@@ -141,6 +151,11 @@ exports.change_user = function (req, res) {
 exports.change_freelancer = function (req, res) {
     var params = m.getBody(req);
     m.findUpdate(models.Freelancer, {_id: params.user._id}, params.user, res, res)
+};
+
+exports.delete = function (req, res) {
+    var params = m.getBody(req);
+    m.findRemove(models[params.model], {_id: params._id}, res, res)
 };
 
 exports.delete_users = function (req, res) {

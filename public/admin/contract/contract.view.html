@@ -1,0 +1,61 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="rejectForm" novalidate>
+                <div class="modal-body">
+                    <h2 class="text-center">Change information</h2>
+
+                    <h4>Title</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="title" ng-model="contract.title" style="color: black">
+                    </md-input-container>
+
+                    <h4>Information</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="information" numbers-only ng-model="contract.information" style="color: black">
+                    </md-input-container>
+
+                    <h4>Buyer name</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="buyer_name" ng-model="contract.buyer_name" style="color: black">
+                    </md-input-container>
+
+                    <h4>Buyer company name</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="buyer_company_name" ng-model="contract.buyer_company_name" style="color: black">
+                    </md-input-container>
+                    
+                    <h4>Seller contact</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="seller_contact" ng-model="contract.seller_contact" style="color: black">
+                    </md-input-container>
+                    
+                    <h4>Seller name</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="seller_name" ng-model="contract.seller_name" style="color: black">
+                    </md-input-container>
+                    
+                    <h4>Payment basis</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="payment_basis" ng-model="contract.payment_basis" style="color: black">
+                    </md-input-container>
+
+                    <h4>Budget</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" numbers-only name="budget" ng-model="contract.budget" style="color: black">
+                    </md-input-container>
+
+                    <h4>Status</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="status" ng-model="contract.status" style="color: black">
+                    </md-input-container>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" ng-click="submit(contract);">Submit</button>
+                    <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

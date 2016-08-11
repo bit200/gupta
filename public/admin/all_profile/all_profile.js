@@ -33,20 +33,19 @@ angular.module('admin.all_profile', [
         $scope.locations = getContent.location.data.data;
         $scope.display = {type : 'freelancers'};
         $scope.getFreelancer = function (skip, limit) {
-            var _skip = skip ? (skip - 1) * $scope.configPagination.countByPage : 0;
-            $http.get('/admin/api/all/freelancer', {params: {limit: limit || $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
+            $http.get('/admin/api/all/freelancer', {params: {limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.display.type = 'freelancers';
                 $scope.all_profiles = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
                 $scope.configPagination.currentPage = skip;
-                console.log('1', $scope.display)
             }, function (err) {
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
         };
         $scope.getUsers = function (skip, limit) {
-            var _skip = skip ? (skip - 1) * $scope.configPagination.countByPage : 0;
-            $http.get('/admin/api/all/users', {params: {limit: limit || $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
+            $http.get('/admin/api/all/users', {params: {limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.display.type = 'users';
                 $scope.all_profiles = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;

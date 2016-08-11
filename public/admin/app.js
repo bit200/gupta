@@ -6,6 +6,8 @@ angular.module('admin', [
     'admin.locations',
     'admin.dashboard',
     'admin.header_text',
+    'admin.contract',
+    'admin.job_apply',
     'admin.all_profile',
     'admin.all_project',
     'admin.business_accounts',

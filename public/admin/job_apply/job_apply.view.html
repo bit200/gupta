@@ -1,0 +1,36 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="rejectForm" novalidate>
+                <div class="modal-body">
+                    <h2 class="text-center">Change information</h2>
+
+                    <h4>Message</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="message" ng-model="job.message" style="color: black">
+                    </md-input-container>
+
+                    <h4>Budget</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="budget" numbers-only ng-model="job.budget" style="color: black">
+                    </md-input-container>
+
+                    <h4>Status</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="status" ng-model="job.status" style="color: black">
+                    </md-input-container>
+
+                    <h4>Communication status</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="communication_status" ng-model="job.communication_status" style="color: black">
+                    </md-input-container>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" ng-click="submit(job);">Submit</button>
+                    <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

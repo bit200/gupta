@@ -185,6 +185,20 @@
                             <!--<span class="arrow fa fa-angle-left"></span>-->
                         </a>
                     </li>
+                    <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'contract'}">
+                        <a href="javascript:;" ui-sref="contract" class="nav-link nav-toggle">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                                <span class="title">Contract</span>
+                            <!--<span class="arrow fa fa-angle-left"></span>-->
+                        </a>
+                    </li>
+                    <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'job_apply'}">
+                        <a href="javascript:;" ui-sref="job_apply" class="nav-link nav-toggle">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                                <span class="title">Job Apply</span>
+                            <!--<span class="arrow fa fa-angle-left"></span>-->
+                        </a>
+                    </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'categories'}">
                         <a href="javascript:;" ui-sref="categories" class="nav-link nav-toggle">
                             <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
@@ -314,6 +328,8 @@
 <script type="text/javascript" src="report_transaction/report_transaction.js"></script>
 <script type="text/javascript" src="dashboard/dashboard.js"></script>
 <script type="text/javascript" src="headerText/headerText.js"></script>
+<script type="text/javascript" src="contract/contract.js"></script>
+<script type="text/javascript" src="job_apply/job_apply.js"></script>
 <script type="text/javascript" src="all_project/all_project.js"></script>
 <script type="text/javascript" src="all_profile/all_profile.js"></script>
 <script type="text/javascript" src="components/confirm.js"></script>

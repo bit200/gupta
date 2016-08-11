@@ -18,6 +18,8 @@ module.exports = function (app) {
     app.get('/admin/api/all/users', _admin.all_users);
     app.get('/admin/api/all/projects', _admin.all_projects);
     app.post('/admin/api/users', _admin.change_user);
+    app.post('/admin/api/change', _admin.change);
+    app.delete('/admin/api/delete', _admin.delete);
     app.post('/admin/api/freelancers', _admin.change_freelancer);
     app.delete('/admin/api/freelancers', _admin.delete_freelancers);
     app.delete('/admin/api/users', _admin.delete_users);

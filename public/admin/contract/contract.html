@@ -1,0 +1,43 @@
+<div class="marginT30">
+    <div style="margin-top: 20px">
+        <h2 ng-if="!contracts.length" class="text-center">No contracts</h2>
+
+        <div class="portlet-body">
+            <table class="table table-bordered table-hover" ng-if="contracts.length">
+                <thead>
+                <tr>
+                    <th class="text-bold pointer">Title</th>
+                    <th class="text-bold pointer">Information</th>
+                    <th class="text-bold pointer">Buyer name</th>
+                    <th class="text-bold pointer">Seller name</th>
+                    <th class="text-bold pointer">Budget</th>
+                    <th class="text-bold pointer">Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="contract in contracts">
+                    <td>{{contract.title}}</td>
+                    <td>{{contract.information}}</td>
+                    <td>{{contract.buyer_name}}</td>
+                    <td>{{contract.seller_name}}</td>
+                    <td>{{contract.budget}}</td>
+                    <td>{{contract.status}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(contract)"><span  class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(contract, $index)"><span  class="pointer fa fa-trash-o"></span></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="text-center">
+            <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+        </div>
+    </div>
+</div>
+
+
+

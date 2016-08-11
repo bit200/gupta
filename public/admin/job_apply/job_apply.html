@@ -1,0 +1,40 @@
+<div class="marginT30">
+    <div style="margin-top: 20px">
+        <h2 ng-if="!jobApplies.length" class="text-center">No Jon apply</h2>
+
+        <div class="portlet-body">
+            <table class="table table-bordered table-hover" ng-if="jobApplies.length">
+                <thead>
+                <tr>
+                    <th class="text-bold pointer">Message</th>
+                    <th class="text-bold pointer">Budget</th>
+                    <th class="text-bold pointer">Status</th>
+                    <th class="text-bold pointer">Created</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="jobApply in jobApplies" ng-class="{'rejecting-row': jobApplies.rejectedItemIndex == $index}">
+                    <td>{{jobApply.message}}</td>
+                    <td>{{jobApply.budget}}</td>
+                    <td>{{jobApply.status}}</td>
+                    <td>{{jobApply.created_at}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(jobApply, display.type)"><span  class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(jobApply, $index, display.type)"><span  class="pointer fa fa-trash-o"></span></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="text-center">
+            <div custom-pagination="configPagination" cb="cb(currentPage)"></div>
+        </div>
+    </div>
+</div>
+
+
+
