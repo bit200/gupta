@@ -110,7 +110,6 @@ function send_restore(user, _ecb, _scb) {
 function send_confirm(user, _ecb, _scb) {
     user = user.toJSON();
     user.confirm_code = 15;
-    //console.log('Sign uppppppppppppppppppppppppppppppppppppppppppppppppppppppp',user);
     if (!user.confirm_code) {
         return m.ecb(351, 'Already confirmed', _ecb)
     }
@@ -124,22 +123,10 @@ function send_confirm(user, _ecb, _scb) {
         confirm_code: user.confirm_code,
         userId: user._id,
         message:" Thank you for creating an account with us. \n",
-        //"Please click on the button below to verify your email address.\n",
         link:'#/',
         link_name:'Go to site',
         appHost: config.appHost
     }));
-    //var _options = options('One Last Step To Create Your Account!', user.email, tpl.confirm({
-    //    email: user.email,
-    //    name: {
-    //        first: user.first_name,
-    //        last: user.last_name
-    //    },
-    //    confirm_code: user.confirm_code,
-    //    userId: user._id,
-    //    emailHash: md5(user.email),
-    //    appHost: config.appHost
-    //}));
     _send(_options, _ecb, _scb)
 }
 
