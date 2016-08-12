@@ -1,13 +1,13 @@
 <div class="col-xs-3">
     <a href="#/job/{{item._id}}">{{item.title}}</a>
 </div>
-<div class="col-xs-3">
-    <div ng-repeat="item in item.content_types">{{item}}</div>
+<div class="col-xs-3 text-center" >
+    <div><span>{{item.type_category}}</span><span ng-if="item.type_name">, </span><span>{{item.type_name}}</span></div>
 </div>
-<div class="col-xs-1">
-    -
+<div class="col-xs-2">
+  {{item.client_name}}
 </div>
-<div class="col-xs-3">
+<div class="col-xs-2">
     <div ng-repeat="item in item.local_preference">{{item}}</div>
 </div>
 <div class="col-xs-2">
