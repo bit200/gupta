@@ -7,33 +7,52 @@
         <div class="col-sm-3">
             <div class="job-nav">
                 <div>
-                    <input class="job-search" ng-model="_keywords" placeholder="Keywords"/>
-                    <!--<div class="sub-title">-->
-                        <!--Category-->
-                    <!--</div>-->
-                    <!--<div class="sub-select">-->
-                        <!--<selector type="'job_category'" items="categories" class-name="'nav'" on-select-custom="onSelectCustom(item)"></selector>-->
-                    <!--</div>-->
-                    <!--<div class="sub-title" ng-if="isSub">-->
-                        <!--Sub Category-->
-                    <!--</div>-->
-                    <!--<div class="sub-select" ng-if="isSub">-->
-                        <!--<selector type="'job_sub_category'" items="subCategories" class-name="'nav'" on-select-custom='onSelectSubCategory()'></selector>-->
-                    <!--</div>-->
-                    <!--<div class="sub-title" ng-if="isSubSub">-->
-                        <!--Sub Sub Category-->
-                    <!--</div>-->
-                    <!--<div class="sub-select" ng-if="isSubSub">-->
-                        <!--<selector type="'job_sub_sub_category'" items="subSubCategories" class-name="'nav'"></selector>-->
-                    <!--</div>-->
-                    <!--<div class="sub-title" ng-if="info.user_type == 'buyer' || !asView">-->
-                        <!--Budget-->
-                    <!--</div>-->
-                    <!--<div class="sub-select" ng-if="info.user_type == 'buyer'  || !asView">-->
-                        <!--<rzslider rz-slider-model="slider.minValue"-->
-                                  <!--rz-slider-high="slider.maxValue"-->
-                                  <!--rz-slider-options="slider.options"></rzslider>-->
-                    <!--</div>-->
+                    <div ng-if="$state.current.name == 'jobs_list.all'">
+                        <input class="job-search" ng-model="searchJob" ng-keyup="searchText()" placeholder="Keywords"/>
+
+                        <div class="sub-title">
+                            Category
+                        </div>
+                        <div class="sub-select">
+                            <div class="selected pointer" ng-click="onOpen($event, 'category')" style="border-bottom: 1px solid lightgrey">
+                                <span ng-if="selected_category">{{selected_category}}</span>
+                                <span ng-if="!selected_category" class="select-it ">Select it</span>
+                            </div>
+                            <div ng-if="category_open" class="sel-items {{category_name || ''}}">
+                                <div class="pointer" ng-repeat="item in categories" ng-click="selectItem(item, 'category');isSub=true">
+                                    {{item}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-title" ng-if="isSub">
+                            Sub Category
+                        </div>
+                        <div class="sub-select" ng-if="isSub">
+                            <selector type="'job_sub_category'" items="subCategories" class-name="'nav'" on-select-custom='onSelectSubCategory()'></selector>
+                        </div>
+                        <div class="sub-title">
+                            Location
+                        </div>
+                        <div class="sub-select">
+                            <div class="selected pointer" ng-click="onOpen($event, 'location')" style="border-bottom: 1px solid lightgrey">
+                                <span ng-if="selected_location">{{selected_location}}</span>
+                                <span ng-if="!selected_location" class="select-it ">Select it</span>
+                            </div>
+                            <div ng-if="location_open" class="sel-items {{location_name || ''}}">
+                                <div class="pointer" ng-repeat="item in locations" ng-click="selectItem(item, 'location');isSub=true">
+                                    {{item}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-title">
+                            Budget
+                        </div>
+                        <div class="sub-select">
+                            <rzslider rz-slider-model="slider.minValue"
+                                      rz-slider-high="slider.maxValue"
+                                      rz-slider-options="slider.options"></rzslider>
+                        </div>
+                    </div>
                     <div class="sub-title" ng-if="asView">
                         By status
                     </div>

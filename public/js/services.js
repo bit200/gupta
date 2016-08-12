@@ -31,11 +31,11 @@ XYZCtrls.service('parseType', function () {
             });
             return arr
         },
-        
-        getKey: function(item){
+
+        getKey: function (item) {
             var arr = [];
             _.forEach(item, function (value, key) {
-                if(value)
+                if (value)
                     arr.push(key)
             });
             return arr
@@ -371,60 +371,34 @@ XYZCtrls.service('jobParseByStatus', ["$rootScope", 'AuthService', function ($ro
 }]);
 XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobParseByStatus', function ($http, $rootScope, jobParseByStatus) {
     var information = {};
-
     return {
         setInfo: function (obj) {
             if (obj.search)
                 information.search = obj.search;
-            if (obj.job_category)
-                information.category = obj.job_category;
+            if (obj.category)
+                information.category = obj.category;
+            if (obj.location)
+                information.location = obj.location;
             if (obj.job_sub_category)
-                information.sub_category = obj.job_sub_category;
-            if (obj.job_sub_sub_category)
-                information.sub_sub_category = obj.job_sub_sub_category;
+                information.sub_category = obj.sub_category;
             if (obj.budget_min)
                 information.budget_min = obj.budget_min;
             if (obj.budget_max)
                 information.budget_max = obj.budget_max;
-            if (obj.job_type)
-                information.status = obj.job_type;
-            if (obj.user_type)
-                information.view_project = obj.user_type;
-            if (!obj.job_type && !obj.user_type) {
-                // console.log('sdf')
-                $http.get('/api/jobs/filter', {params: information}).success(function (data) {
-                    if (!information.status || information.status.toLowerCase() == 'open') {
-                        jobParseByStatus(data.data, obj.user_type)
-                    }
-                })
-            }
+        },
+        deleteSearch: function (text) {
+            delete information.search;
         },
         getInfo: {
-            buyer: function () {
+            information: function () {
                 return information;
-            },
-            seller: function () {
-                var obj = {
-                    category: information.category,
-                    sub_category: information.sub_category,
-                    status: information.status,
-                    view_project: information.view_project
-                };
-                return obj;
             },
             category: function () {
                 return information.category;
             },
             sub_category: function () {
                 return information.sub_category;
-            },
-            sub_sub_category: function () {
-                return information.sub_sub_category;
-            },
-            user_type: function () {
-                return information.view_project;
             }
-
         }
     };
 }]);
@@ -502,8 +476,8 @@ XYZCtrls.service('AuthService', ['$q', '$rootScope', 'ModalService', '$http', '$
         return resObj
     }]);
 
-XYZCtrls.factory('socket', ["socketFactory",'$location', function (socketFactory, $location) {
-    var myIoSocket = io.connect('http://'+$location.host()+':'+$location.port());
+XYZCtrls.factory('socket', ["socketFactory", '$location', function (socketFactory, $location) {
+    var myIoSocket = io.connect('http://' + $location.host() + ':' + $location.port());
     var socket = socketFactory({
         ioSocket: myIoSocket
     });

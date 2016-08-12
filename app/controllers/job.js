@@ -42,7 +42,6 @@ exports.get_questionnaire = function (req, res) {
 };
 
 
-
 exports.job_detailed = function (req, res) {
     m.findOne(models.Job, {_id: req.params._id}, res, res, {populate: 'buyer job seller freelancer'})
 }
@@ -80,8 +79,8 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
 
 exports.job = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Job, params, res, res, {sort:'-created_at'})
-    
+    m.find(models.Job, params, res, res, {sort: '-created_at'})
+
 };
 
 exports.get_info = function (req, res) {
@@ -94,40 +93,31 @@ exports.filter_job = function (req, res) {
     if (params.search)
         var re = new RegExp(params.search, 'i');
 
-    params.status = params.status || 'All';
-
-    var modelFind = (params.status == 'Open') ? 'JobApply' : 'Contract',
-        category = {};
-    if (params.status == 'All') {
-        modelFind = 'Job';
+    if (params.location) {
+        params.local_preference = {'$in': [params.location]};
+        delete params.location
     }
 
-    switch (modelFind) {
-        case 'JobApply':
-            category.message = re;
-            break;
-        case 'Contract':
-            category.$or = [{title: re}, {information: re}, {seller_name: re}, {buyer_name: re}];
-            break;
-        case 'Job':
-            category.$or = [{title: re}, {description: re}, {type_category: re}, {type_filter: re}, {type_name: re}];
-            break;
+    if (params.budget_min && params.budget_max) {
+        params.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
+        delete params.budget_min;
+        delete params.budget_max;
+    }
+    if (params.category) {
+        params.type_category = params.category;
+        delete params.category
     }
 
-    if (params.category)
-        category.type_category = params.category;
-    if (params.sub_category)
-        category.type_filter = params.sub_category;
-    if (params.sub_sub_category)
-        category.type_name = params.sub_sub_category;
-    if (params.budget_min && params.budget_max)
-        category.budget = {'$gte': params.budget_min, '$lte': params.budget_max};
-    if (modelFind == 'Contract' && params.status == 'Ongoing')
-        category.status = ["Ongoing", "Marked as completed", "Paused"];
-    if (modelFind == 'Contract' && params.status == 'Close')
-        category.status = ["Closed"];
-    //log('fosfyasfasdf', category)
-    m.find(models[modelFind], category, res, res, {populate: 'job freelancer buyer contract', sort: '-created_at'})
+    if (params.search) {
+        params['$or'] = [
+            {title: new RegExp(params.search, 'i')},
+            {description: new RegExp(params.search, 'i')},
+            {client_name: new RegExp(params.search, 'i')},
+            {company_name: new RegExp(params.search, 'i')}
+    ];
+        delete params.search
+    }
+    m.find(models.Job, params, res, res, {populate: 'user', sort: '-created_at'})
 };
 
 
@@ -136,14 +126,12 @@ exports.applyJob = function (req, res) {
         seller: req.userId,
         freelancer: req.freelancerId
     });
-    // console.log('paramsssssssssss', params)
     m.findOne(models.Job, {_id: params.job}, res, function (job) {
         params.buyer = job.user
-        //console.log('hahahahahhahaha', JSON.stringify(params));
-        models.User.findOne({_id:params.buyer}).select('email first_name last_name').exec(function(err,buyer){
-            if (err) console.log('apply job find buyer Error: ',err);
+        models.User.findOne({_id: params.buyer}).select('email first_name last_name').exec(function (err, buyer) {
+            if (err) console.log('apply job find buyer Error: ', err);
             if (buyer)
-                mail.job_apply({job:job,user:buyer, title: job.title});
+                mail.job_apply({job: job, user: buyer, title: job.title});
         });
         m.findCreateUpdate(models.JobApply, {
             job: job._id,
@@ -205,7 +193,7 @@ exports.count = function (query) {
         // console.log("info", info, info.params)
         m.count(models.Job, info.query, res, res, info.params)
     }
-};  
+};
 
 exports.buyer_open = function (req, res) {
     var queryParams = m.getBody(req)
@@ -281,7 +269,7 @@ exports.add_job = function (req, res) {
     params.buyer = req.userId;
     params.status = 'open';
     log('adasdasd', params)
-    if (params._id > 0 ) {
+    if (params._id > 0) {
         mail.job_created(params);
         m.findUpdate(models.Job, {_id: params._id}, params, res, res)
     } else {
@@ -307,12 +295,12 @@ exports.get_my_job = function (req, res) {
 exports.job_attach_file = function (req, res) {
     var attachment;
     var query = {};
-     query._id = req.params.id > 0 ?req.params.id:-50;
+    query._id = req.params.id > 0 ? req.params.id : -50;
     models.Job.findOne(query).exec(function (err, _job) {
-        if (_job) next(err,_job)
+        if (_job) next(err, _job)
         else new models.Job({}).save(next);
-        function next(err,job) {
-            if (err) return m.ecb(398,err,res);
+        function next(err, job) {
+            if (err) return m.ecb(398, err, res);
             var storage = multer.diskStorage({
                 destination: function (req, file, cb) {
                     var path = config.root + '/public/uploads/job/' + job._id || -52;
@@ -335,10 +323,10 @@ exports.job_attach_file = function (req, res) {
                         name: file.filename,
                         path: 'job/' + job._id
                     }).save(function (err, attach) {
-                            attachment = attach;
-                            m.scb({file: attach, job: job._id}, res);
-                            cb();
-                        })
+                        attachment = attach;
+                        m.scb({file: attach, job: job._id}, res);
+                        cb();
+                    })
                 });
             });
         }
@@ -386,7 +374,7 @@ exports.get_favorites_jobs = function (req, res) {
             path: 'job'
         }
     ];
-    models.Favorite.find({owner: req.userId, job:{$gt:0}}).select('job').populate(populate).exec(function (err, favorites) {
+    models.Favorite.find({owner: req.userId, job: {$gt: 0}}).select('job').populate(populate).exec(function (err, favorites) {
         res.json(_.map(favorites, function (fav) {
             return fav.job
         }))

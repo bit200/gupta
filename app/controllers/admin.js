@@ -110,6 +110,7 @@ exports.all_count = function (req, res) {
 exports.all = function (req, res) {
     var params = m.getBody(req);
     if(!params.query){
+        params.query = {};
         params.query.skip = params.skip;
         params.query.limit =  params.limit;
     }

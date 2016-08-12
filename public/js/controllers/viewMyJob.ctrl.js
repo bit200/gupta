@@ -5,7 +5,7 @@ XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '
     var user_type = _info.user_type;
     var job_type = _info.job_type;
     var info = angular.copy(_info);
-    if ($state.current.name != 'jobs_list.all'){
+    if ($state.current.name != 'jobs_list.all') {
         // info.user_type = rootScope.asView.buyer ? 'buyer' : 'seller';
     }
     info.template = info.template || [user_type, job_type].join('-');
@@ -15,27 +15,54 @@ XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '
     rootScope.info = info;
 }]);
 
-XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$timeout', 'jobInformation', function (scope, getContent, $rootScope, $timeout, jobInformation) {
+XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootScope', '$timeout', 'jobInformation', '$state', function (scope, http, getContent, $rootScope, $timeout, jobInformation, $state) {
     scope.categories = [];
     scope.subCategories = [];
-    scope.subSubCategories = [];
     scope._keywords = '';
-    scope.onSelectCustom = function (item) {
-        scope.isSub = false;
-        scope.subCategories = scope.parseFilter(angular.copy($rootScope.commonFilters[item]));
-        $timeout(function(){ scope.isSub = true;},0);
-        scope.isSubSub = false;
+    scope.isSub = false;
+
+    http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}}).then(function (resp) {
+        scope.locations = resp.data.data
+    });
+
+    console.log($state)
+    scope.onOpen = function (e, type) {
+        if (type == 'category') {
+            scope.category_open = !scope.category_open;
+        }
+
+
+        if (type == 'location') {
+            scope.location_open = !scope.location_open;
+        }
+    };
+
+    scope.selectItem = function (elem, type) {
+        if (type == 'category') {
+            scope.category_open = !scope.category_open;
+            scope.selected_category = elem
+        }
+        if (type == 'location') {
+            scope.location_open = !scope.location_open;
+            scope.selected_location = elem
+        }
+        var obj = {};
+        obj[type] = elem;
+        jobInformation.setInfo(obj);
+        scope.filterJob()
+    };
+
+    scope.searchText = function () {
+        if (!scope.searchJob) {
+            jobInformation.deleteSearch(scope.searchJob);
+        } else {
+            jobInformation.setInfo({search: scope.searchJob})
+        }
+
+        scope.filterJob()
     };
 
 
-    scope.onSelectSubCategory = function () {
-        _.each($rootScope.commonFilters[jobInformation.getInfo.category()], function (item) {
-            if (item.subFilter == jobInformation.getInfo.sub_category()) {
-                scope.isSubSub = true;
-                scope.subSubCategories = scope.parseFilter(item.arr)
-            }
-        })
-    };
     scope.parseFilter = function (filters) {
         return _.map(filters, function (filter) {
             if (filter.subFilter) {
@@ -47,7 +74,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$
         })
     };
     scope.slider = {
-        minValue: 1000,
+        minValue: 1,
         maxValue: 50000,
         options: {
             floor: 0,
@@ -70,17 +97,28 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', 'getContent', '$rootScope', '$
                 }
             },
             onEnd: function (r) {
-                jobInformation.setInfo({budget_min: scope.slider.minValue, budget_max: scope.slider.maxValue})
+                jobInformation.setInfo({budget_min: scope.slider.minValue || 1, budget_max: scope.slider.maxValue})
+                scope.filterJob()
             }
         }
     };
 
-    scope.$watch('_keywords', function(e,val){
-        if(e){
-            jobInformation.setInfo({search:e})
+    scope.filterJob = function () {
+        console.log('jobInformation', jobInformation.getInfo.information());
+        http.get('/api/jobs/filter', {params: jobInformation.getInfo.information()}).then(function (resp) {
+            scope.$broadcast('changeItems', resp.data.data)
+        }, function (err) {
+            console.log('err', err)
+        })
+
+    };
+
+    scope.$watch('_keywords', function (e, val) {
+        if (e) {
+            jobInformation.setInfo({search: e})
         }
     });
-    
+
     $rootScope.$watchCollection('commonFilters', function (val) {
         if (val)
             scope.categories = Object.keys(val)

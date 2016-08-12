@@ -97,6 +97,10 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 });
             };
 
+            scope.$on('changeItems', function(e,item){
+                scope.items = item
+            })
+
             scope.cb = function (a) {
                 scope.configPagination.currentPage = a;
                 scope.render()
