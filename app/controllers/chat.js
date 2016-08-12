@@ -63,6 +63,11 @@ exports.allMsgs = function (req, res) {
     m.find(models.ChatRoom, {_id: req.params.id, $or: [{buyer: req.userId}, {seller: req.userId}]}, res, res)
 };
 
+exports.isCreated = function (req, res) {
+    var params = m.getBody(req);
+    m.findOne(models.ChatRoom, {_id:params._id}, res, res)
+};
+
 exports.allRooms = function (req, res) {
     m.find(models.ChatRoom, {$or: [{buyer: req.userId}, {seller: req.userId}]}, res, res, {populate: 'job'})
 };
