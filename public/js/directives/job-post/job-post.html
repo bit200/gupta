@@ -173,9 +173,20 @@
         <div class="title3">Choose a category</div>
         <div class="form-group">
             <md-input-container class="md-block" flex-gt-sm="">
-                <md-select ng-change="choiceType()" aria-label="hidden" name="category" ng-model="job.type_category" required>
+                <md-select ng-change="choiceType(job.type_category, true)" aria-label="hidden" name="category" ng-model="job.type_category" required>
                     <md-option ng-repeat="(key,value) in commonFilters" value="{{key}}">
                         {{key}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <div class="title3" ng-if="subFilters">Choose a sub category</div>
+        <div class="form-group" ng-if="subFilters">
+            <md-input-container class="md-block" flex-gt-sm="">
+                <md-select ng-change="choiceType(job.type_name, false)" aria-label="hidden" name="category" ng-model="job.type_name" required>
+                    <md-option ng-repeat="item in subFilters" value="{{item}}">
+                        {{item}}
                     </md-option>
                 </md-select>
             </md-input-container>

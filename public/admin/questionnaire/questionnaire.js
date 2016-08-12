@@ -88,16 +88,19 @@ angular.module('admin.questionnaire', [
                     $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
                     $scope.submit = function (question) {
+                        console.log('test1', question)
                         if(question.items[0].length >0) {
                             question.items = _.values(question.items);
                         } else {
                             delete question.items
                         }
-                        if(question.table[0].length > 0) {
+                        if(question.table.length > 1) {
                             question.table = _.values(question.table);
                         } else {
                             delete question.table
                         }
+                        console.log('test2', question)
+
                         $http.post('/admin/api/question', question).then(function (resp) {
                             refresh(active, type);
                             $scope.close();
@@ -121,7 +124,7 @@ angular.module('admin.questionnaire', [
                 templateUrl: "questionnaire/question.modal.html",
                 controller: function ($scope, $element, $http) {
                     $scope.question = angular.copy(item);
-                    $scope.isNew = true;
+                    $scope.isNew = false;
                     $scope.submit = function (question) {
                         question.items = _.values(question.items);
                         $http.post('/admin/api/question', question).then(function (resp) {

@@ -104,8 +104,18 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                         name: name
                     })
                 }
-
-                scope.questions = _.uniq(_.pluck(angular.copy(scope.freelancer.service_providers), 'type'));
+                scope.questions = [];
+               _.each(scope.freelancer.service_providers, function (item) {
+                   if(item.type){
+                       if(item.name){
+                           scope.questions.push(item.name)
+                       } else {
+                           scope.questions.push(item.type)
+                       }
+                   }
+               })
+                scope.questions = _.uniq(scope.questions);
+                console.log('asfasdfas' , scope.questions)
             };
 
 

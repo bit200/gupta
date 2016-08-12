@@ -17,13 +17,22 @@ XYZCtrls.directive('jobPost', function () {
                 activeItem: {},
                 subName: {}
             };
-
-            scope.choiceType = function(text){
-              $http.get('/api/questionnaire', {params:{type:'post',service_provider:scope.job.type_category}}).then(function(resp){
-                  scope.job.questionnaries = resp.data.data
-              })
+            scope.subFilters;
+            scope.choiceType = function (category, type) {
+                if(type){
+                    delete scope.subFilters;
+                    delete scope.job.type_name
+                }
+                if (scope.commonFilters[category] && scope.commonFilters[category].length > 1) {
+                    scope.subFilters = [];
+                    _.each(scope.commonFilters[category], function (item) {
+                        scope.subFilters.push(item.name)
+                    })
+                }
+                $http.get('/api/questionnaire', {params: {type: 'post', service_provider: category}}).then(function (resp) {
+                    scope.job.questionnaries = resp.data.data
+                })
             };
-            
 
 
             scope.addFiles = function ($file) {
@@ -31,8 +40,8 @@ XYZCtrls.directive('jobPost', function () {
                 if ($file && $file != null) {
                     scope.attach.push($file);
                     Upload.upload({
-                        url: '/api/job/attach/'+scope.job._id,
-                        data: {name:$file.name},
+                        url: '/api/job/attach/' + scope.job._id,
+                        data: {name: $file.name},
                         file: $file
                     }).then(function (resp) {
                         scope.job.attach.push(resp.data.data.file._id);
@@ -54,8 +63,8 @@ XYZCtrls.directive('jobPost', function () {
                 if ($file && $file != null) {
                     scope.preview = $file;
                     Upload.upload({
-                        url: '/api/job/attach/'+scope.job._id,
-                        data: {name:$file.name},
+                        url: '/api/job/attach/' + scope.job._id,
+                        data: {name: $file.name},
                         file: $file
                     }).then(function (resp) {
                         scope.job.preview = resp.data.data.file._id;
