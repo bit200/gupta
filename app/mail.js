@@ -420,9 +420,7 @@ function contractAction(user,buyer, action,  contractID, reason_reject, _ecb, _s
 }
 
 //ok
-function chatMessage(user, job, _ecb, _scb) {
-    
-
+function chatMessage(user, job,_ecb, _scb,text, chat) {
     var _options = options('You have a message.',user.email, tpl.confirm({
         name: {
             first: user.first_name,
@@ -655,13 +653,12 @@ function approveAgencyRegistration(obj, email, _ecb, _scb) {
         name: {
             first: obj.freelancer.name
         },
-        subMessage:'Congratulations! Your registration has been confirmed!',
+        message:'Congratulations! Your registration as seller has been confirmed!',
         link:'#/',
         registration:{
             email:obj.email,
             password:obj.password
         },
-        message:" Thank you for creating an account with us. \n",
         link_name:'Go to site',
         appHost: config.appHost
     }));

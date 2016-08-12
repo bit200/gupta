@@ -1,6 +1,7 @@
 (function () {
     var socket = require('socket.io');
-    var m = require('../app/m');
+    var m = require('../app/m'),
+    mail = require('../app/mail');
     // var io = false;
 
     exports.boot = function (server) {
@@ -46,8 +47,11 @@
 
             socket.on('post msg', function (msg) {
                 m.findOne(models.ChatRoom, {_id: msg.room}, {}, function (chat) {
-                    chat.messages.push(msg.msg)
-                    m.findUpdate(models.ChatRoom, {_id: msg.room}, {messages: chat.messages})
+                    chat.messages.push(msg.msg);
+                    log('qweqe2qq2eq2eq2eqe', msg)
+                    m.findUpdate(models.ChatRoom, {_id: msg.room}, {messages: chat.messages}, {}, function(chat){
+                        mail.chatMessage()
+                    })
                 });
                 socket.broadcast.to(msg.room).emit('w8 msg', msg.msg);
             });
