@@ -75,7 +75,8 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
     }
 
     $scope.LinkedIn = function () {
-        if (IN.User.isAuthorized()) {
+        
+        if (IN && IN.User && IN.User.isAuthorized()) {
             // IN.API.Raw("/people/~").result(function (resp) {
             //     console.log('resp', resp)
             // }).error(function (err) {
@@ -100,6 +101,11 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
     };
 
     $scope.login = function () {
+        FB.init({
+            appId      : '930075280420914',
+            xfbml      : true,
+            version    : 'v2.5'
+        });
         FB.login(function (response) {
             if (response.status === 'connected') {
                 FB.api('/me?fields=id,email,name,picture', function (data) {
