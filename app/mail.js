@@ -163,7 +163,7 @@ function job_approve(job, _ecb, _scb) {
             last: job.user.last_name
         },
         userId: job.user._id,
-        subMessage:'Your Job was approved!',
+        message:'Your Job was approved!',
         link:'#/job/'+job._id,
         link_name:'Go to site',
         appHost: config.appHost
@@ -186,7 +186,7 @@ function job_reject_buyer(user, _ecb, _scb) {
             first: user.first_name,
             last: user.last_name
         },
-        subMessage:'Your Job was rejected.',
+        message:'Your Job was rejected.',
         link:'#/',
         link_name:'Go to site',
         appHost: config.appHost
@@ -285,7 +285,7 @@ function contractCreate(contract, action, _ecb, _scb) {
             first: contract.buyer.first_name,
             last: contract.buyer.last_name
         },
-        subMessage:'You successfully '+ action + ' contract ' + contract._id + ' .',
+        message:'You successfully '+ action + ' contract ' + contract._id + ' .',
         link:'#/jobs/buyer/open',
         link_name:'Go to site',
         appHost: config.appHost
@@ -324,7 +324,7 @@ function contractApprove(user, contractID, _ecb, _scb) {
             first: user.buyer.first_name,
             last: user.buyer.last_name
         },
-        subMessage:'Contract ' + contractID + ' was approved.',
+        message:'Contract ' + contractID + ' was approved.',
         link:'#/jobs/buyer/ongoing',
         link_name:'Go to site',
         appHost: config.appHost
@@ -335,7 +335,7 @@ function contractApprove(user, contractID, _ecb, _scb) {
             first: user.seller.first_name,
             last: user.seller.last_name
         },
-        subMessage:'You have approved contract ' + contractID + '.',
+        message:'You have approved contract ' + contractID + '.',
         link:'#/jobs/seller/ongoing',
         link_name:'Go to site',
         appHost: config.appHost
@@ -455,7 +455,7 @@ function contractSuggest(user, contractID, suggestID, _ecb, _scb) {
             first: user.first_name,
             last: user.last_name
         },
-        subMessage:'Contract ' + contractID + ' was suggest edit.',
+        message:'Contract ' + contractID + ' was suggest edit.',
         link:'#/contract/suggest/'+contractID,
         link_name:' Go to approve or reject',
         appHost: config.appHost
@@ -519,7 +519,7 @@ function suggestCancel(user, contractID, _ecb, _scb) {
             first: user.first_name,
             last: user.last_name
         },
-        subMessage:'Your suggested changes in contract ' + contractID + ' was canceled.',
+        message:'Your suggested changes in contract ' + contractID + ' was canceled.',
         link:'#/contract/approve/'+contractID,
         link_name:' Go to approve or reject',
         appHost: config.appHost
@@ -544,7 +544,7 @@ function suggestApply(user, contractID, suggestID, _ecb, _scb) {
             first: user.first_name,
             last: user.last_name
         },
-        subMessage:'Your suggested changes in contract ' + contractID + ' was applied.',
+        message:'Your suggested changes in contract ' + contractID + ' was applied.',
         link:'#/',
         link_name:'Go to site',
         appHost: config.appHost
@@ -592,7 +592,7 @@ function registrationSeller(freelancer, name,  _ecb, _scb) {
         name: {
             first: name.name
         },
-        subMessage:'Thank you for registration by seller.\n' +
+        message:'Thank you for registration by seller.\n' +
         "It's your new",
         registration:{
             email:user.login,
