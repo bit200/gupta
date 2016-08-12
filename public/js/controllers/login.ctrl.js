@@ -64,6 +64,8 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
                 $scope.loginError = 'Password not correct'
         });
     };
+
+    
     $scope.login_google = function () {
         var element = (document.getElementById('customBtn'));
         var auth2 = gapi.auth2.getAuthInstance();
@@ -72,10 +74,14 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
                 loginSocial(googleUser.wc.hg, googleUser.wc.Za, googleUser.wc.Na, googleUser.wc.Ph)
             }, function (error) {
             });
-    }
+    };
 
+
+    IN.Event.on(IN, "auth", getProfileData);
+    function getProfileData() {
+        IN.API.Raw("/people/~").result(function(resp){console.log('r',resp)}).error(function(err){console.log('e', err)});
+    }
     $scope.LinkedIn = function () {
-        
         if (IN && IN.User && IN.User.isAuthorized()) {
             // IN.API.Raw("/people/~").result(function (resp) {
             //     console.log('resp', resp)
