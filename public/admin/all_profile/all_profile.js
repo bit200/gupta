@@ -45,7 +45,7 @@ angular.module('admin.all_profile', [
         };
         $scope.getUsers = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all/users', {params: {model: 'User', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.get('/admin/api/all', {params: {model: 'User', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.display.type = 'users';
                 $scope.all_profiles = resp.data.data.data;
                 $scope.configPagination.totalCount = resp.data.data.count;
