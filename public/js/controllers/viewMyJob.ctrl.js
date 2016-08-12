@@ -20,6 +20,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
     scope.subCategories = [];
     scope._keywords = '';
     scope.isSub = false;
+    scope.searchJob = '';
 
     http.get('/get-content', {params: {name: 'Location', query: {}, distinctName: 'name'}}).then(function (resp) {
         scope.locations = resp.data.data
@@ -52,11 +53,11 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         scope.filterJob()
     };
 
-    scope.searchText = function () {
-        if (!scope.searchJob) {
-            jobInformation.deleteSearch(scope.searchJob);
+    scope.searchText = function (text) {
+        if (!text) {
+            jobInformation.deleteSearch();
         } else {
-            jobInformation.setInfo({search: scope.searchJob})
+            jobInformation.setInfo({search: text})
         }
 
         scope.filterJob()
@@ -73,6 +74,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
             }
         })
     };
+
     scope.slider = {
         minValue: 1,
         maxValue: 50000,
@@ -97,7 +99,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
                 }
             },
             onEnd: function (r) {
-                jobInformation.setInfo({budget_min: scope.slider.minValue || 1, budget_max: scope.slider.maxValue})
+                jobInformation.setInfo({budget_min: scope.slider.minValue || 1, budget_max: scope.slider.maxValue});
                 scope.filterJob()
             }
         }
