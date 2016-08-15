@@ -1,6 +1,6 @@
 /* Controllers */
 var XYZCtrls = angular.module('XYZCtrls');
-XYZCtrls.controller('favoriteCtrl', ['$scope', '$rootScope', '$location', '$http', 'ModalService', '$timeout', 'AuthService', 'notify', function (scope, rootScope, location, http, ModalService, $timeout, AuthService, notify) {
+XYZCtrls.controller('favoriteCtrl', ['$scope', '$rootScope', '$location', '$http', 'ModalService', '$timeout', 'AuthService', 'notify', '$state', function (scope, rootScope, location, http, ModalService, $timeout, AuthService, notify,$state) {
     scope.loading = true;
     scope.getFreelancer = function(){
         scope.loading = true;
@@ -12,6 +12,26 @@ XYZCtrls.controller('favoriteCtrl', ['$scope', '$rootScope', '$location', '$http
         }, function (err) {
             scope.loading = false;
             notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
+        })
+    };
+    scope.favorite = [];
+    http.get('/api/my/favorite').success(function (favorites) {
+        scope.favorite = favorites;
+    });
+
+    scope.addFavorite = function (profileId) {
+        http.get('/api/freelancer/' + profileId + '/favorite/add').then(function () {
+            scope.favorite.push(profileId)
+        }, function (err) {
+            if (err.status == 401) {
+                $state.go('login')
+            }
+        });
+    };
+
+    scope.removeFavorite = function (profileId) {
+        http.get('/api/freelancer/' + profileId + '/favorite/remove').then(function () {
+            scope.favorites.splice(scope.favorites.indexOf(profileId), 1);
         })
     };
     

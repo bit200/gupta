@@ -2,7 +2,7 @@
     <div class="row" style="margin-top: 1%">
         <div class="col-md-3">
             <div style="width: 100%;background: rgb(240, 240, 240);padding: 10px 12px 100px 10px;">
-                <h3>{{currentUser().first_name}} {{currentUser().last_name}}</h3>
+                <h3 style="padding-left: 12px">{{currentUser().first_name}} {{currentUser().last_name}}</h3>
                 <div ng-if="profile.preview && !profile_area.changeImage" class="text-center" style="position: relative;width: 100%;margin: 0 auto;background: white;">
                     <img ng-src="{{profile.preview}}" style="width: 100%;"/>
                     <div style="position: absolute;bottom: 0px;height: 50px;width: 100%;background: rgba(0, 0, 0, 0.6);" class="pointer" ng-click="showUpdatePic()">
@@ -21,7 +21,7 @@
                     <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
                 </div>
                 <div style="margin-top: 20px">
-                    <a class="pointer" ng-click="showModal(true)" style="text-decoration: underline;color: rgb(250, 60, 60);font-size: 16px;">Change Password</a>
+                    <a class="pointer" ng-click="showModal(true)" style="text-decoration: underline;color: rgb(250, 60, 60);font-size: 16px; padding-left: 12px">Change Password</a>
                 </div>
             </div>
         </div>
