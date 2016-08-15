@@ -26,6 +26,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         } else {
             scope.jobs = getContent.jobs.data.data;
             scope.profiles = parseRating.views(getContent.sellers.data.data);
+            console.log('123123123', getContent.sellers.data.data)
         }
 
         scope.link = function (url) {
@@ -169,7 +170,6 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
                     modal.element.modal();
                     modal.close.then(function (result) {
                     });
-
                 });
             });
         };

@@ -31,14 +31,16 @@ angular.module('admin.all_profile', [
     .controller('AllProfileCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.selectFilter = 'pending';
         $scope.locations = getContent.location.data.data;
-        $scope.display = {type : 'freelancers'};
+        $scope.display = {type: 'freelancers'};
         $scope.getFreelancer = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all', {params: {model:'Freelancer',limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.get('/admin/api/all', {params: {model: 'Freelancer', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.display.type = 'freelancers';
                 $scope.all_profiles = resp.data.data.data;
-                $scope.configPagination.totalCount = resp.data.data.count;
-                $scope.configPagination.currentPage = skip;
+                if ($scope.configPagination.totalCount != resp.data.data.count) {
+                    $scope.configPagination.totalCount = resp.data.data.count;
+                    $scope.configPagination.currentPage = 1;
+                }
             }, function (err) {
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
@@ -48,8 +50,10 @@ angular.module('admin.all_profile', [
             $http.get('/admin/api/all', {params: {model: 'User', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.display.type = 'users';
                 $scope.all_profiles = resp.data.data.data;
-                $scope.configPagination.totalCount = resp.data.data.count;
-                $scope.configPagination.currentPage = skip;
+                if ($scope.configPagination.totalCount != resp.data.data.count) {
+                    $scope.configPagination.totalCount = resp.data.data.count;
+                    $scope.configPagination.currentPage = 1;
+                }
             }, function (err) {
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
@@ -69,19 +73,23 @@ angular.module('admin.all_profile', [
         $scope.check = function (type) {
             type == 'freelancers' ? $scope.getFreelancer(1) : $scope.getUsers(1)
         };
-        
-        function spliceItem(index){
+
+        function spliceItem(index) {
             $scope.all_profiles.splice(index, 1);
         }
 
-        function update_profile(index){
-            $scope.all_profiles.splice(index, 1);
+        function update_profile() {
+            if ($scope.display.type == 'freelancers') {
+                $scope.getFreelancer()
+            } else {
+                $scope.getUsers()
+            }
         }
-        
-        $scope.getFavorite = function(freelancer, index){
-            $http.post('/admin/api/sorted', {_id:freelancer._id, sorted: freelancer.sorted || false}).then(function(resp){
+
+        $scope.getFavorite = function (freelancer, index) {
+            $http.post('/admin/api/sorted', {_id: freelancer._id, sorted: freelancer.sorted || false}).then(function (resp) {
                 $scope.all_profiles[index] = resp.data.data
-            }, function(err){
+            }, function (err) {
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
         };
@@ -92,8 +100,9 @@ angular.module('admin.all_profile', [
                 controller: function ($scope, $element, $http) {
                     console.log(type)
                     $scope.submit = function () {
-                        $http.delete('/admin/api/' + type, {params: {_id: item._id}}).then(function(){
+                        $http.delete('/admin/api/' + type, {params: {_id: item._id}}).then(function () {
                             spliceItem(index);
+
                             $scope.close()
                         })
                     };
@@ -117,7 +126,9 @@ angular.module('admin.all_profile', [
                     $scope.type = type;
                     $scope.profile = angular.copy(user);
                     $scope.submit = function (user) {
+                        console.log(user);
                         $http.post('/admin/api/' + type, {user: user}).then(function (resp) {
+                            update_profile()
                             $scope.close()
                         })
                     };
