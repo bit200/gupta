@@ -283,12 +283,12 @@
         </form>
 
 
-        <form ng-show="freelancer_area.activeTab == 'expertise'">
+        <form ng-show="freelancer_area.activeTab == 'expertise'" style="margin-top: 5px">
             <div ng-if="!questionnaire.length">
                 <h3 class="text-center">Choice service provider not have questionnaire</h3>
             </div>
-            <div ng-repeat="service in questions">
-                <div class="jheader" open>
+            <div ng-repeat="service in questions" ng-if="(questionnaire|filter:service).length">
+                <div class="jheader" open >
                     {{service}} Section
                 </div>
                 <div class="jbody">
