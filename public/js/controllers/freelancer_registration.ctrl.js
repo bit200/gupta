@@ -115,7 +115,6 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                    }
                })
                 scope.questions = _.uniq(scope.questions);
-                console.log('asfasdfas' , scope.questions)
             };
 
 

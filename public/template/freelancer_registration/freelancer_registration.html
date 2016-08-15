@@ -288,7 +288,7 @@
                 <h3 class="text-center">Choice service provider not have questionnaire</h3>
             </div>
             <div ng-repeat="service in questions" ng-if="(questionnaire|filter:service).length">
-                <div class="jheader" open >
+                <div class="jheader" open>
                     {{service}} Section
                 </div>
                 <div class="jbody">
@@ -303,7 +303,7 @@
                         </div>
 
                         <div ng-if="item.items && item.items.length">
-                            <md-checkbox ng-repeat="box in item.items track by $index" ng-model="freelancer.questionnaire[_index].items[$index]" >{{box}}</md-checkbox>
+                            <md-checkbox ng-repeat="box in item.items track by $index" ng-model="freelancer.questionnaire[_index].items[$index]">{{box}}</md-checkbox>
                         </div>
                         <div ng-if="item.table">
                             <table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">
@@ -329,11 +329,8 @@
             <h4 class="info-title">Please specify pricing for your services</h4>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <md-checkbox ng-click="priceHour=false;service=false;freelancer.price.hour=''"
-                                     ng-model="priceWord"
-                                     class="margin-top-8 md-warn">Rs. Per word
-                        </md-checkbox>
+                    <div class="col-xs-3" ng-click="priceHour = false; freelancer.price.hour = ''">
+                        <md-checkbox ng-model="priceWord" class="margin-top-8 md-warn">Rs. Per word</md-checkbox>
                     </div>
                     <div class="col-xs-9">
                         <md-input-container class="md-block">
@@ -345,9 +342,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-3">
-                        <md-checkbox ng-click="freelancer.price.word = '';" ng-model="priceHour" class="margin-top-8 md-warn">Rs. Per hour
-                        </md-checkbox>
+                    <div class="col-xs-3" ng-click="priceWord = false;freelancer.price.word = '';">
+                        <md-checkbox ng-model="priceHour" class="margin-top-8 md-warn">Rs. Per hour</md-checkbox>
                     </div>
                     <div class="col-xs-9">
                         <md-input-container class="md-block">
