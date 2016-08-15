@@ -9,11 +9,11 @@
 </div>
 <div style="height: auto;margin: 10px 0;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;position: relative;padding-top: 10px">
     <div class="table-filter">Filters</div>
-    <div ng-repeat="(key,value) in commonFilters" ng-class="{'active_tab': active_tab == key}" ng-click="choice(key)" style="outline: none;display: inline-block; margin:0px 10px;height: 100%;line-height: 45px;">{{key}}</div>
+    <div ng-repeat="(key,value) in commonFilters" ng-class="{'active_tab': active_tab == key || active_category == key}" ng-click="choice(key, true)" style="outline: none;display: inline-block; margin:0px 10px;height: 100%;line-height: 45px;">{{key}}</div>
 </div>
 <div style="height: auto;margin: 20px 0 10px;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;position: relative;padding-top: 10px">
     <div ng-if="subFilters" class="table-filter" style="right: 49%;">Sub Filter</div>
-    <div ng-repeat="item in subFilters" ng-class="{'active_tab': active_tab == item}" ng-click="choice(item)" style="outline: none;display: inline-block; margin:0px 10px;height: 100%;line-height: 45px;">{{item}}</div>
+    <div ng-repeat="item in subFilters" ng-class="{'active_tab': active_tab == item}" ng-click="choice(item, false)" style="outline: none;display: inline-block; margin:0px 10px;height: 100%;line-height: 45px;">{{item}}</div>
 </div>
 <div>
 

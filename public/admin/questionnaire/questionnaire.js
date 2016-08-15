@@ -155,7 +155,11 @@ angular.module('admin.questionnaire', [
             $scope.type = type;
             $scope.getQuestions($scope.active_tab, type)
         };
-        $scope.choice = function (key) {
+        
+        
+        $scope.choice = function (key, type) {
+            if(type)
+                $scope.active_category = key;
             $scope.active_tab = key;
             if($scope.commonFilters[$scope.active_tab] && $scope.commonFilters[$scope.active_tab].length > 1){
                 $scope.getSubfilter($scope.active_tab)
