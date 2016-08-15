@@ -850,3 +850,10 @@ li > span.fa.fa-angle-right {
     padding: 2px 10px;
     border: 1px solid lightgray;
 }
+
+.sub_title {
+    font-size: 10px;
+    padding-left: 11px;
+    padding-top: 2px;
+    color: lightgray;
+}

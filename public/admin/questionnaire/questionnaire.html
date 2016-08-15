@@ -1,5 +1,6 @@
 <div style="margin-top: 20px">
     <button class="btn btn-default" ng-click="add_question(active_tab, type)">Add questionnaire</button>
+    <div class="sub_title" ng-if="active_tab">To {{active_tab}}</div>
 </div>
 <div class="text-center">
     <md-radio-group ng-model="type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
