@@ -8,7 +8,6 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.freelancers = [];
         scope.loading = true;
         scope.ownFilter.type = 'agency';
-
         scope.search = {};
         scope.favorites = [];
         http.get('/api/my/favorite').success(function (favorites) {
@@ -135,20 +134,6 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             scope.ownFilter.location = checkValue(stateParams.city);
         }
 
-        scope.$watch('activeProvider', function (val) {
-            if (val.name) {
-                // if ($state.current.name == 'categories') {
-                //     var obj = {};
-                //     if (rootScope.activeProvider.name)
-                //         obj.type = rootScope.activeProvider.name.split(' ').join('-').toLowerCase();
-                //     if (rootScope.activeProvider.subName)
-                //         obj.filter = rootScope.activeProvider.subName.split(' ').join('-').toLowerCase();
-                //     $state.go('categories',obj)
-                // }
-                // console.log('######val', val)
-                scope.submitFilter()
-            }
-        }, true);
         scope.showPic = function (pic) {
             ModalService.showModal({
                 templateUrl: "template/modal/workImg.html",
@@ -192,43 +177,67 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             if (scope.checkViews) {
                 scope.checkViews == 'more' ? filter.views = {'$gte': scope.slider.views.value} : filter.views = {'$lte': scope.slider.views.value};
             }
-            if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length) {
+            console.log('stateParams', stateParams)
+            if (stateParams.type.length) {
                 var t = {
-                    "service_providers.type": rootScope.activeProvider.name
+                    "service_providers.type": createServiceProviderUlr(stateParams.type)
                 };
-                angular.forEach(rootScope.activeProvider, function (aPm, key) {
-                    if (key == 'values')
-                        angular.forEach(aPm, function (value) {
-                            if (value.arr)
-                                angular.forEach(value.arr, function (aV) {
-                                    if (aV.selected) {
-                                        t['$or'] = t['$or'] || [];
-                                        t['$or'].push({
-                                            "service_providers.type": rootScope.activeProvider.name,
-                                            "service_providers.filter": value.subFilter,
-                                            "service_providers.name": aV.name
-                                        })
-                                    }
-                                });
-                            else if (value.selected) {
-                                t['$or'] = t['$or'] || [];
-                                t['$or'].push({
-                                    "service_providers.type": rootScope.activeProvider.name,
-                                    "service_providers.name": value.name
-                                })
-                            }
-                        });
-                });
-                _.extend(filter, t)
+                if (stateParams.filter.length)
+                    t["service_providers.name"] = createServiceProviderUlr(stateParams.filter)
+
+                console.log('ttt', t)
+                // angular.forEach(rootScope.activeProvider, function (aPm, key) {
+                //     if (key == 'values')
+                //         console.log('qeqeqwe', aPm)
+                //         angular.forEach(aPm, function (value) {
+                //             if (value.arr)
+                //                 angular.forEach(value.arr, function (aV) {
+                //                     if (aV.selected) {
+                //                         t['$or'] = t['$or'] || [];
+                //                         t['$or'].push({
+                //                             "service_providers.type": rootScope.activeProvider.name,
+                //                             "service_providers.filter": value.subFilter,
+                //                             "service_providers.name": aV.name
+                //                         })
+                //                     }
+                //                 });
+                //             else if (value.selected) {
+                //                 t['$or'] = t['$or'] || [];
+                //                 t['$or'].push({
+                //                     "service_providers.type": rootScope.activeProvider.name,
+                //                     "service_providers.name": value.name
+                //                 })
+                //             }
+                //         });
+                // });
+                // _.extend(filter, t)
             }
 
             // service_packages
-            http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
+            http.get('/api/freelancers?' + $.param(t)).success(function (resp) {
                 //scope.freelancers = resp.data;
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
                 scope.loading = false;
             })
         };
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function createServiceProviderUlr(name) {
+            var arr = name.split('-');
+            arr = _.map(arr, function (item) {
+                if (item != 'and') {
+                    return capitalizeFirstLetter(item)
+
+                } else {
+                    return item
+                }
+            });
+            console.log(arr.join(' '))
+            return arr.join(' ')
+        }
 
 
         function objInArr(obj) {
@@ -241,6 +250,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             return arr;
         }
 
+        scope.submitFilter()
     }]);
 
 XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService', '$state',
@@ -251,7 +261,8 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         $http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
             scope.questionnaire = resp.data.data;
         }, function (err) {
-            notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});        });
+            notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
+        });
         scope.active_profile_menu = 'pricing';
         scope.loading = true;
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {

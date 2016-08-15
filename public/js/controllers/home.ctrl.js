@@ -60,7 +60,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
             ModalService.showModal({
                 templateUrl: "template/modal/postJobOrViewService.html",
                 controller: function ($scope, $element, close) {
-                    $scope.item = item;
+                    $scope.item = item.split(' ').join('-').toLowerCase();
                     $scope.close = function (state) {
                         $element.modal('hide');
                         close(state, 500);
