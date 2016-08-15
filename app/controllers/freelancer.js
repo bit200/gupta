@@ -82,7 +82,10 @@ exports.get_freelancers = function (req, res) {
         //     res.json(count)
         // });
     } else {
-        var skip = (parseInt(params.skip || params.page || 1));
+        if(params.page) {
+            params.skip= (params.page - 1) * params.limit
+        }
+        var skip = (parseInt(params.skip || 0));
         var limit = parseInt(params.limit) || 10;
         delete params.skip;
         delete params.page;
