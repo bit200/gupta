@@ -169,8 +169,13 @@ angular.module('directive', [])
                     }
                 };
 
+                scope.get_rows = function (item, num) {
+                    if (num)
+                        item.row_number = new Array(num);
+                };
+
                 scope.deleteItem = function (items, index) {
-                    console.log('fsdhf', items, index)
+                    console.log('fsdhf', items, index);
                     items.splice(index, 1)
                     console.log('fsdhf', items, index)
                 };

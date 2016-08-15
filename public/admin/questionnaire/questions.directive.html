@@ -20,15 +20,15 @@
     </div>
 
     <div>
-        <h3 ng-show="question.type != 'post'">Type:</h3>
+        <h3 ng-show="question.type != 'post'">Type questionnaire:</h3>
         <md-radio-group ng-show="question.type != 'post'" ng-model="type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
             <md-radio-button ng-click="question.table = []" value="list" class="md-primary inline-block" style="outline: none">List menu</md-radio-button>
             <md-radio-button ng-click="question.items = []" value="table" style="margin-left: 50px;display:inline-block;outline: none">Table</md-radio-button>
         </md-radio-group>
         <h3 ng-show="type == 'list'">Type answer:</h3>
         <md-radio-group ng-show="type == 'list'" ng-model="list_type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none" ng-init="list_type = list_type || 'question'">
-            <md-radio-button value="question" class="md-primary inline-block" style="outline: none">Question</md-radio-button>
-            <md-radio-button value="checkbox" style="margin-left: 55px;display:inline-block;outline: none">Question with multi checkbox</md-radio-button>
+            <md-radio-button value="question" class="md-primary inline-block" style="outline: none">Text</md-radio-button>
+            <md-radio-button value="checkbox" style="margin-left: 55px;display:inline-block;outline: none">Checkboxs</md-radio-button>
         </md-radio-group>
 
         <div ng-if="type == 'list' || question.type =='post'">
@@ -67,6 +67,24 @@
                 </div>
             </div>
             <div class="btn btn-default" style="width: 100%; margin-top: 10px"  ng-click="question.table.push({})"><span class="add-item fa fa-plus" style="text-align: center; width: 100%"> Add column</span></div>
+
+            <div style="margin-top: 20px" ng-init="showTable = false">
+                <button class="btn btn-default" ng-click="showTable = !showTable" style="margin-bottom: 10px">Preview table</button>
+                <table ng-if="showTable" class="table table-bordered table-hover" ng-init="get_rows(question, question.row_number)">
+                    <tr>
+                        <td ng-init="question.table[$index].table_header = table.table_header" ng-repeat="table in question.table track by $index">{{table.table_header}}</td>
+                    </tr>
+                    <tr ng-repeat="el in question.row_number track by $index" ng-init="row = $index">
+                        <td height="20" class="relative" ng-repeat="(i,table) in question.table track by $index">
+                            <div ng-if="table.type=='text'" class="text-center" style="line-height: 55px;">{{table.row[row].value}}</div>
+                            <md-input-container ng-if="table.type=='input'" class="md-block" flex-gt-sm>
+                                <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[_index].table[row].input[$index]">
+                            </md-input-container>
+                            <md-checkbox class="checkbox-profile" ng-if="table.type=='checkbox'" ng-model="freelancer.questionnaire[_index].table[row].checkbox[$index]"></md-checkbox>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>
