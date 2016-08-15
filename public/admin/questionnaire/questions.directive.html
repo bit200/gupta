@@ -30,8 +30,8 @@
                 <md-input-container class="md-block">
                     <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.items[$index]" style="color: black">
                 </md-input-container>
-                <div><span ng-if="$last" class="add-item fa fa-plus" style="text-align: center; width: 100%" ng-click="arrItems.push(' ')"></span></div>
             </div>
+            <div><button ng-click="arrItems.push(' ')" class="btn btn-default" style="text-align: center; width: 100%" ><span class="add-item fa fa-plus" ></span> Add item</button></div>
         </div>
 
 
@@ -46,15 +46,17 @@
                     <md-radio-button value="checkbox" ng-click="rows(false,elem)" class="md-primary inline-block" style="margin-left: 15px;outline: none">Checkbox</md-radio-button>
                     <md-radio-button value="text" ng-click="rows(true, elem)" style="margin-left: 15px;display:inline-block;outline: none">Text</md-radio-button>
                 </md-radio-group>
-                <div ng-if="question.table[_index].type == 'text'" ng-repeat="_row in elem.row track by $index">
-                    <md-input-container class="md-block">
-                        <h4 style="display: inline-block">Row {{$index+1}}:</h4>
-                        <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.table[_index].row[$index].value" style="color: black;width: 80%;float: right">
-                        <div ng-if="$last" class="btn btn-default" style="width: 100%" ng-click="elem.row.push({}); maxRoute(elem.row.length)"><span class="add-item fa fa-plus" style="text-align: center; width: 100%" >Add row</span></div>
-                    </md-input-container>
+                <div ng-if="question.table[_index].type == 'text'" >
+                    <div ng-repeat="_row in elem.row track by $index">
+                        <md-input-container class="md-block">
+                            <h4 style="display: inline-block">Row {{$index+1}}:</h4>
+                            <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.table[_index].row[$index].value" style="color: black;width: 80%;float: right">
+                        </md-input-container>
+                    </div>
+                    <div class="btn btn-default" style="width: 100%" ng-click="elem.row.push({}); maxRoute(elem.row.length)"><span class="add-item fa fa-plus" style="text-align: center; width: 100%"> Add row</span></div>
                 </div>
-                <div ng-if="$last" class="btn btn-default" style="width: 100%"  ng-click="question.table.push({})"><span class="add-item fa fa-plus" style="text-align: center; width: 100%">Add column</span></div>
             </div>
+            <div class="btn btn-default" style="width: 100%; margin-top: 10px"  ng-click="question.table.push({})"><span class="add-item fa fa-plus" style="text-align: center; width: 100%"> Add column</span></div>
         </div>
 
 
