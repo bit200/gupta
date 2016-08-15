@@ -13,7 +13,21 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         http.get('/api/my/favorite').success(function (favorites) {
             scope.favorites = favorites;
         });
+        scope.firstInit = 0;
+        if (!scope.firstInit) {
+            angular.forEach(rootScope.commonFilters, function (values, key) {
+                if (key == createServiceProviderUlr(stateParams.type)) {
+                    rootScope.activeProvider = {
+                        name: key,
+                        values: values
+                    };
+                }
 
+            });
+            if (createServiceProviderUlr(stateParams.filter)) {
+                rootScope.activeProvider.subName = createServiceProviderUlr(stateParams.filter)};
+            scope.firstInit = 1;
+        }
         scope.addFavorite = function (profileId) {
             http.get('/api/freelancer/' + profileId + '/favorite/add').then(function () {
                 scope.favorites.push(profileId)
@@ -177,45 +191,15 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             if (scope.checkViews) {
                 scope.checkViews == 'more' ? filter.views = {'$gte': scope.slider.views.value} : filter.views = {'$lte': scope.slider.views.value};
             }
-            console.log('stateParams', stateParams)
             if (stateParams.type.length) {
                 var t = {
                     "service_providers.type": createServiceProviderUlr(stateParams.type)
                 };
                 if (stateParams.filter.length)
                     t["service_providers.name"] = createServiceProviderUlr(stateParams.filter)
-
-                console.log('ttt', t)
-                // angular.forEach(rootScope.activeProvider, function (aPm, key) {
-                //     if (key == 'values')
-                //         console.log('qeqeqwe', aPm)
-                //         angular.forEach(aPm, function (value) {
-                //             if (value.arr)
-                //                 angular.forEach(value.arr, function (aV) {
-                //                     if (aV.selected) {
-                //                         t['$or'] = t['$or'] || [];
-                //                         t['$or'].push({
-                //                             "service_providers.type": rootScope.activeProvider.name,
-                //                             "service_providers.filter": value.subFilter,
-                //                             "service_providers.name": aV.name
-                //                         })
-                //                     }
-                //                 });
-                //             else if (value.selected) {
-                //                 t['$or'] = t['$or'] || [];
-                //                 t['$or'].push({
-                //                     "service_providers.type": rootScope.activeProvider.name,
-                //                     "service_providers.name": value.name
-                //                 })
-                //             }
-                //         });
-                // });
-                // _.extend(filter, t)
             }
 
-            // service_packages
             http.get('/api/freelancers?' + $.param(t)).success(function (resp) {
-                //scope.freelancers = resp.data;
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
                 scope.loading = false;
             })
@@ -235,7 +219,6 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                     return item
                 }
             });
-            console.log(arr.join(' '))
             return arr.join(' ')
         }
 
@@ -253,8 +236,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.submitFilter()
     }]);
 
-XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService', '$state',
-    function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService, $state) {
+XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService', '$state', 'notify',
+    function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService, $state, notify) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.questions = _.uniq(_.pluck(angular.copy(scope.viewProfile.service_providers), 'type'));
