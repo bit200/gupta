@@ -135,7 +135,7 @@ angular.module('directive', [])
                 urlModel: "="
             },
             controller: ['$scope', '$http', function (scope, $http) {
-                $http.get(scope.urlCount, scope.urlModel).then(function(resp){
+                $http.get(scope.urlCount, scope.urlModel).then(function (resp) {
                     console.log(resp)
                     scope.count = resp.data.data
                 })
@@ -156,6 +156,9 @@ angular.module('directive', [])
                 scope.question.table = scope.question.table || [{}];
                 scope.question.items = scope.question.items || [''];
                 scope.type = scope.question.items.length > 0 ? 'list' : scope.question.table.length > 0 ? 'table' : 'list';
+                console.log(scope.question.items, scope.question.items.length)
+                if (scope.type == 'list')
+                    scope.list_type = (scope.question.items[0] != '' && scope.question.items.length > 0) ? 'checkbox' : 'question';
                 scope.rows = function (bool, elem) {
                     if (bool) {
                         elem = elem || {};
@@ -166,7 +169,11 @@ angular.module('directive', [])
                     }
                 };
 
-
+                scope.deleteItem = function (items, index) {
+                    console.log('fsdhf', items, index)
+                    items.splice(index, 1)
+                    console.log('fsdhf', items, index)
+                };
                 scope.maxRoute = function (max) {
                     if (scope.question.row_number < max) {
                         scope.question.row_number = max

@@ -125,7 +125,7 @@ angular.module('admin.questionnaire', [
                 controller: function ($scope, $element, $http) {
                     $scope.question = angular.copy(item);
                     $scope.isNew = false;
-                    $scope.submit = function (question) {
+                    $scope.submit = function (question, type) {
                         question.items = _.values(question.items);
                         $http.post('/admin/api/question', question).then(function (resp) {
                             refresh(active, type);

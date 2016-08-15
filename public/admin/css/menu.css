@@ -857,3 +857,16 @@ li > span.fa.fa-angle-right {
     padding-top: 2px;
     color: lightgray;
 }
+
+.questionnaire-input {
+    color: black;
+    width: 90% !important;
+    margin-right: 10px;
+}
+
+.table-row {
+    color: black;
+    width: 80% !important;
+    float: left;
+    margin-left: 2%;
+}
