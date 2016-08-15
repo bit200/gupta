@@ -88,13 +88,12 @@ angular.module('admin.questionnaire', [
                     $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
                     $scope.submit = function (question) {
-                        console.log('test1', question)
-                        if(question.items[0].length >0) {
+                        if(question.items[0] && question.items[0].length >0) {
                             question.items = _.values(question.items);
                         } else {
                             delete question.items
                         }
-                        if(question.table.length > 1) {
+                        if(question.table[0] && question.table.length > 1) {
                             question.table = _.values(question.table);
                         } else {
                             delete question.table

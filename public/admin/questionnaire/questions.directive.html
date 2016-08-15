@@ -74,11 +74,11 @@
                     <tr>
                         <td ng-init="question.table[$index].table_header = table.table_header" ng-repeat="table in question.table track by $index">{{table.table_header}}</td>
                     </tr>
-                    <tr ng-repeat="el in question.row_number track by $index" ng-init="row = $index">
+                    <tr ng-repeat="el in question.row_numbers track by $index" ng-init="row = $index">
                         <td height="20" class="relative" ng-repeat="(i,table) in question.table track by $index">
                             <div ng-if="table.type=='text'" class="text-center" style="line-height: 55px;">{{table.row[row].value}}</div>
                             <md-input-container ng-if="table.type=='input'" class="md-block" flex-gt-sm>
-                                <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[_index].table[row].input[$index]">
+                                <input class="form-control border-grey " aria-label="none" name="answer" ng-model="freelancer.questionnaire[_index].table[row].input[$index]">
                             </md-input-container>
                             <md-checkbox class="checkbox-profile" ng-if="table.type=='checkbox'" ng-model="freelancer.questionnaire[_index].table[row].checkbox[$index]"></md-checkbox>
                         </td>
