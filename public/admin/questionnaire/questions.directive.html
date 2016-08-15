@@ -41,7 +41,7 @@
                     <h4 style="display: inline-block">Column {{_index+1}}:</h4>
                     <input aria-label="none" class="form-control border-grey" name="item" ng-model="question.table[_index].table_header" style="color: black;width: 80%;float: right">
                 </md-input-container>
-                <md-radio-group ng-model="question.table[_index].type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
+                <md-radio-group ng-model="question.table[_index].type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none" ng-init="question.table[_index].type = question.table[_index].type || 'input'">
                     <md-radio-button value="input" ng-click="rows(false,elem)" style="margin-left: 110px;display:inline-block;outline: none">Input</md-radio-button>
                     <md-radio-button value="checkbox" ng-click="rows(false,elem)" class="md-primary inline-block" style="margin-left: 15px;outline: none">Checkbox</md-radio-button>
                     <md-radio-button value="text" ng-click="rows(true, elem)" style="margin-left: 15px;display:inline-block;outline: none">Text</md-radio-button>
