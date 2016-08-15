@@ -161,7 +161,7 @@ angular.module('admin.questionnaire', [
             if(type)
                 $scope.active_category = key;
             $scope.active_tab = key;
-            if($scope.commonFilters[$scope.active_tab] && $scope.commonFilters[$scope.active_tab].length > 1){
+            if($scope.commonFilters[$scope.active_tab] && $scope.commonFilters[$scope.active_tab].length > 0){
                 $scope.getSubfilter($scope.active_tab)
             }
             $scope.getQuestions(key, $scope.type)
@@ -173,6 +173,7 @@ angular.module('admin.questionnaire', [
             _.each($scope.commonFilters[key], function(item){
                 $scope.subFilters.push(item.name)
             })
+            console.log('filters', $scope.subFilters, $scope.subFilters.length)
         };
 
         $scope.addRow = function(elem){
