@@ -119,10 +119,10 @@
         </div>
     </div>
 </div>
-<div class="jheader" open>
+<div class="jheader" open ng-if="job.questionnaries.length">
     Job Questionnaire
 </div>
-<div class="jbody">
+<div class="jbody" ng-if="job.questionnaries.length">
     <div>
         <div ng-repeat="(i,question) in job.questionnaries">
             <div hidden>{{job.questionnaries[i].question = question.question}}</div>

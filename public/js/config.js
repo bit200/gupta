@@ -225,8 +225,8 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     }
                 }),
                 ncyBreadcrumb: {
-                    label: 'View Jobs',
-                    labelArr: ['View Jobs'],
+                    label: 'View Projects',
+                    labelArr: ['View Projects'],
                     hideType: false
                 }
             })
