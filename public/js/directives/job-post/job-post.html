@@ -184,7 +184,7 @@
         <div class="title3" ng-if="subFilters">Choose a sub category</div>
         <div class="form-group" ng-if="subFilters">
             <md-input-container class="md-block" flex-gt-sm="">
-                <md-select ng-change="choiceType(job.type_name, false)" aria-label="hidden" name="category" ng-model="job.type_name" required>
+                <md-select ng-change="choiceType(job.type_name, false)" aria-label="hidden" name="category" ng-model="job.type_name">
                     <md-option ng-repeat="item in subFilters" value="{{item}}">
                         {{item}}
                     </md-option>
