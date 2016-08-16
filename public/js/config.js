@@ -182,7 +182,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
             .state('jobs_list', {
-                url: '/jobs',
+                url: '/projects',
                 templateUrl: 'js/directives/jobs-list/jobs-content.html',
                 controller: 'JobsContentCtrl',
                 abstract: false,

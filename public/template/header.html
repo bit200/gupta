@@ -71,7 +71,7 @@
                     <ul class="dropdown-menu">
                         <li ng-click="asView.buyer=true;asView.seller=false;" ng-class="{active: asView.buyer}"><a
                                 href="">As Buyer</a></li>
-                        <li ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a
+                        <li ng-if="AuthService.currentFreelancer()" ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a
                                 href="">As Seller</a></li>
                         <li role="separator" class="divider"></li>
                         <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ui-sref='my_profile'>Profile</a>
@@ -97,7 +97,7 @@
                             class="text-black top-menu-text">POST A PROJECT</a></li>
                     <li class="top-menu"
                         ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}">
-                        <a ui-sref='jobs_list.all' class="text-black top-menu-text">VIEW PROJECTS</a></li>
+                        <a ui-sref='jobs_list.all' class="text-black top-menu-text">FIND PROJECTS</a></li>
                 </ul>
                 <ul class="flex menu"
                     ng-class="{'flex-fix': !currentUser() ||  ['categories', 'category', 'home', 'how_it_work'].indexOf($state.current.name) > -1}"

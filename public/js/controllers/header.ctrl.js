@@ -7,7 +7,7 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         scope.showAuth = function (text) {
             $location.path('/' + text)
         };
-
+        console.log('asd',AuthService.currentFreelancer())
         scope.filtersArr = [];
         angular.forEach($rootScope.commonFilters,function(item,key){
             var a = {

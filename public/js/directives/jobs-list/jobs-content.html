@@ -39,7 +39,8 @@
                                 <span ng-if="!selected_location" class="select-it ">Select it</span>
                             </div>
                             <div ng-if="location_open" class="sel-items {{location_name || ''}}">
-                                <div class="pointer" ng-repeat="item in locations" ng-click="selectItem(item, 'location');isSub=true">
+                                <div><input class="job-search-location" ng-model="searchLocation" placeholder="Enter location"/> </div>
+                                <div class="pointer" ng-repeat="item in locations| filter: searchLocation" ng-click="selectItem(item, 'location');isSub=true">
                                     {{item}}
                                 </div>
                             </div>

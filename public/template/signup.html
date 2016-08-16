@@ -1,6 +1,6 @@
 <div class="container">
     <div style="margin-top: 3%;margin-bottom: 3%;">
-        <h2 style="font-size: 20.0pt;color: rgba(51, 56, 70, 255);text-align: center;">SING UP</h2>
+        <h2 style="font-size: 20.0pt;color: rgba(51, 56, 70, 255);text-align: center;">SIGN UP</h2>
         <div style="margin: 0 auto;height: 2px;background: red;width: 45px;"></div>
     </div>
 
@@ -39,7 +39,7 @@
         </div>
         <div class="form-group" ng-class="{'has-error': submittedSignup && signupForm.password.$invalid}">
             <md-input-container class="md-block">
-                <input class="form-control" name="password" placeholder="Password" ng-model="signupObj.password" required>
+                <input class="form-control" name="password" type="password" placeholder="Password" ng-model="signupObj.password" required>
 
                 <div ng-messages="submittedSignup && signupForm.password.$invalid" ng-class="{'md-auto-hide': !submittedSignup}">
                     <div ng-show="submittedSignup && signupForm.password.$error.required" ng-message="required">Password is required</div>

@@ -32,7 +32,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
             scope.category_open = !scope.category_open;
         }
 
-
         if (type == 'location') {
             scope.location_open = !scope.location_open;
         }
