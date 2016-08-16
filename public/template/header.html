@@ -92,8 +92,8 @@
                     ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories','category', 'home', 'how_it_work'].indexOf($state.current.name) == -1}">
                     <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard')"
                         class="text-black top-menu-text">DASHBOARD</a></li>
-                    <li class="top-menu" ng-class="{active: $state.current.name=='root.job_create'}"><a
-                            ng-click="asView.buyer=true;asView.seller=false;$state.go('root.job_create')"
+                    <li class="top-menu" ng-if="asView.buyer" ng-class="{active: $state.current.name=='root.job_create'}"><a
+                            ng-click="$state.go('root.job_create')"
                             class="text-black top-menu-text">POST A PROJECT</a></li>
                     <li class="top-menu"
                         ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}">
