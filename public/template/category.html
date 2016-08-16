@@ -36,7 +36,7 @@
                         </div>
                         <div ng-class="{'user-topic-filter': activeProvider.values.length>5 && !viewMore[activeProvider.name]}">
                             <div ng-if="value.name" ng-repeat="value in activeProvider.values | filter:{subFilter:'!', name: search[activeProvider.name]}">
-                                <md-checkbox ng-model="value.selected" aria-label="hidden" ng-init="value.selected=activeProvider.subName==value.name" class="md-warn">{{value.name}}</md-checkbox>
+                                <md-checkbox ng-change="submitFilter()" ng-model="value.selected" aria-label="hidden" ng-init="value.selected=activeProvider.subName==value.name" class="md-warn">{{value.name}}</md-checkbox>
                             </div>
                         </div>
                         <div class="pointer" style="color: red" ng-show="activeProvider.values.length>5 && !viewMore[activeProvider.name]" ng-click="viewMore[activeProvider.name]=true">MORE</div>

@@ -71,7 +71,7 @@ exports.get_freelancers = function (req, res) {
         }
     }
     if (params.location)
-        params.location = new RegExp(params.location, "i");
+        params.location = {$in:params.location};
     if (params.name)
         params.name = new RegExp(params.name, "i");
     if (params.count) {

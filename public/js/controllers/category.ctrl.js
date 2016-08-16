@@ -167,13 +167,19 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
         };
 
+
+        // scope.$watch('activeProvider', function (val) {
+        //         scope.submitFilter()
+        // }, true);
+        
+
         scope.submitFilter = function () {
             var filter = angular.copy(scope.ownFilter);
-            if (filter.location)
+            if (filter.location){
                 filter.location = objInArr(filter.location);
+                console.log(filter.location);
+            }
             filter.experience = scope.slider.experience.value;
-            if (filter.location)
-                filter.location = {$in: filter.location};
 
             if (scope.date && scope.date.start) {
                 filter.created_at = filter.created_at || {};
@@ -191,6 +197,38 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             if (scope.checkViews) {
                 scope.checkViews == 'more' ? filter.views = {'$gte': scope.slider.views.value} : filter.views = {'$lte': scope.slider.views.value};
             }
+
+            if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length) {
+                var t = {
+                    "service_providers.type": rootScope.activeProvider.name
+                };
+                angular.forEach(rootScope.activeProvider, function (aPm, key) {
+                    if (key == 'values')
+                        angular.forEach(aPm, function (value) {
+                            if (value.arr)
+                                angular.forEach(value.arr, function (aV) {
+                                    if (aV.selected) {
+                                        t['$or'] = t['$or'] || [];
+                                        t['$or'].push({
+                                            "service_providers.type": rootScope.activeProvider.name,
+                                            "service_providers.filter": value.subFilter,
+                                            "service_providers.name": aV.name
+                                        })
+                                    }
+                                });
+                            else if (value.selected) {
+                                t['$or'] = t['$or'] || [];
+                                t['$or'].push({
+                                    "service_providers.type": rootScope.activeProvider.name,
+                                    "service_providers.name": value.name
+                                })
+                            }
+                        });
+                });
+                _.extend(filter, t)
+            }
+            
+            
             if (stateParams.type.length) {
                 var t = {
                     "service_providers.type": createServiceProviderUlr(stateParams.type)
@@ -198,8 +236,9 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 if (stateParams.filter.length)
                     t["service_providers.name"] = createServiceProviderUlr(stateParams.filter)
             }
-
-            http.get('/api/freelancers?' + $.param(t)).success(function (resp) {
+            
+            _.extend(filter, t);
+            http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
                 scope.loading = false;
             })
