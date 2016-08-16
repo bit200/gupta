@@ -42,13 +42,13 @@
             <td><a href="" ng-click="showAgencyDetails(business_account.agency._id)">{{business_account.agency.name}}</a></td>
             <td ng-if="selectFilter=='rejected'">{{business_account.reject_reason}}</td>
             <td>{{business_account.created_at}}</td>
-            <td>
+            <td style="display: inline-flex;">
                 <button class="btn btn-sm btn-check white" ng-confirm-click="Are you sure your want to approve business user <b>{{business_account.first_name}} {{business_account.last_name}}</b> ?"
-                        ng-confirm-action="rejectApproveAccount('approve', business_account._id, $index)" ng-show="business_account.status==0 || business_account.status==2" style="float: left;margin-top: 10px;">
+                        ng-confirm-action="rejectApproveAccount('approve', business_account._id, $index)" ng-show="business_account.status==0 || business_account.status==2">
                     <span class="pointer fa fa-check"></span>
                 </button>
 
-                <button class="btn btn-sm btn-times white" ng-click="reject(business_account, $index)" ng-show="business_account.status==0 || business_account.status==1" style="float: left; margin-top: 10px;">
+                <button class="btn btn-sm btn-times white" ng-click="reject(business_account, $index)" ng-show="business_account.status==0 || business_account.status==1">
                     <span class="pointer fa fa-trash-o"></span>
                 </button>
             </td>
