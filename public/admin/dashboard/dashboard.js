@@ -16,7 +16,6 @@ angular.module('admin.dashboard', [
     })
 
     .controller('DashboardCtrl', function DashboardController($scope, $http, store, jwtHelper, ModalService) {
-
-
+        
     });
     

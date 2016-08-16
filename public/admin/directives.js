@@ -132,11 +132,11 @@ angular.module('directive', [])
             scope: {
                 total: "=",
                 urlCount: "=",
-                urlModel: "="
+                urlModel: "=",
+                state: "="
             },
-            controller: ['$scope', '$http', function (scope, $http) {
+            controller: ['$scope', '$http', '$state', function (scope, $http, $state) {
                 $http.get(scope.urlCount, scope.urlModel).then(function (resp) {
-                    console.log(resp)
                     scope.count = resp.data.data
                 })
             }]
@@ -150,13 +150,12 @@ angular.module('directive', [])
                 createNew: '='
             },
             templateUrl: 'questionnaire/questions.directive.html',
-            controller: ['$scope', '$http', function (scope, $http) {
+            controller: ['$scope', '$http', '$state', function (scope, $http, $state) {
                 scope.question.row_number = scope.question.row_number || 1;
                 scope.arrItems = scope.question.items || [{}];
                 scope.question.table = scope.question.table || [{}];
                 scope.question.items = scope.question.items || [''];
                 scope.type = scope.question.items.length > 0 ? 'list' : scope.question.table.length > 0 ? 'table' : 'list';
-                console.log(scope.question.items, scope.question.items.length)
                 if (scope.type == 'list')
                     scope.list_type = (scope.question.items[0] != '' && scope.question.items.length > 0) ? 'checkbox' : 'question';
                 scope.rows = function (bool, elem) {
@@ -172,7 +171,6 @@ angular.module('directive', [])
                 scope.get_rows = function (item, num) {
                     if (num)
                         scope.question.row_numbers = new Array(scope.question.row_number);
-                    console.log('sfsdf', scope.question.row_numbers, scope.question.row_number)
                 };
 
                 scope.deleteItem = function (items, index) {
