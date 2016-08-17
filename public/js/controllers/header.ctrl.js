@@ -7,7 +7,6 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         scope.showAuth = function (text) {
             $location.path('/' + text)
         };
-        console.log('asd',AuthService.currentFreelancer())
         scope.filtersArr = [];
         angular.forEach($rootScope.commonFilters,function(item,key){
             var a = {
@@ -19,7 +18,6 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         });
 
 
-
         scope.arrayProviders = [];
         http.get('/get-content', {
             params: {
@@ -29,6 +27,8 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
             }
         }).then(function (resp) {
             scope.arrayProviders = resp.data.data;
+            scope.isFreelancer = AuthService.currentFreelancer() ? true : false
+
         }, function (err) {
         });
 

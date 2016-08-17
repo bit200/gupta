@@ -22,7 +22,7 @@ var JobSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'New Applicant'
+        default: 'No Applicant'
     },
     status_priority: {
         type: Number,
@@ -42,7 +42,7 @@ var JobSchema = mongoose.Schema({
 });
 var sort_obj = {
     'Wait seller contract approvement': 1000,
-    'New Applicant': 1,
+    'No Applicant': 1,
     'Rejected': -100,
     'Communicated': 100
 }

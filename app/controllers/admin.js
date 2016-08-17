@@ -66,7 +66,11 @@ exports.get_count_jobs = function (req, res) {
 
 exports.get_jobs = function (req, res) {
     var params = m.getBody(req);
-    m.find(models.Job, {admin_approved: 0}, res, res, {limit: params.limit, skip: params.skip})
+    m.find(models.Job, {admin_approved: 0}, res, function(jobs){
+        m.count(models.Job,{admin_approved: 0}, res, function (err, count) {
+            m.scb({data:jobs, count: count}, res)
+        });
+    }, {limit: params.limit, skip: params.skip})
 };
 
 exports.get_seller = function (req, res) {

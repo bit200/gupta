@@ -71,7 +71,7 @@
                     <ul class="dropdown-menu">
                         <li ng-click="asView.buyer=true;asView.seller=false;" ng-class="{active: asView.buyer}"><a
                                 href="">As Buyer</a></li>
-                        <li ng-if="AuthService.currentFreelancer()" ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a
+                        <li ng-if="isFreelancer" ng-click="asView.seller=true;asView.buyer=false;" ng-class="{active: asView.seller}"><a
                                 href="">As Seller</a></li>
                         <li role="separator" class="divider"></li>
                         <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ui-sref='my_profile'>Profile</a>

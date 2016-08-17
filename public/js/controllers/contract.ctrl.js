@@ -21,7 +21,7 @@ XYZCtrls.controller('contractCtrl', ['$scope', '$rootScope', '$location', '$http
         
         // scope.job = scope.job || {}
         // scope.freelancer = scope.freelancer || {}
-        // scope.buyer = scope.buyer || {}
+        scope.buyer = scope.buyer || {};
         scope.contract_orig = scope.contract || {
                 title: scope.job.title,
                 // information: scope.job.description,

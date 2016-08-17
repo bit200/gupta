@@ -328,13 +328,13 @@ XYZCtrls.service('jobParseByStatus', ["$rootScope", 'AuthService', function ($ro
     };
     return function (arrayJobs, type) {
         _.each(arrayJobs, function (job) {
-            if (["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1) {
+            if (["No Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1) {
                 jobs.open.push(job)
             }
-            if (["New Applicant"].indexOf(job.status) > -1) {
+            if (["No Applicant"].indexOf(job.status) > -1) {
                 jobs.new.push(job)
             }
-            if (["New Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1 && AuthService.userId() == job[type]) {
+            if (["No Applicant", "Contract started", "Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1 && AuthService.userId() == job[type]) {
                 jobs.my.push(job)
             }
             if (["Rejected by seller", "Rejected by buyer"].indexOf(job.status) > -1) {
