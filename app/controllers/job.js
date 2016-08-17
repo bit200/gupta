@@ -114,7 +114,7 @@ exports.filter_job = function (req, res) {
             {description: new RegExp(params.search, 'i')},
             {client_name: new RegExp(params.search, 'i')},
             {company_name: new RegExp(params.search, 'i')}
-    ];
+        ];
         delete params.search
     }
     m.find(models.Job, params, res, res, {populate: 'user', sort: '-created_at'})
@@ -127,17 +127,20 @@ exports.applyJob = function (req, res) {
         freelancer: req.freelancerId
     });
     m.findOne(models.Job, {_id: params.job}, res, function (job) {
-        params.buyer = job.user
+        params.buyer = job.user;
         models.User.findOne({_id: params.buyer}).select('email first_name last_name').exec(function (err, buyer) {
             if (err) console.log('apply job find buyer Error: ', err);
             if (buyer)
                 mail.job_apply({job: job, user: buyer, title: job.title});
         });
-        m.findCreateUpdate(models.JobApply, {
-            job: job._id,
-            freelancer: params.freelancer,
-            seller: params.seller
-        }, params, res, res)
+        params.status = 'Service Providers have applied';
+        m.findUpdate(models.Job, {_id: job._id}, {status: 'Service Providers have applied'}, res, function () {
+            m.findCreateUpdate(models.JobApply, {
+                job: job._id,
+                freelancer: params.freelancer,
+                seller: params.seller
+            }, params, res, res)
+        })
     })
 
 }
@@ -149,7 +152,6 @@ exports.applyJobUpdate = function (req, res) {
         freelancer: req.freelancerId,
         job: params.job
     }
-    // console.log("cchchchchchch", query, params)
     m.findUpdate2(models.JobApply, query, {message: params.message}, res, res, params)
 }
 
@@ -267,8 +269,7 @@ exports.add_job = function (req, res) {
     var params = m.getBody(req);
     params.user = req.userId;
     params.buyer = req.userId;
-    params.status = 'open';
-    log('adasdasd', params)
+    params.status = 'Pending Approval';
     if (params._id > 0) {
         mail.job_created(params);
         m.findUpdate(models.Job, {_id: params._id}, params, res, res)

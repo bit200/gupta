@@ -296,7 +296,7 @@ exports.reject_registration = function (req, res) {
 
 exports.approve_job = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1}, res, function (job) {
+    m.findUpdate(models.Job, {_id: params._id}, {admin_approved: 1, status: 'No Applicants'}, res, function (job) {
         mail.job_approve(job, res, m.scb(job, res))
     }, {populate: 'user'});
 };

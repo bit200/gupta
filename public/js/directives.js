@@ -387,7 +387,7 @@ XYZCtrls.directive('myJob', function () {
             var ongoing = ['Job Title', 'Service Provider', 'Expected Completion Date', 'Contract Amount (Rs.)', 'Pending Amount', 'Action'];
             var closed = ['Job Title', 'Service Provider', 'Job Closed Date', 'Status when closed', 'Amount Disbursed (Rs.)', 'Action'];
 
-            var openSelect = ['Communicate', 'Accept', 'Reject']
+            var openSelect = ['Communicate', 'sdAccept', 'Reject']
 
         }]
     };

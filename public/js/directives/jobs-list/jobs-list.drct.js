@@ -97,7 +97,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 });
             };
 
-            scope.$on('changeItems', function(e,item){
+            scope.$on('changeItems', function (e, item) {
                 scope.items = item
             })
 
@@ -116,29 +116,42 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 var index = 0;
 
                 function cb() {
-                    if (++index == 2) {
                         scope.showLoading = false;
-                    }
                 }
 
+                if (scope.header == 'Open Jobs') {
 
-                http.get(scope.url, {params: obj}).success(function (data) {
-                    cb();
-                    scope.items = data.data;
-                }, function (err) {
-                    scope.error = 'An error. Please try again later';
-                    cb();
-                });
-
-                http.get(scope.url + '/count', {params: obj}).then(function (resp) {
-                        cb();
-                        scope.configPagination.totalCount = resp.data.data;
-                        scope.TotalItems = resp.data.data;
-                    }
-                    , function (err) {
-                        scope.TotalItems = 0;
-                        cb();
+                    http.post('/api/jobs', {status: {$in:['Pending Approval','No Applicants']}}).then(function (resp) {
+                        http.get(scope.url, {params: obj}).success(function (data) {
+                            cb();
+                            scope.items = [];
+                            scope.items.push(data.data, resp.data.data);
+                            scope.items =  _.flatten(scope.items);
+                        }, function (err) {
+                            scope.error = 'An error. Please try again later';
+                            cb();
+                        });
+                        // scope.items = scope.items || [];
+                        // scope.items.push(resp.data.data)
                     })
+                } else {
+                    http.get(scope.url, {params: obj}).success(function (data) {
+                        cb();
+                        scope.items = data.data
+                    }, function (err) {
+                        scope.error = 'An error. Please try again later';
+                        cb();
+                    });
+
+                    http.get(scope.url + '/count', {params: obj}).then(function (resp) {
+                            cb();
+                            scope.configPagination.totalCount = resp.data.data;
+                            scope.TotalItems = resp.data.data;
+                        }
+                        , function (err) {
+                            scope.TotalItems = 0;
+                        })
+                }
             };
 
             scope.render();

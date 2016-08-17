@@ -117,7 +117,7 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
             },
             'contract_create': {
                 name: 'Create Contract',
-                ui_sref: sref('root.contract_create'),
+                ui_sref: sref('froot.contract_create'),
                 ui_params: function (){
                     return {job: gid('job'), freelancer: gid('freelancer')}
                 }

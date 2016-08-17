@@ -26,7 +26,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         scope.locations = resp.data.data
     });
 
-    console.log($state)
     scope.onOpen = function (e, type) {
         if (type == 'category') {
             scope.category_open = !scope.category_open;
@@ -73,7 +72,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
             }
         })
     };
-
     scope.slider = {
         minValue: 1,
         maxValue: 50000,
