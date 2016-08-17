@@ -8,6 +8,13 @@ XYZCtrls.directive('acts', function () {
         '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
         '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
         '</div>',
+        // template: '<md-select aria-label="hidden" name="category">' +
+        // '<md-option ng-repeat="action in actions track by $index" value="{{action}}">' +
+        // '<a ng-if="action.ui_sref" ui-sref="{{action.ui_sref}}">{{action.name}}</a>' +
+        // '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
+        // '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
+        // '</md-option> </md-select>',
+
         controller: ['$scope', '$location', '$http', 'AuthService', '$state', 'notify', '$rootScope', 'ModalService', function (scope, $location, $http, AuthService, $state, notify, $rootScope, ModalService) {
             var item = scope.item
                 , info = JSON.parse(scope.info)
@@ -173,15 +180,15 @@ XYZCtrls.directive('acts', function () {
                                                 _id: $scope.item._id,
                                                 text: {
                                                     user: user.preview,
-                                                    name: user.first_name +' '+user.last_name,
+                                                    name: user.first_name + ' ' + user.last_name,
                                                     message: text,
-                                                    title:item.job.title,
-                                                    created_at: date.getHours() +':'+ date.getMinutes()+' '+monthNames[date.getMonth()]+','+date.getDay()+','+date.getFullYear()
+                                                    title: item.job.title,
+                                                    created_at: date.getHours() + ':' + date.getMinutes() + ' ' + monthNames[date.getMonth()] + ',' + date.getDay() + ',' + date.getFullYear()
                                                 }
                                             };
-                                            $http.post('/api/contract/review', obj).then(function(resp){
+                                            $http.post('/api/contract/review', obj).then(function (resp) {
                                                 $scope.comments = resp.data.data.messages;
-                                            }, function(err) {
+                                            }, function (err) {
                                                 notify({message: 'Can\'t send review', duration: 3000, position: 'right', classes: 'alert-danger'});
                                             })
                                         }
@@ -209,7 +216,7 @@ XYZCtrls.directive('acts', function () {
                             var sellerId = getId(item, 'seller');
                             var freelancerId = getId(item, 'freelancer');
                             var currentUser = AuthService.currentUser();
-                            $http.get('/api/chat/created', {params:{_id:jobId}}).then(function(resp){
+                            $http.get('/api/chat/created', {params: {_id: jobId}}).then(function (resp) {
                                 $state.go('messages', {_id: resp.data.data._id});
                             }, function (err) {
                                 if ($rootScope.asView.buyer) {
@@ -247,7 +254,6 @@ XYZCtrls.directive('acts', function () {
                 scope.actions = []
                 fn('Communicate')
 
-                // console.log('ahahahahhahahahahahah', user_type, job_type, item.status)
                 if (user_type == 'seller' && job_type == 'open') {
                     fn('View Application', 'View Job')
                     if (item.status == 'Seller terms approving' || item.status == 'Seller approving') {

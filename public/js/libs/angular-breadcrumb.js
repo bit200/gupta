@@ -190,7 +190,6 @@ function BreadcrumbDirective($interpolate, $breadcrumb, $rootScope) {
             '</li>' +
             '</ul>',
         bootstrap3: '<ol class="breadcrumb">' +
-                '<li id="type" ng-if="contentLoaded && !steps[0].ncyBreadcrumb.hideType">{{type}}</li>' +
                 '<li ng-repeat="step in steps"  ng-switch="$last || !!step.abstract">' +
                     '<span ng-switch-when="false" href="{{step.ncyBreadcrumbLink}}">{{step.ncyBreadcrumbLabel}}</span>' +
                     '<span ng-repeat="label in step.ncyBreadcrumb.labelArr track by $index" ng-class="{\'breadcrumb-last\': $last}" ng-switch-when="true"> {{label}} </span>' +

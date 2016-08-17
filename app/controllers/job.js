@@ -77,6 +77,72 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
     }
 };
 
+exports.job_count_buyer = function (req, res) {
+    var params = m.getBody(req)
+        , arr = []
+        , open = 0
+        , ongoing = 0
+        , closed = 0;
+    arr.push(function (cb) {
+        m.count(models.Job, {status: {$in: ['Pending Approval', 'No Applicants']}}, cb, function (jopen) {
+            open += jopen;
+            cb()
+        })
+    });
+    arr.push(function (cb) {
+        m.count(models.JobApply, {status: {$in: ["No Applicants", "Pending Approval", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]}}, cb, function (jopen) {
+            open += jopen;
+            cb()
+        })
+    });
+    arr.push(function (cb) {
+        m.count(models.Contract, {buyer: params.id, status: {$in: ["Ongoing", "Marked as completed", "Paused"]}}, cb, function (jongoing) {
+            ongoing += jongoing;
+            cb()
+        })
+    });
+    arr.push(function (cb) {
+        m.count(models.Contract, {buyer: params.id, status: {$in: ["Closed"]}}, cb, function (jclosed) {
+            closed += jclosed;
+            cb()
+        })
+    });
+
+    async.parallel(arr, function (e, r) {
+        m.scb({open: open, ongoing: ongoing, close: closed}, res)
+    })
+};
+
+exports.job_count_seller = function (req, res) {
+    var params = m.getBody(req)
+        , arr = []
+        , open = 0
+        , ongoing = 0
+        , closed = 0;
+    arr.push(function (cb) {
+        m.count(models.Job, {seller: params.id, status: {$in: ["No Applicants"]} }, cb, function (jopen) {
+            open += jopen;
+            cb()
+        })
+    });
+    arr.push(function (cb) {
+        m.count(models.Contract, {seller: params.id, status: {$in: ["Ongoing", "Marked as completed", "Paused"]}}, cb, function (jongoing) {
+            ongoing += jongoing;
+            cb()
+        })
+    });
+    arr.push(function (cb) {
+        m.count(models.Contract, {seller: params.id, status: {$in: ["Closed"]}}, cb, function (jclosed) {
+            closed += jclosed;
+            cb()
+        })
+    });
+
+    async.parallel(arr, function (e, r) {
+        m.scb({open: open, ongoing: ongoing, close: closed}, res)
+    })
+};
+
 exports.job = function (req, res) {
     var params = m.getBody(req);
     m.find(models.Job, params, res, res, {sort: '-created_at'})

@@ -29,6 +29,10 @@ module.exports = function (app) {
     // app.get('/api/job/detailed/me/:_id', auth.token, job.job_detailed_me)
     
     
+    app.get('/api/count/buyer', job.job_count_buyer);
+    app.get('/api/count/seller', job.job_count_seller);
+    
+    
     app.get('/api/jobs', job.job);
     app.post('/api/jobs', job.job);
     app.get('/api/jobs/filter', job.filter_job);
@@ -74,7 +78,7 @@ module.exports = function (app) {
     job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["Rejected by seller", "Rejected by buyer"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app)
 
-    job.fn('/api/jobs/seller/open/new', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["No Applicants"]} }'
+    job.fn('/api/jobs/seller/open/new', auth.token, 'Job', '{ seller: this.userId, status: {$in: ["No Applicants"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app);
 
     job.fn('/api/jobs/seller/open/active', auth.token, 'JobApply', '{ seller: this.userId, status: {$nin: ["No Applicants", "Rejected by seller", "Rejected by buyer", "Contract started"]} }'
@@ -85,7 +89,7 @@ module.exports = function (app) {
 
 
 
-    job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]} }'
+        job.fn('/api/jobs/seller/ongoing', auth.token, 'Contract', '{ seller: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]} }'
         , {populate: 'job buyer', sort: '-created_at'}, app);
 
     job.fn('/api/jobs/seller/closed', auth.token, 'Contract', '{ seller: this.userId, status: "Closed" }'

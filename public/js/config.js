@@ -226,7 +226,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }),
                 ncyBreadcrumb: {
                     label: 'View Projects',
-                    labelArr: ['View Projects'],
+                    labelArr: ['Find Projects'],
                     hideType: false
                 }
             })
@@ -350,7 +350,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 ncyBreadcrumb: {
                     label: 'Closed Projects',
                     labelArr: ['Dashboard', '/', 'Closed Projects'],
-                    hideType: false
+                    hideType: true
                 }
             })
 
