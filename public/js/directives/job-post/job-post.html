@@ -6,7 +6,7 @@
     <div class="jbody">
         <div class="row form-group">
             <md-input-container class="md-block">
-                <div class="title3">Provide a description of your requirements (free text)</div>
+                <div class="title3">Title job*</div>
                 <input  aria-label='hidden' class="form-control" name="title" ng-model="job.title" required>
                 <div ng-messages="postjob.title.$error.$invalid">
                     <div ng-show="postjob.title.$error.required" ng-message="required">{{default_empty}}
@@ -15,17 +15,39 @@
             </md-input-container>
         </div>
 
+        <div class="title3">Choose a category*</div>
+        <div class="form-group">
+            <md-input-container class="md-block" flex-gt-sm="">
+                <md-select ng-change="choiceType(job.type_category, true)" aria-label="hidden" name="category" ng-model="job.type_category" required>
+                    <md-option ng-repeat="(key,value) in commonFilters" value="{{key}}">
+                        {{key}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <div class="title3" ng-if="subFilters">Choose a sub category</div>
+        <div class="form-group" ng-if="subFilters">
+            <md-input-container class="md-block" flex-gt-sm="">
+                <md-select ng-change="choiceType(job.type_name, false)" aria-label="hidden" name="sub_category" ng-model="job.type_name">
+                    <md-option ng-repeat="item in subFilters" value="{{item}}">
+                        {{item}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+
         <div class="row" >
-            <div class="title3">Do you have a preference for a type of professional?</div>
+            <div class="title3">Do you have a preference for a type of professional?*</div>
             <div ng-repeat="type in types">
-                <md-checkbox ng-model="job.type_checkbox[type]" class="checkdark">{{type}}
+                <md-checkbox ng-model="job.type_checkbox[type]" name="type" class="checkdark" required>{{type}}
                 </md-checkbox>
             </div>
         </div>
 
         <div class="row">
             <div class="md-block">
-                <div class="title3">Do you have a location preference?</div>
+                <div class="title3">Do you have a location preference?*</div>
                 <div ng-repeat="location in locations">
                     <md-checkbox ng-model="job.location[location]" class="checkdark">{{location}}
                     </md-checkbox>
@@ -35,7 +57,7 @@
 
         <div class="md-block">
             <div class="row form-group">
-                <div class="title3">What is your maximal budget for this marketing campaign</div>
+                <div class="title3" style="text-transform: none">What is your maximal budget for this marketing campaign (.Rs)*</div>
                 <md-input-container class="md-block">
                     <input  aria-label='hidden' class="form-control" name="budget" numbers-only ng-model="job.budget" required>
                     <div ng-messages="postjob.budget.$error.$invalid">
@@ -46,31 +68,31 @@
                 </md-input-container>
             </div>
         </div>
-        <div>
-            <div>
-                <table class="table no-table-border" style="margin-bottom: 0px;">
-                    <tbody>
-                    <tr>
-                        <td style="">
-                            <div style="left: -20px;" class="pointer attach-sample-button" class="pointer" ngf-select="addImage($file)" ngf-pattern="'image/*'" ngf-multiple="false">
-                                <ng-md-icon icon="attach_file" size="35"></ng-md-icon>
-                                <span class="title3" style="position:relative;top:-10px">Add featured image</span>
-                            </div>
-                        </td>
-                        <!--<td ng-repeat="file in preview_attachments">-->
-                        <!--<img ngf-src="file" style="width: 60px;height: auto;" ngf-thumbnail="file" class="thumb">-->
+        <!--<div>-->
+            <!--<div>-->
+                <!--<table class="table no-table-border" style="margin-bottom: 0px;">-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                        <!--<td style="">-->
+                            <!--<div style="left: -20px;" class="pointer attach-sample-button" class="pointer" ngf-select="addImage($file)" ngf-pattern="'image/*'" ngf-multiple="false">-->
+                                <!--<ng-md-icon icon="attach_file" size="35"></ng-md-icon>-->
+                                <!--<span class="title3" style="position:relative;top:-10px">Add featured image</span>-->
+                            <!--</div>-->
                         <!--</td>-->
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="text-right">
-                    <div class="row Files relative" ng-if="preview" style="">
-                        <img ngf-src="preview" style="width: 60px;height: auto; float: left;" ngf-thumbnail="preview" class="thumb">
-                        <span class="close-preview pointer"  ng-click="deleteImg($index)"><i class="fa fa-times" aria-hidden="true" ></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <!--&lt;!&ndash;<td ng-repeat="file in preview_attachments">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<img ngf-src="file" style="width: 60px;height: auto;" ngf-thumbnail="file" class="thumb">&ndash;&gt;-->
+                        <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+                <!--<div class="text-right">-->
+                    <!--<div class="row Files relative" ng-if="preview" style="">-->
+                        <!--<img ngf-src="preview" style="width: 60px;height: auto; float: left;" ngf-thumbnail="preview" class="thumb">-->
+                        <!--<span class="close-preview pointer"  ng-click="deleteImg($index)"><i class="fa fa-times" aria-hidden="true" ></i></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
         <div>
             <div>
                 <table class="table no-table-border" style="margin-bottom: 0px;">
@@ -107,10 +129,9 @@
         Contact Details
     </div>
     <div class="jbody">
-
             <div>
                 <md-input-container class="md-block">
-                    <div class="title3">Name</div>
+                    <div class="title3">Name*</div>
                     <input  aria-label='hidden' class="form-control" name="name" ng-model="job.client_name" required>
 
                     <div ng-messages="postjob.name.$error.$invalid">
@@ -123,7 +144,7 @@
 
             <div>
                 <md-input-container class="md-block" >
-                    <div class="title3">Mobile phone number</div>
+                    <div class="title3">Mobile phone number*</div>
                     <input  aria-label='hidden' phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
 
                     <div ng-messages="postjob.mobile.$error.$invalid">
@@ -136,7 +157,7 @@
             <!--<div ng-class="{'aaaaa': postjob.email.$invalid}">-->
             <div>
                 <md-input-container class="md-block">
-                    <div class="title3">Email</div>
+                    <div class="title3">Email*</div>
                     <input  aria-label='hidden' type="email" class="form-control" name="email" ng-model="job.email" required>
 
                     <div ng-messages="postjob.email.$error.$invalid">
@@ -152,7 +173,7 @@
             <!--<div ng-class="{'aaaaa': postjob.company.$invalid}">-->
             <div>
                 <md-input-container class="md-block">
-                    <div class="title3">Company name</div>
+                    <div class="title3">Company name*</div>
                     <input  aria-label='hidden' class="form-control" name="company" ng-model="job.company_name" required>
 
                     <div ng-messages="postjob.company.$error.$invalid">
@@ -165,32 +186,17 @@
 
         <div class="row">
             <md-input-container class="md-block">
-                <div class="title3">Website URL</div>
-                <input  aria-label='hidden' class="form-control" ng-model="job.website">
+                <div class="title3">Website URL*</div>
+                <input  aria-label='hidden' class="form-control" name="website" ng-model="job.website" required>
+                <div ng-messages="postjob.website.$error.$invalid">
+                    <div ng-show="postjob.website.$error.required" ng-message="required">
+                        {{default_empty}}
+                    </div>
+                </div>
             </md-input-container>
         </div>
 
-        <div class="title3">Choose a category</div>
-        <div class="form-group">
-            <md-input-container class="md-block" flex-gt-sm="">
-                <md-select ng-change="choiceType(job.type_category, true)" aria-label="hidden" name="category" ng-model="job.type_category" required>
-                    <md-option ng-repeat="(key,value) in commonFilters" value="{{key}}">
-                        {{key}}
-                    </md-option>
-                </md-select>
-            </md-input-container>
-        </div>
 
-        <div class="title3" ng-if="subFilters">Choose a sub category</div>
-        <div class="form-group" ng-if="subFilters">
-            <md-input-container class="md-block" flex-gt-sm="">
-                <md-select ng-change="choiceType(job.type_name, false)" aria-label="hidden" name="category" ng-model="job.type_name">
-                    <md-option ng-repeat="item in subFilters" value="{{item}}">
-                        {{item}}
-                    </md-option>
-                </md-select>
-            </md-input-container>
-        </div>
     </div>
     <div ng-if="job.questionnaries.length" class="jheader" open>
         Job Questionnaire

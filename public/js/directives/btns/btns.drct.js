@@ -24,7 +24,7 @@ XYZCtrls.directive('btns', function () {
                 return v ? v.$invalid : null
             }
             scope.on_fn = function(btn) {
-                if (isinvalid(scope.postjob) || isinvalid(scope.formContract)) {
+                if (isinvalid(scope.postjob) && !scope.postjob.type_checkbox || isinvalid(scope.formContract)) {
                     scope.onErr && scope.onErr({message: 'Please fill all fields'})
                     rootScope.scrollToErr()
                 } else {

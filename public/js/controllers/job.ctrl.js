@@ -25,7 +25,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.commonFilters = resp.data
         });
 
-        var user = AuthService.currentUser() || {}
+        var user = AuthService.currentUser() || {};
         scope.types = [
             'Agency',
             'Freelancer'
@@ -90,10 +90,8 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             user = AuthService.currentUser() || {};
 
             scope.job = scope.job || _.extend({
+                    email:AuthService.currentUser().email,
                     job_visibility: 'true',
-                    title: 'hi',
-                    description: 'test',
-                    budget: 1000,
                     date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)
                 }, {
                     mobile: user.phone,
