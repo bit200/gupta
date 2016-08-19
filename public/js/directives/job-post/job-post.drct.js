@@ -33,7 +33,7 @@ XYZCtrls.directive('jobPost', function () {
                     scope.job.questionnaries = resp.data.data
                 })
             };
-
+            
 
             scope.addFiles = function ($file) {
                 scope.job.attach = scope.job.attach || [];
