@@ -737,10 +737,10 @@ span.rz-pointer.rz-pointer-min:focus {
 }
 
 .rzslider .rz-pointer {
-    top: -7px;
+    top: -5px;
     z-index: 3;
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 13px;
     cursor: pointer;
     background-color: #353B47;
     -webkit-border-radius: 5px;

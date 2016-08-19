@@ -13,59 +13,55 @@
                         <div class="sub-title">
                             Category
                         </div>
-                        <div class="sub-select">
-                            <div class="selected pointer" ng-click="onOpen($event, 'category')" style="border-bottom: 1px solid lightgrey">
-                                <span ng-if="selected_category">{{selected_category}}</span>
-                                <span ng-if="!selected_category" class="select-it ">Select it</span>
-                            </div>
-                            <div ng-if="category_open" class="sel-items {{category_name || ''}}">
-                                <div class="pointer" ng-repeat="item in categories" ng-click="selectItem(item, 'category');isSub=true">
+
+                        <md-input-container class="full-width" style="margin: 0">
+                            <label> </label>
+                            <md-select ng-model="job.category" md-on-close="selectItem(job.category, 'category', true)" data-md-container-class="selectdemoSelectHeader">
+                                <md-option ng-repeat="item in categories | filter:search.category" value="{{item}}">
                                     {{item}}
-                                </div>
-                            </div>
-                        </div>
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
                         <div class="sub-title" ng-if="isSub">
                             Sub Category
                         </div>
                         <div class="sub-select" ng-if="isSub">
-                            <selector type="'job_sub_category'" items="subCategories" class-name="'nav'" on-select-custom='onSelectSubCategory()'></selector>
+                            <md-input-container class="full-width" style="margin: 0">
+                                <label> </label>
+                                <md-select ng-model="job.subcategory" md-on-close="selectItem(job.subcategory, 'category', false)" data-md-container-class="selectdemoSelectHeader">
+                                    <md-option ng-repeat="item in subFilters | filter:search.category" value="{{item}}">
+                                        {{item}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
                         </div>
                         <div class="sub-title">
                             Location
                         </div>
                         <div class="sub-select">
-                            <div class="selected pointer" ng-click="onOpen($event, 'location')" style="border-bottom: 1px solid lightgrey">
-                                <span ng-if="selected_location">{{selected_location}}</span>
-                                <span ng-if="!selected_location" class="select-it ">Select it</span>
-                            </div>
-                            <div ng-if="location_open" class="sel-items {{location_name || ''}}">
-                                <div><input class="job-search-location" ng-model="searchLocation" placeholder="Enter location"/> </div>
-                                <div class="pointer" ng-repeat="item in locations| filter: searchLocation" ng-click="selectItem(item, 'location');isSub=true">
-                                    {{item}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sub-title">
-                            Budget
-                        </div>
-                        <div class="sub-select">
-                            <rzslider rz-slider-model="slider.minValue"
-                                      rz-slider-high="slider.maxValue"
-                                      rz-slider-options="slider.options"></rzslider>
+
                         </div>
                     </div>
-                    <div class="sub-title" ng-if="asView">
-                        By status
+                    <div class="sub-title">
+                        Budget
                     </div>
-                    <div class="sub-select" ng-if="asView">
-                        <selector type="'job_type'" items="['Open', 'Ongoing', 'Closed']" class-name="'nav'" value="{{info.job_type}}"></selector>
+                    <div class="sub-select">
+                        <rzslider rz-slider-model="slider.minValue"
+                                  rz-slider-high="slider.maxValue"
+                                  rz-slider-options="slider.options"></rzslider>
                     </div>
-                    <div class="sub-title" ng-if="asView">
-                        View project as
-                    </div>
-                    <div class="sub-select" ng-if="asView">
-                        <selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>
-                    </div>
+                    <!--<div class="sub-title" ng-if="asView">-->
+                        <!--By status-->
+                    <!--</div>-->
+                    <!--<div class="sub-select" ng-if="asView">-->
+                        <!--<selector type="'job_type'" items="['Open', 'Ongoing', 'Closed']" class-name="'nav'" value="{{info.job_type}}"></selector>-->
+                    <!--</div>-->
+                    <!--<div class="sub-title" ng-if="asView">-->
+                        <!--View project as-->
+                    <!--</div>-->
+                    <!--<div class="sub-select" ng-if="asView">-->
+                        <!--<selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>-->
+                    <!--</div>-->
                     <!--<b>Buyer</b>-->
                     <!--<a ui-sref="jobs_list.buyer_open">Open</a>-->
                     <!--<a ui-sref="jobs_list.buyer_ongoing">Ongoing</a>-->

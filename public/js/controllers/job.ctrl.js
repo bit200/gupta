@@ -52,7 +52,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 http.get('/job/favorite/add', {params: {_id: scope.job._id}});
                 scope.jobFavorited = true
             };
-
+            
             scope.removeFavorite = function () {
                 http.get('/job/favorite/remove', {params: {_id: scope.job._id}});
                 scope.jobFavorited = false
@@ -64,19 +64,10 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             if (getContent.stats) {
                 scope.stats = getContent.stats.data.data;
                 scope.job.stats = [];
-                scope.job.stats.push(scope.stats.interviews !== 1 ? {
-                    count: scope.stats.interviews,
-                    name: 'Interviews'
-                } : {count: scope.stats.interviews, name: 'Interview'});
                 scope.job.stats.push(scope.stats.applicants !== 1 ? {
                     count: scope.stats.applicants,
                     name: 'Applicants'
                 } : {count: scope.stats.applicants, name: 'Applicant'});
-                scope.job.stats.push(scope.stats.contracts !== 1 ? {
-                    count: scope.stats.contracts,
-                    name: 'Contracts'
-                } : {count: scope.stats.contracts, name: 'Contract'});
-
                 scope.job.stats.push(scope.stats.hired !== 1 ? {
                     count: scope.stats.hired,
                     name: 'Hired'

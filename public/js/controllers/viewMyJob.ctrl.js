@@ -15,7 +15,7 @@ XYZCtrls.controller('ViewMyJobCtrl', ['$scope', '$http', 'info', '$rootScope', '
     rootScope.info = info;
 }]);
 
-XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootScope', '$timeout', 'jobInformation', '$state', function (scope, http, getContent, $rootScope, $timeout, jobInformation, $state) {
+XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootScope', '$timeout', 'jobInformation', '$state', '$element', '$rootScope', function (scope, http, getContent, $rootScope, $timeout, jobInformation, $state, element, rootScope) {
     scope.categories = [];
     scope.subCategories = [];
     scope._keywords = '';
@@ -36,10 +36,36 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         }
     };
 
-    scope.selectItem = function (elem, type) {
+    scope.vegetables = ['Corn' ,'Onions' ,'Kale' ,'Arugula' ,'Peas', 'Zucchini'];
+    scope.searchTerm;
+    scope.clearSearchTerm = function() {
+        scope.searchTerm = '';
+    };
+    
+
+    scope.getSubCategories = function(category, type) {
+        if(type){
+            delete scope.subFilters;
+            scope.isSub = false
+        }
+        if (scope.commonFilters[category] && scope.commonFilters[category].length > 1) {
+            scope.isSub = false;
+
+            scope.subFilters = [];
+            _.each(scope.commonFilters[category], function (item) {
+                scope.subFilters.push(item.name)
+            });
+            scope.isSub = true;
+        } else {
+            
+        };
+    }
+
+    scope.selectItem = function (elem, type, bol) {
         if (type == 'category') {
             scope.category_open = !scope.category_open;
-            scope.selected_category = elem
+            scope.selected_category = elem;
+            scope.getSubCategories(elem, bol)
         }
         if (type == 'location') {
             scope.location_open = !scope.location_open;
@@ -60,6 +86,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
 
         scope.filterJob()
     };
+
 
 
     scope.parseFilter = function (filters) {
@@ -103,7 +130,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
     };
 
     scope.filterJob = function () {
-        console.log('jobInformation', jobInformation.getInfo.information());
         http.get('/api/jobs/filter', {params: jobInformation.getInfo.information()}).then(function (resp) {
             scope.$broadcast('changeItems', resp.data.data)
         }, function (err) {

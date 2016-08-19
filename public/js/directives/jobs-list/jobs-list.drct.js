@@ -11,7 +11,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             info: '@'
         },
         templateUrl: 'js/directives/jobs-list/jobs-list.html',
-        controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService', function (scope, http, parseTime, rootScope, location, ModalService) {
+        controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService','$element', function (scope, http, parseTime, rootScope, location, ModalService, element) {
             scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('');
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
             scope.watchName = '';
@@ -49,7 +49,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             // jobInformation.registerObserverCallback(function(data){
             //     console.log(data)
             // });
-
+          
 
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
@@ -105,6 +105,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 scope.configPagination.currentPage = a;
                 scope.render()
             };
+
 
             scope.render = function (params) {
                 scope.showLoading = true;

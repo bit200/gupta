@@ -55,7 +55,9 @@
                     </tr>
                 </table>
                 <button class="btn job-button" ng-click="profile_area.editProfile=true" style="width: 200px;">EDIT PROFILE</button>
-                <button class="btn job-button" ng-click="viewSeller(asView.buyer)" style="width: 200px; margin-left: 50px">{{asView.buyer ? 'UPDATE' : 'VIEW SELLER PROFILE'}}</button>
+                <button class="btn job-button" ui-sref="freelancer_registration" style="width: 200px; margin-left: 50px">{{currentFreelancer() ? 'Create Seller Profile' : 'Update Seller Profile'}}</button>
+                <!--<button class="btn job-button" ng-hide="currentFreelancer()" ui-sref="freelancer_registration" style="padding-top: 10px;width: 250px; margin-left: 50px">Create Seller Profile</button>-->
+                <!--<button class="btn job-button" ng-show="currentFreelancer()" ui-sref="freelancer_registration" style="padding-top: 10px;width: 250px; margin-left: 50px">Update my Seller Profile</button>-->
             </div>
             <form name="_edit" style="margin-top: 20px" novalidate ng-if="profile_area.editProfile" ng-init="setEditedProfile()">
                 <div class="form-group" ng-class="{'has-error': submitted && _edit.first_name.$invalid}">
