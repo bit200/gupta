@@ -169,8 +169,8 @@ angular.module('admin.all_project', [
 
         $scope.reject = function (item, index) {
             $scope.all_projects.splice(index, 1);
-            $http.delete('/admin/api/project', {params: {_id: item._id}}).then(function () {
-                $http.get('/admin/api/all/projects', {params: {limit: $scope.configPagination.countByPage, skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage}}).then(function (resp) {
+            $http.delete('/admin/api/delete', {params: {model:'Job',_id: item._id}}).then(function () {
+                $http.get('/admin/api/all', {params: {model: 'Job',limit: $scope.configPagination.countByPage, skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage}}).then(function (resp) {
                     $scope.all_projects = resp.data.data.data;
                     $scope.configPagination.totalCount = resp.data.data.count;
                 }, function (err) {

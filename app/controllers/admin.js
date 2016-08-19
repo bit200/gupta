@@ -108,7 +108,8 @@ exports.delete_filter = function (req, res) {
 
 exports.all_count = function (req, res) {
     var params = m.getBody(req);
-    m.count(models[params.model],{}, res, res);
+    log('###', params)
+    m.count(models[params.model], params.query || {}, res, res);
 };
 
 exports.all = function (req, res) {
@@ -143,16 +144,16 @@ exports.change_freelancer = function (req, res) {
 
 exports.delete = function (req, res) {
     var params = m.getBody(req);
-    m.findRemove(models[params.model], {_id: params._id}, res, res)
+    m.findUpdate(models[params.model], {_id: params._id},{status: 'Deleted'}, res, res)
 };
 
 exports.delete_users = function (req, res) {
     var params = m.getBody(req);
-    m.findRemove(models.User, {_id: params._id}, res, res)
+    m.findUpdate(models.User, {_id: params._id}, {status: 'Deleted'}, res, res)
 };
 exports.delete_freelancers = function (req, res) {
     var params = m.getBody(req);
-    m.findRemove(models.Freelancer, {_id: params._id}, res, res)
+    m.findUpdate(models.Freelancer, {_id: params._id},{status: 'Deleted'}, res, res)
 };
 exports.sorted_freelancer  = function (req, res) {
     var params = m.getBody(req);
