@@ -8,7 +8,7 @@ XYZCtrls.directive('jobPost', function () {
             scope.title = attrs.title;
             scope.btns = attrs.btns || attrs.list
         },
-        controller: ['$scope', 'Upload', '$http', '$rootScope', function (scope, Upload, $http, $rootScope) {
+        controller: ['$scope', 'Upload', '$http', '$rootScope', '$element',  function (scope, Upload, $http, $rootScope, element) {
 
             scope.jobs_area = {};
             scope.attach = [];
@@ -17,7 +17,24 @@ XYZCtrls.directive('jobPost', function () {
                 activeItem: {},
                 subName: {}
             };
+
+            // scope.$watch('job.title', function(text, item){
+            //     if(text){
+            //     if(text.split(' ').length > 10)
+            //         scope.job.title = item
+            //     }
+            // });
+            scope.searchTerm;
+            scope.clearSearchTerm = function() {
+                scope.searchTerm = '';
+            };
+            // The md-select directive eats keydown events for some quick select
+            // logic. Since we have a search input here, we don't need that logic.
+            element.find('input').on('keydown', function(ev) {
+                ev.stopPropagation();
+            });
             scope.subFilters;
+
             scope.choiceType = function (category, type) {
                 if(type){
                     delete scope.subFilters;

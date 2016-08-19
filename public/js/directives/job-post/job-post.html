@@ -6,8 +6,9 @@
     <div class="jbody">
         <div class="row form-group">
             <md-input-container class="md-block">
-                <div class="title3">Title job*</div>
-                <input aria-label='hidden' class="form-control" name="title" ng-model="job.title" required>
+                <div class="title3" style="padding: 0;">Title job*</div>
+                <div style="color: lightgrey;"><i>Not more 15 words</i></div>
+                <input job-title aria-label='hidden' class="form-control" name="title" ng-model="job.title" required>
                 <div ng-messages="postjob.title.$error.$invalid">
                     <div ng-show="postjob.title.$error.required" ng-message="required">{{default_empty}}
                     </div>
@@ -51,10 +52,54 @@
 
         <div class="row">
             <div class="md-block">
-                <div class="title3">Do you have a location preference?*</div>
-                <div ng-repeat="location in locations">
-                    <md-checkbox ng-model="job.location[location]" class="checkdark">{{location}}
-                    </md-checkbox>
+                <!--<div class="title3">Do you have a location preference?*</div>-->
+                <!--<md-input-container class="md-block" flex-gt-sm="">-->
+                <!--<md-select aria-label="hidden" name="category" ng-model="job.type_category" required>-->
+                <!--<md-option ng-repeat="(key,value) in commonFilters" value="{{key}}">-->
+                <!--{{key}}-->
+                <!--</md-option>-->
+                <!--</md-select>-->
+                <!--</md-input-container>-->
+                <!--<div ng-repeat="location in locations">-->
+                <!--<md-checkbox ng-model="job.location[location]" class="checkdark">{{location}}-->
+                <!--</md-checkbox>-->
+                <!--</div>-->
+                <h4 class="info-title">Do you have a location preference?*</h4>
+                <div class="form-group testDisplay">
+                    <!--<md-input-container class="selectTerm">-->
+                    <!--<md-select aria-label="hidden"  name="cities" multiple required>-->
+                    <!--<md-select-header class="demo-select-header">-->
+                    <!--<input ng-model="searchLocation"  placeholder="Search for a cities.."-->
+                    <!--class="demo-header-searchbox _md-text">-->
+                    <!--</md-select-header>-->
+                    <!--<md-optgroup label="locations">-->
+                    <!--<md-option ng-value="item" ng-repeat="item in locations |  filter: searchLocation">-->
+                    <!--{{item}}-->
+                    <!--</md-option>-->
+                    <!--</md-optgroup>-->
+                    <!--</md-select>-->
+                    <md-input-container class="full-width">
+                        <label> </label>
+                        <md-select ng-model="job.local_preference"
+                                   md-on-close="clearSearchTerm()"
+                                   data-md-container-class="selectdemoSelectHeader"
+                                   multiple>
+                            <md-select-header class="demo-select-header">
+                                <input ng-model="searchTerm"
+                                       type="search"
+                                       placeholder="Search for a locations.."
+                                       class="demo-header-searchbox md-text">
+                            </md-select-header>
+                            <md-optgroup label="locations">
+                                <md-option ng-value="item" ng-repeat="item in locations | filter:searchTerm">{{item}}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>
+                    <div ng-messages="postjob.cities.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
+                        <div ng-show="postjob.cities.$error.required" ng-message="required">Required field</div>
+                    </div>
+                    <!--</md-input-container>-->
                 </div>
             </div>
         </div>

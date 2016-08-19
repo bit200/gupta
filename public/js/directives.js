@@ -15,6 +15,20 @@ XYZCtrls.directive('ngEnter', function () {
     };
 });
 
+XYZCtrls.directive('jobTitle', function () {
+    return {
+        restrict: "A",
+        link: function (scope, elem, attrs) {
+            var limit = 15;
+            angular.element(elem).on("keypress", function (e) {
+                if (this.value.split(' ').length == limit) e.preventDefault();
+            });
+        }
+    }
+});
+
+
+
 XYZCtrls.directive('shakeThat', ['$animate', function ($animate) {
     return {
         require: '^form',
