@@ -81,7 +81,6 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             user = AuthService.currentUser() || {};
 
             scope.job = scope.job || _.extend({
-                    title: 'd',
                     email:AuthService.currentUser().email,
                     job_visibility: 'true',
                     date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)

@@ -19,6 +19,20 @@ var JobSchema = mongoose.Schema({
     job_visibility: Boolean,
     date_of_completion: Date,
     status: String,
+    statusRating: Number,
+    /*
+    * 0 - Pending Approval
+    * 1 - No Applicants
+    * 2 - Service Providers have applied
+    * 3 - Contract started
+    * 4 - Rejected by seller
+    * 5 - Rejected by buyer
+    * 6 - Ongoing
+    * 7 - Marked as completed
+    * 8 - Paused
+    * 9 - Closed
+    * 10 - Deleted
+    * */
     closed_date: Date,
     attach: [{
         type: Number,
@@ -61,6 +75,13 @@ JobSchema.plugin(autoIncrement.plugin, {
     model: 'Job',
     field: '_id',
     startAt: 100000
+});
+
+
+JobSchema.pre('save', function(next){
+    var statusArr = ['Pending Approval', 'No Applicants', 'Service Providers have applied', "Contract started", "Rejected by seller", "Rejected by buyer", "Ongoing", "Marked as completed", "Paused", "Closed", 'Deleted'];
+    this.statusRating = statusArr.indexOf(this.status);
+    next()
 });
 
 mongoose.model('Job', JobSchema);

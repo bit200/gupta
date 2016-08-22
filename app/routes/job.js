@@ -67,7 +67,7 @@ module.exports = function (app) {
 
     
 
-    job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]}}'
+        job.fn('/api/jobs/buyer/ongoing', auth.token, 'Contract', '{ buyer: this.userId, status: {$in: ["Ongoing", "Marked as completed", "Paused"]}}'
         , {populate: 'freelancer job', sort: '-created_at'}, app);
 
     job.fn('/api/jobs/buyer/closed', auth.token, 'Contract', '{ buyer: this.userId, status: "Closed" }'

@@ -138,7 +138,7 @@ angular.module('directive', [])
             controller: ['$scope', '$http', '$state', function (scope, $http, $state) {
                 $http.post(scope.urlCount, scope.urlModel).then(function (resp) {
                     scope.count = resp.data.data
-                }, function(err) {
+                }, function (err) {
                     scope.count = 0
                 })
             }]

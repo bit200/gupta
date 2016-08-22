@@ -20,7 +20,7 @@
             </thead>
             <tbody>
 
-            <tr ng-repeat="all_project in all_projects" ng-class="{'rejecting-row': all_projects.rejectedItemIndex == $index}">
+            <tr ng-repeat="all_project in all_projects|orderBy:'statusRating'">
                 <td>{{all_project.title}}</td>
                 <td>{{all_project.email}}</td>
                 <!--<td>{{all_project.type_category}} <span ng-if="all_project.type_filter"> > </span> {{all_project.type_filter}} <span ng-if="all_project.type_name"> > </span> {{all_project.type_name}}</td>-->

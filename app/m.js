@@ -80,10 +80,10 @@ function distinct(model, query, fieldName, _ecb, _scb) {
 
 function find(model, query, _ecb, _scb, params) {
     params = params || {};
-    params.skip = +params.skip
-    params.limit = +params.limit
+    params.skip = +params.skip;
+    params.limit = +params.limit;
     if (!model) {
-        ecb(399, 'Model not found', _ecb)
+        ecb(399, 'Model not found', _ecb);
         return;
     }
     model

@@ -871,7 +871,7 @@ exports.make_fake = function (req, res) {
             "email": "jiga-san@mail.ru",
             "user": 100002,
             "buyer": 100002,
-            "status": "open",
+            "status": "No Applicants",
             "contracts": [],
             "admin_approved": 1,
 
@@ -901,7 +901,7 @@ exports.make_fake = function (req, res) {
             "email": "jiga-san@mail.ru",
             "user": 100002,
             "buyer": 100002,
-            "status": "open",
+            "status": "No Applicants",
             "contracts": [],
             "admin_approved": 1,
             "local_preference": [
@@ -927,7 +927,7 @@ exports.make_fake = function (req, res) {
             "email": "jiga-san@mail.ru",
             "user": 100002,
             "buyer": 100002,
-            "status": "open",
+            "status": "No Applicants",
             "contracts": [],
             "admin_approved": 1,
             "local_preference": [
@@ -953,7 +953,7 @@ exports.make_fake = function (req, res) {
             "email": "jiga-san@mail.ru",
             "user": 100002,
             "buyer": 100002,
-            "status": "open",
+            "status": "No Applicants",
             "contracts": [],
             "admin_approved": 1,
             "local_preference": [
