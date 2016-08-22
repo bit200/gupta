@@ -7,7 +7,7 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
         scope.arrayLocations = getContent.locations.data.data;
         scope.search = {}
         scope.projects = [];
-
+     
         scope.slider = {
             minValue: 10,
             maxValue: 200,
@@ -41,6 +41,8 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
                 scope.selectedCateogries.push(value)
             scope.submitFilter();
         };
+
+      
 
         scope.checkIfSelectedCategory = function(value){
             return scope.selectedCateogries.indexOf(value) > -1;

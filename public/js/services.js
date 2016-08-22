@@ -377,6 +377,8 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobParseByStatus', f
                 information.search = obj.search;
             if (obj.category)
                 information.category = obj.category;
+            if ( obj.category == '' )
+                delete information.category;
             if (obj.location)
                 information.location = obj.location;
             if (obj.job_sub_category)
@@ -388,6 +390,9 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobParseByStatus', f
         },
         deleteSearch: function (text) {
             delete information.search;
+        },
+        deleteFiler: function (text) {
+            information = {}
         },
         getInfo: {
             information: function () {

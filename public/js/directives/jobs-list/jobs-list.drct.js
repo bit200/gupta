@@ -49,8 +49,8 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             // jobInformation.registerObserverCallback(function(data){
             //     console.log(data)
             // });
-          
-
+            
+            
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
@@ -99,7 +99,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
 
             scope.$on('changeItems', function (e, item) {
                 scope.items = item
-            })
+            });
 
             scope.cb = function (a) {
                 scope.configPagination.currentPage = a;

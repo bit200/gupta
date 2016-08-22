@@ -4,10 +4,10 @@
 
 <div class="container job">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3" ng-if="$state.current.name == 'jobs_list.all'">
             <div class="job-nav">
                 <div>
-                    <div ng-if="$state.current.name == 'jobs_list.all'">
+                    <div>
                         <input class="job-search" ng-model="searchJob" ng-keyup="searchText(searchJob)" placeholder="Keywords"/>
 
                         <div class="sub-title">
@@ -16,7 +16,10 @@
 
                         <md-input-container class="full-width" style="margin: 0">
                             <label> </label>
-                            <md-select ng-model="job.category" md-on-close="selectItem(job.category, 'category', true)" data-md-container-class="selectdemoSelectHeader">
+                            <md-select ng-model="job.category" md-on-close="selectItem(job.category, 'category', true, value)" data-md-container-class="selectdemoSelectHeader">
+                                <md-option value="" ng-selected="true">
+                                    All categories
+                                </md-option>
                                 <md-option ng-repeat="item in categories | filter:search.category" value="{{item}}">
                                     {{item}}
                                 </md-option>
@@ -29,7 +32,10 @@
                             <md-input-container class="full-width" style="margin: 0">
                                 <label> </label>
                                 <md-select ng-model="job.subcategory" md-on-close="selectItem(job.subcategory, 'category', false)" data-md-container-class="selectdemoSelectHeader">
-                                    <md-option ng-repeat="item in subFilters | filter:search.category" value="{{item}}">
+                                    <md-option value="{{null}}">
+                                        -- select a state --
+                                    </md-option>
+                                    <md-option ng-repeat="item in subFilters | filter:search.subcategory" value="{{item}}">
                                         {{item}}
                                     </md-option>
                                 </md-select>
@@ -41,26 +47,30 @@
                         <div class="sub-select">
 
                         </div>
+                        <div class="sub-title">
+                            Budget
+                        </div>
+                        <div class="sub-select">
+                            <rzslider rz-slider-model="slider.minValue"
+                                      rz-slider-high="slider.maxValue"
+                                      rz-slider-options="slider.options"></rzslider>
+                        </div>
+                        <div>
+                            <button class="btn btn-default" ng-click="clearFilter(job.category);">Clear filter</button>
+                        </div>
                     </div>
-                    <div class="sub-title">
-                        Budget
-                    </div>
-                    <div class="sub-select">
-                        <rzslider rz-slider-model="slider.minValue"
-                                  rz-slider-high="slider.maxValue"
-                                  rz-slider-options="slider.options"></rzslider>
-                    </div>
+
                     <!--<div class="sub-title" ng-if="asView">-->
-                        <!--By status-->
+                    <!--By status-->
                     <!--</div>-->
                     <!--<div class="sub-select" ng-if="asView">-->
-                        <!--<selector type="'job_type'" items="['Open', 'Ongoing', 'Closed']" class-name="'nav'" value="{{info.job_type}}"></selector>-->
+                    <!--<selector type="'job_type'" items="['Open', 'Ongoing', 'Closed']" class-name="'nav'" value="{{info.job_type}}"></selector>-->
                     <!--</div>-->
                     <!--<div class="sub-title" ng-if="asView">-->
-                        <!--View project as-->
+                    <!--View project as-->
                     <!--</div>-->
                     <!--<div class="sub-select" ng-if="asView">-->
-                        <!--<selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>-->
+                    <!--<selector type="'user_type'" items="['Buyer', 'Seller']" value="{{info.user_type}}" class-name="'nav'"></selector>-->
                     <!--</div>-->
                     <!--<b>Buyer</b>-->
                     <!--<a ui-sref="jobs_list.buyer_open">Open</a>-->
@@ -75,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9">
+        <div ng-class="{'col-sm-12':$state.current.name != 'jobs_list.all', 'col-sm-9':$state.current.name == 'jobs_list.all' }">
             <ui-view></ui-view>
         </div>
     </div>

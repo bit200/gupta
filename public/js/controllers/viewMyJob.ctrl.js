@@ -36,12 +36,11 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         }
     };
 
-    scope.vegetables = ['Corn' ,'Onions' ,'Kale' ,'Arugula' ,'Peas', 'Zucchini'];
     scope.searchTerm;
     scope.clearSearchTerm = function() {
         scope.searchTerm = '';
     };
-    
+
 
     scope.getSubCategories = function(category, type) {
         if(type){
@@ -57,12 +56,21 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
             });
             scope.isSub = true;
         } else {
-            
-        };
-    }
 
-    scope.selectItem = function (elem, type, bol) {
+        }
+    };
+
+    scope.clearFilter = function(){
+        scope.isSub = false;
+        jobInformation.deleteFiler();
+        // scope.slider.            minValue: 1,
+        //     maxValue: 50000}
+        scope.filterJob()
+    };
+
+    scope.selectItem = function (elem, type, bol, value) {
         if (type == 'category') {
+            console.log('value',elem)
             scope.category_open = !scope.category_open;
             scope.selected_category = elem;
             scope.getSubCategories(elem, bol)
@@ -130,6 +138,7 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
     };
 
     scope.filterJob = function () {
+        console.log()
         http.get('/api/jobs/filter', {params: jobInformation.getInfo.information()}).then(function (resp) {
             scope.$broadcast('changeItems', resp.data.data)
         }, function (err) {
