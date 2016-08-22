@@ -150,6 +150,28 @@ angular.module('admin.all_profile', [
             });
         };
 
+        $scope.showQuestionnaire = function (questionnaire) {
+            ModalService.showModal({
+                templateUrl: "all_profile/all_profile.question.html",
+                controller: function ($scope, $element, $http) {
+                    $scope.questionnaires = questionnaire
+                    $scope.rows = function (item, num) {
+                        if (num)
+                            item.row_number = new Array(num);
+                    };
+
+                    $scope.close = function (res) {
+                        $element.modal('hide');
+                        close(res, 500);
+                    }
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                });
+
+            });
+        }
         $scope.getInformation = function (user, type) {
             ModalService.showModal({
                 templateUrl: "all_profile/all_profile.view.html",
@@ -157,7 +179,6 @@ angular.module('admin.all_profile', [
                     $scope.type = type;
                     $scope.profile = angular.copy(user);
                     $scope.submit = function (user) {
-                        console.log(user);
                         $http.post('/admin/api/' + type, {user: user}).then(function (resp) {
                             update_profile()
                             $scope.close()

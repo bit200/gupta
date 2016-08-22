@@ -270,38 +270,76 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div ng-repeat="item in questionnaire" ng-init="_index=$index">
-                                            <h3>{{item.question}}</h3>
+                                        <!--<div ng-repeat="item in questionnaire" ng-init="_index=$index">-->
+                                            <!--<h3>{{item.question}}</h3>-->
 
-                                            <div ng-if="!item.items && !item.table">
-                                                <md-input-container class="md-block" flex-gt-sm>
-                                                    <input aria-label="hidden" disabled name="answer" ng-model="viewProfile.questionnaire[_index].answer" style="color:#333">
-                                                </md-input-container>
+                                            <!--<div ng-if="!item.items && !item.table">-->
+                                                <!--<md-input-container class="md-block" flex-gt-sm>-->
+                                                    <!--<input aria-label="hidden" disabled name="answer" ng-model="viewProfile.questionnaire[_index].answer" style="color:#333">-->
+                                                <!--</md-input-container>-->
+                                            <!--</div>-->
+
+
+                                            <!--<div ng-if="item.items">-->
+                                                <!--<md-checkbox ng-repeat="box in item.items track by $index" disabled ng-model="viewProfile.questionnaire[_index].items[$index]"><span style="color:#333">{{box}}</span></md-checkbox>-->
+                                            <!--</div>-->
+
+
+                                            <!--<div ng-if="item.table">-->
+                                                <!--<table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">-->
+                                                    <!--<tr>-->
+                                                        <!--<td ng-repeat="table in item.table track by $index">{{table.table_header}}</td>-->
+                                                    <!--</tr>-->
+                                                    <!--<tr ng-repeat="el in item.row_number track by $index" ng-init="row = $index">-->
+                                                        <!--<td class="relative" ng-repeat="table in item.table track by $index">-->
+                                                            <!--<div ng-if="table.type=='text'" class="text-center" ng-init="viewProfile.questionnaire[_index].table[row].text = table.row[row].value" style="line-height: 55px;">{{table.row[row].value}}</div>-->
+                                                            <!--<md-input-container ng-if="table.type=='input'" class="md-block" flex-gt-sm>-->
+                                                                <!--<input aria-label="hidden" disabled name="answer" ng-model="viewProfile.questionnaire[_index].table[row].input[$index]" style="color:#333">-->
+                                                            <!--</md-input-container>-->
+                                                            <!--<md-checkbox class="checkbox-profile" ng-if="table.type=='checkbox'" disabled ng-model="viewProfile.questionnaire[_index].table[row].checkbox" ></md-checkbox>-->
+                                                        <!--</td>-->
+                                                    <!--</tr>-->
+                                                <!--</table>-->
+                                            <!--</div>-->
+
+                                        <!--</div>-->
+                                        <div ng-repeat="questionnaire in questionnaires" ng-init="index=$index">
+                                            <div ng-repeat="item in questionnaire" ng-init="_index=$index">
+                                                <h3 ng-class="{'inline-block':item.answer}">{{item.question}}<span ng-if="item.answer">:</span></h3>
+
+                                                <div ng-if="item.answer" style="display: inline-block">
+                                                    <div style="line-height: 55px;">{{item.answer}}</div>
+
+                                                    <!--<md-input-container class="md-block" flex-gt-sm>-->
+                                                    <!--<input aria-label="hidden" disabled name="answer" ng-model="viewProfile.questionnaire[_index].answer" style="color:#333">-->
+                                                    <!--</md-input-container>-->
+                                                </div>
+
+
+                                                <div ng-if="item.items">
+                                                    <md-checkbox ng-repeat="box in item.items track by $index" disabled ng-model="viewProfile.questionnaire[_index].items[$index]"><span style="color:#333">{{box}}</span></md-checkbox>
+                                                </div>
+
+
+                                                <div ng-if="item.table">
+                                                    <table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">
+                                                        <tr>
+                                                            <td ng-repeat="table in item.table_header track by $index">{{table}}</td>
+                                                        </tr>
+                                                        <tr ng-repeat="table in item.table track by $index" ng-init="row = $index">
+                                                            <td height="20" class="relative" ng-repeat="(i,table) in table track by $index" ng-init="freelancer.questionnaire[index][_index].table[row][i].type = table.type;">
+                                                                <div ng-if="table.type=='text'" class="text-center" style="line-height: 55px;">{{table.text}}</div>
+                                                                <div ng-if="table.type=='input'" class="text-center" style="line-height: 55px;">{{table.input}}</div>
+                                                                <!--<md-input-container ng-if="table.type=='input'" class="md-block" flex-gt-sm>-->
+                                                                <!--<input aria-label="hidden" name="answer" ng-model="table.input">-->
+                                                                <!--</md-input-container>-->
+                                                                <md-checkbox class="checkbox-profile" ng-if="table.type=='checkbox'" disabled ng-model="table.checkbox"></md-checkbox>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+
                                             </div>
-
-
-                                            <div ng-if="item.items">
-                                                <md-checkbox ng-repeat="box in item.items track by $index" disabled ng-model="viewProfile.questionnaire[_index].items[$index]"><span style="color:#333">{{box}}</span></md-checkbox>
-                                            </div>
-
-
-                                            <div ng-if="item.table">
-                                                <table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">
-                                                    <tr>
-                                                        <td ng-repeat="table in item.table track by $index">{{table.table_header}}</td>
-                                                    </tr>
-                                                    <tr ng-repeat="el in item.row_number track by $index" ng-init="row = $index">
-                                                        <td class="relative" ng-repeat="table in item.table track by $index">
-                                                            <div ng-if="table.type=='text'" class="text-center" ng-init="viewProfile.questionnaire[_index].table[row].text = table.row[row].value" style="line-height: 55px;">{{table.row[row].value}}</div>
-                                                            <md-input-container ng-if="table.type=='input'" class="md-block" flex-gt-sm>
-                                                                <input aria-label="hidden" disabled name="answer" ng-model="viewProfile.questionnaire[_index].table[row].input[$index]" style="color:#333">
-                                                            </md-input-container>
-                                                            <md-checkbox class="checkbox-profile" ng-if="table.type=='checkbox'" disabled ng-model="viewProfile.questionnaire[_index].table[row].checkbox" ></md-checkbox>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>

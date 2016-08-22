@@ -280,11 +280,12 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         scope.questions = _.uniq(_.pluck(angular.copy(scope.viewProfile.service_providers), 'type'));
-        $http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
-            scope.questionnaire = resp.data.data;
-        }, function (err) {
-            notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
-        });
+        // $http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
+            scope.questionnaires = getContent.profile.data.questionnaire;
+            // console.log('adasdasdas', scope.viewProfile);
+        // }, function (err) {
+        //     notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
+        // });
         scope.active_profile_menu = 'pricing';
         scope.loading = true;
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {
