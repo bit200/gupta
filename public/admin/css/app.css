@@ -24,6 +24,35 @@
     color:#333;
 }
 
+.transparent {
+    color: transparent;
+}
+
+.input-block {
+    display: inline-block;
+    width: 40%;
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.input-custom {
+    border: 0px;
+    border-bottom: 1px solid lightgray;
+    border-radius: 0;
+}
+
+.show {
+    color: #333;
+}
+
+.outline-none {
+    outline: none !important;
+}
+
+.fake-icon {
+    padding-right: 6px;
+}
+
 .hasError textarea{
     border: 1px solid red;
 }

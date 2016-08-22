@@ -630,7 +630,7 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 100, "work": subItems.work, "type": "agency",
+                "user": 100, "work": subItems.work, "type": "freelancer",
                 "name": "Siavash A",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",
@@ -659,7 +659,7 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 101, "work": subItems.work, "type": "agency",
+                "user": 101, "work": subItems.work, "type": "freelancer",
                 "name": "Soumya Nalam",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",
@@ -689,7 +689,7 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 102, "work": subItems.work, "type": "agency",
+                "user": 102, "work": subItems.work, "type": "freelancer",
                 "name": "Shadrack K",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",
@@ -719,7 +719,7 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 103, "work": subItems.work, "type": "agency",
+                "user": 103, "work": subItems.work, "type": "freelancer",
                 "name": "Mohamed M. A.",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",
@@ -748,7 +748,7 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 104, "work": subItems.work, "type": "agency",
+                "user": 104, "work": subItems.work, "type": "freelancer",
                 "name": "David Kibra",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",
@@ -777,7 +777,7 @@ exports.make_fake = function (req, res) {
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
 
             var freelancer = {
-                "user": 105, "work": subItems.work, "type": "agency",
+                "user": 105, "work": subItems.work, "type": "freelancer",
                 "name": "Emma Davidson",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",
@@ -805,7 +805,7 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 106, "work": subItems.work, "type": "agency",
+                "user": 106, "work": subItems.work, "type": "freelancer",
                 "name": "Retha Groenewald",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",
@@ -833,7 +833,7 @@ exports.make_fake = function (req, res) {
         };
         m.findCreate(models.ContactDetail, item, {}, cb, function (detail) {
             var freelancer = {
-                "user": 107, "work": subItems.work, "type": "agency",
+                "user": 107, "work": subItems.work, "type": "freelancer",
                 "name": "Leeanna Weideman",
                 "experience": 1,
                 "introduction": "Senior IOS Developer",

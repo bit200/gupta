@@ -25,7 +25,7 @@ angular.module('admin.chat', [
     .controller('ChatCtrl', function ChatController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.getchats = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all', {params: {model:'ChatRoom',query:{populate: 'job', limit:  $scope.configPagination.countByPage, skip: _skip}}}).then(function (resp) {
+            $http.post('/admin/api/all', {model:'ChatRoom',query:{populate: 'job', limit:  $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.chats = resp.data.data.data;
                 if(resp.data.data.count != $scope.configPagination.totalCount) {
                     $scope.configPagination.totalCount = resp.data.data.count;

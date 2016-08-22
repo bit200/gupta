@@ -34,7 +34,7 @@ angular.module('admin.all_profile', [
         $scope.display = {type: 'freelancers'};
         $scope.getFreelancer = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all', {params: {model: 'Freelancer', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.post('/admin/api/all', {model: 'Freelancer', limit: $scope.configPagination.countByPage, skip: _skip}).then(function (resp) {
                 $scope.display.type = 'freelancers';
                 $scope.all_profiles = resp.data.data.data;
                 if ($scope.configPagination.totalCount != resp.data.data.count) {
@@ -45,10 +45,10 @@ angular.module('admin.all_profile', [
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
         };
-        $scope.getUsers = function (skip, limit) {
+        $scope.getModels = function (model, type, query) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all', {params: {model: 'User', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
-                $scope.display.type = 'users';
+            $http.post('/admin/api/all', {model: model, params: query || {}, query: {limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+                $scope.display.type = type;
                 $scope.all_profiles = resp.data.data.data;
                 if ($scope.configPagination.totalCount != resp.data.data.count) {
                     $scope.configPagination.totalCount = resp.data.data.count;
@@ -61,7 +61,19 @@ angular.module('admin.all_profile', [
         };
 
         $scope.cb = function (page) {
-            $scope.display.type == 'freelancers' ? $scope.getFreelancer(page) : $scope.getUsers(page)
+            switch ($scope.display.type) {
+                case 'freelancers':
+                    $scope.getModels('Freelancer', 'freelancers', {type: 'freelancer'});
+                    break;
+                case 'agency':
+                    $scope.getModels('Freelancer', 'agency', {type: 'agency'});
+                    break;
+                case 'users':
+                    $scope.getModels('User', 'users');
+                    break;
+                default:
+                    break;
+            }
         };
 
         $scope.configPagination = {
@@ -71,7 +83,19 @@ angular.module('admin.all_profile', [
         };
 
         $scope.check = function (type) {
-            type == 'freelancers' ? $scope.getFreelancer(1) : $scope.getUsers(1)
+            switch (type) {
+                case 'freelancers':
+                    $scope.getModels('Freelancer', 'freelancers', {type: 'freelancer'});
+                    break;
+                case 'agency':
+                    $scope.getModels('Freelancer', 'agency', {type: 'agency'});
+                    break;
+                case 'users':
+                    $scope.getModels('User', 'users');
+                    break;
+                default:
+                    break;
+            }
         };
 
         function spliceItem(index) {
@@ -79,10 +103,18 @@ angular.module('admin.all_profile', [
         }
 
         function update_profile() {
-            if ($scope.display.type == 'freelancers') {
-                $scope.getFreelancer()
-            } else {
-                $scope.getUsers()
+            switch ($scope.display.type) {
+                case 'freelancers':
+                    $scope.getModels('Freelancer', 'freelancers', {type: 'freelancer'});
+                    break;
+                case 'agency':
+                    $scope.getModels('Freelancer', 'agency', {type: 'agency'});
+                    break;
+                case 'users':
+                    $scope.getModels('User', 'users');
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -100,9 +132,8 @@ angular.module('admin.all_profile', [
                 controller: function ($scope, $element, $http) {
                     console.log(type)
                     $scope.submit = function () {
-                        $http.delete('/admin/api/' + type, {params: {_id: item._id}}).then(function () {
+                        $http.delete('/admin/api/delete', {params: {model:type == 'users' ? 'User': 'Freelancer', _id: item._id}}).then(function () {
                             spliceItem(index);
-
                             $scope.close()
                         })
                     };

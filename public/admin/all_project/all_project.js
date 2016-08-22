@@ -29,15 +29,37 @@ angular.module('admin.all_project', [
     })
     .controller('AllProjectCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.selectFilter = 'pending';
+        $scope.sortBy = '';
+        $scope.searchObj = '';
+        $scope.changeSort = function (type) {
+            $scope.sortBy = type;
+            $scope.getAllProject();
+            $scope.configPagination.currentPage = 1;
+        };
+
+        $scope.search = function(text){
+            $scope.searchObj = text;
+            $scope.searchTrue = true;
+            $scope.getAllProject();
+        };
+
         $scope.getAllProject = function (skip, cb) {
             var _skip = skip ? (skip - 1) * $scope.configPagination.countByPage : 0;
-            $http.get('/admin/api/all', {params: {model: 'Job', query:{sort:'statusRating',limit: $scope.configPagination.countByPage, skip: _skip}}}).then(function (resp) {
+            $http.post('/admin/api/all', {model: 'Job', search: $scope.searchObj, query: {sort: $scope.sortBy || 'statusRating', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
                 $scope.all_projects = resp.data.data.data;
-                $scope.configPagination.totalCount = resp.data.data.count;
-                $scope.configPagination.currentPage = skip;
+                if ($scope.configPagination.totalCount != resp.data.data.count) {
+                    $scope.configPagination.totalCount = resp.data.data.count;
+                    $scope.configPagination.currentPage = 1;
+                }
                 cb
             }, function (err) {
-                notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});            })
+                if($scope.searchTrue){
+                    $scope.all_projects = [];
+                    $scope.configPagination.totalCount = 0;
+                } else {
+                    notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
+                }
+            })
         };
 
 
@@ -47,7 +69,7 @@ angular.module('admin.all_project', [
 
         $scope.configPagination = {
             currentPage: 1,
-            countByPage: 12,
+            countByPage: 15,
             totalCount: 0
         };
         function refreshForModel(cb) {
@@ -137,7 +159,7 @@ angular.module('admin.all_project', [
                             delete $scope.job.preview;
                         };
                         $scope.submit = function (job) {
-                            if (job.preview &&!job.preview.length) {
+                            if (job.preview && !job.preview.length) {
                                 delete job.preview
                             }
                             if (job.attach && !job.attach.length) {
@@ -169,12 +191,13 @@ angular.module('admin.all_project', [
 
         $scope.reject = function (item, index) {
             $scope.all_projects.splice(index, 1);
-            $http.delete('/admin/api/delete', {params: {model:'Job',_id: item._id}}).then(function () {
-                $http.get('/admin/api/all', {params: {model: 'Job',limit: $scope.configPagination.countByPage, skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage}}).then(function (resp) {
+            $http.delete('/admin/api/delete', {params: {model: 'Job', _id: item._id}}).then(function () {
+                $http.post('/admin/api/all', {model: 'Job', limit: $scope.configPagination.countByPage, skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage}).then(function (resp) {
                     $scope.all_projects = resp.data.data.data;
                     $scope.configPagination.totalCount = resp.data.data.count;
                 }, function (err) {
-                    notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});                })
+                    notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
+                })
             })
         }
 

@@ -25,7 +25,7 @@ angular.module('admin.job_apply', [
     .controller('JobApplyCtrl', function JobApplyController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.getJobs = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all', {params: {model:'JobApply', limit: $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.post('/admin/api/all', {model:'JobApply', limit: $scope.configPagination.countByPage, skip: _skip}).then(function (resp) {
                 $scope.jobApplies = resp.data.data.data;
                 if(resp.data.data.count != $scope.configPagination.totalCount) {
                     $scope.configPagination.totalCount = resp.data.data.count;

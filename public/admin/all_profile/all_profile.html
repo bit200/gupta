@@ -3,6 +3,7 @@
         <div ng-init="display.type = 'freelancers'; check('freelancers')" class="text-center">
             <md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
                 <md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block" style="outline: none">Freelancers</md-radio-button>
+                <md-radio-button ng-class="{active_tab: display.type == 'agency'}" ng-click="check('agency')" value="agency" class="md-primary inline-block" style="outline: none">Agency</md-radio-button>
                 <md-radio-button ng-class="{active_tab: display.type == 'users'}" ng-click="check('users')" value="users" style="margin-left: 50px;display:inline-block;outline: none">Users</md-radio-button>
             </md-radio-group>
         </div>
@@ -12,20 +13,59 @@
             <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='freelancers'">
                 <thead>
                 <tr>
-                    <th class="text-bold pointer">Name</th>
-                    <th class="text-bold pointer">Type</th>
-                    <th class="text-bold pointer">Location</th>
-                    <th class="text-bold pointer">Created</th>
-                    <th>Actions</th>
+                    <td class="text-bold pointer">Name</td>
+                    <td class="text-bold pointer">Introduction</td>
+                    <td class="text-bold pointer">Location</td>
+                    <td class="text-bold pointer">Cities service</td>
+                    <td class="text-bold pointer">Experience</td>
+                    <td class="text-bold pointer">Service Provider</td>
+                    <td class="text-bold pointer">Created</td>
+                    <td style="width: 140px">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
                     <td>{{all_profile.name}}</td>
-                    <td>
-                        <div ng-class="{'agency-type':all_profile.type=='agency', 'freelancer-type':all_profile.type=='freelancer'}">{{all_profile.type}}</div>
-                    </td>
+                    <td>{{all_profile.introduction}}</td>
                     <td>{{all_profile.location}}</td>
+                    <td><span ng-repeat="city in all_profile.cities">{{city}} <span ng-if="!$last">, </span></span></td>
+                    <td>{{all_profile.experience}}</td>
+                    <td><span ng-repeat="service in all_profile.service_providers">{{service.name ? service.type +'/'+service.name : service.type}}<span ng-if="!$last">, </span></span></td>
+                    <td>{{all_profile.created_at}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}"  class="pointer fa fa-star inline-block" style="outline: none"></span></button>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span  class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span  class="pointer fa fa-trash-o"></span></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="portlet-body">
+            <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='agency'">
+                <thead>
+                <tr>
+                    <td class="text-bold pointer">Name</td>
+                    <td class="text-bold pointer">Introduction</td>
+                    <td class="text-bold pointer">Company URL</td>
+                    <td class="text-bold pointer">Header office address</td>
+                    <td class="text-bold pointer">Office phone number</td>
+                    <td class="text-bold pointer">Number of employees</td>
+                    <td class="text-bold pointer">Service Provider</td>
+                    <td class="text-bold pointer">Created</td>
+                    <td style="width: 140px">Actions</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
+                    <td>{{all_profile.name}}</td>
+                    <td>{{all_profile.introduction}}</td>
+                    <td>{{all_profile.url}}</td>
+                    <td>{{all_profile.address}}</td>
+                    <td>{{all_profile.phone}}</td>
+                    <td>{{all_profile.employees}}</td>
+                    <td><span ng-repeat="service in all_profile.service_providers">{{service.name ? service.type +'/'+service.name : service.type}}<span ng-if="!$last">, </span></span></td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
                         <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}"  class="pointer fa fa-star inline-block" style="outline: none"></span></button>
@@ -41,13 +81,13 @@
             <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='users'">
                 <thead>
                 <tr>
-                    <th class="text-bold pointer">First Name</th>
-                    <th class="text-bold pointer">Last Name</th>
-                    <th class="text-bold pointer">Email</th>
-                    <th class="text-bold pointer">Phone</th>
-                    <th class="text-bold pointer">Company name</th>
-                    <th class="text-bold pointer">Created</th>
-                    <th>Actions</th>
+                    <td class="text-bold pointer">First Name</td>
+                    <td class="text-bold pointer">Last Name</td>
+                    <td class="text-bold pointer">Email</td>
+                    <td class="text-bold pointer">Phone</td>
+                    <td class="text-bold pointer">Company name</td>
+                    <td class="text-bold pointer">Created</td>
+                    <td style="width: 140px">Actions</td>
                 </tr>
                 </thead>
                 <tbody>

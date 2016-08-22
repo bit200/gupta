@@ -108,7 +108,6 @@ exports.delete_filter = function (req, res) {
 
 exports.all_count = function (req, res) {
     var params = m.getBody(req);
-    log('###', params)
     m.count(models[params.model], params.query || {}, res, res);
 };
 
@@ -119,8 +118,17 @@ exports.all = function (req, res) {
         params.query.skip = params.skip;
         params.query.limit =  params.limit;
     }
-    m.find(models[params.model], {}, res, function (item) {
-        m.count(models[params.model], {}, res, function (count) {
+    if(params.search){
+        var regexp = new RegExp(params.search, 'i');
+        params.search = {'$or': [{title: regexp}, {type_category: regexp}, {type_name: regexp}]}
+    } else {
+        params.search = {};  
+    }
+    if (params.params) {
+        params.search = params.params
+    }
+    m.find(models[params.model], params.search, res, function (item) {
+        m.count(models[params.model], params.search, res, function (count) {
             m.scb({data: item, count: count}, res)
         });
     }, params.query)
@@ -144,7 +152,8 @@ exports.change_freelancer = function (req, res) {
 
 exports.delete = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models[params.model], {_id: params._id},{status: 'Deleted'}, res, res)
+    // m.findUpdate(models[params.model], {_id: params._id},{status: 'Deleted'}, res, res)
+    m.findRemove(models[params.model], {_id: params._id},res, res)
 };
 
 exports.delete_users = function (req, res) {

@@ -1,26 +1,29 @@
 <div class="marginT30">
     <div style="margin-top: 20px">
-
-        <h2 ng-if="!all_projects.length" class="text-center">No project</h2>
-        <div>
+        <div style="display: inline-block">
             <button class="btn btn-default" ng-click="add_job()">Add project</button>
         </div>
+        <div class="input-block">
+            <input class="form-control input-custom" ng-model="searchProjects" ng-keyup="search(searchProjects)" placeholder="Search...">
+        </div>
+        <h2 ng-if="!all_projects.length && !searchTrue" class="text-center">No projects</h2>
+        <h2 ng-if="!all_projects.length && searchTrue" class="text-center">No projects for input request</h2>
         <table class="table table-striped" ng-if="all_projects.length">
             <thead>
             <tr>
-                <th class="text-bold pointer">Title</th>
-                <th class="text-bold pointer">Email</th>
-                <th class="text-bold pointer">Budget</th>
-                <th class="text-bold pointer">Status</th>
-                <th class="text-bold pointer">Job Visibility</th>
-                <th class="text-bold pointer">Created</th>
-                <th>Actions</th>
+                <td ng-click="changeSort('title')" class="text-bold pointer outline-none">Title<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'title'}"></span></td>
+                <td ng-click="changeSort('email')" class="text-bold pointer outline-none">Email<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'email'}"></span></td>
+                <td ng-click="changeSort('budget')" class="text-bold pointer outline-none">Budget<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'budget'}"></span></td>
+                <td ng-click="changeSort('statusRating')" class="text-bold pointer outline-none">Status<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'statusRating'}"></span></td>
+                <td ng-click="changeSort('job_visibility')" class="text-bold pointer outline-none">Job Visibility<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'job_visibility'}"></span></td>
+                <td ng-click="changeSort('created_at')" class="text-bold pointer outline-none">Created<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'created_at'}"></span></td>
+                <td>Actions</td>
             </tr>
 
             </thead>
             <tbody>
 
-            <tr ng-repeat="all_project in all_projects|orderBy:'statusRating'">
+            <tr ng-repeat="all_project in all_projects|orderBy:sortBy ||'statusRating'">
                 <td>{{all_project.title}}</td>
                 <td>{{all_project.email}}</td>
                 <!--<td>{{all_project.type_category}} <span ng-if="all_project.type_filter"> > </span> {{all_project.type_filter}} <span ng-if="all_project.type_name"> > </span> {{all_project.type_name}}</td>-->

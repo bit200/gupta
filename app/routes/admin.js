@@ -13,7 +13,7 @@ module.exports = function (app) {
     app.post('/admin/api/filter/add', _admin.create_filter);
     app.post('/admin/api/filter/order', _admin.change_order);
 
-    app.get('/admin/api/all', _admin.all);
+    app.post('/admin/api/all', _admin.all);
     app.post('/admin/api/all_count', _admin.all_count);
     app.post('/admin/api/users', _admin.change_user);
     app.post('/admin/api/change', _admin.change);

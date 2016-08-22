@@ -25,7 +25,7 @@ angular.module('admin.contract', [
     .controller('ContractCtrl', function ContractController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.getContracts = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
-            $http.get('/admin/api/all', {params: {model:'Contract',limit: limit || $scope.configPagination.countByPage, skip: _skip}}).then(function (resp) {
+            $http.post('/admin/api/all', {model:'Contract',limit: limit || $scope.configPagination.countByPage, skip: _skip}).then(function (resp) {
                 $scope.contracts = resp.data.data.data;
                 if(resp.data.data.count != $scope.configPagination.totalCount) {
                     $scope.configPagination.totalCount = resp.data.data.count;
