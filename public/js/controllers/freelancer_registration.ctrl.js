@@ -318,6 +318,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                     scope.new_sample = {
                         preview_attachments: []
                     };
+                    scope.freelancer.work = scope.freelancer.work || {};
                     scope.freelancer.work.work_samples = scope.freelancer.work.work_samples || [];
                     scope.freelancer.work.work_samples.push(resp.data);
                 }, function (resp) {

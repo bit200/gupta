@@ -8,16 +8,19 @@
         </md-radio-group>
 
         <div class="row registration-tab-menu" ng-init="freelancer_area.activeTab = 'about'">
-            <div ng-click="freelancer_area.activeTab = 'about'" ng-class="{active: freelancer_area.activeTab == 'about'}" class="col-md-3 col-sm-3 col-xs-3">
+            <div ng-click="freelancer_area.activeTab = 'about'" ng-class="{active: freelancer_area.activeTab == 'about'}" class="col-md-2 col-sm-2 col-xs-2">
                 ABOUT
             </div>
-            <div ng-click="freelancer_area.activeTab = 'expertise'; loadQuestions()" ng-class="{active: freelancer_area.activeTab == 'expertise'}" class="col-md-3 col-sm-3 col-xs-3">
+            <div ng-click="freelancer_area.activeTab = 'expertise'; loadQuestions()" ng-class="{active: freelancer_area.activeTab == 'expertise'}" class="col-md-2 col-sm-2 col-xs-2">
                 EXPERTISE
             </div>
-            <div ng-click="freelancer_area.activeTab = 'work'" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-3 col-sm-3 col-xs-3">
+            <div ng-click="freelancer_area.activeTab = 'pricing'" ng-class="{active: freelancer_area.activeTab == 'pricing'}" class="col-md-2 col-sm-2 col-xs-2">
+                PRICING
+            </div>
+            <div ng-click="freelancer_area.activeTab = 'work'" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-2 col-sm-2 col-xs-2">
                 WORK
             </div>
-            <div ng-click="freelancer_area.activeTab = 'contact'" ng-class="{active: freelancer_area.activeTab == 'contact'}" class="col-md-3 col-sm-3 col-xs-3">
+            <div ng-click="freelancer_area.activeTab = 'contact'" ng-class="{active: freelancer_area.activeTab == 'contact'}" class="col-md-2 col-sm-2 col-xs-2">
                 CONTACT
             </div>
         </div>
@@ -29,7 +32,7 @@
             </div>
             <div ng-if="freelancer.type == 'agency'" class="tab-title-wrap">
                 <h3 class="tab-title">Agency Information</h3>
-                <p class="sub-tab-title">Please provide brief information about agency</p>
+                <p class="sub-tab-title">Please provide brief information about your agency</p>
             </div>
 
             <h4 ng-if="freelancer.type == 'freelancer'" class="info-title">Display name</h4>
@@ -43,8 +46,17 @@
                     </div>
                 </md-input-container>
             </div>
+            <h4 ng-if="freelancer.type == 'freelancer'" class="info-title">Actual name</h4>
+            <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.actualName.$invalid}">
+                <md-input-container class="md-block">
+                    <input class="form-control" name="actualName" ng-model="freelancer.actual_name" required placeholder="Short text">
+                    <div ng-messages="submittedAbout && aboutForm.actualName.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
+                        <div ng-show="submittedAbout && aboutForm.actualName.$error.required" ng-message="required">Actual name is required</div>
+                    </div>
+                </md-input-container>
+            </div>
 
-            <h4 class="info-title">Provide a short introduction of you <span ng-if="freelancer.type == 'agency'">agency</span> (ideally 10-20 words)</h4>
+            <h4 class="info-title">Provide a short introduction of you<span ng-if="freelancer.type == 'agency'">r agency</span> (ideally 10-20 words)</h4>
             <p class="sub-info-title">(ideally 10-20 words)</p>
 
             <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.introduction.$invalid}">
@@ -308,7 +320,7 @@
                         <div ng-if="item.table">
                             <table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">
                                 <tr>
-                                    <td ng-repeat="table in item.table track by $index"  ng-init="freelancer.questionnaire[index][_index].table_header[$index] = item.table[$index].table_header = table.table_header">{{table.table_header}}</td>
+                                    <td ng-repeat="table in item.table track by $index" ng-init="freelancer.questionnaire[index][_index].table_header[$index] = item.table[$index].table_header = table.table_header">{{table.table_header}}</td>
                                 </tr>
                                 <tr ng-repeat="el in item.row_number track by $index" ng-init="row = $index">
                                     <td height="20" class="relative" ng-repeat="(i,table) in item.table track by $index" ng-init="freelancer.questionnaire[index][_index].table[row][i].type = table.type;">
@@ -326,6 +338,18 @@
                 </div>
             </div>
 
+
+            <div class="row">
+                <div class="col-md-6">
+                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='about'"> PREVIOUS</md-button>
+                </div>
+                <div class="col-md-6">
+                    <md-button class="md-raised next-button" ng-click="submittedExpertise=true;expertiseForm.$invalid ? scrollToErr() : freelancer_area.activeTab = 'pricing'"> NEXT</md-button>
+                </div>
+            </div>
+        </form>
+
+        <section ng-show="freelancer_area.activeTab == 'pricing'">
             <h4 class="info-title">Please specify pricing for your services</h4>
             <div class="form-group">
                 <div class="row">
@@ -372,12 +396,18 @@
                             <td>Preview</td>
                             <td>Title</td>
                             <td>Price</td>
+                            <td>Delivery time</td>
+                            <td>Extras packages</td>
                             <td style="width: 100px">Action</td>
                         </tr>
                         <tr ng-repeat="elem in freelancer.service_packages">
                             <td><img style="max-height: 70px;" ng-if="elem.preview.url" ng-src="{{elem.preview.url}}"></td>
                             <td>{{elem.title}}</td>
                             <td>{{elem.pricing}}</td>
+                            <td>{{elem.delivery_time}}</td>
+                            <td>
+                                <div ng-repeat="items in elem.extras">{{items.description}}: {{items.price}}</div>
+                            </td>
                             <td style="width: 100px">
                                 <ng-md-icon icon="cancel" ng-click="delete_package(elem)" style="fill: red;cursor: pointer"></ng-md-icon>
                                 <ng-md-icon icon="mode_edit" ng-click="editPackage(elem, $index);show.pkgModal=true" style="fill: #63acff;cursor: pointer"></ng-md-icon>
@@ -390,13 +420,13 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='about'"> PREVIOUS</md-button>
+                    <md-button class="md-raised prev-button" ng-click="freelancer_area.activeTab='expertise'"> PREVIOUS</md-button>
                 </div>
                 <div class="col-md-6">
                     <md-button class="md-raised next-button" ng-click="submittedExpertise=true;expertiseForm.$invalid ? scrollToErr() : freelancer_area.activeTab = 'work'"> NEXT</md-button>
                 </div>
             </div>
-        </form>
+        </section>
         <section ng-show="freelancer_area.activeTab == 'work'">
             <form name="workForm" novalidate>
                 <div class="tab-title-wrap">
@@ -495,9 +525,13 @@
             <div class="form-group">
                 <div class="samples-border" ng-if="freelancer.work.work_samples.length">
                     <div ng-repeat="sample_work in freelancer.work.work_samples" style="border-bottom: 1px solid lightgray">
-                        <p class="text-bold">{{sample_work.title}}</p>
-                        <div>{{sample_work.description}}</div>
-                        <span ng-repeat="sa in freelancer.work.work_samples">{{sa.originalName}}</span>
+                        <div class="inline-block">
+                            <p class="text-bold">Title:{{sample_work.title}}</p>
+                            <div>Description: {{sample_work.description}}</div>
+                        </div>
+                        <div class="relative inline-block" style="height: 60px;width: 60px;float: right;">
+                            <img class="client-src" ng-src="{{sample_work.attachments[0].url}}">
+                        </div>
                         <div class="icon-button red">
                             <ng-md-icon icon="remove_circle_outline" size="24"></ng-md-icon>
                             <span ng-click="deleteSampleWork(sample_work._id);freelancer.work.work_samples.splice($index,1)">Remove</span>
@@ -567,6 +601,7 @@
             </div>
 
             <h4 class="info-title">Email ID at which marketers can contact you</h4>
+            <div style="color: lightgrey;"><i>Will not be shared publicly</i></div>
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_email.$invalid}">
                 <md-input-container class="md-block">
                     <input class='form-control' name="contact_email" ng-model="freelancer.contact_detail.email" required
@@ -583,6 +618,7 @@
             </div>
 
             <h4 class="info-title">Mobile Number to send the contact request (will not be displayed)</h4>
+            <div style="color: lightgrey;"><i>Will not be shared publicly</i></div>
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_mobile.$invalid}">
                 <md-input-container class="md-block">
                     <input class='form-control' phone-number name="contact_mobile"
@@ -621,8 +657,8 @@
         <div class="createPackage">
             <form name="myForm">
                 <fieldset ng-init="freelancer_area.profilePreview=freelancer.contact_detail.preview || ''">
-                    <legend>Upload on form submit</legend>
-                    <div ngf-drop ng-hide="freelancer_area.profilePreview" ngf-select="setProfileTempPreview($file)" class="drop-box">Drop</div>
+                    <legend>Upload the file</legend>
+                    <div ngf-drop ng-hide="freelancer_area.profilePreview" ngf-select="setProfileTempPreview($file)" class="drop-box">Drop file or click</div>
                     <div style="width: 100%;height: 300px" ng-show="freelancer_area.profilePreview">
                         <img-crop area-type="square" image="freelancer_area.profilePreview" result-image="freelancer_area.croppedProfile">
                         </img-crop>
@@ -641,9 +677,9 @@
 
         <form name="myForm">
             <fieldset>
-                <legend>Upload on form submit</legend>
+                <legend>Upload the file</legend>
                 <div class="testContainer">
-                    <div ng-show="showDrop" ngf-drop ngf-select ng-model="picFile" class="drop-box">Drop</div>
+                    <div ng-show="showDrop" ngf-drop ngf-select ng-model="picFile" class="drop-box">Drop file or click</div>
                      <span class="progress" ng-show="picFile.progress >= 0">
                       <div style="width:{{picFile.progress}}%"
                            ng-bind="picFile.progress + '%'"></div>

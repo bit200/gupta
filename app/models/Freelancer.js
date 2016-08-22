@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 
 var FreelancerSchema = mongoose.Schema({
     name: String,
+    actual_name: String,
     type: String,
     introduction: String,
     description: String,

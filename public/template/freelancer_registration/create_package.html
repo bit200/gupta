@@ -15,6 +15,7 @@
                 </div>
             </md-input-container>
         </div>
+        <h3>Extras:</h3>
 
         <h4 class="info-title">Description</h4>
         <div class="form-group" ng-class="{'hasError': service.description.$invalid && submittedPkg}">
@@ -36,16 +37,19 @@
             </md-input-container>
         </div>
 
-        <md-checkbox ng-model="newPackage.package.topic_research" class="margin-top-8 md-warn">TOPIC RESEARCH</md-checkbox>
-        <md-checkbox ng-model="newPackage.package.references_and_citations" class="margin-top-8 md-warn">REFERENCES & CITATIONS</md-checkbox>
+        <!--<md-checkbox ng-model="newPackage.package.topic_research" class="margin-top-8 md-warn">TOPIC RESEARCH</md-checkbox>-->
+        <!--<md-checkbox ng-model="newPackage.package.references_and_citations" class="margin-top-8 md-warn">REFERENCES & CITATIONS</md-checkbox>-->
 
         <h4 class="info-title">DELIVERY TIME</h4>
-        <md-radio-group ng-model="newPackage.package.delivery_time" layout="row" style="margin-bottom: 25px;">
-            <md-radio-button ng-value="1" class="md-primary">1 Days</md-radio-button>
-            <md-radio-button ng-value="3" class="md-primary">3 Days</md-radio-button>
-            <md-radio-button ng-value="5" class="md-primary">5 Days</md-radio-button>
-            <md-radio-button ng-value="10" class="md-primary">10 Days</md-radio-button>
-        </md-radio-group>
+        <!--<md-radio-group ng-model="newPackage.package.delivery_time" layout="row" style="margin-bottom: 25px;">-->
+            <!--<md-radio-button ng-value="1" class="md-primary">1 Days</md-radio-button>-->
+            <!--<md-radio-button ng-value="3" class="md-primary">3 Days</md-radio-button>-->
+            <!--<md-radio-button ng-value="5" class="md-primary">5 Days</md-radio-button>-->
+            <!--<md-radio-button ng-value="10" class="md-primary">10 Days</md-radio-button>-->
+        <!--</md-radio-group>-->
+        <md-input-container class="full-width">
+            <input numbers-only name="price" ng-model="newPackage.package.delivery_time" placeholder="Days" required>
+        </md-input-container>
 
 
         <div layout-gt-sm="row">

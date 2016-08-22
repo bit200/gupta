@@ -13,9 +13,9 @@ var PastClientSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-},{
-    toObject: { virtuals: true },
-    toJSON: { virtuals: true },
+}, {
+    toObject: {virtuals: true},
+    toJSON: {virtuals: true},
     versionKey: false
 });
 
@@ -25,15 +25,19 @@ PastClientSchema.plugin(autoIncrement.plugin, {
     startAt: 100000
 });
 
-PastClientSchema.pre('remove', function(next) {
+PastClientSchema.pre('remove', function (next) {
     var self = this;
-    require('../db').Attachment.findOne({_id: self.attachment}).exec(function(err, attch){
+    require('../db').Attachment.findOne({_id: self.attachment}).exec(function (err, attch) {
         attch.remove()
     });
-    require('../db').Freelancer.findOne({past_clients: {$in: [self._id]}}).exec(function(err, freelancer){
-        if (freelancer){
-            freelancer.past_clients.splice(freelancer.past_clients.indexOf(self._id),1)
-            freelancer.save()
+    require('../db').Freelancer.findOne({past_clients: {$in: [self._id]}}).exec(function (err, freelancer) {
+        if (err) {
+            next();
+        } else {
+            if (freelancer) {
+                freelancer.past_clients.splice(freelancer.past_clients.indexOf(self._id), 1)
+                freelancer.save()
+            }
         }
     });
 
