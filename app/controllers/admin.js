@@ -152,8 +152,8 @@ exports.change_freelancer = function (req, res) {
 
 exports.delete = function (req, res) {
     var params = m.getBody(req);
-    // m.findUpdate(models[params.model], {_id: params._id},{status: 'Deleted'}, res, res)
-    m.findRemove(models[params.model], {_id: params._id},res, res)
+    m.findUpdate(models[params.model], {_id: params._id},{status: 'Deleted'}, res, res);
+    // m.findRemove(models[params.model], {_id: params._id},res, res)
 };
 
 exports.delete_users = function (req, res) {

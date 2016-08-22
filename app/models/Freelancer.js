@@ -42,6 +42,7 @@ var FreelancerSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    status: String,
     reject_reason: String,
     isActive: {
         type: Number,

@@ -21,6 +21,7 @@ var UserSchema = mongoose.Schema({
     company_name: String,
     preview: String,
     online: Boolean,
+    status: String,
     rating: {
         type: Number,
         default: 0
