@@ -71,8 +71,7 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
 
             info.params.populate = extra_params.populate || '';
             info.params.sort = extra_params.sort || info.params.sort || '';
-
-            m[type](models[modelName], info.query, res, res, info.params)
+            m[type](models[modelName], queryParams.query, res, res, queryParams.params)
         }
     }
 };

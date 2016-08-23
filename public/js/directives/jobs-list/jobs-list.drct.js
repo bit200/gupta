@@ -102,7 +102,6 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                     skip: (scope.configPagination.currentPage - 1) * scope.configPagination.countByPage,
                     limit: scope.configPagination.countByPage
                 };
-                console.log('sfsfsdfsdf', item)
                 scope.items = item.data;
                 scope.getCount(obj, item.query)
             });
@@ -110,11 +109,11 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             function parseCategory(query){
                 var params = {}
                 if(query.category)
-                    params.type_category = query.category
+                    params.type_category = query.category;
                 if(query.category)
-                    params.type_category = query.category
+                    params.type_category = query.category;
                 if(query.category)
-                    params.type_category = query.category
+                    params.type_category = query.category;
                 if(query.category)
                     params.type_category = query.category
             }
@@ -146,6 +145,8 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                             scope.items = [];
                             scope.items.push(data.data, resp.data.data);
                             scope.items = _.flatten(scope.items);
+                            scope.$broadcast('maxBudget', scope.items)
+
                         }, function (err) {
                             scope.error = 'An error. Please try again later';
                             cb();
@@ -166,9 +167,12 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 }
             };
             scope.getCount = function (obj, query) {
-                http.post(scope.url + '/count', {params: obj, query: query || {}}).then(function (resp) {
+                var params = {params: obj, query: query || {}}
+                console.log('params', params)
+                http.post(scope.url + '/count', params).then(function (resp) {
                         scope.showLoading = false;
                         scope.configPagination.totalCount = resp.data.data;
+                    console.log('cooooonnnntntnnt',scope.configPagination.totalCount )
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {

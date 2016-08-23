@@ -58,8 +58,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
     scope.clearFilter = function(){
         scope.isSub = false;
         jobInformation.deleteFiler();
-        // scope.slider.            minValue: 1,
-        //     maxValue: 50000}
         scope.filterJob()
     };
 
@@ -69,10 +67,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
             scope.selected_category = elem;
             scope.getSubCategories(elem, bol)
         }
-        // if (type == 'location') {
-        //     scope.location_open = !scope.location_open;
-        //     scope.selected_location = elem
-        // }
         var obj = {};
         obj[type] = elem;
         console.log('obj ctrl', obj)
@@ -128,6 +122,10 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
                 if (value < 1000000) {
                     return value / 1000 + 'k'
                 }
+                if (value > 1000001) {
+                    return (value / 1000000).toFixed(0) + 'm'
+                }
+
             },
             onEnd: function (r) {
                 jobInformation.setInfo({budget_min: scope.slider.minValue || 1, budget_max: scope.slider.maxValue});
@@ -136,15 +134,28 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         }
     };
 
-    scope.filterJob = function () {
+    scope.$on('maxBudget', function (e, item) {
+        if(item){
+            console.log('item', item)
+            scope.slider.options.ceil = parseInt(scope.getMaxBudget(item));
+        }
+    });
+
+        scope.filterJob = function () {
         var query = jobInformation.getInfo.information();
-        console.log(query)
         http.get('/api/jobs/filter', {params: query}).then(function (resp) {
+            if(resp.data.data){
+                scope.slider.options.ceil = parseInt(scope.getMaxBudget(resp.data.data));
+            }
             scope.$broadcast('changeItems', {data:resp.data.data, query:query})
         }, function (err) {
             console.log('err', err)
         })
 
+    };
+
+    scope.getMaxBudget = function(data){
+        return _.max(data, function(item){ return item.budget}).budget
     };
 
     scope.$watch('_keywords', function (e, val) {
