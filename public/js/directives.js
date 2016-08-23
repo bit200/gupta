@@ -15,8 +15,6 @@ XYZCtrls.directive('ngEnter', function () {
     };
 });
 
-
-
 XYZCtrls.directive('jobTitle', function () {
     return {
         restrict: "A",
@@ -28,7 +26,6 @@ XYZCtrls.directive('jobTitle', function () {
         }
     }
 });
-
 
 
 XYZCtrls.directive('shakeThat', ['$animate', function ($animate) {
@@ -608,9 +605,13 @@ XYZCtrls.directive("chatForm", function () {
                 });
             };
 
+            // funcion
             scope.send = function (msg) {
                 if ((msg && msg.length) || scope.chat_area.files.length) {
                     scrollDown();
+                    var email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi
+                    , phone_regex = /([0-9,+,-,-,(,)]{8,15})/gi;
+                    msg = msg.replace(email_regex, '***********').replace(phone_regex, '***********');
                     if (scope.chat_area.files) {
                         Upload.upload({
                             url: '/api/chat/attach',

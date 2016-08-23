@@ -132,7 +132,7 @@ angular.module('admin.all_profile', [
                 controller: function ($scope, $element, $http) {
                     console.log(type)
                     $scope.submit = function () {
-                        $http.delete('/admin/api/delete', {params: {model:type == 'users' ? 'User': 'Freelancer', _id: item._id}}).then(function () {
+                        $http.delete('/admin/api/delete', {params: {model: type == 'users' ? 'User' : 'Freelancer', _id: item._id}}).then(function () {
                             spliceItem(index);
                             $scope.close()
                         })
@@ -171,30 +171,23 @@ angular.module('admin.all_profile', [
                 });
 
             });
+        };
+        $scope.getInformation = function (change, user, type) {
+            $scope.showModal = true;
+            $scope.change = change;
+            $scope.type = type;
+            $scope.profile = angular.copy(user);
+            $scope.submit = function (user) {
+                $http.post('/admin/api/' + type, {user: user}).then(function (resp) {
+                    update_profile();
+                    $scope.close()
+                })
+            };
+            $scope.close = function (res) {
+                $scope.showModal = false;
+            }
         }
-        $scope.getInformation = function (user, type) {
-            ModalService.showModal({
-                templateUrl: "all_profile/all_profile.view.html",
-                controller: function ($scope, $element, $http) {
-                    $scope.type = type;
-                    $scope.profile = angular.copy(user);
-                    $scope.submit = function (user) {
-                        $http.post('/admin/api/' + type, {user: user}).then(function (resp) {
-                            update_profile()
-                            $scope.close()
-                        })
-                    };
-                    $scope.close = function (res) {
-                        $element.modal('hide');
-                        close(res, 500);
-                    }
-                }
-            }).then(function (modal) {
-                modal.element.modal();
-                modal.close.then(function (result) {
-                });
 
-            });
-        }
+
     });
     

@@ -18,14 +18,6 @@ XYZCtrls.filter('highlight', function () {
     };
 });
 
-XYZCtrls.filter('rexExpEmailPhone', function () {
-    return function (text) {
-        var email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
-        return text.replace(email_regex, '************')
-    }
-
-});
-
 XYZCtrls.filter('propsFilter', function () {
     return function (items, props) {
         var out = [];

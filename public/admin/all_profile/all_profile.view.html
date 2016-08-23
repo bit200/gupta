@@ -1,119 +1,180 @@
-<div class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form name="rejectForm" novalidate>
-                <div class="modal-body">
-                    <h2 class="text-center">Change information</h2>
-                    <div ng-if="type == 'users'">
-                        <h4>First name</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="fname" ng-model="profile.first_name" style="color: black">
-                        </md-input-container>
+<form name="rejectForm" novalidate>
+    <div class="modal-body">
+        <h2 class="text-center" ng-if="change">Change information</h2>
+        <h2 class="text-center" ng-if="!change">View information</h2>
+        <div ng-if="type == 'users'">
+            <div ng-if="change">
+                <h4>First name</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="fname" ng-model="profile.first_name" style="color: black">
+                </md-input-container>
 
-                        <h4>Last name</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="lname" ng-model="profile.last_name" style="color: black">
-                        </md-input-container>
+                <h4>Last name</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="lname" ng-model="profile.last_name" style="color: black">
+                </md-input-container>
 
-                        <h4>Email</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control text-black" name="email" ng-model="profile.email"
-                                   ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
-                        </md-input-container>
+                <h4>Email</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control text-black" name="email" ng-model="profile.email"
+                           ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
+                </md-input-container>
 
-                        <h4>Phone number</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" phone-number name="phone" ng-model="profile.phone" style="color: black">
-                        </md-input-container>
+                <h4>Phone number</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" phone-number name="phone" ng-model="profile.phone" style="color: black">
+                </md-input-container>
 
-                        <h4>Company name</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="company_name" ng-model="profile.company_name" style="color: black">
-                        </md-input-container>
+                <h4>Company name</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="company_name" ng-model="profile.company_name" style="color: black">
+                </md-input-container>
+
+                <h4>Admin notes</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="admin_notes" ng-model="profile.admin_notes" style="color: black">
+                </md-input-container>
+            </div>
+            <div ng-if="!change">
+                <h4 class='view-mode'>First name:</h4><span>{{profile.first_name}}</span>
+
+                <h4 class='view-mode'>Last name:</h4><span>{{profile.last_name}}</span>
+
+                <h4 class='view-mode'>Email:</h4><span>{{profile.email}}</span>
+
+                <h4 class='view-mode'>Phone number:</h4><span>{{profile.phone}}</span>
+
+                <h4 class='view-mode'>Company name:</h4><span>{{profile.company_name}}</span>
+
+                <h4 class='view-mode'>Admin notes:</h4><span>{{profile.admin_notes}}</span>
+            </div>
+        </div>
+        <div ng-if="type == 'freelancers' || type == 'agency'">
+            <div ng-if="change">
+                <h4>Name</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="name" ng-model="profile.name" style="color: black">
+                </md-input-container>
+
+                <h4>Type</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="type" ng-model="profile.type" style="color: black">
+                </md-input-container>
+
+                <h4>Introduction</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="introduction" ng-model="profile.introduction" style="color: black">
+                </md-input-container>
+
+                <h4>Description</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="description" ng-model="profile.description" style="color: black">
+                </md-input-container>
+
+                <h4>Experience</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="experience" numbers-only ng-model="profile.experience" style="color: black">
+                </md-input-container>
+
+                <h4>Location</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="location" ng-model="profile.location" style="color: black">
+                </md-input-container>
+
+                <h4>Sities service</h4>
+                <div ng-repeat="city in profile.cities track by $index">
+                    <md-input-container class="md-block">
+                        <input aria-label="none" class="form-control border-grey" name="city" ng-model="profile.cities[$index]" style="color: black">
+                    </md-input-container>
+                </div>
+
+                <h4>Languages</h4>
+                <div ng-repeat="language in profile.languages track by $index">
+                    <md-input-container class="md-block">
+                        <input aria-label="none" class="form-control border-grey" name="languages" ng-model="profile.languages[$index]" style="color: black">
+                    </md-input-container>
+                </div>
+
+                <md-input-container class="md-block">
+                    <div ng-if="profile.price.hour">
+                        <h4>Price to hour</h4>
+                        <input aria-label="none" class="form-control border-grey" name="hour" numbers-only ng-model="profile.price.hour" style="color: black">
                     </div>
-                    <div ng-if="type == 'freelancers' || type == 'agency'">
-                        <h4>Name</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="name" ng-model="profile.name" style="color: black">
-                        </md-input-container>
-
-                        <h4>Type</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="type" ng-model="profile.type" style="color: black">
-                        </md-input-container>
-
-                        <h4>Introduction</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="introduction" ng-model="profile.introduction" style="color: black">
-                        </md-input-container>
-
-                        <h4>Description</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="description" ng-model="profile.description" style="color: black">
-                        </md-input-container>
-
-                        <h4>Experience</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="experience" numbers-only ng-model="profile.experience" style="color: black">
-                        </md-input-container>
-
-                        <h4>Location</h4>
-                        <md-input-container class="md-block">
-                            <input aria-label="none" class="form-control border-grey" name="location" ng-model="profile.location" style="color: black">
-                        </md-input-container>
-
-                        <h4>Sities service</h4>
-                        <div ng-repeat="city in profile.cities track by $index">
-                            <md-input-container class="md-block">
-                                <input aria-label="none" class="form-control border-grey" name="city" ng-model="profile.cities[$index]" style="color: black">
-                            </md-input-container>
-                        </div>
-
-                        <h4>Languages</h4>
-                        <div ng-repeat="language in profile.languages track by $index">
-                            <md-input-container class="md-block">
-                                <input aria-label="none" class="form-control border-grey" name="languages" ng-model="profile.languages[$index]" style="color: black">
-                            </md-input-container>
-                        </div>
-
-                        <md-input-container class="md-block">
-                            <div ng-if="profile.price.hour">
-                                <h4>Price to hour</h4>
-                                <input aria-label="none" class="form-control border-grey" name="hour" numbers-only ng-model="profile.price.hour" style="color: black">
-                            </div>
-                            <div ng-if="profile.price.word">
-                                <h4>Price to word</h4>
-                                <input aria-label="none" class="form-control border-grey" name="word" numbers-only ng-model="profile.price.word" style="color: black">
-                            </div>
-                        </md-input-container>
-
-                        <h4>Service provider</h4>
-                        <md-input-container class="md-block" ng-repeat="service in profile.service_providers">
-                            <div>
-                                <h5>Category:</h5>
-                                <input aria-label="none" class="form-control border-grey" name="typeFilter" ng-model="profile.service_providers[$index].type" style="color: black">
-                            </div>
-                            <div ng-if="service.name">
-                                <h5>Sub category:</h5>
-                                <input aria-label="none" class="form-control border-grey" name="nameFilter" ng-model="profile.service_providers[$index].name" style="color: black">
-
-                                <div ng-if="service.name == 'Translation'">
-
-                                    <div ng-repeat="translation in profile.translation">
-                                        <span>To: '{{translation.to}}' - from: '{{translation.from}}'</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </md-input-container>
-
-
+                    <div ng-if="profile.price.word">
+                        <h4>Price to word</h4>
+                        <input aria-label="none" class="form-control border-grey" name="word" numbers-only ng-model="profile.price.word" style="color: black">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" ng-click="submit(profile);">Submit</button>
-                        <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </md-input-container>
+
+                <h4>Service provider</h4>
+                <md-input-container class="md-block" ng-repeat="service in profile.service_providers">
+                    <div>
+                        <h5>Category:</h5>
+                        <input aria-label="none" class="form-control border-grey" name="typeFilter" ng-model="profile.service_providers[$index].type" style="color: black">
+                    </div>
+                    <div ng-if="service.name">
+                        <h5>Sub category:</h5>
+                        <input aria-label="none" class="form-control border-grey" name="nameFilter" ng-model="profile.service_providers[$index].name" style="color: black">
+
+                        <div ng-if="service.name == 'Translation'">
+
+                            <div ng-repeat="translation in profile.translation">
+                                <span>To: '{{translation.to}}' - from: '{{translation.from}}'</span>
+                            </div>
+                        </div>
+                    </div>
+                </md-input-container>
+
+
+                <h4>Admin notes</h4>
+                <md-input-container class="md-block">
+                    <input aria-label="none" class="form-control border-grey" name="admin_notes" ng-model="profile.admin_notes" style="color: black">
+                </md-input-container>
+            </div> 
+            
+            <div ng-if="!change">
+                <h4 class='view-mode'>Name:</h4>{{profile.name}}
+
+                <h4 class='view-mode'>Type:</h4>{{profile.type}}
+
+                <h4 class='view-mode'>Introduction:</h4>{{profile.introduction}}
+
+                <h4 class='view-mode'>Description:</h4>{{profile.description}}
+
+                <h4 class='view-mode'>Experience:</h4>{{profile.experience}}
+
+                <h4 class='view-mode'>Location:</h4>{{profile.location}}
+
+                <h4 class='view-mode'>Sities service:</h4><span ng-repeat="city in profile.cities track by $index">{{city}}<span ng-if="!$last">, </span></span>
+
+                <h4 class='view-mode'>Languages:</h4><span ng-repeat="language in profile.languages track by $index">{{language}}<span ng-if="!$last">, </span></span>
+
+                <h4 class='view-mode'>Service provider:</h4>
+                <div class="md-block" ng-repeat="service in profile.service_providers">
+                    <div>
+                        <h5 class='view-mode'>Category:</h5><span>{{profile.service_providers[$index].type}}</span>
+                    </div>
+                    <div ng-if="service.name">
+                        <h5 class='view-mode'>Sub category:</h5><span>{{profile.service_providers[$index].name}}</span>
+
+                        <div ng-if="service.name == 'Translation'">
+
+                            <div ng-repeat="translation in profile.translation">
+                                <span>To: '{{translation.to}}' - from: '{{translation.from}}'</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
+
+
+                <h4 class='view-mode'>Admin notes</h4><span>{{profile.admin_notes}}</span>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" ng-if="change" ng-click="submit(profile);">Submit</button>
+            <button class="btn btn-primary" ng-if="change" ng-click="close()">Cancel</button>
+            <button class="btn btn-primary" ng-if="!change" ng-click="close()">Close</button>
         </div>
     </div>
-</div>
+</form>

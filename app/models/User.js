@@ -18,6 +18,7 @@ var UserSchema = mongoose.Schema({
     first_name: String,
     last_name: String,
     phone: String,
+    admin_notes: String,
     company_name: String,
     preview: String,
     online: Boolean,

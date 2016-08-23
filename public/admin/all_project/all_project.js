@@ -37,7 +37,7 @@ angular.module('admin.all_project', [
             $scope.configPagination.currentPage = 1;
         };
 
-        $scope.search = function(text){
+        $scope.search = function (text) {
             $scope.searchObj = text;
             $scope.searchTrue = true;
             $scope.getAllProject();
@@ -53,7 +53,7 @@ angular.module('admin.all_project', [
                 }
                 cb
             }, function (err) {
-                if($scope.searchTrue){
+                if ($scope.searchTrue) {
                     $scope.all_projects = [];
                     $scope.configPagination.totalCount = 0;
                 } else {
@@ -76,18 +76,16 @@ angular.module('admin.all_project', [
             $scope.getAllProject($scope.configPagination.currentPage, cb)
         }
 
-        $scope.getInformation = function (job, index, jobs) {
+        $scope.showQuestionnaire = function (questionnaire) {
             ModalService.showModal({
-                templateUrl: "all_project/project.view.html",
+                templateUrl: "all_project/all_project.question.html",
                 controller: function ($scope, $element, $http) {
-                    $scope.job = angular.copy(job);
-                    $scope.submit = function (job) {
-                        $http.post('/admin/api/job/update', {job: job}).then(function (resp) {
-                            console.log(jobs, index, jobs[index])
-                            jobs[index] = resp.data.data;
-                            $scope.close()
-                        })
+                    $scope.questionnaires = questionnaire;
+                    $scope.rows = function (item, num) {
+                        if (num)
+                            item.row_number = new Array(num);
                     };
+
                     $scope.close = function (res) {
                         $element.modal('hide');
                         close(res, 500);
@@ -100,6 +98,22 @@ angular.module('admin.all_project', [
 
             });
         };
+
+        $scope.getInformation = function (change, job, index, jobs) {
+            $scope.showModal = true;
+            $scope.job = angular.copy(job);
+            $scope.change = change;
+            $scope.submit = function (job) {
+                $http.post('/admin/api/job/update', {job: job}).then(function (resp) {
+                    console.log(jobs, index, jobs[index])
+                    jobs[index] = resp.data.data;
+                    $scope.close()
+                })
+            };
+            $scope.close = function (res) {
+                $scope.showModal = false
+            }
+        }
 
         $scope.add_job = function () {
             $http.get('/api/common_filters').then(function (commonFilters) {

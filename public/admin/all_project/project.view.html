@@ -1,8 +1,8 @@
-<div class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<!--<div class="modal fade">-->
+    <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
             <form name="rejectForm" novalidate>
-                <div class="modal-body">
+                <div ng-if="change" class="modal-body">
                     <h2 class="text-center">Approve Project</h2>
                     <h4>Title</h4>
                     <md-input-container class="md-block">
@@ -12,6 +12,16 @@
                     <h4>Description</h4>
                     <md-input-container class="md-block">
                         <input class="form-control border-grey" name="description" ng-enter="submit(job)" ng-model="job.description" style="color: black">
+                    </md-input-container>
+
+                    <h4>Category</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="type_category" ng-enter="submit(job)" ng-model="job.type_category" style="color: black">
+                    </md-input-container>
+
+                    <h4>Sub category</h4>
+                    <md-input-container class="md-block">
+                        <input class="form-control border-grey" name="type_name" ng-enter="submit(job)" ng-model="job.type_name" style="color: black">
                     </md-input-container>
 
                     <h4>Email</h4>
@@ -25,15 +35,7 @@
                         <input class="form-control border-grey" phone-number name="mobile" ng-enter="submit(job)" ng-model="job.mobile" number phone" style="color: black">
                     </md-input-container>
 
-                    <h4>Category</h4>
-                    <md-input-container class="md-block">
-                        <input class="form-control border-grey" name="type_category" ng-enter="submit(job)" ng-model="job.type_category" style="color: black">
-                    </md-input-container>
 
-                    <h4>Sub category</h4>
-                    <md-input-container class="md-block">
-                        <input class="form-control border-grey" name="type_name" ng-enter="submit(job)" ng-model="job.type_name" style="color: black">
-                    </md-input-container>
 
                     <h4>Budget</h4>
                     <md-input-container class="md-block">
@@ -67,10 +69,52 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-danger" ng-click="submit(job);">Approve</button>
-                        <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" ng-click="close()">Cancel</button>
+                    </div>
+                </div>
+                <div ng-if="!change" class="modal-body">
+                    <h2 class="text-center">View Project</h2>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px;">Title:  </h4><span>{{job.title}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Description:  </h4><span>{{job.description}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Email:  </h4><span>{{job.email}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Phone number:  </h4><span>{{job.mobile}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Category:  </h4><span>{{job.type_category}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Sub category:  </h4><span>{{job.type_name}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Budget:  </h4><span>{{job.budget}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Client name:  </h4><span>{{job.client_name}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Company name:  </h4><span>{{job.company_name}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Website:  </h4><span>{{job.website}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Status:  </h4><span>{{job.status}}</span>
+                    </div>
+                    <div>
+                        <h4 style="display: inline-block; padding-right: 10px">Payment basis:  </h4><span>{{job.payment_basis}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary"  ng-click="close()">Close</button>
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

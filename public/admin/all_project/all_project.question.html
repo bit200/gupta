@@ -1,0 +1,36 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="rejectForm" novalidate>
+                <div class="modal-body">
+                    <h2 class="text-center">Answers on question</h2>
+                    <div class="jbody">
+                            <div ng-repeat="item in questionnaires" ng-init="_index=$index">
+                                <h3 ng-class="{'inline-block':item.answer}">{{item.question}}<span ng-if="item.answer">:</span></h3>
+
+                                <div ng-if="item.answer" style="display: inline-block">
+                                    <div style="line-height: 55px;">{{item.answer}}</div>
+
+                                    <!--<md-input-container class="md-block" flex-gt-sm>-->
+                                        <!--<input aria-label="hidden" disabled name="answer" ng-model="viewProfile.questionnaire[_index].answer" style="color:#333">-->
+                                    <!--</md-input-container>-->
+                                </div>
+
+
+                                <div ng-if="item.answer_items">
+                                    <md-checkbox ng-repeat="(text, bol) in item.answer_items track by $index" disabled ng-model="item.answer_items[$index]"><span style="color:#333">{{text}}</span></md-checkbox>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

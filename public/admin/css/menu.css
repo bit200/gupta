@@ -711,6 +711,10 @@ body.fixed-left .side-menu.left {
     width: 30px;
 }
 
+.width100 {
+    width: 100%;
+}
+
 .contacts-list .avatar img {
     border-radius: 50%;
     width: 100%;
@@ -828,6 +832,11 @@ li > span.fa.fa-angle-right {
     outline: none;
 }
 
+
+.view-mode {
+    display: inline-block;
+    padding-right: 10px;
+}
 .relative {
     position: relative;
 }

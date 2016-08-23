@@ -1,5 +1,8 @@
 <div class="marginT30">
-    <div style="margin-top: 20px">
+    <div style="margin-top: 20px" ng-if="showModal">
+        <div ng-include="'all_project/project.view.html'"></div>
+    </div>
+    <div style="margin-top: 20px" ng-if="!showModal">
         <div style="display: inline-block">
             <button class="btn btn-default" ng-click="add_job()">Add project</button>
         </div>
@@ -15,6 +18,7 @@
                 <td ng-click="changeSort('email')" class="text-bold pointer outline-none">Email<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'email'}"></span></td>
                 <td ng-click="changeSort('budget')" class="text-bold pointer outline-none">Budget<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'budget'}"></span></td>
                 <td ng-click="changeSort('statusRating')" class="text-bold pointer outline-none">Status<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'statusRating'}"></span></td>
+                <td ng-click="changeSort('questionnaries')" class="text-bold pointer outline-none">Questionnaries<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'questionnaries'}"></span></td>
                 <td ng-click="changeSort('job_visibility')" class="text-bold pointer outline-none">Job Visibility<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'job_visibility'}"></span></td>
                 <td ng-click="changeSort('created_at')" class="text-bold pointer outline-none">Created<span class="fa fa-long-arrow-down transparent" style="float: right" ng-class="{'show':sortBy == 'created_at'}"></span></td>
                 <td>Actions</td>
@@ -29,11 +33,13 @@
                 <!--<td>{{all_project.type_category}} <span ng-if="all_project.type_filter"> > </span> {{all_project.type_filter}} <span ng-if="all_project.type_name"> > </span> {{all_project.type_name}}</td>-->
                 <td>{{all_project.budget}}</td>
                 <td>{{all_project.status}}</td>
+                <td><button ng-if="all_project.questionnaries.length" ng-click="showQuestionnaire(all_project.questionnaries)">VIEW</button></td>
                 <td>{{all_project.job_visibility ? 'Public' : 'Private'}}</td>
                 <td>{{all_project.created_at}}</td>
                 <td>
                     <!--<span style="color: green" ng-click="getInformation()" class="pointer glyphicon glyphicon-pencil inline-block"></span>-->
-                    <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_project, $index, all_projects)"><span class="pointer fa fa-pencil inline-block"></span></button>
+                    <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_project, $index, all_projects)"><span class="pointer fa fa-eye inline-block"></span></button>
+                    <button class="btn btn-sm btn-pencil white" ng-click="getInformation(true,all_project, $index, all_projects)"><span class="pointer fa fa-pencil inline-block"></span></button>
 
                     <button class="btn btn-sm btn-times white" ng-click="reject(all_project, $index)"><span class="pointer fa fa-trash-o"></span></button>
                 </td>

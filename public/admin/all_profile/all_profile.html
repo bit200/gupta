@@ -1,5 +1,8 @@
 <div class="marginT30">
-    <div style="margin-top: 20px">
+    <div style="margin-top: 20px" ng-if="showModal">
+        <div ng-include="'all_profile/all_profile.view.html'"></div>
+    </div>
+    <div style="margin-top: 20px" ng-if="!showModal">
         <div ng-init="display.type = 'freelancers'; check('freelancers')" class="text-center">
             <md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
                 <md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block" style="outline: none">Freelancers</md-radio-button>
@@ -21,7 +24,7 @@
                     <td class="text-bold pointer">Service Provider</td>
                     <td class="text-bold pointer">Customized Questionnaire</td>
                     <td class="text-bold pointer">Created</td>
-                    <td style="width: 140px">Actions</td>
+                    <td style="width: 180px">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,12 +35,16 @@
                     <td><span ng-repeat="city in all_profile.cities">{{city}} <span ng-if="!$last">, </span></span></td>
                     <td>{{all_profile.experience}}</td>
                     <td><span ng-repeat="service in all_profile.service_providers">{{service.name ? service.type +'/'+service.name : service.type}}<span ng-if="!$last">, </span></span></td>
-                    <td><button class="btn btn-default" ng-click="showQuestionnaire(all_profile.questionnaire)">VIEW</button></td>
+                    <td>
+                        <button ng-if="all_profile.questionnaire.length" class="btn btn-default width100" ng-click="showQuestionnaire(all_profile.questionnaire)">VIEW</button>
+                    </td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
-                        <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}"  class="pointer fa fa-star inline-block" style="outline: none"></span></button>
-                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span  class="pointer fa fa-pencil inline-block"></span></button>
-                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span  class="pointer fa fa-trash-o"></span></button>
+                        <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_profile, $index)"><span class="pointer fa fa-eye inline-block" style="outline: none"></span></button>
+                        <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-star inline-block" style="outline: none"></span>
+                        </button>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(true,all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span class="pointer fa fa-trash-o"></span></button>
                     </td>
                 </tr>
                 </tbody>
@@ -57,7 +64,7 @@
                     <td class="text-bold pointer">Service Provider</td>
                     <td class="text-bold pointer">Customized Questionnaire</td>
                     <td class="text-bold pointer">Created</td>
-                    <td style="width: 140px">Actions</td>
+                    <td style="width: 180px">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,12 +76,17 @@
                     <td>{{all_profile.phone}}</td>
                     <td>{{all_profile.employees}}</td>
                     <td><span ng-repeat="service in all_profile.service_providers">{{service.name ? service.type +'/'+service.name : service.type}}<span ng-if="!$last">, </span></span></td>
-                    <td><button class="btn btn-default" ng-click="showQuestionnaire(all_profile.questionnaire)">VIEW</button></td>
+                    <td>
+                        <button ng-if="all_profile.questionnaire.length" class="btn btn-default width100" ng-click="showQuestionnaire(all_profile.questionnaire)">VIEW</button>
+                    </td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
-                        <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}"  class="pointer fa fa-star inline-block" style="outline: none"></span></button>
-                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span  class="pointer fa fa-pencil inline-block"></span></button>
-                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span  class="pointer fa fa-trash-o"></span></button>
+                        <button class="btn btn-sm btn-eye white" ng-click="getFavorite(false,all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-eye inline-block"
+                                                                                                                         style="outline: none"></span></button>
+                        <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-star inline-block" style="outline: none"></span>
+                        </button>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(true,all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span class="pointer fa fa-trash-o"></span></button>
                     </td>
                 </tr>
                 </tbody>
@@ -91,7 +103,7 @@
                     <td class="text-bold pointer">Phone</td>
                     <td class="text-bold pointer">Company name</td>
                     <td class="text-bold pointer">Created</td>
-                    <td style="width: 140px">Actions</td>
+                    <td style="width: 175px">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -103,7 +115,8 @@
                     <td>{{all_profile.company_name}}</td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
-                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
+                        <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_profile, display.type)"><span class="pointer fa fa-eye inline-block"></span></button>
+                        <button class="btn btn-sm btn-pencil white" ng-click="getInformation(true,all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
                         <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span class="pointer fa fa-trash-o"></span></button>
                     </td>
                 </tr>

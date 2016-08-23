@@ -2,7 +2,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <h2 class="text-center">Change information</h2>
+                <h2 ng-if="question.type == 'register'" class="text-center">Create a Questionnaire for Registration</h2>
+                <h2 ng-if="question.type == 'post'" class="text-center">reate a Questionnaire for posting a project</h2>
                 <questions ng-model="question" create-new="isNew" ></questions>
             </div>
             <div class="modal-footer">
