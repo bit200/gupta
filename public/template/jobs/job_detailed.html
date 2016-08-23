@@ -1,11 +1,11 @@
 <div class="cont {{status_class}}">
-    <a owner="{{gid(job.buyer)}}"
+    <a ng-if="job.status != 'Deleted'" owner="{{gid(job.buyer)}}"
        ui-sref="root.job_edit({job: job._id})"
     ></a>
     <h1 class="title2">
         Job #{{job._id}}
     </h1>
-    <p class="profile-extra-info pointer" ng-if="isLogged()" ng-init="checkFavorited()" style="text-align: center">
+    <p class="profile-extra-info pointer" ng-if="isLogged(); job.user != userId" ng-init="checkFavorited()" style="text-align: center">
                     <span ng-hide="jobFavorited" ng-click="addFavorite()">
                         <ng-md-icon icon="favorite_border" class="middle-svg" style="fill: rgb(51, 56, 70);top: 4px;position: relative;"></ng-md-icon>
                     </span>

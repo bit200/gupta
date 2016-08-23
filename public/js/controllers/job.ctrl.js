@@ -204,6 +204,18 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         };
 
 
+       scope.delete_job = function (invalid) {
+            scope.new_apply.job = scope.job._id;
+            scope.new_apply.user = scope.userId;
+            console.log('873653984639478', scope.new_apply)
+            http
+                .post('/api/job-delete', scope.new_apply)
+                .success(function () {
+                    $state.go('jobs_list.all')
+                }).error(scope.onErr)
+        };
+
+        
         scope.apply_create = function (invalid) {
             scope.new_apply.job = scope.job._id;
             http

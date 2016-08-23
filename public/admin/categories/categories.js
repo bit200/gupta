@@ -20,7 +20,6 @@ angular.module( 'admin.categories', [
     })
     .controller( 'CategoriesCtrl', function CategoriesCtrl( $scope, $http, store, jwtHelper,categories,notify,$filter) {
         $scope.commonFilters = categories.data;
-
         $scope.filtersArr = [];
         angular.forEach(categories.data,function(item,key){
             angular.forEach(item,function(data){
@@ -72,7 +71,6 @@ angular.module( 'admin.categories', [
                    isActive: true
                };
                if(Filter){
-                   //console.log("Here");
                    var frontParams = {
                        subFilter:SubName,
                        arr:[]

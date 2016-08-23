@@ -1,4 +1,4 @@
-Array.prototype.clean = function(deleteValue) {
+Array.prototype.clean = function (deleteValue) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] == deleteValue) {
             this.splice(i, 1);
@@ -8,24 +8,32 @@ Array.prototype.clean = function(deleteValue) {
     return this;
 };
 
-XYZCtrls.filter('highlight', function() {
+XYZCtrls.filter('highlight', function () {
     function escapeRegexp(queryToEscape) {
         return ('' + queryToEscape).replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1');
     }
 
-    return function(matchItem, query) {
+    return function (matchItem, query) {
         return query && matchItem ? ('' + matchItem).replace(new RegExp(escapeRegexp(query), 'gi'), '<span class="ui-select-highlight">$&</span>') : matchItem;
     };
 });
 
-XYZCtrls.filter('propsFilter', function() {
-    return function(items, props) {
+XYZCtrls.filter('rexExpEmailPhone', function () {
+    return function (text) {
+        var email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+        return text.replace(email_regex, '************')
+    }
+
+});
+
+XYZCtrls.filter('propsFilter', function () {
+    return function (items, props) {
         var out = [];
 
         if (angular.isArray(items)) {
             var keys = Object.keys(props);
 
-            items.forEach(function(item) {
+            items.forEach(function (item) {
                 var itemMatches = false;
 
                 for (var i = 0; i < keys.length; i++) {
@@ -50,8 +58,8 @@ XYZCtrls.filter('propsFilter', function() {
     };
 });
 
-XYZCtrls.filter('objectKeys', function() {
-    return function(obj) {
+XYZCtrls.filter('objectKeys', function () {
+    return function (obj) {
         return Object.keys(obj || {});
     };
 });

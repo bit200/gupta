@@ -43,7 +43,8 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             });
             scope.configPagination = {
                 currentPage: 1,
-                countByPage: 12
+                countByPage: 12,
+                totalCount: 0
             };
 
             // jobInformation.registerObserverCallback(function(data){
@@ -168,11 +169,9 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             };
             scope.getCount = function (obj, query) {
                 var params = {params: obj, query: query || {}}
-                console.log('params', params)
                 http.post(scope.url + '/count', params).then(function (resp) {
                         scope.showLoading = false;
                         scope.configPagination.totalCount = resp.data.data;
-                    console.log('cooooonnnntntnnt',scope.configPagination.totalCount )
                         scope.TotalItems = resp.data.data;
                     }
                     , function (err) {

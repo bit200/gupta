@@ -3,11 +3,19 @@ XYZCtrls.directive('acts', function () {
         restrict: 'E',
         scope: true,
         // transclude: true
-        template: '<div class="action {{action.class_name}}" ng-repeat="action in actions track by $index">' +
+        template:
+        // '<div class="action {{action.class_name}}" ng-repeat="action in actions track by $index">' +
+        // '<a ng-if="action.ui_sref" ui-sref="{{action.ui_sref}}">{{action.name}}</a>' +
+        // '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
+        // '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
+        // '</div>',
+        '<md-select ng-model="ctrl.userState">' +
+        '<md-option ng-selected="true">Select action</md-option>'+
+        '<md-option ng-repeat="action in actions track by $index" ng-value="state.abbrev" ng-disabled="$index === 1">'+
         '<a ng-if="action.ui_sref" ui-sref="{{action.ui_sref}}">{{action.name}}</a>' +
         '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
-        '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
-        '</div>',
+        '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>'
+        +'</md-option></md-select>',
         // template: '<md-select aria-label="hidden" name="category">' +
         // '<md-option ng-repeat="action in actions track by $index" value="{{action}}">' +
         // '<a ng-if="action.ui_sref" ui-sref="{{action.ui_sref}}">{{action.name}}</a>' +

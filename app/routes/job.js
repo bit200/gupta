@@ -16,6 +16,7 @@ module.exports = function (app) {
     app.put('/api/jobs', job.get_jobs);
 
     app.post('/api/job-apply', auth.freelancer_token, job.applyJob);
+    app.post('/api/job-delete', auth.freelancer_token, job.deleteJob);
     app.get('/api/job-apply/reject/:_id', auth.token, job.rejectJobApply);
     app.get('/api/job-stats/:_id', job.job_stats);
     app.put('/api/job-apply', auth.freelancer_token, job.applyJobUpdate);

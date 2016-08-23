@@ -211,6 +211,16 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
                 name: 'Send apply',
                 fn: scope.apply_create
             },
+            'delete_job': {
+                name: 'Delete job',
+                fn: scope.delete_job
+
+                // ui_sref: sref('jobs_list.all')
+            },
+            'delete_job_fn': {
+                name: 'Delete job',
+                fn: scope.delete_job
+            },
             'apply_edit': {
                 name: 'Edit your apply',
                 ui_sref: sref('root.apply_edit', {job: gid('job')}),

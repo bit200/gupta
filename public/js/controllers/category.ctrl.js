@@ -25,7 +25,9 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
 
             });
             if (createServiceProviderUlr(stateParams.filter)) {
-                rootScope.activeProvider.subName = createServiceProviderUlr(stateParams.filter)};
+                rootScope.activeProvider.subName = createServiceProviderUlr(stateParams.filter)
+            }
+            ;
             scope.firstInit = 1;
         }
         scope.addFavorite = function (profileId) {
@@ -171,11 +173,11 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         // scope.$watch('activeProvider', function (val) {
         //         scope.submitFilter()
         // }, true);
-        
+
 
         scope.submitFilter = function () {
             var filter = angular.copy(scope.ownFilter);
-            if (filter.location){
+            if (filter.location) {
                 filter.location = objInArr(filter.location);
                 console.log(filter.location);
             }
@@ -227,16 +229,16 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                 });
                 _.extend(filter, t)
             }
-            
-            
-            if (stateParams.type.length) {
+
+
+            if (stateParams.type && stateParams.type.length) {
                 var t = {
                     "service_providers.type": createServiceProviderUlr(stateParams.type)
                 };
                 if (stateParams.filter.length)
                     t["service_providers.name"] = createServiceProviderUlr(stateParams.filter)
             }
-            
+
             _.extend(filter, t);
             http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
@@ -249,16 +251,18 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         }
 
         function createServiceProviderUlr(name) {
-            var arr = name.split('-');
-            arr = _.map(arr, function (item) {
-                if (item != 'and') {
-                    return capitalizeFirstLetter(item)
+            if (name) {
+                var arr = name.split('-');
+                arr = _.map(arr, function (item) {
+                    if (item != 'and') {
+                        return capitalizeFirstLetter(item)
 
-                } else {
-                    return item
-                }
-            });
-            return arr.join(' ')
+                    } else {
+                        return item
+                    }
+                });
+                return arr.join(' ')
+            }
         }
 
 

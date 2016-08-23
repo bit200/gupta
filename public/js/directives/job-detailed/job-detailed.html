@@ -58,22 +58,29 @@
     </div>
 
 
-    <div class="row " ng-if="job.job_visivility">
+    <div class="row ">
         <div class="col-md-12">
             <div class="title3">Job Visibility</div>
             <div class="colrow8">{{job.job_visibility ? 'Public' : 'Private'}}</div>
         </div>
     </div>
 
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="title3">Job Status</div>
+            <div class="colrow8">{{job.status}}</div>
+        </div>
+    </div>
+
     <!--<div class="row " ng-if="job.content_types.length">-->
-        <!--<div class="col-md-12">-->
-            <!--<div class="title3">Categories</div>-->
-            <!--<div class="colrow8">-->
-                <!--<div ng-repeat="item in job.content_types">-->
-                    <!--{{item}}<span ng-if="!$last">,</span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+    <!--<div class="col-md-12">-->
+    <!--<div class="title3">Categories</div>-->
+    <!--<div class="colrow8">-->
+    <!--<div ng-repeat="item in job.content_types">-->
+    <!--{{item}}<span ng-if="!$last">,</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
 
 
@@ -128,8 +135,9 @@
             <div hidden>{{job.questionnaries[i].question = question.question}}</div>
             <h3>{{question.question}}</h3>
             <div ng-show="!question.answer_items">{{job.questionnaries[i].answer}}</div>
-            <div ng-show="question.answer_items" >
-                <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="job.questionnaries[i].answer_items[q]" ng-if="job.questionnaries[i].answer_items[q]" disabled="true" class="checkdark" ><span style="color: #333">{{q}}</span></md-checkbox>
+            <div ng-show="question.answer_items">
+                <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="job.questionnaries[i].answer_items[q]" ng-if="job.questionnaries[i].answer_items[q]" disabled="true" class="checkdark"><span style="color: #333">{{q}}</span>
+                </md-checkbox>
             </div>
         </div>
     </div>
@@ -147,6 +155,22 @@
     <div ng-if="job.user != userId">
         <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
         <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
+    </div>
+    <div ng-if="job.user == userId && job.status !='Deleted'">
+        <md-input-container class="full-width" style="margin: 0">
+            <label> </label>
+            <md-select aria-label="none" ng-model="job.category" md-on-close="selectItem(job.category, 'category', true, value)" data-md-container-class="selectdemoSelectHeader">
+                <md-option value="" ng-selected="true">
+                    Choice the reason for closing the project
+                </md-option>
+                <md-option ng-repeat="item in ['Found a service provider', 'Could not find relevant service providers', 'Could not find service providers in my budget', 'Project cancelled']" value="{{item}}">
+                    {{item}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div ng-if="job.user == userId && job.status !='Deleted'">
+        <btns class="mtop20" list="['delete_job']"></btns>
     </div>
 </div>
 

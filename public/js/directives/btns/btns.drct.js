@@ -4,9 +4,9 @@ XYZCtrls.directive('btns', function () {
         scope: true,
         templateUrl: 'js/directives/btns/btns.html',
         link: function(scope, el, attrs) {
-            var str = attrs.listScope
+            var str = attrs.listScope;
             if (str && str != '') {
-                scope.btns_list_plain = eval(str)
+                scope.btns_list_plain = eval(str);
                 scope.init_btns(str)
             }
             scope.init_btns()
@@ -17,8 +17,8 @@ XYZCtrls.directive('btns', function () {
             }
 
             scope.attrs = attrs
-            var str = attrs.list || ''
-            str = str.replace(/'/gi, '"')
+            var str = attrs.list || '';
+            str = str.replace(/'/gi, '"');
 
             function isinvalid (v) {
                 return v ? v.$invalid : null
