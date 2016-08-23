@@ -11,7 +11,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             info: '@'
         },
         templateUrl: 'js/directives/jobs-list/jobs-list.html',
-        controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService','$element', function (scope, http, parseTime, rootScope, location, ModalService, element) {
+        controller: ['$scope', '$http', 'parseTime', '$rootScope', '$location', 'ModalService', '$element', function (scope, http, parseTime, rootScope, location, ModalService, element) {
             scope.templateHeader = ['js/directives/jobs-list/', scope.template, '/header.html'].join('');
             scope.templateItem = ['js/directives/jobs-list/', scope.template, '/item.html'].join('');
             scope.watchName = '';
@@ -49,8 +49,8 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             // jobInformation.registerObserverCallback(function(data){
             //     console.log(data)
             // });
-            
-            
+
+
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",
@@ -98,8 +98,26 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             };
 
             scope.$on('changeItems', function (e, item) {
-                scope.items = item
+                var obj = {
+                    skip: (scope.configPagination.currentPage - 1) * scope.configPagination.countByPage,
+                    limit: scope.configPagination.countByPage
+                };
+                console.log('sfsfsdfsdf', item)
+                scope.items = item.data;
+                scope.getCount(obj, item.query)
             });
+
+            function parseCategory(query){
+                var params = {}
+                if(query.category)
+                    params.type_category = query.category
+                if(query.category)
+                    params.type_category = query.category
+                if(query.category)
+                    params.type_category = query.category
+                if(query.category)
+                    params.type_category = query.category
+            }
 
             scope.cb = function (a) {
                 scope.configPagination.currentPage = a;
@@ -117,17 +135,17 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 var index = 0;
 
                 function cb() {
-                        scope.showLoading = false;
+                    scope.showLoading = false;
                 }
 
                 if (scope.header == 'Open Jobs') {
 
-                    http.post('/api/jobs', {status: {$in:['Pending Approval','No Applicants']}}).then(function (resp) {
+                    http.post('/api/jobs', {status: {$in: ['Pending Approval', 'No Applicants']}}).then(function (resp) {
                         http.get(scope.url, {params: obj}).success(function (data) {
                             cb();
                             scope.items = [];
                             scope.items.push(data.data, resp.data.data);
-                            scope.items =  _.flatten(scope.items);
+                            scope.items = _.flatten(scope.items);
                         }, function (err) {
                             scope.error = 'An error. Please try again later';
                             cb();
@@ -143,18 +161,20 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                         scope.error = 'An error. Please try again later';
                         cb();
                     });
+                    scope.getCount(obj);
 
-                    http.get(scope.url + '/count', {params: obj}).then(function (resp) {
-                            cb();
-                            scope.configPagination.totalCount = resp.data.data;
-                            scope.TotalItems = resp.data.data;
-                        }
-                        , function (err) {
-                            scope.TotalItems = 0;
-                        })
                 }
             };
-
+            scope.getCount = function (obj, query) {
+                http.post(scope.url + '/count', {params: obj, query: query || {}}).then(function (resp) {
+                        scope.showLoading = false;
+                        scope.configPagination.totalCount = resp.data.data;
+                        scope.TotalItems = resp.data.data;
+                    }
+                    , function (err) {
+                        scope.TotalItems = 0;
+                    })
+            }
             scope.render();
 
 

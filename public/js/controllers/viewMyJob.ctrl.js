@@ -36,11 +36,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         }
     };
 
-    scope.searchTerm;
-    scope.clearSearchTerm = function() {
-        scope.searchTerm = '';
-    };
-
 
     scope.getSubCategories = function(category, type) {
         if(type){
@@ -70,19 +65,23 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
 
     scope.selectItem = function (elem, type, bol, value) {
         if (type == 'category') {
-            console.log('value',elem)
             scope.category_open = !scope.category_open;
             scope.selected_category = elem;
             scope.getSubCategories(elem, bol)
         }
-        if (type == 'location') {
-            scope.location_open = !scope.location_open;
-            scope.selected_location = elem
-        }
+        // if (type == 'location') {
+        //     scope.location_open = !scope.location_open;
+        //     scope.selected_location = elem
+        // }
         var obj = {};
         obj[type] = elem;
+        console.log('obj ctrl', obj)
         jobInformation.setInfo(obj);
         scope.filterJob()
+    };
+
+    scope.onSearchChange = function(event) {
+        event.stopPropagation();
     };
 
     scope.searchText = function (text) {
@@ -138,9 +137,10 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
     };
 
     scope.filterJob = function () {
-        console.log()
-        http.get('/api/jobs/filter', {params: jobInformation.getInfo.information()}).then(function (resp) {
-            scope.$broadcast('changeItems', resp.data.data)
+        var query = jobInformation.getInfo.information();
+        console.log(query)
+        http.get('/api/jobs/filter', {params: query}).then(function (resp) {
+            scope.$broadcast('changeItems', {data:resp.data.data, query:query})
         }, function (err) {
             console.log('err', err)
         })

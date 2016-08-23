@@ -326,6 +326,10 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 });
             };
 
+            scope.onSearchChange = function(event) {
+                event.stopPropagation()
+            };
+
             scope.submitWork = function () {
                 if (Object.keys(scope.freelancer.work).length === 0) {
                     scope.freelancer_area.activeTab = 'contact';

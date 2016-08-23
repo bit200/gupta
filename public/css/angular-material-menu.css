@@ -174,3 +174,10 @@ md-input-container.md-default-theme.md-input-invalid .md-input, md-input-contain
     color: black !important;
 }
 
+.search-select {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid lightgray;
+    outline: none;
+    padding: 0 20px;
+}

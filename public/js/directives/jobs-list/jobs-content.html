@@ -16,7 +16,7 @@
 
                         <md-input-container class="full-width" style="margin: 0">
                             <label> </label>
-                            <md-select ng-model="job.category" md-on-close="selectItem(job.category, 'category', true, value)" data-md-container-class="selectdemoSelectHeader">
+                            <md-select aria-label="none" ng-model="job.category" md-on-close="selectItem(job.category, 'category', true, value)" data-md-container-class="selectdemoSelectHeader">
                                 <md-option value="" ng-selected="true">
                                     All categories
                                 </md-option>
@@ -31,9 +31,9 @@
                         <div class="sub-select" ng-if="isSub">
                             <md-input-container class="full-width" style="margin: 0">
                                 <label> </label>
-                                <md-select ng-model="job.subcategory" md-on-close="selectItem(job.subcategory, 'category', false)" data-md-container-class="selectdemoSelectHeader">
-                                    <md-option value="{{null}}">
-                                        -- select a state --
+                                <md-select ng-model="job.subcategory" md-on-close="selectItem(job.subcategory, 'sub_category', false)" data-md-container-class="selectdemoSelectHeader">
+                                    <md-option value="" ng-selected="true">
+                                       All subcategories
                                     </md-option>
                                     <md-option ng-repeat="item in subFilters | filter:search.subcategory" value="{{item}}">
                                         {{item}}
@@ -41,12 +41,26 @@
                                 </md-select>
                             </md-input-container>
                         </div>
+
                         <div class="sub-title">
                             Location
                         </div>
                         <div class="sub-select">
-
+                            <md-input-container class="selectTerm" >
+                                <md-select aria-label="hidden" ng-model="job.location" name="cities" md-on-close="selectItem(job.location, 'location', false)">
+                                    <md-select-header class="demo-select-header">
+                                        <input ng-model="searchTerm" ng-keydown="onSearchChange($event)" placeholder="Search for a locations.." class="search-select _md-text">
+                                    </md-select-header>
+                                    <md-option value="" ng-selected="true">
+                                        All locations
+                                    </md-option>
+                                    <md-option ng-value="item" ng-repeat="item in locations | filter:searchTerm ">
+                                        {{item}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
                         </div>
+
                         <div class="sub-title">
                             Budget
                         </div>
@@ -54,9 +68,6 @@
                             <rzslider rz-slider-model="slider.minValue"
                                       rz-slider-high="slider.maxValue"
                                       rz-slider-options="slider.options"></rzslider>
-                        </div>
-                        <div>
-                            <button class="btn btn-default" ng-click="clearFilter(job.category);">Clear filter</button>
                         </div>
                     </div>
 

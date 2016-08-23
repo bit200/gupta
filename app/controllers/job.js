@@ -53,10 +53,10 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
 
     if (auth) {
         app.get(url, auth, routing('find'))
-        app.get(url + '/count', auth, routing('count'))
+        app.post(url + '/count', auth, routing('count'))
     } else {
         app.get(url, routing('find'))
-        app.get(url + '/count', routing('count'))
+        app.post(url + '/count', routing('count'))
     }
 
 
@@ -67,7 +67,7 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
             var queryParams = m.getBody(req);
             var query = middlewareFn.call(req);
             var info = pubParams(queryParams, query);
-            console.log('routing', queryParams, query)
+            console.log('routing', queryParams, query);
 
             info.params.populate = extra_params.populate || '';
             info.params.sort = extra_params.sort || info.params.sort || '';

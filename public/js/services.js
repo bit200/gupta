@@ -373,16 +373,23 @@ XYZCtrls.service('jobInformation', ["$http", "$rootScope", 'jobParseByStatus', f
     var information = {};
     return {
         setInfo: function (obj) {
+            console.log('obj service', obj)
             if (obj.search)
                 information.search = obj.search;
             if (obj.category)
-                information.category = obj.category;
-            if ( obj.category == '' )
-                delete information.category;
+                information.type_category = obj.category;
+            if (obj.category == '')
+                delete information.type_category;
             if (obj.location)
                 information.location = obj.location;
-            if (obj.job_sub_category)
-                information.sub_category = obj.sub_category;
+            if (obj.location == '') {
+                delete information.location;
+                console.log('deleted')
+            }
+            if (obj.sub_category)
+                information.type_name = obj.sub_category;
+            if (obj.sub_category == '')
+                delete information.type_name;
             if (obj.budget_min)
                 information.budget_min = obj.budget_min;
             if (obj.budget_max)
