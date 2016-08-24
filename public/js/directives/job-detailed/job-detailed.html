@@ -72,6 +72,13 @@
         </div>
     </div>
 
+    <div class="row" ng-if="job.status == 'Deleted'">
+        <div class="col-md-12">
+            <div class="title3">Reason delete</div>
+            <div class="colrow8">{{job.reason_delete}}</div>
+        </div>
+    </div>
+
     <!--<div class="row " ng-if="job.content_types.length">-->
     <!--<div class="col-md-12">-->
     <!--<div class="title3">Categories</div>-->
@@ -156,18 +163,17 @@
         <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
         <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
     </div>
+    <div class="row paddingT20">
     <div ng-if="job.user == userId && job.status !='Deleted'">
+        <label>Choice the reason for closing the project </label>
         <md-input-container class="full-width" style="margin: 0">
-            <label> </label>
-            <md-select aria-label="none" ng-model="job.category" md-on-close="selectItem(job.category, 'category', true, value)" data-md-container-class="selectdemoSelectHeader">
-                <md-option value="" ng-selected="true">
-                    Choice the reason for closing the project
-                </md-option>
-                <md-option ng-repeat="item in ['Found a service provider', 'Could not find relevant service providers', 'Could not find service providers in my budget', 'Project cancelled']" value="{{item}}">
+            <md-select aria-label="none" ng-model="job.reason_delete" data-md-container-class="selectdemoSelectHeader">
+                <md-option ng-repeat="item in ['Found a service provider', 'Could not find relevant service providers', 'Could not find service providers in my budget', 'Project cancelled']" ng-selected="$first" value="{{item}}">
                     {{item}}
                 </md-option>
             </md-select>
         </md-input-container>
+    </div>
     </div>
     <div ng-if="job.user == userId && job.status !='Deleted'">
         <btns class="mtop20" list="['delete_job']"></btns>

@@ -188,7 +188,8 @@ exports.filter_job = function (req, res) {
 
 exports.deleteJob = function (req, res) {
   var params = m.getBody(req);
-    m.findUpdate(models.Job, {_id:params.job, user:params.user}, {status:'Deleted'}, res ,res)
+    log("@#@#@#@", params)
+    m.findUpdate(models.Job, {_id:params.job, user:params.user}, {reason_delete:params.reason_delete,status:'Deleted'}, res ,res)
 };
 exports.applyJob = function (req, res) {
     var params = _.extend(m.getBody(req), {
