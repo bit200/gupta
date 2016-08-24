@@ -26,7 +26,7 @@ var FreelancerSchema = mongoose.Schema({
     },
     price: {
         price: Number,
-        description: Number
+        description: String
     },
     price_rate: Number,
     past_clients: [{
@@ -39,6 +39,7 @@ var FreelancerSchema = mongoose.Schema({
     }],
     translation: Array,
     profile: String,
+    verified: Boolean,
     number_employees: Number,
     //0 - pending, 1-approved, 2-rejected
     registrationStatus: {

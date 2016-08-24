@@ -5,7 +5,7 @@ angular.module('admin.all_profile', [
 ])
     .config(function ($stateProvider) {
         $stateProvider.state('all_profile', {
-            url: '/all_profile',
+            url: '/all_profile/:type',
             controller: 'AllProfileCtrl',
             templateUrl: 'all_profile/all_profile.html',
             data: {
@@ -28,10 +28,12 @@ angular.module('admin.all_profile', [
         });
     })
 
-    .controller('AllProfileCtrl', function AllProfileController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
+    .controller('AllProfileCtrl', function AllProfileController($scope, $http, $stateParams,$state, store, jwtHelper, ModalService, getContent, notify) {
         $scope.selectFilter = 'pending';
+        console.log('$stateProvider',$state)
+        $state.current.data.name = 'Profile > ' + $state.params.type;
         $scope.locations = getContent.location.data.data;
-        $scope.display = {type: 'freelancers'};
+        $scope.display = {type: $stateParams.type};
         $scope.getFreelancer = function (skip, limit) {
             var _skip = ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage;
             $http.post('/admin/api/all', {model: 'Freelancer', limit: $scope.configPagination.countByPage, skip: _skip}).then(function (resp) {

@@ -118,3 +118,16 @@
     border-radius: 3px;
     color: white;
 }
+
+.nav-sub:focus {
+    color: white !important;
+    background-color: #364150 !important;
+}
+.nav-sub:hover {
+    background-color: #49596f !important;
+}
+
+.nav-sub{
+    color: rgba(143, 151, 163, 1) !important;
+    background: #364150;
+}

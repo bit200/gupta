@@ -36,17 +36,29 @@
                 </md-input-container>
             </div>
             <div ng-if="!change">
-                <h4 class='view-mode'>First name:</h4><span>{{profile.first_name}}</span>
-
-                <h4 class='view-mode'>Last name:</h4><span>{{profile.last_name}}</span>
-
-                <h4 class='view-mode'>Email:</h4><span>{{profile.email}}</span>
-
-                <h4 class='view-mode'>Phone number:</h4><span>{{profile.phone}}</span>
-
-                <h4 class='view-mode'>Company name:</h4><span>{{profile.company_name}}</span>
-
-                <h4 class='view-mode'>Admin notes:</h4><span>{{profile.admin_notes}}</span>
+                <div>
+                    <h4 class='view-mode'>First name:</h4><span>{{profile.first_name}}</span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Last name:</h4><span>{{profile.last_name}}</span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Email:</h4><span>{{profile.email}}</span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Phone number:</h4><span>{{profile.phone}}</span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Company name:</h4><span>{{profile.company_name}}</span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Admin notes:</h4><span>{{profile.admin_notes}}</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" ng-if="change" ng-click="submit(profile);">Submit</button>
+                <button class="btn btn-primary" ng-if="change" ng-click="close()">Cancel</button>
+                <button class="btn btn-primary" ng-if="!change" ng-click="close()">Close</button>
             </div>
         </div>
         <div ng-if="type == 'freelancers' || type == 'agency'">
@@ -74,6 +86,16 @@
                 <h4>Experience</h4>
                 <md-input-container class="md-block">
                     <input aria-label="none" class="form-control border-grey" name="experience" numbers-only ng-model="profile.experience" style="color: black">
+                </md-input-container>
+
+                <h4>Prise</h4>
+                <md-input-container class="md-block">
+                    <label>Price</label>
+                    <input aria-label="none" class="form-control border-grey" name="experience" numbers-only ng-model="profile.price.price" style="color: black">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Description</label>
+                    <input aria-label="none" class="form-control border-grey" name="experience" ng-model="profile.price.description" style="color: black">
                 </md-input-container>
 
                 <h4>Location</h4>
@@ -130,51 +152,69 @@
                 <md-input-container class="md-block">
                     <input aria-label="none" class="form-control border-grey" name="admin_notes" ng-model="profile.admin_notes" style="color: black">
                 </md-input-container>
-            </div> 
-            
+
+                <h4>Admin verified</h4>
+                <md-checkbox ng-model="profile.verified"></md-checkbox>
+            </div>
+
             <div ng-if="!change">
-                <h4 class='view-mode'>Name:</h4>{{profile.name}}
+                <div>
+                    <h4 class='view-mode'>Name:</h4>{{profile.name}}
+                </div>
+                <div>
+                    <h4 class='view-mode'>Type:</h4>{{profile.type}}
+                </div>
+                <div>
+                    <h4 class='view-mode'>Introduction:</h4>{{profile.introduction}}
+                </div>
+                <div>
+                    <h4 class='view-mode'>Description:</h4>{{profile.description}}
+                </div>
+                <div>
+                    <h4 class='view-mode'>Experience:</h4>{{profile.experience}}
+                </div>
+                <div>
+                    <h4 class='view-mode'>Location:</h4>{{profile.location}}
+                </div>
+                <div>
+                    <h4 class='view-mode'>Sities service:</h4><span ng-repeat="city in profile.cities track by $index">{{city}}<span ng-if="!$last">, </span></span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Languages:</h4><span ng-repeat="language in profile.languages track by $index">{{language}}<span ng-if="!$last">, </span></span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Service provider:</h4>
+                    <div class="md-block" ng-repeat="service in profile.service_providers">
+                        <div>
+                            <h5 class='view-mode'>Category:</h5><span>{{profile.service_providers[$index].type}}</span>
+                        </div>
+                        <div ng-if="service.name">
+                            <h5 class='view-mode'>Sub category:</h5><span>{{profile.service_providers[$index].name}}</span>
 
-                <h4 class='view-mode'>Type:</h4>{{profile.type}}
+                            <div ng-if="service.name == 'Translation'">
 
-                <h4 class='view-mode'>Introduction:</h4>{{profile.introduction}}
-
-                <h4 class='view-mode'>Description:</h4>{{profile.description}}
-
-                <h4 class='view-mode'>Experience:</h4>{{profile.experience}}
-
-                <h4 class='view-mode'>Location:</h4>{{profile.location}}
-
-                <h4 class='view-mode'>Sities service:</h4><span ng-repeat="city in profile.cities track by $index">{{city}}<span ng-if="!$last">, </span></span>
-
-                <h4 class='view-mode'>Languages:</h4><span ng-repeat="language in profile.languages track by $index">{{language}}<span ng-if="!$last">, </span></span>
-
-                <h4 class='view-mode'>Service provider:</h4>
-                <div class="md-block" ng-repeat="service in profile.service_providers">
-                    <div>
-                        <h5 class='view-mode'>Category:</h5><span>{{profile.service_providers[$index].type}}</span>
-                    </div>
-                    <div ng-if="service.name">
-                        <h5 class='view-mode'>Sub category:</h5><span>{{profile.service_providers[$index].name}}</span>
-
-                        <div ng-if="service.name == 'Translation'">
-
-                            <div ng-repeat="translation in profile.translation">
-                                <span>To: '{{translation.to}}' - from: '{{translation.from}}'</span>
+                                <div ng-repeat="translation in profile.translation">
+                                    <span>To: '{{translation.to}}' - from: '{{translation.from}}'</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div>
+                    <h4 class='view-mode'>Admin notes:</h4><span>{{profile.admin_notes}}</span>
+                </div>
+                <div>
+                    <h4 class='view-mode'>Admin verified:</h4><span><md-checkbox disabled ng-model="profile.verified"></md-checkbox></span>
+                </div>
 
+                <div>
+                </div>
 
-                <h4 class='view-mode'>Admin notes</h4><span>{{profile.admin_notes}}</span>
             </div>
-
+            <div class="modal-footer">
+                <button class="btn btn-danger" ng-if="change" ng-click="submit(profile);">Submit</button>
+                <button class="btn btn-primary" ng-if="change" ng-click="close()">Cancel</button>
+                <button class="btn btn-primary" ng-if="!change" ng-click="close()">Close</button>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-danger" ng-if="change" ng-click="submit(profile);">Submit</button>
-            <button class="btn btn-primary" ng-if="change" ng-click="close()">Cancel</button>
-            <button class="btn btn-primary" ng-if="!change" ng-click="close()">Close</button>
-        </div>
-    </div>
 </form>

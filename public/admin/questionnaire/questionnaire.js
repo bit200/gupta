@@ -5,7 +5,7 @@ angular.module('admin.questionnaire', [
 ])
     .config(function ($stateProvider) {
         $stateProvider.state('questionnaire', {
-            url: '/questionnaire',
+            url: '/questionnaire/:type',
             controller: 'QuestionnaireCtrl',
             templateUrl: 'questionnaire/questionnaire.html',
             data: {
@@ -22,10 +22,11 @@ angular.module('admin.questionnaire', [
 
         });
     })
-    .controller('QuestionnaireCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
+    .controller('QuestionnaireCtrl', function AllProjectController($scope, $stateParams, $state, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.commonFilters = getContent.commonFilter.data;
         $scope.active_tab = _.keys($scope.commonFilters)[0];
-        $scope.type = 'post';
+        $scope.type = $stateParams.type;
+        $state.current.data.name = $stateParams.type == 'post' ? 'Questionnaires > Post a Project' : 'Questionnaires > Registration Freelancer/Agency';
         $scope.questions = [];
         $scope.getQuestions = function (service, type) {
             $scope.isLoading = true;
@@ -53,7 +54,7 @@ angular.module('admin.questionnaire', [
         };
 
 
-        function spliceItem(index){
+        function spliceItem(index) {
             $scope.questions.splice(index, 1);
         }
 
@@ -62,7 +63,7 @@ angular.module('admin.questionnaire', [
                 templateUrl: "delete_modal.html",
                 controller: function ($scope, $element, $http) {
                     $scope.submit = function () {
-                        $http.delete('/admin/api/questionnaire', {params: {_id: item._id}}).then(function(){
+                        $http.delete('/admin/api/questionnaire', {params: {_id: item._id}}).then(function () {
                             spliceItem(index);
                             $scope.close();
                         })
@@ -88,12 +89,12 @@ angular.module('admin.questionnaire', [
                     $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
                     $scope.submit = function (question) {
-                        if(question.items[0] && question.items[0].length >0) {
+                        if (question.items[0] && question.items[0].length > 0) {
                             question.items = _.values(question.items);
                         } else {
                             delete question.items
                         }
-                        if(question.table[0] && question.table.length > 1) {
+                        if (question.table[0] && question.table.length > 1) {
                             question.table = _.values(question.table);
                         } else {
                             delete question.table
@@ -154,37 +155,37 @@ angular.module('admin.questionnaire', [
             $scope.type = type;
             $scope.getQuestions($scope.active_tab, type)
         };
-        
-        
+
+
         $scope.choice = function (key, type) {
-            if(type)
+            if (type)
                 $scope.active_category = key;
-            if(key != ''){
+            if (key != '') {
                 $scope.active_tab = key;
             } else {
                 $scope.active_tab = $scope.active_category;
                 key = $scope.active_category;
             }
 
-            if($scope.commonFilters[$scope.active_tab] && $scope.commonFilters[$scope.active_tab].length > 0){
+            if ($scope.commonFilters[$scope.active_tab] && $scope.commonFilters[$scope.active_tab].length > 0) {
                 $scope.getSubfilter($scope.active_tab)
             }
             $scope.getQuestions(key, $scope.type)
 
         };
 
-        $scope.getSubfilter = function(key){
+        $scope.getSubfilter = function (key) {
             $scope.subFilters = [];
-            _.each($scope.commonFilters[key], function(item){
+            _.each($scope.commonFilters[key], function (item) {
                 $scope.subFilters.push(item.name)
             })
             console.log('filters', $scope.subFilters, $scope.subFilters.length)
         };
 
-        $scope.addRow = function(elem){
+        $scope.addRow = function (elem) {
             elem = [{}]
         };
 
-        $scope.getQuestions($scope.active_tab,$scope.type)
+        $scope.getQuestions($scope.active_tab, $scope.type)
 
     });

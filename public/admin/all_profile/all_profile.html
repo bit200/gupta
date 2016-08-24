@@ -3,13 +3,13 @@
         <div ng-include="'all_profile/all_profile.view.html'"></div>
     </div>
     <div style="margin-top: 20px" ng-if="!showModal">
-        <div ng-init="display.type = 'freelancers'; check('freelancers')" class="text-center">
-            <md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">
-                <md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block" style="outline: none">Freelancers</md-radio-button>
-                <md-radio-button ng-class="{active_tab: display.type == 'agency'}" ng-click="check('agency')" value="agency" class="md-primary inline-block" style="outline: none">Agency</md-radio-button>
-                <md-radio-button ng-class="{active_tab: display.type == 'users'}" ng-click="check('users')" value="users" style="margin-left: 50px;display:inline-block;outline: none">Users</md-radio-button>
-            </md-radio-group>
-        </div>
+        <!--<div ng-init="display.type = 'freelancers'; check('freelancers')" class="text-center">-->
+            <!--<md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">-->
+                <!--<md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block" style="outline: none">Freelancers</md-radio-button>-->
+                <!--<md-radio-button ng-class="{active_tab: display.type == 'agency'}" ng-click="check('agency')" value="agency" class="md-primary inline-block" style="outline: none">Agency</md-radio-button>-->
+                <!--<md-radio-button ng-class="{active_tab: display.type == 'users'}" ng-click="check('users')" value="users" style="margin-left: 50px;display:inline-block;outline: none">Users</md-radio-button>-->
+            <!--</md-radio-group>-->
+        <!--</div>-->
         <h2 ng-if="!all_profiles.length" class="text-center">No accounts</h2>
 
         <div class="portlet-body">
@@ -40,7 +40,7 @@
                     </td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
-                        <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_profile, $index)"><span class="pointer fa fa-eye inline-block" style="outline: none"></span></button>
+                        <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_profile, display.type)"><span class="pointer fa fa-eye inline-block" style="outline: none"></span></button>
                         <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-star inline-block" style="outline: none"></span>
                         </button>
                         <button class="btn btn-sm btn-pencil white" ng-click="getInformation(true,all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
@@ -81,7 +81,7 @@
                     </td>
                     <td>{{all_profile.created_at}}</td>
                     <td>
-                        <button class="btn btn-sm btn-eye white" ng-click="getFavorite(false,all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-eye inline-block"
+                        <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_profile, display.type)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-eye inline-block"
                                                                                                                          style="outline: none"></span></button>
                         <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-star inline-block" style="outline: none"></span>
                         </button>

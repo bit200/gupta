@@ -1,7 +1,8 @@
 <div class="marginT30">
     <div style="margin-top: 20px" ng-if="showModal">
+
         <div ng-if="!add" ng-include="'all_project/project.view.html'"></div>
-        <div ng-if="add" ng-include="'all_project/add_job.modal.html'"></div>
+        <div ng-if="!add" ng-include="'all_project/add_job.modal.html'"></div>
     </div>
     <div style="margin-top: 20px" ng-if="!showModal">
         <div style="display: inline-block">
