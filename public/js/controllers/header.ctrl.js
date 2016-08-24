@@ -18,6 +18,7 @@ XYZCtrls.controller('HeaderCtrl', ['$scope', '$location', '$http', 'ModalService
         });
 
 
+
         scope.arrayProviders = [];
         http.get('/get-content', {
             params: {

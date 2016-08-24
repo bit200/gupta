@@ -10,6 +10,16 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
         scope.cancelRegistration = function () {
             location.path('/')
         };
+        scope.filtersArr = [];
+        angular.forEach($rootScope.commonFilters,function(item,key){
+            var a = {
+                title:key,
+                data:item,
+                order:item[0].order>=0?item[0].order:100
+            };
+            scope.filtersArr.push(a);
+        });
+        console.log(scope.filtersArr);
         
         if($state.current.name == 'how_it_work'){
             scope.howItWorks = true;

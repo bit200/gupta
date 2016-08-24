@@ -59,7 +59,6 @@ angular.module( 'admin.categories', [
         $scope.addField = function(idx,Filter,SubName,newField,cancel){
             if(cancel) return $scope.edit_space = {};
             var  addParams = {};
-    console.log(idx,Filter,SubName,newField,cancel);
            if(!Filter) return ;
            if(Filter && (!$scope.filtersArr[idx])) var mainCreate = true;
            if(SubName && newField){
@@ -87,7 +86,6 @@ angular.module( 'admin.categories', [
                }
            }
            else if(SubName && Filter && !(idx>=0) ){
-               console.log('ALL')
                    $scope.filtersArr.push({title:Filter,data:[{type:Filter,name:SubName}]});
                    addParams = {
                        //name:SubName,

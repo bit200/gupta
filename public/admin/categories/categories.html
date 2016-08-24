@@ -155,15 +155,12 @@
                     <input type="text" class="edit_input"
                            ng-model="edit_space.AddTypeMain" placeholder="New type Name">
                 </label>
-                <label class="edit_input_label">
-                    <input type="text" class="edit_input" required
-                           ng-model="edit_space.AddFilterMain" placeholder="New subName Name">
-                </label>
-                <label ng-if="edit_space.flSubFilterMain" class="edit_input_label">
-                    <input type="text" class="edit_input" required
-                           ng-model="edit_space.AddSubSubNameMain" placeholder="New subSubName Name">
-                </label>
-                <span>
+                <!--<label class="edit_input_label">-->
+                    <!--<input type="text" class="edit_input" required-->
+                           <!--ng-model="edit_space.AddFilterMain" placeholder="New subName Name">-->
+                <!--</label>-->
+             <!--zz-->
+                <!--<span>-->
                 <!--<span ng-click="edit_space.flSubFilterMain = edit_space.flSubFilterMain?false:true; myStyle = edit_space.flSubFilterMain?{color:'green'}:{}" ng-style="myStyle" style=" margin-right: 0px" class="pointer">SUB</span>-->
                   <button class="btn btn-sm relative up-button3 btn-check white" ng-if="edit_space.AddTypeMain || edit_space.AddFilterMain"
                           ng-click="addField(false,edit_space.AddTypeMain,edit_space.AddFilterMain,edit_space.AddSubSubNameMain); myStyle={}">
