@@ -27,7 +27,7 @@ angular.module('admin.all_project', [
             }
         });
     })
-    .controller('AllProjectCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify) {
+    .controller('AllProjectCtrl', function AllProjectController($scope, $http, store, jwtHelper, ModalService, getContent, notify, Upload) {
         $scope.selectFilter = 'pending';
         $scope.sortBy = '';
         $scope.searchObj = '';
@@ -117,89 +117,99 @@ angular.module('admin.all_project', [
 
         $scope.add_job = function () {
             $http.get('/api/common_filters').then(function (commonFilters) {
-                ModalService.showModal({
-                    templateUrl: "all_project/add_job.modal.html",
-                    controller: function ($scope, $element, $http, Upload) {
-                        $scope.locations = getContent.locations.data.data;
-                        $scope.commonFilters = commonFilters.data;
-                        $scope.job = {};
-                        $scope.jobs_area = {};
-                        $scope.job.preview = [];
-                        $scope.job.attach = [];
-                        $scope.types = ['Agency', 'Freelancer'];
-                        $scope.attach = [];
-                        $scope.menu = {
-                            activeItem: {},
-                            subName: {}
-                        };
-                        $scope.addFiles = function ($file) {
-                            if ($file && $file != null) {
-                                $scope.attach.push($file);
-                                Upload.upload({
-                                    url: '/api/job/attach/' + $scope.job._id,
-                                    data: {name: $file.name},
-                                    file: $file
-                                }).then(function (resp) {
-                                    $scope.job.attach.push(resp.data.data.file._id);
-                                    $scope.job._id = resp.data.data.job;
-                                }, function (resp) {
-                                }, function (evt) {
-                                });
-                            }
-                        };
-                        $scope.deleteAttachFile = function (index) {
-                            $scope.attach.splice(index, 1);
-                            $scope.job.attach.splice(index, 1);
-                        };
 
+                $scope.showModal = true;
+                $scope.add = true;
+                $scope.locations = getContent.locations.data.data;
+                $scope.commonFilters = commonFilters.data;
+                $scope.job = {};
+                $scope.jobs_area = {};
+                $scope.job.preview = [];
+                $scope.job.attach = [];
+                $scope.types = ['Agency', 'Freelancer'];
+                $scope.attach = [];
+                $scope.menu = {
+                    activeItem: {},
+                    subName: {}
+                };
+                $scope.subFilters;
 
-                        $scope.addImage = function ($file) {
-                            if ($file && $file != null) {
-                                $scope.preview = $file;
-                                Upload.upload({
-                                    url: '/api/job/attach/' + $scope.job._id,
-                                    data: {name: $file.name},
-                                    file: $file
-                                }).then(function (resp) {
-                                    $scope.job.preview = resp.data.data.file._id;
-                                    $scope.job._id = resp.data.data.job;
-                                }, function (resp) {
-                                }, function (evt) {
-                                });
-                            }
-                        };
-                        $scope.deleteImg = function (index) {
-                            delete $scope.preview;
-                            delete $scope.job.preview;
-                        };
-                        $scope.submit = function (job) {
-                            if (job.preview && !job.preview.length) {
-                                delete job.preview
-                            }
-                            if (job.attach && !job.attach.length) {
-                                delete job.attach
-                            }
-                            if (!_.isEmpty(job)) {
-                                $http.post('/admin/api/job/add', {job: job, adminID: store.get('id')}).then(function (resp) {
-                                    refreshForModel($scope.close())
-                                }, function (err) {
-                                    notify({message: 'Some fields are filled in not correctly', duration: 3000, position: 'right', classes: "alert-error"});
-                                })
-                            } else {
-                                notify({message: 'Not one fields not filled', duration: 3000, position: 'right', classes: "alert-error"});
-                            }
-                        };
-                        $scope.close = function (res) {
-                            $element.modal('hide');
-                            close(res, 500);
-                        }
+                $scope.choiceType = function (category, type) {
+                    if(type){
+                        delete $scope.subFilters;
+                        delete $scope.job.type_name
                     }
-                }).then(function (modal) {
-                    modal.element.modal();
-                    modal.close.then(function (result) {
-                    });
+                    if ($scope.commonFilters[category] && $scope.commonFilters[category].length > 1) {
+                        $scope.subFilters = [];
+                        _.each($scope.commonFilters[category], function (item) {
+                            $scope.subFilters.push(item.name)
+                        })
+                    }
+                    $http.get('/api/questionnaire', {params: {type: 'post', service_provider: category}}).then(function (resp) {
+                        $scope.job.questionnaries = resp.data.data
+                    })
+                };
+                $scope.addFiles = function ($file) {
+                    if ($file && $file != null) {
+                        $scope.attach.push($file);
+                        Upload.upload({
+                            url: '/api/job/attach/' + $scope.job._id,
+                            data: {name: $file.name},
+                            file: $file
+                        }).then(function (resp) {
+                            $scope.job.attach.push(resp.data.data.file._id);
+                            $scope.job._id = resp.data.data.job;
+                        }, function (resp) {
+                        }, function (evt) {
+                        });
+                    }
+                };
+                $scope.deleteAttachFile = function (index) {
+                    $scope.attach.splice(index, 1);
+                    $scope.job.attach.splice(index, 1);
+                };
 
-                });
+
+                $scope.addImage = function ($file) {
+                    if ($file && $file != null) {
+                        $scope.preview = $file;
+                        Upload.upload({
+                            url: '/api/job/attach/' + $scope.job._id,
+                            data: {name: $file.name},
+                            file: $file
+                        }).then(function (resp) {
+                            $scope.job.preview = resp.data.data.file._id;
+                            $scope.job._id = resp.data.data.job;
+                        }, function (resp) {
+                        }, function (evt) {
+                        });
+                    }
+                };
+                $scope.deleteImg = function (index) {
+                    delete $scope.preview;
+                    delete $scope.job.preview;
+                };
+                $scope.submit = function (job) {
+                    if (job.preview && !job.preview.length) {
+                        delete job.preview
+                    }
+                    if (job.attach && !job.attach.length) {
+                        delete job.attach
+                    }
+                    if (!_.isEmpty(job)) {
+                        $http.post('/admin/api/job/add', {job: job, adminID: store.get('id')}).then(function (resp) {
+                            refreshForModel($scope.close())
+                        }, function (err) {
+                            notify({message: 'Some fields are filled in not correctly', duration: 3000, position: 'right', classes: "alert-error"});
+                        })
+                    } else {
+                        notify({message: 'Not one fields not filled', duration: 3000, position: 'right', classes: "alert-error"});
+                    }
+                };
+                $scope.close = function (res) {
+                    $scope.showModal = false;
+                    $scope.add = false;
+                }
             })
         };
 
@@ -215,4 +225,5 @@ angular.module('admin.all_project', [
             })
         }
 
-    });
+    })
+;

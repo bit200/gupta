@@ -25,9 +25,10 @@ var FreelancerSchema = mongoose.Schema({
         default: false
     },
     price: {
-        word: Number,
-        hour: Number
+        price: Number,
+        description: Number
     },
+    price_rate: Number,
     past_clients: [{
         type: Number,
         ref: 'PastClient'

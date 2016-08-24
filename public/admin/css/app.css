@@ -37,10 +37,24 @@
 
 .input-custom {
     border: 0px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid lightgray !important;
     border-radius: 0;
 }
 
+.title3 {
+    text-transform: uppercase;
+    color: #333945;
+    /*font-weight: 500;*/
+    font-size: 15px;
+    padding-top: 0;
+    margin-top: 0;
+    letter-spacing: .8px;
+    padding-bottom: 15px;
+}
+
+.full-width {
+    width: 100%;
+}
 .show {
     color: #333;
 }
