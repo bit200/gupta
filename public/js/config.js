@@ -83,7 +83,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('login', {
-                url: '/login',
+                url: '/signin',
                 templateUrl: 'template/login.html',
                 controller: 'loginCtrl',
                 ncyBreadcrumb: {

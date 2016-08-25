@@ -11,21 +11,21 @@
                     <md-icon md-svg-icon="/img/open_projects.svg"> </md-icon>
                 </div>
                 <div>My Open Projects</div>
-                <div class="text-center">{{count.open}}</div>
+                <div class="text-center">({{count.open}})</div>
             </a>
             <a class="service-provider relative inline-block" ui-sref="{{job_ongoing}}">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/ongoing_projects.svg"> </md-icon>
                 </div>
                 <div>My Ongoing Projects</div>
-                <div class="text-center">{{count.ongoing}}</div>
+                <div class="text-center">({{count.ongoing}})</div>
             </a>
             <a class="service-provider relative inline-block" ui-sref="{{job_closed}}">
                 <div class="text-center service-provider-icon">
                     <md-icon md-svg-icon="/img/closed_projects.svg"> </md-icon>
                 </div>
                 <div>My Closed Projects</div>
-                <div class="text-center">{{count.close}}</div>
+                <div class="text-center">({{count.close}})</div>
             </a>
             <section ng-show="asView.buyer">
                 <md-button class="md-raised regular-button" ng-hide="currentFreelancer()" ui-sref="freelancer_registration" style="padding-top: 10px">Create my Seller Profile</md-button>

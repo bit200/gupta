@@ -136,7 +136,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
 
     scope.$on('maxBudget', function (e, item) {
         if(item){
-            console.log('item', item)
             scope.slider.options.ceil = parseInt(scope.getMaxBudget(item));
         }
     });

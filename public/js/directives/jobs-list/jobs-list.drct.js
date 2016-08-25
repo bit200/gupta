@@ -107,15 +107,15 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 scope.getCount(obj, item.query)
             });
 
-            function parseCategory(query){
+            function parseCategory(query) {
                 var params = {}
-                if(query.category)
+                if (query.category)
                     params.type_category = query.category;
-                if(query.category)
+                if (query.category)
                     params.type_category = query.category;
-                if(query.category)
+                if (query.category)
                     params.type_category = query.category;
-                if(query.category)
+                if (query.category)
                     params.type_category = query.category
             }
 
@@ -139,12 +139,11 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                 }
 
                 if (scope.header == 'Open Jobs') {
-
-                    http.post('/api/jobs', {status: {$in: ['Pending Approval', 'No Applicants']}}).then(function (resp) {
+                    // http.post('/api/jobs', {status: {$in: ['Pending Approval', 'No Applicants']}}).then(function (resp) {
                         http.get(scope.url, {params: obj}).success(function (data) {
                             cb();
                             scope.items = [];
-                            scope.items.push(data.data, resp.data.data);
+                            scope.items.push(data.data);
                             scope.items = _.flatten(scope.items);
                             scope.$broadcast('maxBudget', scope.items)
 
@@ -154,7 +153,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                         });
                         // scope.items = scope.items || [];
                         // scope.items.push(resp.data.data)
-                    })
+                    // })
                 } else {
                     http.get(scope.url, {params: obj}).success(function (data) {
                         cb();

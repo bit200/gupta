@@ -67,11 +67,13 @@ exports.fn = function (url, auth, modelName, middleware, extra_params, app) {
             var queryParams = m.getBody(req);
             var query = middlewareFn.call(req);
             var info = pubParams(queryParams, query);
-            console.log('routing', queryParams, query);
+            _.extend(info.query, queryParams.query);
 
             info.params.populate = extra_params.populate || '';
             info.params.sort = extra_params.sort || info.params.sort || '';
-            m[type](models[modelName], queryParams.query, res, res, queryParams.params)
+            // m[type](models[modelName], queryParams.query, res, res, queryParams.params)
+            log('type',type,'modelName',modelName, 'info',info)
+            m[type](models[modelName], info.query, res, res, info.params)
         }
     }
 };
@@ -83,13 +85,13 @@ exports.job_count_buyer = function (req, res) {
         , ongoing = 0
         , closed = 0;
     arr.push(function (cb) {
-        m.count(models.Job, {status: {$in: ['Pending Approval', 'No Applicants']}}, cb, function (jopen) {
+        m.count(models.Job, {user:params.id, status: {$in: ['Pending Approval', 'No Applicants']}}, cb, function (jopen) {
             open += jopen;
             cb()
         })
     });
     arr.push(function (cb) {
-        m.count(models.JobApply, {status: {$in: ["No Applicants", "Pending Approval", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]}}, cb, function (jopen) {
+        m.count(models.JobApply, {buyer: params.id, status: {$in: ["No Applicants", "Pending Approval", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]}}, cb, function (jopen) {
             open += jopen;
             cb()
         })

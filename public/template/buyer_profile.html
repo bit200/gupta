@@ -6,12 +6,12 @@
                 <div ng-if="profile.preview && !profile_area.changeImage" class="text-center" style="position: relative;width: 100%;margin: 0 auto;background: white;">
                     <img ng-src="{{profile.preview}}" style="width: 100%;"/>
                     <div style="position: absolute;bottom: 0px;height: 50px;width: 100%;background: rgba(0, 0, 0, 0.6);" class="pointer" ng-click="showUpdatePic()">
-                        <div style="text-align: left;color: white;font-weight: bold;margin-top: 14px;margin-left: 10px;font-size: 16px;">EDIT PROFILE PICTURE</div>
+                        <div style="text-align: center;color: white;font-weight: bold;margin-top: 14px;margin-left: 10px;font-size: 16px;">Change Photo</div>
                         <ng-md-icon icon="add_a_photo" style="fill: white;float: right;top: 8px;position: absolute;right: 8px;" size="32"></ng-md-icon>
                     </div>
                 </div>
                 <div ng-if="profile_area.changeImage || !profile.preview" class="containerDrop" style="text-align: center;">
-                    <div ngf-drop ng-hide="image.originalImage" ngf-select="dropImage($file)" class="drop-box">Drop</div>
+                    <div ngf-drop ng-hide="image.originalImage" ngf-select="dropImage($file)" class="drop-box">Add photo</div>
                     <section ng-show="image.originalImage">
                         <img-crop area-type="square" style="height: 250px;width: 100%;" image="image.originalImage" result-image="image.croppedImage"></img-crop>
                         <button class="btn btn-default" ng-click="updateProfile(image.croppedImage)">Save</button>

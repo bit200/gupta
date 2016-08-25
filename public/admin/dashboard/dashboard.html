@@ -9,10 +9,10 @@
         <dashboard-block total="'Total users'" state="'all_profile'" url-count="'/admin/api/all_count'" url-model="{model:'User'}"></dashboard-block>
     </div>
     <div class="col-xs-2" style="margin-top: 10px">
-        <dashboard-block total="'Total Open Jobs'" state="'jobs'" url-count="'/admin/api/all_count'" url-model="{model:'Job', query:{status:{$in:['No Applicants','Pending Approval', 'Service Providers have applied', 'Contract started', 'Rejected by seller', 'Rejected by buyer']}}}"></dashboard-block>
+        <dashboard-block total="'Total Open Project'" state="'jobs'" url-count="'/admin/api/all_count'" url-model="{model:'Job', query:{status:{$in:['No Applicants','Pending Approval', 'Service Providers have applied', 'Contract started', 'Rejected by seller', 'Rejected by buyer']}}}"></dashboard-block>
     </div>
     <div class="col-xs-2" style="margin-top: 10px">
-        <dashboard-block total="'Total Ongoing Jobs'" state="'jobs'" url-count="'/admin/api/all_count'" url-model="{model:'Job', query:{status: {$in: ['Ongoing', 'Marked as completed', 'Paused']}}}"></dashboard-block>
+        <dashboard-block total="'Total Ongoing Project'" state="'jobs'" url-count="'/admin/api/all_count'" url-model="{model:'Job', query:{status: {$in: ['Ongoing', 'Marked as completed', 'Paused']}}}"></dashboard-block>
     </div>
 </div>
 

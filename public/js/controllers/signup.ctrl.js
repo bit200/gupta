@@ -10,6 +10,7 @@ XYZCtrls.controller('signupCtrl', ['$scope', '$state', 'AuthService', '$http', '
                 accessToken: resp.data.accessToken.value,
                 refreshToken: resp.data.refreshToken.value
             });
+            AuthService.isFreelancer = fasle;
             $state.go('home')
         }).error(function (err) {
             if (err.errors && err.errors.email)

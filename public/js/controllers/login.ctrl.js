@@ -9,7 +9,8 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
                     accessToken: resp.data.accessToken.value,
                     refreshToken: resp.data.refreshToken.value
                 });
-                $state.go('home');
+                window.location.replace("http://www.themediaant.com/12thcross");
+                // $state.go('home');
             } else {
                 ModalService.showModal({
                     templateUrl: "template/modal/changePassword.html",

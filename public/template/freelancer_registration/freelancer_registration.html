@@ -599,10 +599,10 @@
                 <p class="sub-tab-title">Please provide contact details at which marketers can contact you</p>
             </div>
 
-            <h4 class="info-title">Contact Person Name</h4>
+            <h4 class="info-title">Contact Person Name*</h4>
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_name.$invalid}">
                 <md-input-container class="md-block">
-                    <input class='form-control' name="contact_name" aria-label="hidden" ng-model="freelancer.contact_detail.name"  >
+                    <input class='form-control' name="contact_name" aria-label="hidden" ng-model="freelancer.contact_detail.name" required>
 
                     <div ng-messages="submittedContact && contactForm.contact_name.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
                         <div ng-show="submittedContact && contactForm.contact_name.$error.required" ng-message="required">Contact Person Name is  </div>
@@ -610,13 +610,13 @@
                 </md-input-container>
             </div>
 
-            <h4 class="info-title">Email ID at which marketers can contact you</h4>
+            <h4 class="info-title">Email ID at which marketers can contact you*</h4>
             <div style="color: lightgrey;"><i>Will not be shared publicly</i></div>
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_email.$invalid}">
                 <md-input-container class="md-block">
                     <input class='form-control' name="contact_email" ng-model="freelancer.contact_detail.email"  
                            aria-label="hidden"
-                           ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
+                           ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' required>
 
                     <div ng-messages="submittedContact && contactForm.contact_name.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
                         <div ng-show="submittedContact && contactForm.contact_email.$error.required" ng-message="required">Email ID is  </div>
@@ -627,14 +627,13 @@
                 </md-input-container>
             </div>
 
-            <h4 class="info-title">Mobile Number to send the contact request (will not be displayed)</h4>
+            <h4 class="info-title">Mobile Number to send the contact request*</h4>
             <div style="color: lightgrey;"><i>Will not be shared publicly</i></div>
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_mobile.$invalid}">
                 <md-input-container class="md-block">
                     <input class='form-control' phone-number name="contact_mobile"
                            aria-label="hidden"
-                           ng-model="freelancer.contact_detail.mobile"
-                            >
+                           ng-model="freelancer.contact_detail.mobile" required>
 
                     <div ng-messages="submittedContact && contactForm.contact_mobile.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
                         <div ng-show="submittedContact && contactForm.contact_mobile.$error.required" ng-message="required">Mobile Number is  </div>
