@@ -209,8 +209,8 @@
         <!--<div ng-class="{'aaaaa': postjob.company.$invalid}">-->
         <div>
             <md-input-container class="md-block">
-                <div class="title3">Company name*</div>
-                <input aria-label='hidden' class="form-control" name="company" ng-model="job.company_name" required>
+                <div class="title3">Company name</div>
+                <input aria-label='hidden' class="form-control" name="company" ng-model="job.company_name">
 
                 <div ng-messages="postjob.company.$error.$invalid">
                     <div ng-show="postjob.company.$error.required" ng-message="required">
@@ -222,10 +222,9 @@
 
         <div class="row">
             <md-input-container class="md-block">
-                <div class="title3">Website URL*</div>
+                <div class="title3">Website URL</div>
                 <input aria-label='hidden' url-only class="form-control" name="website" ng-model="job.website"
-                       ng-pattern='/.+\.\w\w.*/'
-                       required>
+                       ng-pattern='/.+\.\w\w.*/'>
                 <div ng-messages="postjob.website.$error.$invalid">
                     <div ng-show="postjob.website.$error.required" ng-message="required">Website is required</div>
                     <div ng-show="postjob.website.$error.required" ng-message="required">

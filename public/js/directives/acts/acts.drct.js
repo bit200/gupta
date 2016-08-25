@@ -9,7 +9,7 @@ XYZCtrls.directive('acts', function () {
         // '<a ng-if="action.href" href="{{action.href}}">{{action.name}}</a>' +
         // '<a ng-if="action.fn" ng-click="action.fn()">{{action.name}}</a>' +
         // '</div>',
-        '<md-select ng-model="ctrl.userState">' +
+        '<md-select ng-model="ctrl.userState" style="margin: 0;">' +
         '<md-option ng-selected="true">Select action</md-option>'+
         '<md-option ng-repeat="action in actions track by $index" ng-value="state.abbrev" ng-disabled="$index === 1">'+
         '<a ng-if="action.ui_sref" ui-sref="{{action.ui_sref}}">{{action.name}}</a>' +
