@@ -42,9 +42,17 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             }
         };
 
+        scope.onSearchChange = function(event) {
+            event.stopPropagation();
+        };
         if (AuthService.isLogged()) {
             q.freelancer = http.get('/api/freelancer/me')
         }
+        
+        scope.invalid = function(valid) {console.log('valid',valid)};
+        scope.errorNotify = function(valid) {
+            notify({message: 'Before continue please fill in all required fields', duration: 3000, position: 'right', classes: "alert-danger"});
+        };
 
         $q.all(q).then(function (getContent) {
 
@@ -326,9 +334,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 });
             };
 
-            scope.onSearchChange = function(event) {
-                event.stopPropagation()
-            };
+          
 
             scope.submitWork = function () {
                 if (Object.keys(scope.freelancer.work).length === 0) {

@@ -208,7 +208,7 @@ XYZCtrls.directive('uniqueEmail', ["$http", function ($http) {
     };
 }])
 
-XYZCtrls.directive('uniqueName', ["$http", function ($http) {
+XYZCtrls.directive('uniqueName', ["$http", 'AuthService', function ($http, AuthService) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -216,15 +216,14 @@ XYZCtrls.directive('uniqueName', ["$http", function ($http) {
             element.bind('blur', function (e) {
                 if (element.val().length < 4) return;
                 ngModel.$loading = true;
-
-                $http.get("/api/uniqueName/?name=" + element.val()).success(function (data) {
+                $http.get("/api/uniqueName/", {param: {name: element.val(), id: AuthService.userID || 0}}).success(function (data) {
                     ngModel.$loading = false;
                     ngModel.$setValidity('unique', !data.count);
                 });
             });
         }
     };
-}])
+}]);
 
 
 XYZCtrls.directive('toggle', function () {
@@ -467,7 +466,7 @@ XYZCtrls.directive('flexMenu', ["$timeout", function ($timeout) {
                                 $('.flexMenu-viewMore').removeClass('active');
                                 $('.flexMenu-popup').css('display', 'none')
                             });
-                            
+
                             $('#primary_nav_wrap').addClass('visible')
                         }, 1)
                     }
@@ -610,7 +609,7 @@ XYZCtrls.directive("chatForm", function () {
                 if ((msg && msg.length) || scope.chat_area.files.length) {
                     scrollDown();
                     var email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi
-                    , phone_regex = /([0-9,+,-,-,(,)]{8,15})/gi;
+                        , phone_regex = /([0-9,+,-,-,(,)]{8,15})/gi;
                     msg = msg.replace(email_regex, '***********').replace(phone_regex, '***********');
                     if (scope.chat_area.files) {
                         Upload.upload({
@@ -676,7 +675,7 @@ XYZCtrls.directive("chatForm", function () {
 
             function afterSend(msg, isFile, files) {
                 // console.log('HERE',scope.chatRoom,user);
-                http.post('/chat/email', {chatRoom:scope.chatRoom,user:user}).then(function (resp) {
+                http.post('/chat/email', {chatRoom: scope.chatRoom, user: user}).then(function (resp) {
                     // console.log('For email',resp)
                 });
                 msg = isFile ? scope.parseMessageWithFile(msg, files) : scope.parseMessage(msg);

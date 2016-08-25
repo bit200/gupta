@@ -555,10 +555,21 @@ div.text-padding {
     min-height: 175px;
 }
 
+.alert-error {
+    border: #e62a2e;
+    background-color: #e62a2e;
+    color: white;
+}
+
 .alert-danger {
     background-color: #f2dede !important;
     border-color: #ebccd1 !important;
     color: #a94442 !important;
+}
+
+.cg-notify-close {
+    outline: none;
+    font-size: 14px !important;
 }
 
 .service-provider:hover {
