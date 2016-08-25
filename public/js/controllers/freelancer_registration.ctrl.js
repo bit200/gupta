@@ -42,15 +42,17 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             }
         };
 
-        scope.onSearchChange = function(event) {
+        scope.onSearchChange = function (event) {
             event.stopPropagation();
         };
         if (AuthService.isLogged()) {
             q.freelancer = http.get('/api/freelancer/me')
         }
-        
-        scope.invalid = function(valid) {console.log('valid',valid)};
-        scope.errorNotify = function(valid) {
+
+        scope.invalid = function (valid) {
+            console.log('valid', valid)
+        };
+        scope.errorNotify = function (valid) {
             notify({message: 'Before continue please fill in all required fields', duration: 3000, position: 'right', classes: "alert-danger"});
         };
 
@@ -113,15 +115,15 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                     })
                 }
                 scope.questions = [];
-               _.each(scope.freelancer.service_providers, function (item) {
-                   if(item.type){
-                       if(item.name){
-                           scope.questions.push(item.name)
-                       } else {
-                           scope.questions.push(item.type)
-                       }
-                   }
-               })
+                _.each(scope.freelancer.service_providers, function (item) {
+                    if (item.type) {
+                        if (item.name) {
+                            scope.questions.push(item.name)
+                        } else {
+                            scope.questions.push(item.type)
+                        }
+                    }
+                })
                 scope.questions = _.uniq(scope.questions);
             };
 
@@ -334,7 +336,6 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 });
             };
 
-          
 
             scope.submitWork = function () {
                 if (Object.keys(scope.freelancer.work).length === 0) {
@@ -384,14 +385,52 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 scope.freelancer_area.profilePreview = url
             })
         };
+        scope.setAgencyTempPreview = function (file) {
+            if (!file) {
+                notify({message: 'Upload only image!', duration: 3000, position: 'right', classes: "alert-danger"});
+                return false;
+            }
+            var typeF = file.profilePreview
+                , formatImage;
+            if (typeF) {
+                var matchImage = typeF.match(/(.+?)(\:)(.+?)(\/)/i);
+                formatImage = matchImage ? matchImage[3] : null
+            }
+            Upload.dataUrl(file, true).then(function (url) {
+                scope.freelancer.contact_detail.preview = url
+                scope.submitCropped(url, 'preview', '', file)
+            })
+        };
 
-        scope.submitCropped = function (croppedImg, type) {
+        scope.submitCropped = function (croppedImg, type, a, b) {
+            scope.errorMessage = '';
+            var typeF = b && b.profilePreview || ''
+                , format, formatImage;
+            if (typeF) {
+                var match = typeF.match(/^(.+?)(\/)(.+?)(\;)/i);
+                var matchImage = typeF.match(/(.+?)(\:)(.+?)(\/)/i);
+                format = match ? match[3] : null
+                formatImage = matchImage ? matchImage[3] : null
+            }
+            if (type == 'brochure' && format != 'pdf') {
+                scope.errorMessage = 'Only PDF file!';
+                return false;
+            }
             if (croppedImg) {
                 scope.freelancer.contact_detail = scope.freelancer.contact_detail || {};
-                switch (type){
-                    case 'logo':scope.freelancer.logo = croppedImg;break;
-                    case 'brochure':scope.freelancer.brochure = croppedImg;break;
-                    case 'preview':scope.freelancer.contact_detail.preview = croppedImg;break;
+                switch (type) {
+                    case 'logo':
+                        scope.freelancer.logo = croppedImg;
+                        break;
+                    case 'brochure':
+                        scope.freelancer.brochure = croppedImg;
+                        break;
+                    case 'preview':
+                        scope.freelancer.contact_detail.preview = croppedImg;
+                        break;
+                    case 'previewFreelancer':
+                        scope.freelancer.contact_detail.preview = croppedImg;
+                        break;
                 }
                 // scope.freelancer.contact_detail.preview = croppedImg;
                 scope.show.profilePreview = false;
@@ -399,4 +438,5 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
             }
         }
 
-    }]);
+    }])
+;

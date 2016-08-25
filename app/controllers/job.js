@@ -85,13 +85,13 @@ exports.job_count_buyer = function (req, res) {
         , ongoing = 0
         , closed = 0;
     arr.push(function (cb) {
-        m.count(models.Job, {user:params.id, status: {$in: ['Pending Approval', 'No Applicants']}}, cb, function (jopen) {
+        m.count(models.Job, {user:params.id, status: {$in: ['No Applicants']}}, cb, function (jopen) {
             open += jopen;
             cb()
         })
     });
     arr.push(function (cb) {
-        m.count(models.JobApply, {buyer: params.id, status: {$in: ["No Applicants", "Pending Approval", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]}}, cb, function (jopen) {
+        m.count(models.JobApply, {buyer: params.id, status: {$in: ["No Applicants", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]}}, cb, function (jopen) {
             open += jopen;
             cb()
         })

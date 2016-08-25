@@ -5,12 +5,13 @@
     </div>
     <div class="jbody">
         <div class="row form-group">
+            <div class="title3" style="padding: 0;">Title job*</div>
+            <div style="color: lightgrey;"><i>Not more 15 words</i></div>
             <md-input-container class="md-block">
-                <div class="title3" style="padding: 0;">Title job*</div>
-                <div style="color: lightgrey;"><i>Not more 15 words</i></div>
-                <input job-title aria-label='hidden' class="form-control" name="title" ng-model="job.title" required>
+                <input aria-label='hidden' job-title class="form-control" name="title" ng-model="job.title" required>
                 <div ng-messages="postjob.title.$error.$invalid">
-                    <div ng-show="postjob.title.$error.required" ng-message="required">{{default_empty}}
+                    <div ng-show="postjob.title.$error.required" ng-message="required">
+                        {{default_empty}}
                     </div>
                 </div>
             </md-input-container>
@@ -19,7 +20,7 @@
             <md-input-container class="md-block">
                 <div class="title3" style="padding: 0;">Description job</div>
                 <div style="color: lightgrey;"><i>Please do not share email id or phone numbers.</i></div>
-                <input job-title aria-label='hidden' class="form-control" name="title" ng-model="job.description">
+                <input job-title aria-label='hidden' class="form-control" name="description" ng-model="job.description">
             </md-input-container>
         </div>
 
@@ -46,27 +47,39 @@
         </div>
 
         <div class="row">
-            <div class="title3">Do you have a preference for a type of professional?*</div>
+            <div class="title3" style="padding: 0">Do you have a preference for a type of professional?*</div>
+            <div style="padding-bottom: 10px" ng-messages="postjob.agency.$error.$invalid && postjob.freelancer.$error.$invalid">
+                <div ng-show="postjob.agency.$error.required && postjob.freelancer.$error.required" ng-message="required" style="color: lightgrey">
+                    <i>Please select one or more</i>
+                </div>
+            </div>
             <div>
-                <md-checkbox ng-required="job.content_types.agency || !job.content_types.freelancer" ng-model="job.content_types.agency" name="type" class="checkdark" required>Agency
+                <md-checkbox ng-required="job.content_types.agency || !job.content_types.freelancer" ng-model="job.content_types.agency" name="agency" class="checkdark" required>Agency
                 </md-checkbox>
             </div>
             <div>
-                <md-checkbox ng-required="!job.content_types.agency || job.content_types.freelancer" ng-model="job.content_types.freelancer" name="type" class="checkdark" required>Freelancer
+                <md-checkbox ng-required="!job.content_types.agency || job.content_types.freelancer" ng-model="job.content_types.freelancer" name="freelancer" class="checkdark" required>Freelancer
                 </md-checkbox>
             </div>
+
+
         </div>
 
         <div class="row">
             <div class="md-block">
                 <h4 class="info-title">Do you have a location preference?*</h4>
+                <div style="padding-bottom: 10px" ng-messages="postjob.local_preference.$error.$invalid">
+                    <div ng-show="postjob.local_preference.$error.required" ng-message="required" style="color: lightgrey">
+                        <i>Please select one or more</i>
+                    </div>
+                </div>
                 <div class="form-group testDisplay">
                     <md-input-container class="full-width">
                         <label> </label>
                         <md-select ng-model="job.local_preference"
                                    md-on-close="clearSearchTerm()"
                                    data-md-container-class="selectdemoSelectHeader"
-                                   multiple>
+                                   multiple name="local_preference" required>
                             <md-select-header class="demo-select-header">
                                 <input ng-model="searchTerm"
                                        type="search"
@@ -78,10 +91,10 @@
                                 </md-option>
                             </md-optgroup>
                         </md-select>
+                        <div ng-messages=" postjob.cities.$error.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
+                            <div ng-show=" postjob.cities.$error.required" ng-message="required">Required field</div>
+                        </div>
                     </md-input-container>
-                    <div ng-messages="postjob.cities.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                        <div ng-show="postjob.cities.$error.required" ng-message="required">Required field</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -201,7 +214,7 @@
                         {{default_empty}}
                     </div>
                     <div ng-show="!postjob.email.$error.required && postjob.email.$error.pattern"
-                         ng-message="pattern">Email  is invalid
+                         ng-message="pattern">Email is invalid
                     </div>
                 </div>
             </md-input-container>
@@ -271,6 +284,6 @@
                 </div>
             </div>
         </div>
-        <btns list_scope="{{btns}}"></btns>
+        <btns ng-click="submitPost = true" list_scope="{{btns}}"></btns>
     </div>
 </form>

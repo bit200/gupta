@@ -51,7 +51,7 @@ module.exports = function (app) {
         , {populate: 'user', sort: '-created_at'}, app);
 
 
-    job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{buyer: this.userId, status: {$in: ["No Applicants","Pending Approval", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]} }'
+    job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{buyer: this.userId, status: {$in: ["No Applicants", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]} }'
         , {populate: 'job freelancer contract', sort: '-created_at'}, app);
 
     job.fn('/api/jobs/buyer/open/new', auth.token, 'JobApply', '{ buyer: this.userId, status: "No Applicants" }'
@@ -76,7 +76,7 @@ module.exports = function (app) {
 
 
 
-    job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["No Applicants","Pending Approval","Seller approving","Rejected by seller", "Rejected by buyer"]} }'
+    job.fn('/api/jobs/seller/open', auth.token, 'JobApply', '{ seller: this.userId, status: {$in: ["No Applicants","Seller approving","Rejected by seller", "Rejected by buyer"]} }'
         , {populate: 'job freelancer buyer contract', sort: '-created_at'}, app);
 
     job.fn('/api/jobs/seller/open/new', auth.token, 'Job', '{ seller: this.userId, status: {$in: ["No Applicants"]} }'

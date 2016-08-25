@@ -138,7 +138,13 @@
                 </div>
 
 
-                <div class="text-right pointer floatL full-width" style="margin-bottom: 40px" ng-click="show.profilePreview=true; show.typeImg ='preview'">
+                <!--<div class="pointer attach-sample-button" class="pointer" ngf-select="addPastClientFile($file)" ngf-pattern="'image/*'" ngf-multiple="false">-->
+                    <!--<ng-md-icon icon="attach_file" size="16"></ng-md-icon>-->
+                    <!--<span style="position:relative;font-size: 14px;top:-3px;">Attach Logo</span>-->
+                <!--</div>-->
+                <!--<img ngf-src="newPastClient.preview_attachment" style="width: 30px;height: auto;" ngf-thumbnail="newPastClient.preview_attachment" class="thumb">-->
+
+                <div class="text-right pointer floatL full-width" style="margin-bottom: 40px" ngf-select="setAgencyTempPreview($file)" ngf-pattern="'image/*'" ngf-multiple="false">
                     <img ng-src="{{freelancer.contact_detail.preview}}" style="max-width: 70px" ng-if="freelancer.contact_detail.preview">
                     <ng-md-icon class="floatL" icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
                     <span class="floatL" style="font-size: 20px">Please upload your agency logo</span>
@@ -466,7 +472,7 @@
                                     <img ng-src="{{past_client.attachment.url}}" style="width: 30px;height: auto;">
                                 </td>
                                 <td style="width: 90px">
-                                    <a style="top: 10px;position: relative;color: red;" class="pointer" href="" ng-click="freelancer.past_clients.splice($index,1);deletePastClient(past_client._id)">
+                                    <a style="top: 10px;position: relative;color: red;" class="pointer" href="" ng-click="freelancer.past_clients.splice($index,1);">
                                         <ng-md-icon icon="control_point" style="fill: red;position: relative;top: 3px;" size="16"></ng-md-icon>
                                         Remove
                                     </a>
@@ -667,6 +673,7 @@
             <form name="myForm">
                 <fieldset ng-init="freelancer_area.profilePreview=freelancer.contact_detail.preview || ''">
                     <legend>Upload the file</legend>
+                    <h3 style="color: red; margin: 0">{{errorMessage}}</h3>
                     <div ngf-drop ng-hide="freelancer_area.profilePreview" ngf-select="setProfileTempPreview($file)" class="drop-box">Drop file or click</div>
                     <div style="width: 100%;height: 300px" ng-show="freelancer_area.profilePreview">
                         <img-crop area-type="square" image="freelancer_area.profilePreview" result-image="freelancer_area.croppedProfile">
@@ -674,7 +681,7 @@
                     </div>
                     <div style="text-align: center;margin-top: 10px;">
                         <button class="btn regular-button" ng-click="freelancer_area.profilePreview='';" style="height:45px; padding-left: 25px! important;padding-right: 25px! important;">Upload New</button>
-                        <button class="btn regular-button" ng-click="submitCropped(freelancer_area.croppedProfile, show.typeImg)" style="height:45px;">Submit</button>
+                        <button class="btn regular-button" ng-click="submitCropped(freelancer_area.croppedProfile, show.typeImg, show, freelancer_area  )" style="height:45px;">Submit</button>
                         <button class="btn regular-button" ng-click="freelancer_area.croppedProfile='';show.profilePreview=false;" style=" height:45px;">CANCEL</button>
                     </div>
                 </fieldset>
