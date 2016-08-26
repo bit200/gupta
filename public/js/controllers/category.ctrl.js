@@ -48,7 +48,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         };
         scope.slider = {
             experience: {
-                value: 0,
+                minValue: 0,
+                maxValue: 15,
                 options: {
                     floor: 0,
                     ceil: 15,
@@ -73,12 +74,14 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                         return value + ' years';
                     },
                     onEnd: function (r) {
-                        scope.submitFilter(scope.ownFilter); // logs 'on end slider-id'
+                        scope.ownFilter.experience = {'$gte': scope.slider.experience.minValue, '$lte': scope.slider.experience.maxValue};
+                        scope.submitFilter(scope.ownFilter);
                     }
                 }
             },
             rating: {
-                value: 0,
+                minValue: 0,
+                maxValue: 5,
                 options: {
                     floor: 0,
                     ceil: 5,
@@ -98,35 +101,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                             return value + ' stars'
                         }
                     },
-                    onStart: function (r) {
-                        if (!scope.checkRating)
-                            scope.checkRating = 'more';
-                    },
                     onEnd: function (r) {
-                        scope.checkRating == 'more' ? scope.ownFilter.rating = {'$gte': scope.slider.rating.value} : scope.ownFilter.rating = {'$lte': scope.slider.rating.value};
-                        scope.submitFilter(scope.ownFilter);
-                    }
-                }
-            },
-            views: {
-                value: 0,
-                options: {
-                    floor: 0,
-                    ceil: 25000,
-                    step: 100,
-                    showSelectionBar: true,
-                    getPointerColor: function (value) {
-                        return '#B9B6B9';
-                    },
-                    getSelectionBarColor: function (value) {
-                        return '#B9B6B9';
-                    },
-                    onStart: function (r) {
-                        if (!scope.checkViews)
-                            scope.checkViews = 'more';
-                    },
-                    onEnd: function (r) {
-                        scope.checkViews == 'more' ? scope.ownFilter.views = {'$gte': scope.slider.views.value} : scope.ownFilter.views = {'$lte': scope.slider.views.value};
+                        scope.ownFilter.rating = {'$gte': scope.slider.rating.minValue, '$lte': scope.slider.rating.maxValue};
                         scope.submitFilter(scope.ownFilter);
                     }
                 }
@@ -178,27 +154,10 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.submitFilter = function () {
             var filter = angular.copy(scope.ownFilter);
             if (filter.location) {
-                filter.location = objInArr(filter.location);
-                console.log(filter.location);
-            }
-            filter.experience = scope.slider.experience.value;
-
-            if (scope.date && scope.date.start) {
-                filter.created_at = filter.created_at || {};
-                filter.created_at['$gte'] = scope.date.start
+                filter.location = {$in:filter.location}
             }
 
-            if (scope.date && scope.date.end) {
-                filter.created_at = filter.created_at || {};
-                filter.created_at['$lte'] = scope.date.end
-            }
 
-            if (scope.checkRating) {
-                scope.checkRating == 'more' ? filter.rating = {'$gte': scope.slider.rating.value} : filter.rating = {'$lte': scope.slider.rating.value};
-            }
-            if (scope.checkViews) {
-                scope.checkViews == 'more' ? filter.views = {'$gte': scope.slider.views.value} : filter.views = {'$lte': scope.slider.views.value};
-            }
 
             if (rootScope.activeProvider && Object.keys(rootScope.activeProvider).length) {
                 var t = {
@@ -242,9 +201,24 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
             _.extend(filter, t);
             http.get('/api/freelancers?' + $.param(filter)).success(function (resp) {
                 scope.freelancers = scope.profiles = parseRating.views(resp.data);
+
                 scope.loading = false;
             })
         };
+        scope._sort = {};
+        scope.sortBy = '';
+        
+        scope.sorting = function (text, name, model) {
+            scope._sort[name] = model != true ? delete scope._sort[name] : text;
+            console.log('scope.sort', scope._sort);
+            scope.sortBy = _.without(_.toArray(scope._sort),true);
+            console.log('scope.sortBy', scope.sortBy)
+        };
+
+        scope.keydown = function(ev){
+            ev.stopPropagation();
+        };
+
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);

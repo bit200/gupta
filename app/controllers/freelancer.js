@@ -61,17 +61,15 @@ exports.get_freelancers_count = function (req, res) {
 };
 
 exports.get_freelancers = function (req, res) {
-    var params = req.query;
+    var params = m.getBody(req);
     params.registrationStatus = 1;
-    if (params.experience)
-        params.experience = {$gte: parseInt(params.experience)};
     if (params["service_packages.0"]) {
         params["service_packages.0"] = {
             $exists: params["service_packages.0"] == 'true'
         }
     }
-    if (params.location)
-        params.location = {$in:params.location};
+    // if (params.location)
+    //     params.location = {$in:params.location};
     if (params.name)
         params.name = new RegExp(params.name, "i");
     if (params.count) {

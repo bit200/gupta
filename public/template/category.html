@@ -4,7 +4,33 @@
 
 <div class="container" style="margin-top: 2%">
     <div class="row">
+
         <div class="col-md-3">
+            <div>
+                <a class="btn full-width button-profile" ui-sref="freelancer_registration" style="height: 34px;margin-top: 10px;">List your Services</a>
+                <a class="btn full-width button-profile" ui-sref="how_it_work" style="height: 34px;margin-top: 10px;">How it Works</a>
+            </div>
+            <div class="user-topic">
+                <div class="user-topic-header">
+                    Sort By
+                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.sort}" ng-click="close.sort = !close.sort"></ng-md-icon>
+                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.sort}" ng-click="close.sort = !close.sort"></ng-md-icon>
+                </div>
+                <div toggle="close.sort">
+                    <div>
+                        <md-checkbox ng-model="sort._rating" ng-change="sorting('-rating', 'rating', sort._rating)" class="md-warn">Rating</md-checkbox>
+                    </div>
+                    <div>
+                        <md-checkbox ng-model="sort._view" ng-change="sorting('-views','view', sort._view)" class="md-warn">Profile Views</md-checkbox>
+                    </div>
+                    <div>
+                        <md-checkbox ng-model="sort.high" ng-change="sort.low = false;sorting('-price.price', 'price', sort.high)" class="md-warn">High to Low Price</md-checkbox>
+                    </div>
+                    <div>
+                        <md-checkbox ng-model="sort.low" ng-change="sort.high = false;sorting('price.price', 'price', sort.low)" class="md-warn">Low to High Price</md-checkbox>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div class="user-topic-header">
                     WORK TYPE
@@ -21,11 +47,13 @@
 
 
             <section ng-if="activeProvider.name">
+
                 <div ng-class="{'topic-close':close[activeProvider.name]}" class="user-topic" ng-if="(activeProvider.values | filter:{subFilter:'!'}).length">
                     <div class="user-topic-header">
                         {{activeProvider.name}}
-                        <ng-md-icon ng-show="activeProvider.values.length>1" icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
-                        <ng-md-icon  icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
+                        <ng-md-icon ng-show="activeProvider.values.length>1" icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close[activeProvider.name]}"
+                                    ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
+                        <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close[activeProvider.name]}" ng-click="close[activeProvider.name] = !close[activeProvider.name]"></ng-md-icon>
                     </div>
                     <div toggle="close[activeProvider.name]">
                         <div ng-if="activeProvider.values.length>5">
@@ -79,7 +107,7 @@
                     <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.experience}" ng-click="close.experience = !close.experience"></ng-md-icon>
                 </div>
                 <div toggle="close.experience">
-                    <rzslider rz-slider-model="slider.experience.value" rz-slider-options="slider.experience.options"></rzslider>
+                    <rzslider rz-slider-model="slider.experience.minValue" rz-slider-high="slider.experience.maxValue" rz-slider-options="slider.experience.options"></rzslider>
                 </div>
             </div>
 
@@ -90,9 +118,21 @@
                     <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.location}" ng-click="close.location = !close.location"></ng-md-icon>
                 </div>
                 <div toggle="close.location">
-                    <div ng-repeat="item in arrayLocations">
-                        <md-checkbox ng-model="ownFilter.location[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>
-                    </div>
+                    <!--<div ng-repeat="item in arrayLocations">-->
+                        <!--<md-checkbox ng-model="ownFilter.location[item]" ng-change="submitFilter(ownFilter)" class="md-warn">{{item}}</md-checkbox>-->
+                    <!--</div>-->
+                    <md-input-container class="full-width">
+                        <label>Filter by location</label>
+                        <md-select ng-model="ownFilter.location" md-on-close="submitFilter(ownFilter)" data-md-container-class="selectdemoSelectHeader" multiple name="local_preference">
+                            <md-select-header class="demo-select-header">
+                                <input ng-model="searchTerm" type="search" ng-keydown="keydown($event)" placeholder="Search for a locations.." class="demo-header-searchbox md-text">
+                            </md-select-header>
+                            <md-optgroup label="locations">
+                                <md-option ng-value="item" ng-repeat="item in arrayLocations | filter:searchTerm">{{item}}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>
                 </div>
             </div>
 
@@ -118,59 +158,12 @@
                 </div>
                 <div toggle="close.rating">
                     <div>
-                        <div>
-                            <md-radio-group ng-model="checkRating" ng-change="submitFilter()">
-                                <md-radio-button value="more" class="md-primary">More then</md-radio-button>
-                                <md-radio-button value="less">Less then</md-radio-button>
-                            </md-radio-group>
-                        </div>
-                    </div>
-                    <div>
-                        <rzslider rz-slider-model="slider.rating.value" rz-slider-options="slider.rating.options"></rzslider>
+                        <rzslider rz-slider-model="slider.rating.minValue" rz-slider-high="slider.rating.maxValue" rz-slider-options="slider.rating.options"></rzslider>
                     </div>
                 </div>
             </div>
 
-            <div class="user-topic">
-                <div class="user-topic-header">
-                    Views
-                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.views}" ng-click="close.views = !close.views"></ng-md-icon>
-                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.views}" ng-click="close.views = !close.views"></ng-md-icon>
-                </div>
-                <div toggle="close.views">
-                    <div>
-                        <div>
-                            <md-radio-group ng-model="checkViews" ng-change="submitFilter()">
-                                <md-radio-button value="more" class="md-primary">More then</md-radio-button>
-                                <md-radio-button value="less">Less then</md-radio-button>
-                            </md-radio-group>
-                        </div>
-                    </div>
-                    <div>
-                        <rzslider rz-slider-model="slider.views.value" rz-slider-options="slider.views.options"></rzslider>
-                    </div>
-                </div>
-            </div>
 
-            <div class="user-topic">
-                <div class="user-topic-header">
-                    Date registration
-                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.dateReg}" ng-click="close.dateReg = !close.dateReg"></ng-md-icon>
-                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.dateReg}" ng-click="close.dateReg = !close.dateReg"></ng-md-icon>
-                </div>
-                <div toggle="close.dateReg">
-                    <div>
-                        <h4>Registered not later than</h4>
-                        <div>
-                            <md-datepicker ng-change="submitFilter()" md-placeholder="Enter end date" ng-model="date.start" md-open-on-focus=""></md-datepicker>
-                        </div>
-                        <h4>Registered not earlier than</h4>
-                        <div>
-                            <md-datepicker ng-change="submitFilter()" md-placeholder="Enter start date" ng-model="date.end" md-open-on-focus=""></md-datepicker>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="col-md-9">
@@ -183,7 +176,7 @@
             <div ng-if="!loading">
                 <h3 ng-if="!(freelancers | orderBy:category_active | filter:mainSearch).length" style="text-align: center">Not found</h3>
                 <div class="row">
-                    <div class="col-md-4 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | filter:mainSearch">
+                    <div class="col-md-4 col-xs-6" ng-repeat="profile in freelancers | orderBy:category_active | orderBy:sortBy | filter:mainSearch">
 
                         <!--<div class="profile-detail">-->
                         <!--<div class="img-block">-->
@@ -202,12 +195,12 @@
                         <!--<div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>-->
                         <!--</div>-->
                         <!--</div>-->
-                        <div class="profile inline-block full-width flip-container" ontouchstart="this.classList.toggle('hover');" style="cursor: pointer; border: none">
+                        <div class="profile find-profile inline-block full-width flip-container" ontouchstart="this.classList.toggle('hover');" style="cursor: pointer; border: none">
                             <div class="flipper">
-                                <div class="flip-front" style="border: 1px solid #ddd">
+                                <div class="flip-front find-profile" style="border: 1px solid #ddd">
                                     <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)"
                                          style="z-index: 9999999999999"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
-                                    <div class="profile-img">
+                                    <div class="profile-img-category" style="height: 220px;">
                                         <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
                                     </div>
                                     <div class="profile-info" style="color: #000000">
@@ -223,19 +216,19 @@
                                                 <div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>
                                             </div>
                                         </div>
-                                        <div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">
-                                            <div class="inline-block" style="width: 13%;height: 30px;position: relative">
-                                                <img ng-if="profile.service_providers[0].type != 'Content and Translation'" style="color:black;fill:black; height: 100%" class="text-center"
-                                                     ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}.svg">
-                                                <img ng-if="profile.service_providers[0].type == 'Content and Translation'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center"
-                                                     ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}F.svg">
-                                            </div>
-                                            <div ng-if="profile.service_providers[0].type != 'Content and Translation'" class="inline-block profile-service-provider">{{profile.service_providers[0].type}}</div>
-                                            <div ng-if="profile.service_providers[0].type == 'Content and Translation'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type}}</div>
-                                        </div>
+                                        <!--<div class="profile-info-type" ng-class="{paddingB3:profile.service_providers[0].type == 'Content Writing' || profile.service_providers[0] == 'Content Writing'}">-->
+                                        <!--<div class="inline-block" style="width: 13%;height: 30px;position: relative">-->
+                                        <!--<img ng-if="profile.service_providers[0].type != 'Content and Translation'" style="color:black;fill:black; height: 100%" class="text-center"-->
+                                        <!--ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}.svg">-->
+                                        <!--<img ng-if="profile.service_providers[0].type == 'Content and Translation'" style="color:black;fill:black;position: absolute;height: 45px;" class="text-center"-->
+                                        <!--ng-src="/img/{{(profile.service_providers[0].type).split(' ').join('-').toLowerCase()}}F.svg">-->
+                                        <!--</div>-->
+                                        <!--<div ng-if="profile.service_providers[0].type != 'Content and Translation'" class="inline-block profile-service-provider">{{profile.service_providers[0].type}}</div>-->
+                                        <!--<div ng-if="profile.service_providers[0].type == 'Content and Translation'" class="inline-block profile-service-provider" style="bottom: 10px">{{profile.service_providers[0].type}}</div>-->
+                                        <!--</div>-->
                                     </div>
                                 </div>
-                                <div class="flip-back">
+                                <div class="flip-back find-profile">
                                     <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)"
                                          style="z-index: 9999999999999"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
                                     <div class="profile-back" style="height: 112%; margin-top: -15%; padding-top: 15%;" ui-sref="profile({id: profile._id})">

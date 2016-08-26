@@ -8,6 +8,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
+            <div style="margin-bottom: 15px">
+                <a class="btn full-width button-profile" ui-sref="freelancer_registration" style="height: 34px;margin-top: 10px;">List your Services</a>
+                <a class="btn full-width button-profile" ui-sref="how_it_work" style="height: 34px;margin-top: 10px;">How it Works</a>
+            </div>
             <div class="profile-wrapper">
                 <img class="full-width" ng-src="{{viewProfile.contact_detail.preview}}">
                 <h3 class="profile-name">{{viewProfile.name}}</h3>
@@ -60,10 +64,7 @@
                     </table>
                 </div>
             </div>
-            <div>
-                <a class="btn full-width button-profile" ui-sref="freelancer_registration" style="height: 34px;margin-top: 10px;">List your Services</a>
-                <a class="btn full-width button-profile" ui-sref="how_it_work" style="height: 34px;margin-top: 10px;">How it Works</a>
-            </div>
+
         </div>
         <div class="col-md-9">
             <div class="row registration-tab-menu" ng-init="active_profile_menu = 'pricing'" style="margin-bottom: 20px;margin-left: 0px;margin-right: 0px;">
@@ -94,9 +95,7 @@
                                                 <span> {{replaceAlt(viewProfile.introduction)}} </span>
                                             </td>
                                             <td style="width: 35%">
-                                                <span ng-if="viewProfile.price.hour" class="text-bold">{{viewProfile.price.hour}} / Hr</span>
-                                                <span ng-if="viewProfile.price.hour && viewProfile.price.word">, </span>
-                                                <span ng-if="viewProfile.price.word" class="text-bold">{{viewProfile.price.word}} / Word</span>
+                                                <span ng-if="viewProfile.price" class="text-bold">{{viewProfile.price.price}} / {{viewProfile.price.description}}</span>
                                             </td>
                                             <td style="width: 25%">
                                                 <button class="btn button-profile" ng-click="createChat(viewProfile.user, viewProfile.name)">Request a Quote</button>
@@ -147,6 +146,8 @@
                                                     {{pkg.title}}
                                                 </div>
                                                 <div style="padding: 10px 10px 0; color: #777">{{pkg.description}}</div>
+                                                <div style="color: #000000;padding: 0px 10px 10px; margin-top: 10px">
+                                                    <b>Delivery time {{pkg.delivery_time}} {{pkg.delivery_time > 1 ? 'Days': 'Day'}}</b></div>
                                                 <div style="color: #000000;padding: 0px 10px 10px; margin-top: 10px">
                                                     <b><i class="fa fa-inr" aria-hidden="true"></i>{{pkg.pricing}} / Monthly</b></div>
                                                 <button class="btn button-profile" style="min-height: 24px; line-height: 24px;  font-size: 14px !important;
