@@ -207,12 +207,14 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         };
         scope._sort = {};
         scope.sortBy = '';
-        
+
+        $state.current.ncyBreadcrumb.labelArr[3] = '/';
+        $state.current.ncyBreadcrumb.labelArr[5]=$state.current.ncyBreadcrumb.labelArr[2]
+        $state.current.ncyBreadcrumb.labelArr[2]=createServiceProviderUlr(stateParams.type);
+
         scope.sorting = function (text, name, model) {
             scope._sort[name] = model != true ? delete scope._sort[name] : text;
-            console.log('scope.sort', scope._sort);
             scope.sortBy = _.without(_.toArray(scope._sort),true);
-            console.log('scope.sortBy', scope.sortBy)
         };
 
         scope.keydown = function(ev){

@@ -107,7 +107,7 @@
                 if (allInPopup) {
                     $this.append('<li class="flexMenu-viewMore flexMenu-allInPopup"><a href="#" title="' + s.linkTitleAll + '">' + s.linkTextAll + '</a></li>');
                 } else {
-                    $this.append('<li class="flexMenu-viewMore"><a href="#" title="' + s.linkTitle + '">' + s.linkText + '</a></li>');
+                    $this.append('<li class="flexMenu-viewMore"><a style="font-size: 12px" href="#" title="' + s.linkTitle + '">' + s.linkText + '</a></li>');
                 }
                 $moreItem = $this.find('> li.flexMenu-viewMore');
                 /// Check to see whether the more link has been pushed down. This might happen if the link immediately before it is especially wide.
