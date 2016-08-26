@@ -279,7 +279,7 @@ exports.approve_registration = function (req, res) {
             return res.send(200)
         }
 
-        m.create(models.User, {email: freelancer.contact_detail.email, password: password, first_singin: 1}, res, function (user) {
+        m.create(models.User, {email: freelancer.contact_detail.email, password: password, first_signin: 1}, res, function (user) {
             freelancer.user = user;
             freelancer.registrationStatus = 1;
             freelancer.save(function () {

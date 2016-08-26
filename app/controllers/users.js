@@ -28,7 +28,7 @@ exports.me = function (req, res) {
 
 exports.first_signIn = function (req, res) {
     var params = m.getBody(req);
-    m.findUpdate(models.User, {_id: params.userId}, {first_singin: 0}, res, res)
+    m.findUpdate(models.User, {_id: params.userId}, {first_signin: 0}, res, res)
 };
 
 exports.update_password = function (req, res) {
@@ -38,7 +38,7 @@ exports.update_password = function (req, res) {
             if (err || !isMatch) {
                 return m.ecb(401, err, res)
             }
-            m.findUpdate(models.User, {_id: params.userId || req.userId}, {password: md5(params.newPassword), first_singin: 0}, res, res)
+            m.findUpdate(models.User, {_id: params.userId || req.userId}, {password: md5(params.newPassword), first_signin: 0}, res, res)
         });
     })
 };

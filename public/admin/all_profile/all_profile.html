@@ -4,16 +4,30 @@
     </div>
     <div style="margin-top: 20px" ng-if="!showModal">
         <!--<div ng-init="display.type = 'freelancers'; check('freelancers')" class="text-center">-->
-            <!--<md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">-->
-                <!--<md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block" style="outline: none">Freelancers</md-radio-button>-->
-                <!--<md-radio-button ng-class="{active_tab: display.type == 'agency'}" ng-click="check('agency')" value="agency" class="md-primary inline-block" style="outline: none">Agency</md-radio-button>-->
-                <!--<md-radio-button ng-class="{active_tab: display.type == 'users'}" ng-click="check('users')" value="users" style="margin-left: 50px;display:inline-block;outline: none">Users</md-radio-button>-->
-            <!--</md-radio-group>-->
+        <!--<md-radio-group ng-model="display.type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none">-->
+        <!--<md-radio-button ng-class="{active_tab: display.type == 'freelancers'}" ng-click="check('freelancers')" value="freelancers" class="md-primary inline-block" style="outline: none">Freelancers</md-radio-button>-->
+        <!--<md-radio-button ng-class="{active_tab: display.type == 'agency'}" ng-click="check('agency')" value="agency" class="md-primary inline-block" style="outline: none">Agency</md-radio-button>-->
+        <!--<md-radio-button ng-class="{active_tab: display.type == 'users'}" ng-click="check('users')" value="users" style="margin-left: 50px;display:inline-block;outline: none">Users</md-radio-button>-->
+        <!--</md-radio-group>-->
         <!--</div>-->
         <h2 ng-if="!all_profiles.length" class="text-center">No accounts</h2>
-
+        <!--<caption class="btn-toolbar bottom">-->
+        <!--<button  class="btn btn-default xlsx">Export to xlsx-->
+        <!--</button>-->
+        <!--<button data-fileblob="" class="btn btn-default xls">Export to xls-->
+        <!--</button>-->
+        <!--<button data-fileblob="{&quot;data&quot;:&quot;Rank,Country,Population,% of world population,Date\r\n1,中华人民共和国 (People's Republic of China),1,370,570,000,18.9%,June 24, 2015\r\n2,India,1,273,140,000,17.6%,June 24, 2015\r\n3,United States \&quot;USA\&quot;,321,268,000,4.43%,June 24, 2015\r\n4,Indonesia,255,461,700,3.52%,July 1, 2015\r\n5,Brazil,204,503,000,2.82%,June 24, 2015\r\n6,Pakistan,190,156,000,2.62%,June 24, 2015\r\n7,Nigeria,183,523,000,2.53%,July 1, 2015\r\n8,Bangladesh,126,880,000,2.19%,June 24, 2015&quot;,&quot;fileName&quot;:&quot;Population-list-1&quot;,&quot;mimeType&quot;:&quot;application/csv&quot;,&quot;fileExtension&quot;:&quot;.csv&quot;}"-->
+        <!--class="btn btn-default csv">Export to csv-->
+        <!--</button>-->
+        <!--<button data-fileblob="{&quot;data&quot;:&quot;Rank  Country  Population  % of world population  Date\r\n1  中华人民共和国 (People's Republic of China)  1,370,570,000  18.9%  June 24, 2015\r\n2  India  1,273,140,000  17.6%  June 24, 2015\r\n3  United States \&quot;USA\&quot;  321,268,000  4.43%  June 24, 2015\r\n4  Indonesia  255,461,700  3.52%  July 1, 2015\r\n5  Brazil  204,503,000  2.82%  June 24, 2015\r\n6  Pakistan  190,156,000  2.62%  June 24, 2015\r\n7  Nigeria  183,523,000  2.53%  July 1, 2015\r\n8  Bangladesh  126,880,000  2.19%  June 24, 2015&quot;,&quot;fileName&quot;:&quot;Population-list-1&quot;,&quot;mimeType&quot;:&quot;text/plain&quot;,&quot;fileExtension&quot;:&quot;.txt&quot;}"-->
+        <!--class="btn btn-default txt">Export to txt-->
+        <!--</button>-->
+        <!--</caption>-->
+        <div>
+                <a class="btn btn-default" style="float: right; margin: 0 30px 30px" ng-href="{{downloadUrl}}">Export to Excel</a>
+        </div>
         <div class="portlet-body">
-            <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='freelancers'">
+            <table id="ff" class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='freelancers'">
                 <thead>
                 <tr>
                     <td class="text-bold pointer">Name</td>
@@ -52,7 +66,7 @@
         </div>
 
         <div class="portlet-body">
-            <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='agency'">
+            <table id="agency" class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='agency'">
                 <thead>
                 <tr>
                     <td class="text-bold pointer">Name</td>
@@ -82,7 +96,7 @@
                     <td>{{all_profile.created_at}}</td>
                     <td>
                         <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_profile, display.type)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-eye inline-block"
-                                                                                                                         style="outline: none"></span></button>
+                                                                                                                                  style="outline: none"></span></button>
                         <button class="btn btn-sm btn-star white" ng-click="getFavorite(all_profile, $index)"><span ng-class="{red:all_profile.sorted, white:!all_profile.sorted}" class="pointer fa fa-star inline-block" style="outline: none"></span>
                         </button>
                         <button class="btn btn-sm btn-pencil white" ng-click="getInformation(true,all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
@@ -94,7 +108,7 @@
         </div>
 
         <div class="portlet-body">
-            <table class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='users'">
+            <table id="user" class="table table-bordered table-hover" ng-if="all_profiles.length && display.type=='users'">
                 <thead>
                 <tr>
                     <td class="text-bold pointer">First Name</td>

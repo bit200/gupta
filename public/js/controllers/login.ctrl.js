@@ -4,7 +4,7 @@ XYZCtrls.controller('loginCtrl', ['$scope', '$http', 'AuthService', '$state', 'l
         $scope.loginError = '';
         if (invalid) return;
         $http.get('/sign-in', {params: {email: data.email, password: data.password}}).success(function (resp) {
-            if (!resp.data.user.first_singin) {
+            if (!resp.data.user.first_signin) {
                 AuthService.setTokens({
                     accessToken: resp.data.accessToken.value,
                     refreshToken: resp.data.refreshToken.value

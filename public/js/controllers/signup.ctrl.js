@@ -45,7 +45,7 @@ XYZCtrls.controller('signupCtrl', ['$scope', '$state', 'AuthService', '$http', '
                 });
             }, {});
         }
-
+            
     };
     $(document).on( "fbInit", function() {
         $scope.login = function () {

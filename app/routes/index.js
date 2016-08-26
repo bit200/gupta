@@ -13,6 +13,7 @@ module.exports = function (app) {
     
     app.get('/get-content', index.get_content);
     app.get('/get-filters', index.get_filters);
+    app.get('/excel', index.excel);
     
     app.get('/get-agency', auth.checkIfUser, index.get_agency);
     app.get('/get-client',auth.token, index.get_client);

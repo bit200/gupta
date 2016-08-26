@@ -30,7 +30,6 @@ angular.module('admin.all_profile', [
 
     .controller('AllProfileCtrl', function AllProfileController($scope, $http, $stateParams,$state, store, jwtHelper, ModalService, getContent, notify) {
         $scope.selectFilter = 'pending';
-        console.log('$stateProvider',$state)
         $state.current.data.name = 'Profile > ' + $state.params.type;
         $scope.locations = getContent.location.data.data;
         $scope.display = {type: $stateParams.type};
@@ -39,6 +38,7 @@ angular.module('admin.all_profile', [
             $http.post('/admin/api/all', {model: 'Freelancer', limit: $scope.configPagination.countByPage, skip: _skip}).then(function (resp) {
                 $scope.display.type = 'freelancers';
                 $scope.all_profiles = resp.data.data.data;
+
                 if ($scope.configPagination.totalCount != resp.data.data.count) {
                     $scope.configPagination.totalCount = resp.data.data.count;
                     $scope.configPagination.currentPage = 1;
@@ -61,6 +61,22 @@ angular.module('admin.all_profile', [
             })
 
         };
+        $scope.downloadUrl = '';
+        switch ($state.params.type) {
+            case 'freelancers':
+                $scope.downloadUrl = '/excel?model=Freelancer&type=freelancer';
+                break;
+            case 'agency':
+                $scope.downloadUrl = '/excel?model=Freelancer&type=agency';
+                break;
+            case 'users':
+                $scope.downloadUrl = '/excel?model=User&type=user';
+                break;
+            default:
+                break;
+        }
+
+
 
         $scope.cb = function (page) {
             switch ($scope.display.type) {

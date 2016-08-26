@@ -31,7 +31,7 @@ var UserSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    first_singin: {
+    first_signin: {
         type: Number,
         default: 0
     },
