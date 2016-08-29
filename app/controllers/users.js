@@ -230,15 +230,17 @@ exports.check_unique = function (req, res) {
 };
 
 exports.check_unique_freelancer = function (req, res) {
+    var params = m.getBody(req);
     var name = req.query.name || ''
         ,id = req.query.id || 0
         , query = {};
-    if (id){
+    if (id > 0){
         query.name = name;
         query._id = id;
     } else {
         query.name = name;
     }
+
     models.Freelancer.count(query).exec(function (err, count) {
         res.status(200).json({count: count});
     })

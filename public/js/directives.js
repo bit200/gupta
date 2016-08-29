@@ -216,7 +216,7 @@ XYZCtrls.directive('uniqueName', ["$http", 'AuthService', function ($http, AuthS
             element.bind('blur', function (e) {
                 if (element.val().length < 4) return;
                 ngModel.$loading = true;
-                $http.get("/api/uniqueName/", {param: {name: element.val(), id: AuthService.userID || 0}}).success(function (data) {
+                $http.get("/api/uniqueName/", {params: {name: element.val(), id: AuthService.userID || 0}}).success(function (data) {
                     ngModel.$loading = false;
                     ngModel.$setValidity('unique', !data.count);
                 });

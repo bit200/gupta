@@ -47,7 +47,7 @@
                 <md-input-container class="md-block">
                     <input class="form-control" name="name" unique-name ng-model="freelancer.name" required placeholder="Short text">
                     <div ng-messages="submittedAbout && aboutForm.name.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                        <div ng-show="submittedAbout && aboutForm.name.$error.unique" ng-message="unique">Name already is taken</div>
+                        <div ng-show="aboutForm.name.$error.unique" ng-message="unique">Name already is taken</div>
                         <div ng-show="submittedAbout && aboutForm.name.$error.required" ng-message="required">Name is  </div>
                     </div>
                 </md-input-container>

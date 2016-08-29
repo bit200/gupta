@@ -687,7 +687,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('Show to list', {
                     url: '/show_to_list',
-                    template: '<h3 class="text-center" style="margin-top: 135px;">Show to list template</h3>',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Show to list template</h3>'
                 })
 
             // .state('How it works', {
@@ -697,22 +697,26 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
 
             .state('Clients', {
                     url: '/clients',
-                    template: '<h3 class="text-center" style="margin-top: 135px;">Clients template</h3>',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Clients template</h3>'
                 })
 
             .state('Terms & Conditions', {
                     url: '/terms_Conditions',
-                    template: '<h3 class="text-center" style="margin-top: 135px;">Terms & Conditions template</h3>',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Terms & Conditions template</h3>'
                 })
 
             .state('Press', {
                     url: '/press',
-                    template: '<h3 class="text-center" style="margin-top: 135px;">Press template</h3>',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Press template</h3>'
                 })
 
-            .state('contact', {
-                    url: '/contact',
-                    template: '<h3 class="text-center" style="margin-top: 135px;">Contact template</h3>',
+            .state('contact.buyer', {
+                    url: '/contact/:type',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Contact template</h3>'
+                })
+            .state('contact.seller', {
+                    url: '/contact/:type',
+                    template: '<h3 class="text-center" style="margin-top: 135px;">Contact template</h3>'
                 });
 
 
