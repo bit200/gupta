@@ -33,6 +33,24 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 }
             })
         };
+        scope.editWork = false;
+        scope.activeEdit = function (work) {
+            scope.editWork = work._id;
+            scope.edit_work = angular.copy(work)
+        };
+
+        scope.editSampleWork = function (work, current_work) {
+            console.log('work', work);
+            console.log('scope.freelancer.work.work_samples', scope.freelancer.work.work_samples);
+            http.post('/api/work/update', work).then(function (resp) {
+                console.log('before ',scope.freelancer.work.work_samples[current_work]);
+                scope.freelancer.work.work_samples[current_work] = resp.data.data;
+                console.log('after',scope.freelancer.work.work_samples[current_work]);
+                console.log('data',resp.data);
+                scope.editWork = 0;
+            })
+        };
+
         scope.Experience = {
             value: 2,
             options: {
@@ -385,9 +403,11 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 scope.freelancer_area.profilePreview = url
             })
         };
+
         scope.setAgencyTempPreview = function (file) {
+            console.log('file', file)
             if (!file) {
-                notify({message: 'Upload only image!', duration: 3000, position: 'right', classes: "alert-danger"});
+                // notify({message: 'Upload only image!', duration: 3000, position: 'right', classes: "alert-danger"});
                 return false;
             }
             var typeF = file.profilePreview
@@ -397,7 +417,8 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 formatImage = matchImage ? matchImage[3] : null
             }
             Upload.dataUrl(file, true).then(function (url) {
-                scope.freelancer.contact_detail.preview = url
+                scope.freelancer.contact_detail = scope.freelancer.contact_detail || {};
+                scope.freelancer.contact_detail.preview = url;
                 scope.submitCropped(url, 'preview', '', file)
             })
         };

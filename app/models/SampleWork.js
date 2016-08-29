@@ -6,6 +6,7 @@ var _ = require('underscore');
 var SampleWorkSchema = mongoose.Schema({
     title: String,
     description: String,
+    url: String,
     attachments: [{
         type: Number,
         ref: 'Attachment'

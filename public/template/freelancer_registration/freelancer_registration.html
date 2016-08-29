@@ -11,23 +11,22 @@
             <div ng-click="freelancer_area.activeTab = 'about'" ng-class="{active: freelancer_area.activeTab == 'about'}" class="col-md-2 col-sm-2 col-xs-2">
                 ABOUT
             </div>
-            <div ng-click="invalid(aboutForm);submittedAbout=!submittedAbout;!aboutForm.$invalid ? (freelancer_area.activeTab = 'expertise'):errorNotify();!aboutForm.$invalid ? loadQuestions() : false" ng-class="{active: freelancer_area.activeTab == 'expertise'}"
+            <div ng-click="invalid(aboutForm);submittedAbout=!submittedAbout;!aboutForm.$invalid ? (freelancer_area.activeTab = 'expertise'):errorNotify();!aboutForm.$invalid ? loadQuestions() : false"
+                 ng-class="{active: freelancer_area.activeTab == 'expertise'}"
                  class="col-md-2 col-sm-2 col-xs-2">
                 EXPERTISE
             </div>
             <div ng-click="submittedAbout!=submittedAbout;!aboutForm.$invalid ? (freelancer_area.activeTab = 'pricing') : errorNotify()" ng-class="{active: freelancer_area.activeTab == 'pricing'}" class="col-md-2 col-sm-2 col-xs-2">
                 PRICING
             </div>
-            <div ng-click="invalid(priceForm);!priceForm.$invalid ? (freelancer_area.activeTab = 'work') : errorNotify()" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-2 col-sm-2 col-xs-2">
+            <!--<div ng-click="!priceForm.$invalid && !aboutForm.$invalid ? (freelancer_area.activeTab = 'work') : errorNotify()" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-2 col-sm-2 col-xs-2">-->
+            <div ng-click="freelancer_area.activeTab = 'work'" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-2 col-sm-2 col-xs-2">
                 WORK
             </div>
-            <div ng-click="invalid(workForm);!workForm.$invalid ? (freelancer_area.activeTab = 'contact') : errorNotify()" ng-class="{active: freelancer_area.activeTab == 'contact'}" class="col-md-2 col-sm-2 col-xs-2">
+            <div ng-click="!workForm.$invalid && !priceForm.$invalid && !aboutForm.$invalid ? (freelancer_area.activeTab = 'contact') : errorNotify()" ng-class="{active: freelancer_area.activeTab == 'contact'}" class="col-md-2 col-sm-2 col-xs-2">
                 CONTACT
             </div>
         </div>
-
-
-
 
 
         <form name="aboutForm" ng-show="freelancer_area.activeTab == 'about'">
@@ -48,16 +47,16 @@
                     <input class="form-control" name="name" unique-name ng-model="freelancer.name" required placeholder="Short text">
                     <div ng-messages="submittedAbout && aboutForm.name.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
                         <div ng-show="aboutForm.name.$error.unique" ng-message="unique">Name already is taken</div>
-                        <div ng-show="submittedAbout && aboutForm.name.$error.required" ng-message="required">Name is  </div>
+                        <div ng-show="submittedAbout && aboutForm.name.$error.required" ng-message="required">Name is</div>
                     </div>
                 </md-input-container>
             </div>
             <h4 ng-if="freelancer.type == 'freelancer'" class="info-title">Actual name</h4>
-            <div ng-if="freelancer.type == 'freelancer'"  class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.actualName.$invalid}">
+            <div ng-if="freelancer.type == 'freelancer'" class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.actualName.$invalid}">
                 <md-input-container class="md-block">
-                    <input class="form-control" name="actualName" ng-model="freelancer.actual_name" required  placeholder="Short text">
+                    <input class="form-control" name="actualName" ng-model="freelancer.actual_name" required placeholder="Short text">
                     <div ng-messages="submittedAbout && aboutForm.actualName.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                        <div ng-show="submittedAbout && aboutForm.actualName.$error.required" ng-message="required">Actual name is  </div>
+                        <div ng-show="submittedAbout && aboutForm.actualName.$error.required" ng-message="required">Actual name is</div>
                     </div>
                 </md-input-container>
             </div>
@@ -67,9 +66,9 @@
 
             <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.introduction.$invalid}">
                 <md-input-container class="md-block">
-                    <textarea class="form-control" required name="introduction" ng-model="freelancer.introduction" placeholder="Short text"  ></textarea>
+                    <textarea class="form-control" required name="introduction" ng-model="freelancer.introduction" placeholder="Short text"></textarea>
                     <div ng-messages="submittedAbout && aboutForm.introduction.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                        <div ng-show="submittedAbout && aboutForm.introduction.$error.required" ng-message="required">Introduction of you is  </div>
+                        <div ng-show="submittedAbout && aboutForm.introduction.$error.required" ng-message="required">Introduction of you is</div>
                     </div>
                 </md-input-container>
             </div>
@@ -78,7 +77,7 @@
                 <h4 class="info-title">Company URL*</h4>
                 <div class="form-group">
                     <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.url.$invalid}">
-                        <input aria-label="hidden" name="url" ng-model="freelancer.url"  required>
+                        <input aria-label="hidden" name="url" ng-model="freelancer.url" required>
                         <div ng-messages="submittedAbout && aboutForm.url.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
                             <div ng-show="submittedAbout && aboutForm.url.$error.required" ng-message="required">Required field</div>
                         </div>
@@ -88,7 +87,7 @@
                 <h4 class="info-title">Head Office Address*</h4>
                 <div class="form-group">
                     <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.address.$invalid}">
-                        <input aria-label="hidden" name="address" ng-model="freelancer.address"  required>
+                        <input aria-label="hidden" name="address" ng-model="freelancer.address" required>
                         <div ng-messages="submittedAbout && aboutForm.address.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
                             <div ng-show="submittedAbout && aboutForm.address.$error.required" ng-message="required">Required field</div>
                         </div>
@@ -98,7 +97,7 @@
                 <h4 class="info-title">Office Phone Number*</h4>
                 <div class="form-group">
                     <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.phone.$invalid}">
-                        <input aria-label="hidden" phone-number name="phone" ng-model="freelancer.phone"  required>
+                        <input aria-label="hidden" phone-number name="phone" ng-model="freelancer.phone" required>
                         <div ng-messages="submittedAbout && aboutForm.phone.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
                             <div ng-show="submittedAbout && aboutForm.phone.$error.required" ng-message="required">Required field</div>
                         </div>
@@ -109,7 +108,7 @@
                 <div class="form-group testDisplay">
                     <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.cities.$invalid}">
                         <md-select aria-label="hidden" ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
-                                   data-md-container-class="selectdemoSelectHeader" multiple  >
+                                   data-md-container-class="selectdemoSelectHeader" multiple>
                             <md-select-header class="demo-select-header">
                                 <input ng-model="searchTerm" type="search" ng-keydown="onSearchChange($event)" placeholder="Search for a cities.."
                                        class="demo-header-searchbox _md-text">
@@ -139,8 +138,8 @@
 
 
                 <!--<div class="pointer attach-sample-button" class="pointer" ngf-select="addPastClientFile($file)" ngf-pattern="'image/*'" ngf-multiple="false">-->
-                    <!--<ng-md-icon icon="attach_file" size="16"></ng-md-icon>-->
-                    <!--<span style="position:relative;font-size: 14px;top:-3px;">Attach Logo</span>-->
+                <!--<ng-md-icon icon="attach_file" size="16"></ng-md-icon>-->
+                <!--<span style="position:relative;font-size: 14px;top:-3px;">Attach Logo</span>-->
                 <!--</div>-->
                 <!--<img ngf-src="newPastClient.preview_attachment" style="width: 30px;height: auto;" ngf-thumbnail="newPastClient.preview_attachment" class="thumb">-->
 
@@ -163,7 +162,7 @@
                 <h4 class="info-title">Your location</h4>
                 <div class="form-group">
                     <md-input-container class="md-block" flex-gt-sm="" ng-class="{'has-error': submittedAbout && aboutForm.location.$invalid}">
-                        <md-select aria-label="hidden" name="location" ng-model="freelancer.location"  >
+                        <md-select aria-label="hidden" name="location" ng-model="freelancer.location">
                             <md-option ng-repeat="item in locations" value="{{item}}">
                                 {{item}}
                             </md-option>
@@ -178,7 +177,7 @@
                 <div class="form-group testDisplay">
                     <md-input-container class="selectTerm" ng-class="{'has-error': submittedAbout && aboutForm.cities.$invalid}">
                         <md-select aria-label="hidden" ng-model="freelancer.cities" name="cities" md-on-close="clearSearchTerm()"
-                                   data-md-container-class="selectdemoSelectHeader" multiple=""  >
+                                   data-md-container-class="selectdemoSelectHeader" multiple="">
                             <md-select-header class="demo-select-header">
                                 <input ng-model="searchTerm" type="search" ng-keydown="onSearchChange($event)" placeholder="Search for a cities.."
                                        class="demo-header-searchbox _md-text">
@@ -237,7 +236,7 @@
                                                        ng-model="translation.translationFrom"
                                                        md-on-close="clearSearchTerm()"
                                                        data-md-container-class="selectdemoSelectHeader"
-                                                        >
+                                            >
                                                 <md-select-header class="demo-select-header">
                                                     <input ng-model="searchTerm" type="search"
                                                            placeholder="From"
@@ -256,7 +255,7 @@
                                             <md-select aria-label="hidden"
                                                        ng-model="translation.translationTo"
                                                        md-on-close="clearSearchTerm()"
-                                                       data-md-container-class="selectdemoSelectHeader"  >
+                                                       data-md-container-class="selectdemoSelectHeader">
                                                 <md-select-header class="demo-select-header">
                                                     <input ng-model="searchTerm" type="search"
                                                            placeholder="To"
@@ -270,7 +269,7 @@
                                                 </md-optgroup>
                                             </md-select>
                                             <div ng-messages="translation.inValid">
-                                                <div ng-message="required">Contact Person Name is  </div>
+                                                <div ng-message="required">Contact Person Name is</div>
                                             </div>
                                         </md-input-container>
                                         <ng-md-icon icon="done" ng-click="translationAdd(translation.translationFrom,translation.translationTo);"
@@ -309,9 +308,6 @@
                 </div>
             </div>
         </form>
-
-
-
 
 
         <form ng-show="freelancer_area.activeTab == 'expertise'" style="margin-top: 5px">
@@ -376,19 +372,19 @@
                         <div class="col-xs-3" ng-click="priceHour = false; freelancer.price.hour = ''">
                             <md-input-container class="md-block">
                                 <label>Price in Rs.</label>
-                                <input class='form-control' name="price" numbers-only ng-model="freelancer.price.price" aria-label="Price Word"  >
+                                <input class='form-control' name="price" numbers-only ng-model="freelancer.price.price" aria-label="Price Word">
                             </md-input-container>
                             <div ng-messages="submittedAbout && priceForm.price.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                                <div ng-show="submittedAbout && priceForm.price.$error.required" ng-message="required">Price is  </div>
+                                <div ng-show="submittedAbout && priceForm.price.$error.required" ng-message="required">Price is</div>
                             </div>
                         </div>
                         <div class="col-xs-9">
                             <md-input-container class="md-block">
                                 <label>Pricing Basis</label>
-                                <input class='form-control' name="description" ng-model="freelancer.price.description" aria-label="Price Word"  >
+                                <input class='form-control' name="description" ng-model="freelancer.price.description" aria-label="Price Word">
                             </md-input-container>
                             <div ng-messages="submittedAbout && priceForm.description.$invalid" ng-class="{'md-auto-hide': !submittedAbout}">
-                                <div ng-show="submittedAbout && priceForm.description.$error.required" ng-message="required">Pricing Basis is  </div>
+                                <div ng-show="submittedAbout && priceForm.description.$error.required" ng-message="required">Pricing Basis is</div>
                             </div>
                         </div>
                     </div>
@@ -541,16 +537,42 @@
             <div class="form-group">
                 <div class="samples-border" ng-if="freelancer.work.work_samples.length">
                     <div ng-repeat="sample_work in freelancer.work.work_samples" style="border-bottom: 1px solid lightgray">
-                        <div class="inline-block">
+                        <div class="inline-block" ng-if="editWork != sample_work._id">
                             <p class="text-bold">Title:{{sample_work.title}}</p>
                             <div>Description: {{sample_work.description}}</div>
+                            <div ng-if="sample_work.url">Link to the sample: {{sample_work.url}}</div>
+                        </div>
+                        <div ng-if="editWork == sample_work._id">
+                            <md-input-container class="md-block">
+                                <input class='form-control' name="title" placeholder="Title" ng-model="edit_work.title">
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <input class='form-control' name="description" placeholder="Description" ng-model="edit_work.description">
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <input class='form-control' name="url" placeholder="Link to the sample" ng-model="edit_work.url">
+                            </md-input-container>
                         </div>
                         <div class="relative inline-block" style="height: 60px;width: 60px;float: right;">
                             <img class="client-src" ng-src="{{sample_work.attachments[0].url}}">
                         </div>
-                        <div class="icon-button red">
-                            <ng-md-icon icon="remove_circle_outline" size="24"></ng-md-icon>
-                            <span ng-click="deleteSampleWork(sample_work._id);freelancer.work.work_samples.splice($index,1)">Remove</span>
+                        <div class="icon-button">
+                            <div class="inline-block marginR10" ng-if="editWork != sample_work._id" ng-click="editWork = sample_work._id; activeEdit(sample_work)">
+                                <ng-md-icon icon="mode_edit" size="24"></ng-md-icon>
+                                <span >Edit</span>
+                            </div>
+                            <div class="inline-block red marginR10" ng-if="editWork != sample_work._id">
+                                <ng-md-icon icon="remove_circle_outline" size="24"></ng-md-icon>
+                                <span ng-click="deleteSampleWork(sample_work._id);freelancer.work.work_samples.splice($index,1)">Remove</span>
+                            </div>
+                            <div class="inline-block marginR10" ng-if="editWork == sample_work._id">
+                                <ng-md-icon icon="mode_edit" size="24"></ng-md-icon>
+                                <span ng-click="editSampleWork(edit_work, $index)">Submit</span>
+                            </div>
+                            <div class="inline-block red marginR10" ng-if="editWork == sample_work._id" ng-click="activeEdit({_id:0})">
+                                <ng-md-icon icon="remove_circle_outline" size="24"></ng-md-icon>
+                                <span>Cancel</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -567,14 +589,20 @@
                                 <textarea class='form-control' name="description" ng-model="new_sample.description" placeholder="Description"></textarea>
                             </md-input-container>
                         </div>
+                        <div class="form-group" ng-class="{'has-error': freelancer_area.submittedSample && sample_work.url.$invalid}">
+                            <md-input-container class="md-block">
+                                <input class='form-control' name="url" ng-model="new_sample.url" placeholder="Link to the sample(optional)"/>
+                            </md-input-container>
+                        </div>
 
-                        <div class="attach-sample-block">
-                            <div ng-repeat="attach_preview in new_sample.preview_attachments" class="preview-attachments">
-                                <img ngf-src="attach_preview" style="width: auto;height:100%" ngf-thumbnail="attach_preview" class="thumb">
-                                <ng-md-icon icon="close" size="16" ng-click="new_sample.preview_attachments.splice($index,1)"></ng-md-icon>
+
+                        <div class="attach-sample-block" style="height: 100px">
+                            <div class="inline-block floatL relative preview" ng-repeat="attach in new_sample.preview_attachments track by $index" ng-if="$index < 5">
+                                <img ngf-src="attach" class="thumb">
+                                <span class="close pointer" ng-click="new_sample.preview_attachments.splice($index,1)"><i class="fa fa-times" aria-hidden="true"></i></span>
                             </div>
 
-                            <div class="attach-sample-button" class="pointer" ngf-select="addSampleWorkFiles($files)" ngf-pattern="'image/*'" ngf-multiple="true">
+                            <div style="width: 100%;" class="attach-sample-button" class="pointer" ngf-select="addSampleWorkFiles($files)" ngf-pattern="'image/*'" ngf-multiple="true">
                                 <ng-md-icon icon="attach_file" size="32"></ng-md-icon>
                                 <span style="position:relative;font-size: 20px;top:-8px;">Attach Files</span>
                             </div>
@@ -611,7 +639,7 @@
                     <input class='form-control' name="contact_name" aria-label="hidden" ng-model="freelancer.contact_detail.name" required>
 
                     <div ng-messages="submittedContact && contactForm.contact_name.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
-                        <div ng-show="submittedContact && contactForm.contact_name.$error.required" ng-message="required">Contact Person Name is  </div>
+                        <div ng-show="submittedContact && contactForm.contact_name.$error.required" ng-message="required">Contact Person Name is</div>
                     </div>
                 </md-input-container>
             </div>
@@ -620,12 +648,12 @@
             <div style="color: lightgrey;"><i>Will not be shared publicly</i></div>
             <div class="form-group" ng-class="{'has-error': submittedContact && contactForm.contact_email.$invalid}">
                 <md-input-container class="md-block">
-                    <input class='form-control' name="contact_email" ng-model="freelancer.contact_detail.email"  
+                    <input class='form-control' name="contact_email" ng-model="freelancer.contact_detail.email"
                            aria-label="hidden"
                            ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' required>
 
                     <div ng-messages="submittedContact && contactForm.contact_name.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
-                        <div ng-show="submittedContact && contactForm.contact_email.$error.required" ng-message="required">Email ID is  </div>
+                        <div ng-show="submittedContact && contactForm.contact_email.$error.required" ng-message="required">Email ID is</div>
                         <div ng-show="submittedContact && !contactForm.contact_email.$error.required && contactForm.contact_email.$error.pattern"
                              ng-message="pattern">Email ID is invalid
                         </div>
@@ -642,7 +670,7 @@
                            ng-model="freelancer.contact_detail.mobile" required>
 
                     <div ng-messages="submittedContact && contactForm.contact_mobile.$invalid" ng-class="{'md-auto-hide': !submittedContact}">
-                        <div ng-show="submittedContact && contactForm.contact_mobile.$error.required" ng-message="required">Mobile Number is  </div>
+                        <div ng-show="submittedContact && contactForm.contact_mobile.$error.required" ng-message="required">Mobile Number is</div>
                     </div>
                 </md-input-container>
             </div>

@@ -1719,6 +1719,13 @@ a.btn-header, a.btn-header:hover, a.btn-header:focus {
     margin-top: 13px;
 }
 
+.thurmbup {
+    float: right;
+    bottom: 0;
+    right: 50px;
+    position: absolute;
+}
+
 .header-my-job, .header-my-job:focus {
     display: inline-block;
     font-weight: bold;

@@ -87,6 +87,12 @@ exports.add_sample_work = function(req, res) {
         
     });
 };
+exports.update_work = function(req, res) {
+    var params = m.getBody(req);
+    m.findUpdate(models.SampleWork, {_id: params._id}, params, res, res)
+    
+};
+
 exports.add_update_work = function(req, res) {
     var work;
     var getWork = function(req, cb){
