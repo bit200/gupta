@@ -1,13 +1,16 @@
-<div class="col-xs-3">
+<div class="col-xs-4">
     <a href="#/job/{{item._id}}">{{item.title}}</a>
 </div>
 <div class="col-xs-2">
-</div>
-<div class="col-xs-3">
-    <div ng-repeat="item in item.content_types">{{item}}</div>
+    {{item.type_category}}
+    <span ng-if="item.type_name"> > </span>
+    <span style="display: block">{{item.type_name}}</span>
 </div>
 <div class="col-xs-2">
-    <div ng-repeat="item in item.local_preference">{{item}}</div>
+    <div ng-repeat="(key, bol) in item.content_types"><span ng-repeat="(key, value) in bol" ng-if="value">{{key}}<span ng-if="!$last">, </span></span></div>
+</div>
+<div class="col-xs-2">
+    <div class="inline-block" ng-repeat="item in item.local_preference">{{item}}<span ng-if="!$last">, </span></div>
 </div>
 <div class="col-xs-2">
     {{item.budget}}

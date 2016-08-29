@@ -36,6 +36,8 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             scope.changeSort = function (text) {
                 scope.sortBy = text;
             };
+            
+            scope.popoverTemplate = 'myPopoverTemplate.html';
             rootScope.$on(scope.watchName, function (e, data) {
                 if (data) {
                     scope.items = data;

@@ -60,7 +60,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             scope.new_job = job;
             scope.job.type_checkbox = parseEdit(scope.job.types);
             scope.job.content = parseEdit(scope.job.content_types);
-            scope.job.location = parseEdit(scope.job.local_preference);
+            // scope.job.location = parseEdit(scope.job.local_preference);
             if (getContent.stats) {
                 scope.stats = getContent.stats.data.data;
                 scope.job.stats = [];
@@ -125,8 +125,8 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             }
             job = scope.job;
             // job.job_visibility = (job.job_visibility_plain != 'Private');
-            job.local_preference = parseType.get(job.location, scope.locations);
-            job.local_preference = parseType.get(job.location, scope.locations);
+            // job.local_preference = parseType.get(job.location, scope.locations);
+            // job.local_preference = parseType.get(job.location, scope.locations);
             
             job.types = job.types || [];
             if (job.content_types.freelancer)
@@ -165,7 +165,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             job = scope.job;
             job.job_visibility = job.job_visibility_plain == 'Public';
             job.content_types = parseType.get(job.content, scope.contentTypes);
-            job.local_preference = parseType.get(job.location, scope.locations);
+            // job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
             job.questionnaries = _.map(job.questionnaries, function(item) {
                 return {

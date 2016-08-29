@@ -14,25 +14,25 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="header-search-block">
-                        <div class="full-width">
-                            <md-autocomplete class="header-search"
-                                    ng-disabled="false"
-                                    md-no-cache="true"
-                                    md-search-text="ctrl.searchText"
-                                    md-selected-item-change="ctrl.selectedItemChange(item)"
-                                    md-items="item in ctrl.search(ctrl.searchText)"
-                                    md-item-text="item.displayTitle"
-                                    md-min-length="2"
-                                    ng-enter="$state.go('category');"
-                                    placeholder="search type">
-                                <md-item-template>
-                                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayTitle}}</span>
-                                </md-item-template>
-                                <md-not-found>
-                                    No states matching "{{ctrl.searchText}}" were found.
-                                </md-not-found>
-                            </md-autocomplete>
-                        </div>
+                    <div class="full-width">
+                        <md-autocomplete class="header-search"
+                                         ng-disabled="false"
+                                         md-no-cache="true"
+                                         md-search-text="ctrl.searchText"
+                                         md-selected-item-change="ctrl.selectedItemChange(item)"
+                                         md-items="item in ctrl.search(ctrl.searchText)"
+                                         md-item-text="item.displayTitle"
+                                         md-min-length="2"
+                                         ng-enter="$state.go('category');"
+                                         placeholder="search type">
+                            <md-item-template>
+                                <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayTitle}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No states matching "{{ctrl.searchText}}" were found.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </div>
                 </li>
                 <li ng-if="$state.current.name == 'profile'" class="floatL" style="margin-right: 5px">
                     <a ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>
@@ -41,8 +41,8 @@
                     <a ui-sref='root.job_create' class="btn btn-header">POST A PROJECT</a>
                 </li>
                 <!--<li class="top-menu" ng-if="asView.buyer" ng-class="{active: $state.current.name=='root.job_create'}"><a-->
-                        <!--ng-click="$state.go('root.job_create')"-->
-                        <!--class="text-black top-menu-text">POST A PROJECT</a></li>-->
+                <!--ng-click="$state.go('root.job_create')"-->
+                <!--class="text-black top-menu-text">POST A PROJECT</a></li>-->
                 <li class="floatL">
                     <a ui-sref='jobs_list.all' class="btn btn-header">FIND PROJECTS</a>
                     <a ui-sref="favorite" style="padding: 0 !important;display: inline-block !important;">
@@ -81,7 +81,14 @@
                                 href="">As Seller</a></li>
                         <li role="separator" class="divider"></li>
                         <li ng-class="{active: $state.current.name == 'my_profile'}"><a href="" ui-sref='my_profile'>Profile</a>
-                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li class="" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard' class="text-black top-menu-text">Dashboard</a></li>
+                        <li class="" ng-class="{active: $state.current.name=='jobs_list.buyer_my'}"><a ui-sref='jobs_list.buyer_my' class="text-black top-menu-text">My Project</a></li>
+                        <li class="" ng-class="{active: $state.current.name=='inbox'}"><a ui-sref='inbox' class="text-black top-menu-text">Inbox</a></li>
+                        <li class="" ng-class="{active: $state.current.name=='contact'}"><a  ui-sref='contact({type:"buyer"})' class="text-black top-menu-text">Contacts > Buyers</a></li>
+                        <li class="" ng-class="{active: $state.current.name=='contact'}"><a ui-sref='contact({type:"seller"})' class="text-black top-menu-text">Contacts > Seller</a></li>
+                        <li class="" ng-class="{active: $state.current.name=='favorite'}"><a ui-sref='favorite' class="text-black top-menu-text">My Favorites</a></li>
+                        <li role="separator" class="divider"></li>
                         <!--<li><a href="">My Activities</a></li>-->
                         <li><a ng-click="logout()" href="">Logout</a></li>
                     </ul>
@@ -96,16 +103,31 @@
                 <!--<ul class="flex menu" flex-menu="filters" ng-if="currentUser() && ['categories', 'home'].indexOf($state.current.name) == -1">-->
                 <ul class="flex menu" flex-menu="filters"
                     ng-class="{'flex-fix': currentUser() && $state.current.name && ['categories','category', 'home', 'root.job_create', 'how_it_work'].indexOf($state.current.name) == -1}">
-                    <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard' class="text-black top-menu-text">DASHBOARD</a></li>
+                    <li class="top-menu" ng-class="{active: $state.current.name=='dashboard'}"><a ui-sref='dashboard' class="text-black top-menu-text">Dashboard</a></li>
+                    <li class="top-menu" ng-class="{active: $state.current.name=='jobs_list.buyer_my'}"><a ui-sref='jobs_list.buyer_my' class="text-black top-menu-text">My Project</a></li>
+                    <li class="top-menu" ng-class="{active: $state.current.name=='inbox'}"><a ui-sref='inbox' class="text-black top-menu-text">Inbox</a></li>
+                    <li class="top-menu" ng-class="{active: $state.current.name=='contact'}"><a class="text-black top-menu-text">Contacts</a>
+                        <div class="sub-nav" style="position: absolute">
+                            <ul class="top-sub-ul" style="width: 90px;">
+                                <li>
+                                    <a style="font-size: 12px;" ng-click="" ui-sref='contact({type:"buyer"})' class="text-black top-sub-menu-text">Buyers</a>
+                                </li>
+                                <li>
+                                    <a style="font-size: 12px;" ng-click="" ui-sref='contact({type:"seller"})' class="text-black top-sub-menu-text">Seller</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="top-menu" ng-class="{active: $state.current.name=='favorite'}"><a ui-sref='favorite' class="text-black top-menu-text">My Favorites</a></li>
 
-                    <li class="top-menu"
-                        ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}">
-                            <a ui-sref='jobs_list.all' class="text-black top-menu-text">FIND PROJECTS</a></li>
+                    <!--<li class="top-menu"-->
+                    <!--ng-class="{active: ['jobs_list','jobs_list.all', 'jobs_list.buyer_open', 'jobs_list.buyer_ongoing', 'jobs_list.buyer_closed','jobs_list.seller_open', 'jobs_list.seller_ongoing', 'jobs_list.seller_closed'].indexOf($state.current.name)>-1}">-->
+                    <!--<a ui-sref='jobs_list.all' class="text-black top-menu-text">FIND PROJECTS</a></li>-->
                 </ul>
                 <ul class="flex menu"
                     ng-class="{'flex-fix': !currentUser() ||  ['categories', 'category', 'home', 'how_it_work'].indexOf($state.current.name) > -1}"
                     flex-menu="commonFilters">
-                    <li  class="top-menu" ng-repeat="(key, item) in filtersArr | orderBy:'order'"
+                    <li class="top-menu" ng-repeat="(key, item) in filtersArr | orderBy:'order'"
                         ng-class="{active: activeProvider.name == item.title}">
                         <a style="font-size: 12px;" class="text-black top-menu-text" ng-click="setActiveProvider(item.title, item.data);goCategories()">{{item.title}}</a>
                         <div class="sub-nav" style="position: absolute">

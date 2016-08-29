@@ -710,7 +710,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                     template: '<h3 class="text-center" style="margin-top: 135px;">Press template</h3>',
                 })
 
-            .state('Contact', {
+            .state('contact', {
                     url: '/contact',
                     template: '<h3 class="text-center" style="margin-top: 135px;">Contact template</h3>',
                 });

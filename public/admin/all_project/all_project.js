@@ -189,7 +189,7 @@ angular.module('admin.all_project', [
                     delete $scope.preview;
                     delete $scope.job.preview;
                 };
-                $scope.submit = function (job) {
+                $scope.createJob = function (job) {
                     if (job.preview && !job.preview.length) {
                         delete job.preview
                     }

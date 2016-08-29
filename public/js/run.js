@@ -268,7 +268,7 @@ angular.module('XYZApp').run(["safeApply", "$timeout", "$rootScope", "$location"
                 ui_sref: sref('jobs_list.buyer_closed')
             },
             'jobs_list.seller_open': {
-                name: 'View my open jobs',
+                name: 'View my open projects',
                 ui_sref: sref('jobs_list.seller_open')
             },
             'jobs_list.seller_ongoing': {

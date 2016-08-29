@@ -76,9 +76,7 @@ angular.module('admin.jobs', [
 
         $scope.rejectApproveJob = function (status, jobId, $index, body) {
             cfpLoadingBar.start();
-
             var params = jobId ? {_id: jobId} : body;
-            //console.log('asdasdasdkdjhlksjhlskdfhl', '/admin/api/jobs/'+status+'/'+params)
             $http.post('/admin/api/jobs/' + status, params).success(function () {
                 cfpLoadingBar.complete()
                 notify({message: 'job with id ' + jobId + ' has been succesfully ' + (status == 'reject' ? 'rejected' : 'approved'), position: 'right'});

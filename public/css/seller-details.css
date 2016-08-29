@@ -166,3 +166,7 @@
 .attach-sample-button ng-md-icon{
     fill: gray;cursor: pointer
 }
+
+md-select.post-project > md-select-value > span .md-container {
+    display: inline-block;
+}

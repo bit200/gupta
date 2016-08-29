@@ -1,26 +1,35 @@
 <div class="col-xs-2">
     <a ng-if="item.admin_approved != 0" href="#/job/{{item.job._id || item._id}}">{{item.job.title || item.title}}</a>
-    <span ng-if="item.admin_approved == 0" >{{item.job.title || item.title}}</span>
+    <span ng-if="item.admin_approved == 0">{{item.job.title || item.title}}</span>
 </div>
 <div class="col-xs-2">
     <freelancer item="item"></freelancer>
 </div>
 <div class="col-xs-2">
-
-    <a class="tp">Response
-        <div class="ftp">
-            <div><b>Cover letter:</b> {{item.message}}</div>
-            <div><b>Budget:</b> {{item.budget}}</div>
-            <div><b>Time Estimation:</b> {{item.time_estimation}}</div>
-        </div>
+    <a id="popover" data-toggle="popover" popover-trigger="mouseenter" uib-popover-template="popoverTemplate" >
+        Response
     </a>
+
 </div>
 <div class="col-xs-2">
-   {{item.status}}
+    {{item.status}}
 </div>
 <div class="col-xs-2">
     <date value="item.created_at"></date>
 </div>
 <div class="col-xs-2">
-   <acts ng-if="item.status != 'No Applicants' &&  item.status != 'Pending Approval'"></acts>
+    <acts ng-if="item.status != 'No Applicants' &&  item.status != 'Pending Approval'"></acts>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+<script type="text/ng-template" id="myPopoverTemplate.html">
+    <div>
+        <div><b>Cover letter:</b> {{item.message}}</div>
+        <div><b>Budget:</b> {{item.budget}}</div>
+        <div><b>Time Estimation:</b> {{item.time_estimation}}</div>
+    </div>
+</script>

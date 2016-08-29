@@ -54,7 +54,7 @@ module.exports = function (app) {
     job.fn('/api/jobs/buyer/open', auth.token, 'JobApply', '{buyer: this.userId, status: {$in: ["No Applicants", "Service Providers have applied", "Contract started", "Rejected by seller", "Rejected by buyer"]} }'
         , {populate: 'job freelancer contract', sort: '-created_at'}, app);
 
-    job.fn('/api/jobs/buyer/open/new', auth.token, 'JobApply', '{ buyer: this.userId, status: "No Applicants" }'
+    job.fn('/api/jobs/buyer/open/new', auth.token, 'JobApply', '{ buyer: this.userId}'
         , {populate: 'job freelancer contract', sort: '-created_at'}, app);
 
     job.fn('/api/jobs/buyer/open/active', auth.token, 'JobApply', '{ buyer: this.userId, status: {$nin: ["No Applicants", "Rejected by seller", "Rejected by buyer", "Contract started"]} }'
