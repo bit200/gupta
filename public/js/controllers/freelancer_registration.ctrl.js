@@ -148,6 +148,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
 
             scope.loadQuestions = function () {
                 http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
+                    console.log('etyp', resp.data.data)
                     scope.questionnaire = resp.data.data;
                 }, function (err) {
                     console.log('err', err)

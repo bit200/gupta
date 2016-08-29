@@ -314,45 +314,43 @@
             <div ng-if="!questionnaire.length">
                 <h3 class="text-center">Choice service provider not have questionnaire</h3>
             </div>
-            <div ng-repeat="service in questions" ng-if="(questionnaire|filter:service).length" ng-init="index=$index">
-                <div class="jheader" open>
-                    {{service}} Section
-                </div>
-                <div class="jbody">
-                    <div ng-repeat="item in questionnaire|filter:service" ng-init="_index=$index">
+            <uib-tabset active="activeForm">
+                <uib-tab ng-repeat="service in questions" ng-if="(questionnaire|filter:service).length" ng-init="index=$index" index="$index" heading="{{service}}">
+                    <ng-form name="nestedForm">
+                        <div class="form-group">
+                            <div ng-repeat="item in questionnaire|filter:service" ng-init="_index=$index">
+                                <h3 ng-init="freelancer.questionnaire[index][_index].question=item.question; freelancer.questionnaire[index][_index].row_number = item.row_number">{{item.question}}</h3>
 
-                        <h3 ng-init="freelancer.questionnaire[index][_index].question=item.question; freelancer.questionnaire[index][_index].row_number = item.row_number">{{item.question}}</h3>
+                                <div ng-if="!item.items.length && !item.table.length">
+                                    <md-input-container aria-label="none" class="md-block" flex-gt-sm>
+                                        <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[index][_index].answer">
+                                    </md-input-container>
+                                </div>
 
-                        <div ng-if="!item.items.length && !item.table.length">
-                            <md-input-container aria-label="none" class="md-block" flex-gt-sm>
-                                <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[index][_index].answer">
-                            </md-input-container>
+                                <div ng-if="item.items && item.items.length">
+                                    <md-checkbox aria-label="none" ng-repeat="box in item.items track by $index" ng-model="freelancer.questionnaire[index][_index].items[$index]">{{box}}</md-checkbox>
+                                </div>
+                                <div ng-if="item.table">
+                                    <table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">
+                                        <tr>
+                                            <td ng-repeat="table in item.table track by $index" ng-init="freelancer.questionnaire[index][_index].table_header[$index] = item.table[$index].table_header = table.table_header">{{table.table_header}}</td>
+                                        </tr>
+                                        <tr ng-repeat="el in item.row_number track by $index" ng-init="row = $index">
+                                            <td height="20" class="relative" ng-repeat="(i,table) in item.table track by $index" ng-init="freelancer.questionnaire[index][_index].table[row][i].type = table.type;">
+                                                <div ng-if="table.type=='text'" class="text-center" ng-init="freelancer.questionnaire[index][_index].table[row][i].text = table.row[row].value" style="line-height: 55px;">{{table.row[row].value}}</div>
+                                                <md-input-container aria-label="none" ng-if="table.type=='input'" class="md-block" flex-gt-sm>
+                                                    <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[index][_index].table[row][i].input">
+                                                </md-input-container>
+                                                <md-checkbox aria-label="none" class="checkbox-profile" ng-if="table.type=='checkbox'" ng-model="freelancer.questionnaire[index][_index].table[row][i].checkbox"></md-checkbox>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-
-                        <div ng-if="item.items && item.items.length">
-                            <md-checkbox aria-label="none" ng-repeat="box in item.items track by $index" ng-model="freelancer.questionnaire[index][_index].items[$index]">{{box}}</md-checkbox>
-                        </div>
-                        <div ng-if="item.table">
-                            <table class="table table-bordered table-hover" ng-init="rows(item, item.row_number)">
-                                <tr>
-                                    <td ng-repeat="table in item.table track by $index" ng-init="freelancer.questionnaire[index][_index].table_header[$index] = item.table[$index].table_header = table.table_header">{{table.table_header}}</td>
-                                </tr>
-                                <tr ng-repeat="el in item.row_number track by $index" ng-init="row = $index">
-                                    <td height="20" class="relative" ng-repeat="(i,table) in item.table track by $index" ng-init="freelancer.questionnaire[index][_index].table[row][i].type = table.type;">
-                                        <div ng-if="table.type=='text'" class="text-center" ng-init="freelancer.questionnaire[index][_index].table[row][i].text = table.row[row].value" style="line-height: 55px;">{{table.row[row].value}}</div>
-                                        <md-input-container aria-label="none" ng-if="table.type=='input'" class="md-block" flex-gt-sm>
-                                            <input aria-label="hidden" name="answer" ng-model="freelancer.questionnaire[index][_index].table[row][i].input">
-                                        </md-input-container>
-                                        <md-checkbox aria-label="none" class="checkbox-profile" ng-if="table.type=='checkbox'" ng-model="freelancer.questionnaire[index][_index].table[row][i].checkbox"></md-checkbox>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+                    </ng-form>
+                </uib-tab>
+            </uib-tabset>
 
             <div class="row">
                 <div class="col-md-6">

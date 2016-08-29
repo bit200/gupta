@@ -52,12 +52,19 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 http.get('/job/favorite/add', {params: {_id: scope.job._id}});
                 scope.jobFavorited = true
             };
-            
+
             scope.removeFavorite = function () {
                 http.get('/job/favorite/remove', {params: {_id: scope.job._id}});
                 scope.jobFavorited = false
             };
             scope.new_job = job;
+            if (scope.job.types.length) {
+                var obj = {}
+                _.each(scope.job.types, function (key, value) {
+                    obj[key] = true
+                })
+                scope.job.content_types = obj;
+            }
             scope.job.type_checkbox = parseEdit(scope.job.types);
             scope.job.content = parseEdit(scope.job.content_types);
             // scope.job.location = parseEdit(scope.job.local_preference);
@@ -81,7 +88,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             user = AuthService.currentUser() || {};
 
             scope.job = scope.job || _.extend({
-                    email:AuthService.currentUser().email,
+                    email: AuthService.currentUser().email,
                     job_visibility: 'true',
                     date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)
                 }, {
@@ -127,13 +134,13 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             // job.job_visibility = (job.job_visibility_plain != 'Private');
             // job.local_preference = parseType.get(job.location, scope.locations);
             // job.local_preference = parseType.get(job.location, scope.locations);
-            
-            job.types = job.types || [];
+
+            job.types = [];
             if (job.content_types.freelancer)
                 job.types.push('freelancer');
             if (job.content_types.agency)
                 job.types.push('agency');
-            job.questionnaries = _.map(job.questionnaries, function(item) {
+            job.questionnaries = _.map(job.questionnaries, function (item) {
                 return {
                     question: item.question,
                     answer: item.answer,
@@ -148,7 +155,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             //         item.answer = parseType.getKey(item.answer);
             //     }
             // });
-            if(job.preview == '')
+            if (job.preview == '')
                 delete job.preview;
 
             http.post('/job', job).success(function (data) {
@@ -164,10 +171,13 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             }
             job = scope.job;
             job.job_visibility = job.job_visibility_plain == 'Public';
-            job.content_types = parseType.get(job.content, scope.contentTypes);
+            job.types = [];
+            if (job.content_types.freelancer)
+                job.types.push('freelancer');
+            if (job.content_types.agency)
+                job.types.push('agency');
             // job.local_preference = parseType.get(job.location, scope.locations);
-            job.types = parseType.get(job.type_checkbox, scope.types);
-            job.questionnaries = _.map(job.questionnaries, function(item) {
+            job.questionnaries = _.map(job.questionnaries, function (item) {
                 return {
                     question: item.question,
                     answer: item.answer,
@@ -176,7 +186,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                     items: item.items
                 }
             });
-            if(job.preview && !job.preview.length || job.preview == '')
+            if (job.preview && !job.preview.length || job.preview == '')
                 delete job.preview;
             http.put('/api/job', job).success(function () {
                 scope.onSucc()
@@ -208,7 +218,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         };
 
 
-       scope.delete_job = function (invalid) {
+        scope.delete_job = function (invalid) {
             scope.new_apply.job = scope.job._id;
             scope.new_apply.user = scope.userId;
             scope.new_apply.reason_delete = scope.job.reason_delete;
@@ -219,7 +229,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 }).error(scope.onErr)
         };
 
-        
+
         scope.apply_create = function (invalid) {
             scope.new_apply.job = scope.job._id;
             http

@@ -74,10 +74,9 @@
                     </div>
                 </div>
                 <div class="form-group testDisplay">
-                    <span>{{job.local_preference}}</span>
                     <md-input-container class="full-width">
                         <label> </label>
-                        <md-select class="post-project" ng-model="job.local_preference" data-md-container-class="selectdemoSelectHeader" multiple name="local_preference" required>
+                        <md-select aria-label="none" class="post-project" ng-model="job.local_preference" data-md-container-class="selectdemoSelectHeader" multiple name="local_preference" required>
                             <md-select-header class="demo-select-header">
                                 <input ng-model="searchTerm" type="search" placeholder="Search for a locations.." class="demo-header-searchbox md-text">
                             </md-select-header>
