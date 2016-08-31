@@ -149,6 +149,7 @@ angular.module('admin.all_project', [
                         $scope.job.questionnaries = resp.data.data
                     })
                 };
+          
                 $scope.addFiles = function ($file) {
                     if ($file && $file != null) {
                         $scope.attach.push($file);

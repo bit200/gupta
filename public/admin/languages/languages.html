@@ -1,0 +1,37 @@
+<style>
+    .menu{
+        cursor: pointer;
+        /*display: table-column;*/
+    }
+    .edit_input_label{
+        width: calc(100% - 120px);
+    }
+    .edit_input{
+        border: none;border-bottom: 1px solid #000000;outline: none; width: 100%
+    }
+</style>
+<div class="row">
+    <div class="col-md-12" style="margin-top: 20px;">
+        <ul class="list-group">
+            <li class="list-group-item menu" ng-repeat=" language in languages">
+                <a class="text-black top-menu-text">
+                    <span ng-hide="edit_space.is_edit == language.name"  ng-click="" >{{language.name}}</span>
+                    <label ng-show="edit_space.is_edit == language.name" class="edit_input_label">
+                        <input type="text"  class="edit_input"
+                               ng-model="edit_space.newName">
+                    </label>
+                    <button class="btn btn-sm relative up-button7 btn-times white floatR" ng-click="act_location(language.name,false,language)"><span class="pointer fa fa-trash-o "></span></button>
+                    <button class="btn btn-sm relative up-button7 btn-pencil white floatR" ng-hide="edit_space.is_edit == language.name" ng-click="edit_space.is_edit = language.name;edit_space.newName = language.name"><span  class="pointer fa fa-pencil"></span></button>
+                    <button class="btn btn-sm relative up-button7 btn-check white floatR" ng-show="edit_space.is_edit == language.name" ng-click="edit_language(edit_space.newName,language.name); language.name = edit_space.newName; edit_space.is_edit = '';"><span class="pointer fa fa-check"></span></button>
+                </a>
+            <li class="list-group-item menu" style="padding-bottom: 0;">
+                <label class="edit_input_label">
+                    <input type="text"  class="edit_input"
+                           ng-model="edit_space.newNameMain" placeholder="New language">
+                </label>
+                <button class="btn btn-sm relative up-button7 btn-times white floatR" ng-click="act_language(false,true)"><span class="pointer fa fa-trash-o"></span></button>
+                <button class="btn btn-sm relative up-button7 btn-check white floatR" ng-click="act_language(edit_space.newNameMain,false,false);"><span class="pointer fa fa-check"></span></button>
+            </li>
+        </ul>
+    </div>
+</div>

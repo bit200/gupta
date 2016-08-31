@@ -106,6 +106,34 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                         scope.submitFilter(scope.ownFilter);
                     }
                 }
+            },
+            price_rating: {
+                minValue: 0,
+                maxValue: 5,
+                options: {
+                    floor: 0,
+                    ceil: 5,
+                    step: 1,
+                    showSelectionBar: true,
+                    getPointerColor: function (value) {
+                        return '#B9B6B9';
+                    },
+                    getSelectionBarColor: function (value) {
+                        return '#B9B6B9';
+                    },
+                    translate: function (value) {
+                        if (value < 2) {
+                            return value + ' star'
+                        }
+                        if (value >= 2) {
+                            return value + ' stars'
+                        }
+                    },
+                    onEnd: function (r) {
+                        scope.ownFilter.price_rating = {'$gte': scope.slider.price_rating.minValue, '$lte': scope.slider.price_rating.maxValue};
+                        scope.submitFilter(scope.ownFilter);
+                    }
+                }
             }
         };
 

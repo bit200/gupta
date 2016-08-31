@@ -15,7 +15,8 @@ angular.module('admin.questionnaire', [
             resolve: {
                 getContent: ['$q', '$http', function ($q, $http) {
                     return $q.all({
-                        commonFilter: $http.get('/api/common_filters')
+                        commonFilter: $http.get('/api/common_filters'),
+                        masterData: $http.post('/admin/api/all',{model:'MasterData'})
                     })
                 }]
             }
@@ -24,6 +25,7 @@ angular.module('admin.questionnaire', [
     })
     .controller('QuestionnaireCtrl', function AllProjectController($scope, $stateParams, $state, $http, store, jwtHelper, ModalService, getContent, notify) {
         $scope.commonFilters = getContent.commonFilter.data;
+        $scope.masterLists = getContent.masterData.data.data.data;
         $scope.active_tab = _.keys($scope.commonFilters)[0];
         $scope.type = $stateParams.type;
         $state.current.data.name = $stateParams.type == 'post' ? 'Questionnaires > Post a Project' : 'Questionnaires > Registration Freelancer/Agency';
@@ -44,7 +46,6 @@ angular.module('admin.questionnaire', [
                 notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
             })
         };
-
         function refresh(service, type) {
             $scope.getQuestions(service, type);
         }
@@ -57,7 +58,6 @@ angular.module('admin.questionnaire', [
         function spliceItem(index) {
             $scope.questions.splice(index, 1);
         }
-
         $scope.delete_question = function (item, index) {
             ModalService.showModal({
                 templateUrl: "delete_modal.html",
@@ -89,6 +89,7 @@ angular.module('admin.questionnaire', [
                     $scope.question = {service_provider: active, type: type};
                     $scope.isNew = true;
                     $scope.submit = function (question) {
+                            console.log('@@aaaaa',question.items);
                         if (question.items[0] && question.items[0].length > 0) {
                             question.items = _.values(question.items);
                         } else {
@@ -100,7 +101,7 @@ angular.module('admin.questionnaire', [
                             delete question.table
                         }
                         console.log('test2', question)
-
+                            
                         $http.post('/admin/api/question', question).then(function (resp) {
                             refresh(active, type);
                             $scope.close();
@@ -155,8 +156,9 @@ angular.module('admin.questionnaire', [
             $scope.type = type;
             $scope.getQuestions($scope.active_tab, type)
         };
-
-
+        
+        $scope.autocomplete = false;
+        $scope.listsAutocompleteChoice = []
         $scope.choice = function (key, type) {
             if (type)
                 $scope.active_category = key;

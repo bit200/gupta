@@ -162,6 +162,18 @@
                     </div>
                 </div>
             </div>
+            <div class="user-topic">
+                <div class="user-topic-header">
+                   Price Rating
+                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.price_rating}" ng-click="close.price_rating = !close.price_rating"></ng-md-icon>
+                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.price_rating}" ng-click="close.price_rating = !close.price_rating"></ng-md-icon>
+                </div>
+                <div toggle="close.price_rating">
+                    <div>
+                        <rzslider rz-slider-model="slider.price_rating.minValue" rz-slider-high="slider.price_rating.maxValue" rz-slider-options="slider.price_rating.options"></rzslider>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
@@ -206,6 +218,9 @@
                                     <div class="profile-info" style="color: #000000">
                                         <!--<div class="text-center profile-info-name">{{profile.name}}</div>-->
                                         <div class="padding-10">
+                                            <div ng-if="profile.verified" class="verifcation-profile">
+                                                <img src="/img/verif.png" alt="">
+                                            </div>
                                             <div class="profile-title">{{profile.name}}</div>
                                             <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
                                             <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>

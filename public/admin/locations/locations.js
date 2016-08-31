@@ -3,7 +3,7 @@ angular.module( 'admin.locations', [
     'angular-storage',
     'angular-jwt'
 ]).config(function($stateProvider) {
-    $stateProvider.state('locations', {
+    $stateProvider.state('location', {
         url: '/locations',
         controller: 'LocationsCtrl',
         templateUrl: 'locations/locations.html',

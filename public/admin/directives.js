@@ -166,6 +166,10 @@ angular.module('directive', [])
             },
             templateUrl: 'questionnaire/questions.directive.html',
             controller: ['$scope', '$http', '$state', function (scope, $http, $state) {
+                scope.masterLists =[];
+                $http.post('/admin/api/all',{model:'MasterData'}).then(function (res) {
+                    scope.masterLists = res.data.data.data;
+                })
                 scope.question.row_number = scope.question.row_number || 1;
                 scope.arrItems = scope.question.items || [{}];
                 scope.question.table = scope.question.table || [{}];

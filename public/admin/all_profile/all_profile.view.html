@@ -152,6 +152,14 @@
                 <md-input-container class="md-block">
                     <input aria-label="none" class="form-control border-grey" name="admin_notes" ng-model="profile.admin_notes" style="color: black">
                 </md-input-container>
+                <h4>Price Rating</h4>
+                <md-input-container>
+                    <label></label>
+                    <md-select ng-model="profile.price_rate">
+                        <md-option ng-value="rate" ng-repeat="rate in priceRate">{{ rate }}</md-option>
+                    </md-select>
+                </md-input-container>
+
 
                 <h4>Admin verified</h4>
                 <md-checkbox ng-model="profile.verified"></md-checkbox>

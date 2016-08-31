@@ -11,7 +11,6 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             '3 to 6 months',
             'More than 6 months'
         ];
-
         function delete_null_properties(obj) {
             for (var i in obj) {
                 if (!obj[i]) {
@@ -30,7 +29,26 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             'Agency',
             'Freelancer'
         ];
+        scope.masterData = {};
+        scope.uploadMasterData = function (type, index) {
+            console.log('shjdasjdsada', type, index);
+            http.post('/api/questionnaire/mdata', {type: type}).then(function (res) {
+                scope.masterData[index]=[];
+                alert('skdsajjda')
+                _.each(res.data.data,function(item){
+                    alert()
+                    if(item.name){
+                        alert(item.name);
+                        scope.masterData[index].push(item.name)
+                    }
+                    else{
+                        alert()
+                        scope.masterData[index].push(item)
+                    }
+                })
 
+            })
+        };
         scope.isApply = scope.apply || scope.apply_by_id;
         if (getContent.contentType)
             scope.contentTypes = getContent.contentType.data.data;
@@ -52,7 +70,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 http.get('/job/favorite/add', {params: {_id: scope.job._id}});
                 scope.jobFavorited = true
             };
-            
+
             scope.removeFavorite = function () {
                 http.get('/job/favorite/remove', {params: {_id: scope.job._id}});
                 scope.jobFavorited = false
@@ -81,7 +99,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             user = AuthService.currentUser() || {};
 
             scope.job = scope.job || _.extend({
-                    email:AuthService.currentUser().email,
+                    email: AuthService.currentUser().email,
                     job_visibility: 'true',
                     date_of_completion: new Date(new Date().getTime() + 30 * 24 * 3600 * 1000)
                 }, {
@@ -123,34 +141,32 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 rootScope.scrollToErr()
                 return;
             }
+
             job = scope.job;
             // job.job_visibility = (job.job_visibility_plain != 'Private');
             // job.local_preference = parseType.get(job.location, scope.locations);
             // job.local_preference = parseType.get(job.location, scope.locations);
-            
+
             job.types = job.types || [];
             if (job.content_types.freelancer)
                 job.types.push('freelancer');
             if (job.content_types.agency)
                 job.types.push('agency');
-            job.questionnaries = _.map(job.questionnaries, function(item) {
+            job.questionnaries = _.map(job.questionnaries, function (item) {
+
                 return {
                     question: item.question,
-                    answer: item.answer,
+                    autocomplete_type: item.autocomplete_type,
+                    answer:  item.answer,
                     // answer_items: delete_null_properties(item.answer_items),
                     answer_items: item.answer_items,
                     items: item.items
                 }
             });
-            // _.each(job.questionnaire, function (item) {
-            //     if (typeof(item.answer) == 'object') {
-            //         item.answer = [];
-            //         item.answer = parseType.getKey(item.answer);
-            //     }
-            // });
-            if(job.preview == '')
+            
+            if (job.preview == '')
                 delete job.preview;
-
+            console.log('@lllaa',job)
             http.post('/job', job).success(function (data) {
                 scope.job = data.data;
                 scope.onSucc(data)
@@ -167,16 +183,18 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             job.content_types = parseType.get(job.content, scope.contentTypes);
             // job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
-            job.questionnaries = _.map(job.questionnaries, function(item) {
+            job.questionnaries = _.map(job.questionnaries, function (item) {
                 return {
                     question: item.question,
                     answer: item.answer,
+                    autocomplete_type: item.autocomplete_type,
+
                     // answer_items: delete_null_properties(item.answer_items),
                     answer_items: item.answer_items,
                     items: item.items
                 }
             });
-            if(job.preview && !job.preview.length || job.preview == '')
+            if (job.preview && !job.preview.length || job.preview == '')
                 delete job.preview;
             http.put('/api/job', job).success(function () {
                 scope.onSucc()
@@ -208,7 +226,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
         };
 
 
-       scope.delete_job = function (invalid) {
+        scope.delete_job = function (invalid) {
             scope.new_apply.job = scope.job._id;
             scope.new_apply.user = scope.userId;
             scope.new_apply.reason_delete = scope.job.reason_delete;
@@ -219,7 +237,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 }).error(scope.onErr)
         };
 
-        
+
         scope.apply_create = function (invalid) {
             scope.new_apply.job = scope.job._id;
             http

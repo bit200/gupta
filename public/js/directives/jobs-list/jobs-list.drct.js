@@ -53,7 +53,6 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             //     console.log(data)
             // });
 
-
             scope.acceptJob = function (job, freelancer, user) {
                 ModalService.showModal({
                     templateUrl: "template/modal/createContract.html",

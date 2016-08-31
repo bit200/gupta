@@ -141,9 +141,9 @@
         <div ng-repeat="(i,question) in job.questionnaries">
             <div hidden>{{job.questionnaries[i].question = question.question}}</div>
             <h3>{{question.question}}</h3>
-            <div ng-show="!question.answer_items">{{job.questionnaries[i].answer}}</div>
+            <div ng-show="question.answer!=''">{{job.questionnaries[i].answer}}</div>
             <div ng-show="question.answer_items">
-                <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="job.questionnaries[i].answer_items[q]" ng-if="job.questionnaries[i].answer_items[q]" disabled="true" class="checkdark"><span style="color: #333">{{q}}</span>
+                <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="job.questionnaries[i].answer_items[q]" ng-if="job.questionnaries[i].answer_items[q]" disabled="true" class="checkdark"><span style="color: #333">{{elem}}</span>
                 </md-checkbox>
             </div>
         </div>

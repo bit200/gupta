@@ -16,6 +16,14 @@ exports.add_update_contact_detail = function (req, res) {
         m.create(models.ContactDetail, req.body, res, res)
 };
 
+exports.get_master_data = function (req,res) {
+    var params = m.getBody(req);
+        m.find(models[params.type],{},function(err){
+            console.log(err)
+        },res)
+
+}
+
 exports.freelancer_request = function (req, res) {
     var params = m.getBody(req);
     if (req.userId) {
@@ -968,3 +976,4 @@ exports.make_fake = function (req, res) {
         })
     })
 };
+

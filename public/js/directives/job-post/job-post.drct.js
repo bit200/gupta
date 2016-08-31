@@ -17,7 +17,7 @@ XYZCtrls.directive('jobPost', function () {
                 activeItem: {},
                 subName: {}
             };
-
+            
             // scope.$watch('job.title', function(text, item){
             //     if(text){
             //     if(text.split(' ').length > 10)
@@ -27,6 +27,9 @@ XYZCtrls.directive('jobPost', function () {
             scope.searchTerm;
             scope.clearSearchTerm = function() {
                 scope.searchTerm = '';
+            };
+            scope._ngkeydown = function(ev) {
+                ev.stopPropagation();
             };
             // The md-select directive eats keydown events for some quick select
             // logic. Since we have a search input here, we don't need that logic.
@@ -48,10 +51,25 @@ XYZCtrls.directive('jobPost', function () {
                 }
                 $http.get('/api/questionnaire', {params: {type: 'post', service_provider: category}}).then(function (resp) {
                     scope.job.questionnaries = resp.data.data
+                    console.log('@@@@@@@@@', scope.job.questionnaries)
                 })
             };
-            
+            scope.masterData = {};
+            scope.uploadMasterData = function (type, index) {
+                console.log('shjdasjdsada', type, index);
+                $http.post('/api/questionnaire/mdata', {type: type}).then(function (res) {
+                    scope.masterData[index]=[];
+                    _.each(res.data.data,function(item){
+                        if(item.name){
+                            scope.masterData[index].push(item.name)
+                        }
+                        else{
+                            scope.masterData[index].push(item)
+                        }
+                    })
 
+                })
+            };
             scope.addFiles = function ($file) {
                 scope.job.attach = scope.job.attach || [];
                 if ($file && $file != null) {

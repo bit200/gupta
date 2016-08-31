@@ -27,7 +27,8 @@
         <div class="title3">Choose a category*</div>
         <div class="form-group">
             <md-input-container class="md-block" flex-gt-sm="">
-                <md-select ng-change="choiceType(job.type_category, true)" aria-label="hidden" name="category" ng-model="job.type_category" required>
+                <md-select ng-change="choiceType(job.type_category, true)" aria-label="hidden" name="category"
+                           ng-model="job.type_category" required>
                     <md-option ng-repeat="(key,value) in commonFilters" value="{{key}}">
                         {{key}}
                     </md-option>
@@ -38,7 +39,8 @@
         <div class="title3" ng-if="subFilters">Choose a sub category</div>
         <div class="form-group" ng-if="subFilters">
             <md-input-container class="md-block" flex-gt-sm="">
-                <md-select ng-change="choiceType(job.type_name, false)" aria-label="hidden" name="sub_category" ng-model="job.type_name">
+                <md-select ng-change="choiceType(job.type_name, false)" aria-label="hidden" name="sub_category"
+                           ng-model="job.type_name">
                     <md-option ng-repeat="item in subFilters" value="{{item}}">
                         {{item}}
                     </md-option>
@@ -48,17 +50,22 @@
 
         <div class="row">
             <div class="title3" style="padding: 0">Do you have a preference for a type of professional?*</div>
-            <div style="padding-bottom: 10px" ng-messages="postjob.agency.$error.$invalid && postjob.freelancer.$error.$invalid">
-                <div ng-show="postjob.agency.$error.required && postjob.freelancer.$error.required" ng-message="required" style="color: lightgrey">
+            <div style="padding-bottom: 10px"
+                 ng-messages="postjob.agency.$error.$invalid && postjob.freelancer.$error.$invalid">
+                <div ng-show="postjob.agency.$error.required && postjob.freelancer.$error.required"
+                     ng-message="required" style="color: lightgrey">
                     <i>Please select one or more</i>
                 </div>
             </div>
             <div>
-                <md-checkbox ng-required="job.content_types.agency || !job.content_types.freelancer" ng-model="job.content_types.agency" name="agency" class="checkdark" required>Agency
+                <md-checkbox ng-required="job.content_types.agency || !job.content_types.freelancer"
+                             ng-model="job.content_types.agency" name="agency" class="checkdark" required>Agency
                 </md-checkbox>
             </div>
             <div>
-                <md-checkbox ng-required="!job.content_types.agency || job.content_types.freelancer" ng-model="job.content_types.freelancer" name="freelancer" class="checkdark" required>Freelancer
+                <md-checkbox ng-required="!job.content_types.agency || job.content_types.freelancer"
+                             ng-model="job.content_types.freelancer" name="freelancer" class="checkdark" required>
+                    Freelancer
                 </md-checkbox>
             </div>
 
@@ -69,7 +76,8 @@
             <div class="md-block">
                 <h4 class="info-title">Do you have a location preference?*</h4>
                 <div style="padding-bottom: 10px" ng-messages="postjob.local_preference.$error.$invalid">
-                    <div ng-show="postjob.local_preference.$error.required" ng-message="required" style="color: lightgrey">
+                    <div ng-show="postjob.local_preference.$error.required" ng-message="required"
+                         style="color: lightgrey">
                         <i>Please select one or more</i>
                     </div>
                 </div>
@@ -77,9 +85,12 @@
                     <span>{{job.local_preference}}</span>
                     <md-input-container class="full-width">
                         <label> </label>
-                        <md-select class="post-project" ng-model="job.local_preference" data-md-container-class="selectdemoSelectHeader" multiple name="local_preference" required>
+                        <md-select class="post-project" ng-model="job.local_preference"
+                                   data-md-container-class="selectdemoSelectHeader" multiple name="local_preference"
+                                   required>
                             <md-select-header class="demo-select-header">
-                                <input ng-model="searchTerm" type="search" placeholder="Search for a locations.." class="demo-header-searchbox md-text">
+                                <input ng-model="searchTerm" ng-keydown="_ngkeydown($event)" type="search" placeholder="Search for a locations.."
+                                       class="demo-header-searchbox md-text">
                             </md-select-header>
                             <md-optgroup label="local_preference">
                                 <md-option ng-value="item" ng-repeat="item in locations | filter:searchTerm">
@@ -97,9 +108,12 @@
 
         <div class="md-block">
             <div class="row form-group">
-                <div class="title3" style="text-transform: none">What is your maximal budget for this marketing campaign (.Rs)*</div>
+                <div class="title3" style="text-transform: none">What is your maximal budget for this marketing campaign
+                    (.Rs)*
+                </div>
                 <md-input-container class="md-block">
-                    <input aria-label='hidden' class="form-control" name="budget" numbers-only ng-model="job.budget" required>
+                    <input aria-label='hidden' class="form-control" name="budget" numbers-only ng-model="job.budget"
+                           required>
                     <div ng-messages="postjob.budget.$error.$invalid">
                         <div ng-show="postjob.budget.$error.required" ng-message="required">
                             {{default_empty}}
@@ -139,9 +153,11 @@
                     <tbody>
                     <tr>
                         <td style="">
-                            <div style="left: -20px;" class="pointer attach-sample-button" class="pointer" ngf-select="addFiles($file)" ngf-pattern="'image/*'" ngf-multiple="false">
+                            <div style="left: -20px;" class="pointer attach-sample-button" class="pointer"
+                                 ngf-select="addFiles($file)" ngf-pattern="'image/*'" ngf-multiple="false">
                                 <ng-md-icon icon="attach_file" size="35"></ng-md-icon>
-                                <span class="text-bold title3" style="position:relative;top:-10px;">Add attachments</span>
+                                <span class="text-bold title3"
+                                      style="position:relative;top:-10px;">Add attachments</span>
                                 <div style="color: lightgrey;"><i>The file can be up to 5 Mb in size</i></div>
 
                             </div>
@@ -155,9 +171,12 @@
                 <div class="text-right">
                     <div class="row Files">
                         <div class="col-xs-12">
-                            <div class="inline-block floatL relative preview" ng-repeat="attach in attach" style="height: 80px;width: 80px;">
-                                <img ngf-src="attach" style="width: 70px; height: auto;" ngf-thumbnail="attach" class="thumb">
-                                <span class="close pointer" ng-click="deleteAttachFile($index)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                            <div class="inline-block floatL relative preview" ng-repeat="attach in attach"
+                                 style="height: 80px;width: 80px;">
+                                <img ngf-src="attach" style="width: 70px; height: auto;" ngf-thumbnail="attach"
+                                     class="thumb">
+                                <span class="close pointer" ng-click="deleteAttachFile($index)"><i class="fa fa-times"
+                                                                                                   aria-hidden="true"></i></span>
                             </div>
                         </div>
                     </div>
@@ -186,7 +205,8 @@
             <md-input-container class="md-block">
                 <div class="title3" style="padding: 0;">Mobile phone number*</div>
                 <div style="color: lightgrey;"><i>Will not be shared publicly</i></div>
-                <input aria-label='hidden' phone-number class="form-control" name="mobile" ng-model="job.mobile" required>
+                <input aria-label='hidden' phone-number class="form-control" name="mobile" ng-model="job.mobile"
+                       required>
 
                 <div ng-messages="postjob.mobile.$error.$invalid">
                     <div ng-show="postjob.mobile.$error.required" ng-message="required">
@@ -264,19 +284,69 @@
     </div>
     <div class="jbody">
         <div>
-            <div></div>
-            <div ng-repeat="(i,question) in job.questionnaries">
+                <div ng-repeat="(i,question) in job.questionnaries">
                 <h3>{{question.question}}</h3>
-                <div ng-show="!question.items.length && !question.answer_items">
-                    <md-input-container class="md-block">
-                        <input aria-label='hidden' class="form-control" ng-model="question.answer">
+                <!--<div ng-show="!question.items.length && !question.answer_items">-->
+                <!--<md-input-container class="md-block">-->
+                <!--<input aria-label='hidden' class="form-control" ng-model="question.answer">-->
+                <!--</md-input-container>-->
+                <!--</div>-->
+                <!--<div ng-if="question"></div>-->
+                <div ng-if="question.autocomplete_type" ng-init="uploadMasterData(question.autocomplete_type,$index)">
+                    <div class="form-group testDisplay" >
+                        <md-input-container class="full-width">
+                            <label > </label>
+                            <md-select class="post-project" ng-model="question.answer_items"
+                                       data-md-container-class="selectdemoSelectHeader" multiple name="local_preference">
+                                <md-select-header class="demo-select-header">
+                                    <input ng-model="searchTerma" ng-keydown="_ngkeydown($event)" type="search" placeholder="Search for a locations.."
+                                           class="demo-header-searchbox md-text">
+                                </md-select-header>
+                                <md-optgroup label="local_preference">
+                                    <md-option ng-value="item"
+                                               ng-repeat="item in masterData[$index] | filter:searchTerma">
+                                        {{item}}
+                                    </md-option>
+                                </md-optgroup>
+                            </md-select>
+
+                        </md-input-container>
+                    </div>
+                </div>
+                <div ng-if="question.items&&!question.autocomplete_type&&question.items.length>0">
+
+                    <md-input-container class="full-width">
+                        <label> </label>
+                        <md-select class="post-project" ng-model="question.answer_items"
+                                   data-md-container-class="selectdemoSelectHeader" multiple name="local_preference">
+                            <md-select-header class="demo-select-header">
+                                <input ng-model="searchTerms" ng-keydown="_ngkeydown($event)"  type="search" placeholder="Search for a locations.."
+                                       class="demo-header-searchbox md-text">
+                            </md-select-header>
+                            <md-optgroup label="local_preference">
+                                <md-option ng-value="item"
+                                           ng-repeat="item in question.items | filter:searchTerms">
+                                    {{item}}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+
                     </md-input-container>
+
+                    <!--<md-checkbox ng-repeat="elem in question.items" ng-model="question.answer_items[elem]"-->
+                    <!--ng-init="question.answer_items[elem] = false" class="checkdark">{{elem}}-->
+                    <!--</md-checkbox>-->
                 </div>
-                <div ng-show="question.items">
-                    <md-checkbox ng-repeat="elem in question.items" ng-model="question.answer_items[elem]" ng-init="question.answer_items[elem] = false" class="checkdark">{{elem}}</md-checkbox>
-                </div>
+                    <div ng-if="!question.autocomplete_type&&question.items.length==0">
+                        <md-input-container class="full-width">
+                            <label></label>
+                            <textarea ng-model="question.answer" md-maxlength="200" rows="1" md-select-on-focus=""></textarea>
+                        </md-input-container>
+                    </div>
                 <div ng-show="question.answer_items && !question.items">
-                    <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="question.answer_items[q]" class="checkdark">{{q}}</md-checkbox>
+                    <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="question.answer_items[q]"
+                                 class="checkdark">{{q}}
+                    </md-checkbox>
                 </div>
             </div>
         </div>

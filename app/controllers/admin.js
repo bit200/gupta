@@ -265,6 +265,20 @@ exports.add_location = function (req, res) {
     m.findCreate(models.Location, req.body.params, req.body.params, res, res);
 };
 
+exports.edit_languages = function (req, res) {
+    m.findUpdate(models.Languages, req.body.query, req.body.params, res, res);
+};
+
+exports.delete_location = function (req, res) {
+    var params = JSON.parse(req.params.data);
+    m._findRemove(models.Languages, params, res, function () {
+        res.send(200);
+    });
+};
+exports.add_location = function (req, res) {
+    m.findCreate(models.Languages, req.body.params, req.body.params, res, res);
+};
+
 
 exports.approve_registration = function (req, res) {
     var password = randomstring.generate(7);
@@ -323,8 +337,31 @@ exports.reject_job = function (req, res) {
     }, {populate: 'user'});
 };
 
+exports.make_master_data = function (req, res) {
+
+    models.MasterData.remove({}, function(err,resp){
+
+    });
+    m.create(models.MasterData, {
+        name: 'Languages',
+        nameType: 'Languages'
+    });
+
+    m.create(models.MasterData, {
+        name: 'Locations',
+        nameType: 'Location'
+    });
+
+    m.scb('OK', res);
+
+};
+
 exports.update_questionnaire = function (req, res) {
     var params = m.getBody(req);
+    if(params.autocomplete_type){
+        params.autocomplete_type=params.autocomplete_type.nameType;
+        params.autocomplete = true;
+    }
     m.findCreateUpdate(models.Questionnaire, {_id: params._id}, params, res, res)
 };
 

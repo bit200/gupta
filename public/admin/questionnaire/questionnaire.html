@@ -59,6 +59,7 @@
                 <td>{{item.question}}</td>
                 <td>
                     <span ng-repeat="elem in item.items track by $index">{{elem}}<span ng-if="!$last">, </span></span>
+                    <span ng-if="item.autocomplete">Autocomplete:{{item.autocomplete_type}}</span>
                 </td>
                 <td>
                     <div ng-repeat="table in item.table" style="margin-bottom: 5px">

@@ -170,12 +170,15 @@
                                     class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
                             <div class="profile-img">
                                 <img class="profile-poster" ng-src="{{profile.contact_detail.preview}}">
-                                <img ng-if="profile.verified" class="thurmbup" src="/img/thumbsup.png">
+                                <!--<img ng-if="profile.verified" class="thurmbup" src="/img/thumbsup.png">-->
                             </div>
                             <div class="profile-info" style="color: #000000">
                                 <!--<div class="text-center profile-info-name">{{profile.name}}</div>-->
                                 <div class="padding-10">
                                     <div class="profile-title">{{profile.name}}</div>
+                                    <div ng-if="profile.verified" class="verifcation-profile">
+                                        <img src="/img/verif.png" alt="">
+                                    </div>
                                     <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
                                     <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
                                     <div class="profile-back-rating-block-category">

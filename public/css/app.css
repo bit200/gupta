@@ -2501,3 +2501,14 @@ md-autocomplete-wrap {
     }
 }
 
+.profile-info .padding-10{
+    position: relative;
+}
+.verifcation-profile{
+    position:absolute;
+    right:10px;
+    top:7px;
+}
+.verifcation-profile img{
+    height:30px;
+}

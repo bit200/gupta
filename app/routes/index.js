@@ -7,6 +7,7 @@ module.exports = function (app) {
     app.get('/dev', index.dev);
     app.get('/api/common_filters', index.common_filters);
     app.get('/api/locations', index.get_locations);
+    app.get('/api/languages', index.get_languages);
     app.get('/api/search', index.search);
     app.get('/admin', index.admin);
     app.get('/admin/login', index.admin_login);

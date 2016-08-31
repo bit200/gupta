@@ -69,7 +69,7 @@ var JobSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    questionnaries: [{question: String, answer: String, answer_items: {}}]
+    questionnaries: [{question: String, answer: String, answer_items: Array,autocomplete_type:String,items:Array}]
 });
 
 JobSchema.plugin(autoIncrement.plugin, {

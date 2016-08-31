@@ -16,6 +16,11 @@ exports.get_locations = function (req, res) {
         res.jsonp(result)
     });
 };
+exports.get_languages = function (req, res) {
+    models.Languages.find({}).exec(function (err, result) {
+        res.jsonp(result)
+    });
+};
 exports.common_filters = function (req, res) {
     models.Filters.find().lean().exec(function (err, filters) {
         var resObj = _.groupBy(filters, 'type');

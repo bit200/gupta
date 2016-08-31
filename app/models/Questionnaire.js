@@ -8,6 +8,8 @@ var QuestionnaireSchema = mongoose.Schema({
     table:Array,
     row_number: Number,
     items: [String],
+    autocomplete:Boolean,
+    autocomplete_type:String,
     created_at: {
         type: Date,
         default: Date.now

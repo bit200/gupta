@@ -70,6 +70,7 @@ angular.module('admin.all_profile', [
                 $scope.downloadUrl = '/excel?model=Freelancer&type=agency';
                 break;
             case 'users':
+
                 $scope.downloadUrl = '/excel?model=User&type=user';
                 break;
             default:
@@ -77,7 +78,8 @@ angular.module('admin.all_profile', [
         }
 
 
-
+        $scope.priceRate =[1,2,3,4,5];
+        
         $scope.cb = function (page) {
             switch ($scope.display.type) {
                 case 'freelancers':

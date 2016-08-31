@@ -35,6 +35,10 @@ module.exports = function (app) {
     app.post('/admin/api/locations/add', _admin.add_location);
     app.delete('/admin/api/locations/:data', _admin.delete_location);
 
+    app.post('/admin/api/languages/', _admin.edit_languages);
+    app.post('/admin/api/languages/add', _admin.add_location);
+    app.delete('/admin/api/languages/:data', _admin.delete_location);
+
 
     app.post('/admin/api/registration/approve/:id', _admin.approve_registration);
     app.post('/admin/api/registration/reject/:id', _admin.reject_registration);
@@ -43,6 +47,8 @@ module.exports = function (app) {
     app.post('/admin/api/jobs/approve', _admin.approve_job);
     app.post('/admin/api/job/update', _admin.update_job);
     app.post('/admin/api/jobs/reject', _admin.reject_job);
+
+    app.get('/make-master-data', _admin.make_master_data);
     
     app.get('/admin/api/business_accounts', _admin.business_accounts);
     

@@ -1,4 +1,4 @@
-<div>
+<div class="testQuestion">
     <div>
         <h4>Type</h4>
         <md-input-container class="md-block">
@@ -28,10 +28,11 @@
         <h3 ng-show="type == 'list'">Type answer:</h3>
         <md-radio-group ng-show="type == 'list'" ng-model="list_type" layout="row" style="margin-bottom: 25px;display: inline-block; outline: none" ng-init="list_type = list_type || 'question'">
             <md-radio-button value="question" class="md-primary inline-block" style="outline: none">Text</md-radio-button>
-            <md-radio-button value="checkbox" style="margin-left: 55px;display:inline-block;outline: none">Checkboxs</md-radio-button>
+            <md-radio-button value="checkbox" style="margin-left: 55px;display:inline-block;outline: none">Checkbox</md-radio-button>
+            <md-checkbox ng-model="autocomplete" class="md-primary inline-block" style="outline: none">Autcomplete</md-checkbox>
         </md-radio-group>
 
-        <div ng-if="type == 'list' || question.type =='post'">
+        <div ng-if="type == 'list'&& !autocomplete || question.type =='post'&& !autocomplete">
             <div ng-if="list_type =='checkbox'" ng-repeat="elem in arrItems track by $index">
                 <h4 style="display: inline-block">item {{$index+1}}:</h4>
                 <md-input-container class="md-block">
@@ -43,6 +44,14 @@
         </div>
 
 
+        <div ng-if="autocomplete&&list_type =='checkbox'">
+            Choice type:
+            <md-select  ng-model="question.autocomplete_type" required>
+                <md-option ng-value="item" ng-repeat="item in masterLists">
+                    {{item.name}}
+                </md-option>
+            </md-select>
+        </div>
         <div ng-if="type == 'table'">
             <div ng-repeat="elem in question.table track by $index" ng-init="_index = $index;">
                 <md-input-container ng-if="table[$index] == text" class="md-block">

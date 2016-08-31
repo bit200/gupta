@@ -187,6 +187,34 @@
                             <li><a class="nav-sub" ui-sref="questionnaire({type:'register'})">Registration Freelancer/Agency</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'master_data'}">
+                        <a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu10" aria-expanded="false">
+                            <i class="fa fa-question" aria-hidden="true"></i><span class="title">Master Data</span>
+                        </a>
+                        <ul class="nav nav-item collapse" id="submenu10" role="menu" aria-labelledby="btn-1">
+                            <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'master-data-post'})">Post a Project</a></li>-->
+                            <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'register'})">Registration Freelancer/Agency</a></li>-->
+                            <li>
+                                <a ui-sref="location" class="nav-sub">Locations
+                                    <!--<span class="arrow fa fa-angle-left"></span>-->
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="languages" class="nav-sub">Languages
+                                    <!--<span class="arrow fa fa-angle-left"></span>-->
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--<li class="nav-item" ng-class="{'active-tab':$state.current.name == 'master_data'}">-->
+                        <!--<a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu3" aria-expanded="false">-->
+                            <!--<i class="fa fa-question" aria-hidden="true"></i><span class="title">Master Data</span>-->
+                        <!--</a>-->
+                        <!--<ul class="nav nav-item collapse" id="submenu3" role="menu" aria-labelledby="btn-1">-->
+                            <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'post'})">Post a Project</a></li>-->
+                            <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'register'})">Registration Freelancer/Agency</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'sellers'}">
                         <a ui-sref="sellers" class="nav-link nav-toggle">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -222,13 +250,13 @@
                             <!--<span class="arrow fa fa-angle-left"></span>-->
                         </a>
                     </li>
-                    <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'locations'}">
-                        <a ui-sref="locations" class="nav-link nav-toggle">
-                            <i class="fa fa-road" aria-hidden="true"></i>
-                            <span class="title">Locations</span>
-                            <!--<span class="arrow fa fa-angle-left"></span>-->
-                        </a>
-                    </li>
+                    <!--<li class="nav-item" ng-class="{'active-tab':$state.current.name == 'locations'}">-->
+                        <!--<a ui-sref="locations" class="nav-link nav-toggle">-->
+                            <!--<i class="fa fa-road" aria-hidden="true"></i>-->
+                            <!--<span class="title">Locations</span>-->
+                            <!--&lt;!&ndash;<span class="arrow fa fa-angle-left"></span>&ndash;&gt;-->
+                        <!--</a>-->
+                    <!--</li>-->
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'report_transaction'}">
                         <a ui-sref="report_transaction" class="nav-link nav-toggle">
                             <i class="fa fa-exchange" aria-hidden="true"></i>
@@ -339,6 +367,7 @@
 <script type="text/javascript" src="jobs/jobs.js"></script>
 <script type="text/javascript" src="categories/categories.js"></script>
 <script type="text/javascript" src="locations/locations.js"></script>
+<script type="text/javascript" src="languages/languages.js"></script>
 <script type="text/javascript" src="business_accounts/business_accounts.js"></script>
 <script type="text/javascript" src="header/header.js"></script>
 <script type="text/javascript" src="login/login.js"></script>

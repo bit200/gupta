@@ -3,7 +3,6 @@ var XYZCtrls = angular.module('XYZCtrls');
 
 XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getContent', 'parseRating', 'ModalService', 'ngDialog', '$location', '$rootScope', '$state', 'AuthService', 'cfpLoadingBar',
     function (scope, location, http, $q, getContent, parseRating, ModalService, ngDialog, $location, $rootScope, $state, AuthService, cfpLoadingBar) {
-
         scope.currentFreelancer = AuthService.currentFreelancer;
         scope.howItWorks = false;
         scope.mainPage = true;
@@ -91,7 +90,7 @@ XYZCtrls.controller('HomeCtrl', ['$scope', '$location', '$http', '$q', 'getConte
 
         scope.myInterval = 300000;
 
-
+        console.log('ВОТ ОНА',scope.profiles)
         scope.dataArray = [{
             src: '/img/face.png',
             text: '"Instead of hiring more engineers, we\'ve used Upwork as a more scalable solution that lets us ramp-up and down as needed."',

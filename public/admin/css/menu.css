@@ -900,3 +900,6 @@ li > span.fa.fa-angle-right {
     margin-right: auto !important;
     margin-left: auto !important;
 }
+.md-select-menu-container{
+    z-index: 100001!important;
+}
