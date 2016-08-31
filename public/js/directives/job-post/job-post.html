@@ -82,12 +82,10 @@
                     </div>
                 </div>
                 <div class="form-group testDisplay">
-                    <span>{{job.local_preference}}</span>
                     <md-input-container class="full-width">
                         <label> </label>
-                        <md-select class="post-project" ng-model="job.local_preference"
-                                   data-md-container-class="selectdemoSelectHeader" multiple name="local_preference"
-                                   required>
+
+                        <md-select aria-label="none" class="post-project" ng-model="job.local_preference" data-md-container-class="selectdemoSelectHeader" multiple name="local_preference" required>
                             <md-select-header class="demo-select-header">
                                 <input ng-model="searchTerm" ng-keydown="_ngkeydown($event)" type="search" placeholder="Search for a locations.."
                                        class="demo-header-searchbox md-text">
@@ -284,7 +282,7 @@
     </div>
     <div class="jbody">
         <div>
-                <div ng-repeat="(i,question) in job.questionnaries">
+            <div ng-repeat="(i,question) in job.questionnaries">
                 <h3>{{question.question}}</h3>
                 <!--<div ng-show="!question.items.length && !question.answer_items">-->
                 <!--<md-input-container class="md-block">-->
@@ -293,13 +291,15 @@
                 <!--</div>-->
                 <!--<div ng-if="question"></div>-->
                 <div ng-if="question.autocomplete_type" ng-init="uploadMasterData(question.autocomplete_type,$index)">
-                    <div class="form-group testDisplay" >
+                    <div class="form-group testDisplay">
                         <md-input-container class="full-width">
-                            <label > </label>
+                            <label> </label>
                             <md-select class="post-project" ng-model="question.answer_items"
-                                       data-md-container-class="selectdemoSelectHeader" multiple name="local_preference">
+                                       data-md-container-class="selectdemoSelectHeader" multiple
+                                       name="local_preference">
                                 <md-select-header class="demo-select-header">
-                                    <input ng-model="searchTerma" ng-keydown="_ngkeydown($event)" type="search" placeholder="Search for a locations.."
+                                    <input ng-model="searchTerma" ng-keydown="_ngkeydown($event)" type="search"
+                                           placeholder="Search for a locations.."
                                            class="demo-header-searchbox md-text">
                                 </md-select-header>
                                 <md-optgroup label="local_preference">
@@ -320,7 +320,8 @@
                         <md-select class="post-project" ng-model="question.answer_items"
                                    data-md-container-class="selectdemoSelectHeader" multiple name="local_preference">
                             <md-select-header class="demo-select-header">
-                                <input ng-model="searchTerms" ng-keydown="_ngkeydown($event)"  type="search" placeholder="Search for a locations.."
+                                <input ng-model="searchTerms" ng-keydown="_ngkeydown($event)" type="search"
+                                       placeholder="Search for a locations.."
                                        class="demo-header-searchbox md-text">
                             </md-select-header>
                             <md-optgroup label="local_preference">
@@ -337,12 +338,13 @@
                     <!--ng-init="question.answer_items[elem] = false" class="checkdark">{{elem}}-->
                     <!--</md-checkbox>-->
                 </div>
-                    <div ng-if="!question.autocomplete_type&&question.items.length==0">
-                        <md-input-container class="full-width">
-                            <label></label>
-                            <textarea ng-model="question.answer" md-maxlength="200" rows="1" md-select-on-focus=""></textarea>
-                        </md-input-container>
-                    </div>
+                <div ng-if="!question.autocomplete_type&&question.items.length==0">
+                    <md-input-container class="full-width">
+                        <label></label>
+                        <textarea ng-model="question.answer" md-maxlength="200" rows="1"
+                                  md-select-on-focus=""></textarea>
+                    </md-input-container>
+                </div>
                 <div ng-show="question.answer_items && !question.items">
                     <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="question.answer_items[q]"
                                  class="checkdark">{{q}}

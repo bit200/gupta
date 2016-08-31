@@ -34,15 +34,11 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             console.log('shjdasjdsada', type, index);
             http.post('/api/questionnaire/mdata', {type: type}).then(function (res) {
                 scope.masterData[index]=[];
-                alert('skdsajjda')
                 _.each(res.data.data,function(item){
-                    alert()
                     if(item.name){
-                        alert(item.name);
                         scope.masterData[index].push(item.name)
                     }
                     else{
-                        alert()
                         scope.masterData[index].push(item)
                     }
                 })
@@ -76,6 +72,13 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 scope.jobFavorited = false
             };
             scope.new_job = job;
+            if (scope.job.types.length) {
+                var obj = {}
+                _.each(scope.job.types, function (key, value) {
+                    obj[key] = true
+                })
+                scope.job.content_types = obj;
+            }
             scope.job.type_checkbox = parseEdit(scope.job.types);
             scope.job.content = parseEdit(scope.job.content_types);
             // scope.job.location = parseEdit(scope.job.local_preference);
@@ -148,6 +151,7 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             // job.local_preference = parseType.get(job.location, scope.locations);
 
             job.types = job.types || [];
+            job.types = [];
             if (job.content_types.freelancer)
                 job.types.push('freelancer');
             if (job.content_types.agency)
@@ -163,7 +167,13 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                     items: item.items
                 }
             });
-            
+
+            // _.each(job.questionnaire, function (item) {
+            //     if (typeof(item.answer) == 'object') {
+            //         item.answer = [];
+            //         item.answer = parseType.getKey(item.answer);
+            //     }
+            // });
             if (job.preview == '')
                 delete job.preview;
             console.log('@lllaa',job)
@@ -180,7 +190,11 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
             }
             job = scope.job;
             job.job_visibility = job.job_visibility_plain == 'Public';
-            job.content_types = parseType.get(job.content, scope.contentTypes);
+            job.types = [];
+            if (job.content_types.freelancer)
+                job.types.push('freelancer');
+            if (job.content_types.agency)
+                job.types.push('agency');
             // job.local_preference = parseType.get(job.location, scope.locations);
             job.types = parseType.get(job.type_checkbox, scope.types);
             job.questionnaries = _.map(job.questionnaries, function (item) {

@@ -33,6 +33,23 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
                 }
             })
         };
+        scope.masterData = {};
+
+        scope.uploadMasterData = function (type, index) {
+            console.log('shjdasjdsada', type, index);
+            http.post('/api/questionnaire/mdata', {type: type}).then(function (res) {
+                scope.masterData[index]=[];
+                _.each(res.data.data,function(item){
+                    if(item.name){
+                        scope.masterData[index].push(item.name)
+                    }
+                    else{
+                        scope.masterData[index].push(item)
+                    }
+                })
+
+            })
+        };
         scope.editWork = false;
         scope.activeEdit = function (work) {
             scope.editWork = work._id;
@@ -148,6 +165,7 @@ angular.module('XYZCtrls').controller('FreelancerRegistrationCtrl', ['$scope', '
 
             scope.loadQuestions = function () {
                 http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
+                    console.log('etyp', resp.data.data)
                     scope.questionnaire = resp.data.data;
                 }, function (err) {
                     console.log('err', err)
