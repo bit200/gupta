@@ -107,7 +107,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                     }
                 }
             },
-            price_rating: {
+            price_rate: {
                 minValue: 0,
                 maxValue: 5,
                 options: {
@@ -130,7 +130,7 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
                         }
                     },
                     onEnd: function (r) {
-                        scope.ownFilter.price_rating = {'$gte': scope.slider.price_rating.minValue, '$lte': scope.slider.price_rating.maxValue};
+                        scope.ownFilter.price_rate = {'$gte': scope.slider.price_rate.minValue, '$lte': scope.slider.price_rate.maxValue};
                         scope.submitFilter(scope.ownFilter);
                     }
                 }
@@ -287,9 +287,11 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
     function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService, $state, notify) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
+        console.log('sdhokajskd',scope.viewProfile);
         scope.questions = _.uniq(_.pluck(angular.copy(scope.viewProfile.service_providers), 'type'));
         $http.post('/api/questionnaire/registration', {type: 'register', service_provider: {'$in': scope.questions}}).then(function (resp) {
-            scope.questionnaire = resp.data.data
+            scope.questionnaires = resp.data.data
+            console.log(resp);
             console.log('adasdasdas', scope.questionnaire);
         }, function (err) {
             notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});

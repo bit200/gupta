@@ -165,12 +165,12 @@
             <div class="user-topic">
                 <div class="user-topic-header">
                    Price Rating
-                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.price_rating}" ng-click="close.price_rating = !close.price_rating"></ng-md-icon>
-                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.price_rating}" ng-click="close.price_rating = !close.price_rating"></ng-md-icon>
+                    <ng-md-icon icon="expand_more" class="expand-topic" size="32" ng-class="{'display-none': close.price_rate}" ng-click="close.price_rate = !close.price_rate"></ng-md-icon>
+                    <ng-md-icon icon="expand_less" class="expand-topic" size="32" ng-class="{'display-none': !close.price_rate}" ng-click="close.price_rate = !close.price_rate"></ng-md-icon>
                 </div>
-                <div toggle="close.price_rating">
+                <div toggle="close.price_rate">
                     <div>
-                        <rzslider rz-slider-model="slider.price_rating.minValue" rz-slider-high="slider.price_rating.maxValue" rz-slider-options="slider.price_rating.options"></rzslider>
+                        <rzslider rz-slider-model="slider.price_rate.minValue" rz-slider-high="slider.price_rate.maxValue" rz-slider-options="slider.price_rate.options"></rzslider>
                     </div>
                 </div>
             </div>
