@@ -95,7 +95,7 @@
                                                 <span> {{replaceAlt(viewProfile.introduction)}} </span>
                                             </td>
                                             <td style="width: 35%">
-                                                <span ng-if="viewProfile.price" class="text-bold">{{viewProfile.price.price}} / {{viewProfile.price.description}}</span>
+                                                <span ng-if="viewProfile.price" class="text-bold">{{viewProfile.price.price}} <br> {{viewProfile.price.description}}</span>
                                             </td>
                                             <td style="width: 25%">
                                                 <button class="btn button-profile" ng-click="createChat(viewProfile.user, viewProfile.name)">Request a Quote</button>

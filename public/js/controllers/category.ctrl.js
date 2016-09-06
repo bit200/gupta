@@ -236,13 +236,24 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope._sort = {};
         scope.sortBy = '';
 
+        scope.sortName = [
+        {id:0,name:'rating',type:'-rating',active:true},
+        {id:1,name:'view',type:'-views',active:true},
+        {id:2,name:'price',type:'-price.price',active:true},
+        {id:3,name:'price',type:'price.price',active:true}
+        ];
+
+
+
         $state.current.ncyBreadcrumb.labelArr[3] = '/';
         $state.current.ncyBreadcrumb.labelArr[5]=$state.current.ncyBreadcrumb.labelArr[2]
         $state.current.ncyBreadcrumb.labelArr[2]=createServiceProviderUlr(stateParams.type);
-
-        scope.sorting = function (text, name, model) {
-            scope._sort[name] = model != true ? delete scope._sort[name] : text;
+        console.log($state.current.ncyBreadcrumb.labelArr)
+        scope.sorting = function (model) {
+            console.log('sdasdasdasdadasdas',scope.sort._rating)
+            scope._sort[model.name] = model.active ? delete scope._sort[name] : model.type;
             scope.sortBy = _.without(_.toArray(scope._sort),true);
+
         };
 
         scope.keydown = function(ev){
@@ -283,8 +294,8 @@ XYZCtrls.controller('CategoriesCtrl', ['$scope', '$location', '$http', 'parseRat
         scope.submitFilter()
     }]);
 
-XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService', '$state', 'notify',
-    function (scope, location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService, $state, notify) {
+XYZCtrls.controller('ViewProfileCtrl', ['$scope','$rootScope', '$location', '$q', 'getContent', '$http', '$stateParams', 'ModalService', 'payment', 'AuthService', '$state', 'notify',
+    function (scope,rootScope,location, $q, getContent, $http, $stateParams, ModalService, payment, AuthService, $state, notify) {
         scope.viewsCount = getContent.viewsCount.data;
         scope.viewProfile = getContent.profile.data;
         console.log('sdhokajskd',scope.viewProfile);
@@ -296,6 +307,25 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
         }, function (err) {
             notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
         });
+        scope.firstInit = 0;
+        console.log('@@@@@@@@@@@@@@@@2',$stateParams)
+        // if (!scope.firstInit) {
+        //
+        //     angular.forEach(rootScope.commonFilters, function (values, key) {
+        //         console.log('1123',key)
+        //         if (key == createServiceProviderUlr($stateParams.type)) {
+        //             rootScope.activeProvider = {
+        //                 name: key,
+        //                 values: values
+        //             };
+        //         }
+        //
+        //     });
+        //     if (createServiceProviderUlr($stateParams.filter)) {
+        //         rootScope.activeProvider.subName = createServiceProviderUlr($stateParams.filter)
+        //     };
+        //     scope.firstInit = 1;
+        // }
         scope.active_profile_menu = 'pricing';
         scope.loading = true;
         $http.get('/freelancer/rating', {params: {_id: $stateParams.id}}).then(function (resp) {
@@ -370,6 +400,11 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
 
         };
 
+        $state.current.ncyBreadcrumb.labelArr[5]='/';
+        $state.current.ncyBreadcrumb.labelArr[6]=$state.current.ncyBreadcrumb.labelArr[4];
+        $state.current.ncyBreadcrumb.labelArr[4] = $state.current.ncyBreadcrumb.labelArr[2];
+        $state.current.ncyBreadcrumb.labelArr[2] = createServiceProviderUlr($stateParams.type);
+
         $http.post('/api/freelancer/' + $stateParams.id + '/views');
 
         scope.checkFavorited = function () {
@@ -377,6 +412,24 @@ XYZCtrls.controller('ViewProfileCtrl', ['$scope', '$location', '$q', 'getContent
                 scope.profileFavorited = resp
             });
         };
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function createServiceProviderUlr(name) {
+            if (name) {
+                var arr = name.split('-');
+                arr = _.map(arr, function (item) {
+                    if (item != 'and') {
+                        return capitalizeFirstLetter(item)
+
+                    } else {
+                        return item
+                    }
+                });
+                return arr.join(' ')
+            }
+        }
 
         scope.showPic = function (pic) {
             ModalService.showModal({

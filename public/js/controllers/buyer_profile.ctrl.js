@@ -5,7 +5,6 @@ XYZCtrls.controller('BuyerProfileCtrl', ['$scope', '$location', '$http', '$q', '
     $rootScope.globalImg = [];
     scope.profile = AuthService.currentUser();
 
-
     scope.image = {
         originalImage: '',
         croppedImage: ''

@@ -1,6 +1,7 @@
 angular.module('admin', [
     'directive',
     'admin.login',
+    'ui.bootstrap',
     'admin.sellers',
     'admin.categories',
     'admin.locations',
@@ -24,7 +25,8 @@ angular.module('admin', [
     'ngMaterial',
     'angular-loading-bar',
     'smart-table',
-    'admin.jobs'
+    'jkAngularRatingStars',
+    'admin.jobs',
 ])
     .config(["$urlRouterProvider", "jwtInterceptorProvider", "$httpProvider", function myAppConfig($urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
 

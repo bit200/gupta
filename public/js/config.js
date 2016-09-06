@@ -607,7 +607,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 }
             })
             .state('categories.profile', {
-                url: '/profile/:id',
+                url: '/profile/:type/:id',
                 views: {
                     "@": {
                         controller: 'ViewProfileCtrl',
@@ -630,7 +630,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
             })
 
             .state('profile', {
-                url: '/profile/:id',
+                url: '/profile/:type/:id',
                 views: {
                     "@": {
                         controller: 'ViewProfileCtrl',
@@ -648,7 +648,7 @@ angular.module('XYZApp').config(['$stateProvider', '$urlRouterProvider', '$httpP
                 ncyBreadcrumb: {
                     label: '  ',
                     labelArr: ['Home', '/', 'View profile', '/', 'Profile Details'],
-                    hideType: true
+                    hideType: true,
                 }
             })
 

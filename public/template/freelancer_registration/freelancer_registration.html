@@ -20,7 +20,7 @@
                 PRICING
             </div>
             <!--<div ng-click="!priceForm.$invalid && !aboutForm.$invalid ? (freelancer_area.activeTab = 'work') : errorNotify()" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-2 col-sm-2 col-xs-2">-->
-            <div ng-click="freelancer_area.activeTab = 'work'" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-2 col-sm-2 col-xs-2">
+            <div ng-click="submittedAbout!=submittedAbout;!aboutForm.$invalid ? (freelancer_area.activeTab = 'work'): errorNotify()" ng-class="{active: freelancer_area.activeTab == 'work'}" class="col-md-2 col-sm-2 col-xs-2">
                 WORK
             </div>
             <div ng-click="!workForm.$invalid && !priceForm.$invalid && !aboutForm.$invalid ? (freelancer_area.activeTab = 'contact') : errorNotify()" ng-class="{active: freelancer_area.activeTab == 'contact'}" class="col-md-2 col-sm-2 col-xs-2">
@@ -61,7 +61,7 @@
                 </md-input-container>
             </div>
 
-            <h4 class="info-title">Provide a short introduction of you*<span ng-if="freelancer.type == 'agency'">r agency</span> (ideally 10-20 words)</h4>
+            <h4 class="info-title">Provide a short introduction of you<span ng-if="freelancer.type == 'agency'">r agency*</span> (ideally 10-20 words)</h4>
             <p class="sub-info-title">(ideally 10-20 words)</p>
 
             <div class="form-group" ng-class="{'has-error': submittedAbout && aboutForm.introduction.$invalid}">
@@ -343,7 +343,7 @@
                                         </md-input-container>
                                     </div>
                                 </div>
-                                <div ng-if="!item.items.length && !item.table.length">
+                                <div ng-if="!item.items.length && !item.table.length&&!item.autocomplete_type">
                                     <md-input-container aria-label="none" class="md-block" flex-gt-sm>
                                         <input aria-label="hidden   " name="answer" ng-model="freelancer.questionnaire[index][_index].answer">
                                     </md-input-container>
@@ -353,7 +353,6 @@
                                     <!--<md-checkbox aria-label="none" ng-repeat="box in item.items track by $index" ng-model="freelancer.questionnaire[index][_index].items[$index]">{{box}}</md-checkbox>-->
                                     <md-input-container class="full-width">
                                         <label> </label>
-                                    {{freelancer.questionnaire[index][_index].items}}
                                         <md-select class="post-project" ng-model="freelancer.questionnaire[index][_index].items"
                                                    data-md-container-class="selectdemoSelectHeader" multiple name="local_preference">
                                             <md-select-header class="demo-select-header">
@@ -533,7 +532,7 @@
                                     </md-input-container>
                                 </td>
                                 <td style="width: 145px">
-                                    <div class="pointer attach-sample-button" class="pointer" ngf-select="addPastClientFile($file)" ngf-pattern="'image/*'" ngf-multiple="false">
+                                    <div class="pointer attach-sample-button" class="pointer"  ngf-accept="'image/*'" ngf-select="addPastClientFile($file)" ngf-pattern="'image/*'" ngf-multiple="false">
                                         <ng-md-icon icon="attach_file" size="16"></ng-md-icon>
                                         <span style="position:relative;font-size: 14px;top:-3px;">Attach Logo</span>
                                     </div>

@@ -180,7 +180,7 @@
                                         <img src="/img/verif.png" alt="">
                                     </div>
                                     <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-map-marker" aria-hidden="true"></i>{{profile.location}}</div>
-                                    <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>{{profile.price.hour || 0}} / Hr</div>
+                                    <div style="font-size: 12px"><i style="margin-right: 5px" class="fa fa-inr" aria-hidden="true"></i>Price rating:  {{profile.price_rate||0}}</div>
                                     <div class="profile-back-rating-block-category">
                                         <div class="inline-block text-center">
                                             <star-rating is-disable="true" ng-model="profile.rating"></star-rating>

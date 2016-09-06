@@ -215,15 +215,27 @@ angular.module('admin.all_project', [
         };
 
         $scope.reject = function (item, index) {
-            $scope.all_projects.splice(index, 1);
-            $http.delete('/admin/api/delete', {params: {model: 'Job', _id: item._id}}).then(function () {
-                $http.post('/admin/api/all', {model: 'Job', limit: $scope.configPagination.countByPage, skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage}).then(function (resp) {
-                    $scope.all_projects = resp.data.data.data;
-                    $scope.configPagination.totalCount = resp.data.data.count;
-                }, function (err) {
-                    notify({message: 'Error request, try again', duration: 3000, position: 'right', classes: "alert-error"});
+            var isAdmin = confirm('Are you sure?');
+            if (isAdmin) {
+                $scope.all_projects.splice(index, 1);
+                $http.delete('/admin/api/delete', {params: {model: 'Job', _id: item._id}}).then(function () {
+                    $http.post('/admin/api/all', {
+                        model: 'Job',
+                        limit: $scope.configPagination.countByPage,
+                        skip: ($scope.configPagination.currentPage - 1) * $scope.configPagination.countByPage
+                    }).then(function (resp) {
+                        $scope.all_projects = resp.data.data.data;
+                        $scope.configPagination.totalCount = resp.data.data.count;
+                    }, function (err) {
+                        notify({
+                            message: 'Error request, try again',
+                            duration: 3000,
+                            position: 'right',
+                            classes: "alert-error"
+                        });
+                    })
                 })
-            })
+            }
         }
 
     })

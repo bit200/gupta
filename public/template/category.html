@@ -30,6 +30,12 @@
                         <md-checkbox ng-model="sort.low" ng-change="sort.high = false;sorting('price.price', 'price', sort.low)" class="md-warn">Low to High Price</md-checkbox>
                     </div>
                 </div>
+                <!--<md-input-container>-->
+                    <!--<label>Sort By</label>-->
+                    <!--<md-select ng-model="someModel" ng-change="sorting(someModel)"">-->
+                        <!--<md-option ng-value="opt" ng-repeat="opt in sortName">{{ opt.name }}</md-option>-->
+                    <!--</md-select>-->
+                <!--</md-input-container>-->
             </div>
             <div>
                 <div class="user-topic-header">
@@ -207,6 +213,7 @@
                         <!--<div class="inline-block text-right" style="width: 10%;float: right;">{{profile.ratingCount}}</div>-->
                         <!--</div>-->
                         <!--</div>-->
+
                         <div class="profile find-profile inline-block full-width flip-container" ontouchstart="this.classList.toggle('hover');" style="cursor: pointer; border: none">
                             <div class="flipper">
                                 <div class="flip-front find-profile" style="border: 1px solid #ddd">
@@ -246,7 +253,7 @@
                                 <div class="flip-back find-profile">
                                     <div ng-class="{'active-like': favorites.indexOf(profile._id)>-1}" class="like-field" ng-click="favorites.indexOf(profile._id)==-1 ? addFavorite(profile._id) : removeFavorite(profile._id)"
                                          style="z-index: 9999999999999"><i class="fa fa-heart like-field-heart" aria-hidden="true"></i></div>
-                                    <div class="profile-back" style="height: 112%; margin-top: -15%; padding-top: 15%;" ui-sref="profile({id: profile._id})">
+                                    <div class="profile-back" style="height: 112%; margin-top: -15%; padding-top: 15%;" ui-sref="profile({type:activeProvider.name,id: profile._id})">
                                         <div class="profile-back-name">{{profile.name}}</div>
                                         <div class="profile-back-introduction">{{profile.introduction}}</div>
                                         <div class="profile-back-description">{{profile.description}}</div>

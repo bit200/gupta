@@ -27,7 +27,7 @@
                     <loading w="20" h="20" margin-top="20" margin-bottom="20"></loading>
                 </div>
                 <div class="row" ng-repeat="item in items | orderBy: sortBy |orderBy: '-created_at'">
-                    <div ng-include="templateItem" class="row nomarginxs fitems"></div>
+                    <div ng-if="item.status=='No Applicants'" ng-include="templateItem" class="row nomarginxs fitems"></div>
                 </div>
                 <div ng-if="!items.length && !showLoading" class="row">
                     <div class="row nomarginxs fitems emptyjobs">

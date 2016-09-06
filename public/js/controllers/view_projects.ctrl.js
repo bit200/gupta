@@ -7,7 +7,6 @@ XYZCtrls.controller('ViewProjectsCtrl', ['$scope', '$location', '$http', 'parseR
         scope.arrayLocations = getContent.locations.data.data;
         scope.search = {}
         scope.projects = [];
-     
         scope.slider = {
             minValue: 10,
             maxValue: 200,

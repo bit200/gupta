@@ -1,7 +1,7 @@
 angular.module('admin.all_profile', [
     'ui.router',
     'angular-storage',
-    'angular-jwt'
+    'angular-jwt',
 ])
     .config(function ($stateProvider) {
         $stateProvider.state('all_profile', {
@@ -77,9 +77,22 @@ angular.module('admin.all_profile', [
                 break;
         }
 
-
-        $scope.priceRate =[1,2,3,4,5];
+        $scope.max = 5;
+        $scope.isReadonly = false;
         
+        $scope.priceRate =0;
+        $scope.hoveringOver = function(value) {
+            $scope.overStar = value;
+            $scope.percent = 100 * (value / $scope.max);
+        };
+        $scope.ratingStates = [
+            {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+            {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+            {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+            {stateOn: 'glyphicon-heart'},
+            {stateOff: 'glyphicon-off'}
+        ];
+
         $scope.cb = function (page) {
             switch ($scope.display.type) {
                 case 'freelancers':

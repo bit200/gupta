@@ -15,7 +15,6 @@
                 </div>
             </md-input-container>
         </div>
-        <h3>Extras:</h3>
 
         <h4 class="info-title">Description</h4>
         <div class="form-group" ng-class="{'hasError': service.description.$invalid && submittedPkg}">
@@ -39,6 +38,7 @@
 
         <!--<md-checkbox ng-model="newPackage.package.topic_research" class="margin-top-8 md-warn">TOPIC RESEARCH</md-checkbox>-->
         <!--<md-checkbox ng-model="newPackage.package.references_and_citations" class="margin-top-8 md-warn">REFERENCES & CITATIONS</md-checkbox>-->
+        <h3>Extras:</h3>
 
         <h4 class="info-title">DELIVERY TIME</h4>
         <!--<md-radio-group ng-model="newPackage.package.delivery_time" layout="row" style="margin-bottom: 25px;">-->
@@ -90,7 +90,7 @@
         </md-input-container>
 
         <div class="text-right pointer" ngf-select="addPkgFile($file)" ngf-pattern="'image/*'">
-            <img ng-src="{{newPackage.tempPreview || newPackage.package.preview.url}}" ng-if="newPackage.tempPreview || newPackage.package.preview.url" style="max-height: 70px">
+            <!--<img ng-src="{{newPackage.tempPreview || newPackage.package.preview.url}}" ng-if="newPackage.tempPreview || newPackage.package.preview.url" style="max-height: 70px">-->
             <span style="font-size: 20px">Attach preview</span> <ng-md-icon icon="attach_file" style="fill: gray;" size="48"></ng-md-icon>
         </div>
     </div>

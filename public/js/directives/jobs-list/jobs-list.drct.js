@@ -36,7 +36,7 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
             scope.changeSort = function (text) {
                 scope.sortBy = text;
             };
-            
+
             scope.popoverTemplate = 'myPopoverTemplate.html';
             rootScope.$on(scope.watchName, function (e, data) {
                 if (data) {
@@ -98,7 +98,6 @@ XYZCtrls.directive('jobsList', function (jobInformation) {
                     modal.element.modal();
                 });
             };
-
             scope.$on('changeItems', function (e, item) {
                 var obj = {
                     skip: (scope.configPagination.currentPage - 1) * scope.configPagination.countByPage,

@@ -36,7 +36,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         }
     };
 
-
     scope.getSubCategories = function(category, type) {
         if(type){
             delete scope.subFilters;
@@ -88,8 +87,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         scope.filterJob()
     };
 
-
-
     scope.parseFilter = function (filters) {
         return _.map(filters, function (filter) {
             if (filter.subFilter) {
@@ -102,11 +99,11 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
     };
     scope.slider = {
         minValue: 1,
-        maxValue: 50000,
+        maxValue:  20,
         options: {
             floor: 0,
-            ceil: 100000,
-            step: 500,
+            ceil: 20,
+            step: 1,
             noSwitching: true,
             showSelectionBar: true,
             getPointerColor: function (value) {
@@ -133,9 +130,18 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
             }
         }
     };
+    http.get('/api/jobs/filter', {params: {}}).then(function (resp) {
+        if(resp.data.data){
+            scope.slider.options.ceil = parseInt(scope.getMaxBudget(resp.data.data));
+        }
+    }, function (err) {
+        console.log('err', err)
+    })
 
     scope.$on('maxBudget', function (e, item) {
         if(item){
+            console.log('sdsadsada',scope.slider.options.ceil);
+
             scope.slider.options.ceil = parseInt(scope.getMaxBudget(item));
         }
     });
@@ -144,7 +150,9 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         var query = jobInformation.getInfo.information();
         http.get('/api/jobs/filter', {params: query}).then(function (resp) {
             if(resp.data.data){
-                scope.slider.options.ceil = parseInt(scope.getMaxBudget(resp.data.data));
+                console.log('sdhajshdjhaj',resp.data.data);
+                // scope.slider.options.ceil = parseInt(scope.getMaxBudget(resp.data.data));
+                // scope.slider.options.maxValue = parseInt(scope.getMaxBudget(resp.data.data));
             }
             scope.$broadcast('changeItems', {data:resp.data.data, query:query})
         }, function (err) {
@@ -152,7 +160,6 @@ XYZCtrls.controller('JobsContentCtrl', ['$scope', '$http', 'getContent', '$rootS
         })
 
     };
-
     scope.getMaxBudget = function(data){
         return _.max(data, function(item){ return item.budget}).budget
     };
