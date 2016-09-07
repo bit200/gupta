@@ -101,7 +101,8 @@
     <div class="page-header navbar navbar-fixed-top background-dark-blue">
         <div class="page-header-inner ">
             <div class="page-logo">
-                <span style="color: white; font-size: 25px;line-height: 46px" alt="logo" class="logo-default">12th Cross</span>
+                <span style="color: white; font-size: 25px;line-height: 46px" alt="logo"
+                      class="logo-default">12th Cross</span>
                 <div class="menu-toggler sidebar-toggler">
                     <span></span>
                 </div>
@@ -112,7 +113,7 @@
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
                     <li ng-class="{'inline-block':loadData}" style="display: none">
-                        <div class="name-admin"><i class="fa fa-circle green" aria-hidden="true"></i>  {{name}}</div>
+                        <div class="name-admin"><i class="fa fa-circle green" aria-hidden="true"></i> {{name}}</div>
                     </li>
                     <li class="dropdown">
                         <a href="#" data-target="#" class="waves-effect waves-light" aria-expanded="false">
@@ -127,14 +128,15 @@
     <div class="page-container">
         <div class="page-sidebar-wrapper">
             <div class="page-sidebar navbar-collapse collapse" style=" position: absolute; top:0; bottom: 0">
-                <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px;">
+                <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true"
+                    data-slide-speed="200" style="padding-top: 20px;">
                     <li class="sidebar-toggler-wrapper hide">
                         <div class="sidebar-toggler">
                             <span></span>
                         </div>
                     </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'dashboard'}">
-                        <a ui-sref="dashboard" class="nav-link nav-toggle" >
+                        <a ui-sref="dashboard" class="nav-link nav-toggle">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span class="title">Dashboard</span>
                             <!--<span class="arrow arrow fa fa-angle-left"></span>-->
@@ -142,7 +144,8 @@
 
                     </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'all_profile'}">
-                        <a  class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
+                        <a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu1"
+                           aria-expanded="false">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span class="title">Profiles</span>
                             <!--<span class="arrow arrow fa fa-angle-left"></span>-->
@@ -150,9 +153,17 @@
                         <ul class="nav nav-item collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
                             <li><a class="nav-sub" ui-sref="all_profile({type:'freelancers'})">Freelancers</a></li>
                             <li><a class="nav-sub" ui-sref="all_profile({type:'agency'})">Agencies</a></li>
-                            <li><a  class="nav-sub" ui-sref="all_profile({type:'users'})">Users</a></li>
+                            <!--<li><a class="nav-sub" ui-sref="all_profile({type:'users'})">Users</a></li>-->
                         </ul>
                     </li>
+
+                    <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'all_users'}"><a
+                            ui-sref="all_users({type:'users'})" class="nav-link nav-toggle">
+                        <i class="fa fa-laptop" aria-hidden="true"></i>
+                        <span class="title">Users</span>
+                        <!--<span class="arrow fa fa-angle-left"></span>-->
+                    </a></li>
+
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'all_project'}">
                         <a ui-sref="all_project" class="nav-link nav-toggle">
                             <i class="fa fa-laptop" aria-hidden="true"></i>
@@ -182,16 +193,19 @@
                         </a>
                     </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'questionnaire'}">
-                        <a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu2" aria-expanded="false">
+                        <a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu2"
+                           aria-expanded="false">
                             <i class="fa fa-question" aria-hidden="true"></i><span class="title">Questionnaires</span>
                         </a>
                         <ul class="nav nav-item collapse" id="submenu2" role="menu" aria-labelledby="btn-1">
                             <li><a class="nav-sub" ui-sref="questionnaire({type:'post'})">Post a Project</a></li>
-                            <li><a class="nav-sub" ui-sref="questionnaire({type:'register'})">Registration Freelancer/Agency</a></li>
+                            <li><a class="nav-sub" ui-sref="questionnaire({type:'register'})">Registration
+                                Freelancer/Agency</a></li>
                         </ul>
                     </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'master_data'}">
-                        <a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu10" aria-expanded="false">
+                        <a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu10"
+                           aria-expanded="false">
                             <i class="fa fa-question" aria-hidden="true"></i><span class="title">Master Data</span>
                         </a>
                         <ul class="nav nav-item collapse" id="submenu10" role="menu" aria-labelledby="btn-1">
@@ -210,13 +224,13 @@
                         </ul>
                     </li>
                     <!--<li class="nav-item" ng-class="{'active-tab':$state.current.name == 'master_data'}">-->
-                        <!--<a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu3" aria-expanded="false">-->
-                            <!--<i class="fa fa-question" aria-hidden="true"></i><span class="title">Master Data</span>-->
-                        <!--</a>-->
-                        <!--<ul class="nav nav-item collapse" id="submenu3" role="menu" aria-labelledby="btn-1">-->
-                            <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'post'})">Post a Project</a></li>-->
-                            <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'register'})">Registration Freelancer/Agency</a></li>-->
-                        <!--</ul>-->
+                    <!--<a class="nav-link nav-toggle" data-toggle="collapse" data-target="#submenu3" aria-expanded="false">-->
+                    <!--<i class="fa fa-question" aria-hidden="true"></i><span class="title">Master Data</span>-->
+                    <!--</a>-->
+                    <!--<ul class="nav nav-item collapse" id="submenu3" role="menu" aria-labelledby="btn-1">-->
+                    <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'post'})">Post a Project</a></li>-->
+                    <!--<li><a class="nav-sub" ui-sref="questionnaire({type:'register'})">Registration Freelancer/Agency</a></li>-->
+                    <!--</ul>-->
                     <!--</li>-->
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'sellers'}">
                         <a ui-sref="sellers" class="nav-link nav-toggle">
@@ -228,21 +242,21 @@
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'jobs'}">
                         <a ui-sref="jobs" class="nav-link nav-toggle">
                             <i class="fa fa-money" aria-hidden="true"></i>
-                                <span class="title">Jobs</span>
+                            <span class="title">Jobs</span>
                             <!--<span class="arrow fa fa-angle-left"></span>-->
                         </a>
                     </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'contract'}">
                         <a ui-sref="contract" class="nav-link nav-toggle">
                             <i class="fa fa-money" aria-hidden="true"></i>
-                                <span class="title">Contract</span>
+                            <span class="title">Contract</span>
                             <!--<span class="arrow fa fa-angle-left"></span>-->
                         </a>
                     </li>
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'job_apply'}">
                         <a ui-sref="job_apply" class="nav-link nav-toggle">
                             <i class="fa fa-money" aria-hidden="true"></i>
-                                <span class="title">Job Apply</span>
+                            <span class="title">Job Apply</span>
                             <!--<span class="arrow fa fa-angle-left"></span>-->
                         </a>
                     </li>
@@ -254,11 +268,11 @@
                         </a>
                     </li>
                     <!--<li class="nav-item" ng-class="{'active-tab':$state.current.name == 'locations'}">-->
-                        <!--<a ui-sref="locations" class="nav-link nav-toggle">-->
-                            <!--<i class="fa fa-road" aria-hidden="true"></i>-->
-                            <!--<span class="title">Locations</span>-->
-                            <!--&lt;!&ndash;<span class="arrow fa fa-angle-left"></span>&ndash;&gt;-->
-                        <!--</a>-->
+                    <!--<a ui-sref="locations" class="nav-link nav-toggle">-->
+                    <!--<i class="fa fa-road" aria-hidden="true"></i>-->
+                    <!--<span class="title">Locations</span>-->
+                    <!--&lt;!&ndash;<span class="arrow fa fa-angle-left"></span>&ndash;&gt;-->
+                    <!--</a>-->
                     <!--</li>-->
                     <li class="nav-item" ng-class="{'active-tab':$state.current.name == 'report_transaction'}">
                         <a ui-sref="report_transaction" class="nav-link nav-toggle">
@@ -273,7 +287,9 @@
         </div>
         <div class="page-content-wrapper">
             <div class="page-content" style="min-height:1144px;">
-                <div ng-class="{'inline-block':loadData}" style="margin-bottom: 10px;font-size: 16px; display: none">{{$state.current.data.name}}</div>
+                <div ng-class="{'inline-block':loadData}" style="margin-bottom: 10px;font-size: 16px; display: none">
+                    {{$state.current.data.name}}
+                </div>
                 <div class="ui-block" ui-view></div>
             </div>
         </div>
@@ -377,6 +393,7 @@
 <script type="text/javascript" src="business_accounts/business_accounts.js"></script>
 <script type="text/javascript" src="header/header.js"></script>
 <script type="text/javascript" src="login/login.js"></script>
+<script type="text/javascript" src="users/users.js"></script>
 <script type="text/javascript" src="questionnaire/questionnaire.js"></script>
 <script type="text/javascript" src="report_transaction/report_transaction.js"></script>
 <script type="text/javascript" src="dashboard/dashboard.js"></script>

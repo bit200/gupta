@@ -1,5 +1,5 @@
 <div style="margin-top: 20px">
-    <button class="btn btn-default" ng-click="add_question(active_tab, type)">Add questionnaire</button>
+    <button ng-if="testMe" class="btn btn-default" ng-click="add_question(active_tab, type)">Add questionnaire</button>
     <div class="sub_title" ng-if="active_tab">To {{active_tab}}</div>
 </div>
 <!--<div class="text-center">-->

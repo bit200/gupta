@@ -271,7 +271,13 @@ XYZCtrls.controller('jobCtrl', ['$state', 'AuthService', '$scope', '$rootScope',
                 .success(scope.onSucc)
                 .error(scope.onErr)
         }
-
+        
+        scope.showApplications = 0;
+        
+        scope.showApplication = function () {
+            scope.showApplications=1;
+        }
+        
         scope.btns_list_for_dir = rootScope.generate_btns_list(scope, ModalService)
 
 

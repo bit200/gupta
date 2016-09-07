@@ -1,0 +1,30 @@
+<div class="portlet-body">
+    <table id="user" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <td class="text-bold pointer">First Name</td>
+            <td class="text-bold pointer">Last Name</td>
+            <td class="text-bold pointer">Email</td>
+            <td class="text-bold pointer">Phone</td>
+            <td class="text-bold pointer">Company name</td>
+            <td class="text-bold pointer">Created</td>
+            <td style="width: 175px">Actions</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="all_profile in all_profiles" ng-class="{'rejecting-row': all_profiles.rejectedItemIndex == $index}">
+            <td>{{all_profile.first_name}}</td>
+            <td>{{all_profile.last_name}}</td>
+            <td>{{all_profile.email}}</td>
+            <td>{{all_profile.phone}}</td>
+            <td>{{all_profile.company_name}}</td>
+            <td>{{all_profile.created_at}}</td>
+            <td>
+                <button class="btn btn-sm btn-eye white" ng-click="getInformation(false,all_profile, display.type)"><span class="pointer fa fa-eye inline-block"></span></button>
+                <button class="btn btn-sm btn-pencil white" ng-click="getInformation(true,all_profile, display.type)"><span class="pointer fa fa-pencil inline-block"></span></button>
+                <button class="btn btn-sm btn-times white" ng-click="reject(all_profile, $index, display.type)"><span class="pointer fa fa-trash-o"></span></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

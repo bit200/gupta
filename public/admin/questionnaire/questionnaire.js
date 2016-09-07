@@ -159,9 +159,16 @@ angular.module('admin.questionnaire', [
         
         $scope.autocomplete = false;
         $scope.listsAutocompleteChoice = []
+        $scope.testMe = false;
         $scope.choice = function (key, type) {
-            if (type)
+            if (type){
                 $scope.active_category = key;
+            }
+
+            if(key!=''&&!type){
+                $scope.testMe = true;
+
+            }
             if (key != '') {
                 $scope.active_tab = key;
             } else {
@@ -182,6 +189,9 @@ angular.module('admin.questionnaire', [
                 $scope.subFilters.push(item.name)
             })
             console.log('filters', $scope.subFilters, $scope.subFilters.length)
+            if($scope.subFilters.length==1){
+                $scope.testMe = true;
+            }
         };
 
         $scope.addRow = function (elem) {

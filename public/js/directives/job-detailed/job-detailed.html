@@ -143,40 +143,66 @@
             <h3>{{question.question}}</h3>
             <div ng-show="question.answer!=''">{{job.questionnaries[i].answer}}</div>
             <div ng-show="question.answer_items">
-                <md-checkbox ng-repeat="(q,elem) in question.answer_items" ng-model="job.questionnaries[i].answer_items[q]" ng-if="job.questionnaries[i].answer_items[q]" disabled="true" class="checkdark"><span style="color: #333">{{elem}}</span>
+                <md-checkbox ng-repeat="(q,elem) in question.answer_items"
+                             ng-model="job.questionnaries[i].answer_items[q]"
+                             ng-if="job.questionnaries[i].answer_items[q]" disabled="true" class="checkdark"><span
+                        style="color: #333">{{elem}}</span>
                 </md-checkbox>
             </div>
         </div>
     </div>
 </div>
-<div class="jheader" open>
-    Applications
-</div>
-<div class="jbody">
-    <div class="row">
-        <div class="col-md-12">
-            <div ng-repeat="item in job.stats" class="stat-item"><b>{{item.count}}</b>&nbsp;<span>{{item.name}}</span>
+<div ng-if="showApplications==1">
+
+    <div class="jheader" open>
+        Applications
+    </div>
+    <div class="jbody">
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-repeat="item in job.stats" class="stat-item">
+                    <b>{{item.count}}</b>&nbsp;<span>{{item.name}}</span>
+                </div>
             </div>
         </div>
+        <div ng-if="job.user != userId">
+            <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
+            <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
+        </div>
+        <div class="row paddingT20">
+            <div ng-if="job.user == userId && job.status !='Deleted'">
+                <label>Choice the reason for closing the project </label>
+                <md-input-container class="full-width" style="margin: 0">
+                    <md-select aria-label="none" ng-model="job.reason_delete"
+                               data-md-container-class="selectdemoSelectHeader">
+                        <md-option
+                                ng-repeat="item in ['Found a service provider', 'Could not find relevant service providers', 'Could not find service providers in my budget', 'Project cancelled']"
+                                ng-selected="$first" value="{{item}}">
+                            {{item}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </div>
+
+
+        <div ng-if="job.user == userId && showApplications==1 && job.status !='Deleted'">
+            <btns class="mtop20" list="['delete_job']"></btns>
+        </div>
     </div>
-    <div ng-if="job.user != userId">
-        <btns ng-if="!isApply" class="mtop20" list="['apply_create']"></btns>
-        <btns ng-if="isApply" class="mtop20" list="['apply_edit']"></btns>
+</div>
+<div ng-if="showApplications==0"  class="jbody">
+
+    <div class="row ng-scope">
+        <!-- ngRepeat: btn in btns_list -->
+        <div class="col-xs-12">
+            <!-- ngIf: btn.fn -->
+            <button ng-click="showApplication()" class="btn btn-grey w100 ng-binding ng-scope">
+                Delete job
+            </button><!-- end ngIf: btn.fn -->
+        </div><!-- end ngRepeat: btn in btns_list -->
+
     </div>
-    <div class="row paddingT20">
-    <div ng-if="job.user == userId && job.status !='Deleted'">
-        <label>Choice the reason for closing the project </label>
-        <md-input-container class="full-width" style="margin: 0">
-            <md-select aria-label="none" ng-model="job.reason_delete" data-md-container-class="selectdemoSelectHeader">
-                <md-option ng-repeat="item in ['Found a service provider', 'Could not find relevant service providers', 'Could not find service providers in my budget', 'Project cancelled']" ng-selected="$first" value="{{item}}">
-                    {{item}}
-                </md-option>
-            </md-select>
-        </md-input-container>
-    </div>
-    </div>
-    <div ng-if="job.user == userId && job.status !='Deleted'">
-        <btns class="mtop20" list="['delete_job']"></btns>
-    </div>
+</div>
 </div>
 

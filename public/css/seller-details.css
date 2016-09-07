@@ -170,3 +170,6 @@
 md-select.post-project > md-select-value > span .md-container {
     display: inline-block;
 }
+.provide-info{
+    text-transform: none;
+}

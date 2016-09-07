@@ -10,6 +10,7 @@ angular.module('admin', [
     'admin.header_text',
     'admin.contract',
     'admin.chat',
+    'admin.users',
     'admin.job_apply',
     'admin.all_profile',
     'admin.all_project',
