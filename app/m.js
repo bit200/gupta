@@ -60,7 +60,6 @@ function _mongoose_cb_handler(err, data, _ecb, _scb, params) {
     } else if (!data) {
         params = params || {};
         err = params['not_found'] ? params['not_found'] : 'Item not found'
-        console.log('ERR1',err, _ecb)
         ecb(397, err, _ecb)
     } else {
         scb(data, _scb)
