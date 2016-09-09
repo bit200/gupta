@@ -34,30 +34,31 @@
                         </md-autocomplete>
                     </div>
                 </li>
-                <li ng-if="$state.current.name == 'profile'" class="floatL" style="margin-right: 5px">
+                <li  ng-if="$state.current.name == 'profile'" class="floatL header-claim" style="margin-right: 5px">
                     <a ui-sref='agencies' class="btn btn-header">CLAIM YOUR AGENCY</a>
                 </li>
-                <li class="floatL" style="margin-right: 5px">
+                <li class="floatR header-buttons" style="margin-right: 5px">
                     <a ui-sref='root.job_create' class="btn btn-header">POST A PROJECT</a>
+                    <a ui-sref='jobs_list.all' class="btn btn-header">FIND PROJECTS</a>
+                    <a ui-sref="favorite" style="padding: 0 !important;display: inline-block !important;">
+                        <ng-md-icon icon="favorite" class="text-header-menu inline-block"
+                                    style="cursor: pointer;fill: white;position: relative;top: 8px;"
+                                    size="24"></ng-md-icon>
+                    </a>
                 </li>
                 <!--<li class="top-menu" ng-if="asView.buyer" ng-class="{active: $state.current.name=='root.job_create'}"><a-->
                 <!--ng-click="$state.go('root.job_create')"-->
                 <!--class="text-black top-menu-text">POST A PROJECT</a></li>-->
-                <li class="floatL">
-                    <a ui-sref='jobs_list.all' class="btn btn-header">FIND PROJECTS</a>
-                    <a ui-sref="favorite" style="padding: 0 !important;display: inline-block !important;">
-                        <ng-md-icon icon="favorite" class="text-header-menu inline-block"
-                                    style="cursor: pointer;fill: white;position: relative;top: 8px;margin-left: 10px;"
-                                    size="24"></ng-md-icon>
-                    </a>
-                </li>
-                <li class="floatR" ng-if="!isLogged()">
+                <!--<li class="floatR">-->
+
+                <!--</li>-->
+                <li class="floatR header-sign" ng-if="!isLogged()">
                     <a class="pull-right text-header-menu marginT12 paddingLR10 pointer" ui-sref="signup"
                        style="{font-size: 10pt; margin-left: 10px;}">Sign Up</a>
                     <a class="pull-right text-header-menu marginT12 paddingLR10 pointer" ui-sref="login"
                        style="{font-size: 10pt; margin-left: 10px;}">Sign In</a>
                 </li>
-                <li class="floatR dropdown" ng-if="isLogged()" style="color: white">
+                <li class="floatL dropdown" ng-if="isLogged()" style="color: white">
                     <div href="" class="dropdown-toggle pointer" data-toggle="dropdown" role="button"
                          aria-haspopup="true" aria-expanded="false">
                         <div style="display: inline-block;margin-left: 10px;">
@@ -66,7 +67,7 @@
                             <ng-md-icon ng-hide="currentUser().preview" icon="account_circle"
                                         style="fill: red;top: 4px;position: relative;" size="42"></ng-md-icon>
                         </div>
-                        <div style="float: right;margin-left: 10px">
+                        <div class="header-name" style="float: right;margin-left: 10px">
                             <div style="display: inline-block;position: relative;top:-4px;color: white;">
                                 {{currentUser().first_name}} {{currentUser().last_name}}
                             </div>

@@ -67,7 +67,7 @@
 
         </div>
         <div class="col-md-9">
-            <div class="row registration-tab-menu" ng-init="active_profile_menu = 'pricing'" style="margin-bottom: 20px;margin-left: 0px;margin-right: 0px;">
+            <div class="row registration-tab-menu" ng-init="active_profile_menu = 'pricing'" style="margin-top: 20px; margin-bottom: 20px;margin-left: 0px;margin-right: 0px;">
                 <div ng-click="active_profile_menu = 'pricing'" ng-class="{active: active_profile_menu == 'pricing'}" class="col-md-3 col-sm-4 col-xs-4">
                     PRICING AND PACKAGES
                 </div>
@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <section ng-show="active_profile_menu=='pricing'">
-                        <div class="col-xs-12" style="margin-left: 15px;border:1px solid lightgrey">
+                        <div class="col-xs-12" style="border:1px solid lightgrey">
                             <div class="row">
                                 <div class="col-xs-12" style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);text-transform: uppercase;">
                                     PRACING
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12" style="margin-left: 15px;border:1px solid lightgrey;margin-top: 20px">
+                        <div class="col-xs-12" style="border:1px solid lightgrey;margin-top: 20px">
                             <div class="row">
                                 <div class="col-xs-12" style="background: rgb(241, 241, 241);padding: 10px;font-size: 20px;color: rgb(51, 56, 70);">
                                     PACKAGES
@@ -121,7 +121,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div ng-if="viewProfile.service_packages.length >= 1" class="row" ng-repeat="pkg in viewProfile.service_packages">
+                                <div ng-if="viewProfile.service_packages.length >= 1" class="row profile-packages" ng-repeat="pkg in viewProfile.service_packages">
                                     <div class="col-xs-12">
                                         <div class="full-width row" style="padding: 15px 15px 0px; margin: 0px;" ng-class="{'border-bottom-lightgrey':!$last}">
                                             <div class="col-xs-3" style="padding: 0px">
@@ -151,7 +151,7 @@
                                                 <div style="color: #000000;padding: 0px 10px 10px; margin-top: 10px">
                                                     <b><i class="fa fa-inr" aria-hidden="true"></i>{{pkg.pricing}} / Monthly</b></div>
                                                 <button class="btn button-profile" style="min-height: 24px; line-height: 24px;  font-size: 14px !important;
-                                                    height: 32px; margin-bottom: 20px;  margin-left: 10px !important; width: 30%; padding: 0 !important;" ng-click="openExtra(pkg)"> ADD TO CART
+                                                    height: 32px; margin-bottom: 20px;  margin-left: 10px !important; width: 30%; padding: 0;" ng-click="openExtra(pkg)"> ADD TO CART
                                                 </button>
                                             </div>
                                         </div>
